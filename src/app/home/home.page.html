@@ -16,4 +16,23 @@
 <ion-content padding>
 
 
+    <ion-row>
+        <ion-button expand="block" (click)="photo()">FOTO</ion-button>
+    </ion-row>
+
+    <ion-row>
+        <ion-button expand="block" (click)="deviceData()">DATOS CELULAR</ion-button>
+        <p>cordova : {{dataDevice?.cordova}} <br></p>
+
+        <p>model : {{dataDevice?.model}} <br></p>
+        <p>platform : {{dataDevice?.platform}}<br></p>
+        <p>uuid : {{dataDevice?.uuid}} <br></p>
+        <p>version : {{dataDevice?.version}}<br></p>
+        <p>manufacturer : {{dataDevice?.manufacturer}}<br></p>
+        <p>isVirtual : {{dataDevice?.isVirtual}}<br></p>
+        <p>serial : {{dataDevice?.serial}}<br></p>
+    </ion-row>
+
+    <app-chart name="transaction" limit="10"></app-chart>
+
 </ion-content>

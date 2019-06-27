@@ -5,7 +5,7 @@ import {TimerService} from '../services/timer/timer.service';
 import {LoadingController} from '@ionic/angular';
 
 @Component({
-  selector: 'app-perfil',
+  selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })

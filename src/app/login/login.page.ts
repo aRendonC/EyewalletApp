@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {LoadingController, MenuController, ToastController} from '@ionic/angular';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
-import {path} from "@angular-devkit/core";
 
 @Component({
   selector: 'app-login',
@@ -32,25 +31,21 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    // this.router.navigateByUrl('tabs/profile')
     this.aut.login(this.username, this.password).then((data) => {
       if (data !== null) {
-        // this.router.navigateByUrl(`/profile/${data.serializeToken}`);
-        // this.router.navigate(['/profile',data.id]);
-        // this.router.navigate([{outlets: {profile: 'profile'}}]);
-        // this.router.navigate(['/profile']);
+        // @ts-ignore
+        // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
+        // this.router.navigate(['/perfil',data.id]);
+        this.router.navigate(['/app/tabs/profile']);
       } else {
         this.presentToast();
       }
     }).catch((error) => {
-      this.presentToast();
-      // loading.dismiss();
       console.log(error);
     });
   }
 
   async presentToast() {
-    console.log('sss')
     const toast = await this.toastController.create({
       message: 'Usuario o contraseña incorrecta.',
       duration: 2000

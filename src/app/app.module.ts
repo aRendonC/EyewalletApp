@@ -13,6 +13,9 @@ import {IonicStorageModule} from '@ionic/storage';
 import {AxiosService} from './services/axios/axios.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {InterceptadorService} from './services/axios/interceptador.service';
+import {Camera} from '@ionic-native/camera/ngx';
+import {CameraProvider} from './services/camera/camera';
+import {Device} from '@ionic-native/device/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +28,9 @@ import {InterceptadorService} from './services/axios/interceptador.service';
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {provide: HTTP_INTERCEPTORS, useClass: InterceptadorService, multi: true},
     AxiosService,
+    Camera,
+    CameraProvider,
+    Device,
   ],
   bootstrap: [AppComponent]
 })

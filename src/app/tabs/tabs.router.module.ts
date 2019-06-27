@@ -8,16 +8,7 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'login',
-        children: [
-          {
-            path: '',
-            loadChildren: '../login/login.module#LoginPageModule'
-          }
-        ]
-      },
-      {
-        path: 'home',
+        path: 'inicio',
         children: [
           {
             path: '',
@@ -30,20 +21,15 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../profile/profile.module#PerfilPageModule'
+            loadChildren: '../profile/profile.module#ProfilePageModule'
           }
         ]
       },
-      {
-        path: '',
-        redirectTo: '/tabs/home',
-        pathMatch: 'full'
-      }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/login',
+    redirectTo: '/app/tabs/login',
     pathMatch: 'full'
   }
 ];
