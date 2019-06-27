@@ -17,7 +17,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'inicio',
+        path: 'home',
         children: [
           {
             path: '',
@@ -26,17 +26,17 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'perfil',
+        path: 'profile',
         children: [
           {
             path: '',
-            loadChildren: '../perfil/perfil.module#PerfilPageModule'
+            loadChildren: '../profile/profile.module#PerfilPageModule'
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/inicio',
+        redirectTo: '/tabs/home',
         pathMatch: 'full'
       }
     ]

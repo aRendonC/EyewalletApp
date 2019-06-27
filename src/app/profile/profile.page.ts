@@ -6,10 +6,10 @@ import {LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil',
-  templateUrl: './perfil.page.html',
-  styleUrls: ['./perfil.page.scss'],
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
 })
-export class PerfilPage implements OnInit {
+export class ProfilePage implements OnInit {
   usuario = {};
   pais: any;
   perfil: any;
