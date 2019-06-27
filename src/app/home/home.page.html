@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Inicio
+            <p style="font-size: 12px">
+                <ion-icon name="stopwatch"></ion-icon>
+                {{temporizador.minutos}} minutos {{temporizador.segundos}} segundos
+            </p>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+
+    <ion-row>
+        <ion-button expand="block" (click)="photo()">FOTO</ion-button>
+    </ion-row>
+
+    <ion-row>
+        <ion-button expand="block" (click)="deviceData()">DATOS CELULAR</ion-button>
+        <p>cordova : {{dataDevice?.cordova}} <br></p>
+
+        <p>model : {{dataDevice?.model}} <br></p>
+        <p>platform : {{dataDevice?.platform}}<br></p>
+        <p>uuid : {{dataDevice?.uuid}} <br></p>
+        <p>version : {{dataDevice?.version}}<br></p>
+        <p>manufacturer : {{dataDevice?.manufacturer}}<br></p>
+        <p>isVirtual : {{dataDevice?.isVirtual}}<br></p>
+        <p>serial : {{dataDevice?.serial}}<br></p>
+    </ion-row>
+
+    <app-chart [name]="transaction"></app-chart>
+
+</ion-content>

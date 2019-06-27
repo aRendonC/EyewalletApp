@@ -1,0 +1,26 @@
+<ion-content padding>
+    <h4 text-center
+        style="margin-top: 15%; font-size: 50px; margin-bottom: 25%; color: black ">
+        EYEWALLET</h4>
+    <form #formulario (submit)="login()">
+        <ion-list>
+            <ion-label stacked style="color: white; text-align: center; margin-bottom: 5%;
+  font-size: 18px;">Email
+            </ion-label>
+            <ion-item style="margin-bottom: 5%">
+                <ion-input type="email" required name="correo" [(ngModel)]="username" placeholder="Email"></ion-input>
+            </ion-item>
+            <ion-label stacked style="color: white; text-align: center; margin-bottom: 5%;
+  font-size: 18px;">Contraseña
+            </ion-label>
+            <ion-item>
+                <ion-input type="password" required name="clave" [(ngModel)]="password"
+                           placeholder="Contraseña"></ion-input>
+            </ion-item>
+        </ion-list>
+        <div text-center>
+            <ion-button color="success" type="submit" color="primary" expand="block">INICIAR SESIÓN</ion-button>
+        </div>
+    </form>
+</ion-content>
+
