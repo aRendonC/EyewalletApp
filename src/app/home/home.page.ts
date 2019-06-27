@@ -16,7 +16,6 @@ declare var google;
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public transaction = 'transaction';
 
   private dataDevice = null;
   private usuario: any = null;

@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 
 export class TimerService {
 
+  tiempoLimiteSesion = 1; // se coloca el tiempo que se desea que dure la sesión activa
   tiempo: any;
   temporizador = {
     minutos: 0,
@@ -29,8 +30,7 @@ export class TimerService {
         this.contador_s = 1;
         this.contador_m++;
         this.temporizador.minutos = this.contador_m;
-        // se colocan los minutos que se quieren controlar
-        if (this.contador_m === 25) {
+        if (this.contador_m === this.tiempoLimiteSesion) {
           this.contador_m = 0;
           this.resetTimer();
           this.logout();
@@ -45,7 +45,7 @@ export class TimerService {
     localStorage.removeItem('user');
     localStorage.clear();
     this.resetTimer();
-    this.router.navigate(['/tabs/login']);
+    this.router.navigate(['']);
     this.menu.enable(false);
     if (alerta) {
       this.presentAlerta();

@@ -13,6 +13,7 @@ import {Chart} from 'chart.js';
 
 export class ChartComponent implements OnInit {
   @Input() name: any;
+  @Input() limit: any;
 
   dataTransaction: any = [];
   dataCryptos = [];
@@ -60,7 +61,7 @@ export class ChartComponent implements OnInit {
     if (label == 'cryptos') {
       this.dataCryptos.forEach((item: any, index) => {
         console.log(item);
-        if (index <= 5) {
+        if (index <= this.limit) {
           const formattedDate = formatDate(item.fecha, format, locale);
           labelTemporal.push(formattedDate);
           dataTemporal.push(item.valor);
@@ -70,7 +71,7 @@ export class ChartComponent implements OnInit {
     } else if (label == 'transaction') {
       this.dataTransaction.forEach((item: any, index) => {
         const value = JSON.parse(item.descripcion);
-        if (index <= 5) {
+        if (index <= this.limit) {
           // const formattedDate = formatDate(item.fecha, format, locale);
           // labelTemporal.push(formattedDate);
           labelTemporal.push(value.BTC.USD);
@@ -89,7 +90,7 @@ export class ChartComponent implements OnInit {
     this.lineChart = await new Chart(this.lineCanvas.nativeElement, {
       type: 'line',
       data: {
-        labels: label,
+        // labels: label,
         datasets: [
           {
             label: titulo,
