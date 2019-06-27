@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {AlertController, MenuController, NavController} from '@ionic/angular';
+import {AlertController, MenuController} from '@ionic/angular';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import {AlertController, MenuController, NavController} from '@ionic/angular';
 
 export class TimerService {
 
+  tiempoLimiteSesion = 1; // se coloca el tiempo que se desea que dure la sesión activa
   tiempo: any;
   temporizador = {
     minutos: 0,
@@ -17,7 +19,7 @@ export class TimerService {
   // tslint:disable-next-line:variable-name
   contador_m = 0;
 
-  constructor(private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController) {
+  constructor(private alertCtrl: AlertController, private menu: MenuController, private router: Router) {
   }
 
   iniciarTemporizador() {
@@ -28,8 +30,7 @@ export class TimerService {
         this.contador_s = 1;
         this.contador_m++;
         this.temporizador.minutos = this.contador_m;
-        // se colocan los minutos que se quieren controlar
-        if (this.contador_m === 25) {
+        if (this.contador_m === this.tiempoLimiteSesion) {
           this.contador_m = 0;
           this.resetTimer();
           this.logout();
@@ -44,7 +45,7 @@ export class TimerService {
     localStorage.removeItem('user');
     localStorage.clear();
     this.resetTimer();
-    this.navCtrl.navigateRoot('/login');
+    this.router.navigate(['']);
     this.menu.enable(false);
     if (alerta) {
       this.presentAlerta();

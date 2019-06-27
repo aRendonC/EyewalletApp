@@ -8,15 +8,6 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'login',
-        children: [
-          {
-            path: '',
-            loadChildren: '../login/login.module#LoginPageModule'
-          }
-        ]
-      },
-      {
         path: 'inicio',
         children: [
           {
@@ -26,24 +17,19 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'perfil',
+        path: 'profile',
         children: [
           {
             path: '',
-            loadChildren: '../perfil/perfil.module#PerfilPageModule'
+            loadChildren: '../profile/profile.module#ProfilePageModule'
           }
         ]
       },
-      {
-        path: '',
-        redirectTo: '/tabs/inicio',
-        pathMatch: 'full'
-      }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/login',
+    redirectTo: '/app/tabs/login',
     pathMatch: 'full'
   }
 ];

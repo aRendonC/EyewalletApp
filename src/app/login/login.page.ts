@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, MenuController, NavController, ToastController} from '@ionic/angular';
+import {LoadingController, MenuController, ToastController} from '@ionic/angular';
 import {AuthService} from '../services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,8 @@ export class LoginPage implements OnInit {
     private loadingController: LoadingController,
     private toastController: ToastController,
     private aut: AuthService,
-    private navController: NavController,
     private menu: MenuController,
+    private router: Router
   ) {
   }
 
@@ -32,12 +33,14 @@ export class LoginPage implements OnInit {
   async login() {
     this.aut.login(this.username, this.password).then((data) => {
       if (data !== null) {
-        this.navController.navigateForward('/perfil');
+        // @ts-ignore
+        // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
+        // this.router.navigate(['/perfil',data.id]);
+        this.router.navigate(['/app/tabs/profile']);
       } else {
         this.presentToast();
       }
     }).catch((error) => {
-      // loading.dismiss();
       console.log(error);
     });
   }

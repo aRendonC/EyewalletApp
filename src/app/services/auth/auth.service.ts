@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AxiosService} from '../axios/axios.service';
-import {MenuController, NavController, ToastController} from '@ionic/angular';
+import {MenuController, ToastController} from '@ionic/angular';
 import {TimerService} from '../timer/timer.service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
   constructor(private  api: AxiosService,
               private toastController: ToastController,
               private timer: TimerService,
-              private nav: NavController,
+              private router: Router,
               private menu: MenuController,
   ) {
     this.intentarLogin();
@@ -27,6 +28,7 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.api.post('auth/login', {email: usuario, password})
         .then(async (data: any) => {
+          console.log(data);
           if (data.hasOwnProperty('error') === false) {
             this.usuario = data;
             localStorage.setItem('user', JSON.stringify(this.usuario));
@@ -36,7 +38,9 @@ export class AuthService {
             resolve(null);
           }
         })
-        .catch(err => reject(err));
+        .catch(err => console.log(err));
+    }).catch((error) => {
+      console.log(error);
     });
   }
 
@@ -74,7 +78,7 @@ export class AuthService {
     localStorage.removeItem('user');
     localStorage.clear();
     this.menu.enable(false);
-    this.nav.navigateForward('login');
+    this.router.navigate(['']);
   }
 
 }

@@ -20,15 +20,13 @@ export class InterceptadorService implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     if (this.auth.isLogin()) {
       const user: any = localStorage.getItem('user');
       const token = user.serializeToken;
-
       if (token) {
         request = request.clone({
           setHeaders: {
-            'Authorization': token
+            Authorization: token
           }
         });
       }
