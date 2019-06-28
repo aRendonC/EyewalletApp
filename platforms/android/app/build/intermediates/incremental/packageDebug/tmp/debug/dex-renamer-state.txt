@@ -1,4 +1,4 @@
-#Thu Jun 27 16:01:20 COT 2019
-base.0=/Users/eyeline/Documents/ionic/eyewallet/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+#Fri Jun 28 13:13:50 COT 2019
+base.0=/Users/eyeline/Documents/GitHub/EyewalletApp/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

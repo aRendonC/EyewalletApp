@@ -21,6 +21,11 @@
         <div text-center>
             <ion-button color="success" type="submit" color="primary" expand="block">INICIAR SESIÓN</ion-button>
         </div>
+        <div text-center="">
+            <ion-button (click)="openModal()">Open Modal</ion-button>
+
+            <p *ngIf="dataReturned">{{dataReturned}}</p>
+        </div>
     </form>
 </ion-content>
 

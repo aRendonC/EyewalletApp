@@ -116,8 +116,7 @@ var LoginPage = /** @class */ (function () {
                         // @ts-ignore
                         // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
                         // this.router.navigate(['/perfil',data.id]);
-                        // this.router.navigate([{outlets: {perfil: 'perfil'}}]);
-                        _this.router.navigate(['/tabs/profile']);
+                        _this.router.navigate(['/app/tabs/profile']);
                     }
                     else {
                         _this.presentToast();

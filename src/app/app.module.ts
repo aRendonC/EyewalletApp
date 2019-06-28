@@ -16,11 +16,20 @@ import {InterceptadorService} from './services/axios/interceptador.service';
 import {Camera} from '@ionic-native/camera/ngx';
 import {CameraProvider} from './services/camera/camera';
 import {Device} from '@ionic-native/device/ngx';
+import {TouchLoginService} from "./services/fingerprint/touch-login.service";
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+import {PinModalPageModule} from "./pin-modal/pin-modal.module";
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
+  imports: [
+      PinModalPageModule,
+      BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
     IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
@@ -31,6 +40,8 @@ import {Device} from '@ionic-native/device/ngx';
     Camera,
     CameraProvider,
     Device,
+    FingerprintAIO,
+    TouchLoginService
   ],
   bootstrap: [AppComponent]
 })

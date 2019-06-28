@@ -28,6 +28,9 @@
     },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-fingerprint-aio": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {}

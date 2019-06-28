@@ -436,13 +436,13 @@ var map = {
 		"./src/app/home/home.module.ts",
 		"home-home-module"
 	],
-	"../login/login.module": [
-		"./src/app/login/login.module.ts",
-		"login-login-module"
-	],
 	"../profile/profile.module": [
 		"./src/app/profile/profile.module.ts",
 		"profile-profile-module"
+	],
+	"./login/login.module": [
+		"./src/app/login/login.module.ts",
+		"login-login-module"
 	],
 	"./tabs/tabs.module": [
 		"./src/app/tabs/tabs.module.ts",
@@ -488,7 +488,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
-    { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' }
+    { path: '', loadChildren: './login/login.module#LoginPageModule' },
+    { path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -536,6 +537,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _services_auth_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/auth/auth.service */ "./src/app/services/auth/auth.service.ts");
 /* harmony import */ var _services_timer_timer_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/timer/timer.service */ "./src/app/services/timer/timer.service.ts");
+/* harmony import */ var _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/fingerprint/touch-login.service */ "./src/app/services/fingerprint/touch-login.service.ts");
+
 
 
 
@@ -544,13 +547,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, navCtrl, auth, timer) {
+    function AppComponent(platform, splashScreen, statusBar, navCtrl, auth, timer, touchLogin) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.navCtrl = navCtrl;
         this.auth = auth;
         this.timer = timer;
+        this.touchLogin = touchLogin;
         // this.navCtrl.navigateRoot('/login');
         this.initializeApp();
     }
@@ -559,6 +563,7 @@ var AppComponent = /** @class */ (function () {
         this.platform.ready().then(function () {
             _this.statusBar.styleDefault();
             _this.splashScreen.hide();
+            _this.touchLogin.ngOnInit();
         });
     };
     AppComponent.prototype.logout = function () {
@@ -574,7 +579,8 @@ var AppComponent = /** @class */ (function () {
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"],
             _services_auth_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"],
-            _services_timer_timer_service__WEBPACK_IMPORTED_MODULE_6__["TimerService"]])
+            _services_timer_timer_service__WEBPACK_IMPORTED_MODULE_6__["TimerService"],
+            _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_7__["TouchLoginService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -609,6 +615,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
 /* harmony import */ var _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/camera/camera */ "./src/app/services/camera/camera.ts");
 /* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
+/* harmony import */ var _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/fingerprint/touch-login.service */ "./src/app/services/fingerprint/touch-login.service.ts");
+/* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
+
+
 
 
 
@@ -643,6 +653,8 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__["Camera"],
                 _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__["CameraProvider"],
                 _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__["Device"],
+                _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__["FingerprintAIO"],
+                _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__["TouchLoginService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
         })
@@ -669,18 +681,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axios_axios_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../axios/axios.service */ "./src/app/services/axios/axios.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _timer_timer_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../timer/timer.service */ "./src/app/services/timer/timer.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+
+
 
 
 
 
 
 var AuthService = /** @class */ (function () {
-    function AuthService(api, toastController, timer, nav, menu) {
+    function AuthService(api, toastController, timer, router, menu, store) {
         this.api = api;
         this.toastController = toastController;
         this.timer = timer;
-        this.nav = nav;
+        this.router = router;
         this.menu = menu;
+        this.store = store;
         this.usuario = {
             id: null,
             rolId: null,
@@ -689,16 +706,17 @@ var AuthService = /** @class */ (function () {
         };
         this.intentarLogin();
     }
-    AuthService.prototype.login = function (usuario, password) {
+    AuthService.prototype.login = function (user, password) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.api.post('auth/login', { email: usuario, password: password })
+            _this.api.post('auth/login', { email: user, password: password })
                 .then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
                 return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                    console.log(data);
+                    console.log('data response', data);
                     if (data.hasOwnProperty('error') === false) {
                         this.usuario = data;
-                        localStorage.setItem('user', JSON.stringify(this.usuario));
+                        this.store.set('user', this.usuario);
+                        // localStorage.setItem('user', JSON.stringify(this.usuario));
                         this.timer.iniciarTemporizador();
                         resolve(data);
                     }
@@ -708,7 +726,7 @@ var AuthService = /** @class */ (function () {
                     return [2 /*return*/];
                 });
             }); })
-                .catch(function (err) { return console.log(err); });
+                .catch(function (err) { return console.log('error data response', err); });
         }).catch(function (error) {
             console.log(error);
         });
@@ -720,30 +738,54 @@ var AuthService = /** @class */ (function () {
         return null;
     };
     AuthService.prototype.intentarLogin = function () {
-        this.usuario = JSON.parse(window.localStorage.getItem('user'));
-        if (this.usuario == null) {
-            this.usuario = {
-                id: null,
-                rolId: null,
-                segundoFactor: null,
-                serializeToken: null
-            };
-        }
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _a;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        // this.usuario = JSON.parse(window.localStorage.getItem('user'));
+                        _a = this;
+                        return [4 /*yield*/, this.store.get('user')];
+                    case 1:
+                        // this.usuario = JSON.parse(window.localStorage.getItem('user'));
+                        _a.usuario = _b.sent();
+                        if (this.usuario == null) {
+                            this.usuario = {
+                                id: null,
+                                rolId: null,
+                                segundoFactor: null,
+                                serializeToken: null
+                            };
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     AuthService.prototype.setUserId = function (userId) {
         this.usuario.id = userId;
         localStorage.setItem('user', JSON.stringify(this.usuario));
     };
     AuthService.prototype.isLogin = function () {
-        var user = localStorage.getItem('user');
-        return user != null && this.usuario.serializeToken != null && this.usuario.id != null;
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var user;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.store.get('user')];
+                    case 1:
+                        user = _a.sent();
+                        return [2 /*return*/, user != null && this.usuario.serializeToken != null && this.usuario.id != null];
+                }
+            });
+        });
     };
     AuthService.prototype.logout = function () {
         this.timer.logout(false);
-        localStorage.removeItem('user');
-        localStorage.clear();
+        // localStorage.removeItem('user');
+        this.store.remove('user');
+        this.store.clear();
         this.menu.enable(false);
-        this.nav.navigateForward('login');
+        this.router.navigate(['']);
     };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -752,8 +794,9 @@ var AuthService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_axios_axios_service__WEBPACK_IMPORTED_MODULE_2__["AxiosService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"],
             _timer_timer_service__WEBPACK_IMPORTED_MODULE_4__["TimerService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"]])
     ], AuthService);
     return AuthService;
 }());
@@ -879,7 +922,7 @@ var InterceptadorService = /** @class */ (function () {
     InterceptadorService.prototype.intercept = function (request, next) {
         var _this = this;
         if (this.auth.isLogin()) {
-            var user = localStorage.getItem('user');
+            var user = this.storage.get('user');
             var token = user.serializeToken;
             if (token) {
                 request = request.clone({
@@ -914,8 +957,8 @@ var InterceptadorService = /** @class */ (function () {
         }
     };
     InterceptadorService.prototype.logout = function () {
-        localStorage.removeItem('user');
-        localStorage.clear();
+        this.storage.remove('user');
+        this.storage.clear();
         this.timer.resetTimer();
         this.navCtrl.navigateRoot('/login');
         this.presentAlerta();
@@ -1045,6 +1088,120 @@ var CameraProvider = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/fingerprint/touch-login.service.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/services/fingerprint/touch-login.service.ts ***!
+  \*************************************************************/
+/*! exports provided: TouchLoginService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TouchLoginService", function() { return TouchLoginService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../auth/auth.service */ "./src/app/services/auth/auth.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+
+
+
+var TouchLoginService = /** @class */ (function () {
+    function TouchLoginService(faio, platform, splashScreen, auth, router) {
+        this.faio = faio;
+        this.platform = platform;
+        this.splashScreen = splashScreen;
+        this.auth = auth;
+        this.router = router;
+        this.subscription = null;
+        this.isTouch = true;
+        this.isLocked = false;
+        this.initialized = false;
+    }
+    TouchLoginService.prototype.ngOnInit = function () {
+        var _this = this;
+        console.log('inició el touch login');
+        if (this.initialized) {
+            return;
+        }
+        this.platform.ready().then(function () {
+            _this.onPauseSubscription = _this.platform.pause.subscribe(function () {
+                _this.splashScreen.show();
+            });
+            _this.onResumeSubscription = _this.platform.resume.subscribe(function () {
+                if (!_this.isLocked) {
+                    _this.isLocked = true;
+                    console.info(_this.auth.isLogin);
+                    if (_this.auth.isLogin) {
+                        if (_this.isTouch) {
+                            _this.showFingerPrint();
+                            _this.login();
+                            console.log('bloqueado', _this.isLocked);
+                        }
+                    }
+                    else {
+                        console.log('verificar este if');
+                        _this.router.navigate(['']);
+                    }
+                }
+                console.log('no bloqueado', _this.isLocked);
+                _this.splashScreen.hide();
+                _this.isLocked = false;
+                _this.showFingerPrint();
+            });
+        });
+    };
+    TouchLoginService.prototype.showFingerPrint = function () {
+        var _this = this;
+        this.faio.isAvailable()
+            .then(function (result) {
+            console.log('huella avaliable', result);
+            _this.faio.show({
+                clientId: 'Identificar de huella',
+                clientSecret: 'password',
+                disableBackup: false,
+                localizedFallbackTitle: 'Use Pin',
+                localizedReason: 'Please authenticate',
+            })
+                .then(function (result) {
+                console.log('huella verificada', result);
+                _this.login();
+                _this.isLocked = false;
+            }).catch(function (error) {
+                console.log('entro al catch, cuando canelo', error);
+                _this.exitApp();
+            });
+        }).catch(function (error) { return console.log('entro al carch sin cancelar', error); });
+    };
+    TouchLoginService.prototype.login = function () {
+        this.router.navigate(['/app/tabs/home']);
+    };
+    TouchLoginService.prototype.exitApp = function () {
+        this.subscription = this.platform.backButton.subscribe(function () {
+            navigator['app'].exitApp();
+        });
+    };
+    TouchLoginService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_2__["FingerprintAIO"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"],
+            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__["SplashScreen"],
+            _auth_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])
+    ], TouchLoginService);
+    return TouchLoginService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/timer/timer.service.ts":
 /*!*************************************************!*\
   !*** ./src/app/services/timer/timer.service.ts ***!
@@ -1068,6 +1225,7 @@ var TimerService = /** @class */ (function () {
         this.alertCtrl = alertCtrl;
         this.menu = menu;
         this.router = router;
+        this.tiempoLimiteSesion = 1; // se coloca el tiempo que se desea que dure la sesión activa
         this.temporizador = {
             minutos: 0,
             segundos: 0
@@ -1084,8 +1242,7 @@ var TimerService = /** @class */ (function () {
                 _this.contador_s = 1;
                 _this.contador_m++;
                 _this.temporizador.minutos = _this.contador_m;
-                // se colocan los minutos que se quieren controlar
-                if (_this.contador_m === 25) {
+                if (_this.contador_m === _this.tiempoLimiteSesion) {
                     _this.contador_m = 0;
                     _this.resetTimer();
                     _this.logout();
@@ -1100,7 +1257,7 @@ var TimerService = /** @class */ (function () {
         localStorage.removeItem('user');
         localStorage.clear();
         this.resetTimer();
-        this.router.navigate(['/tabs/login']);
+        this.router.navigate(['']);
         this.menu.enable(false);
         if (alerta) {
             this.presentAlerta();
@@ -1210,7 +1367,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/eyeline/Documents/ionic/eyewallet/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/eyeline/Documents/GitHub/EyewalletApp/src/main.ts */"./src/main.ts");
 
 
 /***/ })
