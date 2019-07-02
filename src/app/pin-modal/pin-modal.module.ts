@@ -21,6 +21,5 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PinModalPage]
 })
 export class PinModalPageModule {}

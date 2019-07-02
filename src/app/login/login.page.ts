@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {LoadingController, MenuController, ToastController} from '@ionic/angular';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
-import {ModalController} from "@ionic/angular";
-import {PinModalPage} from "../pin-modal/pin-modal.page";
+import {ModalController} from '@ionic/angular';
+import {PinModalPage} from '../pin-modal/pin-modal.page';
 
 @Component({
   selector: 'app-login',
@@ -52,13 +52,8 @@ export class LoginPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: PinModalPage,
       componentProps: {
-        'paramID': 123,
-        'paramTitle' : 'Test title'
-      }
-    });
-    modal.onDidDismiss().then((dataReturnet) => {
-      if(dataReturnet !== null) {
-        this.dataReturned = dataReturnet.data;
+        paramID: 123,
+        paramTitle : 'Test title'
       }
     });
 

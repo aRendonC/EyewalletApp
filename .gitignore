@@ -3,3 +3,7 @@
 /platforms
 ./platforms
 platforms
+.idea
+/.idea
+/dist
+/.tpm

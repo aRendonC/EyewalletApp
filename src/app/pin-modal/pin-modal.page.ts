@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {ModalController, NavParams} from "@ionic/angular";
+import {Component, Inject, Input, OnInit} from '@angular/core';
+import {ModalController, NavParams, } from '@ionic/angular';
 
 @Component({
   selector: 'app-pin-modal',
@@ -7,22 +7,25 @@ import {ModalController, NavParams} from "@ionic/angular";
   styleUrls: ['./pin-modal.page.scss'],
 })
 export class PinModalPage implements OnInit {
+  @Input() modalTitle: string;
+  @Input() modelID: number;
+  @Input() middleInitial: string;
 
-  modalTitle: string;
-  modelID: number;
+
   constructor(
       private modalCtrl: ModalController,
-      @Inject(NavParams) private navParams: NavParams
+      public navParams: NavParams
   ) { }
 
   ngOnInit() {
-    console.table(this.navParams)
-    this.modelID = this.navParams.data.paramID;
-    this.modalTitle = this.navParams.data.paramTitle;
+    console.table(this.navParams);
+    // console.table(this.modalTitle);
+    // this.modelID = this.navParams.data.paramID;
+    // this.modalTitle = this.navParams.data.paramTitle;
   }
 
   async closeModal() {
-    const onCloseData: string = 'Wrapped Up!';
-    await this.modalCtrl.dismiss(onCloseData)
+    const onCloseData = 'Wrapped Up!';
+    this.modalCtrl.dismiss(onCloseData);
   }
 }
