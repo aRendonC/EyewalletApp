@@ -7,16 +7,15 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 
 export class AxiosService {
-  // url = 'http://localhost:3000/';
-  url = 'https://ab292975.ngrok.io/';
+  url = 'https://ad97da3d.ngrok.io/api/v1/';
   headers: HttpHeaders;
 
-  constructor(private http: HttpClient,
-              // private env: baseUrl,
-  ) {
+  constructor(
+    private http: HttpClient
+    ) {
     this.headers = new HttpHeaders({
       Accept: 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
     });
   }
 
@@ -46,9 +45,9 @@ export class AxiosService {
     const url = this.url + endpoint;
     if (user != null) {
       this.headers = new HttpHeaders({
-        'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'authorization': 'Bearer ' + user.accessParam()
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + user.accessParam()
       });
     }
     return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {

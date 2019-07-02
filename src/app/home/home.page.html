@@ -1,38 +1,16 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>
-            Inicio
-            <p style="font-size: 12px">
-                <ion-icon name="stopwatch"></ion-icon>
-                {{temporizador.minutos}} minutos {{temporizador.segundos}} segundos
-            </p>
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
+<ion-content padding class="bghome" >
+<div class="move-logo">
+    <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
+    <div class="center">
+        <ion-label class="text-eyewallet">EYEWALLET</ion-label>
+        <br>
+        <ion-label class="text-crypto">CRYPTO BANK</ion-label>
+    </div>
+</div>
 
-<ion-content padding>
-
-
-    <ion-row>
-        <ion-button expand="block" (click)="photo()">FOTO</ion-button>
-    </ion-row>
-
-    <ion-row>
-        <ion-button expand="block" (click)="deviceData()">DATOS CELULAR</ion-button>
-        <p>cordova : {{dataDevice?.cordova}} <br></p>
-
-        <p>model : {{dataDevice?.model}} <br></p>
-        <p>platform : {{dataDevice?.platform}}<br></p>
-        <p>uuid : {{dataDevice?.uuid}} <br></p>
-        <p>version : {{dataDevice?.version}}<br></p>
-        <p>manufacturer : {{dataDevice?.manufacturer}}<br></p>
-        <p>isVirtual : {{dataDevice?.isVirtual}}<br></p>
-        <p>serial : {{dataDevice?.serial}}<br></p>
-    </ion-row>
-
-    <app-chart name="transaction" limit="10"></app-chart>
-
+<div class="move-btn">
+    <ion-button href="/login" class="btn-start" mode="ios">Iniciar Sesión</ion-button>
+    <br>
+    <ion-button href="/registry" class="btn-create" mode="ios">Crear Billetera</ion-button>
+</div>
 </ion-content>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoadingController, MenuController, ToastController} from '@ionic/angular';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
+import { AxiosService } from '../services/axios/axios.service';
 
 @Component({
   selector: 'app-login',
@@ -10,15 +11,16 @@ import {Router} from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  username;
-  password;
+  username: string;
+  password: string;
 
   constructor(
     private loadingController: LoadingController,
     private toastController: ToastController,
     private aut: AuthService,
     private menu: MenuController,
-    private router: Router
+    private router: Router,
+    private loginHttpReq: AxiosService
   ) {
   }
 
@@ -36,7 +38,7 @@ export class LoginPage implements OnInit {
         // @ts-ignore
         // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
         // this.router.navigate(['/perfil',data.id]);
-        this.router.navigate(['/app/tabs/profile']);
+        this.router.navigate(['/app/tabs']);
       } else {
         this.presentToast();
       }
