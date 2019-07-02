@@ -16,6 +16,8 @@ import {InterceptadorService} from './services/axios/interceptador.service';
 import {Camera} from '@ionic-native/camera/ngx';
 import {CameraProvider} from './services/camera/camera';
 import {Device} from '@ionic-native/device/ngx';
+import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +33,7 @@ import {Device} from '@ionic-native/device/ngx';
     Camera,
     CameraProvider,
     Device,
+    NativePageTransitions
   ],
   bootstrap: [AppComponent]
 })
