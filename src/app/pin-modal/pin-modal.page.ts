@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {ModalController, NavParams, } from '@ionic/angular';
+import {ModalController, NavParams, Platform,} from '@ionic/angular';
 import {FingerprintAIO} from "@ionic-native/fingerprint-aio/ngx";
 import {Storage} from "@ionic/storage";
 import {Router} from "@angular/router";
@@ -21,6 +21,7 @@ export class PinModalPage implements OnInit {
       private faio: FingerprintAIO,
       private store: Storage,
       private router: Router,
+      private platform: Platform
   ) { }
 
   ngOnInit() {
@@ -29,6 +30,13 @@ export class PinModalPage implements OnInit {
     // console.table(this.modalTitle);
     this.modelID = this.navParams.data.paramID;
     this.modalTitle = this.navParams.data.paramTitle;
+    this.platform.backButton.subscribeWithPriority(9999,() => {
+      document.addEventListener('backbutton', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log('hello');
+      }, false);
+    })
   }
 
   async closeModal() {
@@ -50,14 +58,16 @@ export class PinModalPage implements OnInit {
       console.log(pinData)
       let user = await this.store.get('user')
       console.log(user)
-      if(pinData === user.pin) {
-        this.closeModal()
-        this.router.navigate(['/app/tabs/profile']);
-      } else {
-        this.ctrlPin = false
-        setTimeout(() => {
-          this.pin = []
-        }, 500)
+      if(user) {
+        if(pinData === user.pin) {
+          this.closeModal()
+          this.router.navigate(['/app/tabs/profile']);
+        } else {
+          this.ctrlPin = false
+          setTimeout(() => {
+            this.pin = []
+          }, 500)
+        }
       }
     }
     console.warn(this.pin.length)

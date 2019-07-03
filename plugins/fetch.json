@@ -62,12 +62,16 @@
       "type": "registry",
       "id": "com.telerik.plugins.nativepagetransitions"
     },
-  "cordova-plugin-fingerprint-aio": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-fingerprint-aio"
-    },
     "is_top_level": true,
     "variables": {}
+  },
+    "cordova-plugin-fingerprint-aio": {
+      "source": {
+        "type": "registry",
+        "id": "cordova-plugin-fingerprint-aio"
+      },
+      "is_top_level": true,
+      "variables": {}
+    }
   }
-}
+

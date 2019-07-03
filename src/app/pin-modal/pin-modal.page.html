@@ -1,17 +1,17 @@
 <ion-content  class="background-image">
-  <ion-list text-center>
+  <ion-list text-center style="margin-top: 3em">
     <ion-grid  text-center>
       <ion-col text-center>
       <ion-label>
-        <img class="imgLogo" style="width: 50%; height: 50%;" src="./assets/img/touchId/eyewalletIcon.svg" />
+        <img class="imgLogo" style="width: 40%; height: 40%;" src="./assets/img/touchId/eyewalletIcon.svg" />
       </ion-label>
       </ion-col>
       <ion-col>
         <ion-label *ngIf="ctrlPin" text-center>
-          <h1>Introduce tu pin de Seguridad</h1>
+          <h6>Introduce tu pin de Seguridad</h6>
         </ion-label>
         <ion-label *ngIf="!ctrlPin" text-center>
-          <h1>Código incorrecto</h1>
+          <h6>Código incorrecto</h6>
         </ion-label>
       </ion-col>
     </ion-grid>
