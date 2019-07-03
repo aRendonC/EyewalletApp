@@ -23,6 +23,7 @@ export class RegistryPage implements OnInit {
     password: ''
   }
   public passwordOk: boolean = false;
+  public passwordError: boolean = false;
   public phoneOk: boolean = false;
   public emailOk: boolean = false;
   public disableButton: boolean = true;
@@ -80,10 +81,12 @@ export class RegistryPage implements OnInit {
       this.dataRegistry.password = event;
       this.passwordOk = true;
       this.enableButton();
+      this.passwordError = false;
     } else {
       this.dataRegistry.password = event;
       this.passwordOk = false;
       this.enableButton();
+      this.passwordError = true;
     }
   }
 

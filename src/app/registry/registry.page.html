@@ -1,4 +1,5 @@
 <ion-content class="content-registry">
+  
   <div class="content-header">
     <ion-img class="icon" src="../../assets/icon/icon-wallet.png"></ion-img>
     <span class="title">{{constants.REGISTRY.TITLE}}</span>
@@ -23,7 +24,7 @@
       </ion-item>
 
       <ion-item class="list-item">
-        <ion-img slot="start" class="icon-input" src="../../assets/icon/icon-email.png"></ion-img>
+        <ion-img slot="start" class="icon-input" src="../../assets/icon/icon-phone.png"></ion-img>
         <ion-input
           [placeholder]="constants.REGISTRY.PHONE"
           type="text"
@@ -33,7 +34,7 @@
           clear-input
           class="input"
         ></ion-input>
-        <ion-img *ngIf="emailOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
+        <ion-img *ngIf="phoneOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
       </ion-item>
 
       <ion-item class="list-item">
@@ -48,6 +49,8 @@
           class="input"
         ></ion-input>
         <ion-img *ngIf="passwordOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
+        <ion-img *ngIf="passwordError" slot="end" class="icon" src="../../assets/icon/icon-data-form-invalid.png"></ion-img>
+
       </ion-item>
 
     </ion-list>
