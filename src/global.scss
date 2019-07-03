@@ -1,3 +1,5 @@
+@import './theme/variables.scss';
+
 // http://ionicframework.com/docs/theming/
 @import '~@ionic/angular/css/core.css';
 @import '~@ionic/angular/css/normalize.css';
@@ -9,3 +11,22 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+// Variables.
+$font-medium: Poppins-Medium;
+$font-semibold: Poppins-SemiBold;
+$font-regular: Poppins-Regular;
+
+.button-enable {
+   --background: #4C6AC0;
+   font-family: $font-medium;
+   --color: white;
+   font-size: 18px !important;
+}
+
+.button-disable {
+   --background: #4C6AC0;
+   font-family: $font-medium;
+   --color: white;
+   font-size: 18px !important;
+}

@@ -8,7 +8,6 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {IonicStorageModule} from '@ionic/storage';
 
 import {AxiosService} from './services/axios/axios.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -22,11 +21,15 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from "./pin-modal/pin-modal.page";
 
 
+// LocalStorage.
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
+
   declarations: [AppComponent, PinModalPage],
   entryComponents: [PinModalPage],
   imports: [
-      BrowserModule,
+    BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
@@ -44,7 +47,9 @@ import {PinModalPage} from "./pin-modal/pin-modal.page";
     FingerprintAIO,
     TouchLoginService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
-export class AppModule {
-}
+
+export class AppModule {}
