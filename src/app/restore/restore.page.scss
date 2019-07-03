@@ -1,9 +1,8 @@
 .bghome{
-    --background:  url('../../assets/img/bg-home.png') no-repeat center center / cover ;
+    --background:  url('../../assets/img/bg-home.png');
     --background-repeat: no-repeat;
-
+    
 }
-
 .move-logo{
     margin-top: 5vh;
     margin-left: 15vh;
@@ -36,28 +35,27 @@
     margin-left: -7vh
 }
 
+.move-info{
+    margin-top: 10vh;
+    text-align: center
+}
+
+
+.center{
+    margin-top: 6vh;
+    text-align: center;
+    width: 100%;
+    margin-left: -7vh
+}
+
 
 .move-btn{
     margin-top: 5vh;
     text-align: center
-  }
+}
 
-  .btn-start{
+.btn-start{
     --background: #4C6AC0;
-    --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-    --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-    --padding-start: 15vh;
-    --padding-end: 14vh;
-    --padding-top: 0px;
-    --padding-bottom: 0px;
-    --border-radius: 100px;
-    --opacity: 0.86;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .btn-create{
-    margin-top: 2vh;
-    --background: transparent;
     --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
     --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
     --padding-start: 10vh;
@@ -65,12 +63,10 @@
     --padding-top: 0px;
     --padding-bottom: 0px;
     --border-radius: 100px;
-    --border-color: white;
-    --border-width:1px;
-    --border-style: solid;
+    --opacity: 0.86;
     font-family: 'OpenSans', sans-serif;
     font-weight: 400
-  }
+}
 
 .transparent{
     --background: transparent !important;
@@ -92,7 +88,7 @@
 }
 
 .move-input{
-    margin-left: 4vw
+    margin-left: 4vw 
 }
 
 .white-line{
