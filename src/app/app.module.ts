@@ -16,6 +16,7 @@ import {InterceptadorService} from './services/axios/interceptador.service';
 import {Camera} from '@ionic-native/camera/ngx';
 import {CameraProvider} from './services/camera/camera';
 import {Device} from '@ionic-native/device/ngx';
+import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 import {TouchLoginService} from './services/fingerprint/touch-login.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from "./pin-modal/pin-modal.page";
@@ -39,6 +40,7 @@ import {PinModalPage} from "./pin-modal/pin-modal.page";
     Camera,
     CameraProvider,
     Device,
+    NativePageTransitions
     FingerprintAIO,
     TouchLoginService,
   ],

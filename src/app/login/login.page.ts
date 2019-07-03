@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoadingController, MenuController, ToastController} from '@ionic/angular';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
+import { AxiosService } from '../services/axios/axios.service';
 import {ModalController} from '@ionic/angular';
 import {PinModalPage} from '../pin-modal/pin-modal.page';
 
@@ -11,9 +12,10 @@ import {PinModalPage} from '../pin-modal/pin-modal.page';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
+  username: string;
+  password: string;
   dataReturned: any;
-  username;
-  password;
 
   constructor(
     private loadingController: LoadingController,
@@ -21,6 +23,7 @@ export class LoginPage implements OnInit {
     private aut: AuthService,
     private menu: MenuController,
     private router: Router,
+    private loginHttpReq: AxiosService,
     public modalCtrl: ModalController
   ) {
   }

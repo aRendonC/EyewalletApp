@@ -1,4 +1,81 @@
+@import '../../theme/variables.scss';
+
 .welcome-card ion-img {
   max-height: 35vh;
   overflow: hidden;
+}
+
+.bghome{
+  --background: url('../../assets/img/bg-home.png');
+  --background-repeat: no-repeat;
+  }
+
+.move-logo{
+  margin-top: 5vh;
+  margin-left: 15vh;
+}
+
+.resize-logo {
+  width: 60%;
+}
+
+.center{
+  margin-top: 6vh;
+  text-align: center;
+  width: 100%;
+  margin-left: -7vh
+}
+
+.text-eyewallet{
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 34px;
+  color: white;
+}
+
+.text-crypto{
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 5px;
+  font-weight: 500;
+  font-size: 17px;
+  color: white;
+}
+
+.move-btn{
+  margin-top: 30vh;
+  text-align: center
+}
+
+.move-input{
+  margin-left: 4vw !important;
+}
+
+.btn-start{
+  --background: #4C6AC0;
+  --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+  --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+  --padding-start: 15vh;
+  --padding-end: 14vh;
+  --padding-top: 0px;
+  --padding-bottom: 0px;
+  --border-radius: 100px;
+  --opacity: 0.86;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-create{
+  margin-top: 2vh;
+  --background: transparent;
+  --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+  --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+  --padding-start: 15vh;
+  --padding-end: 14vh;
+  --padding-top: 0px;
+  --padding-bottom: 0px;
+  --border-radius: 100px;
+  --border-color: white;
+  --border-width:1px;
+  --border-style: solid;
+  font-family: 'Poppins', sans-serif;
 }

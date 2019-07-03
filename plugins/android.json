@@ -29,6 +29,7 @@
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
+    "com.telerik.plugins.nativepagetransitions": {
     "cordova-plugin-fingerprint-aio": {
       "PACKAGE_NAME": "io.ionic.starter"
     }

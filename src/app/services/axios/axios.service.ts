@@ -11,9 +11,9 @@ export class AxiosService {
   url = 'https://ad97da3d.ngrok.io/api/v1/';
   headers: HttpHeaders;
 
-  constructor(private http: HttpClient,
-              // private env: baseUrl,
-  ) {
+  constructor(
+    private http: HttpClient
+    ) {
     this.headers = new HttpHeaders({
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -46,9 +46,9 @@ export class AxiosService {
     const url = this.url + endpoint;
     if (user != null) {
       this.headers = new HttpHeaders({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=utf-8',
-        'authorization': 'Bearer ' + user.accessParam()
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + user.accessParam()
       });
     }
     console.info(body)
