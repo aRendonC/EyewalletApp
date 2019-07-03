@@ -11,7 +11,7 @@
     <!-- <form #formulanrio (submit)="login()" class="transparent move-form"> -->
         <ion-list class="transparent">
             <!-- Usuario -->
-            <ion-item class="transparent white-line"> 
+            <ion-item class="transparent white-line">
                 <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
                 <ion-input  class="white move-input" type="email" name="username" [(ngModel)]="username"  placeholder="Correo Electrónico"></ion-input>
             </ion-item>
@@ -25,6 +25,9 @@
                 <ion-button type="submit" class="btn-start" mode="ios" >Iniciar Sesión</ion-button>
             <br>
             <ion-button href="/registry" class="btn-create" mode="ios">Recuperar Contraseña</ion-button>
+        </div>
+        <div text-center="">
+            <ion-button (click)="openModal()">Open Modal</ion-button>
         </div>
     </form>
 </ion-content>

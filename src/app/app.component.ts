@@ -5,6 +5,7 @@ import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AuthService} from './services/auth/auth.service';
 import {TimerService} from './services/timer/timer.service';
+import {TouchLoginService} from "./services/fingerprint/touch-login.service";
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent {
     private navCtrl: NavController,
     private auth: AuthService,
     private timer: TimerService,
+    private touchLogin: TouchLoginService
   ) {
     // this.navCtrl.navigateRoot('/login');
     this.initializeApp();
@@ -28,6 +30,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.touchLogin.ngOnInit()
     });
   }
 
