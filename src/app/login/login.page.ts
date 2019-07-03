@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {LoadingController, MenuController, ToastController} from '@ionic/angular';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
+import { AxiosService } from '../services/axios/axios.service';
+import {ModalController} from '@ionic/angular';
+import {PinModalPage} from '../pin-modal/pin-modal.page';
 
 @Component({
   selector: 'app-login',
@@ -10,15 +13,18 @@ import {Router} from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  username;
-  password;
+  username: string;
+  password: string;
+  dataReturned: any;
 
   constructor(
     private loadingController: LoadingController,
     private toastController: ToastController,
     private aut: AuthService,
     private menu: MenuController,
-    private router: Router
+    private router: Router,
+    private loginHttpReq: AxiosService,
+    public modalCtrl: ModalController
   ) {
   }
 
@@ -36,13 +42,27 @@ export class LoginPage implements OnInit {
         // @ts-ignore
         // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
         // this.router.navigate(['/perfil',data.id]);
-        this.router.navigate(['/app/tabs/profile']);
+        this.router.navigate(['/app/tabs']);
       } else {
         this.presentToast();
       }
     }).catch((error) => {
       console.log(error);
     });
+  }
+
+  async openModal() {
+    const moda = await this.modalCtrl.getTop()
+    console.log(moda)
+    const modal = await this.modalCtrl.create({
+      component: PinModalPage,
+      componentProps: {
+        paramID: 123,
+        paramTitle : 'Test title'
+      }
+    });
+
+    return await modal.present();
   }
 
   async presentToast() {

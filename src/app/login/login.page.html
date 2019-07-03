@@ -1,25 +1,33 @@
-<ion-content padding>
-    <h4 text-center
-        style="margin-top: 15%; font-size: 50px; margin-bottom: 25%; color: black ">
-        EYEWALLET</h4>
-    <form #formulario (submit)="login()">
-        <ion-list>
-            <ion-label stacked style="color: white; text-align: center; margin-bottom: 5%;
-  font-size: 18px;">Email
-            </ion-label>
-            <ion-item style="margin-bottom: 5%">
-                <ion-input type="email" required name="correo" [(ngModel)]="username" placeholder="Email"></ion-input>
+<ion-content padding class="bghome">
+    <div class="move-logo">
+        <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
+        <div class="center">
+            <ion-label class="text-eyewallet">EYEWALLET</ion-label>
+            <br>
+            <ion-label class="text-crypto">CRYPTO BANK</ion-label>
+        </div>
+    </div>
+    <form #formulario (ngSubmit)="login()" class="transparent move-form">
+    <!-- <form #formulanrio (submit)="login()" class="transparent move-form"> -->
+        <ion-list class="transparent">
+            <!-- Usuario -->
+            <ion-item class="transparent white-line"> 
+                <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
+                <ion-input  class="white move-input" type="email" name="username" [(ngModel)]="username"  placeholder="Correo Electrónico"></ion-input>
             </ion-item>
-            <ion-label stacked style="color: white; text-align: center; margin-bottom: 5%;
-  font-size: 18px;">Contraseña
-            </ion-label>
-            <ion-item>
-                <ion-input type="password" required name="clave" [(ngModel)]="password"
-                           placeholder="Contraseña"></ion-input>
+            <!-- Contraseña -->
+            <ion-item class="transparent white-line">
+                    <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
+                <ion-input class="white move-input" type="password" name="password" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
             </ion-item>
         </ion-list>
-        <div text-center>
-            <ion-button color="success" type="submit" color="primary" expand="block">INICIAR SESIÓN</ion-button>
+        <div class="move-btn">
+                <ion-button type="submit" class="btn-start" mode="ios" >Iniciar Sesión</ion-button>
+            <br>
+            <ion-button href="/registry" class="btn-create" mode="ios">Recuperar Contraseña</ion-button>
+        </div>
+        <div text-center="">
+            <ion-button (click)="openModal()">Open Modal</ion-button>
         </div>
     </form>
 </ion-content>

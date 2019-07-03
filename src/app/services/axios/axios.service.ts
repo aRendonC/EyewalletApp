@@ -28,7 +28,7 @@ export class AxiosService {
         url += user.accessParam();
       }
       if (params) {
-        const urlParams = this.jsonToURLEncoded(params);
+        const urlParams = params;
         if (user) {
           url += '&' + urlParams;
         } else {
@@ -48,16 +48,15 @@ export class AxiosService {
 
     if (user != null) {
       this.headers = new HttpHeaders({
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-        'authorization': 'Bearer ' + user.accessParam()
+        authorization: 'Bearer ' + user.accessParam()
       });
-    };
-
-    const headersPost: object = {
+    }
+    console.info(body)
+    return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {
       headers: this.headers
     };
-
     return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, headersPost)
     .toPromise();
   }

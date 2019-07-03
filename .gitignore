@@ -1,2 +1,13 @@
 
 /node_modules
+/platforms
+./platforms
+platforms
+.idea
+/.idea
+/dist
+/.tpm
+www
+/www
+./www
+/.www

@@ -15,22 +15,25 @@ import {InterceptadorService} from './services/axios/interceptador.service';
 import {Camera} from '@ionic-native/camera/ngx';
 import {CameraProvider} from './services/camera/camera';
 import {Device} from '@ionic-native/device/ngx';
+import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
+import {TouchLoginService} from './services/fingerprint/touch-login.service';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+import {PinModalPage} from "./pin-modal/pin-modal.page";
+
 
 // LocalStorage.
 import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  entryComponents: [],
+
+  declarations: [AppComponent, PinModalPage],
+  entryComponents: [PinModalPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()
-  ],
+    IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
@@ -40,6 +43,9 @@ import { IonicStorageModule } from '@ionic/storage';
     Camera,
     CameraProvider,
     Device,
+    NativePageTransitions
+    FingerprintAIO,
+    TouchLoginService,
   ],
   bootstrap: [
     AppComponent

@@ -17,7 +17,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'profile',
+        path: '',
         children: [
           {
             path: '',
@@ -27,11 +27,6 @@ const routes: Routes = [
       }
     ]
   },
-  {
-    path: '',
-    redirectTo: '/app/tabs/login',
-    pathMatch: 'full'
-  }
 ];
 
 @NgModule({

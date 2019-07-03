@@ -56,5 +56,18 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "com.telerik.plugins.nativepagetransitions": {
+    "source": {
+      "type": "registry",
+      "id": "com.telerik.plugins.nativepagetransitions"
+    },
+  "cordova-plugin-fingerprint-aio": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-fingerprint-aio"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
