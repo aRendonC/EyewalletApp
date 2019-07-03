@@ -432,13 +432,25 @@ module.exports = webpackAsyncContext;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"../home/home.module": [
+		"./src/app/home/home.module.ts",
+		"home-home-module"
+	],
 	"../profile/profile.module": [
 		"./src/app/profile/profile.module.ts",
 		"profile-profile-module"
 	],
+	"./home/home.module": [
+		"./src/app/home/home.module.ts",
+		"home-home-module"
+	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
 		"login-login-module"
+	],
+	"./registry/registry.module": [
+		"./src/app/registry/registry.module.ts",
+		"registry-registry-module"
 	],
 	"./tabs/tabs.module": [
 		"./src/app/tabs/tabs.module.ts",
@@ -484,8 +496,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
-    { path: '', loadChildren: './login/login.module#LoginPageModule' },
+    { path: '', loadChildren: './home/home.module#HomePageModule' },
+    { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
     { path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule' },
+    { path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -495,7 +509,9 @@ var AppRoutingModule = /** @class */ (function () {
             imports: [
                 _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__["PreloadAllModules"] })
             ],
-            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+            exports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]
+            ]
         })
     ], AppRoutingModule);
     return AppRoutingModule;
@@ -604,16 +620,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-/* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/axios/interceptador.service */ "./src/app/services/axios/interceptador.service.ts");
-/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
-/* harmony import */ var _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/camera/camera */ "./src/app/services/camera/camera.ts");
-/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
+/* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/axios/interceptador.service */ "./src/app/services/axios/interceptador.service.ts");
+/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
+/* harmony import */ var _services_camera_camera__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/camera/camera */ "./src/app/services/camera/camera.ts");
+/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
 /* harmony import */ var _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/fingerprint/touch-login.service */ "./src/app/services/fingerprint/touch-login.service.ts");
 /* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
 /* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
 
 
 
@@ -632,6 +649,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+// LocalStorage.
 
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -644,22 +663,25 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
-                _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["IonicStorageModule"].forRoot()
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HttpClientModule"],
+                _ionic_storage__WEBPACK_IMPORTED_MODULE_19__["IonicStorageModule"].forRoot()
             ],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_12__["InterceptadorService"], multi: true },
-                _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_10__["AxiosService"],
-                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__["Camera"],
-                _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__["CameraProvider"],
-                _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__["Device"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HTTP_INTERCEPTORS"], useClass: _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_11__["InterceptadorService"], multi: true },
+                _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_9__["AxiosService"],
+                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_12__["Camera"],
+                _services_camera_camera__WEBPACK_IMPORTED_MODULE_13__["CameraProvider"],
+                _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_14__["Device"],
+                _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_15__["NativePageTransitions"],
                 _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__["FingerprintAIO"],
                 _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__["TouchLoginService"],
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+            bootstrap: [
+                _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]
+            ]
         })
     ], AppModule);
     return AppModule;
@@ -1004,12 +1026,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 
+// Dependencies.
 
+// Http client.
 
 var AxiosService = /** @class */ (function () {
     function AxiosService(http) {
         this.http = http;
-        // url = 'http://localhost:3000/';
         this.url = 'https://ad97da3d.ngrok.io/api/v1/';
         this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
             Accept: 'application/json',
@@ -1019,7 +1042,7 @@ var AxiosService = /** @class */ (function () {
     AxiosService.prototype.get = function (endpoint, user, params) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            var url = _this.url + endpoint;
+            var url = "" + _this.url + endpoint;
             if (user != null) {
                 url += user.accessParam();
             }
@@ -1040,12 +1063,12 @@ var AxiosService = /** @class */ (function () {
         });
     };
     AxiosService.prototype.post = function (endpoint, body, user) {
-        var url = this.url + endpoint;
+        var url = "" + this.url + endpoint;
         if (user != null) {
             this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json; charset=utf-8',
-                'authorization': 'Bearer ' + user.accessParam()
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + user.accessParam()
             });
         }
         console.info(body);
@@ -1055,9 +1078,6 @@ var AxiosService = /** @class */ (function () {
     };
     AxiosService.prototype.jsonToURLEncoded = function (jsonString) {
         return jsonString;
-        // return Object.keys(jsonString).map(function(key) {
-        //   return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
-        // }).join('&');
     };
     AxiosService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -1534,7 +1554,8 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
-    production: false
+    production: false,
+    urlBase: 'https://ad97da3d.ngrok.io/api/v1/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
