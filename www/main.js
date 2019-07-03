@@ -620,6 +620,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+<<<<<<< HEAD
 /* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/axios/interceptador.service */ "./src/app/services/axios/interceptador.service.ts");
@@ -631,6 +632,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
 /* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+=======
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/axios/interceptador.service */ "./src/app/services/axios/interceptador.service.ts");
+/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
+/* harmony import */ var _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/camera/camera */ "./src/app/services/camera/camera.ts");
+/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
+/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
+/* harmony import */ var _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/fingerprint/touch-login.service */ "./src/app/services/fingerprint/touch-login.service.ts");
+/* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
+/* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
+>>>>>>> EWM-R07
 
 
 
@@ -657,8 +671,8 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__["PinModalPage"]],
-            entryComponents: [_pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__["PinModalPage"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_19__["PinModalPage"]],
+            entryComponents: [_pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_19__["PinModalPage"]],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
@@ -670,6 +684,7 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
+<<<<<<< HEAD
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HTTP_INTERCEPTORS"], useClass: _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_11__["InterceptadorService"], multi: true },
                 _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_9__["AxiosService"],
                 _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_12__["Camera"],
@@ -678,6 +693,16 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_15__["NativePageTransitions"],
                 _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__["FingerprintAIO"],
                 _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__["TouchLoginService"],
+=======
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_12__["InterceptadorService"], multi: true },
+                _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_10__["AxiosService"],
+                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__["Camera"],
+                _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__["CameraProvider"],
+                _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__["Device"],
+                _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_16__["NativePageTransitions"],
+                _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_18__["FingerprintAIO"],
+                _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_17__["TouchLoginService"],
+>>>>>>> EWM-R07
             ],
             bootstrap: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]
@@ -698,7 +723,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content  class=\"background-image\">\n  <ion-list text-center>\n    <ion-grid  text-center>\n      <ion-col text-center>\n      <ion-label>\n        <img class=\"imgLogo\" style=\"width: 50%; height: 50%;\" src=\"./assets/img/touchId/eyewalletIcon.svg\" />\n      </ion-label>\n      </ion-col>\n      <ion-col>\n        <ion-label *ngIf=\"ctrlPin\" text-center>\n          <h1>Introduce tu pin de Seguridad</h1>\n        </ion-label>\n        <ion-label *ngIf=\"!ctrlPin\" text-center>\n          <h1>Código incorrecto</h1>\n        </ion-label>\n      </ion-col>\n    </ion-grid>\n  </ion-list>\n  <ion-list>\n   <ion-grid>\n     <ion-row>\n       <ion-col>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 1, 'pin-none': pin.length <= 0}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 2, 'pin-none': pin.length <= 1}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 3, 'pin-none': pin.length <= 2}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 4, 'pin-none': pin.length <= 3}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 5, 'pin-none': pin.length <= 4}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 6, 'pin-none': pin.length <= 5}\">\n\n         </ion-item>\n       </ion-col>\n     </ion-row>\n   </ion-grid>\n  </ion-list>\n  <ion-grid>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(1)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>1</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(2)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>2</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(3)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>3</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(4)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>4</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(5)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>5</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(6)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>6</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(7)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>7</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(8)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>8</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" no-margin nowrap text-center>\n        <ion-button (click)=\"savePinData(9)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>9</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n       <ion-button (click)=\"showFingerPrint()\" class=\"round ion-no-margin ion-no-padding btnNoShadow\" color=\"transparent\" expand=\"full\">\n         <img width=\"50%\" src=\"./assets/img/touchId/touch.svg\" />\n       </ion-button>\n      </ion-col>\n      <ion-col text-center class=\"ion-nowrap\">\n        <ion-button  class=\"round ion-no-margin ion-no-padding\" (click)=\"savePinData(0)\" expand=\"full\">\n          <h1>0</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button class=\"round ion-no-margin ion-no-padding btnNoShadow\" (click)=\"deletePinData()\" color=\"transparent\" expand=\"full\">\n          <img width=\"50%\" src=\"./assets/img/touchId/deletePin.svg\" />\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n"
+module.exports = "<ion-content  class=\"background-image\">\n  <ion-list text-center style=\"margin-top: 3em\">\n    <ion-grid  text-center>\n      <ion-col text-center>\n      <ion-label>\n        <img class=\"imgLogo\" style=\"width: 40%; height: 40%;\" src=\"./assets/img/touchId/eyewalletIcon.svg\" />\n      </ion-label>\n      </ion-col>\n      <ion-col>\n        <ion-label *ngIf=\"ctrlPin\" text-center>\n          <h6>Introduce tu pin de Seguridad</h6>\n        </ion-label>\n        <ion-label *ngIf=\"!ctrlPin\" text-center>\n          <h6>Código incorrecto</h6>\n        </ion-label>\n      </ion-col>\n    </ion-grid>\n  </ion-list>\n  <ion-list>\n   <ion-grid>\n     <ion-row>\n       <ion-col>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 1, 'pin-none': pin.length <= 0}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 2, 'pin-none': pin.length <= 1}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 3, 'pin-none': pin.length <= 2}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 4, 'pin-none': pin.length <= 3}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 5, 'pin-none': pin.length <= 4}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 6, 'pin-none': pin.length <= 5}\">\n\n         </ion-item>\n       </ion-col>\n     </ion-row>\n   </ion-grid>\n  </ion-list>\n  <ion-grid>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(1)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>1</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(2)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>2</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(3)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>3</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(4)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>4</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(5)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>5</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(6)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>6</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(7)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>7</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(8)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>8</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" no-margin nowrap text-center>\n        <ion-button (click)=\"savePinData(9)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>9</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n       <ion-button (click)=\"showFingerPrint()\" class=\"round ion-no-margin ion-no-padding btnNoShadow\" color=\"transparent\" expand=\"full\">\n         <img width=\"50%\" src=\"./assets/img/touchId/touch.svg\" />\n       </ion-button>\n      </ion-col>\n      <ion-col text-center class=\"ion-nowrap\">\n        <ion-button  class=\"round ion-no-margin ion-no-padding\" (click)=\"savePinData(0)\" expand=\"full\">\n          <h1>0</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button class=\"round ion-no-margin ion-no-padding btnNoShadow\" (click)=\"deletePinData()\" color=\"transparent\" expand=\"full\">\n          <img width=\"50%\" src=\"./assets/img/touchId/deletePin.svg\" />\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n"
 
 /***/ }),
 
@@ -709,7 +734,7 @@ module.exports = "<ion-content  class=\"background-image\">\n  <ion-list text-ce
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".pin-none {\n  border: 2px solid white;\n  height: 40px;\n  border-radius: 50px;\n  width: 40px;\n  --ion-background-color:transparent; }\n\n.pin-ok {\n  border: 2px solid white;\n  height: 40px;\n  border-radius: 50px;\n  width: 40px;\n  --ion-background-color:white; }\n\n.imgLogo {\n  height: 70vh;\n  width: auto;\n  margin: auto;\n  display: block; }\n\n.round {\n  --width: 60px;\n  --height: 107%;\n  --border-radius: 50%;\n  --vertical-align: middle;\n  --padding-start: 10px;\n  /* --padding-end: 10px; */\n  height: 100px; }\n\nion-col {\n  padding: 0px; }\n\n.background-image {\n  --background: url('backGroundTouch.svg') no-repeat center center / cover;\n  --background-size: cover; }\n\nion-list {\n  background: transparent; }\n\n.btnNoShadow {\n  --box-shadow: none\n; }\n\nion-button {\n  --background: rgba(47, 112, 191, 0.29);\n  border: none; }\n\nh1 {\n  font-weight: bold;\n  color: white;\n  opacity: 1;\n  text-decoration: none;\n  --background: rgba(255, 255, 255, 1)\n; }\n\nion-label {\n  color: white; }\n\nion-row {\n  padding: 0 30px 0 20px; }\n\nion-col {\n  border: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9leWVsaW5lL0RvY3VtZW50cy9HaXRIdWIvRXlld2FsbGV0QXBwL3NyYy9hcHAvcGluLW1vZGFsL3Bpbi1tb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSx1QkFBdUI7RUFDdkIsWUFBWTtFQUNaLG1CQUFtQjtFQUNuQixXQUFXO0VBQ1gsa0NBQXVCLEVBQUE7O0FBR3pCO0VBQ0UsdUJBQXVCO0VBQ3ZCLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsV0FBVztFQUNYLDRCQUF1QixFQUFBOztBQUV6QjtFQUNFLFlBQVk7RUFDWixXQUFXO0VBQ1gsWUFBWTtFQUNaLGNBQWMsRUFBQTs7QUFHaEI7RUFDRSxhQUFRO0VBQ1IsY0FBUztFQUNULG9CQUFnQjtFQUNoQix3QkFBaUI7RUFDakIscUJBQWdCO0VBQ2hCLHlCQUFBO0VBQ0EsYUFBYSxFQUFBOztBQUdmO0VBQ0UsWUFBWSxFQUFBOztBQUdkO0VBQ0Usd0VBQWE7RUFDYix3QkFBa0IsRUFBQTs7QUFFcEI7RUFDRSx1QkFBdUIsRUFBQTs7QUFHekI7RUFDRTtBQUFhLEVBQUE7O0FBR2Y7RUFDRSxzQ0FBYTtFQUNiLFlBQVksRUFBQTs7QUFHZDtFQUNFLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osVUFBVTtFQUNWLHFCQUFxQjtFQUNyQjtBQUFhLEVBQUE7O0FBR2Y7RUFDRSxZQUFZLEVBQUE7O0FBR2Q7RUFDRSxzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9waW4tbW9kYWwvcGluLW1vZGFsLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5waW4tbm9uZXtcbiAgYm9yZGVyOiAycHggc29saWQgd2hpdGU7XG4gIGhlaWdodDogNDBweDtcbiAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgd2lkdGg6IDQwcHg7XG4gIC0taW9uLWJhY2tncm91bmQtY29sb3I6dHJhbnNwYXJlbnQ7XG59XG5cbi5waW4tb2t7XG4gIGJvcmRlcjogMnB4IHNvbGlkIHdoaXRlO1xuICBoZWlnaHQ6IDQwcHg7XG4gIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gIHdpZHRoOiA0MHB4O1xuICAtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yOndoaXRlO1xufVxuLmltZ0xvZ297XG4gIGhlaWdodDogNzB2aDtcbiAgd2lkdGg6IGF1dG87XG4gIG1hcmdpbjogYXV0bztcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5yb3VuZCB7XG4gIC0td2lkdGg6IDYwcHg7XG4gIC0taGVpZ2h0OiAxMDclO1xuICAtLWJvcmRlci1yYWRpdXM6IDUwJTtcbiAgLS12ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICAtLXBhZGRpbmctc3RhcnQ6IDEwcHg7XG4gIC8qIC0tcGFkZGluZy1lbmQ6IDEwcHg7ICovXG4gIGhlaWdodDogMTAwcHg7XG59XG5cbmlvbi1jb2x7XG4gIHBhZGRpbmc6IDBweDtcbn1cblxuLmJhY2tncm91bmQtaW1hZ2V7XG4gIC0tYmFja2dyb3VuZDogdXJsKC4uLy4uL2Fzc2V0cy9pbWcvdG91Y2hJZC9iYWNrR3JvdW5kVG91Y2guc3ZnKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlciAvIGNvdmVyO1xuICAtLWJhY2tncm91bmQtc2l6ZTogY292ZXI7XG59XG5pb24tbGlzdHtcbiAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG59XG5cbi5idG5Ob1NoYWRvd3tcbiAgLS1ib3gtc2hhZG93OiBub25lXG59XG5cbmlvbi1idXR0b24ge1xuICAtLWJhY2tncm91bmQ6IHJnYmEoNDcsIDExMiwgMTkxLCAwLjI5KTtcbiAgYm9yZGVyOiBub25lO1xufVxuXG5oMXtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgb3BhY2l0eTogMTtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xuICAtLWJhY2tncm91bmQ6IHJnYmEoMjU1LCAyNTUsIDI1NSwgMSlcbn1cblxuaW9uLWxhYmVse1xuICBjb2xvcjogd2hpdGU7XG59XG5cbmlvbi1yb3d7XG4gIHBhZGRpbmc6IDAgMzBweCAwIDIwcHg7XG59XG5cbmlvbi1jb2x7XG4gIGJvcmRlcjogbm9uZTtcbn1cblxuXG4iXX0= */"
+module.exports = ".pin-none {\n  border: 2px solid white;\n  height: 25px;\n  border-radius: 50px;\n  width: 25px;\n  --ion-background-color:transparent; }\n\n.pin-ok {\n  border: 2px solid white;\n  height: 25px;\n  border-radius: 50px;\n  width: 25px;\n  --ion-background-color:white; }\n\n.imgLogo {\n  height: 70vh;\n  width: auto;\n  margin: auto;\n  display: block; }\n\n.round {\n  --width: 60px;\n  --height: 107%;\n  --border-radius: 50%;\n  --vertical-align: middle;\n  --padding-start: 10px;\n  /* --padding-end: 10px; */\n  height: 80px; }\n\nion-col {\n  padding: 0; }\n\n.background-image {\n  --background: url('backGroundTouch.svg') no-repeat center center / cover;\n  --background-size: cover; }\n\nion-list {\n  background: transparent; }\n\n.btnNoShadow {\n  --box-shadow: none\n; }\n\nion-button {\n  --background: rgba(47, 112, 191, 0.29);\n  border: none;\n  --box-shadow: none; }\n\nh6 {\n  font-weight: bold;\n  color: white;\n  opacity: 1;\n  text-decoration: none;\n  --background: rgba(255, 255, 255, 1)\n; }\n\nion-label {\n  color: white; }\n\nion-row {\n  padding: 0 30px 0 20px; }\n\nion-col {\n  border: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9leWVsaW5lL0RvY3VtZW50cy9HaXRIdWIvRXlld2FsbGV0QXBwL3NyYy9hcHAvcGluLW1vZGFsL3Bpbi1tb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSx1QkFBdUI7RUFDdkIsWUFBWTtFQUNaLG1CQUFtQjtFQUNuQixXQUFXO0VBQ1gsa0NBQXVCLEVBQUE7O0FBR3pCO0VBQ0UsdUJBQXVCO0VBQ3ZCLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsV0FBVztFQUNYLDRCQUF1QixFQUFBOztBQUV6QjtFQUNFLFlBQVk7RUFDWixXQUFXO0VBQ1gsWUFBWTtFQUNaLGNBQWMsRUFBQTs7QUFHaEI7RUFDRSxhQUFRO0VBQ1IsY0FBUztFQUNULG9CQUFnQjtFQUNoQix3QkFBaUI7RUFDakIscUJBQWdCO0VBQ2hCLHlCQUFBO0VBQ0EsWUFBWSxFQUFBOztBQUdkO0VBQ0UsVUFBVSxFQUFBOztBQUdaO0VBQ0Usd0VBQWE7RUFDYix3QkFBa0IsRUFBQTs7QUFFcEI7RUFDRSx1QkFBdUIsRUFBQTs7QUFHekI7RUFDRTtBQUFhLEVBQUE7O0FBR2Y7RUFDRSxzQ0FBYTtFQUNiLFlBQVk7RUFDWixrQkFBYSxFQUFBOztBQUdmO0VBQ0UsaUJBQWlCO0VBQ2pCLFlBQVk7RUFDWixVQUFVO0VBQ1YscUJBQXFCO0VBQ3JCO0FBQWEsRUFBQTs7QUFHZjtFQUNFLFlBQVksRUFBQTs7QUFHZDtFQUNFLHNCQUFzQixFQUFBOztBQUd4QjtFQUNFLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL3Bpbi1tb2RhbC9waW4tbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBpbi1ub25le1xuICBib3JkZXI6IDJweCBzb2xpZCB3aGl0ZTtcbiAgaGVpZ2h0OiAyNXB4O1xuICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICB3aWR0aDogMjVweDtcbiAgLS1pb24tYmFja2dyb3VuZC1jb2xvcjp0cmFuc3BhcmVudDtcbn1cblxuLnBpbi1va3tcbiAgYm9yZGVyOiAycHggc29saWQgd2hpdGU7XG4gIGhlaWdodDogMjVweDtcbiAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgd2lkdGg6IDI1cHg7XG4gIC0taW9uLWJhY2tncm91bmQtY29sb3I6d2hpdGU7XG59XG4uaW1nTG9nb3tcbiAgaGVpZ2h0OiA3MHZoO1xuICB3aWR0aDogYXV0bztcbiAgbWFyZ2luOiBhdXRvO1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLnJvdW5kIHtcbiAgLS13aWR0aDogNjBweDtcbiAgLS1oZWlnaHQ6IDEwNyU7XG4gIC0tYm9yZGVyLXJhZGl1czogNTAlO1xuICAtLXZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4gIC0tcGFkZGluZy1zdGFydDogMTBweDtcbiAgLyogLS1wYWRkaW5nLWVuZDogMTBweDsgKi9cbiAgaGVpZ2h0OiA4MHB4O1xufVxuXG5pb24tY29se1xuICBwYWRkaW5nOiAwO1xufVxuXG4uYmFja2dyb3VuZC1pbWFnZXtcbiAgLS1iYWNrZ3JvdW5kOiB1cmwoLi4vLi4vYXNzZXRzL2ltZy90b3VjaElkL2JhY2tHcm91bmRUb3VjaC5zdmcpIG5vLXJlcGVhdCBjZW50ZXIgY2VudGVyIC8gY292ZXI7XG4gIC0tYmFja2dyb3VuZC1zaXplOiBjb3Zlcjtcbn1cbmlvbi1saXN0e1xuICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbn1cblxuLmJ0bk5vU2hhZG93e1xuICAtLWJveC1zaGFkb3c6IG5vbmVcbn1cblxuaW9uLWJ1dHRvbiB7XG4gIC0tYmFja2dyb3VuZDogcmdiYSg0NywgMTEyLCAxOTEsIDAuMjkpO1xuICBib3JkZXI6IG5vbmU7XG4gIC0tYm94LXNoYWRvdzogbm9uZTtcbn1cblxuaDZ7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBjb2xvcjogd2hpdGU7XG4gIG9wYWNpdHk6IDE7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgLS1iYWNrZ3JvdW5kOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDEpXG59XG5cbmlvbi1sYWJlbHtcbiAgY29sb3I6IHdoaXRlO1xufVxuXG5pb24tcm93e1xuICBwYWRkaW5nOiAwIDMwcHggMCAyMHB4O1xufVxuXG5pb24tY29se1xuICBib3JkZXI6IG5vbmU7XG59XG5cblxuIl19 */"
 
 /***/ }),
 
@@ -736,12 +761,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var PinModalPage = /** @class */ (function () {
-    function PinModalPage(modalCtrl, navParams, faio, store, router) {
+    function PinModalPage(modalCtrl, navParams, faio, store, router, platform) {
         this.modalCtrl = modalCtrl;
         this.navParams = navParams;
         this.faio = faio;
         this.store = store;
         this.router = router;
+        this.platform = platform;
         this.pin = [];
         this.ctrlPin = true;
     }
@@ -751,6 +777,13 @@ var PinModalPage = /** @class */ (function () {
         // console.table(this.modalTitle);
         this.modelID = this.navParams.data.paramID;
         this.modalTitle = this.navParams.data.paramTitle;
+        this.platform.backButton.subscribeWithPriority(9999, function () {
+            document.addEventListener('backbutton', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                console.log('hello');
+            }, false);
+        });
     };
     PinModalPage.prototype.closeModal = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -784,15 +817,17 @@ var PinModalPage = /** @class */ (function () {
                     case 1:
                         user = _a.sent();
                         console.log(user);
-                        if (pinData_1 === user.pin) {
-                            this.closeModal();
-                            this.router.navigate(['/app/tabs/profile']);
-                        }
-                        else {
-                            this.ctrlPin = false;
-                            setTimeout(function () {
-                                _this.pin = [];
-                            }, 500);
+                        if (user) {
+                            if (pinData_1 === user.pin) {
+                                this.closeModal();
+                                this.router.navigate(['/app/tabs/profile']);
+                            }
+                            else {
+                                this.ctrlPin = false;
+                                setTimeout(function () {
+                                    _this.pin = [];
+                                }, 500);
+                            }
                         }
                         _a.label = 2;
                     case 2:
@@ -854,7 +889,8 @@ var PinModalPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"],
             _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_3__["FingerprintAIO"],
             _ionic_storage__WEBPACK_IMPORTED_MODULE_4__["Storage"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]])
     ], PinModalPage);
     return PinModalPage;
 }());
@@ -1313,6 +1349,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../auth/auth.service */ "./src/app/services/auth/auth.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+
 
 
 
@@ -1322,17 +1360,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var TouchLoginService = /** @class */ (function () {
-    function TouchLoginService(faio, platform, splashScreen, auth, router, modalCtrl) {
+    function TouchLoginService(faio, platform, splashScreen, auth, router, modalCtrl, storage) {
         this.faio = faio;
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.auth = auth;
         this.router = router;
         this.modalCtrl = modalCtrl;
+        this.storage = storage;
         this.subscription = null;
         this.isTouch = true;
         this.isLocked = false;
         this.initialized = false;
+        this.user = null;
     }
     TouchLoginService.prototype.ngOnInit = function () {
         var _this = this;
@@ -1344,27 +1384,44 @@ var TouchLoginService = /** @class */ (function () {
             _this.onPauseSubscription = _this.platform.pause.subscribe(function () {
                 _this.splashScreen.show();
             });
-            _this.onResumeSubscription = _this.platform.resume.subscribe(function () {
-                if (!_this.isLocked) {
-                    _this.isLocked = true;
-                    if (_this.auth.isLogin()) {
-                        if (_this.isTouch) {
-                            _this.showFingerPrint();
+            _this.onResumeSubscription = _this.platform.resume.subscribe(function () { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+                var _a, modal;
+                return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (!!this.isLocked) return [3 /*break*/, 6];
+                            this.isLocked = true;
+                            if (!this.auth.isLogin()) return [3 /*break*/, 5];
+                            if (!this.isTouch) return [3 /*break*/, 4];
+                            _a = this;
+                            return [4 /*yield*/, this.storage.get('user')];
+                        case 1:
+                            _a.user = _b.sent();
+                            console.log(this.user);
+                            if (!this.user) return [3 /*break*/, 3];
+                            return [4 /*yield*/, this.modalCtrl.getTop()];
+                        case 2:
+                            modal = _b.sent();
+                            console.log('modal get top', modal);
+                            if (modal === undefined)
+                                this.showFingerPrint();
+                            _b.label = 3;
+                        case 3:
                             // this.login();
-                            console.log('bloqueado', _this.isLocked);
-                        }
+                            console.log('bloqueado', this.isLocked);
+                            _b.label = 4;
+                        case 4: return [3 /*break*/, 6];
+                        case 5:
+                            console.log('verificar este if');
+                            _b.label = 6;
+                        case 6:
+                            console.log('no bloqueado', this.isLocked);
+                            this.splashScreen.hide();
+                            this.isLocked = false;
+                            return [2 /*return*/];
                     }
-                    else {
-                        console.log('verificar este if');
-                        // let nav = this.app.getActiveNav();
-                        // nav.setRoot('LoginPage');
-                        // nav.popToRoot;
-                    }
-                }
-                console.log('no bloqueado', _this.isLocked);
-                _this.splashScreen.hide();
-                _this.isLocked = false;
-            });
+                });
+            }); });
         }).catch(function (er) {
             console.info('esto sería para navegador', er);
         });
@@ -1390,7 +1447,11 @@ var TouchLoginService = /** @class */ (function () {
                 _this.openModal();
                 // this.exitApp();
             });
-        }).catch(function (error) { return console.log('entro al carch sin cancelar', error); });
+        }).catch(function (error) {
+            if (_this.user)
+                _this.openModal();
+            console.log('entro al carch sin cancelar', error);
+        });
     };
     TouchLoginService.prototype.login = function () {
         this.router.navigate(['/app/tabs']);
@@ -1427,7 +1488,8 @@ var TouchLoginService = /** @class */ (function () {
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__["SplashScreen"],
             _auth_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"]])
     ], TouchLoginService);
     return TouchLoginService;
 }());

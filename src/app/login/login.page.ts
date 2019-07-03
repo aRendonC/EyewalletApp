@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import { AxiosService } from '../services/axios/axios.service';
 import {ModalController} from '@ionic/angular';
 import {PinModalPage} from '../pin-modal/pin-modal.page';
+import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 
 @Component({
   selector: 'app-login',
@@ -24,12 +25,14 @@ export class LoginPage implements OnInit {
     private menu: MenuController,
     private router: Router,
     private loginHttpReq: AxiosService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private touchCtrl: TouchLoginService
   ) {
   }
 
   ngOnInit() {
     this.menu.enable(false);
+    this.touchCtrl.isLocked = true
   }
 
   ionViewDidLeave() {
