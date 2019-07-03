@@ -129,16 +129,7 @@ var routes = [
         component: _tabs_page__WEBPACK_IMPORTED_MODULE_3__["TabsPage"],
         children: [
             {
-                path: 'inicio',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../home/home.module#HomePageModule'
-                    }
-                ]
-            },
-            {
-                path: 'profile',
+                path: '',
                 children: [
                     {
                         path: '',
@@ -148,11 +139,6 @@ var routes = [
             },
         ]
     },
-    {
-        path: '',
-        redirectTo: '/app/tabs/login',
-        pathMatch: 'full'
-    }
 ];
 var TabsPageRoutingModule = /** @class */ (function () {
     function TabsPageRoutingModule() {

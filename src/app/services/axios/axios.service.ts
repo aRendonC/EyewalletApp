@@ -8,7 +8,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 export class AxiosService {
   // url = 'http://localhost:3000/';
-  url = 'https://ab292975.ngrok.io/';
+  url = 'https://ad97da3d.ngrok.io/api/v1/';
   headers: HttpHeaders;
 
   constructor(private http: HttpClient,
@@ -16,7 +16,7 @@ export class AxiosService {
   ) {
     this.headers = new HttpHeaders({
       Accept: 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
     });
   }
 
@@ -27,7 +27,7 @@ export class AxiosService {
         url += user.accessParam();
       }
       if (params) {
-        const urlParams = this.jsonToURLEncoded(params);
+        const urlParams = params;
         if (user) {
           url += '&' + urlParams;
         } else {
@@ -47,19 +47,21 @@ export class AxiosService {
     if (user != null) {
       this.headers = new HttpHeaders({
         'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json; charset=utf-8',
         'authorization': 'Bearer ' + user.accessParam()
       });
     }
+    console.info(body)
     return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {
       headers: this.headers
     }).toPromise();
   }
 
   jsonToURLEncoded(jsonString) {
-    return Object.keys(jsonString).map(function(key) {
-      return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
-    }).join('&');
+    return jsonString
+    // return Object.keys(jsonString).map(function(key) {
+    //   return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
+    // }).join('&');
   }
 
 

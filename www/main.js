@@ -432,10 +432,6 @@ module.exports = webpackAsyncContext;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"../home/home.module": [
-		"./src/app/home/home.module.ts",
-		"home-home-module"
-	],
 	"../profile/profile.module": [
 		"./src/app/profile/profile.module.ts",
 		"profile-profile-module"
@@ -617,6 +613,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
 /* harmony import */ var _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/fingerprint/touch-login.service */ "./src/app/services/fingerprint/touch-login.service.ts");
 /* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
+/* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
+
 
 
 
@@ -640,10 +638,15 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
-            entryComponents: [],
-            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
-                _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["IonicStorageModule"].forRoot()],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__["PinModalPage"]],
+            entryComponents: [_pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__["PinModalPage"]],
+            imports: [
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
+                _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["IonicStorageModule"].forRoot()
+            ],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
@@ -654,12 +657,184 @@ var AppModule = /** @class */ (function () {
                 _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__["CameraProvider"],
                 _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__["Device"],
                 _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__["FingerprintAIO"],
-                _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__["TouchLoginService"]
+                _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__["TouchLoginService"],
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pin-modal/pin-modal.page.html":
+/*!***********************************************!*\
+  !*** ./src/app/pin-modal/pin-modal.page.html ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-content  class=\"background-image\">\n  <ion-list text-center>\n    <ion-grid  text-center>\n      <ion-col text-center>\n      <ion-label>\n        <img class=\"imgLogo\" style=\"width: 50%; height: 50%;\" src=\"./assets/img/touchId/eyewalletIcon.svg\" />\n      </ion-label>\n      </ion-col>\n      <ion-col>\n        <ion-label *ngIf=\"ctrlPin\" text-center>\n          <h1>Introduce tu pin de Seguridad</h1>\n        </ion-label>\n        <ion-label *ngIf=\"!ctrlPin\" text-center>\n          <h1>Código incorrecto</h1>\n        </ion-label>\n      </ion-col>\n    </ion-grid>\n  </ion-list>\n  <ion-list>\n   <ion-grid>\n     <ion-row>\n       <ion-col>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 1, 'pin-none': pin.length <= 0}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 2, 'pin-none': pin.length <= 1}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 3, 'pin-none': pin.length <= 2}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 4, 'pin-none': pin.length <= 3}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 5, 'pin-none': pin.length <= 4}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 6, 'pin-none': pin.length <= 5}\">\n\n         </ion-item>\n       </ion-col>\n     </ion-row>\n   </ion-grid>\n  </ion-list>\n  <ion-grid>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(1)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>1</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(2)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>2</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(3)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>3</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(4)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>4</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(5)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>5</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(6)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>6</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(7)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>7</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(8)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>8</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" no-margin nowrap text-center>\n        <ion-button (click)=\"savePinData(9)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>9</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n       <ion-button (click)=\"showFingerPrint()\" class=\"round ion-no-margin ion-no-padding btnNoShadow\" color=\"transparent\" expand=\"full\">\n         <img width=\"50%\" src=\"./assets/img/touchId/touch.svg\" />\n       </ion-button>\n      </ion-col>\n      <ion-col text-center class=\"ion-nowrap\">\n        <ion-button  class=\"round ion-no-margin ion-no-padding\" (click)=\"savePinData(0)\" expand=\"full\">\n          <h1>0</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button class=\"round ion-no-margin ion-no-padding btnNoShadow\" (click)=\"deletePinData()\" color=\"transparent\" expand=\"full\">\n          <img width=\"50%\" src=\"./assets/img/touchId/deletePin.svg\" />\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n"
+
+/***/ }),
+
+/***/ "./src/app/pin-modal/pin-modal.page.scss":
+/*!***********************************************!*\
+  !*** ./src/app/pin-modal/pin-modal.page.scss ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".pin-none {\n  border: 2px solid white;\n  height: 40px;\n  border-radius: 50px;\n  width: 40px;\n  --ion-background-color:transparent; }\n\n.pin-ok {\n  border: 2px solid white;\n  height: 40px;\n  border-radius: 50px;\n  width: 40px;\n  --ion-background-color:white; }\n\n.imgLogo {\n  height: 70vh;\n  width: auto;\n  margin: auto;\n  display: block; }\n\n.round {\n  --width: 60px;\n  --height: 107%;\n  --border-radius: 50%;\n  --vertical-align: middle;\n  --padding-start: 10px;\n  /* --padding-end: 10px; */\n  height: 100px; }\n\nion-col {\n  padding: 0px; }\n\n.background-image {\n  --background: url('backGroundTouch.svg') no-repeat center center / cover;\n  --background-size: cover; }\n\nion-list {\n  background: transparent; }\n\n.btnNoShadow {\n  --box-shadow: none\n; }\n\nion-button {\n  --background: rgba(47, 112, 191, 0.29);\n  border: none; }\n\nh1 {\n  font-weight: bold;\n  color: white;\n  opacity: 1;\n  text-decoration: none;\n  --background: rgba(255, 255, 255, 1)\n; }\n\nion-label {\n  color: white; }\n\nion-row {\n  padding: 0 30px 0 20px; }\n\nion-col {\n  border: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9leWVsaW5lL0RvY3VtZW50cy9HaXRIdWIvRXlld2FsbGV0QXBwL3NyYy9hcHAvcGluLW1vZGFsL3Bpbi1tb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSx1QkFBdUI7RUFDdkIsWUFBWTtFQUNaLG1CQUFtQjtFQUNuQixXQUFXO0VBQ1gsa0NBQXVCLEVBQUE7O0FBR3pCO0VBQ0UsdUJBQXVCO0VBQ3ZCLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsV0FBVztFQUNYLDRCQUF1QixFQUFBOztBQUV6QjtFQUNFLFlBQVk7RUFDWixXQUFXO0VBQ1gsWUFBWTtFQUNaLGNBQWMsRUFBQTs7QUFHaEI7RUFDRSxhQUFRO0VBQ1IsY0FBUztFQUNULG9CQUFnQjtFQUNoQix3QkFBaUI7RUFDakIscUJBQWdCO0VBQ2hCLHlCQUFBO0VBQ0EsYUFBYSxFQUFBOztBQUdmO0VBQ0UsWUFBWSxFQUFBOztBQUdkO0VBQ0Usd0VBQWE7RUFDYix3QkFBa0IsRUFBQTs7QUFFcEI7RUFDRSx1QkFBdUIsRUFBQTs7QUFHekI7RUFDRTtBQUFhLEVBQUE7O0FBR2Y7RUFDRSxzQ0FBYTtFQUNiLFlBQVksRUFBQTs7QUFHZDtFQUNFLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osVUFBVTtFQUNWLHFCQUFxQjtFQUNyQjtBQUFhLEVBQUE7O0FBR2Y7RUFDRSxZQUFZLEVBQUE7O0FBR2Q7RUFDRSxzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9waW4tbW9kYWwvcGluLW1vZGFsLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5waW4tbm9uZXtcbiAgYm9yZGVyOiAycHggc29saWQgd2hpdGU7XG4gIGhlaWdodDogNDBweDtcbiAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgd2lkdGg6IDQwcHg7XG4gIC0taW9uLWJhY2tncm91bmQtY29sb3I6dHJhbnNwYXJlbnQ7XG59XG5cbi5waW4tb2t7XG4gIGJvcmRlcjogMnB4IHNvbGlkIHdoaXRlO1xuICBoZWlnaHQ6IDQwcHg7XG4gIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gIHdpZHRoOiA0MHB4O1xuICAtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yOndoaXRlO1xufVxuLmltZ0xvZ297XG4gIGhlaWdodDogNzB2aDtcbiAgd2lkdGg6IGF1dG87XG4gIG1hcmdpbjogYXV0bztcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5yb3VuZCB7XG4gIC0td2lkdGg6IDYwcHg7XG4gIC0taGVpZ2h0OiAxMDclO1xuICAtLWJvcmRlci1yYWRpdXM6IDUwJTtcbiAgLS12ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICAtLXBhZGRpbmctc3RhcnQ6IDEwcHg7XG4gIC8qIC0tcGFkZGluZy1lbmQ6IDEwcHg7ICovXG4gIGhlaWdodDogMTAwcHg7XG59XG5cbmlvbi1jb2x7XG4gIHBhZGRpbmc6IDBweDtcbn1cblxuLmJhY2tncm91bmQtaW1hZ2V7XG4gIC0tYmFja2dyb3VuZDogdXJsKC4uLy4uL2Fzc2V0cy9pbWcvdG91Y2hJZC9iYWNrR3JvdW5kVG91Y2guc3ZnKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlciAvIGNvdmVyO1xuICAtLWJhY2tncm91bmQtc2l6ZTogY292ZXI7XG59XG5pb24tbGlzdHtcbiAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG59XG5cbi5idG5Ob1NoYWRvd3tcbiAgLS1ib3gtc2hhZG93OiBub25lXG59XG5cbmlvbi1idXR0b24ge1xuICAtLWJhY2tncm91bmQ6IHJnYmEoNDcsIDExMiwgMTkxLCAwLjI5KTtcbiAgYm9yZGVyOiBub25lO1xufVxuXG5oMXtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgb3BhY2l0eTogMTtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xuICAtLWJhY2tncm91bmQ6IHJnYmEoMjU1LCAyNTUsIDI1NSwgMSlcbn1cblxuaW9uLWxhYmVse1xuICBjb2xvcjogd2hpdGU7XG59XG5cbmlvbi1yb3d7XG4gIHBhZGRpbmc6IDAgMzBweCAwIDIwcHg7XG59XG5cbmlvbi1jb2x7XG4gIGJvcmRlcjogbm9uZTtcbn1cblxuXG4iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/pin-modal/pin-modal.page.ts":
+/*!*********************************************!*\
+  !*** ./src/app/pin-modal/pin-modal.page.ts ***!
+  \*********************************************/
+/*! exports provided: PinModalPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PinModalPage", function() { return PinModalPage; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+
+
+var PinModalPage = /** @class */ (function () {
+    function PinModalPage(modalCtrl, navParams, faio, store, router) {
+        this.modalCtrl = modalCtrl;
+        this.navParams = navParams;
+        this.faio = faio;
+        this.store = store;
+        this.router = router;
+        this.pin = [];
+        this.ctrlPin = true;
+    }
+    PinModalPage.prototype.ngOnInit = function () {
+        console.info(this.pin);
+        console.table(this.navParams.data.paramTitle);
+        // console.table(this.modalTitle);
+        this.modelID = this.navParams.data.paramID;
+        this.modalTitle = this.navParams.data.paramTitle;
+    };
+    PinModalPage.prototype.closeModal = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var onCloseData;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                onCloseData = 'Wrapped Up!';
+                this.modalCtrl.dismiss(onCloseData);
+                return [2 /*return*/];
+            });
+        });
+    };
+    PinModalPage.prototype.savePinData = function (number) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var pinData_1, user;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.ctrlPin = true;
+                        if (this.pin.length < 6) {
+                            this.pin.push(number);
+                            console.warn(this.pin);
+                        }
+                        if (!(this.pin.length === 6)) return [3 /*break*/, 2];
+                        pinData_1 = '';
+                        this.pin.forEach(function (data) {
+                            pinData_1 += data.toString();
+                        });
+                        console.log(pinData_1);
+                        return [4 /*yield*/, this.store.get('user')];
+                    case 1:
+                        user = _a.sent();
+                        console.log(user);
+                        if (pinData_1 === user.pin) {
+                            this.closeModal();
+                            this.router.navigate(['/app/tabs/profile']);
+                        }
+                        else {
+                            this.ctrlPin = false;
+                            setTimeout(function () {
+                                _this.pin = [];
+                            }, 500);
+                        }
+                        _a.label = 2;
+                    case 2:
+                        console.warn(this.pin.length);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    PinModalPage.prototype.deletePinData = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.pin.splice(this.pin.length - 1, 1);
+                console.info(this.pin);
+                return [2 /*return*/];
+            });
+        });
+    };
+    PinModalPage.prototype.showFingerPrint = function () {
+        var _this = this;
+        this.faio.isAvailable()
+            .then(function (result) {
+            console.log('huella avaliable', result);
+            _this.faio.show({
+                clientId: 'Identificar de huella',
+                clientSecret: 'password',
+                disableBackup: false,
+                localizedFallbackTitle: 'Use Pin',
+                localizedReason: 'Please authenticate',
+            })
+                .then(function (result) {
+                console.log('huella verificada correctamente', result);
+                _this.router.navigate(['/app/tabs']);
+                _this.closeModal();
+                // this.login();
+                // this.isLocked = false;
+            }).catch(function (error) {
+                console.log('entro al catch, cuando canelo', error);
+                // this.openModal()
+                // this.exitApp();
+            });
+        }).catch(function (error) { return console.log('entro al carch sin cancelar', error); });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    ], PinModalPage.prototype, "modalTitle", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], PinModalPage.prototype, "modelID", void 0);
+    PinModalPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-pin-modal',
+            template: __webpack_require__(/*! ./pin-modal.page.html */ "./src/app/pin-modal/pin-modal.page.html"),
+            styles: [__webpack_require__(/*! ./pin-modal.page.scss */ "./src/app/pin-modal/pin-modal.page.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"],
+            _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_3__["FingerprintAIO"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_4__["Storage"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+    ], PinModalPage);
+    return PinModalPage;
 }());
 
 
@@ -708,22 +883,31 @@ var AuthService = /** @class */ (function () {
     }
     AuthService.prototype.login = function (user, password) {
         var _this = this;
-        return new Promise(function (resolve, reject) {
+        return new Promise(function (resolve) {
             _this.api.post('auth/login', { email: user, password: password })
                 .then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
-                return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                    console.log('data response', data);
-                    if (data.hasOwnProperty('error') === false) {
-                        this.usuario = data;
-                        this.store.set('user', this.usuario);
-                        // localStorage.setItem('user', JSON.stringify(this.usuario));
-                        this.timer.iniciarTemporizador();
-                        resolve(data);
+                var _a, _b;
+                return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_c) {
+                    switch (_c.label) {
+                        case 0:
+                            console.log('data response', data.data);
+                            if (!(data.hasOwnProperty('error') === false)) return [3 /*break*/, 2];
+                            this.usuario = data.data;
+                            this.store.set('user', this.usuario);
+                            _b = (_a = console).log;
+                            return [4 /*yield*/, this.store.get('user')];
+                        case 1:
+                            _b.apply(_a, [_c.sent()]);
+                            // localStorage.setItem('user', JSON.stringify(this.usuario));
+                            this.timer.iniciarTemporizador();
+                            console.info('data', data);
+                            resolve(data);
+                            return [3 /*break*/, 3];
+                        case 2:
+                            resolve(null);
+                            _c.label = 3;
+                        case 3: return [2 /*return*/];
                     }
-                    else {
-                        resolve(null);
-                    }
-                    return [2 /*return*/];
                 });
             }); })
                 .catch(function (err) { return console.log('error data response', err); });
@@ -774,7 +958,8 @@ var AuthService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.store.get('user')];
                     case 1:
                         user = _a.sent();
-                        return [2 /*return*/, user != null && this.usuario.serializeToken != null && this.usuario.id != null];
+                        console.info(user);
+                        return [2 /*return*/, !!user];
                 }
             });
         });
@@ -782,8 +967,8 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.logout = function () {
         this.timer.logout(false);
         // localStorage.removeItem('user');
-        this.store.remove('user');
-        this.store.clear();
+        // this.store.remove('user')
+        // this.store.clear();
         this.menu.enable(false);
         this.router.navigate(['']);
     };
@@ -825,10 +1010,10 @@ var AxiosService = /** @class */ (function () {
     function AxiosService(http) {
         this.http = http;
         // url = 'http://localhost:3000/';
-        this.url = 'https://ab292975.ngrok.io/';
+        this.url = 'https://ad97da3d.ngrok.io/api/v1/';
         this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
             Accept: 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
         });
     }
     AxiosService.prototype.get = function (endpoint, user, params) {
@@ -839,7 +1024,7 @@ var AxiosService = /** @class */ (function () {
                 url += user.accessParam();
             }
             if (params) {
-                var urlParams = _this.jsonToURLEncoded(params);
+                var urlParams = params;
                 if (user) {
                     url += '&' + urlParams;
                 }
@@ -859,18 +1044,20 @@ var AxiosService = /** @class */ (function () {
         if (user != null) {
             this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json; charset=utf-8',
                 'authorization': 'Bearer ' + user.accessParam()
             });
         }
+        console.info(body);
         return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {
             headers: this.headers
         }).toPromise();
     };
     AxiosService.prototype.jsonToURLEncoded = function (jsonString) {
-        return Object.keys(jsonString).map(function (key) {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
-        }).join('&');
+        return jsonString;
+        // return Object.keys(jsonString).map(function(key) {
+        //   return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
+        // }).join('&');
     };
     AxiosService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -923,7 +1110,7 @@ var InterceptadorService = /** @class */ (function () {
         var _this = this;
         if (this.auth.isLogin()) {
             var user = this.storage.get('user');
-            var token = user.serializeToken;
+            var token = user.accessToken;
             if (token) {
                 request = request.clone({
                     setHeaders: {
@@ -1105,6 +1292,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../auth/auth.service */ "./src/app/services/auth/auth.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
+
 
 
 
@@ -1113,12 +1302,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var TouchLoginService = /** @class */ (function () {
-    function TouchLoginService(faio, platform, splashScreen, auth, router) {
+    function TouchLoginService(faio, platform, splashScreen, auth, router, modalCtrl) {
         this.faio = faio;
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.auth = auth;
         this.router = router;
+        this.modalCtrl = modalCtrl;
         this.subscription = null;
         this.isTouch = true;
         this.isLocked = false;
@@ -1126,7 +1316,7 @@ var TouchLoginService = /** @class */ (function () {
     }
     TouchLoginService.prototype.ngOnInit = function () {
         var _this = this;
-        console.log('inició el touch login');
+        console.info('este es el touch login');
         if (this.initialized) {
             return;
         }
@@ -1137,24 +1327,26 @@ var TouchLoginService = /** @class */ (function () {
             _this.onResumeSubscription = _this.platform.resume.subscribe(function () {
                 if (!_this.isLocked) {
                     _this.isLocked = true;
-                    console.info(_this.auth.isLogin);
-                    if (_this.auth.isLogin) {
+                    if (_this.auth.isLogin()) {
                         if (_this.isTouch) {
                             _this.showFingerPrint();
-                            _this.login();
+                            // this.login();
                             console.log('bloqueado', _this.isLocked);
                         }
                     }
                     else {
                         console.log('verificar este if');
-                        _this.router.navigate(['']);
+                        // let nav = this.app.getActiveNav();
+                        // nav.setRoot('LoginPage');
+                        // nav.popToRoot;
                     }
                 }
                 console.log('no bloqueado', _this.isLocked);
                 _this.splashScreen.hide();
                 _this.isLocked = false;
-                _this.showFingerPrint();
             });
+        }).catch(function (er) {
+            console.info('esto sería para navegador', er);
         });
     };
     TouchLoginService.prototype.showFingerPrint = function () {
@@ -1175,12 +1367,33 @@ var TouchLoginService = /** @class */ (function () {
                 _this.isLocked = false;
             }).catch(function (error) {
                 console.log('entro al catch, cuando canelo', error);
-                _this.exitApp();
+                _this.openModal();
+                // this.exitApp();
             });
         }).catch(function (error) { return console.log('entro al carch sin cancelar', error); });
     };
     TouchLoginService.prototype.login = function () {
-        this.router.navigate(['/app/tabs/home']);
+        this.router.navigate(['/app/tabs']);
+    };
+    TouchLoginService.prototype.openModal = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var modal;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modalCtrl.create({
+                            component: _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_7__["PinModalPage"],
+                            componentProps: {
+                                paramID: 123,
+                                paramTitle: 'Test title'
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        return [4 /*yield*/, modal.present()];
+                    case 2: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
     };
     TouchLoginService.prototype.exitApp = function () {
         this.subscription = this.platform.backButton.subscribe(function () {
@@ -1193,7 +1406,8 @@ var TouchLoginService = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__["SplashScreen"],
             _auth_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])
     ], TouchLoginService);
     return TouchLoginService;
 }());
@@ -1250,7 +1464,7 @@ var TimerService = /** @class */ (function () {
             }
             _this.temporizador.segundos = _this.contador_s;
             _this.contador_s++;
-        }, 1000);
+        }, 1000000);
     };
     TimerService.prototype.logout = function (alerta) {
         if (alerta === void 0) { alerta = true; }

@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
         // @ts-ignore
         // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
         // this.router.navigate(['/perfil',data.id]);
-        this.router.navigate(['/app/tabs/profile']);
+        this.router.navigate(['/app/tabs']);
       } else {
         this.presentToast();
       }
@@ -49,6 +49,8 @@ export class LoginPage implements OnInit {
   }
 
   async openModal() {
+    const moda = await this.modalCtrl.getTop()
+    console.log(moda)
     const modal = await this.modalCtrl.create({
       component: PinModalPage,
       componentProps: {

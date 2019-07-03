@@ -27,15 +27,17 @@ export class AuthService {
   }
 
   login(user, password) {
-    return new Promise((resolve, reject) => {
-      this.api.post('auth/login', {email: user, password})
+    return new Promise((resolve) => {
+      this.api.post('auth/login', {email: user, password: password})
         .then(async (data: any) => {
-          console.log('data response', data);
+          console.log('data response', data.data);
           if (data.hasOwnProperty('error') === false) {
-            this.usuario = data;
+            this.usuario = data.data;
             this.store.set('user', this.usuario)
+            console.log(await this.store.get('user'))
             // localStorage.setItem('user', JSON.stringify(this.usuario));
             this.timer.iniciarTemporizador();
+            console.info('data', data)
             resolve(data);
           } else {
             resolve(null);
@@ -74,14 +76,15 @@ export class AuthService {
 
   async isLogin() {
     const user = await this.store.get('user')
-    return user != null && this.usuario.serializeToken != null && this.usuario.id != null;
+    console.info(user)
+    return !!user;
   }
 
   logout() {
     this.timer.logout(false);
     // localStorage.removeItem('user');
-    this.store.remove('user')
-    this.store.clear();
+    // this.store.remove('user')
+    // this.store.clear();
     this.menu.enable(false);
     this.router.navigate(['']);
   }

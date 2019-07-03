@@ -41,7 +41,8 @@ var LoginPageModule = /** @class */ (function () {
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes),
             ],
-            declarations: [_login_page__WEBPACK_IMPORTED_MODULE_6__["LoginPage"]]
+            declarations: [_login_page__WEBPACK_IMPORTED_MODULE_6__["LoginPage"]],
+            entryComponents: []
         })
     ], LoginPageModule);
     return LoginPageModule;
@@ -58,7 +59,7 @@ var LoginPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content padding>\n    <h4 text-center\n        style=\"margin-top: 15%; font-size: 50px; margin-bottom: 25%; color: black \">\n        EYEWALLET</h4>\n    <form #formulario (submit)=\"login()\">\n        <ion-list>\n            <ion-label stacked style=\"color: white; text-align: center; margin-bottom: 5%;\n  font-size: 18px;\">Email\n            </ion-label>\n            <ion-item style=\"margin-bottom: 5%\">\n                <ion-input type=\"email\" required name=\"correo\" [(ngModel)]=\"username\" placeholder=\"Email\"></ion-input>\n            </ion-item>\n            <ion-label stacked style=\"color: white; text-align: center; margin-bottom: 5%;\n  font-size: 18px;\">Contraseña\n            </ion-label>\n            <ion-item>\n                <ion-input type=\"password\" required name=\"clave\" [(ngModel)]=\"password\"\n                           placeholder=\"Contraseña\"></ion-input>\n            </ion-item>\n        </ion-list>\n        <div text-center>\n            <ion-button color=\"success\" type=\"submit\" color=\"primary\" expand=\"block\">INICIAR SESIÓN</ion-button>\n        </div>\n    </form>\n</ion-content>\n\n"
+module.exports = "<ion-content padding>\n    <h4 text-center\n        style=\"margin-top: 15%; font-size: 50px; margin-bottom: 25%; color: black \">\n        EYEWALLET</h4>\n    <form #formulario (submit)=\"login()\">\n        <ion-list>\n            <ion-label stacked style=\"color: white; text-align: center; margin-bottom: 5%;\n  font-size: 18px;\">Email\n            </ion-label>\n            <ion-item style=\"margin-bottom: 5%\">\n                <ion-input type=\"email\" required name=\"correo\" [(ngModel)]=\"username\" placeholder=\"Email\"></ion-input>\n            </ion-item>\n            <ion-label stacked style=\"color: white; text-align: center; margin-bottom: 5%;\n  font-size: 18px;\">Contraseña\n            </ion-label>\n            <ion-item>\n                <ion-input type=\"password\" required name=\"clave\" [(ngModel)]=\"password\"\n                           placeholder=\"Contraseña\"></ion-input>\n            </ion-item>\n        </ion-list>\n        <div text-center>\n            <ion-button color=\"success\" type=\"submit\" color=\"primary\" expand=\"block\">INICIAR SESIÓN</ion-button>\n        </div>\n        <div text-center=\"\">\n            <ion-button (click)=\"openModal()\">Open Modal</ion-button>\n        </div>\n    </form>\n</ion-content>\n\n"
 
 /***/ }),
 
@@ -88,18 +89,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_auth_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/auth/auth.service */ "./src/app/services/auth/auth.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
+
+
 
 
 
 
 
 var LoginPage = /** @class */ (function () {
-    function LoginPage(loadingController, toastController, aut, menu, router) {
+    function LoginPage(loadingController, toastController, aut, menu, router, modalCtrl) {
         this.loadingController = loadingController;
         this.toastController = toastController;
         this.aut = aut;
         this.menu = menu;
         this.router = router;
+        this.modalCtrl = modalCtrl;
     }
     LoginPage.prototype.ngOnInit = function () {
         this.menu.enable(false);
@@ -116,7 +121,7 @@ var LoginPage = /** @class */ (function () {
                         // @ts-ignore
                         // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
                         // this.router.navigate(['/perfil',data.id]);
-                        _this.router.navigate(['/app/tabs/profile']);
+                        _this.router.navigate(['/app/tabs']);
                     }
                     else {
                         _this.presentToast();
@@ -125,6 +130,30 @@ var LoginPage = /** @class */ (function () {
                     console.log(error);
                 });
                 return [2 /*return*/];
+            });
+        });
+    };
+    LoginPage.prototype.openModal = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var moda, modal;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modalCtrl.getTop()];
+                    case 1:
+                        moda = _a.sent();
+                        console.log(moda);
+                        return [4 /*yield*/, this.modalCtrl.create({
+                                component: _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_5__["PinModalPage"],
+                                componentProps: {
+                                    paramID: 123,
+                                    paramTitle: 'Test title'
+                                }
+                            })];
+                    case 2:
+                        modal = _a.sent();
+                        return [4 /*yield*/, modal.present()];
+                    case 3: return [2 /*return*/, _a.sent()];
+                }
             });
         });
     };
@@ -155,7 +184,8 @@ var LoginPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
             _services_auth_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
     ], LoginPage);
     return LoginPage;
 }());

@@ -18,12 +18,12 @@ import {CameraProvider} from './services/camera/camera';
 import {Device} from '@ionic-native/device/ngx';
 import {TouchLoginService} from './services/fingerprint/touch-login.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
-import {PinModalPageModule} from './pin-modal/pin-modal.module';
+import {PinModalPage} from "./pin-modal/pin-modal.page";
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, PinModalPage],
+  entryComponents: [PinModalPage],
   imports: [
       BrowserModule,
     IonicModule.forRoot(),
