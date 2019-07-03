@@ -3,6 +3,8 @@ import {LoadingController, MenuController, ToastController} from '@ionic/angular
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import { AxiosService } from '../services/axios/axios.service';
+import {ModalController} from '@ionic/angular';
+import {PinModalPage} from '../pin-modal/pin-modal.page';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,7 @@ export class LoginPage implements OnInit {
 
   username: string;
   password: string;
+  dataReturned: any;
 
   constructor(
     private loadingController: LoadingController,
@@ -20,7 +23,8 @@ export class LoginPage implements OnInit {
     private aut: AuthService,
     private menu: MenuController,
     private router: Router,
-    private loginHttpReq: AxiosService
+    private loginHttpReq: AxiosService,
+    public modalCtrl: ModalController
   ) {
   }
 
@@ -45,6 +49,20 @@ export class LoginPage implements OnInit {
     }).catch((error) => {
       console.log(error);
     });
+  }
+
+  async openModal() {
+    const moda = await this.modalCtrl.getTop()
+    console.log(moda)
+    const modal = await this.modalCtrl.create({
+      component: PinModalPage,
+      componentProps: {
+        paramID: 123,
+        paramTitle : 'Test title'
+      }
+    });
+
+    return await modal.present();
   }
 
   async presentToast() {

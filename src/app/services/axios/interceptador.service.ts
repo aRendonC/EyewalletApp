@@ -21,8 +21,8 @@ export class InterceptadorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.auth.isLogin()) {
-      const user: any = localStorage.getItem('user');
-      const token = user.serializeToken;
+      const user: any = this.storage.get('user')
+      const token = user.accessToken;
       if (token) {
         request = request.clone({
           setHeaders: {
@@ -62,8 +62,8 @@ export class InterceptadorService implements HttpInterceptor {
 
 
   logout() {
-    localStorage.removeItem('user');
-    localStorage.clear();
+    this.storage.remove('user')
+    this.storage.clear();
     this.timer.resetTimer();
     this.navCtrl.navigateRoot('/login');
     this.presentAlerta();

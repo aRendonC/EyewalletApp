@@ -7,6 +7,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 
 export class AxiosService {
+  // url = 'http://localhost:3000/';
   url = 'https://ad97da3d.ngrok.io/api/v1/';
   headers: HttpHeaders;
 
@@ -26,7 +27,7 @@ export class AxiosService {
         url += user.accessParam();
       }
       if (params) {
-        const urlParams = this.jsonToURLEncoded(params);
+        const urlParams = params;
         if (user) {
           url += '&' + urlParams;
         } else {
@@ -50,15 +51,17 @@ export class AxiosService {
         authorization: 'Bearer ' + user.accessParam()
       });
     }
+    console.info(body)
     return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {
       headers: this.headers
     }).toPromise();
   }
 
   jsonToURLEncoded(jsonString) {
-    return Object.keys(jsonString).map(function(key) {
-      return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
-    }).join('&');
+    return jsonString
+    // return Object.keys(jsonString).map(function(key) {
+    //   return encodeURIComponent(key) + '=' + encodeURIComponent(jsonString[key]);
+    // }).join('&');
   }
 
 

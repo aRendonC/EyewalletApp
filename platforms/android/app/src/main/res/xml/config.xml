@@ -18,6 +18,9 @@
     <feature name="Camera">
         <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
     </feature>
+    <feature name="Fingerprint">
+        <param name="android-package" value="de.niklasmerz.cordova.fingerprint.Fingerprint" />
+    </feature>
     <allow-navigation href="http://localhost/*" />
     <allow-navigation href="https://localhost/*" />
     <allow-navigation href="ionic://*" />

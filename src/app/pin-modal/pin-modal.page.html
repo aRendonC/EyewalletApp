@@ -1,0 +1,126 @@
+<ion-content  class="background-image">
+  <ion-list text-center>
+    <ion-grid  text-center>
+      <ion-col text-center>
+      <ion-label>
+        <img class="imgLogo" style="width: 50%; height: 50%;" src="./assets/img/touchId/eyewalletIcon.svg" />
+      </ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label *ngIf="ctrlPin" text-center>
+          <h1>Introduce tu pin de Seguridad</h1>
+        </ion-label>
+        <ion-label *ngIf="!ctrlPin" text-center>
+          <h1>Código incorrecto</h1>
+        </ion-label>
+      </ion-col>
+    </ion-grid>
+  </ion-list>
+  <ion-list>
+   <ion-grid>
+     <ion-row>
+       <ion-col>
+         <ion-item text-center [ngClass]="{'pin-ok': pin.length >= 1, 'pin-none': pin.length <= 0}">
+
+         </ion-item>
+       </ion-col>
+       <ion-col align-self-center>
+         <ion-item text-center [ngClass]="{'pin-ok': pin.length >= 2, 'pin-none': pin.length <= 1}">
+
+         </ion-item>
+       </ion-col>
+       <ion-col align-self-center>
+         <ion-item text-center [ngClass]="{'pin-ok': pin.length >= 3, 'pin-none': pin.length <= 2}">
+
+         </ion-item>
+       </ion-col>
+       <ion-col align-self-center>
+         <ion-item text-center [ngClass]="{'pin-ok': pin.length >= 4, 'pin-none': pin.length <= 3}">
+
+         </ion-item>
+       </ion-col>
+       <ion-col align-self-center>
+         <ion-item text-center [ngClass]="{'pin-ok': pin.length >= 5, 'pin-none': pin.length <= 4}">
+
+         </ion-item>
+       </ion-col>
+       <ion-col align-self-center>
+         <ion-item text-center [ngClass]="{'pin-ok': pin.length >= 6, 'pin-none': pin.length <= 5}">
+
+         </ion-item>
+       </ion-col>
+     </ion-row>
+   </ion-grid>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button (click)="savePinData(1)" class="round ion-no-margin ion-no-padding"  expand="full">
+          <h1>1</h1>
+        </ion-button>
+      </ion-col>
+      <ion-col text-center>
+        <ion-button (click)="savePinData(2)" class="round ion-no-margin ion-no-padding"  expand="full">
+          <h1>2</h1>
+        </ion-button>
+      </ion-col>
+      <ion-col text-center>
+        <ion-button (click)="savePinData(3)" class="round ion-no-margin ion-no-padding"  expand="full">
+          <h1>3</h1>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button (click)="savePinData(4)" class="round ion-no-margin ion-no-padding"  expand="full">
+          <h1>4</h1>
+        </ion-button>
+      </ion-col>
+      <ion-col text-center>
+        <ion-button (click)="savePinData(5)" class="round ion-no-margin ion-no-padding"  expand="full">
+          <h1>5</h1>
+        </ion-button>
+      </ion-col>
+      <ion-col text-center>
+        <ion-button (click)="savePinData(6)" class="round ion-no-margin ion-no-padding"  expand="full">
+          <h1>6</h1>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-nowrap" text-center>
+        <ion-button (click)="savePinData(7)" class="round ion-no-margin ion-no-padding"  expand="full">
+          <h1>7</h1>
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-nowrap" text-center>
+        <ion-button (click)="savePinData(8)" class="round ion-no-margin ion-no-padding"  expand="full">
+          <h1>8</h1>
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-nowrap" no-margin nowrap text-center>
+        <ion-button (click)="savePinData(9)" class="round ion-no-margin ion-no-padding"  expand="full">
+          <h1>9</h1>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+       <ion-button (click)="showFingerPrint()" class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent" expand="full">
+         <img width="50%" src="./assets/img/touchId/touch.svg" />
+       </ion-button>
+      </ion-col>
+      <ion-col text-center class="ion-nowrap">
+        <ion-button  class="round ion-no-margin ion-no-padding" (click)="savePinData(0)" expand="full">
+          <h1>0</h1>
+        </ion-button>
+      </ion-col>
+      <ion-col text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" (click)="deletePinData()" color="transparent" expand="full">
+          <img width="50%" src="./assets/img/touchId/deletePin.svg" />
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
