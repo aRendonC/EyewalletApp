@@ -9,7 +9,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 
 export class AxiosService {
-  private url: string = 'https://ad97da3d.ngrok.io/api/v1/';
+  private url = 'https://ad97da3d.ngrok.io/api/v1/';
   private headers: HttpHeaders;
 
   constructor(
@@ -44,7 +44,7 @@ export class AxiosService {
   }
 
   public post(endpoint: string, body: object, user?: any): Promise<any> {
-    const url: string = `${this.url}${endpoint}`;
+    const url = `${this.url}${endpoint}`;
 
     if (user != null) {
       this.headers = new HttpHeaders({
@@ -53,12 +53,10 @@ export class AxiosService {
         authorization: 'Bearer ' + user.accessParam()
       });
     }
-    console.info(body)
+    console.info(body);
     return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {
       headers: this.headers
-    };
-    return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, headersPost)
-    .toPromise();
+    }).toPromise();
   }
 
   private jsonToURLEncoded(jsonString) {

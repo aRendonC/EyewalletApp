@@ -43,7 +43,7 @@ import { IonicStorageModule } from '@ionic/storage';
     Camera,
     CameraProvider,
     Device,
-    NativePageTransitions
+    NativePageTransitions,
     FingerprintAIO,
     TouchLoginService,
   ],
