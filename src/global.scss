@@ -9,3 +9,16 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+.button-enable, .button-enable:hover {
+   --background: -webkit-linear-gradient(to right, #4DAAFF, #7300FF);
+   --background: linear-gradient(to right, #4DAAFF, #7300FF);
+   --color: white;
+   font-size: 16px !important;
+}
+
+.button-disable, .button-disable:hover {
+   --background: #354E91;
+   --color: white;
+   font-size: 16px !important;
+}

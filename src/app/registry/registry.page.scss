@@ -1,0 +1,66 @@
+.content-registry {
+   --background: url('../../assets/images/bg-registry.png');
+
+   .content-header {
+      margin: 80px 0;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+
+      .icon {
+         margin: 0 10px;
+      }
+
+      .title {
+         color: white;
+         text-transform: capitalize;
+         font-weight: bold;
+      }
+   }
+
+   .content-form {
+      .list-form {
+         background: none;
+         padding: 30px;
+
+         .list-item {
+            --background: transparent !important;
+            background: transparent !important;
+            --border-color: white !important;
+            --highlight-height: 0;
+
+            .icon-input {
+               margin: 0 10px 0 0;
+            }
+
+            .input {
+               --placeholder-color: white;
+               color: white;
+            }
+         }
+      }
+   }
+
+   .content-terms-conditions {
+      background: #354E91;
+      margin: 20px 0;
+      padding: 20px 40px;
+      color: white;
+      font-size: 14px;
+
+      .text {
+         .terms-conditions {
+            display: block;
+            margin: 10px 0 0 0;
+            text-align: center;
+            text-transform: capitalize;
+            color: white;
+            
+            .text-terms-conditions {
+               text-decoration: none;
+               color: #28255C;
+            }
+         }
+      }
+   }
+}

@@ -8,7 +8,6 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {IonicStorageModule} from '@ionic/storage';
 
 import {AxiosService} from './services/axios/axios.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -17,11 +16,21 @@ import {Camera} from '@ionic-native/camera/ngx';
 import {CameraProvider} from './services/camera/camera';
 import {Device} from '@ionic-native/device/ngx';
 
+// LocalStorage.
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
-    IonicStorageModule.forRoot()],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    IonicStorageModule.forRoot()
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -32,7 +41,9 @@ import {Device} from '@ionic-native/device/ngx';
     CameraProvider,
     Device,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
-export class AppModule {
-}
+
+export class AppModule {}

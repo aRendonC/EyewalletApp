@@ -1,0 +1,85 @@
+<ion-content class="content-registry">
+  <div class="content-header">
+    <ion-img class="icon" src="../../assets/icon/icon-wallet.png"></ion-img>
+    <span class="title">{{constants.REGISTRY.TITLE}}</span>
+  </div>
+
+  <form class="content-form" #form="ngForm" (ngSubmit)="sendDataRegistry()">
+
+    <ion-list class="list-form">
+
+      <ion-item class="list-item">
+        <ion-img slot="start" class="icon-input" src="../../assets/icon/icon-email.png"></ion-img>
+        <ion-input
+          [placeholder]="constants.REGISTRY.EMAIL"
+          type="email"
+          name="email"
+          [(ngModel)]="dataRegistry.email"
+          (ngModelChange)="validateEmail($event)"
+          clear-input
+          class="input"
+        ></ion-input>
+        <ion-img *ngIf="emailOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
+      </ion-item>
+
+      <ion-item class="list-item">
+        <ion-img slot="start" class="icon-input" src="../../assets/icon/icon-email.png"></ion-img>
+        <ion-input
+          [placeholder]="constants.REGISTRY.PHONE"
+          type="text"
+          name="phon"
+          [(ngModel)]="dataRegistry.phone"
+          (ngModelChange)="validatePhone($event)"
+          clear-input
+          class="input"
+        ></ion-input>
+        <ion-img *ngIf="emailOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
+      </ion-item>
+
+      <ion-item class="list-item">
+        <ion-img slot="start" class="icon-input" src="../../assets/icon/icon-password.png"></ion-img>
+        <ion-input
+          type="password"
+          [placeholder]="constants.REGISTRY.CONTRASENA"
+          name="password"
+          [(ngModel)]="dataRegistry.password"
+          (ngModelChange)="validatePassword($event)"
+          clear-input
+          class="input"
+        ></ion-input>
+        <ion-img *ngIf="passwordOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
+      </ion-item>
+
+    </ion-list>
+
+    <div class="content-terms-conditions">
+      <span class="text">
+        {{constants.REGISTRY.TERMS_AND_CONDITIONS}}
+        <span class="terms-conditions">
+          <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">
+            {{constants.REGISTRY.TERMS_SERVICE}}
+          </a>
+          &
+          <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">
+            {{constants.REGISTRY.PRIVACY_POLICY}}
+          </a>
+        </span>
+      </span>
+    </div>
+
+    <div class="content-button">
+      <ion-button
+        type="submit"
+        expand="full"
+        text-capitalize
+        [disabled]="disableButton"
+        shape="round"
+        [ngClass]="classButton"
+      >
+        {{constants.REGISTRY.BUTTON}}
+      </ion-button>
+    </div>
+
+  </form>
+
+</ion-content>

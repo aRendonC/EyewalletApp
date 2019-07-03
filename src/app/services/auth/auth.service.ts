@@ -26,7 +26,7 @@ export class AuthService {
 
   login(usuario, password) {
     return new Promise((resolve, reject) => {
-      this.api.post('auth/login', {email: usuario, password})
+      this.api.post('auth/login', {email: usuario, password: password})
         .then(async (data: any) => {
           console.log(data);
           if (data.hasOwnProperty('error') === false) {
