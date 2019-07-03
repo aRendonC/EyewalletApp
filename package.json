@@ -86,7 +86,7 @@
       },
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-camera": {},
-      "com.telerik.plugins.nativepagetransitions": {}
+      "com.telerik.plugins.nativepagetransitions": {},
       "cordova-plugin-fingerprint-aio": {}
     },
     "platforms": [

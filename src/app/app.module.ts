@@ -40,7 +40,7 @@ import {PinModalPage} from "./pin-modal/pin-modal.page";
     Camera,
     CameraProvider,
     Device,
-    NativePageTransitions
+    NativePageTransitions,
     FingerprintAIO,
     TouchLoginService,
   ],
