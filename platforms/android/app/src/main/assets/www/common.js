@@ -377,8 +377,6 @@ function debounce(func, wait) {
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./src/app/constanst/index.ts":
 /*!************************************!*\
   !*** ./src/app/constanst/index.ts ***!
@@ -414,7 +412,6 @@ var TITLES = {
 
 /***/ }),
 
->>>>>>> developers
 /***/ "./src/app/services/device/device.service.ts":
 /*!***************************************************!*\
   !*** ./src/app/services/device/device.service.ts ***!

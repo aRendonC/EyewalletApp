@@ -450,15 +450,10 @@ var map = {
 		"./src/app/login/login.module.ts",
 		"login-login-module"
 	],
-<<<<<<< HEAD
 	"./pin/pin.module": [
 		"./src/app/pin/pin.module.ts",
 		"pin-pin-module"
 	],
-	"./registry/registry.module": [
-		"./src/app/registry/registry.module.ts",
-		"default~registry-registry-module~restore-restore-module",
-=======
 	"./registry-pin/registry-pin.module": [
 		"./src/app/registry-pin/registry-pin.module.ts",
 		"common",
@@ -466,7 +461,7 @@ var map = {
 	],
 	"./registry/registry.module": [
 		"./src/app/registry/registry.module.ts",
->>>>>>> developers
+		"default~registry-registry-module~restore-restore-module",
 		"common",
 		"registry-registry-module"
 	],
@@ -522,15 +517,11 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     { path: '', loadChildren: './home/home.module#HomePageModule' },
     { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-    { path: 'restore', loadChildren: './restore/restore.module#RestorePageModule' },
     { path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule' },
     { path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule' },
-<<<<<<< HEAD
+    { path: 'registry-pin', loadChildren: './registry-pin/registry-pin.module#RegistryPinPageModule' },
     { path: 'restore', loadChildren: './restore/restore.module#RestorePageModule' },
     { path: 'pin', loadChildren: './pin/pin.module#PinPageModule' }
-=======
-    { path: 'registry-pin', loadChildren: './registry-pin/registry-pin.module#RegistryPinPageModule' }
->>>>>>> developers
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -662,10 +653,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
 /* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-<<<<<<< HEAD
-/* harmony import */ var _ionic_native_base64_ngx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic-native/base64/ngx */ "./node_modules/@ionic-native/base64/ngx/index.js");
-=======
->>>>>>> developers
 
 
 
@@ -686,8 +673,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // LocalStorage.
-
-// Plugins cordova.
 
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -714,11 +699,7 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_14__["Device"],
                 _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_15__["NativePageTransitions"],
                 _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__["FingerprintAIO"],
-                _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__["TouchLoginService"],
-<<<<<<< HEAD
-                _ionic_native_base64_ngx__WEBPACK_IMPORTED_MODULE_20__["Base64"]
-=======
->>>>>>> developers
+                _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__["TouchLoginService"]
             ],
             bootstrap: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]
@@ -835,12 +816,16 @@ var PinModalPage = /** @class */ (function () {
                         return [4 /*yield*/, this.store.get('user')];
                     case 1:
                         user = _a.sent();
-                        console.log(user);
+                        console.log('usuario', user);
                         if (user) {
-                            user.pin = this.aesjs.desencriptar(user.pin);
+                            user.pin = this.aesjs.decrypt(user.pin);
                             if (pinData_1 === user.pin) {
                                 this.closeModal();
-                                this.router.navigate(['/app/tabs/profile']);
+                                user.pin = this.aesjs.encrypt(user.pin);
+                                console.info('user encriptado', user);
+                                this.store.set('user', user);
+                                console.table('todo el store', this.store);
+                                this.router.navigate(['/app/tabs']);
                             }
                             else {
                                 this.ctrlPin = false;
@@ -935,30 +920,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var aes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! aes-js */ "./node_modules/aes-js/index.js");
 /* harmony import */ var aes_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(aes_js__WEBPACK_IMPORTED_MODULE_2__);
 
+// Dependencies.
 
 
-var key = [145, 201, 214, 208, 30, 76, 16, 177, 233, 99, 191, 12, 239, 181,
-    51, 19, 176, 223, 2, 251, 117, 224, 30, 77, 17, 233, 120, 210, 45, 70, 180, 150,];
 var AesJsService = /** @class */ (function () {
     function AesJsService() {
+        this.key = [
+            145, 201, 214, 208, 30, 76, 16, 177, 233, 99, 191, 12, 239, 181, 51, 19, 176, 223, 2, 251, 117, 224, 30, 77, 17, 233, 120, 210, 45, 70, 180, 150,
+        ];
     }
-    // decriptData(crypt: any) {
-    //   return new Promise((resolve) => {
-    //     const encryptedBytes = this.aesjs.utils.hex.toBytes(crypt)
-    //     const aesCtr = new this.aesjs.ModeOfOperation.ctr(this.SECRET_DATA_TOKEN, new this.aesjs.Counter(5))
-    //     const decryptedBytes = aesCtr.decrypt(encryptedBytes)
-    //     resolve(this.aesjs.utils.utf8.fromBytes(decryptedBytes))
-    //   })
-    // }
-    AesJsService.prototype.encriptar = function (texto) {
-        var textBytes = aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].utf8.toBytes(texto);
-        var aesCtr = new aes_js__WEBPACK_IMPORTED_MODULE_2__["ModeOfOperation"].ctr(key, new aes_js__WEBPACK_IMPORTED_MODULE_2__["Counter"](5));
+    AesJsService.prototype.encrypt = function (text) {
+        var textBytes = aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].utf8.toBytes(text);
+        var aesCtr = new aes_js__WEBPACK_IMPORTED_MODULE_2__["ModeOfOperation"].ctr(this.key, new aes_js__WEBPACK_IMPORTED_MODULE_2__["Counter"](5));
         var encryptedBytes = aesCtr.encrypt(textBytes);
         return aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].hex.fromBytes(encryptedBytes);
     };
-    AesJsService.prototype.desencriptar = function (texto) {
-        var encryptedBytes = aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].hex.toBytes(texto);
-        var aesCtr = new aes_js__WEBPACK_IMPORTED_MODULE_2__["ModeOfOperation"].ctr(key, new aes_js__WEBPACK_IMPORTED_MODULE_2__["Counter"](5));
+    AesJsService.prototype.decrypt = function (text) {
+        var encryptedBytes = aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].hex.toBytes(text);
+        var aesCtr = new aes_js__WEBPACK_IMPORTED_MODULE_2__["ModeOfOperation"].ctr(this.key, new aes_js__WEBPACK_IMPORTED_MODULE_2__["Counter"](5));
         var decryptedBytes = aesCtr.decrypt(encryptedBytes);
         return aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].utf8.fromBytes(decryptedBytes);
     };
@@ -1017,7 +996,7 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.login = function (user, password) {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.api.post('auth/login', { email: user, password: password })
+            _this.api.post('auth/login', { email: user, password: password, deviceId: '7219d0c4ee046311' })
                 .then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
                 var _a, _b;
                 return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_c) {
@@ -1186,9 +1165,6 @@ var AxiosService = /** @class */ (function () {
                 authorization: 'Bearer ' + user.accessParam()
             });
         }
-<<<<<<< HEAD
-        return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {
-=======
         console.info(body);
         return this.http.post(url, (body != null) ? AxiosService_1.jsonToURLEncoded(body) : body, {
             headers: this.headers
@@ -1206,7 +1182,6 @@ var AxiosService = /** @class */ (function () {
         console.info(body);
         console.info(user);
         return this.http.put(url, (body != null) ? AxiosService_1.jsonToURLEncoded(body) : body, {
->>>>>>> developers
             headers: this.headers
         }).toPromise();
     };
