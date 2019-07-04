@@ -1,0 +1,61 @@
+<ion-content padding class="bghome" >
+
+  
+    <div class="move-text">
+      <p class="profile">Dirección</p>
+      <p class="we-need">Esta información es utilizada solo para verificar tu identidad.</p>
+    </div>
+    
+    <form #formulario (ngSubmit)="createProfile()" class="transparent move-form">
+    <ion-list class="transparent">
+        <!-- Dirección Linea 1 -->
+        <ion-item class="white-line">
+            <ion-input  class="white move-input" type="text" name="firstname" [(ngModel)]="address1"  placeholder="Dirección Linea 1" [ngModelOptions]="{standalone: true}"></ion-input>
+        </ion-item>
+        <!-- Dirección Linea 2 -->
+        <ion-item class="white-line">
+            <ion-input class="white move-input" type="text" name="lastname" [(ngModel)]="address2" placeholder="Dirección Linea 2" [ngModelOptions]="{standalone: true}"></ion-input>
+        </ion-item>
+        <!-- Pais -->
+        <ion-item>
+          <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" placeholder="País" display-format="YYYY-MM-DD" [(ngModel)]="country" [ngModelOptions]="{standalone: true}" (ionChange)="getState($event)">
+            <ion-select-option *ngFor="let country of countries">{{country[1]}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <!-- Estado / Region / Provincia / Departamento -->
+        <ion-item class="white-line">
+            <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" type="number" name="state" [(ngModel)]="state" placeholder="Estado / Region / Provincia / Departamento" (ionChange)="getCity($event)">
+              <ion-select-option *ngFor="let state of states">{{state[1]}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <!-- Ciudad -->
+        <ion-item class="white-line">
+            <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" type="number" name="city" [(ngModel)]="city" placeholder="Ciudad">
+                <ion-select-option *ngFor="let city of cities">{{city[1]}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <!-- ZIP Code -->
+        <ion-item class="white-line">
+            <ion-input type="number" name="ZIP" [(ngModel)]="ZIP" placeholder="Código Postal"></ion-input>
+        </ion-item>
+    </ion-list>
+    
+    <div class="transparent move-btn">
+        <ion-button type="submit" class="btn-start" mode="ios" >&nbsp;&nbsp; Finalizar &nbsp;&nbsp;</ion-button>
+    </div>
+
+    <div class="content-terms-conditions">
+        <span>
+            Al crear tu billetera, aceptas los siguientes términos
+          <span class="terms-conditions">
+            <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">Términos De Servicios </a>
+            &
+            <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">Política De Privacidad </a>
+          </span>
+        </span>
+      </div>
+    </form>
+    
+    </ion-content>
+
+

@@ -1,0 +1,79 @@
+@import '../../theme/variables.scss';
+@import '../../global.scss';
+
+.bghome{
+    --background: url('../../assets/img/bg-home.png');
+    --background-repeat: no-repeat;
+}
+
+.move-text{
+    
+    margin-top: 6vh;
+    margin-left: 2.5vw;
+    font-family: 'Poppins', sans-serif;
+    color:white;
+    text-align: left;
+    width: 95%;
+    padding:5px;
+}
+.profile{
+    text-align: center;
+    font-size:21px;
+}
+.we-need{
+    font-size:14px;
+}
+
+.move-form{
+    width: 110%;
+    margin-left: -5%;
+}
+.white-line{
+    --highlight-height: 0
+}
+
+.move-btn{
+    margin-top: 5vh;
+    text-align: center
+}
+.btn-start{
+    --background: #4C6AC0;
+    --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+    --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+    --padding-start: 15vh;
+    --padding-end: 14vh;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --border-radius: 100px;
+    --opacity: 0.86;
+    font-family: 'Poppins', sans-serif;
+}
+.transparent{
+    --background: transparent !important;
+    background: transparent !important;
+}
+
+.content-terms-conditions {
+    background: #4C6AC0;
+    margin: 20px 0;
+    padding: 20px 40px;
+    font-family: $font-regular;
+    color: white;
+    font-size: 11px;
+    text-align: center;
+}
+.text-terms-conditions {
+    text-decoration: none;
+    color: #28255C;
+}
+
+ion-item{
+    --inner-padding-start: 5vw;
+    color: #9AB8DB
+}
+
+ion-datetime{
+    --placeholder-color: #CEDCED;
+    --padding-start: -10px;
+    --placeholder-opacity: 1!important;
+}
