@@ -4,12 +4,15 @@ import {Injectable} from '@angular/core';
 // Http client.
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
+// Enviroments.
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class AxiosService {
-  private url = 'https://ad97da3d.ngrok.io/api/v1/';
+  private url: string = environment.urlBase;
   private headers: HttpHeaders;
 
   constructor(

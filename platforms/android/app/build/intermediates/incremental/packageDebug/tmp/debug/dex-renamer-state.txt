@@ -1,4 +1,9 @@
+<<<<<<< HEAD
+#Thu Jul 04 09:01:54 COT 2019
+base.0=/Users/luismunar-eyeline/development/eyeline/EyewalletApp/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+=======
 #Wed Jul 03 19:04:50 COT 2019
 base.0=/Users/eyeline/Documents/GitHub/EyewalletApp/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+>>>>>>> developers
 path.0=classes.dex
 renamed.0=classes.dex

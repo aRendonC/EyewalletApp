@@ -73,13 +73,12 @@
     "is_top_level": true,
     "variables": {}
   },
-    "cordova-plugin-fingerprint-aio": {
-      "source": {
-        "type": "registry",
-        "id": "cordova-plugin-fingerprint-aio"
-      },
-      "is_top_level": true,
-      "variables": {}
-    }
+  "com-badrit-base64": {
+    "source": {
+      "type": "registry",
+      "id": "com-badrit-base64"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
-
+}

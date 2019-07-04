@@ -4,9 +4,11 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 const routes: Routes = [
   {path: '', loadChildren: './home/home.module#HomePageModule'},
   {path: 'login', loadChildren: './login/login.module#LoginPageModule'},
+  {path: 'restore', loadChildren: './restore/restore.module#RestorePageModule'},
   {path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule'},
-  { path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule' },
-  { path: 'registry-pin', loadChildren: './registry-pin/registry-pin.module#RegistryPinPageModule' }
+  {path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule'},
+  {path: 'restore', loadChildren: './restore/restore.module#RestorePageModule'},
+  {path: 'pin', loadChildren: './pin/pin.module#PinPageModule'}
 ];
 
 @NgModule({

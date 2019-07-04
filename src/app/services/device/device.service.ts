@@ -6,8 +6,6 @@ import {Device} from '@ionic-native/device/ngx';
 })
 
 export class DeviceService {
-
-
   constructor(private device: Device) {
     this.getDataDevice();
   }
@@ -24,5 +22,4 @@ export class DeviceService {
       serial: this.device.serial,
     };
   }
-
 }

@@ -61,10 +61,10 @@ export class PinModalPage implements OnInit {
       let user = await this.store.get('user')
       console.log('usuario', user)
       if(user) {
-        user.pin = this.aesjs.desencriptar(user.pin)
+        user.pin = this.aesjs.decrypt(user.pin)
         if(pinData === user.pin) {
           this.closeModal()
-          user.pin = this.aesjs.encriptar(user.pin)
+          user.pin = this.aesjs.encrypt(user.pin)
           console.info('user encriptado', user)
           this.store.set('user', user)
           console.table('todo el store', this.store)
