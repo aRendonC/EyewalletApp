@@ -63,11 +63,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-<<<<<<< HEAD
-/******/ 		return __webpack_require__.p + "" + ({"common":"common","home-home-module":"home-home-module","login-login-module":"login-login-module","profile-profile-module":"profile-profile-module","registry-registry-module":"registry-registry-module","tabs-tabs-module":"tabs-tabs-module"}[chunkId]||chunkId) + ".js"
-=======
-/******/ 		return __webpack_require__.p + "" + ({"common":"common","home-home-module":"home-home-module","login-login-module":"login-login-module","profile-profile-module":"profile-profile-module","tabs-tabs-module":"tabs-tabs-module"}[chunkId]||chunkId) + ".js"
->>>>>>> EWM-R07
+/******/ 		return __webpack_require__.p + "" + ({"common":"common","home-home-module":"home-home-module","registry-pin-registry-pin-module":"registry-pin-registry-pin-module","registry-registry-module":"registry-registry-module","login-login-module":"login-login-module","profile-profile-module":"profile-profile-module","tabs-tabs-module":"tabs-tabs-module"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function

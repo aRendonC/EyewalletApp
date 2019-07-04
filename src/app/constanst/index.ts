@@ -7,5 +7,15 @@ export const REGISTRY = {
    TERMS_AND_CONDITIONS: 'Al crear tu billetera aceptas los siguientes términos:',
    TERMS_SERVICE: 'términos de servicios',
    PRIVACY_POLICY: 'política de privacidad',
-   BUTTON: 'crear billetera'
+   BUTTON: 'crear billetera',
+}
+
+export const PIN = {
+   CEATE_PIN: 'Crear PIN',
+   ENTER_PIN: 'Ingresar PIN'
+}
+
+export const TITLES = {
+   EYEWALLET: 'EYEWALLET',
+   CRYPTO_BANCK: 'CRYPTO BANK'
 }

@@ -7,7 +7,7 @@ import * as CONSTANTS from '../constanst';
 import { AxiosService } from '../services/axios/axios.service';
 
 // Navigations.
-import { Router } from '@angular/router';
+import {NavigationExtras, Router} from '@angular/router';
 
 @Component({
   selector: 'app-registry',
@@ -108,13 +108,20 @@ export class RegistryPage implements OnInit {
 	    password: this.dataRegistry.password
     };
 
+
     this.register.post(urlRegistry, dataBody)
-    .then(response => {
+    .then(async response => {
+      console.table(response)
       if (response.status === 200) {
-        console.log(response.status);
-        this.router.navigate(['']);
+        console.log(response.data);
+        let navigationExtras: NavigationExtras = {
+          queryParams: {
+            user: JSON.stringify(response.data),
+          }
+        }
+        this.router.navigate(['registry-pin'], navigationExtras);
       }
     });
-    
+
   }
 }

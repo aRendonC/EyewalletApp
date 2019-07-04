@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#Wed Jul 03 12:36:09 COT 2019
-=======
-#Wed Jul 03 11:44:41 COT 2019
->>>>>>> EWM-R07
+#Wed Jul 03 19:04:50 COT 2019
 base.0=/Users/eyeline/Documents/GitHub/EyewalletApp/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

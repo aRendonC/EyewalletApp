@@ -434,6 +434,7 @@ module.exports = webpackAsyncContext;
 var map = {
 	"../home/home.module": [
 		"./src/app/home/home.module.ts",
+		"common",
 		"home-home-module"
 	],
 	"../profile/profile.module": [
@@ -442,14 +443,21 @@ var map = {
 	],
 	"./home/home.module": [
 		"./src/app/home/home.module.ts",
+		"common",
 		"home-home-module"
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
 		"login-login-module"
 	],
+	"./registry-pin/registry-pin.module": [
+		"./src/app/registry-pin/registry-pin.module.ts",
+		"common",
+		"registry-pin-registry-pin-module"
+	],
 	"./registry/registry.module": [
 		"./src/app/registry/registry.module.ts",
+		"common",
 		"registry-registry-module"
 	],
 	"./tabs/tabs.module": [
@@ -466,7 +474,7 @@ function webpackAsyncContext(req) {
 			throw e;
 		});
 	}
-	return __webpack_require__.e(ids[1]).then(function() {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
 		var id = ids[0];
 		return __webpack_require__(id);
 	});
@@ -499,7 +507,8 @@ var routes = [
     { path: '', loadChildren: './home/home.module#HomePageModule' },
     { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
     { path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule' },
-    { path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule' }
+    { path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule' },
+    { path: 'registry-pin', loadChildren: './registry-pin/registry-pin.module#RegistryPinPageModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -620,7 +629,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-<<<<<<< HEAD
 /* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/axios/interceptador.service */ "./src/app/services/axios/interceptador.service.ts");
@@ -632,19 +640,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
 /* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-=======
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-/* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/axios/interceptador.service */ "./src/app/services/axios/interceptador.service.ts");
-/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
-/* harmony import */ var _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/camera/camera */ "./src/app/services/camera/camera.ts");
-/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
-/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
-/* harmony import */ var _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/fingerprint/touch-login.service */ "./src/app/services/fingerprint/touch-login.service.ts");
-/* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
-/* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
->>>>>>> EWM-R07
 
 
 
@@ -671,8 +666,8 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_19__["PinModalPage"]],
-            entryComponents: [_pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_19__["PinModalPage"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__["PinModalPage"]],
+            entryComponents: [_pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__["PinModalPage"]],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
@@ -684,7 +679,6 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
-<<<<<<< HEAD
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HTTP_INTERCEPTORS"], useClass: _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_11__["InterceptadorService"], multi: true },
                 _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_9__["AxiosService"],
                 _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_12__["Camera"],
@@ -693,16 +687,6 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_15__["NativePageTransitions"],
                 _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__["FingerprintAIO"],
                 _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__["TouchLoginService"],
-=======
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_12__["InterceptadorService"], multi: true },
-                _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_10__["AxiosService"],
-                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__["Camera"],
-                _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__["CameraProvider"],
-                _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__["Device"],
-                _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_16__["NativePageTransitions"],
-                _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_18__["FingerprintAIO"],
-                _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_17__["TouchLoginService"],
->>>>>>> EWM-R07
             ],
             bootstrap: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]
@@ -723,7 +707,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content  class=\"background-image\">\n  <ion-list text-center style=\"margin-top: 3em\">\n    <ion-grid  text-center>\n      <ion-col text-center>\n      <ion-label>\n        <img class=\"imgLogo\" style=\"width: 40%; height: 40%;\" src=\"./assets/img/touchId/eyewalletIcon.svg\" />\n      </ion-label>\n      </ion-col>\n      <ion-col>\n        <ion-label *ngIf=\"ctrlPin\" text-center>\n          <h6>Introduce tu pin de Seguridad</h6>\n        </ion-label>\n        <ion-label *ngIf=\"!ctrlPin\" text-center>\n          <h6>Código incorrecto</h6>\n        </ion-label>\n      </ion-col>\n    </ion-grid>\n  </ion-list>\n  <ion-list>\n   <ion-grid>\n     <ion-row>\n       <ion-col>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 1, 'pin-none': pin.length <= 0}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 2, 'pin-none': pin.length <= 1}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 3, 'pin-none': pin.length <= 2}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 4, 'pin-none': pin.length <= 3}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 5, 'pin-none': pin.length <= 4}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 6, 'pin-none': pin.length <= 5}\">\n\n         </ion-item>\n       </ion-col>\n     </ion-row>\n   </ion-grid>\n  </ion-list>\n  <ion-grid>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(1)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>1</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(2)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>2</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(3)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>3</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(4)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>4</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(5)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>5</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(6)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>6</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(7)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>7</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(8)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>8</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" no-margin nowrap text-center>\n        <ion-button (click)=\"savePinData(9)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>9</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n       <ion-button (click)=\"showFingerPrint()\" class=\"round ion-no-margin ion-no-padding btnNoShadow\" color=\"transparent\" expand=\"full\">\n         <img width=\"50%\" src=\"./assets/img/touchId/touch.svg\" />\n       </ion-button>\n      </ion-col>\n      <ion-col text-center class=\"ion-nowrap\">\n        <ion-button  class=\"round ion-no-margin ion-no-padding\" (click)=\"savePinData(0)\" expand=\"full\">\n          <h1>0</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button class=\"round ion-no-margin ion-no-padding btnNoShadow\" (click)=\"deletePinData()\" color=\"transparent\" expand=\"full\">\n          <img width=\"50%\" src=\"./assets/img/touchId/deletePin.svg\" />\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n"
+module.exports = "<ion-content  class=\"background-image\">\n  <ion-list text-center style=\"margin-top: 3em\">\n    <ion-grid  text-center>\n      <ion-col text-center>\n      <ion-label>\n        <img class=\"imgLogo\" style=\"width: 40%; height: 40%;\" src=\"./assets/img/touchId/eyewalletIcon.svg\" />\n      </ion-label>\n      </ion-col>\n      <ion-col>\n        <ion-label *ngIf=\"ctrlPin\" text-center>\n          <h6>Introduce tu pin de Seguridad</h6>\n        </ion-label>\n        <ion-label *ngIf=\"!ctrlPin\" text-center>\n          <ion-row>\n            <ion-col size=\"2\">\n              <ion-label>\n              <img class=\"imgLogo\" style=\"width: 35%; height: 100%;\" src=\"./assets/img/touchId/errorPin.svg\" />\n              </ion-label>\n            </ion-col>\n            <ion-col size=\"10\" text-left=\"\"> <h6>Pin de seguridad incorrecto</h6></ion-col>\n          </ion-row>\n        </ion-label>\n      </ion-col>\n    </ion-grid>\n  </ion-list>\n  <ion-list>\n   <ion-grid>\n     <ion-row>\n       <ion-col>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 1, 'pin-none': pin.length <= 0}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 2, 'pin-none': pin.length <= 1}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 3, 'pin-none': pin.length <= 2}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 4, 'pin-none': pin.length <= 3}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 5, 'pin-none': pin.length <= 4}\">\n\n         </ion-item>\n       </ion-col>\n       <ion-col align-self-center>\n         <ion-item text-center [ngClass]=\"{'pin-ok': pin.length >= 6, 'pin-none': pin.length <= 5}\">\n\n         </ion-item>\n       </ion-col>\n     </ion-row>\n   </ion-grid>\n  </ion-list>\n  <ion-grid>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(1)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>1</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(2)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>2</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(3)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>3</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(4)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>4</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(5)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>5</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button (click)=\"savePinData(6)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>6</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(7)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>7</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" text-center>\n        <ion-button (click)=\"savePinData(8)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>8</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col class=\"ion-nowrap\" no-margin nowrap text-center>\n        <ion-button (click)=\"savePinData(9)\" class=\"round ion-no-margin ion-no-padding\"  expand=\"full\">\n          <h1>9</h1>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n       <ion-button (click)=\"showFingerPrint()\" class=\"round ion-no-margin ion-no-padding btnNoShadow\" color=\"transparent\" expand=\"full\">\n         <img width=\"50%\" src=\"./assets/img/touchId/touch.svg\" />\n       </ion-button>\n      </ion-col>\n      <ion-col text-center class=\"ion-nowrap\">\n        <ion-button  class=\"round ion-no-margin ion-no-padding\" (click)=\"savePinData(0)\" expand=\"full\">\n          <h1>0</h1>\n        </ion-button>\n      </ion-col>\n      <ion-col text-center>\n        <ion-button class=\"round ion-no-margin ion-no-padding btnNoShadow\" (click)=\"deletePinData()\" color=\"transparent\" expand=\"full\">\n          <img width=\"50%\" src=\"./assets/img/touchId/deletePin.svg\" />\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n"
 
 /***/ }),
 
@@ -754,6 +738,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_aesjs_aes_js_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/aesjs/aes-js.service */ "./src/app/services/aesjs/aes-js.service.ts");
+
 
 
 
@@ -761,13 +747,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var PinModalPage = /** @class */ (function () {
-    function PinModalPage(modalCtrl, navParams, faio, store, router, platform) {
+    function PinModalPage(modalCtrl, navParams, faio, store, router, platform, aesjs) {
         this.modalCtrl = modalCtrl;
         this.navParams = navParams;
         this.faio = faio;
         this.store = store;
         this.router = router;
         this.platform = platform;
+        this.aesjs = aesjs;
         this.pin = [];
         this.ctrlPin = true;
     }
@@ -818,6 +805,7 @@ var PinModalPage = /** @class */ (function () {
                         user = _a.sent();
                         console.log(user);
                         if (user) {
+                            user.pin = this.aesjs.desencriptar(user.pin);
                             if (pinData_1 === user.pin) {
                                 this.closeModal();
                                 this.router.navigate(['/app/tabs/profile']);
@@ -890,9 +878,64 @@ var PinModalPage = /** @class */ (function () {
             _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_3__["FingerprintAIO"],
             _ionic_storage__WEBPACK_IMPORTED_MODULE_4__["Storage"],
             _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
+            _services_aesjs_aes_js_service__WEBPACK_IMPORTED_MODULE_6__["AesJsService"]])
     ], PinModalPage);
     return PinModalPage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/aesjs/aes-js.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/services/aesjs/aes-js.service.ts ***!
+  \**************************************************/
+/*! exports provided: AesJsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AesJsService", function() { return AesJsService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var aes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! aes-js */ "./node_modules/aes-js/index.js");
+/* harmony import */ var aes_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(aes_js__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var key = [145, 201, 214, 208, 30, 76, 16, 177, 233, 99, 191, 12, 239, 181,
+    51, 19, 176, 223, 2, 251, 117, 224, 30, 77, 17, 233, 120, 210, 45, 70, 180, 150,];
+var AesJsService = /** @class */ (function () {
+    function AesJsService() {
+    }
+    // decriptData(crypt: any) {
+    //   return new Promise((resolve) => {
+    //     const encryptedBytes = this.aesjs.utils.hex.toBytes(crypt)
+    //     const aesCtr = new this.aesjs.ModeOfOperation.ctr(this.SECRET_DATA_TOKEN, new this.aesjs.Counter(5))
+    //     const decryptedBytes = aesCtr.decrypt(encryptedBytes)
+    //     resolve(this.aesjs.utils.utf8.fromBytes(decryptedBytes))
+    //   })
+    // }
+    AesJsService.prototype.encriptar = function (texto) {
+        var textBytes = aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].utf8.toBytes(texto);
+        var aesCtr = new aes_js__WEBPACK_IMPORTED_MODULE_2__["ModeOfOperation"].ctr(key, new aes_js__WEBPACK_IMPORTED_MODULE_2__["Counter"](5));
+        var encryptedBytes = aesCtr.encrypt(textBytes);
+        return aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].hex.fromBytes(encryptedBytes);
+    };
+    AesJsService.prototype.desencriptar = function (texto) {
+        var encryptedBytes = aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].hex.toBytes(texto);
+        var aesCtr = new aes_js__WEBPACK_IMPORTED_MODULE_2__["ModeOfOperation"].ctr(key, new aes_js__WEBPACK_IMPORTED_MODULE_2__["Counter"](5));
+        var decryptedBytes = aesCtr.decrypt(encryptedBytes);
+        return aes_js__WEBPACK_IMPORTED_MODULE_2__["utils"].utf8.fromBytes(decryptedBytes);
+    };
+    AesJsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], AesJsService);
+    return AesJsService;
 }());
 
 
@@ -935,7 +978,7 @@ var AuthService = /** @class */ (function () {
             id: null,
             rolId: null,
             segundoFactor: null,
-            serializeToken: null,
+            accessToken: null,
         };
         this.intentarLogin();
     }
@@ -957,7 +1000,7 @@ var AuthService = /** @class */ (function () {
                         case 1:
                             _b.apply(_a, [_c.sent()]);
                             // localStorage.setItem('user', JSON.stringify(this.usuario));
-                            this.timer.iniciarTemporizador();
+                            // this.timer.iniciarTemporizador();
                             console.info('data', data);
                             resolve(data);
                             return [3 /*break*/, 3];
@@ -975,7 +1018,7 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.accessParam = function () {
         if (this.usuario != null) {
-            return this.usuario.serializeToken;
+            return this.usuario.accessToken;
         }
         return null;
     };
@@ -996,7 +1039,7 @@ var AuthService = /** @class */ (function () {
                                 id: null,
                                 rolId: null,
                                 segundoFactor: null,
-                                serializeToken: null
+                                accessToken: null
                             };
                         }
                         return [2 /*return*/];
@@ -1075,6 +1118,7 @@ var AxiosService = /** @class */ (function () {
             'Content-Type': 'application/json',
         });
     }
+    AxiosService_1 = AxiosService;
     AxiosService.prototype.get = function (endpoint, user, params) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -1108,14 +1152,30 @@ var AxiosService = /** @class */ (function () {
             });
         }
         console.info(body);
-        return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {
+        return this.http.post(url, (body != null) ? AxiosService_1.jsonToURLEncoded(body) : body, {
             headers: this.headers
         }).toPromise();
     };
-    AxiosService.prototype.jsonToURLEncoded = function (jsonString) {
+    AxiosService.prototype.put = function (endpoint, body, user) {
+        var url = "" + this.url + endpoint;
+        if (user) {
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + user.accessParam()
+            });
+        }
+        console.info(body);
+        console.info(user);
+        return this.http.put(url, (body != null) ? AxiosService_1.jsonToURLEncoded(body) : body, {
+            headers: this.headers
+        }).toPromise();
+    };
+    AxiosService.jsonToURLEncoded = function (jsonString) {
         return jsonString;
     };
-    AxiosService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    var AxiosService_1;
+    AxiosService = AxiosService_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
@@ -1434,7 +1494,7 @@ var TouchLoginService = /** @class */ (function () {
             _this.faio.show({
                 clientId: 'Identificar de huella',
                 clientSecret: 'password',
-                disableBackup: false,
+                disableBackup: true,
                 localizedFallbackTitle: 'Use Pin',
                 localizedReason: 'Please authenticate',
             })
