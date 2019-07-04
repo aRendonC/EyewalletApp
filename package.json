@@ -31,6 +31,7 @@
     "chart.js": "^2.8.0",
     "com.telerik.plugins.nativepagetransitions": "^0.6.5",
     "cordova-android": "8.0.0",
+    "cordova-ios": "^5.0.1",
     "cordova-plugin-camera": "4.0.3",
     "core-js": "^2.5.4",
     "rxjs": "~6.5.1",
@@ -86,7 +87,8 @@
       "com.telerik.plugins.nativepagetransitions": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

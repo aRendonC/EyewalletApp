@@ -1,0 +1,54 @@
+
+.bgdashboard{
+    --background:  url('../../assets/img/bg-dashboard.png');
+    --background-repeat: no-repeat;
+    
+}
+
+
+
+.resize-logo {
+    width: 30%;
+    top: 5%;
+    left: 35%;
+    display:block;
+margin:auto;
+position: absolute;
+
+}
+
+.resize-logo-left1{
+    width: 30%;
+    top:3.5%;
+    position: absolute;
+    right: 90%;
+}
+
+.resize-logo-left{
+    width: 30%;
+    top:2%;
+    position: absolute;
+    right: 70%;
+}
+
+.resize-logo-right{
+    width: 10%;
+    top:3.5%;
+    position: absolute;
+    left: 90%
+}
+
+.text-moneda{
+    margin-top:5%;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: black;
+    font-size: 34px;
+}
+
+.center{
+    top:10%;
+    text-align: center;
+    width: 100%;
+}
+
