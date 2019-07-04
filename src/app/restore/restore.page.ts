@@ -118,14 +118,13 @@ export class RestorePage implements OnInit {
     const path: string = 'auth/recovery';
 
     const dataBody: object = {
-      deviceId: 987654321, // this.dataDeviceId,
+      deviceId: this.dataDeviceId,
       pin: this.encryptPin(this.dataRestorePassword.pin),
       password: this.dataRestorePassword.newPassword
     };
 
     this.axiosServices.post(path, dataBody)
     .then(response => {
-      console.log(response);
       if (response.status === 200) {
         this.router.navigate(['']);
       }
