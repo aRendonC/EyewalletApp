@@ -108,10 +108,8 @@ export class RegistryPage implements OnInit {
 	    password: this.dataRegistry.password
     };
 
-
     this.register.post(urlRegistry, dataBody)
-    .then(async response => {
-      console.table(response)
+    .then(response => {
       if (response.status === 200) {
         console.log(response.data);
         let navigationExtras: NavigationExtras = {
