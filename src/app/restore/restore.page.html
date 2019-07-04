@@ -1,33 +1,66 @@
 <ion-content padding class="bghome" >
-  <div class="move-logo">
+
+   <div class="move-logo">
       <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
       <div class="center">
-          <ion-label class="text-eyewallet">EYEWALLET</ion-label>
-          <br>
-          <ion-label class="text-crypto">CRYPTO BANK</ion-label>
+         <ion-label class="text-eyewallet">EYEWALLET</ion-label>
+         <br>
+         <ion-label class="text-crypto">CRYPTO BANK</ion-label>
       </div>
-  </div>
-  <form #formulario (ngSubmit)="restore()" class="transparent move-form">
-      <!-- <form #formulanrio (submit)="login()" class="transparent move-form"> -->
-          <ion-list class="transparent">
-              <!-- Usuario -->
-              <ion-item class="transparent white-line"> 
-                  <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
-                  <ion-input  class="white move-input" type="password" name="pin" [(ngModel)]="pin"  placeholder="PIN"></ion-input>
-              </ion-item>
-              <!-- Contraseña -->
-              <ion-item class="transparent white-line">
-                      <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
-                  <ion-input class="white move-input" type="password" name="password" [(ngModel)]="password" placeholder="Nueva Contraseña"></ion-input>
-              </ion-item>
-              <!-- Repita Contraseña -->
-              <ion-item class="transparent white-line">
-                  <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
-              <ion-input class="white move-input" type="password" name="rewrite password" [(ngModel)]="rewrite_password" placeholder="Repita Nueva Contraseña"></ion-input>
-          </ion-item>
-          </ion-list>
-          <div class="move-btn">
-                  <ion-button type="submit" class="btn-start" mode="ios">Actualizar Contraseña</ion-button>
-          </div>
-      </form>
+   </div>
+
+   <form #form="ngForm" (ngSubmit)="restorePassword()" class="transparent move-form">
+      <ion-list class="transparent">
+         <!-- Usuario -->
+         <ion-item class="transparent white-line"> 
+            <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
+            <ion-input
+               type="password"
+               name="pin"
+               placeholder="Pin"
+               [(ngModel)]="dataRestorePassword.pin"
+               (ngModelChange)="validatePin($event)"
+					clear-input
+               class="white move-input"
+            ></ion-input>
+         </ion-item>
+
+         <!-- Contraseña -->
+         <ion-item class="transparent white-line">
+            <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
+            <ion-input
+               type="password"
+               name="password"
+               placeholder="Nueva Contraseña"
+               [(ngModel)]="dataRestorePassword.newPassword"
+               (ngModelChange)="validateNewPassword($event)"
+					clear-input
+               class="white move-input"
+            ></ion-input>
+         </ion-item>
+
+         <!-- Repita Contraseña -->
+         <ion-item class="transparent white-line">
+            <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
+            <ion-input
+               type="password"
+               name="rewrite password"
+               placeholder="Repita Nueva Contraseña"
+               [(ngModel)]="dataRestorePassword.repeatNewPassword"
+               (ngModelChange)="validateRepeatNewPassword($event)"
+					clear-input
+               class="white move-input"
+            ></ion-input>
+         </ion-item>
+      </ion-list>
+
+      <div class="move-btn">
+         <ion-button
+            type="submit"
+            [disabled]="buttonDisabled"
+            mode="ios"
+            class="btn-start"
+         >Actualizar Contraseña</ion-button>
+      </div>
+   </form>
 </ion-content>

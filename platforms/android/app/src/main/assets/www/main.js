@@ -434,6 +434,7 @@ module.exports = webpackAsyncContext;
 var map = {
 	"../home/home.module": [
 		"./src/app/home/home.module.ts",
+		"common",
 		"home-home-module"
 	],
 	"../profile/profile.module": [
@@ -442,15 +443,28 @@ var map = {
 	],
 	"./home/home.module": [
 		"./src/app/home/home.module.ts",
+		"common",
 		"home-home-module"
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
 		"login-login-module"
 	],
+	"./pin/pin.module": [
+		"./src/app/pin/pin.module.ts",
+		"pin-pin-module"
+	],
 	"./registry/registry.module": [
 		"./src/app/registry/registry.module.ts",
+		"default~registry-registry-module~restore-restore-module",
+		"common",
 		"registry-registry-module"
+	],
+	"./restore/restore.module": [
+		"./src/app/restore/restore.module.ts",
+		"default~registry-registry-module~restore-restore-module",
+		"common",
+		"restore-restore-module"
 	],
 	"./tabs/tabs.module": [
 		"./src/app/tabs/tabs.module.ts",
@@ -466,7 +480,7 @@ function webpackAsyncContext(req) {
 			throw e;
 		});
 	}
-	return __webpack_require__.e(ids[1]).then(function() {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
 		var id = ids[0];
 		return __webpack_require__(id);
 	});
@@ -498,8 +512,11 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     { path: '', loadChildren: './home/home.module#HomePageModule' },
     { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+    { path: 'restore', loadChildren: './restore/restore.module#RestorePageModule' },
     { path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule' },
-    { path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule' }
+    { path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule' },
+    { path: 'restore', loadChildren: './restore/restore.module#RestorePageModule' },
+    { path: 'pin', loadChildren: './pin/pin.module#PinPageModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -620,7 +637,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-<<<<<<< HEAD
 /* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/axios/interceptador.service */ "./src/app/services/axios/interceptador.service.ts");
@@ -632,19 +648,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
 /* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-=======
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-/* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/axios/interceptador.service */ "./src/app/services/axios/interceptador.service.ts");
-/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
-/* harmony import */ var _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/camera/camera */ "./src/app/services/camera/camera.ts");
-/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
-/* harmony import */ var _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/native-page-transitions/ngx */ "./node_modules/@ionic-native/native-page-transitions/ngx/index.js");
-/* harmony import */ var _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/fingerprint/touch-login.service */ "./src/app/services/fingerprint/touch-login.service.ts");
-/* harmony import */ var _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/fingerprint-aio/ngx */ "./node_modules/@ionic-native/fingerprint-aio/ngx/index.js");
-/* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
->>>>>>> EWM-R07
+/* harmony import */ var _ionic_native_base64_ngx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic-native/base64/ngx */ "./node_modules/@ionic-native/base64/ngx/index.js");
 
 
 
@@ -666,13 +670,15 @@ __webpack_require__.r(__webpack_exports__);
 
 // LocalStorage.
 
+// Plugins cordova.
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_19__["PinModalPage"]],
-            entryComponents: [_pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_19__["PinModalPage"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__["PinModalPage"]],
+            entryComponents: [_pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_18__["PinModalPage"]],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
@@ -684,7 +690,6 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
-<<<<<<< HEAD
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HTTP_INTERCEPTORS"], useClass: _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_11__["InterceptadorService"], multi: true },
                 _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_9__["AxiosService"],
                 _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_12__["Camera"],
@@ -693,16 +698,7 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_15__["NativePageTransitions"],
                 _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_17__["FingerprintAIO"],
                 _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_16__["TouchLoginService"],
-=======
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _services_axios_interceptador_service__WEBPACK_IMPORTED_MODULE_12__["InterceptadorService"], multi: true },
-                _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_10__["AxiosService"],
-                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_13__["Camera"],
-                _services_camera_camera__WEBPACK_IMPORTED_MODULE_14__["CameraProvider"],
-                _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_15__["Device"],
-                _ionic_native_native_page_transitions_ngx__WEBPACK_IMPORTED_MODULE_16__["NativePageTransitions"],
-                _ionic_native_fingerprint_aio_ngx__WEBPACK_IMPORTED_MODULE_18__["FingerprintAIO"],
-                _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_17__["TouchLoginService"],
->>>>>>> EWM-R07
+                _ionic_native_base64_ngx__WEBPACK_IMPORTED_MODULE_20__["Base64"]
             ],
             bootstrap: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]
@@ -734,7 +730,7 @@ module.exports = "<ion-content  class=\"background-image\">\n  <ion-list text-ce
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".pin-none {\n  border: 2px solid white;\n  height: 25px;\n  border-radius: 50px;\n  width: 25px;\n  --ion-background-color:transparent; }\n\n.pin-ok {\n  border: 2px solid white;\n  height: 25px;\n  border-radius: 50px;\n  width: 25px;\n  --ion-background-color:white; }\n\n.imgLogo {\n  height: 70vh;\n  width: auto;\n  margin: auto;\n  display: block; }\n\n.round {\n  --width: 60px;\n  --height: 107%;\n  --border-radius: 50%;\n  --vertical-align: middle;\n  --padding-start: 10px;\n  /* --padding-end: 10px; */\n  height: 80px; }\n\nion-col {\n  padding: 0; }\n\n.background-image {\n  --background: url('backGroundTouch.svg') no-repeat center center / cover;\n  --background-size: cover; }\n\nion-list {\n  background: transparent; }\n\n.btnNoShadow {\n  --box-shadow: none\n; }\n\nion-button {\n  --background: rgba(47, 112, 191, 0.29);\n  border: none;\n  --box-shadow: none; }\n\nh6 {\n  font-weight: bold;\n  color: white;\n  opacity: 1;\n  text-decoration: none;\n  --background: rgba(255, 255, 255, 1)\n; }\n\nion-label {\n  color: white; }\n\nion-row {\n  padding: 0 30px 0 20px; }\n\nion-col {\n  border: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9leWVsaW5lL0RvY3VtZW50cy9HaXRIdWIvRXlld2FsbGV0QXBwL3NyYy9hcHAvcGluLW1vZGFsL3Bpbi1tb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSx1QkFBdUI7RUFDdkIsWUFBWTtFQUNaLG1CQUFtQjtFQUNuQixXQUFXO0VBQ1gsa0NBQXVCLEVBQUE7O0FBR3pCO0VBQ0UsdUJBQXVCO0VBQ3ZCLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsV0FBVztFQUNYLDRCQUF1QixFQUFBOztBQUV6QjtFQUNFLFlBQVk7RUFDWixXQUFXO0VBQ1gsWUFBWTtFQUNaLGNBQWMsRUFBQTs7QUFHaEI7RUFDRSxhQUFRO0VBQ1IsY0FBUztFQUNULG9CQUFnQjtFQUNoQix3QkFBaUI7RUFDakIscUJBQWdCO0VBQ2hCLHlCQUFBO0VBQ0EsWUFBWSxFQUFBOztBQUdkO0VBQ0UsVUFBVSxFQUFBOztBQUdaO0VBQ0Usd0VBQWE7RUFDYix3QkFBa0IsRUFBQTs7QUFFcEI7RUFDRSx1QkFBdUIsRUFBQTs7QUFHekI7RUFDRTtBQUFhLEVBQUE7O0FBR2Y7RUFDRSxzQ0FBYTtFQUNiLFlBQVk7RUFDWixrQkFBYSxFQUFBOztBQUdmO0VBQ0UsaUJBQWlCO0VBQ2pCLFlBQVk7RUFDWixVQUFVO0VBQ1YscUJBQXFCO0VBQ3JCO0FBQWEsRUFBQTs7QUFHZjtFQUNFLFlBQVksRUFBQTs7QUFHZDtFQUNFLHNCQUFzQixFQUFBOztBQUd4QjtFQUNFLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL3Bpbi1tb2RhbC9waW4tbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBpbi1ub25le1xuICBib3JkZXI6IDJweCBzb2xpZCB3aGl0ZTtcbiAgaGVpZ2h0OiAyNXB4O1xuICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICB3aWR0aDogMjVweDtcbiAgLS1pb24tYmFja2dyb3VuZC1jb2xvcjp0cmFuc3BhcmVudDtcbn1cblxuLnBpbi1va3tcbiAgYm9yZGVyOiAycHggc29saWQgd2hpdGU7XG4gIGhlaWdodDogMjVweDtcbiAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgd2lkdGg6IDI1cHg7XG4gIC0taW9uLWJhY2tncm91bmQtY29sb3I6d2hpdGU7XG59XG4uaW1nTG9nb3tcbiAgaGVpZ2h0OiA3MHZoO1xuICB3aWR0aDogYXV0bztcbiAgbWFyZ2luOiBhdXRvO1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLnJvdW5kIHtcbiAgLS13aWR0aDogNjBweDtcbiAgLS1oZWlnaHQ6IDEwNyU7XG4gIC0tYm9yZGVyLXJhZGl1czogNTAlO1xuICAtLXZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4gIC0tcGFkZGluZy1zdGFydDogMTBweDtcbiAgLyogLS1wYWRkaW5nLWVuZDogMTBweDsgKi9cbiAgaGVpZ2h0OiA4MHB4O1xufVxuXG5pb24tY29se1xuICBwYWRkaW5nOiAwO1xufVxuXG4uYmFja2dyb3VuZC1pbWFnZXtcbiAgLS1iYWNrZ3JvdW5kOiB1cmwoLi4vLi4vYXNzZXRzL2ltZy90b3VjaElkL2JhY2tHcm91bmRUb3VjaC5zdmcpIG5vLXJlcGVhdCBjZW50ZXIgY2VudGVyIC8gY292ZXI7XG4gIC0tYmFja2dyb3VuZC1zaXplOiBjb3Zlcjtcbn1cbmlvbi1saXN0e1xuICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbn1cblxuLmJ0bk5vU2hhZG93e1xuICAtLWJveC1zaGFkb3c6IG5vbmVcbn1cblxuaW9uLWJ1dHRvbiB7XG4gIC0tYmFja2dyb3VuZDogcmdiYSg0NywgMTEyLCAxOTEsIDAuMjkpO1xuICBib3JkZXI6IG5vbmU7XG4gIC0tYm94LXNoYWRvdzogbm9uZTtcbn1cblxuaDZ7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBjb2xvcjogd2hpdGU7XG4gIG9wYWNpdHk6IDE7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgLS1iYWNrZ3JvdW5kOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDEpXG59XG5cbmlvbi1sYWJlbHtcbiAgY29sb3I6IHdoaXRlO1xufVxuXG5pb24tcm93e1xuICBwYWRkaW5nOiAwIDMwcHggMCAyMHB4O1xufVxuXG5pb24tY29se1xuICBib3JkZXI6IG5vbmU7XG59XG5cblxuIl19 */"
+module.exports = ".pin-none {\n  border: 2px solid white;\n  height: 25px;\n  border-radius: 50px;\n  width: 25px;\n  --ion-background-color:transparent; }\n\n.pin-ok {\n  border: 2px solid white;\n  height: 25px;\n  border-radius: 50px;\n  width: 25px;\n  --ion-background-color:white; }\n\n.imgLogo {\n  height: 70vh;\n  width: auto;\n  margin: auto;\n  display: block; }\n\n.round {\n  --width: 60px;\n  --height: 107%;\n  --border-radius: 50%;\n  --vertical-align: middle;\n  --padding-start: 10px;\n  /* --padding-end: 10px; */\n  height: 80px; }\n\nion-col {\n  padding: 0; }\n\n.background-image {\n  --background: url('backGroundTouch.svg') no-repeat center center / cover;\n  --background-size: cover; }\n\nion-list {\n  background: transparent; }\n\n.btnNoShadow {\n  --box-shadow: none\n; }\n\nion-button {\n  --background: rgba(47, 112, 191, 0.29);\n  border: none;\n  --box-shadow: none; }\n\nh6 {\n  font-weight: bold;\n  color: white;\n  opacity: 1;\n  text-decoration: none;\n  --background: rgba(255, 255, 255, 1)\n; }\n\nion-label {\n  color: white; }\n\nion-row {\n  padding: 0 30px 0 20px; }\n\nion-col {\n  border: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9sdWlzbXVuYXItZXllbGluZS9kZXZlbG9wbWVudC9leWVsaW5lL0V5ZXdhbGxldEFwcC9zcmMvYXBwL3Bpbi1tb2RhbC9waW4tbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsdUJBQXVCO0VBQ3ZCLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsV0FBVztFQUNYLGtDQUF1QixFQUFBOztBQUd6QjtFQUNFLHVCQUF1QjtFQUN2QixZQUFZO0VBQ1osbUJBQW1CO0VBQ25CLFdBQVc7RUFDWCw0QkFBdUIsRUFBQTs7QUFFekI7RUFDRSxZQUFZO0VBQ1osV0FBVztFQUNYLFlBQVk7RUFDWixjQUFjLEVBQUE7O0FBR2hCO0VBQ0UsYUFBUTtFQUNSLGNBQVM7RUFDVCxvQkFBZ0I7RUFDaEIsd0JBQWlCO0VBQ2pCLHFCQUFnQjtFQUNoQix5QkFBQTtFQUNBLFlBQVksRUFBQTs7QUFHZDtFQUNFLFVBQVUsRUFBQTs7QUFHWjtFQUNFLHdFQUFhO0VBQ2Isd0JBQWtCLEVBQUE7O0FBRXBCO0VBQ0UsdUJBQXVCLEVBQUE7O0FBR3pCO0VBQ0U7QUFBYSxFQUFBOztBQUdmO0VBQ0Usc0NBQWE7RUFDYixZQUFZO0VBQ1osa0JBQWEsRUFBQTs7QUFHZjtFQUNFLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osVUFBVTtFQUNWLHFCQUFxQjtFQUNyQjtBQUFhLEVBQUE7O0FBR2Y7RUFDRSxZQUFZLEVBQUE7O0FBR2Q7RUFDRSxzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9waW4tbW9kYWwvcGluLW1vZGFsLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5waW4tbm9uZXtcbiAgYm9yZGVyOiAycHggc29saWQgd2hpdGU7XG4gIGhlaWdodDogMjVweDtcbiAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgd2lkdGg6IDI1cHg7XG4gIC0taW9uLWJhY2tncm91bmQtY29sb3I6dHJhbnNwYXJlbnQ7XG59XG5cbi5waW4tb2t7XG4gIGJvcmRlcjogMnB4IHNvbGlkIHdoaXRlO1xuICBoZWlnaHQ6IDI1cHg7XG4gIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gIHdpZHRoOiAyNXB4O1xuICAtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yOndoaXRlO1xufVxuLmltZ0xvZ297XG4gIGhlaWdodDogNzB2aDtcbiAgd2lkdGg6IGF1dG87XG4gIG1hcmdpbjogYXV0bztcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5yb3VuZCB7XG4gIC0td2lkdGg6IDYwcHg7XG4gIC0taGVpZ2h0OiAxMDclO1xuICAtLWJvcmRlci1yYWRpdXM6IDUwJTtcbiAgLS12ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICAtLXBhZGRpbmctc3RhcnQ6IDEwcHg7XG4gIC8qIC0tcGFkZGluZy1lbmQ6IDEwcHg7ICovXG4gIGhlaWdodDogODBweDtcbn1cblxuaW9uLWNvbHtcbiAgcGFkZGluZzogMDtcbn1cblxuLmJhY2tncm91bmQtaW1hZ2V7XG4gIC0tYmFja2dyb3VuZDogdXJsKC4uLy4uL2Fzc2V0cy9pbWcvdG91Y2hJZC9iYWNrR3JvdW5kVG91Y2guc3ZnKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlciAvIGNvdmVyO1xuICAtLWJhY2tncm91bmQtc2l6ZTogY292ZXI7XG59XG5pb24tbGlzdHtcbiAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG59XG5cbi5idG5Ob1NoYWRvd3tcbiAgLS1ib3gtc2hhZG93OiBub25lXG59XG5cbmlvbi1idXR0b24ge1xuICAtLWJhY2tncm91bmQ6IHJnYmEoNDcsIDExMiwgMTkxLCAwLjI5KTtcbiAgYm9yZGVyOiBub25lO1xuICAtLWJveC1zaGFkb3c6IG5vbmU7XG59XG5cbmg2e1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgY29sb3I6IHdoaXRlO1xuICBvcGFjaXR5OiAxO1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG4gIC0tYmFja2dyb3VuZDogcmdiYSgyNTUsIDI1NSwgMjU1LCAxKVxufVxuXG5pb24tbGFiZWx7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuaW9uLXJvd3tcbiAgcGFkZGluZzogMCAzMHB4IDAgMjBweDtcbn1cblxuaW9uLWNvbHtcbiAgYm9yZGVyOiBub25lO1xufVxuXG5cbiJdfQ== */"
 
 /***/ }),
 
@@ -1061,15 +1057,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
 
 // Dependencies.
 
 // Http client.
 
+// Enviroments.
+
 var AxiosService = /** @class */ (function () {
     function AxiosService(http) {
         this.http = http;
-        this.url = 'https://ad97da3d.ngrok.io/api/v1/';
+        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].urlBase;
         this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -1107,7 +1106,6 @@ var AxiosService = /** @class */ (function () {
                 authorization: 'Bearer ' + user.accessParam()
             });
         }
-        console.info(body);
         return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {
             headers: this.headers
         }).toPromise();
@@ -1434,7 +1432,7 @@ var TouchLoginService = /** @class */ (function () {
             _this.faio.show({
                 clientId: 'Identificar de huella',
                 clientSecret: 'password',
-                disableBackup: false,
+                disableBackup: true,
                 localizedFallbackTitle: 'Use Pin',
                 localizedReason: 'Please authenticate',
             })
@@ -1664,7 +1662,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/eyeline/Documents/GitHub/EyewalletApp/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/luismunar-eyeline/development/eyeline/EyewalletApp/src/main.ts */"./src/main.ts");
 
 
 /***/ })

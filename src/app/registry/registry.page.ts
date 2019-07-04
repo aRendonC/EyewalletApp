@@ -111,7 +111,6 @@ export class RegistryPage implements OnInit {
     this.register.post(urlRegistry, dataBody)
     .then(response => {
       if (response.status === 200) {
-        console.log(response.status);
         this.router.navigate(['']);
       }
     });

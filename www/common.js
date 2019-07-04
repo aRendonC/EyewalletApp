@@ -375,6 +375,59 @@ function debounce(func, wait) {
 
 
 
+/***/ }),
+
+/***/ "./src/app/services/device/device.service.ts":
+/*!***************************************************!*\
+  !*** ./src/app/services/device/device.service.ts ***!
+  \***************************************************/
+/*! exports provided: DeviceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeviceService", function() { return DeviceService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
+
+
+
+var DeviceService = /** @class */ (function () {
+    function DeviceService(device) {
+        this.device = device;
+        this.getDataDevice();
+    }
+    DeviceService.prototype.getDataDevice = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, {
+                            cordova: this.device.cordova,
+                            model: this.device.model,
+                            platform: this.device.platform,
+                            uuid: this.device.uuid,
+                            version: this.device.version,
+                            manufacturer: this.device.manufacturer,
+                            isVirtual: this.device.isVirtual,
+                            serial: this.device.serial,
+                        }];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    DeviceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_2__["Device"]])
+    ], DeviceService);
+    return DeviceService;
+}());
+
+
+
 /***/ })
 
 }]);
