@@ -56,13 +56,29 @@ export class AxiosService {
         authorization: 'Bearer ' + user.accessParam()
       });
     }
-    
-    return this.http.post(url, (body != null) ? this.jsonToURLEncoded(body) : body, {
+    console.info(body);
+    return this.http.post(url, (body != null) ? AxiosService.jsonToURLEncoded(body) : body, {
       headers: this.headers
     }).toPromise();
   }
 
-  private jsonToURLEncoded(jsonString) {
+  public put(endpoint: string, body: object, user?: any): Promise<any> {
+    const url = `${this.url}${endpoint}`;
+    if(user) {
+      this.headers = new  HttpHeaders({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + user.accessParam()
+      });
+    }
+    console.info(body);
+    console.info(user);
+    return this.http.put(url, (body != null) ? AxiosService.jsonToURLEncoded(body) : body, {
+      headers: this.headers
+    }).toPromise()
+  }
+
+  private static jsonToURLEncoded(jsonString) {
     return jsonString;
   }
 }

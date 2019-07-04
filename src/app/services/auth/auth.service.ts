@@ -13,7 +13,7 @@ export class AuthService {
     id: null,
     rolId: null,
     segundoFactor: null,
-    serializeToken: null,
+    accessToken: null,
   };
 
   constructor(private  api: AxiosService,
@@ -28,7 +28,7 @@ export class AuthService {
 
   login(user, password) {
     return new Promise((resolve) => {
-      this.api.post('auth/login', {email: user, password: password})
+      this.api.post('auth/login', {email: user, password: password, deviceId: '7219d0c4ee046311'})
         .then(async (data: any) => {
           console.log('data response', data.data);
           if (data.hasOwnProperty('error') === false) {
@@ -36,7 +36,7 @@ export class AuthService {
             this.store.set('user', this.usuario)
             console.log(await this.store.get('user'))
             // localStorage.setItem('user', JSON.stringify(this.usuario));
-            this.timer.iniciarTemporizador();
+            // this.timer.iniciarTemporizador();
             console.info('data', data)
             resolve(data);
           } else {
@@ -51,7 +51,7 @@ export class AuthService {
 
   accessParam() {
     if (this.usuario != null) {
-      return this.usuario.serializeToken;
+      return this.usuario.accessToken;
     }
     return null;
   }
@@ -64,7 +64,7 @@ export class AuthService {
         id: null,
         rolId: null,
         segundoFactor: null,
-        serializeToken: null
+        accessToken: null
       };
     }
   }

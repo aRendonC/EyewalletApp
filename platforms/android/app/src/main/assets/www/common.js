@@ -377,6 +377,44 @@ function debounce(func, wait) {
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./src/app/constanst/index.ts":
+/*!************************************!*\
+  !*** ./src/app/constanst/index.ts ***!
+  \************************************/
+/*! exports provided: REGISTRY, PIN, TITLES */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REGISTRY", function() { return REGISTRY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PIN", function() { return PIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TITLES", function() { return TITLES; });
+var REGISTRY = {
+    TITLE: 'crear una nueva billetera',
+    LABEL_USER: 'Usuario',
+    CONTRASENA: 'Contraseña',
+    EMAIL: 'Correo',
+    PHONE: 'Teléfono',
+    TERMS_AND_CONDITIONS: 'Al crear tu billetera aceptas los siguientes términos:',
+    TERMS_SERVICE: 'términos de servicios',
+    PRIVACY_POLICY: 'política de privacidad',
+    BUTTON: 'crear billetera',
+};
+var PIN = {
+    CEATE_PIN: 'Crear PIN',
+    ENTER_PIN: 'Ingresar PIN'
+};
+var TITLES = {
+    EYEWALLET: 'EYEWALLET',
+    CRYPTO_BANCK: 'CRYPTO BANK'
+};
+
+
+/***/ }),
+
+>>>>>>> developers
 /***/ "./src/app/services/device/device.service.ts":
 /*!***************************************************!*\
   !*** ./src/app/services/device/device.service.ts ***!

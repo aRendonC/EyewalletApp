@@ -1,59 +1,9 @@
-.bghome{
-    --background:  url('../../assets/img/bg-home.png') no-repeat center center / cover ;
-    --background-repeat: no-repeat;
-
-}
-
-.move-logo{
-    margin-top: 5vh;
-    margin-left: 15vh;
-}
-
-.resize-logo {
-    width: 60%;
-}
-
-.text-eyewallet{
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 2px;
-    font-weight: 500;
-    font-size: 34px;
-    color: white;
-}
-
-.text-crypto{
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 5px;
-    font-weight: 500;
-    font-size: 17px;
-    color: white;
-}
-
 .center{
     margin-top: 6vh;
     text-align: center;
     width: 100%;
     margin-left: -7vh
 }
-
-
-.move-btn{
-    margin-top: 5vh;
-    text-align: center
-  }
-
-  .btn-start{
-    --background: #4C6AC0;
-    --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-    --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-    --padding-start: 15vh;
-    --padding-end: 14vh;
-    --padding-top: 0px;
-    --padding-bottom: 0px;
-    --border-radius: 100px;
-    --opacity: 0.86;
-    font-family: 'Poppins', sans-serif;
-  }
 
   .btn-create{
     margin-top: 2vh;
@@ -72,31 +22,4 @@
     font-weight: 400
   }
 
-.transparent{
-    --background: transparent !important;
-    background: transparent !important;
-}
-
-.move-form{
-    margin-top: 6.5vh;
-    margin-bottom: 6.5vh;
-}
-
-.white{
-    --placeholder-color: white;
-    color: white
-}
-
-.resize-icon{
-    width: 5%;
-}
-
-.move-input{
-    margin-left: 4vw
-}
-
-.white-line{
-    --border-color:white;
-    --highlight-height: 0
-}
 
