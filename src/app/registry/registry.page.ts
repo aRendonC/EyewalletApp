@@ -9,6 +9,9 @@ import { AxiosService } from '../services/axios/axios.service';
 // Navigations.
 import {NavigationExtras, Router} from '@angular/router';
 
+//Sotorage
+import {Storage} from "@ionic/storage";
+
 @Component({
   selector: 'app-registry',
   templateUrl: './registry.page.html',
@@ -31,7 +34,8 @@ export class RegistryPage implements OnInit {
 
   constructor(
     private register: AxiosService,
-    private router: Router
+    private router: Router,
+    private store: Storage
   ) { }
 
   ngOnInit() {
@@ -112,6 +116,7 @@ export class RegistryPage implements OnInit {
     .then(response => {
       if (response.status === 200) {
         console.log(response.data);
+        this.store.set('user', response.data)
         let navigationExtras: NavigationExtras = {
           queryParams: {
             user: JSON.stringify(response.data),
