@@ -8,7 +8,8 @@ const routes: Routes = [
   {path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule'},
   {path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule'},
   {path: 'restore', loadChildren: './restore/restore.module#RestorePageModule'},
-  {path: 'pin', loadChildren: './pin/pin.module#PinPageModule'}
+  {path: 'pin', loadChildren: './pin/pin.module#PinPageModule'},
+  { path: 'list-pockets', loadChildren: './list-pockets/list-pockets.module#ListPocketsPageModule' }
 ];
 
 @NgModule({
