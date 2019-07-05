@@ -27,6 +27,9 @@ import {ComponentsModule} from "./components/components.module";
 import {VerificationModalPage} from "./verification-modal/verification-modal.page";
 
 
+// Plugins cordova.
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+
 @NgModule({
 
   declarations: [AppComponent, PinModalPage, VerificationModalPage],
@@ -51,7 +54,8 @@ import {VerificationModalPage} from "./verification-modal/verification-modal.pag
     Device,
     NativePageTransitions,
     FingerprintAIO,
-    TouchLoginService
+    TouchLoginService,
+    Clipboard
   ],
   bootstrap: [
     AppComponent
