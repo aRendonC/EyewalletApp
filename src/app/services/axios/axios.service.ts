@@ -28,7 +28,10 @@ export class AxiosService {
     return new Promise((resolve, reject) => {
       let url = `${this.url}${endpoint}`;
       if (user != null) {
-        url += user.accessParam();
+        this.headers = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer ' + user.accessParam()
+        })
       }
       if (params) {
         const urlParams = params;
@@ -38,7 +41,9 @@ export class AxiosService {
           url += '?' + urlParams;
         }
       }
-      this.http.get(url).toPromise()
+      this.http.get(url, {
+        headers: this.headers
+      }).toPromise()
         .then(value => {
           resolve(value);
         }).catch(err => {

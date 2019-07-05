@@ -6,6 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 
 import {ProfilePage} from './profile.page';
+import {ComponentsModule} from "../components/components.module";
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+      ComponentsModule,
     CommonModule,
     FormsModule,
     IonicModule,

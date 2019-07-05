@@ -16,12 +16,12 @@ export class AuthService {
     accessToken: null,
   };
 
-  constructor(private  api: AxiosService,
-              private toastController: ToastController,
-              private timer: TimerService,
-              private router: Router,
-              private menu: MenuController,
-              private store: Storage
+   constructor(private  api: AxiosService,
+                    private toastController: ToastController,
+                    private timer: TimerService,
+                    private router: Router,
+                    private menu: MenuController,
+                    private store: Storage
   ) {
     this.intentarLogin();
   }
@@ -30,8 +30,17 @@ export class AuthService {
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password: password, deviceId: '7219d0c4ee046311'})
         .then(async (data: any) => {
-          console.log('data response', data.data);
-          if (data.hasOwnProperty('error') === false) {
+          console.log('data response', data.hasOwnProperty(404));
+          if (data.status === 404) {
+            //no existe usuario
+            resolve(null)
+          } if(data.status === 401) {
+            resolve(null)
+            //no está autorizado por credenciales (puede estar registrado)
+          } if(data.status === 500) {
+            resolve(null)
+            //error de la plataforma o datos incorrectos
+          } else {
             this.usuario = data.data;
             this.store.set('user', this.usuario)
             console.log(await this.store.get('user'))
@@ -39,8 +48,6 @@ export class AuthService {
             // this.timer.iniciarTemporizador();
             console.info('data', data)
             resolve(data);
-          } else {
-            resolve(null);
           }
         })
         .catch(err => console.log('error data response', err));
