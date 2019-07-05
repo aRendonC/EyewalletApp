@@ -16,13 +16,12 @@
     "fetchSpec": "^2.0.5"
   },
   "_requiredBy": [
-    "#DEV:/",
-    "#USER"
+    "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-keyboard/-/cordova-plugin-ionic-keyboard-2.1.3.tgz",
   "_shasum": "6b050d5b7cb4393d5758b55f45a46372f25178fe",
   "_spec": "cordova-plugin-ionic-keyboard@^2.0.5",
-  "_where": "/Users/eyeline/Documents/ionic/eyewallet",
+  "_where": "/Users/eyeline10/EyewalletApp",
   "author": {
     "name": "Apache Software Foundation"
   },

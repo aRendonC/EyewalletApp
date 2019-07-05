@@ -1,28 +1,27 @@
 {
-  "_from": "cordova-plugin-fingerprint-aio",
+  "_from": "cordova-plugin-fingerprint-aio@1.7.0",
   "_id": "cordova-plugin-fingerprint-aio@1.7.0",
   "_inBundle": false,
   "_integrity": "sha512-pV+JUeEhZUP85nXs9KMpHRClZppVHnpZA5h+8ReKBi4AV4vnzAcpUDBgFN7g3Ra83zmREYI/MqrlZlXn16pg3g==",
   "_location": "/cordova-plugin-fingerprint-aio",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "cordova-plugin-fingerprint-aio",
+    "raw": "cordova-plugin-fingerprint-aio@1.7.0",
     "name": "cordova-plugin-fingerprint-aio",
     "escapedName": "cordova-plugin-fingerprint-aio",
-    "rawSpec": "",
+    "rawSpec": "1.7.0",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "1.7.0"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-fingerprint-aio/-/cordova-plugin-fingerprint-aio-1.7.0.tgz",
   "_shasum": "7f998587106aa47df3cb9666396b9021b6b419f7",
-  "_spec": "cordova-plugin-fingerprint-aio",
-  "_where": "/Users/eyeline/Documents/GitHub/EyewalletApp",
+  "_spec": "cordova-plugin-fingerprint-aio@1.7.0",
+  "_where": "/Users/eyeline10/EyewalletApp",
   "author": {
     "name": "Niklas Merz"
   },

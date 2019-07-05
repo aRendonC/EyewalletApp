@@ -3,7 +3,7 @@ import {AxiosService} from '../axios/axios.service';
 import {MenuController, ToastController} from '@ionic/angular';
 import {TimerService} from '../timer/timer.service';
 import {Router} from '@angular/router';
-import {Storage} from "@ionic/storage";
+import {Storage} from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class AuthService {
 
   login(user, password) {
     return new Promise((resolve) => {
-      this.api.post('auth/login', {email: user, password: password, deviceId: '7219d0c4ee046311'})
+      this.api.post('auth/login', {email: user, password: password, deviceId: '928e019bd3cdb0fa'})
         .then(async (data: any) => {
           console.log('data response', data.hasOwnProperty(404));
           if (data.status === 404) {
@@ -65,7 +65,7 @@ export class AuthService {
 
   async intentarLogin() {
     // this.usuario = JSON.parse(window.localStorage.getItem('user'));
-    this.usuario = await this.store.get('user')
+    this.usuario = await this.store.get('user');
     if (this.usuario == null) {
       this.usuario = {
         id: null,
@@ -82,7 +82,7 @@ export class AuthService {
   }
 
   async isLogin() {
-    const user = await this.store.get('user')
+    const user = await this.store.get('user');
     console.info(user)
     return !!user;
   }

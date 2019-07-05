@@ -33,6 +33,24 @@ const routes: Routes = [
             loadChildren: '../profile/profile.module#ProfilePageModule'
           }
         ]
+      },
+        { 
+          path: 'create-profile', 
+          children: [
+            {
+            path:'',
+          loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'
+        },
+          ]
+      },
+        { 
+          path: 'address', 
+          children: [
+            {
+            path: '',
+            loadChildren: '../address/address.module#AddressPageModule'
+          }
+          ]
       }
     ]
   },

@@ -16,13 +16,12 @@
     "fetchSpec": "4.0.3"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-camera/-/cordova-plugin-camera-4.0.3.tgz",
   "_shasum": "7373a5938318c86ccfd84e3713e2382d10fe076b",
   "_spec": "cordova-plugin-camera@4.0.3",
-  "_where": "/Users/eyeline/Documents/ionic/eyewallet",
+  "_where": "/Users/eyeline10/EyewalletApp",
   "author": {
     "name": "Apache Software Foundation"
   },
