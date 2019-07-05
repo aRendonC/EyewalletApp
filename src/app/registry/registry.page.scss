@@ -1,0 +1,74 @@
+@import '../../global.scss';
+
+.content-registry {
+   --background: url('../../assets/images/bg-registry.png');
+
+   .content-header {
+      margin: 80px 0;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+
+      .icon {
+         margin: 0 10px;
+      }
+
+      .title {
+         font-family: $font-semibold;
+         font-size: 17px;
+         color: white;
+         text-transform: capitalize;
+      }
+   }
+
+   .content-form {
+      .list-form {
+         background: none;
+         padding: 30px;
+
+         .list-item {
+            --background: transparent !important;
+            background: transparent !important;
+            --border-color: white !important;
+            --highlight-height: 0;
+
+            .icon-input {
+               margin: 0 10px 0 0;
+            }
+
+            .input {
+               --placeholder-color: white;
+               color: white;
+            }
+         }
+      }
+   }
+
+   .content-terms-conditions {
+      background: #4C6AC0;
+      margin: 20px 0;
+      padding: 20px 40px;
+      font-family: $font-regular;
+      color: white;
+      font-size: 11px;
+      text-align: center;
+
+      .text {
+         .terms-conditions {
+            display: block;
+            text-transform: capitalize;
+            color: white;
+            
+            .text-terms-conditions {
+               text-decoration: none;
+               color: #28255C;
+            }
+         }
+      }
+   }
+
+   .content-button {
+      padding: 0 40px;
+      margin: 30px 0;
+   }
+}

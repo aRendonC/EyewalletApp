@@ -52,7 +52,7 @@ var TabsPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-tabs>\n\n    <ion-tab-bar slot=\"bottom\">\n        <ion-tab-button tab=\"login\">\n            <ion-icon name=\"flash\"></ion-icon>\n            <ion-label>Iniciar sesión</ion-label>\n        </ion-tab-button>\n\n        <ion-tab-button tab=\"inicio\">\n            <ion-icon name=\"apps\"></ion-icon>\n            <ion-label>Inicio</ion-label>\n        </ion-tab-button>\n\n        <ion-tab-button tab=\"profile\">\n            <ion-icon name=\"send\"></ion-icon>\n            <ion-label>Perfil</ion-label>\n        </ion-tab-button>\n    </ion-tab-bar>\n\n</ion-tabs>\n"
+module.exports = "<ion-tabs>\n\n    <ion-tab-bar slot=\"bottom\">\n        <ion-tab-button tab=\"inicio\">\n            <ion-icon name=\"apps\"></ion-icon>\n            <ion-label>Inicio</ion-label>\n        </ion-tab-button>\n\n        <ion-tab-button tab=\"profile\">\n            <ion-icon name=\"send\"></ion-icon>\n            <ion-label>Perfil</ion-label>\n        </ion-tab-button>\n        <ion-tab-button (click)=\"logOut()\">\n            <ion-icon name=\"flash\"></ion-icon>\n            <ion-label>Cerrar sesión</ion-label>\n        </ion-tab-button>\n    </ion-tab-bar>\n\n</ion-tabs>\n"
 
 /***/ }),
 
@@ -79,18 +79,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabsPage", function() { return TabsPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_auth_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/auth/auth.service */ "./src/app/services/auth/auth.service.ts");
+
 
 
 var TabsPage = /** @class */ (function () {
-    function TabsPage() {
+    function TabsPage(auth) {
+        this.auth = auth;
     }
+    TabsPage.prototype.logOut = function () {
+        this.auth.logout();
+    };
     TabsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-tabs',
             template: __webpack_require__(/*! ./tabs.page.html */ "./src/app/tabs/tabs.page.html"),
             styles: [__webpack_require__(/*! ./tabs.page.scss */ "./src/app/tabs/tabs.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_auth_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
     ], TabsPage);
     return TabsPage;
 }());
@@ -123,15 +129,6 @@ var routes = [
         component: _tabs_page__WEBPACK_IMPORTED_MODULE_3__["TabsPage"],
         children: [
             {
-                path: 'login',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../login/login.module#LoginPageModule'
-                    }
-                ]
-            },
-            {
                 path: 'inicio',
                 children: [
                     {
@@ -141,26 +138,16 @@ var routes = [
                 ]
             },
             {
-                path: 'profile',
+                path: '',
                 children: [
                     {
                         path: '',
                         loadChildren: '../profile/profile.module#ProfilePageModule'
                     }
                 ]
-            },
-            {
-                path: '',
-                redirectTo: '/tabs/home',
-                pathMatch: 'full'
             }
         ]
     },
-    {
-        path: '',
-        redirectTo: '/tabs/login',
-        pathMatch: 'full'
-    }
 ];
 var TabsPageRoutingModule = /** @class */ (function () {
     function TabsPageRoutingModule() {

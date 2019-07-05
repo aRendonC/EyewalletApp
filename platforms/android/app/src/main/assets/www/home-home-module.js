@@ -33093,6 +33093,289 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./src/app/components/chart/chart.component.html":
+/*!*******************************************************!*\
+  !*** ./src/app/components/chart/chart.component.html ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-content>\n    <canvas #lineCanvas></canvas>\n</ion-content>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/components/chart/chart.component.scss":
+/*!*******************************************************!*\
+  !*** ./src/app/components/chart/chart.component.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvY2hhcnQvY2hhcnQuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/components/chart/chart.component.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/components/chart/chart.component.ts ***!
+  \*****************************************************/
+/*! exports provided: ChartComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChartComponent", function() { return ChartComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
+/* harmony import */ var _services_auth_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/auth/auth.service */ "./src/app/services/auth/auth.service.ts");
+/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
+/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+
+var ChartComponent = /** @class */ (function () {
+    function ChartComponent(axios, auth) {
+        this.axios = axios;
+        this.auth = auth;
+        this.dataTransaction = [];
+        this.dataCryptos = [];
+    }
+    ChartComponent.prototype.ngOnInit = function () {
+        this.loadInformation(this.name);
+    };
+    ChartComponent.prototype.loadInformation = function (label) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.axios.get('general/historial').then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+                    var _a;
+                    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                        switch (_b.label) {
+                            case 0:
+                                _a = this;
+                                return [4 /*yield*/, data];
+                            case 1:
+                                _a.dataTransaction = _b.sent();
+                                this.getData(label);
+                                return [2 /*return*/];
+                        }
+                    });
+                }); }).catch(function (error) {
+                    console.log(error);
+                });
+                this.axios.post('general/obtener-precios', null, this.auth)
+                    .then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+                    var _a;
+                    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                        switch (_b.label) {
+                            case 0:
+                                if (!Object(util__WEBPACK_IMPORTED_MODULE_2__["isArray"])(data)) return [3 /*break*/, 2];
+                                _a = this;
+                                return [4 /*yield*/, data];
+                            case 1:
+                                _a.dataCryptos = _b.sent();
+                                this.getData(label);
+                                _b.label = 2;
+                            case 2: return [2 /*return*/];
+                        }
+                    });
+                }); }).catch(function (error) {
+                    console.log(error);
+                });
+                return [2 /*return*/];
+            });
+        });
+    };
+    /*
+        Esta función retorna la data de la grafica. recibe un label que puede ser: transaction - cryptos
+     */
+    ChartComponent.prototype.getData = function (label) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var labelTemporal, dataTemporal, format, locale;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        labelTemporal = [];
+                        dataTemporal = [];
+                        format = 'dd-MM';
+                        locale = 'en-US';
+                        if (!(label == 'cryptos')) return [3 /*break*/, 1];
+                        this.dataCryptos.forEach(function (item, index) {
+                            console.log(item);
+                            if (index <= _this.limit) {
+                                var formattedDate = Object(_angular_common__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(item.fecha, format, locale);
+                                labelTemporal.push(formattedDate);
+                                dataTemporal.push(item.valor);
+                            }
+                        });
+                        return [3 /*break*/, 4];
+                    case 1:
+                        if (!(label == 'transaction')) return [3 /*break*/, 3];
+                        this.dataTransaction.forEach(function (item, index) {
+                            var value = JSON.parse(item.descripcion);
+                            if (index <= _this.limit) {
+                                // const formattedDate = formatDate(item.fecha, format, locale);
+                                // labelTemporal.push(formattedDate);
+                                labelTemporal.push(value.BTC.USD);
+                                dataTemporal.push(value.BTC.USD);
+                            }
+                        });
+                        return [4 /*yield*/, this.proccessData(label, labelTemporal, dataTemporal)];
+                    case 2: return [2 /*return*/, _a.sent()];
+                    case 3:
+                        console.log('label incorrectos');
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ChartComponent.prototype.proccessData = function (titulo, label, data) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _a;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log(data);
+                        _a = this;
+                        return [4 /*yield*/, new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](this.lineCanvas.nativeElement, {
+                                type: 'line',
+                                data: {
+                                    // labels: label,
+                                    datasets: [
+                                        {
+                                            label: titulo,
+                                            fill: false,
+                                            lineTension: 0.1,
+                                            backgroundColor: 'rgba(75,192,192,0.4)',
+                                            borderColor: 'rgba(75,192,192,1)',
+                                            borderCapStyle: 'butt',
+                                            borderDash: [],
+                                            borderDashOffset: 0.0,
+                                            borderJoinStyle: 'miter',
+                                            pointBorderColor: 'rgba(75,192,192,1)',
+                                            pointBackgroundColor: '#fff',
+                                            pointBorderWidth: 1,
+                                            pointHoverRadius: 5,
+                                            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                                            pointHoverBorderColor: 'rgba(220,220,220,1)',
+                                            pointHoverBorderWidth: 2,
+                                            pointRadius: 1,
+                                            pointHitRadius: 10,
+                                            data: data,
+                                            spanGaps: false,
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: true
+                                                }
+                                            }],
+                                        xAxes: [{
+                                                ticks: {
+                                                    autoSkip: false,
+                                                    maxRotation: 90,
+                                                    minRotation: 90
+                                                }
+                                            }]
+                                    }, animation: {
+                                        duration: 7000,
+                                    },
+                                    hover: {
+                                        animationDuration: 3000
+                                    },
+                                    responsiveAnimationDuration: 5000
+                                }
+                            })];
+                    case 1:
+                        _a.lineChart = _b.sent();
+                        return [2 /*return*/, this.lineChart];
+                }
+            });
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ChartComponent.prototype, "name", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ChartComponent.prototype, "limit", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('lineCanvas'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ChartComponent.prototype, "lineCanvas", void 0);
+    ChartComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-chart',
+            template: __webpack_require__(/*! ./chart.component.html */ "./src/app/components/chart/chart.component.html"),
+            styles: [__webpack_require__(/*! ./chart.component.scss */ "./src/app/components/chart/chart.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_axios_axios_service__WEBPACK_IMPORTED_MODULE_4__["AxiosService"],
+            _services_auth_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"]])
+    ], ChartComponent);
+    return ChartComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/components.module.ts":
+/*!*************************************************!*\
+  !*** ./src/app/components/components.module.ts ***!
+  \*************************************************/
+/*! exports provided: ComponentsModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComponentsModule", function() { return ComponentsModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _chart_chart_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chart/chart.component */ "./src/app/components/chart/chart.component.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+
+
+var ComponentsModule = /** @class */ (function () {
+    function ComponentsModule() {
+    }
+    ComponentsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            declarations: [
+                _chart_chart_component__WEBPACK_IMPORTED_MODULE_3__["ChartComponent"]
+            ],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
+            ],
+            exports: [_chart_chart_component__WEBPACK_IMPORTED_MODULE_3__["ChartComponent"]]
+        })
+    ], ComponentsModule);
+    return ComponentsModule;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/home/home.module.ts":
 /*!*************************************!*\
   !*** ./src/app/home/home.module.ts ***!
@@ -33110,6 +33393,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _home_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./home.page */ "./src/app/home/home.page.ts");
+/* harmony import */ var _components_components_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/components.module */ "./src/app/components/components.module.ts");
+
 
 
 
@@ -33126,6 +33411,7 @@ var HomePageModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
+                _components_components_module__WEBPACK_IMPORTED_MODULE_7__["ComponentsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forChild([
                     {
                         path: '',
@@ -33133,7 +33419,9 @@ var HomePageModule = /** @class */ (function () {
                     }
                 ])
             ],
-            declarations: [_home_page__WEBPACK_IMPORTED_MODULE_6__["HomePage"]]
+            declarations: [
+                _home_page__WEBPACK_IMPORTED_MODULE_6__["HomePage"]
+            ]
         })
     ], HomePageModule);
     return HomePageModule;
@@ -33150,7 +33438,7 @@ var HomePageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-buttons slot=\"start\">\n            <ion-menu-button></ion-menu-button>\n        </ion-buttons>\n        <ion-title>\n            Inicio\n            <p style=\"font-size: 12px\">\n                <ion-icon name=\"stopwatch\"></ion-icon>\n                {{temporizador.minutos}} minutos {{temporizador.segundos}} segundos\n            </p>\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n\n\n    <ion-row>\n        <ion-button expand=\"block\" (click)=\"photo()\">FOTO</ion-button>\n    </ion-row>\n\n    <ion-row>\n        <ion-button expand=\"block\" (click)=\"deviceData()\">DATOS CELULAR</ion-button>\n        <p>cordova : {{dataDevice?.cordova}} <br></p>\n\n        <p>model : {{dataDevice?.model}} <br></p>\n        <p>platform : {{dataDevice?.platform}}<br></p>\n        <p>uuid : {{dataDevice?.uuid}} <br></p>\n        <p>version : {{dataDevice?.version}}<br></p>\n        <p>manufacturer : {{dataDevice?.manufacturer}}<br></p>\n        <p>isVirtual : {{dataDevice?.isVirtual}}<br></p>\n        <p>serial : {{dataDevice?.serial}}<br></p>\n    </ion-row>\n\n    <ion-grid>\n        <ion-row>\n            <ion-col>\n                <ion-card>\n                    <ion-card-content>\n                        <div>\n                            <canvas #lineCanvas></canvas>\n                        </div>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n\n</ion-content>\n"
+module.exports = "<ion-content padding class=\"bghome\" >\n<div class=\"move-logo\">\n    <ion-img class=\"resize-logo\" src=\"../../assets/img/home-logo.svg\"></ion-img>\n    <div class=\"center\">\n        <ion-label class=\"text-eyewallet\">EYEWALLET</ion-label>\n        <br>\n        <ion-label class=\"text-crypto\">CRYPTO BANK</ion-label>\n    </div>\n</div>\n\n<div class=\"move-btn\">\n    <ion-button href=\"/login\" class=\"btn-start\" mode=\"ios\">Iniciar Sesión</ion-button>\n    <br>\n    <ion-button href=\"/registry\" class=\"btn-create\" mode=\"ios\">Crear Billetera</ion-button>\n</div>\n</ion-content>\n"
 
 /***/ }),
 
@@ -33161,7 +33449,7 @@ module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-buttons slot=\"s
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9leWVsaW5lL0RvY3VtZW50cy9pb25pYy9leWV3YWxsZXQvc3JjL2FwcC9ob21lL2hvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGdCQUFnQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvaG9tZS9ob21lLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi53ZWxjb21lLWNhcmQgaW9uLWltZyB7XG4gIG1heC1oZWlnaHQ6IDM1dmg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG4iXX0= */"
+module.exports = "\n@import url(\"https://fonts.googleapis.com/css?family=Exo+2:400,600|Open+Sans:400,700,800|Poppins:400,500,600|Roboto:400,500,900&display=swap\");\n/** Import Fonts **/\n/** Ionic CSS Variables **/\n:root {\n  /** primary **/\n  --ion-color-primary: #3880ff;\n  --ion-color-primary-rgb: 56, 128, 255;\n  --ion-color-primary-contrast: #ffffff;\n  --ion-color-primary-contrast-rgb: 255, 255, 255;\n  --ion-color-primary-shade: #3171e0;\n  --ion-color-primary-tint: #4c8dff;\n  /** secondary **/\n  --ion-color-secondary: #0cd1e8;\n  --ion-color-secondary-rgb: 12, 209, 232;\n  --ion-color-secondary-contrast: #ffffff;\n  --ion-color-secondary-contrast-rgb: 255, 255, 255;\n  --ion-color-secondary-shade: #0bb8cc;\n  --ion-color-secondary-tint: #24d6ea;\n  /** tertiary **/\n  --ion-color-tertiary: #7044ff;\n  --ion-color-tertiary-rgb: 112, 68, 255;\n  --ion-color-tertiary-contrast: #ffffff;\n  --ion-color-tertiary-contrast-rgb: 255, 255, 255;\n  --ion-color-tertiary-shade: #633ce0;\n  --ion-color-tertiary-tint: #7e57ff;\n  /** success **/\n  --ion-color-success: #10dc60;\n  --ion-color-success-rgb: 16, 220, 96;\n  --ion-color-success-contrast: #ffffff;\n  --ion-color-success-contrast-rgb: 255, 255, 255;\n  --ion-color-success-shade: #0ec254;\n  --ion-color-success-tint: #28e070;\n  /** warning **/\n  --ion-color-warning: #ffce00;\n  --ion-color-warning-rgb: 255, 206, 0;\n  --ion-color-warning-contrast: #ffffff;\n  --ion-color-warning-contrast-rgb: 255, 255, 255;\n  --ion-color-warning-shade: #e0b500;\n  --ion-color-warning-tint: #ffd31a;\n  /** danger **/\n  --ion-color-danger: #f04141;\n  --ion-color-danger-rgb: 245, 61, 61;\n  --ion-color-danger-contrast: #ffffff;\n  --ion-color-danger-contrast-rgb: 255, 255, 255;\n  --ion-color-danger-shade: #d33939;\n  --ion-color-danger-tint: #f25454;\n  /** dark **/\n  --ion-color-dark: #222428;\n  --ion-color-dark-rgb: 34, 34, 34;\n  --ion-color-dark-contrast: #ffffff;\n  --ion-color-dark-contrast-rgb: 255, 255, 255;\n  --ion-color-dark-shade: #1e2023;\n  --ion-color-dark-tint: #383a3e;\n  /** medium **/\n  --ion-color-medium: #989aa2;\n  --ion-color-medium-rgb: 152, 154, 162;\n  --ion-color-medium-contrast: #ffffff;\n  --ion-color-medium-contrast-rgb: 255, 255, 255;\n  --ion-color-medium-shade: #86888f;\n  --ion-color-medium-tint: #a2a4ab;\n  /** light **/\n  --ion-color-light: #f4f5f8;\n  --ion-color-light-rgb: 244, 244, 244;\n  --ion-color-light-contrast: #000000;\n  --ion-color-light-contrast-rgb: 0, 0, 0;\n  --ion-color-light-shade: #d7d8da;\n  --ion-color-light-tint: #f5f6f9; }\n.welcome-card ion-img {\n  max-height: 35vh;\n  overflow: hidden; }\n.bghome {\n  --background: url('bg-home.png') no-repeat center center / cover; }\n.move-logo {\n  margin-top: 5vh;\n  margin-left: 15vh; }\n.resize-logo {\n  width: 60%; }\n.center {\n  margin-top: 6vh;\n  text-align: center;\n  width: 100%;\n  margin-left: -7vh; }\n.text-eyewallet {\n  font-family: 'Poppins', sans-serif;\n  letter-spacing: 2px;\n  font-weight: 500;\n  font-size: 34px;\n  color: white; }\n.text-crypto {\n  font-family: 'Poppins', sans-serif;\n  letter-spacing: 5px;\n  font-weight: 500;\n  font-size: 17px;\n  color: white; }\n.move-btn {\n  margin-top: 30vh;\n  text-align: center; }\n.move-input {\n  margin-left: 4vw !important; }\n.btn-start {\n  --background: #4C6AC0;\n  --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;\n  --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;\n  --padding-start: 15vh;\n  --padding-end: 14vh;\n  --padding-top: 0px;\n  --padding-bottom: 0px;\n  --border-radius: 100px;\n  --opacity: 0.86;\n  font-family: 'Poppins', sans-serif; }\n.btn-create {\n  margin-top: 2vh;\n  --background: transparent;\n  --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;\n  --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;\n  --padding-start: 15vh;\n  --padding-end: 14vh;\n  --padding-top: 0px;\n  --padding-bottom: 0px;\n  --border-radius: 100px;\n  --border-color: white;\n  --border-width:1px;\n  --border-style: solid;\n  font-family: 'Poppins', sans-serif; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9sdWlzbXVuYXItZXllbGluZS9kZXZlbG9wbWVudC9leWVsaW5lL0V5ZXdhbGxldEFwcC9zcmMvdGhlbWUvdmFyaWFibGVzLnNjc3MiLCIvVXNlcnMvbHVpc211bmFyLWV5ZWxpbmUvZGV2ZWxvcG1lbnQvZXllbGluZS9FeWV3YWxsZXRBcHAvc3JjL2FwcC9ob21lL2hvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFLQSw4SUFBWTtBQUZaLG1CQUFBO0FBSUEsMEJBQUE7QUFFQTtFQUNFLGNBQUE7RUFDQSw0QkFBb0I7RUFDcEIscUNBQXdCO0VBQ3hCLHFDQUE2QjtFQUM3QiwrQ0FBaUM7RUFDakMsa0NBQTBCO0VBQzFCLGlDQUF5QjtFQUV6QixnQkFBQTtFQUNBLDhCQUFzQjtFQUN0Qix1Q0FBMEI7RUFDMUIsdUNBQStCO0VBQy9CLGlEQUFtQztFQUNuQyxvQ0FBNEI7RUFDNUIsbUNBQTJCO0VBRTNCLGVBQUE7RUFDQSw2QkFBcUI7RUFDckIsc0NBQXlCO0VBQ3pCLHNDQUE4QjtFQUM5QixnREFBa0M7RUFDbEMsbUNBQTJCO0VBQzNCLGtDQUEwQjtFQUUxQixjQUFBO0VBQ0EsNEJBQW9CO0VBQ3BCLG9DQUF3QjtFQUN4QixxQ0FBNkI7RUFDN0IsK0NBQWlDO0VBQ2pDLGtDQUEwQjtFQUMxQixpQ0FBeUI7RUFFekIsY0FBQTtFQUNBLDRCQUFvQjtFQUNwQixvQ0FBd0I7RUFDeEIscUNBQTZCO0VBQzdCLCtDQUFpQztFQUNqQyxrQ0FBMEI7RUFDMUIsaUNBQXlCO0VBRXpCLGFBQUE7RUFDQSwyQkFBbUI7RUFDbkIsbUNBQXVCO0VBQ3ZCLG9DQUE0QjtFQUM1Qiw4Q0FBZ0M7RUFDaEMsaUNBQXlCO0VBQ3pCLGdDQUF3QjtFQUV4QixXQUFBO0VBQ0EseUJBQWlCO0VBQ2pCLGdDQUFxQjtFQUNyQixrQ0FBMEI7RUFDMUIsNENBQThCO0VBQzlCLCtCQUF1QjtFQUN2Qiw4QkFBc0I7RUFFdEIsYUFBQTtFQUNBLDJCQUFtQjtFQUNuQixxQ0FBdUI7RUFDdkIsb0NBQTRCO0VBQzVCLDhDQUFnQztFQUNoQyxpQ0FBeUI7RUFDekIsZ0NBQXdCO0VBRXhCLFlBQUE7RUFDQSwwQkFBa0I7RUFDbEIsb0NBQXNCO0VBQ3RCLG1DQUEyQjtFQUMzQix1Q0FBK0I7RUFDL0IsZ0NBQXdCO0VBQ3hCLCtCQUF1QixFQUFBO0FDOUV6QjtFQUNFLGdCQUFnQjtFQUNoQixnQkFBZ0IsRUFBQTtBQUdsQjtFQUNFLGdFQUFhLEVBQUE7QUFHZjtFQUNFLGVBQWU7RUFDZixpQkFBaUIsRUFBQTtBQUduQjtFQUNFLFVBQVUsRUFBQTtBQUdaO0VBQ0UsZUFBZTtFQUNmLGtCQUFrQjtFQUNsQixXQUFXO0VBQ1gsaUJBQ0YsRUFBQTtBQUVBO0VBQ0Usa0NBQWtDO0VBQ2xDLG1CQUFtQjtFQUNuQixnQkFBZ0I7RUFDaEIsZUFBZTtFQUNmLFlBQVksRUFBQTtBQUdkO0VBQ0Usa0NBQWtDO0VBQ2xDLG1CQUFtQjtFQUNuQixnQkFBZ0I7RUFDaEIsZUFBZTtFQUNmLFlBQVksRUFBQTtBQUdkO0VBQ0UsZ0JBQWdCO0VBQ2hCLGtCQUNGLEVBQUE7QUFFQTtFQUNFLDJCQUEyQixFQUFBO0FBRzdCO0VBQ0UscUJBQWE7RUFDYixrR0FBdUI7RUFDdkIsOEZBQW1CO0VBQ25CLHFCQUFnQjtFQUNoQixtQkFBYztFQUNkLGtCQUFjO0VBQ2QscUJBQWlCO0VBQ2pCLHNCQUFnQjtFQUNoQixlQUFVO0VBQ1Ysa0NBQWtDLEVBQUE7QUFHcEM7RUFDRSxlQUFlO0VBQ2YseUJBQWE7RUFDYixrR0FBdUI7RUFDdkIsOEZBQW1CO0VBQ25CLHFCQUFnQjtFQUNoQixtQkFBYztFQUNkLGtCQUFjO0VBQ2QscUJBQWlCO0VBQ2pCLHNCQUFnQjtFQUNoQixxQkFBZTtFQUNmLGtCQUFlO0VBQ2YscUJBQWU7RUFDZixrQ0FBa0MsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2hvbWUvaG9tZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBJb25pYyBWYXJpYWJsZXMgYW5kIFRoZW1pbmcuIEZvciBtb3JlIGluZm8sIHBsZWFzZSBzZWU6XG4vLyBodHRwOi8vaW9uaWNmcmFtZXdvcmsuY29tL2RvY3MvdGhlbWluZy9cblxuLyoqIEltcG9ydCBGb250cyAqKi9cblxuQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1FeG8rMjo0MDAsNjAwfE9wZW4rU2Fuczo0MDAsNzAwLDgwMHxQb3BwaW5zOjQwMCw1MDAsNjAwfFJvYm90bzo0MDAsNTAwLDkwMCZkaXNwbGF5PXN3YXAnKTtcblxuLyoqIElvbmljIENTUyBWYXJpYWJsZXMgKiovXG5cbjpyb290IHtcbiAgLyoqIHByaW1hcnkgKiovXG4gIC0taW9uLWNvbG9yLXByaW1hcnk6ICMzODgwZmY7XG4gIC0taW9uLWNvbG9yLXByaW1hcnktcmdiOiA1NiwgMTI4LCAyNTU7XG4gIC0taW9uLWNvbG9yLXByaW1hcnktY29udHJhc3Q6ICNmZmZmZmY7XG4gIC0taW9uLWNvbG9yLXByaW1hcnktY29udHJhc3QtcmdiOiAyNTUsIDI1NSwgMjU1O1xuICAtLWlvbi1jb2xvci1wcmltYXJ5LXNoYWRlOiAjMzE3MWUwO1xuICAtLWlvbi1jb2xvci1wcmltYXJ5LXRpbnQ6ICM0YzhkZmY7XG5cbiAgLyoqIHNlY29uZGFyeSAqKi9cbiAgLS1pb24tY29sb3Itc2Vjb25kYXJ5OiAjMGNkMWU4O1xuICAtLWlvbi1jb2xvci1zZWNvbmRhcnktcmdiOiAxMiwgMjA5LCAyMzI7XG4gIC0taW9uLWNvbG9yLXNlY29uZGFyeS1jb250cmFzdDogI2ZmZmZmZjtcbiAgLS1pb24tY29sb3Itc2Vjb25kYXJ5LWNvbnRyYXN0LXJnYjogMjU1LCAyNTUsIDI1NTtcbiAgLS1pb24tY29sb3Itc2Vjb25kYXJ5LXNoYWRlOiAjMGJiOGNjO1xuICAtLWlvbi1jb2xvci1zZWNvbmRhcnktdGludDogIzI0ZDZlYTtcblxuICAvKiogdGVydGlhcnkgKiovXG4gIC0taW9uLWNvbG9yLXRlcnRpYXJ5OiAjNzA0NGZmO1xuICAtLWlvbi1jb2xvci10ZXJ0aWFyeS1yZ2I6IDExMiwgNjgsIDI1NTtcbiAgLS1pb24tY29sb3ItdGVydGlhcnktY29udHJhc3Q6ICNmZmZmZmY7XG4gIC0taW9uLWNvbG9yLXRlcnRpYXJ5LWNvbnRyYXN0LXJnYjogMjU1LCAyNTUsIDI1NTtcbiAgLS1pb24tY29sb3ItdGVydGlhcnktc2hhZGU6ICM2MzNjZTA7XG4gIC0taW9uLWNvbG9yLXRlcnRpYXJ5LXRpbnQ6ICM3ZTU3ZmY7XG5cbiAgLyoqIHN1Y2Nlc3MgKiovXG4gIC0taW9uLWNvbG9yLXN1Y2Nlc3M6ICMxMGRjNjA7XG4gIC0taW9uLWNvbG9yLXN1Y2Nlc3MtcmdiOiAxNiwgMjIwLCA5NjtcbiAgLS1pb24tY29sb3Itc3VjY2Vzcy1jb250cmFzdDogI2ZmZmZmZjtcbiAgLS1pb24tY29sb3Itc3VjY2Vzcy1jb250cmFzdC1yZ2I6IDI1NSwgMjU1LCAyNTU7XG4gIC0taW9uLWNvbG9yLXN1Y2Nlc3Mtc2hhZGU6ICMwZWMyNTQ7XG4gIC0taW9uLWNvbG9yLXN1Y2Nlc3MtdGludDogIzI4ZTA3MDtcblxuICAvKiogd2FybmluZyAqKi9cbiAgLS1pb24tY29sb3Itd2FybmluZzogI2ZmY2UwMDtcbiAgLS1pb24tY29sb3Itd2FybmluZy1yZ2I6IDI1NSwgMjA2LCAwO1xuICAtLWlvbi1jb2xvci13YXJuaW5nLWNvbnRyYXN0OiAjZmZmZmZmO1xuICAtLWlvbi1jb2xvci13YXJuaW5nLWNvbnRyYXN0LXJnYjogMjU1LCAyNTUsIDI1NTtcbiAgLS1pb24tY29sb3Itd2FybmluZy1zaGFkZTogI2UwYjUwMDtcbiAgLS1pb24tY29sb3Itd2FybmluZy10aW50OiAjZmZkMzFhO1xuXG4gIC8qKiBkYW5nZXIgKiovXG4gIC0taW9uLWNvbG9yLWRhbmdlcjogI2YwNDE0MTtcbiAgLS1pb24tY29sb3ItZGFuZ2VyLXJnYjogMjQ1LCA2MSwgNjE7XG4gIC0taW9uLWNvbG9yLWRhbmdlci1jb250cmFzdDogI2ZmZmZmZjtcbiAgLS1pb24tY29sb3ItZGFuZ2VyLWNvbnRyYXN0LXJnYjogMjU1LCAyNTUsIDI1NTtcbiAgLS1pb24tY29sb3ItZGFuZ2VyLXNoYWRlOiAjZDMzOTM5O1xuICAtLWlvbi1jb2xvci1kYW5nZXItdGludDogI2YyNTQ1NDtcblxuICAvKiogZGFyayAqKi9cbiAgLS1pb24tY29sb3ItZGFyazogIzIyMjQyODtcbiAgLS1pb24tY29sb3ItZGFyay1yZ2I6IDM0LCAzNCwgMzQ7XG4gIC0taW9uLWNvbG9yLWRhcmstY29udHJhc3Q6ICNmZmZmZmY7XG4gIC0taW9uLWNvbG9yLWRhcmstY29udHJhc3QtcmdiOiAyNTUsIDI1NSwgMjU1O1xuICAtLWlvbi1jb2xvci1kYXJrLXNoYWRlOiAjMWUyMDIzO1xuICAtLWlvbi1jb2xvci1kYXJrLXRpbnQ6ICMzODNhM2U7XG5cbiAgLyoqIG1lZGl1bSAqKi9cbiAgLS1pb24tY29sb3ItbWVkaXVtOiAjOTg5YWEyO1xuICAtLWlvbi1jb2xvci1tZWRpdW0tcmdiOiAxNTIsIDE1NCwgMTYyO1xuICAtLWlvbi1jb2xvci1tZWRpdW0tY29udHJhc3Q6ICNmZmZmZmY7XG4gIC0taW9uLWNvbG9yLW1lZGl1bS1jb250cmFzdC1yZ2I6IDI1NSwgMjU1LCAyNTU7XG4gIC0taW9uLWNvbG9yLW1lZGl1bS1zaGFkZTogIzg2ODg4ZjtcbiAgLS1pb24tY29sb3ItbWVkaXVtLXRpbnQ6ICNhMmE0YWI7XG5cbiAgLyoqIGxpZ2h0ICoqL1xuICAtLWlvbi1jb2xvci1saWdodDogI2Y0ZjVmODtcbiAgLS1pb24tY29sb3ItbGlnaHQtcmdiOiAyNDQsIDI0NCwgMjQ0O1xuICAtLWlvbi1jb2xvci1saWdodC1jb250cmFzdDogIzAwMDAwMDtcbiAgLS1pb24tY29sb3ItbGlnaHQtY29udHJhc3QtcmdiOiAwLCAwLCAwO1xuICAtLWlvbi1jb2xvci1saWdodC1zaGFkZTogI2Q3ZDhkYTtcbiAgLS1pb24tY29sb3ItbGlnaHQtdGludDogI2Y1ZjZmOTtcbn1cbiIsIkBpbXBvcnQgJy4uLy4uL3RoZW1lL3ZhcmlhYmxlcy5zY3NzJztcblxuLndlbGNvbWUtY2FyZCBpb24taW1nIHtcbiAgbWF4LWhlaWdodDogMzV2aDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuLmJnaG9tZXtcbiAgLS1iYWNrZ3JvdW5kOiB1cmwoJy4uLy4uL2Fzc2V0cy9pbWcvYmctaG9tZS5wbmcnKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlciAvIGNvdmVyIDtcbiAgfVxuXG4ubW92ZS1sb2dve1xuICBtYXJnaW4tdG9wOiA1dmg7XG4gIG1hcmdpbi1sZWZ0OiAxNXZoO1xufVxuXG4ucmVzaXplLWxvZ28ge1xuICB3aWR0aDogNjAlO1xufVxuXG4uY2VudGVye1xuICBtYXJnaW4tdG9wOiA2dmg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi1sZWZ0OiAtN3ZoXG59XG5cbi50ZXh0LWV5ZXdhbGxldHtcbiAgZm9udC1mYW1pbHk6ICdQb3BwaW5zJywgc2Fucy1zZXJpZjtcbiAgbGV0dGVyLXNwYWNpbmc6IDJweDtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbiAgZm9udC1zaXplOiAzNHB4O1xuICBjb2xvcjogd2hpdGU7XG59XG5cbi50ZXh0LWNyeXB0b3tcbiAgZm9udC1mYW1pbHk6ICdQb3BwaW5zJywgc2Fucy1zZXJpZjtcbiAgbGV0dGVyLXNwYWNpbmc6IDVweDtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbiAgZm9udC1zaXplOiAxN3B4O1xuICBjb2xvcjogd2hpdGU7XG59XG5cbi5tb3ZlLWJ0bntcbiAgbWFyZ2luLXRvcDogMzB2aDtcbiAgdGV4dC1hbGlnbjogY2VudGVyXG59XG5cbi5tb3ZlLWlucHV0e1xuICBtYXJnaW4tbGVmdDogNHZ3ICFpbXBvcnRhbnQ7XG59XG5cbi5idG4tc3RhcnR7XG4gIC0tYmFja2dyb3VuZDogIzRDNkFDMDtcbiAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogbGluZWFyLWdyYWRpZW50KDQ1ZGVnLCAjNzMwMEZGIC0xMCUsICM1NTg0RkYgNzAlLCAjNERBQUZGIDEyMCUpICFpbXBvcnRhbnQ7XG4gIC0tYmFja2dyb3VuZC1ob3ZlcjogbGluZWFyLWdyYWRpZW50KDQ1ZGVnLCAjNzMwMEZGIC0xMCUsICM1NTg0RkYgNzAlLCAjNERBQUZGIDEyMCUpICFpbXBvcnRhbnQ7XG4gIC0tcGFkZGluZy1zdGFydDogMTV2aDtcbiAgLS1wYWRkaW5nLWVuZDogMTR2aDtcbiAgLS1wYWRkaW5nLXRvcDogMHB4O1xuICAtLXBhZGRpbmctYm90dG9tOiAwcHg7XG4gIC0tYm9yZGVyLXJhZGl1czogMTAwcHg7XG4gIC0tb3BhY2l0eTogMC44NjtcbiAgZm9udC1mYW1pbHk6ICdQb3BwaW5zJywgc2Fucy1zZXJpZjtcbn1cblxuLmJ0bi1jcmVhdGV7XG4gIG1hcmdpbi10b3A6IDJ2aDtcbiAgLS1iYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbiAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogbGluZWFyLWdyYWRpZW50KDQ1ZGVnLCAjNzMwMEZGIC0xMCUsICM1NTg0RkYgNzAlLCAjNERBQUZGIDEyMCUpICFpbXBvcnRhbnQ7XG4gIC0tYmFja2dyb3VuZC1ob3ZlcjogbGluZWFyLWdyYWRpZW50KDQ1ZGVnLCAjNzMwMEZGIC0xMCUsICM1NTg0RkYgNzAlLCAjNERBQUZGIDEyMCUpICFpbXBvcnRhbnQ7XG4gIC0tcGFkZGluZy1zdGFydDogMTV2aDtcbiAgLS1wYWRkaW5nLWVuZDogMTR2aDtcbiAgLS1wYWRkaW5nLXRvcDogMHB4O1xuICAtLXBhZGRpbmctYm90dG9tOiAwcHg7XG4gIC0tYm9yZGVyLXJhZGl1czogMTAwcHg7XG4gIC0tYm9yZGVyLWNvbG9yOiB3aGl0ZTtcbiAgLS1ib3JkZXItd2lkdGg6MXB4O1xuICAtLWJvcmRlci1zdHlsZTogc29saWQ7XG4gIGZvbnQtZmFtaWx5OiAnUG9wcGlucycsIHNhbnMtc2VyaWY7XG59Il19 */"
 
 /***/ }),
 
@@ -33183,16 +33471,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_camera_camera__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/camera/camera */ "./src/app/services/camera/camera.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_device_device_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/device/device.service */ "./src/app/services/device/device.service.ts");
-/* harmony import */ var _services_chart_chart_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/chart/chart.service */ "./src/app/services/chart/chart.service.ts");
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
-/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_11__);
-
-
-
-
 
 
 
@@ -33203,7 +33481,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var MEDIA_FILES_KEY = 'mediaFiles';
 var HomePage = /** @class */ (function () {
-    function HomePage(timer, axios, auth, camera, alertCtrl, toastCtrl, device, chart) {
+    function HomePage(timer, axios, auth, camera, alertCtrl, toastCtrl, device) {
         this.timer = timer;
         this.axios = axios;
         this.auth = auth;
@@ -33211,15 +33489,10 @@ var HomePage = /** @class */ (function () {
         this.alertCtrl = alertCtrl;
         this.toastCtrl = toastCtrl;
         this.device = device;
-        this.chart = chart;
         this.dataDevice = null;
         this.usuario = null;
-        this.dataTransaction = [];
-        this.dataCryptos = [];
         this.temporizador = timer.temporizador;
         this.dataDevice = this.deviceData();
-        this.loadInformation('transaction');
-        // this.lineCanvas = this.getDataChart();
     }
     HomePage.prototype.ngOnInit = function () {
     };
@@ -33313,168 +33586,6 @@ var HomePage = /** @class */ (function () {
             });
         });
     };
-    // async getDataChart() {
-    //   this.lineCanvas = await this.chart.loadInformation('transaction');
-    // }
-    HomePage.prototype.loadInformation = function (label) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _this = this;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                console.log('entra  a la funcion');
-                this.axios.get('general/historial').then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
-                    var _a;
-                    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                        switch (_b.label) {
-                            case 0:
-                                _a = this;
-                                return [4 /*yield*/, data];
-                            case 1:
-                                _a.dataTransaction = _b.sent();
-                                this.getData(label);
-                                return [2 /*return*/];
-                        }
-                    });
-                }); }).catch(function (error) {
-                    console.log(error);
-                });
-                this.axios.post('general/obtener-precios', null, this.auth)
-                    .then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
-                    var _a;
-                    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                        switch (_b.label) {
-                            case 0:
-                                if (!Object(util__WEBPACK_IMPORTED_MODULE_9__["isArray"])(data)) return [3 /*break*/, 2];
-                                _a = this;
-                                return [4 /*yield*/, data];
-                            case 1:
-                                _a.dataCryptos = _b.sent();
-                                this.getData(label);
-                                _b.label = 2;
-                            case 2: return [2 /*return*/];
-                        }
-                    });
-                }); }).catch(function (error) {
-                    console.log(error);
-                });
-                return [2 /*return*/];
-            });
-        });
-    };
-    /*
-        Esta función retorna la data de la grafica. recibe un label que puede ser: transaction - cryptos
-     */
-    HomePage.prototype.getData = function (label) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var labelTemporal, dataTemporal, format, locale;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        labelTemporal = [];
-                        dataTemporal = [];
-                        format = 'dd-MM';
-                        locale = 'en-US';
-                        if (!(label == 'cryptos')) return [3 /*break*/, 1];
-                        this.dataCryptos.forEach(function (item, index) {
-                            console.log(item);
-                            if (index <= 25) {
-                                var formattedDate = Object(_angular_common__WEBPACK_IMPORTED_MODULE_10__["formatDate"])(item.fecha, format, locale);
-                                labelTemporal.push(formattedDate);
-                                dataTemporal.push(item.valor);
-                            }
-                        });
-                        return [3 /*break*/, 4];
-                    case 1:
-                        if (!(label == 'transaction')) return [3 /*break*/, 3];
-                        this.dataTransaction.forEach(function (item, index) {
-                            var value = JSON.parse(item.descripcion);
-                            if (index <= 25) {
-                                // const formattedDate = formatDate(item.fecha, format, locale);
-                                // labelTemporal.push(formattedDate);
-                                labelTemporal.push(index);
-                                dataTemporal.push(value.BTC.USD);
-                            }
-                        });
-                        return [4 /*yield*/, this.proccessData(label, labelTemporal, dataTemporal)];
-                    case 2: return [2 /*return*/, _a.sent()];
-                    case 3:
-                        console.log('label incorrectos');
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    HomePage.prototype.proccessData = function (titulo, label, data) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        console.log(data);
-                        _a = this;
-                        return [4 /*yield*/, new chart_js__WEBPACK_IMPORTED_MODULE_11__["Chart"](this.lineCanvas.nativeElement, {
-                                type: 'line',
-                                data: {
-                                    // labels: label,
-                                    datasets: [
-                                        {
-                                            label: titulo,
-                                            fill: false,
-                                            lineTension: 0.1,
-                                            backgroundColor: 'rgba(75,192,192,0.4)',
-                                            borderColor: 'rgba(75,192,192,1)',
-                                            borderCapStyle: 'butt',
-                                            borderDash: [],
-                                            borderDashOffset: 0.0,
-                                            borderJoinStyle: 'miter',
-                                            pointBorderColor: 'rgba(75,192,192,1)',
-                                            pointBackgroundColor: '#fff',
-                                            pointBorderWidth: 1,
-                                            pointHoverRadius: 5,
-                                            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                                            pointHoverBorderColor: 'rgba(220,220,220,1)',
-                                            pointHoverBorderWidth: 2,
-                                            pointRadius: 1,
-                                            pointHitRadius: 10,
-                                            data: data,
-                                            spanGaps: false,
-                                        }
-                                    ]
-                                },
-                                options: {
-                                    scales: {
-                                        yAxes: [{
-                                                ticks: {
-                                                    beginAtZero: true
-                                                }
-                                            }],
-                                        xAxes: [{
-                                                ticks: {
-                                                    autoSkip: false,
-                                                    maxRotation: 90,
-                                                    minRotation: 90
-                                                }
-                                            }]
-                                    }, animation: {
-                                        duration: 7000,
-                                    },
-                                    hover: {
-                                        animationDuration: 3000
-                                    },
-                                    responsiveAnimationDuration: 5000
-                                }
-                            })];
-                    case 1:
-                        _a.lineChart = _b.sent();
-                        return [2 /*return*/, this.lineChart];
-                }
-            });
-        });
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('lineCanvas'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], HomePage.prototype, "lineCanvas", void 0);
     HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-home',
@@ -33487,280 +33598,9 @@ var HomePage = /** @class */ (function () {
             _services_camera_camera__WEBPACK_IMPORTED_MODULE_5__["CameraProvider"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"],
-            _services_device_device_service__WEBPACK_IMPORTED_MODULE_7__["DeviceService"],
-            _services_chart_chart_service__WEBPACK_IMPORTED_MODULE_8__["ChartService"]])
+            _services_device_device_service__WEBPACK_IMPORTED_MODULE_7__["DeviceService"]])
     ], HomePage);
     return HomePage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/chart/chart.service.ts":
-/*!*************************************************!*\
-  !*** ./src/app/services/chart/chart.service.ts ***!
-  \*************************************************/
-/*! exports provided: ChartService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChartService", function() { return ChartService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_timer_timer_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/timer/timer.service */ "./src/app/services/timer/timer.service.ts");
-/* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
-/* harmony import */ var _services_auth_auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/auth/auth.service */ "./src/app/services/auth/auth.service.ts");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
-/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-
-
-
-
-
-
-
-
-
-var ChartService = /** @class */ (function () {
-    function ChartService(timer, axios, auth, loadCtrl) {
-        this.timer = timer;
-        this.axios = axios;
-        this.auth = auth;
-        this.loadCtrl = loadCtrl;
-        this.dataTransaction = [];
-        this.dataCryptos = [];
-        this.temporizador = timer.temporizador;
-    }
-    ChartService.prototype.ngOnInit = function () {
-    };
-    ChartService.prototype.loadInformation = function (label) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _this = this;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                console.log('entra  a la funcion');
-                this.axios.get('general/historial').then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
-                    var _a;
-                    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                        switch (_b.label) {
-                            case 0:
-                                _a = this;
-                                return [4 /*yield*/, data];
-                            case 1:
-                                _a.dataTransaction = _b.sent();
-                                this.getData(label);
-                                return [2 /*return*/];
-                        }
-                    });
-                }); }).catch(function (error) {
-                    console.log(error);
-                });
-                this.axios.post('general/obtener-precios', null, this.auth)
-                    .then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
-                    var _a;
-                    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                        switch (_b.label) {
-                            case 0:
-                                if (!Object(util__WEBPACK_IMPORTED_MODULE_7__["isArray"])(data)) return [3 /*break*/, 2];
-                                _a = this;
-                                return [4 /*yield*/, data];
-                            case 1:
-                                _a.dataCryptos = _b.sent();
-                                this.getData(label);
-                                _b.label = 2;
-                            case 2: return [2 /*return*/];
-                        }
-                    });
-                }); }).catch(function (error) {
-                    console.log(error);
-                });
-                return [2 /*return*/];
-            });
-        });
-    };
-    /*
-        Esta función retorna la data de la grafica. recibe un label que puede ser: transaction - cryptos
-     */
-    ChartService.prototype.getData = function (label) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var labelTemporal, dataTemporal, format, locale;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        labelTemporal = [];
-                        dataTemporal = [];
-                        format = 'dd-MM';
-                        locale = 'en-US';
-                        if (!(label == 'cryptos')) return [3 /*break*/, 1];
-                        this.dataCryptos.forEach(function (item, index) {
-                            console.log(item);
-                            if (index <= 25) {
-                                var formattedDate = Object(_angular_common__WEBPACK_IMPORTED_MODULE_8__["formatDate"])(item.fecha, format, locale);
-                                labelTemporal.push(formattedDate);
-                                dataTemporal.push(item.valor);
-                            }
-                        });
-                        return [3 /*break*/, 4];
-                    case 1:
-                        if (!(label == 'transaction')) return [3 /*break*/, 3];
-                        this.dataTransaction.forEach(function (item, index) {
-                            var value = JSON.parse(item.descripcion);
-                            if (index <= 25) {
-                                // const formattedDate = formatDate(item.fecha, format, locale);
-                                // labelTemporal.push(formattedDate);
-                                labelTemporal.push(index);
-                                dataTemporal.push(value.BTC);
-                            }
-                        });
-                        return [4 /*yield*/, this.proccessData(label, labelTemporal, dataTemporal)];
-                    case 2: return [2 /*return*/, _a.sent()];
-                    case 3:
-                        console.log('label incorrectos');
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ChartService.prototype.proccessData = function (titulo, label, data) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        console.log(data);
-                        _a = this;
-                        return [4 /*yield*/, new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](this.lineCanvas.nativeElement, {
-                                type: 'line',
-                                data: {
-                                    labels: label,
-                                    datasets: [
-                                        {
-                                            label: titulo,
-                                            fill: false,
-                                            lineTension: 0.1,
-                                            backgroundColor: 'rgba(75,192,192,0.4)',
-                                            borderColor: 'rgba(75,192,192,1)',
-                                            borderCapStyle: 'butt',
-                                            borderDash: [],
-                                            borderDashOffset: 0.0,
-                                            borderJoinStyle: 'miter',
-                                            pointBorderColor: 'rgba(75,192,192,1)',
-                                            pointBackgroundColor: '#fff',
-                                            pointBorderWidth: 1,
-                                            pointHoverRadius: 5,
-                                            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                                            pointHoverBorderColor: 'rgba(220,220,220,1)',
-                                            pointHoverBorderWidth: 2,
-                                            pointRadius: 1,
-                                            pointHitRadius: 10,
-                                            data: data,
-                                            spanGaps: false,
-                                        }
-                                    ]
-                                },
-                                options: {
-                                    scales: {
-                                        yAxes: [{
-                                                ticks: {
-                                                    beginAtZero: true
-                                                }
-                                            }],
-                                        xAxes: [{
-                                                ticks: {
-                                                    autoSkip: false,
-                                                    maxRotation: 90,
-                                                    minRotation: 90
-                                                }
-                                            }]
-                                    }, animation: {
-                                        duration: 7000,
-                                    },
-                                    hover: {
-                                        animationDuration: 3000
-                                    },
-                                    responsiveAnimationDuration: 5000
-                                }
-                            })];
-                    case 1:
-                        _a.lineChart = _b.sent();
-                        return [2 /*return*/, this.lineChart];
-                }
-            });
-        });
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('lineCanvas'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ChartService.prototype, "lineCanvas", void 0);
-    ChartService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_timer_timer_service__WEBPACK_IMPORTED_MODULE_2__["TimerService"],
-            _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_3__["AxiosService"],
-            _services_auth_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]])
-    ], ChartService);
-    return ChartService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/device/device.service.ts":
-/*!***************************************************!*\
-  !*** ./src/app/services/device/device.service.ts ***!
-  \***************************************************/
-/*! exports provided: DeviceService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeviceService", function() { return DeviceService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
-
-
-
-var DeviceService = /** @class */ (function () {
-    function DeviceService(device) {
-        this.device = device;
-        this.getDataDevice();
-    }
-    DeviceService.prototype.getDataDevice = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, {
-                            cordova: this.device.cordova,
-                            model: this.device.model,
-                            platform: this.device.platform,
-                            uuid: this.device.uuid,
-                            version: this.device.version,
-                            manufacturer: this.device.manufacturer,
-                            isVirtual: this.device.isVirtual,
-                            serial: this.device.serial,
-                        }];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    DeviceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_2__["Device"]])
-    ], DeviceService);
-    return DeviceService;
 }());
 
 

@@ -145,14 +145,9 @@ var routes = [
                         loadChildren: '../profile/profile.module#ProfilePageModule'
                     }
                 ]
-            },
+            }
         ]
     },
-    {
-        path: '',
-        redirectTo: '/app/tabs/login',
-        pathMatch: 'full'
-    }
 ];
 var TabsPageRoutingModule = /** @class */ (function () {
     function TabsPageRoutingModule() {

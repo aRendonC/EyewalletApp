@@ -38,7 +38,7 @@ export class TimerService {
       }
       this.temporizador.segundos = this.contador_s;
       this.contador_s++;
-    }, 1000);
+    }, 1000000);
   }
 
   logout(alerta = true) {

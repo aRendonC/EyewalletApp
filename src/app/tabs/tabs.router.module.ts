@@ -24,14 +24,9 @@ const routes: Routes = [
             loadChildren: '../profile/profile.module#ProfilePageModule'
           }
         ]
-      },
+      }
     ]
   },
-  {
-    path: '',
-    redirectTo: '/app/tabs/login',
-    pathMatch: 'full'
-  }
 ];
 
 @NgModule({

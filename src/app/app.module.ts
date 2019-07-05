@@ -8,7 +8,6 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {IonicStorageModule} from '@ionic/storage';
 
 import {AxiosService} from './services/axios/axios.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -17,12 +16,22 @@ import {Camera} from '@ionic-native/camera/ngx';
 import {CameraProvider} from './services/camera/camera';
 import {Device} from '@ionic-native/device/ngx';
 import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
+import {TouchLoginService} from './services/fingerprint/touch-login.service';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+import {PinModalPage} from "./pin-modal/pin-modal.page";
+// LocalStorage.
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
+
+  declarations: [AppComponent, PinModalPage],
+  entryComponents: [PinModalPage],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
     IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
@@ -33,9 +42,13 @@ import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
     Camera,
     CameraProvider,
     Device,
-    NativePageTransitions
+    NativePageTransitions,
+    FingerprintAIO,
+    TouchLoginService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
-export class AppModule {
-}
+
+export class AppModule {}
