@@ -19,9 +19,9 @@ import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 import {TouchLoginService} from './services/fingerprint/touch-login.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from "./pin-modal/pin-modal.page";
-
 // LocalStorage.
 import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
 
