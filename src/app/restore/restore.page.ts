@@ -1,12 +1,17 @@
 // Dependecies.
 import { Component, OnInit } from '@angular/core';
 import validator from 'validator';
+import { ToastController } from '@ionic/angular';
 
 // Services.
 import { AxiosService } from '../services/axios/axios.service';
 import { DeviceService } from '../services/device/device.service';
 import { AesJsService } from '../services/aesjs/aes-js.service';
 import { Router } from '@angular/router';
+import { DataLocalService } from '../services/data-local/data-local.service';
+
+// Constants.
+import * as CONSTANTS from '../constanst';
 
 @Component({
   selector: 'app-restore',
@@ -18,7 +23,8 @@ export class RestorePage implements OnInit {
   public dataRestorePassword = {
     pin: '',
     newPassword: '',
-    repeatNewPassword: ''
+    repeatNewPassword: '',
+    blocked: false
   };
 
   private newPasswordLength: object = {
@@ -31,12 +37,15 @@ export class RestorePage implements OnInit {
   public newPasswordOk: boolean = false;
   public repearNewPasswordOk: boolean = false;
   public dataDeviceId: any;
+  private blockingCounter: number = 0;
 
   constructor(
     private axiosServices: AxiosService,
     private deviceService: DeviceService,
     private aesJs: AesJsService,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController,
+    private dataLocal: DataLocalService
   ) { }
 
   ngOnInit() {
@@ -114,20 +123,56 @@ export class RestorePage implements OnInit {
     return this.aesJs.encrypt(pin);
   }
 
+  private async presentToast() {
+    const toast = await this.toastController.create({
+      message: CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED,
+      duration: 3000
+    });
+
+    toast.present();
+  }
+
+  private blockWallet(blockingCounter: number): void {
+    const keyDataLocal: string = 'storageBlockingData';
+
+    this.dataLocal.getDataLocal(keyDataLocal)
+    .then(response => {
+      this.validateStorageBlockingData(response, blockingCounter, keyDataLocal);
+    });
+  }
+
+  private validateStorageBlockingData(response: any, blockingCounter: any, keyDataLocal: any) {
+    if (response === undefined || response === null || blockingCounter <= 2) {
+      this.dataLocal.setDataLocal(keyDataLocal, blockingCounter);
+      if (blockingCounter === 2) this.dataRestorePassword.blocked = true;
+    } else if (blockingCounter === 3) {
+      this.blockingCounter = 0;
+      this.dataLocal.setDataLocal(keyDataLocal, this.blockingCounter);
+      this.presentToast();
+      this.router.navigate(['']);
+    }
+  }
+
   public restorePassword(): void {
     const path: string = 'auth/recovery';
 
     const dataBody: object = {
       deviceId: this.dataDeviceId,
       pin: this.encryptPin(this.dataRestorePassword.pin),
-      password: this.dataRestorePassword.newPassword
+      password: this.dataRestorePassword.newPassword,
+      blocked: this.dataRestorePassword.blocked
     };
 
     this.axiosServices.post(path, dataBody)
     .then(response => {
       if (response.status === 200) {
+        this.blockingCounter = 0;
+        this.dataRestorePassword.blocked = false;
         this.router.navigate(['']);
+      } else if (response.status === 500) {
+        this.blockingCounter++;
+        this.blockWallet(this.blockingCounter);
       }
-    })
+    });
   }
 }

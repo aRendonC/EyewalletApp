@@ -1700,7 +1700,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    urlBase: 'https://ad97da3d.ngrok.io/api/v1/'
+    urlBase: 'https://8f4524e3.ngrok.io/api/v1/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
