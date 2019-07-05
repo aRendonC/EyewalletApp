@@ -7,7 +7,6 @@
 }
 
 .move-text{
-    
     margin-top: 0vh;
     margin-left: 2.5vw;
     font-family: 'Poppins', sans-serif;
@@ -27,6 +26,8 @@
 .move-form{
     width: 110%;
     margin-left: -5%;
+    margin-top: 0vh;
+    margin-bottom: 1vh;
 }
 .white-line{
     --highlight-height: 0
@@ -70,9 +71,30 @@ ion-datetime{
     color: #28255C;
 }
 ion-item{
-    --inner-padding-start: 5vw;
+    --inner-padding-start: 6vw !important;
     color: #9AB8DB
 }
 .move-input{
-    padding-left: 0px !important
+    padding-left: 0px !important;
+    margin-left: 0vw;
+}
+
+ion-select{
+    --placeholder-color: #9AB8DB;
+    --border-color: #DFDFDF !important;
+    color:#9AB9DB;
+}
+
+.white{
+    --placeholder-color: #9AB8DB !important;
+    color:#9AB9DB;
+}
+
+.white-line {
+    --border-color: #DFDFDF;
+    --highlight-height: 0;
+}
+
+ion-item {
+    color: rgb(149, 184, 224);
 }

@@ -3,7 +3,7 @@ import {AxiosService} from '../axios/axios.service';
 import {MenuController, ToastController} from '@ionic/angular';
 import {TimerService} from '../timer/timer.service';
 import {Router} from '@angular/router';
-import {Storage} from "@ionic/storage";
+import {Storage} from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +65,7 @@ export class AuthService {
 
   async intentarLogin() {
     // this.usuario = JSON.parse(window.localStorage.getItem('user'));
-    this.usuario = await this.store.get('user')
+    this.usuario = await this.store.get('user');
     if (this.usuario == null) {
       this.usuario = {
         id: null,
@@ -82,7 +82,7 @@ export class AuthService {
   }
 
   async isLogin() {
-    const user = await this.store.get('user')
+    const user = await this.store.get('user');
     console.info(user)
     return !!user;
   }

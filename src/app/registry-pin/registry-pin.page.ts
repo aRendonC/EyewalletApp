@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {AxiosService} from "../services/axios/axios.service";
-import {DeviceService} from "../services/device/device.service";
-import * as CONSTANTS from "../constanst";
-import {Validators, FormGroup, FormBuilder, FormControl} from "@angular/forms";
-import {Router, ActivatedRoute} from "@angular/router";
-import {AuthService} from "../services/auth/auth.service";
-import {Storage} from "@ionic/storage";
+import {AxiosService} from '../services/axios/axios.service';
+import {DeviceService} from '../services/device/device.service';
+import * as CONSTANTS from '../constanst';
+import {Validators, FormGroup, FormBuilder, FormControl} from '@angular/forms';
+import {Router, ActivatedRoute} from '@angular/router';
+import {AuthService} from '../services/auth/auth.service';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-registry-pin',
@@ -35,10 +35,10 @@ export class RegistryPinPage implements OnInit {
 
   async ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      console.info(params)
+      console.log(params);
       this.user = JSON.parse(params.user);
-      console.table('usuario datos pasados', this.user)
-      this.auth.usuario.accessToken = this.user.accessToken
+      console.table('usuario datos pasados', this.user);
+      this.auth.usuario.accessToken = this.user.accessToken;
     });
     this.bodyForm = new FormGroup({
       pin: new FormControl('', Validators.compose([
@@ -48,7 +48,7 @@ export class RegistryPinPage implements OnInit {
       ])),
       device: new FormControl(''),
       userId: new FormControl('')
-    })
+    });
   }
 
   async registerPin(data: any) {
@@ -58,13 +58,13 @@ export class RegistryPinPage implements OnInit {
     console.info(this.devic);
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
-    console.log(this.bodyForm)
+    console.log('bodyForm', this.bodyForm);
     // console.log(this.body)
-    let response = await this.axios.put('profile/1/pin', this.bodyForm.value, this.auth)
-    console.log(response)
-    if(response.status === 200) {
-      this.router.navigate(['app/tabs'])
-      this.store.set('user', this.user.data)
+    const response = await this.axios.put('profile/1/pin', this.bodyForm.value, this.auth)
+    console.log(response);
+    if (response.status === 200) {
+      this.router.navigate(['app/tabs']);
+      this.store.set('user', this.user.data);
     }
   }
 }

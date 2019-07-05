@@ -55,8 +55,8 @@ export class LoginPage implements OnInit {
   }
 
   async openModal() {
-    const moda = await this.modalCtrl.getTop()
-    console.log(moda)
+    const moda = await this.modalCtrl.getTop();
+    console.log(moda);
     const modal = await this.modalCtrl.create({
       component: PinModalPage,
       componentProps: {
@@ -75,5 +75,12 @@ export class LoginPage implements OnInit {
     });
     toast.present();
   }
+<<<<<<< HEAD
 
 }
+=======
+  restore() {
+    this.router.navigate(['/restore']);
+  }
+}
+>>>>>>> Create Profile Address

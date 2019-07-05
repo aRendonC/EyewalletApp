@@ -8,7 +8,7 @@
 
 .move-text{
     
-    margin-top: 6vh;
+    margin-top: 0vh;
     margin-left: 2.5vw;
     font-family: 'Poppins', sans-serif;
     color:white;
@@ -33,7 +33,7 @@
 }
 
 .move-btn{
-    margin-top: 5vh;
+    margin-top: 2vh;
     text-align: center
 }
 .btn-start{
@@ -69,11 +69,19 @@
 
 ion-item{
     --inner-padding-start: 5vw;
-    color: #9AB8DB
+    --border-color: #DFDFDF !important;
+}
+
+.white{
+    --placeholder-color: #9AB8DB !important;
+    color:#9AB9DB;
+}
+
+.move-input{
+    margin-left: 0vw;
 }
 
 ion-datetime{
-    --placeholder-color: #CEDCED;
     --padding-start: -10px;
-    --placeholder-opacity: 1!important;
+    opacity: 0.6;
 }

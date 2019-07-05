@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import {AxiosService } from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
+import {Storage} from '@ionic/storage';
+import { AesJsService } from '../services/aesjs/aes-js.service';
 
 
 @Component({
@@ -15,14 +17,18 @@ export class CreateProfilePage implements OnInit {
   public firstname: '';
   public lastname: '';
   public birthdate: '';
+  private user: any = null;
+  public bodyForm: any = {};
   public identification: 0;
-
+  public urlProfileUpdate = '/profile/1/update';
   constructor(
     private router: Router,
     private menu: MenuController,
     private touchCtrl: TouchLoginService,
     private aut: AuthService,
-    private http: AxiosService
+    private axios: AxiosService,
+    private store: Storage,
+    private aes: AesJsService
   ) { }
 
 
@@ -33,12 +39,27 @@ export class CreateProfilePage implements OnInit {
   ionViewDidLeave() {
     this.menu.enable(true);
   }
+
+  // Esta función me lleva a la pagina que tiene dirección pero primero envia los
+  // datos del form a la API medinte un put request
   async address(firstname, lastname, birthdate, identification) {
+    // Nombre
     firstname = this.firstname;
+    // Apellido
     lastname = this.lastname;
-    birthdate = this.birthdate.substr(0, 10);
+    birthdate = this.birthdate.slice(0, 10);
     identification = this.identification;
-    const url = 'https://ad97da3d.ngrok.io/api/v1/profile/1/update';
-    this.router.navigate(['/address']);
+    this.bodyForm = {firstname, lastname, birthdate, identification};
+    console.log('Profile', this.bodyForm);
+    console.log('Profile Value', this.bodyForm.value);
+    console.log('aut', this.aut);
+    this.user = await this.store.get('profile');
+    this.user = this.aes.decriptData
+    const response = await this.axios.put(`profile/${this.aut.usuario.id}/update`, this.bodyForm.value, this.aut);
+    console.log(response);
+    // if (response.status === 200) {
+    //   this.router.navigate(['/address']);
+    //   this.store.set('user', this.user.data);
+    // }
   }
 }
