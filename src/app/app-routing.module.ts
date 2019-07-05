@@ -10,8 +10,6 @@ const routes: Routes = [
   {path: 'restore', loadChildren: './restore/restore.module#RestorePageModule'},
   {path: 'pin', loadChildren: './pin/pin.module#PinPageModule'},
   { path: 'list-pockets', loadChildren: './list-pockets/list-pockets.module#ListPocketsPageModule' },
-  { path: 'create-profile', loadChildren: './create-profile/create-profile.module#CreateProfilePageModule'},
-  { path: 'address', loadChildren: './address/address.module#AddressPageModule'}
 ];
 
 @NgModule({

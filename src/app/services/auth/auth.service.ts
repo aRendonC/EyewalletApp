@@ -28,7 +28,7 @@ export class AuthService {
 
   login(user, password) {
     return new Promise((resolve) => {
-      this.api.post('auth/login', {email: user, password: password, deviceId: '7219d0c4ee046311'})
+      this.api.post('auth/login', {email: user, password: password, deviceId: '928e019bd3cdb0fa'})
         .then(async (data: any) => {
           console.log('data response', data.hasOwnProperty(404));
           if (data.status === 404) {

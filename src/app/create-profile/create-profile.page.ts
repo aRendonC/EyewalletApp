@@ -42,24 +42,23 @@ export class CreateProfilePage implements OnInit {
 
   // Esta función me lleva a la pagina que tiene dirección pero primero envia los
   // datos del form a la API medinte un put request
-  async address(firstname, lastname, birthdate, identification) {
+  async address(firstname, lastname, birthdate, identification, userId) {
     // Nombre
     firstname = this.firstname;
     // Apellido
     lastname = this.lastname;
     birthdate = this.birthdate.slice(0, 10);
     identification = this.identification;
-    this.bodyForm = {firstname, lastname, birthdate, identification};
-    console.log('Profile', this.bodyForm);
-    console.log('Profile Value', this.bodyForm.value);
-    console.log('aut', this.aut);
     this.user = await this.store.get('profile');
-    this.user = this.aes.decriptData
-    const response = await this.axios.put(`profile/${this.aut.usuario.id}/update`, this.bodyForm.value, this.aut);
+    this.user = JSON.parse(this.aes.decrypt(this.user));
+    userId = this.user.userId;
+    this.bodyForm = {userId, firstname, lastname, birthdate, identification};
+    console.log(this.bodyForm);
+    const response = await this.axios.put(`profile/${this.user.id}/update`, this.bodyForm, this.aut);
     console.log(response);
-    // if (response.status === 200) {
-    //   this.router.navigate(['/address']);
-    //   this.store.set('user', this.user.data);
-    // }
+    if (response.status === 200) {
+      this.router.navigate(['app/tabs/address']);
+      this.store.set('user', JSON.stringify(response.data));
+    }
   }
 }
