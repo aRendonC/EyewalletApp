@@ -61,7 +61,7 @@ var DashboardPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border>\n    <!--<ion-toolbar>\n        <ion-img  [class]=\"classLeft\" [src]=\"imgLeft\" (click)=\"enviar()\"></ion-img>\n        <ion-img class=\"resize-logo\" src=\"../../assets/img/dashboard-logo.svg\"></ion-img>\n        <ion-img class=\"resize-logo-right\" [src]=\"imgRight\" (click)=\"recibir()\" *ngIf=\"imgRight\"></ion-img>\n      </ion-toolbar>-->\n</ion-header>\n\n<ion-content class=\"bgdashboard\">\n  <div class=\"contentdash\">\n      <ion-img  [class]=\"classLeft\" [src]=\"imgLeft\" (click)=\"enviar()\"></ion-img>\n      <ion-img class=\"resize-logo\" src=\"../../assets/img/dashboard-logo.svg\"></ion-img>\n      <ion-img class=\"resize-logo-right\" [src]=\"imgRight\" (click)=\"recibir()\" *ngIf=\"imgRight\"></ion-img>\n    <br>\n    <br>\n    <br>\n    <br>\n  </div>\n\n  <!--<app-chart name=\"transaction\" limit=\"10\"></app-chart>-->\n \n    <app-sliders name=\"Bitcoin\"></app-sliders>\n    \n</ion-content>\n"
+module.exports = "<ion-header no-border>\n    <!--<ion-toolbar>\n        <ion-img  [class]=\"classLeft\" [src]=\"imgLeft\" (click)=\"enviar()\"></ion-img>\n        <ion-img class=\"resize-logo\" src=\"../../assets/img/dashboard-logo.svg\"></ion-img>\n        <ion-img class=\"resize-logo-right\" [src]=\"imgRight\" (click)=\"recibir()\" *ngIf=\"imgRight\"></ion-img>\n      </ion-toolbar>-->\n</ion-header>\n\n<ion-content class=\"bgdashboard1\">\n  <div class=\"contentdash\">\n      <ion-img  class=\"resize-logo-left1\" src=\"../../assets/img/btn-left-s.svg\" (click)=\"enviar()\"></ion-img>\n      <ion-img class=\"resize-logo\" src=\"../../assets/img/dashboard-logo.svg\"></ion-img>\n      <ion-img class=\"resize-logo-right\" src=\"../../assets/img/btn-right.svg\" (click)=\"recibir()\"></ion-img>\n  </div>\n  <br>\n  <br>\n  <br>\n  <br>\n  <!--<app-chart name=\"transaction\" limit=\"10\"></app-chart>-->\n \n    <app-sliders [name]=\"crypto\"></app-sliders>\n    \n</ion-content>\n"
 
 /***/ }),
 
@@ -92,29 +92,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var DashboardPage = /** @class */ (function () {
     function DashboardPage() {
-        this.imgLeft = null;
-        this.imgRight = null;
-        this.classLeft = null;
-        this.bandera = null;
-        this.classLeft = "resize-logo-left1";
-        this.imgLeft = "../../assets/img/btn-left-s.svg";
-        this.imgRight = "../../assets/img/btn-right.svg";
+        this.crypto = [
+            { name: "Bitcoin", background: "contentBitcoin" },
+            { name: "Ethereum", background: "contentEtherium" }
+        ];
     }
     DashboardPage.prototype.ngOnInit = function () {
-    };
-    DashboardPage.prototype.enviar = function () {
-        if (this.bandera == "") {
-            this.classLeft = "resize-logo-left1";
-            this.bandera = "1";
-            console.log("bandera:" + this.bandera);
-        }
-        else {
-            this.classLeft = "resize-logo-left";
-            this.bandera = "";
-            console.log("bandera: " + this.bandera);
-        }
-    };
-    DashboardPage.prototype.recibir = function () {
     };
     DashboardPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
