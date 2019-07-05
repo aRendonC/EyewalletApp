@@ -52,17 +52,7 @@ export class RegistryPinPage implements OnInit {
   }
 
   async registerPin(data: any) {
-    console.info(this.user)
     this.devic = await this.device.getDataDevice();
-    this.devic.firstName ='';
-    this.devic.lastName =
-    this.devic.email = this.user.data.email;
-    this.devic.phone = this.user.data.phone;
-    this.devic.country ='';
-    this.devic.city ='';
-    this.devic.state ='';
-    this.devic.twoFactor ='';
-    this.devic.status ='';
     console.info(this.bodyForm);
     console.info(data);
     console.info(this.devic);

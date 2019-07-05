@@ -24,12 +24,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // LocalStorage.
 import { IonicStorageModule } from '@ionic/storage';
 import {ComponentsModule} from "./components/components.module";
+import {VerificationModalPage} from "./verification-modal/verification-modal.page";
 
 
 @NgModule({
 
-  declarations: [AppComponent, PinModalPage],
-  entryComponents: [PinModalPage],
+  declarations: [AppComponent, PinModalPage, VerificationModalPage],
+  entryComponents: [PinModalPage, VerificationModalPage],
   imports: [
     ReactiveFormsModule,
     FormsModule,
