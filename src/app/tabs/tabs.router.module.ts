@@ -8,7 +8,16 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'inicio',
+        path: '',
+        children: [
+          {
+            path: '',
+          loadChildren: './dashboard/dashboard.module#DashboardPageModule'
+          }
+        ]
+      },
+      {
+        path: 'home',
         children: [
           {
             path: '',
@@ -17,7 +26,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: '',
+        path: 'profile',
         children: [
           {
             path: '',
