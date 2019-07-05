@@ -53,11 +53,16 @@ export class VerificationModalPage implements OnInit {
 
   async verifyCode() {
     let body = {
-      type: 'phoe',
+      type: 'phone',
       code: this.code
     }
     let response = await this.http.post('user/validateCodePhone', body, this.auth)
     console.log(response)
+    if(response.data) {
+     await this.closeModal()
+    } else {
+      //poner el toast de error, muchas gracias.
+    }
   }
 
 }
