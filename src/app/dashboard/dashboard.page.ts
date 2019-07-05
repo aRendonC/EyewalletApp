@@ -13,19 +13,18 @@ import {leaveAnimation} from "../animations/leave";
 })
 export class DashboardPage implements OnInit {
 
-  imgLeft:string=null;
-  imgRight:string=null;
-  classLeft:string=null;
-  bandera:string=null;
-  pockets: any = []
+  pockets: any = [];
 
   constructor(
       private route: ActivatedRoute,
       private modalCtrl: ModalController
   ) {
-    this.classLeft="resize-logo-left1";
-    this.imgLeft = "../../assets/img/btn-left-s.svg";
-    this.imgRight="../../assets/img/btn-right.svg";
+
+  public crypto = [
+    {name:"Bitcoin",background:"contentBitcoin"},
+    {name:"Ethereum",background:"contentEtherium"}
+  ];
+  constructor() {
 
   }
 
@@ -46,5 +45,4 @@ export class DashboardPage implements OnInit {
   recibir(){
 
   }
-
 }
