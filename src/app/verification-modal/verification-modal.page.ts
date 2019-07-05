@@ -4,6 +4,7 @@ import * as CONSTANTS from '../constanst';
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {AuthService} from "../services/auth/auth.service";
 import {AxiosService} from "../services/axios/axios.service";
+import {ModalController} from "@ionic/angular";
 @Component({
   selector: 'app-verification-modal',
   templateUrl: './verification-modal.page.html',
@@ -20,11 +21,17 @@ export class VerificationModalPage implements OnInit {
       private store: Storage,
       protected aesjs: AesJsService,
       protected auth: AuthService,
-      private http: AxiosService
+      private http: AxiosService,
+      private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
   }
+
+  async closeModal() {
+    await this.modalCtrl.dismiss();
+  }
+
   async startVerification() {
     if (!this.ctrlInput) {
       this.phone = await this.store.get('profile')
