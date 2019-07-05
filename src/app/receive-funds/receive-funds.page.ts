@@ -29,12 +29,12 @@ export class ReceiveFundsPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.test = await JSON.parse(this.activateRouter.snapshot.paramMap.get('pocket'));
+    this.test = JSON.parse(this.activateRouter.snapshot.paramMap.get('pocket'));
+    console.log(this.test);
   }
 
   public copyCode(): void {
     this.clipboard.copy(this.codeReceive);
-    console.log(this.codeReceive);
     this.presentToast();
   }
 
