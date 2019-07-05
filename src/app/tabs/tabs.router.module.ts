@@ -39,7 +39,7 @@ const routes: Routes = [
           children: [
             {
             path:'',
-          loadChildren: './create-profile/create-profile.module#CreateProfilePageModule'
+          loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'
         },
           ]
       },
@@ -48,7 +48,7 @@ const routes: Routes = [
           children: [
             {
             path: '',
-            loadChildren: './address/address.module#AddressPageModule'
+            loadChildren: '../address/address.module#AddressPageModule'
           }
           ]
       }
