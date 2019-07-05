@@ -1,6 +1,7 @@
 // Dependencies.
 import { Component, OnInit } from '@angular/core';
 import validator from 'validator';
+import { ToastController } from '@ionic/angular';
 
 // Constants.
 import * as CONSTANTS from '../constanst';
@@ -35,7 +36,7 @@ export class RegistryPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    
   }
 
   public validateEmail(event): void {
@@ -120,6 +121,5 @@ export class RegistryPage implements OnInit {
         this.router.navigate(['registry-pin'], navigationExtras);
       }
     });
-
   }
 }

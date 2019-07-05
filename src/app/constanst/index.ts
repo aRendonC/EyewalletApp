@@ -10,6 +10,10 @@ export const REGISTRY = {
    BUTTON: 'crear billetera',
 }
 
+export const RESTORE_PASSWORDO = {
+   WALLET_BLOCKED: 'Su cuenta ha sido bloqueada, espere 24 horas.'
+}
+
 export const PIN = {
    CEATE_PIN: 'Crear PIN',
    ENTER_PIN: 'Ingresar PIN'
