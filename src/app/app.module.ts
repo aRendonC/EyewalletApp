@@ -19,15 +19,20 @@ import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 import {TouchLoginService} from './services/fingerprint/touch-login.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from "./pin-modal/pin-modal.page";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // LocalStorage.
 import { IonicStorageModule } from '@ionic/storage';
+import {ComponentsModule} from "./components/components.module";
 
 @NgModule({
 
   declarations: [AppComponent, PinModalPage],
   entryComponents: [PinModalPage],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    ComponentsModule,
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
