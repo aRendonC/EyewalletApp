@@ -15,6 +15,8 @@ export class DashboardPage implements OnInit {
   
   constructor() {
     this.classLeft="resize-logo-left1";
+    this.imgLeft = "../../assets/img/btn-left-s.svg";
+    this.imgRight="../../assets/img/btn-right.svg";
     
   }
 
