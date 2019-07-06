@@ -25,6 +25,15 @@ export class AddressPage implements OnInit {
   public stateCode = '';
   public zip: any;
   public userId: any;
+  public address1 = '';
+  public address2 = '';
+  public country = '';
+  public state = '';
+  public city = '';
+  public user: any = '';
+  public bodyForm: any = {};
+  
+
 
   private headers: HttpHeaders;
   constructor(
@@ -106,7 +115,7 @@ getCity(state: any) {
   });
 }
 
-async createProfile(userId, address1, address2, country, state, city, zip){
+async createProfile(userId: any, address1: any, address2: any, country: any, state: any, city: any, zip: any){
   address1 = this.address1;
   address2 = this.address2;
   country = this.country;
