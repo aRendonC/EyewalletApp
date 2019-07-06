@@ -14,21 +14,17 @@ import {leaveAnimation} from "../animations/leave";
 export class DashboardPage implements OnInit {
 
   pockets: any = [];
-
-  constructor(
-      private route: ActivatedRoute,
-      private modalCtrl: ModalController
-  ) {
-
+  
   public crypto = [
     {name:"Bitcoin",background:"contentBitcoin"},
     {name:"Ethereum",background:"contentEtherium"}
   ];
-  constructor() {
 
-  }
-
-
+  constructor(
+      private route: ActivatedRoute,
+      private modalCtrl: ModalController
+  ) {}
+ 
   ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
   }
