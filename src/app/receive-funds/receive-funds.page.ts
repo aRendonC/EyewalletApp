@@ -30,7 +30,7 @@ export class ReceiveFundsPage implements OnInit {
 
   async ngOnInit() {
     this.test = JSON.parse(this.activateRouter.snapshot.paramMap.get('pocket'));
-    console.log('This is the view of receive funds.');
+    console.log('This is the view of receive funds...');
     console.log(this.test);
   }
 
