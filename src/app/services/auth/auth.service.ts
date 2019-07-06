@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import { DeviceService } from '../device/device.service';
 
+
 @Injectable({
   providedIn: 'root'
 })

@@ -2,7 +2,11 @@
   "_args": [
     [
       "cordova-plugin-statusbar@2.4.2",
+<<<<<<< HEAD
       "/Users/luismunar-eyeline/development/eyeline/EyewalletApp"
+=======
+      "/Users/eyeline/Documents/yeison/EyewalletApp"
+>>>>>>> inicio de session desde el fisico
     ]
   ],
   "_from": "cordova-plugin-statusbar@2.4.2",
@@ -26,7 +30,11 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-statusbar/-/cordova-plugin-statusbar-2.4.2.tgz",
   "_spec": "2.4.2",
+<<<<<<< HEAD
   "_where": "/Users/luismunar-eyeline/development/eyeline/EyewalletApp",
+=======
+  "_where": "/Users/eyeline/Documents/yeison/EyewalletApp",
+>>>>>>> inicio de session desde el fisico
   "author": {
     "name": "Apache Software Foundation"
   },

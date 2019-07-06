@@ -71,6 +71,16 @@
       "id": "cordova-plugin-fingerprint-aio@1.7.0"
     },
     "is_top_level": true,
+    "variables": {
+      "FACEID_USAGE_DESCRIPTION": " "
+    }
+  },
+  "cordova-plugin-add-swift-support": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-add-swift-support@^2.0.2"
+    },
+    "is_top_level": false,
     "variables": {}
   },
   "com-badrit-base64": {

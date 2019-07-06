@@ -61,7 +61,7 @@ var DashboardPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border>\n    <!--<ion-toolbar>\n        <ion-img  [class]=\"classLeft\" [src]=\"imgLeft\" (click)=\"enviar()\"></ion-img>\n        <ion-img class=\"resize-logo\" src=\"../../assets/img/dashboard-logo.svg\"></ion-img>\n        <ion-img class=\"resize-logo-right\" [src]=\"imgRight\" (click)=\"recibir()\" *ngIf=\"imgRight\"></ion-img>\n      </ion-toolbar>-->\n</ion-header>\n\n<ion-content class=\"bgdashboard1\">\n  <div class=\"contentdash\">\n      <ion-img  class=\"resize-logo-left1\" src=\"../../assets/img/btn-left-s.svg\" (click)=\"enviar()\"></ion-img>\n      <ion-img class=\"resize-logo\" src=\"../../assets/img/dashboard-logo.svg\"></ion-img>\n      <ion-img class=\"resize-logo-right\" src=\"../../assets/img/btn-right.svg\" (click)=\"recibir()\"></ion-img>\n  </div>\n  <br>\n  <br>\n  <br>\n  <br>\n  <!--<app-chart name=\"transaction\" limit=\"10\"></app-chart>-->\n \n    <app-sliders [name]=\"crypto\"></app-sliders>\n    \n</ion-content>\n"
+module.exports = "<ion-header no-border>\n    <!--<ion-toolbar>\n        <ion-img  [class]=\"classLeft\" [src]=\"imgLeft\" (click)=\"enviar()\"></ion-img>\n        <ion-img class=\"resize-logo\" src=\"../../assets/img/dashboard-logo.svg\"></ion-img>\n        <ion-img class=\"resize-logo-right\" [src]=\"imgRight\" (click)=\"recibir()\" *ngIf=\"imgRight\"></ion-img>\n      </ion-toolbar>-->\n</ion-header>\n\n<ion-content class=\"bgdashboard1\">\n  <div class=\"contentdash\">\n\n      <app-pocket [pockets]=\"pockets\"></app-pocket>\n\n      <ion-img  class=\"resize-logo-left1\" src=\"../../assets/img/btn-left-s.svg\" (click)=\"enviar()\"></ion-img>\n      <ion-img class=\"resize-logo\" src=\"../../assets/img/dashboard-logo.svg\"></ion-img>\n      <ion-img class=\"resize-logo-right\" src=\"../../assets/img/btn-right.svg\" (click)=\"recibir()\"></ion-img>\n\n  </div>\n  <br>\n  <br>\n  <br>\n  <br>\n  <!--<app-chart name=\"transaction\" limit=\"10\"></app-chart>-->\n\n<ion-button (click)=\"openModalVerification()\">Modal verificación</ion-button>\n\n    <app-sliders [name]=\"crypto\"></app-sliders>\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -88,16 +88,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardPage", function() { return DashboardPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _verification_modal_verification_modal_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../verification-modal/verification-modal.page */ "./src/app/verification-modal/verification-modal.page.ts");
+/* harmony import */ var _animations_enter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../animations/enter */ "./src/app/animations/enter.ts");
+/* harmony import */ var _animations_leave__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../animations/leave */ "./src/app/animations/leave.ts");
+
+
+
+
+
 
 
 var DashboardPage = /** @class */ (function () {
-    function DashboardPage() {
+    function DashboardPage(route, modalCtrl) {
+        this.route = route;
+        this.modalCtrl = modalCtrl;
+        this.pockets = [];
         this.crypto = [
             { name: "Bitcoin", background: "contentBitcoin" },
             { name: "Ethereum", background: "contentEtherium" }
         ];
     }
     DashboardPage.prototype.ngOnInit = function () {
+        this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
+    };
+    DashboardPage.prototype.openModalVerification = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var modal;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modalCtrl.create({
+                            component: _verification_modal_verification_modal_page__WEBPACK_IMPORTED_MODULE_4__["VerificationModalPage"],
+                            enterAnimation: _animations_enter__WEBPACK_IMPORTED_MODULE_5__["enterAnimation"],
+                            leaveAnimation: _animations_leave__WEBPACK_IMPORTED_MODULE_6__["leaveAnimation"]
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        return [4 /*yield*/, modal.present()];
+                    case 2: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    DashboardPage.prototype.enviar = function () { };
+    DashboardPage.prototype.recibir = function () {
     };
     DashboardPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -105,7 +140,8 @@ var DashboardPage = /** @class */ (function () {
             template: __webpack_require__(/*! ./dashboard.page.html */ "./src/app/dashboard/dashboard.page.html"),
             styles: [__webpack_require__(/*! ./dashboard.page.scss */ "./src/app/dashboard/dashboard.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])
     ], DashboardPage);
     return DashboardPage;
 }());

@@ -28,6 +28,9 @@
     <feature name="Device">
         <param name="ios-package" value="CDVDevice" />
     </feature>
+    <feature name="Fingerprint">
+        <param name="ios-package" value="Fingerprint" />
+    </feature>
     <feature name="Keyboard">
         <param name="ios-package" onload="true" value="CDVIonicKeyboard" />
     </feature>
