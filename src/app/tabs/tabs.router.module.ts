@@ -34,23 +34,32 @@ const routes: Routes = [
           }
         ]
       },
-        { 
-          path: 'create-profile', 
-          children: [
-            {
+      {
+        path: 'create-profile',
+        children: [
+          {
             path:'',
-          loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'
-        },
-          ]
+            loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'
+          },
+        ]
       },
-        { 
-          path: 'address', 
-          children: [
-            {
+      {
+        path: 'address',
+        children: [
+          {
             path: '',
             loadChildren: '../address/address.module#AddressPageModule'
           }
-          ]
+        ]
+      },
+      {
+        path: 'receive-funds',
+        children: [
+          {
+            path: '',
+            loadChildren: '../receive-funds/receive-funds.module#ReceiveFundsPageModule'
+          }
+        ]
       }
     ]
   },
@@ -62,5 +71,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {
-}
+
+export class TabsPageRoutingModule { }

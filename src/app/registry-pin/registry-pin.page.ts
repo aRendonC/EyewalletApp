@@ -17,12 +17,7 @@ export class RegistryPinPage implements OnInit {
   bodyForm: FormGroup;
   private devic: any = {};
   private user: any = null;
-  //   pin: null,
-  //   userId: null,
-  //   device: {
-  //     uuid: null
-  //   }
-  // }
+  
   constructor(
       private axios: AxiosService,
       private device: DeviceService,
@@ -55,11 +50,11 @@ export class RegistryPinPage implements OnInit {
     this.devic = await this.device.getDataDevice();
     console.info(this.bodyForm);
     console.info(data);
-    console.info(this.devic);
+    console.info('datos del device', this.devic);
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     console.log('bodyForm', this.bodyForm);
-    // console.log(this.body)
+    console.log('auth service', this.auth);
     const response = await this.axios.put('profile/1/pin', this.bodyForm.value, this.auth)
     console.log(response);
     if (response.status === 200) {

@@ -37,6 +37,9 @@
     },
     "com-badrit-base64": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-clipboard": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {}
