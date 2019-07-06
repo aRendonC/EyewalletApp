@@ -13,23 +13,24 @@
 
     <div class="content-qr-body">
 
-        <div class="content-code-qr-chil">
-            <ion-img src="../../assets/icon/test.png"></ion-img>
-          </div>
+      <div class="content-code-qr-chil">
+        <ngx-qrcode *ngIf="codeQr" [qrc-value]="codeQr"></ngx-qrcode>
+      </div>
     
-          <div class="content-buttons-qr">
-            <ion-button
-              expand="full"
-              shape="round"
-              text-capitalize
-              (click)="copyCode()"
-              class="button"
-            >
-              {{buttonCopy}}
-            </ion-button>
-    
-            <input type="text" [value]="codeReceive" class="input">
-          </div>
+      <div class="content-buttons-qr">
+        <ion-button
+          expand="full"
+          shape="round"
+          text-capitalize
+          (click)="copyCode()"
+          class="button"
+        >
+          {{buttonCopy}}
+        </ion-button>
+
+        <input type="text" [value]="codeQr" class="input">
+        
+      </div>
 
     </div>
 

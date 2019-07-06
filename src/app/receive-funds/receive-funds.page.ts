@@ -17,10 +17,10 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 export class ReceiveFundsPage implements OnInit {
   public textAmount: string = CONSTANTS.RECEIVE_FUNDS.AMOUNT;
-  public amount: number = 0.1245788587878;
   public buttonCopy: string = CONSTANTS.RECEIVE_FUNDS.BUTTON_COPY;
-  public test: object = {}
-  public codeReceive: string = 'aaafajskdlfjklasjdkflajskldfjasldkfjñl';
+  
+  public amount = null;
+  public codeQr = null;
 
   constructor(
     private activateRouter: ActivatedRoute,
@@ -29,13 +29,16 @@ export class ReceiveFundsPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.test = JSON.parse(this.activateRouter.snapshot.paramMap.get('pocket'));
-    console.log('This is the view of receive funds...');
-    console.log(this.test);
+    const data = JSON.parse(this.activateRouter.snapshot.paramMap.get('pocket'));
+
+    console.log(data);
+
+    this.amount = data.balance;
+    this.codeQr = data.address;
   }
 
   public copyCode(): void {
-    this.clipboard.copy(this.codeReceive);
+    this.clipboard.copy(this.codeQr);
     this.presentToast();
   }
 
