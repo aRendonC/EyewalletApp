@@ -4,6 +4,7 @@ import {MenuController, ToastController} from '@ionic/angular';
 import {TimerService} from '../timer/timer.service';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
+import { DeviceService } from '../device/device.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,14 +22,18 @@ export class AuthService {
                     private timer: TimerService,
                     private router: Router,
                     private menu: MenuController,
-                    private store: Storage
+                    private store: Storage,
+                    private device: DeviceService
   ) {
     this.intentarLogin();
   }
 
   login(user, password) {
+    let device: any = this.device.getDataDevice();
+    console.log('Data of login: ', device);
+
     return new Promise((resolve) => {
-      this.api.post('auth/login', {email: user, password: password, deviceId: '928e019bd3cdb0fa'})
+      this.api.post('auth/login', {email: user, password: password, deviceId: device.uuid})
         .then(async (data: any) => {
           console.log('data response', data.hasOwnProperty(404));
           if (data.status === 404) {
