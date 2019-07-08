@@ -28,8 +28,8 @@ export class AuthService {
     this.intentarLogin();
   }
 
-  login(user, password) {
-    let device: any = this.device.getDataDevice();
+  async login(user, password) {
+    let device: any = await this.device.getDataDevice();
     console.log('Data of login: ', device);
 
     return new Promise((resolve) => {

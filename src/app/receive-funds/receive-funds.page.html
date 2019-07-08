@@ -1,4 +1,5 @@
 <ion-content class="ReceiveFundsPage backGroundGradient">
+  <!-- <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket> -->
 
   <ion-card class="content-code-qr">
     
@@ -13,23 +14,28 @@
 
     <div class="content-qr-body">
 
-        <div class="content-code-qr-chil">
-            <ion-img src="../../assets/icon/test.png"></ion-img>
-          </div>
+      <div class="content-code-qr-chil">
+        <img
+          src="https://chart.googleapis.com/chart?chld=M|0&chs=200x200&cht=qr&chl={{codeQr}}"
+          class="sc-ion-card-md-s style-qr"
+        />
+
+      </div>
     
-          <div class="content-buttons-qr">
-            <ion-button
-              expand="full"
-              shape="round"
-              text-capitalize
-              (click)="copyCode()"
-              class="button"
-            >
-              {{buttonCopy}}
-            </ion-button>
-    
-            <input type="text" [value]="codeReceive" class="input">
-          </div>
+      <div class="content-buttons-qr">
+        <ion-button
+          expand="full"
+          shape="round"
+          text-capitalize
+          (click)="copyCode()"
+          class="button"
+        >
+          {{buttonCopy}}
+        </ion-button>
+
+        <input type="text" [value]="codeQr" class="input">
+        
+      </div>
 
     </div>
 

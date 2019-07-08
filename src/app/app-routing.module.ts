@@ -9,8 +9,7 @@ const routes: Routes = [
   {path: 'registry-pin', loadChildren: './registry-pin/registry-pin.module#RegistryPinPageModule'},
   {path: 'restore', loadChildren: './restore/restore.module#RestorePageModule'},
   {path: 'pin', loadChildren: './pin/pin.module#PinPageModule'},
-  {path: 'list-pockets', loadChildren: './list-pockets/list-pockets.module#ListPocketsPageModule'}
-  // {path: 'receive-funds', loadChildren: './receive-funds/receive-funds.module#ReceiveFundsPageModule'}
+  {path: 'list-pockets', loadChildren: './list-pockets/list-pockets.module#ListPocketsPageModule'},
 ];
 
 @NgModule({

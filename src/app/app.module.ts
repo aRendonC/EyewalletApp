@@ -20,6 +20,7 @@ import {TouchLoginService} from './services/fingerprint/touch-login.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from "./pin-modal/pin-modal.page";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 // LocalStorage.
 import { IonicStorageModule } from '@ionic/storage';
@@ -29,6 +30,7 @@ import {VerificationModalPage} from "./verification-modal/verification-modal.pag
 
 // Plugins cordova.
 import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
 
@@ -42,7 +44,9 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()],
+    IonicStorageModule.forRoot(),
+    NgxQRCodeModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -55,7 +59,8 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
     NativePageTransitions,
     FingerprintAIO,
     TouchLoginService,
-    Clipboard
+    Clipboard,
+    BarcodeScanner
   ],
   bootstrap: [
     AppComponent
