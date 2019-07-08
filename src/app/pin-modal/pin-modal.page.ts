@@ -62,7 +62,9 @@ export class PinModalPage implements OnInit {
       console.log('usuario', user)
       if(user) {
         user.pin = this.aesjs.decrypt(user.pin)
-        if(pinData === user.pin) {
+        console.log('pinData para validacion', pinData)
+        console.log('pindata desde el store', user.pin)
+        if(pinData === user.pin.toString()) {
           await this.closeModal()
           user.pin = this.aesjs.encrypt(user.pin)
           console.info('user encriptado', user)

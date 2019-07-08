@@ -6,6 +6,7 @@ import {CameraProvider} from '../services/camera/camera';
 import {AlertController, ToastController} from '@ionic/angular';
 import {DeviceService} from '../services/device/device.service';
 import {Router} from '@angular/router';
+import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 
 
 const MEDIA_FILES_KEY = 'mediaFiles';
@@ -29,12 +30,15 @@ export class HomePage implements OnInit {
               private camera: CameraProvider,
               private alertCtrl: AlertController,
               private toastCtrl: ToastController,
-              private device: DeviceService,) {
+              private touchCtrl: TouchLoginService,
+              private device: DeviceService,
+              ) {
     this.temporizador = timer.temporizador;
     this.dataDevice = this.deviceData();
   }
 
   ngOnInit() {
+    this.touchCtrl.isLocked = true
   }
 
   login() {

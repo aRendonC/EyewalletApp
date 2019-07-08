@@ -76,7 +76,7 @@ export class SendCryptocurrenciesPage implements OnInit {
                     // start scanning
                      this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
                         console.log('Scanned something', text);
-                        this.body.to_address = text;
+                         this.bodyForm.value.to_address = text;
                         await this.unSuscribed()
                     });
 
