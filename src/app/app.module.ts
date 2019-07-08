@@ -30,7 +30,6 @@ import {VerificationModalPage} from "./verification-modal/verification-modal.pag
 
 // Plugins cordova.
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
 
@@ -59,8 +58,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     NativePageTransitions,
     FingerprintAIO,
     TouchLoginService,
-    Clipboard,
-    BarcodeScanner
+    Clipboard
   ],
   bootstrap: [
     AppComponent
