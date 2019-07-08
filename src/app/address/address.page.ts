@@ -5,8 +5,8 @@ import {LoadingController, MenuController, ToastController} from '@ionic/angular
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
-import { AesJsService } from '../services/aesjs/aes-js.service';
-import {AxiosService } from '../services/axios/axios.service'; 
+import {AesJsService} from '../services/aesjs/aes-js.service';
+import {AxiosService} from '../services/axios/axios.service'; 
 
 @Component({
   selector: 'app-address',

@@ -1,0 +1,12 @@
+<ion-infinite-scroll (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more data...">
+          <div class="card" *ngFor="let transaction of transactions">
+            <img class="status-icon" src={{transaction.typeIcon}}>
+            <p class="status">{{transaction.confirmationText}}</p>
+            <p class="time">{{transaction.time}}</p>
+            <p class="date"> <span class="dot">•</span>{{transaction.dateFormat}}</p>
+            <p class="value"><span>{{transaction.plusMinus}}</span><span>$</span><span>{{transaction.amountDollar}}</span></p>
+            <p class="crypto"><span class="crypto-value">{{transaction.amount_finally}}</span><span class="coin">&nbsp;BTC</span></p>
+          </div>
+        </ion-infinite-scroll-content>
+</ion-infinite-scroll>

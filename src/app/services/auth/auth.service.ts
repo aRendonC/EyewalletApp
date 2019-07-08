@@ -17,7 +17,7 @@ export class AuthService {
     accessToken: null,
   };
 
-   constructor(private  api: AxiosService,
+  constructor(private  api: AxiosService,
                     private toastController: ToastController,
                     private timer: TimerService,
                     private router: Router,

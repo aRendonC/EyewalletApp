@@ -52,12 +52,12 @@ export class LoginPage implements OnInit {
         // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
         // this.router.navigate(['/perfil',data.id]);
         await this.getUserProfile();
-        await this.getPocketsList()
+        await this.getPocketsList();
         // this.pockets = JSON.stringify(this.pockets)
-        console.info('mis pockets', this.pockets)
-       await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
-        this.pockets = this.aesjs.encrypt(this.pockets)
-        await this.store.set('pockets', this.pockets)
+        console.info('mis pockets', this.pockets);
+        await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
+        this.pockets = this.aesjs.encrypt(this.pockets);
+        await this.store.set('pockets', this.pockets);
       } else {
         await this.presentToast();
       }
@@ -67,7 +67,8 @@ export class LoginPage implements OnInit {
   }
 
   async getUserProfile() {
-    let profile = await this.http.get('profile/1/view', this.auth, null )
+    console.log('auth del usuario', this.auth)
+    let profile = await this.http.get('profile/1/view', this.auth, null);
     console.info(profile)
     profile = this.aesjs.encrypt(profile)
     await this.store.set('profile', profile)
