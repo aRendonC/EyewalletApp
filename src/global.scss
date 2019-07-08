@@ -144,3 +144,27 @@ $font-roboto-bold: Roboto-Bold;
    display: flex;
    align-items: center;
 }
+
+.all-center {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.all-center-colum {
+   @extend .all-center;
+   flex-direction: column;
+}
+
+.center-horizontal {
+   display: flex;
+   justify-content: center;
+}
+
+.center-vertical {
+   display: flex;
+   align-items: center;
+}
+.contentdash{
+   top:10%;
+}

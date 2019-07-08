@@ -1,0 +1,58 @@
+<ion-content id="QRScaner" class="ReceiveFundsPage backGroundGradient" [class.show-qr-scanner]="isOn">
+  <div class="contentdash">
+    <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+  </div>
+  <form #formulario="ngForm" [formGroup]="bodyForm">
+  <ion-card class="content-code-qr" >
+
+    <div class="code-qr-header" (click)="presentQRScanner()">
+      <span class="title"></span>
+
+      <div class="content-icon-amount">
+        <ion-label>Escanea aquí tu código QR o copia la dirección de tu wallet</ion-label>
+        <span class="amount"></span>
+      </div>
+    </div>
+
+    <div class="content-qr-body">
+
+      <div class="content-code-qr-chil" (click)="presentQRScanner()">
+        <ion-img style="width: 50%" src="../../assets/img/sendCripto/cameraImage.png" ></ion-img>
+      </div>
+
+      <div class="content-buttons-qr">
+        <ion-input [disabled]="!ctrlButtonSend" formControlName="to_address" type="text" placeholder="Ingrese dirección"  class="input"></ion-input>
+      </div>
+
+    </div>
+
+  </ion-card>
+
+  <ion-card>
+    <ion-list justify-content-center>
+      <ion-grid justify-content-center class="center centerContent ion-text-center ion-justify-content-center ion-align-items-center">
+        <ion-row  align-items-center justify-content-center>
+        <ion-col size="12" align-self-center>
+          <ion-input [disabled]="!ctrlButtonSend" formControlName="amount" (ionBlur)="getFeeTransaction()" placeholder="Envío Máximo:   5.00000000 BTC"></ion-input>
+        </ion-col>
+        <ion-col size="5" align-self-center class="ion-text-left gradientButton all-center"> <ion-label>BT: Min. 0.0124</ion-label></ion-col>
+          <ion-col size="1"></ion-col>
+        <ion-col size="5" align-self-center class="ion-text-right gradientButtonRight all-center"><ion-label>USD: Min. 0.0124</ion-label></ion-col>
+        <ion-col size="6" align-self-center class="ion-text-left"><ion-label>Cuota: {{fee.estimated_network_fee}}</ion-label></ion-col>
+        <ion-col size="6" align-self-center class="ion-text-right">
+
+            <ion-select [disabled]="!ctrlButtonSend" formControlName="priority" placeholder="Prioridad">
+              <ion-select-option value="1">Alta</ion-select-option>
+              <ion-select-option value="2">Media</ion-select-option>
+              <ion-select-option value="3">Baja</ion-select-option>
+            </ion-select>
+        </ion-col>
+        <ion-col size="12" align-self-center>
+          <ion-button (click)="sendCoin()" class="buttonSend" [disabled]="!bodyForm.valid">Enviar</ion-button>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </ion-card>
+  </form>
+</ion-content>
