@@ -21,7 +21,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../home/home.module#HomePageModule'
+            loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
           }
         ]
       },
@@ -60,7 +60,7 @@ const routes: Routes = [
             loadChildren: '../receive-funds/receive-funds.module#ReceiveFundsPageModule'
           }
         ]
-      }
+      },
     ]
   },
 ];

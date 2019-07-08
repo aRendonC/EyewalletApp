@@ -29,12 +29,13 @@ export class AuthService {
     this.intentarLogin();
   }
 
-  login(user, password) {
-    let device: any = this.device.getDataDevice();
+  async login(user, password) {
+    let device: any = await this.device.getDataDevice();
     console.log('Data of login: ', device);
+    //device.uuid
 
     return new Promise((resolve) => {
-      this.api.post('auth/login', {email: user, password: password, deviceId: device.uuid})
+      this.api.post('auth/login', {email: user, password: password, deviceId: "B958C608-DC31-44F7-9581-5AD5D649359A"})
         .then(async (data: any) => {
           console.log('data response', data.hasOwnProperty(404));
           if (data.status === 404) {

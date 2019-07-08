@@ -2,11 +2,7 @@
   "_args": [
     [
       "cordova-plugin-splashscreen@5.0.2",
-<<<<<<< HEAD
-      "/Users/luismunar-eyeline/development/eyeline/EyewalletApp"
-=======
       "/Users/eyeline/Documents/yeison/EyewalletApp"
->>>>>>> inicio de session desde el fisico
     ]
   ],
   "_from": "cordova-plugin-splashscreen@5.0.2",
@@ -30,11 +26,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-splashscreen/-/cordova-plugin-splashscreen-5.0.2.tgz",
   "_spec": "5.0.2",
-<<<<<<< HEAD
-  "_where": "/Users/luismunar-eyeline/development/eyeline/EyewalletApp",
-=======
   "_where": "/Users/eyeline/Documents/yeison/EyewalletApp",
->>>>>>> inicio de session desde el fisico
   "author": {
     "name": "Apache Software Foundation"
   },

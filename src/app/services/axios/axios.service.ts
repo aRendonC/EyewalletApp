@@ -29,7 +29,7 @@ export class AxiosService {
       let url = `${this.url}${endpoint}`;
       if (user != null) {
         this.headers = new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + user.accessParam()
         })
       }
