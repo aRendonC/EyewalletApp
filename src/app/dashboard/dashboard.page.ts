@@ -24,7 +24,6 @@ export class DashboardPage implements OnInit {
     {name:"Bitcoin",background:"contentBitcoin"},
     {name:"Ethereum",background:"contentEtherium"}
   ];
-
   constructor(
       private route: ActivatedRoute,
       private modalCtrl: ModalController,
@@ -36,8 +35,8 @@ export class DashboardPage implements OnInit {
     this.imgRight="../../assets/img/btn-right.svg";
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     console.log('estos son mis pockets', this.pockets)
-
   }
+
 
    ngOnInit() {
   }
@@ -48,6 +47,11 @@ export class DashboardPage implements OnInit {
       leaveAnimation: leaveAnimation
     })
     return await modal.present()
+  }
+  enviar(){}
+
+  recibir(){
+
   }
 
 }

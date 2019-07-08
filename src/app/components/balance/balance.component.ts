@@ -34,7 +34,7 @@ export class BalanceComponent implements OnInit {
 
   async ngOnInit() {
     this.user = await this.store.get('profile');
-    this.user = JSON.parse(this.aes.decrypt(this.user));
+    this.user = this.aes.decrypt(this.user);
     await this.getPocketsList();
     const userId = this.user.data.userId;
     const type = 0;
