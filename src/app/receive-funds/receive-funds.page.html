@@ -1,4 +1,5 @@
 <ion-content class="ReceiveFundsPage backGroundGradient">
+  <!-- <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket> -->
 
   <ion-card class="content-code-qr">
     
@@ -14,7 +15,11 @@
     <div class="content-qr-body">
 
       <div class="content-code-qr-chil">
-        <ngx-qrcode *ngIf="codeQr" [qrc-value]="codeQr"></ngx-qrcode>
+        <img
+          src="https://chart.googleapis.com/chart?chld=M|0&chs=200x200&cht=qr&chl={{codeQr}}"
+          class="sc-ion-card-md-s style-qr"
+        />
+
       </div>
     
       <div class="content-buttons-qr">

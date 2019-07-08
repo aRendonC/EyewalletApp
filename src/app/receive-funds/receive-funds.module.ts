@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ReceiveFundsPage } from './receive-funds.page';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { ComponentsModule } from '../components/components.module';
 
 const routes: Routes = [
   {
@@ -20,8 +21,10 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    ComponentsModule
   ],
   declarations: [ReceiveFundsPage]
 })
+
 export class ReceiveFundsPageModule {}

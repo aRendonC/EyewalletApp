@@ -50,6 +50,10 @@
             width: 100%;
             @extend .all-center;
             margin-bottom: 50px;
+
+            .sc-ion-card-md-s img, .style-qr {
+               width: 270px;
+            }
          }
 
          .content-buttons-qr {
