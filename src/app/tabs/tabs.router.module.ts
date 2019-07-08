@@ -8,23 +8,59 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'inicio',
+        path: '',
         children: [
           {
             path: '',
-            loadChildren: '../home/home.module#HomePageModule'
+          loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
           }
         ]
       },
       {
-        path: '',
+        path: 'home',
+        children: [
+          {
+            path: '',
+            loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
+          }
+        ]
+      },
+      {
+        path: 'profile',
         children: [
           {
             path: '',
             loadChildren: '../profile/profile.module#ProfilePageModule'
           }
         ]
-      }
+      },
+      {
+        path: 'create-profile',
+        children: [
+          {
+            path:'',
+            loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'
+          },
+        ]
+      },
+      {
+        path: 'address',
+        children: [
+          {
+            path: '',
+            loadChildren: '../address/address.module#AddressPageModule'
+          }
+        ]
+      },
+      {
+        path: 'receive-funds',
+        children: [
+          {
+            path: '',
+            loadChildren: '../receive-funds/receive-funds.module#ReceiveFundsPageModule'
+          }
+        ]
+      },
     ]
   },
 ];
@@ -35,5 +71,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {
-}
+
+export class TabsPageRoutingModule { }

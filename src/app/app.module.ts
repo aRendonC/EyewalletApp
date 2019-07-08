@@ -19,15 +19,25 @@ import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 import {TouchLoginService} from './services/fingerprint/touch-login.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from "./pin-modal/pin-modal.page";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 // LocalStorage.
 import { IonicStorageModule } from '@ionic/storage';
+import {ComponentsModule} from "./components/components.module";
+import {VerificationModalPage} from "./verification-modal/verification-modal.page";
 
+
+// Plugins cordova.
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
 
-  declarations: [AppComponent, PinModalPage],
-  entryComponents: [PinModalPage],
+  declarations: [AppComponent, PinModalPage, VerificationModalPage],
+  entryComponents: [PinModalPage, VerificationModalPage],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    ComponentsModule,
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
@@ -44,7 +54,8 @@ import { IonicStorageModule } from '@ionic/storage';
     Device,
     NativePageTransitions,
     FingerprintAIO,
-    TouchLoginService
+    TouchLoginService,
+    Clipboard
   ],
   bootstrap: [
     AppComponent

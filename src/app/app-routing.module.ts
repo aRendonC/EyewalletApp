@@ -2,15 +2,16 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  {path: 'home', loadChildren: './home/home.module#HomePageModule'},
+  {path: '', loadChildren: './home/home.module#HomePageModule'},
   {path: 'login', loadChildren: './login/login.module#LoginPageModule'},
   {path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule'},
-  {path: '', loadChildren: './dashboard/dashboard.module#DashboardPageModule'},
   {path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule'},
   {path: 'registry-pin', loadChildren: './registry-pin/registry-pin.module#RegistryPinPageModule'},
   {path: 'restore', loadChildren: './restore/restore.module#RestorePageModule'},
-  {path: 'pin', loadChildren: './pin/pin.module#PinPageModule'}
-
+  {path: 'pin', loadChildren: './pin/pin.module#PinPageModule'},
+  {path: 'list-pockets', loadChildren: './list-pockets/list-pockets.module#ListPocketsPageModule'},
+  // {path: 'receive-funds', loadChildren: './receive-funds/receive-funds.module#ReceiveFundsPageModule'},
+  // {path: '', loadChildren: './dashboard/dashboard.module#DashboardPageModule'}
 ];
 
 @NgModule({
@@ -21,4 +22,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
+
 export class AppRoutingModule {}

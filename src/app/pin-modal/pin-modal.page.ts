@@ -43,7 +43,7 @@ export class PinModalPage implements OnInit {
 
   async closeModal() {
     const onCloseData = 'Wrapped Up!';
-    this.modalCtrl.dismiss(onCloseData);
+    await this.modalCtrl.dismiss(onCloseData);
   }
 
   async savePinData(number: number) {

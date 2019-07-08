@@ -1,0 +1,46 @@
+<ion-content class="backGroundGradient ion-text-center" *ngIf="ctrlCreatePocket">
+  <h5>Pockets</h5>
+    <ion-grid class="ion-text-center">
+      <ion-row justify-content-center>
+        <ion-col (click)="closeModal(pocket)" style="--border-bottom-color: white" size="12" *ngFor="let pocket of pockets">
+          <ion-item text-center>
+            <ion-label>{{pocket.label}}</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col (click)="createPocket()" size="9" justify-content-center class="centerContent">
+          <h5>Agregar un nuevo pocket</h5>
+        </ion-col>
+        <ion-col (click)="createPocket()" justify-content-start size="3" class="centerContent">
+          <img src="../../assets/img/pocketsComponent/addIcon.png" alt="">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-content class="backGroundGradient"  *ngIf="!ctrlCreatePocket">
+  <div class="move-logo">
+    <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
+    <div class="center">
+      <ion-label class="text-eyewallet">EYEWALLET</ion-label>
+      <br>
+      <ion-label class="text-crypto">CRYPTO BANK</ion-label>
+    </div>
+  </div>
+
+    <!-- <form #formulanrio (submit)="login()" class="transparent move-form"> -->
+    <ion-list class="transparent">
+      <!-- Usuario -->
+      <ion-item class="transparent white-line">
+        <ion-input  class="white move-input" type="email" name="label" (input)="getData($event.target.value)"  placeholder="Descripción"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select placeholder="Seleccione Criptomonera" (ionChange)="getIdCurrency($event.target.value)" (change)="getIdCurrency($event.target.value)">
+          <ion-select-option [value]="currency.id" (select)="getIdCurrency($event.target.value)" *ngFor="let currency of currencies">{{currency.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <!-- Contraseña -->
+    </ion-list>
+    <div class="move-btn">
+      <ion-button type="submit" class="btn-start" mode="ios" (click)="createPocket()" >Crear pocket</ion-button>
+    </div>
+
+</ion-content>

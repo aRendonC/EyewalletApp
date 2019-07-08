@@ -1,6 +1,7 @@
 // Dependencies.
 import { Component, OnInit } from '@angular/core';
 import validator from 'validator';
+import { ToastController } from '@ionic/angular';
 
 // Constants.
 import * as CONSTANTS from '../constanst';
@@ -9,8 +10,8 @@ import { AxiosService } from '../services/axios/axios.service';
 // Navigations.
 import {NavigationExtras, Router} from '@angular/router';
 
-//Sotorage
-import {Storage} from "@ionic/storage";
+// Storage
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-registry',
@@ -24,7 +25,8 @@ export class RegistryPage implements OnInit {
     email: '',
     phone: '',
     password: ''
-  }
+  };
+
   public passwordOk: boolean = false;
   public passwordError: boolean = false;
   public phoneOk: boolean = false;
@@ -39,7 +41,7 @@ export class RegistryPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    
   }
 
   public validateEmail(event): void {
@@ -56,7 +58,18 @@ export class RegistryPage implements OnInit {
 
   public validatePhone(event): void {
     const locale = [
-      'ar-AE', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-SA', 'ar-SY', 'ar-TN', 'be-BY', 'bg-BG', 'bn-BD', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-CA', 'en-GB', 'en-GH', 'en-HK', 'en-IE', 'en-IN', 'en-KE', 'en-MU', 'en-NG', 'en-NZ', 'en-RW', 'en-SG', 'en-UG', 'en-US', 'en-TZ', 'en-ZA', 'en-ZM', 'en-PK', 'es-ES', 'es-MX', 'es-PY', 'es-UY', 'et-EE', 'fa-IR', 'fi-FI', 'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT', 'ja-JP', 'kk-KZ', 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'pt-BR', 'ro-RO', 'ru-RU', 'sl-SI', 'sk-SK', 'sr-RS', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW'
+      'ar-AE', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW',
+      'ar-SA', 'ar-SY', 'ar-TN', 'be-BY', 'bg-BG', 'bn-BD',
+      'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-CA',
+      'en-GB', 'en-GH', 'en-HK', 'en-IE', 'en-IN', 'en-KE',
+      'en-MU', 'en-NG', 'en-NZ', 'en-RW', 'en-SG', 'en-UG',
+      'en-US', 'en-TZ', 'en-ZA', 'en-ZM', 'en-PK', 'es-ES',
+      'es-MX', 'es-PY', 'es-UY', 'et-EE', 'fa-IR', 'fi-FI',
+      'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT', 'ja-JP',
+      'kk-KZ', 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO',
+      'pl-PL', 'pt-PT', 'pt-BR', 'ro-RO', 'ru-RU', 'sl-SI',
+      'sk-SK', 'sr-RS', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
+      'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW'
     ];
 
     if (!validator.isEmpty(event) && validator.isMobilePhone(event, locale)) {
@@ -122,9 +135,8 @@ export class RegistryPage implements OnInit {
             user: JSON.stringify(response.data),
           }
         }
-        this.router.navigate(['registry-pin'], navigationExtras);
+        this.router.navigate(['/registry-pin'], navigationExtras);
       }
     });
-
   }
 }

@@ -28,7 +28,10 @@ export class AxiosService {
     return new Promise((resolve, reject) => {
       let url = `${this.url}${endpoint}`;
       if (user != null) {
-        url += user.accessParam();
+        this.headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + user.accessParam()
+        })
       }
       if (params) {
         const urlParams = params;
@@ -38,7 +41,9 @@ export class AxiosService {
           url += '?' + urlParams;
         }
       }
-      this.http.get(url).toPromise()
+      this.http.get(url, {
+        headers: this.headers
+      }).toPromise()
         .then(value => {
           resolve(value);
         }).catch(err => {
@@ -56,7 +61,7 @@ export class AxiosService {
         authorization: 'Bearer ' + user.accessParam()
       });
     }
-    console.info(body);
+    console.log(body);
     return this.http.post(url, (body != null) ? AxiosService.jsonToURLEncoded(body) : body, {
       headers: this.headers
     }).toPromise();
@@ -64,18 +69,18 @@ export class AxiosService {
 
   public put(endpoint: string, body: object, user?: any): Promise<any> {
     const url = `${this.url}${endpoint}`;
-    if(user) {
+    if (user) {
       this.headers = new  HttpHeaders({
         Accept: 'application/json',
         'Content-Type': 'application/json',
         authorization: 'Bearer ' + user.accessParam()
       });
     }
-    console.info(body);
-    console.info(user);
+    console.log(body);
+    console.log(user);
     return this.http.put(url, (body != null) ? AxiosService.jsonToURLEncoded(body) : body, {
       headers: this.headers
-    }).toPromise()
+    }).toPromise();
   }
 
   private static jsonToURLEncoded(jsonString) {

@@ -22,6 +22,7 @@
     "@angular/router": "^7.2.2",
     "@ionic-native/base64": "^5.9.0",
     "@ionic-native/camera": "^5.8.0",
+    "@ionic-native/clipboard": "^5.9.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/device": "^5.8.0",
     "@ionic-native/fingerprint-aio": "^5.8.0",
@@ -35,6 +36,7 @@
     "com-badrit-base64": "^0.2.0",
     "com.telerik.plugins.nativepagetransitions": "^0.6.5",
     "cordova-android": "8.0.0",
+    "cordova-clipboard": "^1.3.0",
     "cordova-ios": "^5.0.1",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-device": "2.0.2",
@@ -98,8 +100,11 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-camera": {},
       "com.telerik.plugins.nativepagetransitions": {},
-      "cordova-plugin-fingerprint-aio": {},
-      "com-badrit-base64": {}
+      "cordova-plugin-fingerprint-aio": {
+        "FACEID_USAGE_DESCRIPTION": " "
+      },
+      "com-badrit-base64": {},
+      "cordova-clipboard": {}
     },
     "platforms": [
       "android",

@@ -50,5 +50,17 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+<<<<<<< HEAD
+=======
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>UILaunchStoryboardName</key>
+	<string>CDVLaunchScreen</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string/>
+>>>>>>> 36d6de86a4b02cd17b5102182a1c2e29810fbfdd
 </dict>
 </plist>
