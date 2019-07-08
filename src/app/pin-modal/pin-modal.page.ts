@@ -3,6 +3,7 @@ import {ModalController, NavParams, Platform,} from '@ionic/angular';
 import {FingerprintAIO} from "@ionic-native/fingerprint-aio/ngx";
 import {Storage} from "@ionic/storage";
 import {Router} from "@angular/router";
+import {AesJsService} from "../services/aesjs/aes-js.service";
 
 @Component({
   selector: 'app-pin-modal',
@@ -21,7 +22,8 @@ export class PinModalPage implements OnInit {
       private faio: FingerprintAIO,
       private store: Storage,
       private router: Router,
-      private platform: Platform
+      private platform: Platform,
+      private aesjs: AesJsService
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class PinModalPage implements OnInit {
 
   async closeModal() {
     const onCloseData = 'Wrapped Up!';
-    this.modalCtrl.dismiss(onCloseData);
+    await this.modalCtrl.dismiss(onCloseData);
   }
 
   async savePinData(number: number) {
@@ -57,11 +59,16 @@ export class PinModalPage implements OnInit {
       })
       console.log(pinData)
       let user = await this.store.get('user')
-      console.log(user)
+      console.log('usuario', user)
       if(user) {
+        user.pin = this.aesjs.decrypt(user.pin)
         if(pinData === user.pin) {
           this.closeModal()
-          this.router.navigate(['/app/tabs/profile']);
+          user.pin = this.aesjs.encrypt(user.pin)
+          console.info('user encriptado', user)
+          this.store.set('user', user)
+          console.table('todo el store', this.store)
+          this.router.navigate(['/app/tabs']);
         } else {
           this.ctrlPin = false
           setTimeout(() => {

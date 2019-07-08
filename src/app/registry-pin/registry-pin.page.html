@@ -1,0 +1,24 @@
+<ion-content padding class="bghome">
+  <div class="move-logo">
+    <img class="resize-logo" src="./assets/img/home-logo.svg"/>
+    <div class="center">
+      <ion-label class="text-eyewallet">{{constants.TITLES.EYEWALLET}}</ion-label>
+      <br>
+      <ion-label class="text-crypto">{{constants.TITLES.CRYPTO_BANCK}}</ion-label>
+    </div>
+  </div>
+  <form #formulario="ngForm" (ngSubmit)="registerPin(bodyForm.value)" [formGroup]="bodyForm"  class="transparent move-form">
+    <!-- <form #formulanrio (submit)="login()" class="transparent move-form"> -->
+    <ion-list class="transparent">
+      <!-- Usuario -->
+      <ion-item class="transparent white-line">
+        <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
+        <ion-input  class="white move-input" type="email" name="username" formControlName="pin"  [placeholder]="constants.PIN.ENTER_PIN"></ion-input>
+      </ion-item>
+      <!-- Contraseña -->
+    </ion-list>
+    <div class="move-btn">
+      <ion-button [disabled]="!bodyForm.valid" type="submit" class="btn-start" mode="ios" >{{constants.PIN.CEATE_PIN}}</ion-button>
+    </div>
+  </form>
+</ion-content>
