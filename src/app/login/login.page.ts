@@ -55,6 +55,7 @@ export class LoginPage implements OnInit {
         await this.getPocketsList()
         // this.pockets = JSON.stringify(this.pockets)
         console.info('mis pockets', this.pockets)
+        this.touchCtrl.isLocked = false
        await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
         this.pockets = this.aesjs.encrypt(this.pockets)
         await this.store.set('pockets', this.pockets)

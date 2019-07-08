@@ -20,7 +20,6 @@
     "@angular/platform-browser": "^7.2.2",
     "@angular/platform-browser-dynamic": "^7.2.2",
     "@angular/router": "^7.2.2",
-    "@ionic-native/barcode-scanner": "^5.9.0",
     "@ionic-native/base64": "^5.9.0",
     "@ionic-native/camera": "^5.8.0",
     "@ionic-native/clipboard": "^5.9.0",
@@ -54,7 +53,6 @@
     "list": "2.0.18",
     "ng2-charts": "^2.3.0",
     "ngx-qrcode2": "0.0.9",
-    "phonegap-plugin-barcodescanner": "^8.1.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "validator": "^11.0.0",
@@ -109,8 +107,7 @@
       "cordova-plugin-fingerprint-aio": {},
       "com-badrit-base64": {},
       "cordova-plugin-qrscanner": {},
-      "cordova-clipboard": {},
-      "phonegap-plugin-barcodescanner": {}
+      "cordova-clipboard": {}
     },
     "platforms": [
       "android",

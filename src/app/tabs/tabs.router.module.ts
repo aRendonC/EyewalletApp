@@ -18,39 +18,24 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        children: [
-          {
-            path: '',
-            loadChildren: '../profile/profile.module#ProfilePageModule'
-          }
-        ]
+        loadChildren: '../profile/profile.module#ProfilePageModule'
+
       },
       {
-        path: 'create-profile',
-        children: [
-          {
-            path:'',
-            loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'
-          },
-        ]
+        path:'create-profile',
+        loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'
       },
       {
         path: 'address',
-        children: [
-          {
-            path: '',
-            loadChildren: '../address/address.module#AddressPageModule'
-          }
-        ]
+        loadChildren: '../address/address.module#AddressPageModule'
       },
       {
         path: 'receive-funds',
-        children: [
-          {
-            path: '',
-            loadChildren: '../receive-funds/receive-funds.module#ReceiveFundsPageModule'
-          }
-        ]
+        loadChildren: '../receive-funds/receive-funds.module#ReceiveFundsPageModule'
+      },
+      {
+        path: 'send-currency',
+        loadChildren: '../send-cryptocurrencies/send-cryptocurrencies.module#SendCryptocurrenciesPageModule'
       }
     ]
   },

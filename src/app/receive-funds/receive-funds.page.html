@@ -1,8 +1,8 @@
 <ion-content class="ReceiveFundsPage backGroundGradient">
-  <!-- <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket> -->
+  <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
 
   <ion-card class="content-code-qr">
-    
+
     <div class="code-qr-header">
       <span class="title">{{textAmount}}</span>
 
@@ -21,7 +21,7 @@
         />
 
       </div>
-    
+
       <div class="content-buttons-qr">
         <ion-button
           expand="full"
@@ -34,11 +34,11 @@
         </ion-button>
 
         <input type="text" [value]="codeQr" class="input">
-        
+
       </div>
 
     </div>
 
   </ion-card>
-  
+
 </ion-content>
