@@ -17,3 +17,21 @@
     text-align: center;
     width: 100%;
 }
+
+.contentBitcoin{
+    width: 100%;
+    height: 100%;
+    background-image:  url('../../../assets/img/bg-dashboard.png');
+    background-position: 0em -2cm;
+}
+
+.contentEtherium{
+    width: 100%;
+    height: 100%;
+    background-image:  url('../../../assets/img/bg-etherium.png');
+    background-position: 0em -2cm;
+}
+
+ion-slides, ion-slide {
+    height: 100%;
+}
