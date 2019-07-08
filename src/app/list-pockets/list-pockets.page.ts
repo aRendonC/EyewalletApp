@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ModalController, NavParams, ToastController} from "@ionic/angular";
-import {AxiosService} from "../services/axios/axios.service";
-import {AuthService} from "../services/auth/auth.service";
-import {Storage} from "@ionic/storage";
-import {AesJsService} from "../services/aesjs/aes-js.service";
+import {ModalController, NavParams, ToastController} from '@ionic/angular';
+import {AxiosService} from '../services/axios/axios.service';
+import {AuthService} from '../services/auth/auth.service';
+import {Storage} from '@ionic/storage';
+import {AesJsService} from '../services/aesjs/aes-js.service';
 
 @Component({
   selector: 'app-list-pockets',
@@ -32,8 +32,8 @@ export class ListPocketsPage implements OnInit {
       ) { }
 
   ngOnInit() {
-    this.pockets = this.navParams.data.pockets
-    console.info('mis pockets en el modal', this.pockets)
+    this.pockets = this.navParams.data.pockets;
+    console.info('mis pockets en el modal', this.pockets);
     // this.activateRoute.params.subscribe(params => {
     //   this.pockets = params['pockets'];
     // });

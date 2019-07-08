@@ -1,1 +1,17 @@
-
+.tab-bg{
+    --background: linear-gradient(#14a9ff -21%, #2b84ff -18.74%, #8000ff 210%);
+    --border: transparent;
+    box-shadow: 10px 10px 50px -22px rgba(51,51,203,1);
+    opacity: 0.91;
+    margin-top: -15.2vh;
+    margin-bottom: 2vh;
+    height: 13vh;
+    border-top-left-radius: 80px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 104px;
+}
+.tab-btn{
+    --background-focused: red;
+    --color-selected: white;
+    --color:white;
+}

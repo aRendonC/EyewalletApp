@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18.055" height="24.857" viewBox="0 0 18.055 24.857">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="18.055" height="24.857" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Símbolo_5_48" data-name="Símbolo 5 – 48" transform="translate(0 0)" clip-path="url(#clip-path)">
+    <g id="Símbolo_4_1" data-name="Símbolo 4 – 1" clip-path="url(#clip-path)">
+      <circle id="Elipse_12" data-name="Elipse 12" cx="1.318" cy="1.318" r="1.318" transform="translate(6.579 13.557)" fill="#f4317f"/>
+      <path id="Trazado_13" data-name="Trazado 13" d="M175.814,1632.789l-7.875,13.073a.469.469,0,0,0,.035.535l6.662,8.349a1.712,1.712,0,0,0,2.805-.184l3.674-6.1L184.4,1643m-6.9-8.266,6.481-2.7-.9,7.008m.9-7.008-7.061,10.235" transform="translate(-167.098 -1631.283)" fill="none" stroke="#f4317f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

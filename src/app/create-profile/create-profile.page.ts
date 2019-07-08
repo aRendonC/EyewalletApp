@@ -45,7 +45,6 @@ export class CreateProfilePage implements OnInit {
   async address(firstname, lastname, birthdate, identification, userId) {
     // Nombre
     firstname = this.firstname;
-    // Apellido
     lastname = this.lastname;
     birthdate = this.birthdate.slice(0, 10);
     identification = this.identification;
