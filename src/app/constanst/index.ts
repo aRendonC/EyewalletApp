@@ -23,3 +23,9 @@ export const TITLES = {
    EYEWALLET: 'EYEWALLET',
    CRYPTO_BANCK: 'CRYPTO BANK'
 }
+
+export const RECEIVE_FUNDS = {
+   AMOUNT: 'monto',
+   BUTTON_COPY: 'copiar',
+   MESSAGE_COPY: 'El código ha sido copiado.'
+}

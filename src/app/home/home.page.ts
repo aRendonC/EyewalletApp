@@ -5,6 +5,7 @@ import {AuthService} from '../services/auth/auth.service';
 import {CameraProvider} from '../services/camera/camera';
 import {AlertController, ToastController} from '@ionic/angular';
 import {DeviceService} from '../services/device/device.service';
+import {Router} from '@angular/router';
 
 
 const MEDIA_FILES_KEY = 'mediaFiles';
@@ -21,8 +22,9 @@ export class HomePage implements OnInit {
   private usuario: any = null;
   temporizador: any;
 
-  constructor(private  timer: TimerService,
+  constructor(private timer: TimerService,
               private axios: AxiosService,
+              private router: Router,
               private auth: AuthService,
               private camera: CameraProvider,
               private alertCtrl: AlertController,
@@ -33,6 +35,13 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  login() {
+    this.router.navigate(['/login']);
+  }
+  registry() {
+    this.router.navigate(['/registry']);
   }
 
   async photo() {

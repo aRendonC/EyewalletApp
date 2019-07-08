@@ -1,14 +1,17 @@
+// Dependencies.
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { LoginPage } from './login.page';
+import { ReceiveFundsPage } from './receive-funds.page';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { ComponentsModule } from '../components/components.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginPage
+    component: ReceiveFundsPage
   }
 ];
 
@@ -18,8 +21,10 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
+    NgxQRCodeModule,
+    ComponentsModule
   ],
-  declarations: [LoginPage],
-  entryComponents: []
+  declarations: [ReceiveFundsPage]
 })
-export class LoginPageModule {}
+
+export class ReceiveFundsPageModule {}

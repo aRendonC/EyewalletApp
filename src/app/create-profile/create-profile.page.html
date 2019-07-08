@@ -1,0 +1,47 @@
+<ion-content padding class="bghome" >
+
+  
+<div class="move-text">
+  <p class="profile">Perfil</p>
+  <p class="we-need">Necesitamos esta información para verificar tu identidad,
+   para el uso de nuestro producto, Solo tomara unos minutos.</p>
+</div>
+
+<form #formulario (ngSubmit)="address()" class="transparent move-form">
+<ion-list class="transparent">
+    <!-- Nombre -->
+    <ion-item class="white-line">
+        <ion-input  class="white move-input" type="text" name="firstname" [(ngModel)]="firstname"  placeholder="Nombre" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <!-- Apellido -->
+    <ion-item class="white-line">
+        <ion-input class="white move-input" type="text" name="lastname" [(ngModel)]="lastname" placeholder="Apellido" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <!-- Fecha de Nacimiento -->
+    <ion-item>
+      <ion-datetime class="white" done-text="Aceptar" cancel-text="Cancelar" placeholder="Fecha de Nacimiento" display-format="YYYY-MM-DD" [(ngModel)]="birthdate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+    </ion-item>
+    <ion-item class="white-line">
+        <ion-input class="white move-input" type="number" name="identification" [(ngModel)]="identification" placeholder="Numero de Identificación"></ion-input>
+    </ion-item>
+</ion-list>
+
+<div class="content-terms-conditions">
+    <span>
+        Al crear tu billetera, aceptas los siguientes términos
+      <span class="terms-conditions">
+        <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">Términos De Servicios </a>
+        &
+        <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">Política De Privacidad </a>
+      </span>
+    </span>
+  </div>
+
+
+<div class="transparent move-btn">
+    <ion-button type="submit" class="btn-start" mode="ios" >Siguiente</ion-button>
+</div>
+</form>
+
+</ion-content>
+

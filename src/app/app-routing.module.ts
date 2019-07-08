@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  {path: 'home', loadChildren: './home/home.module#HomePageModule'},
-  {path: '', loadChildren: './login/login.module#LoginPageModule'},
+  {path: '', loadChildren: './home/home.module#HomePageModule'},
+  {path: 'login', loadChildren: './login/login.module#LoginPageModule'},
   {path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule'},
   {path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule'},
   {path: 'registry-pin', loadChildren: './registry-pin/registry-pin.module#RegistryPinPageModule'},
@@ -21,4 +21,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
+
 export class AppRoutingModule {}
