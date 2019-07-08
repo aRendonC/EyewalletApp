@@ -106,7 +106,9 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-camera": {},
       "com.telerik.plugins.nativepagetransitions": {},
-      "cordova-plugin-fingerprint-aio": {},
+      "cordova-plugin-fingerprint-aio": {
+        "FACEID_USAGE_DESCRIPTION": " "
+      },
       "com-badrit-base64": {},
       "cordova-plugin-qrscanner": {},
       "cordova-clipboard": {},

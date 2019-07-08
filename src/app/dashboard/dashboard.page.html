@@ -1,19 +1,17 @@
-<ion-header no-border>
-    <!--<ion-toolbar>
-        <ion-img  [class]="classLeft" [src]="imgLeft" (click)="enviar()"></ion-img>
-        <ion-img class="resize-logo" src="../../assets/img/dashboard-logo.svg"></ion-img>
-        <ion-img class="resize-logo-right" [src]="imgRight" (click)="recibir()" *ngIf="imgRight"></ion-img>
-      </ion-toolbar>-->
-</ion-header>
-
 <ion-content class="bgdashboard1">
   <div class="contentdash">
+<<<<<<< HEAD
       <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+=======
+    <app-pocket [pockets]="pockets"></app-pocket>
+>>>>>>> dashbordEyeWallet
   </div>
+  
   <br>
   <br>
   <br>
   <br>
+<<<<<<< HEAD
   <!--<app-chart name="transaction" limit="10"></app-chart>-->
 
     <app-sliders name="Bitcoin"></app-sliders>
@@ -21,4 +19,9 @@
 </ion-content>
 <ion-content>
     <app-balance></app-balance>
+=======
+  
+  <app-sliders [name]="crypto" *ngIf="crypto[0].graphic.length > 0"></app-sliders>
+
+>>>>>>> dashbordEyeWallet
 </ion-content>
