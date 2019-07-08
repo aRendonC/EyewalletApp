@@ -52,7 +52,7 @@ var TabsPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-tabs>\n\n    <ion-tab-bar slot=\"bottom\">\n        <ion-tab-button tab=\"inicio\">\n            <ion-icon name=\"apps\"></ion-icon>\n            <ion-label>Inicio</ion-label>\n        </ion-tab-button>\n\n        <ion-tab-button tab=\"profile\">\n            <ion-icon name=\"send\"></ion-icon>\n            <ion-label>Perfil</ion-label>\n        </ion-tab-button>\n        <ion-tab-button (click)=\"logOut()\">\n            <ion-icon name=\"flash\"></ion-icon>\n            <ion-label>Cerrar sesión</ion-label>\n        </ion-tab-button>\n    </ion-tab-bar>\n\n</ion-tabs>\n"
+module.exports = "<ion-tabs>\n    <ion-tab-bar slot=\"bottom\">\n        <ion-tab-button tab=\"/\">\n            <ion-icon name=\"apps\"></ion-icon>\n            <ion-label>Inicio</ion-label>\n        </ion-tab-button>\n        <ion-tab-button tab=\"profile\">\n            <ion-icon name=\"send\"></ion-icon>\n            <ion-label>Perfil</ion-label>\n        </ion-tab-button>\n        <ion-tab-button (click)=\"logOut()\">\n            <ion-icon name=\"flash\"></ion-icon>\n            <ion-label>Cerrar sesión</ion-label>\n        </ion-tab-button>\n    </ion-tab-bar>\n\n</ion-tabs>\n"
 
 /***/ }),
 
@@ -129,22 +129,20 @@ var routes = [
         component: _tabs_page__WEBPACK_IMPORTED_MODULE_3__["TabsPage"],
         children: [
             {
-                path: 'inicio',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../home/home.module#HomePageModule'
-                    }
-                ]
+                path: '',
+                loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
             },
             {
-                path: '',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../profile/profile.module#ProfilePageModule'
-                    }
-                ]
+                path: 'home',
+                loadChildren: '../home/home.module#HomePageModule'
+            },
+            {
+                path: 'profile',
+                loadChildren: '../profile/profile.module#ProfilePageModule'
+            },
+            {
+                path: 'send-currency',
+                loadChildren: '../send-cryptocurrencies/send-cryptocurrencies.module#SendCryptocurrenciesPageModule'
             }
         ]
     },

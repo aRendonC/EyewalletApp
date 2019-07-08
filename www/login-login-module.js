@@ -70,7 +70,7 @@ module.exports = "<ion-content padding class=\"bghome\">\n    <div class=\"move-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".center {\n  margin-top: 6vh;\n  text-align: center;\n  width: 100%;\n  margin-left: -7vh; }\n\n.btn-create {\n  margin-top: 2vh;\n  --background: transparent;\n  --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;\n  --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;\n  --padding-start: 10vh;\n  --padding-end: 10vh;\n  --padding-top: 0px;\n  --padding-bottom: 0px;\n  --border-radius: 100px;\n  --border-color: white;\n  --border-width:1px;\n  --border-style: solid;\n  font-family: 'OpenSans', sans-serif;\n  font-weight: 400; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9leWVsaW5lL0RvY3VtZW50cy95ZWlzb24vRXlld2FsbGV0QXBwL3NyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBZTtFQUNmLGtCQUFrQjtFQUNsQixXQUFXO0VBQ1gsaUJBQ0osRUFBQTs7QUFFRTtFQUNFLGVBQWU7RUFDZix5QkFBYTtFQUNiLGtHQUF1QjtFQUN2Qiw4RkFBbUI7RUFDbkIscUJBQWdCO0VBQ2hCLG1CQUFjO0VBQ2Qsa0JBQWM7RUFDZCxxQkFBaUI7RUFDakIsc0JBQWdCO0VBQ2hCLHFCQUFlO0VBQ2Ysa0JBQWU7RUFDZixxQkFBZTtFQUNmLG1DQUFtQztFQUNuQyxnQkFDRixFQUFBIiwiZmlsZSI6InNyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNlbnRlcntcbiAgICBtYXJnaW4tdG9wOiA2dmg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIG1hcmdpbi1sZWZ0OiAtN3ZoXG59XG5cbiAgLmJ0bi1jcmVhdGV7XG4gICAgbWFyZ2luLXRvcDogMnZoO1xuICAgIC0tYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gICAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogbGluZWFyLWdyYWRpZW50KDQ1ZGVnLCAjNzMwMEZGIC0xMCUsICM1NTg0RkYgNzAlLCAjNERBQUZGIDEyMCUpICFpbXBvcnRhbnQ7XG4gICAgLS1iYWNrZ3JvdW5kLWhvdmVyOiBsaW5lYXItZ3JhZGllbnQoNDVkZWcsICM3MzAwRkYgLTEwJSwgIzU1ODRGRiA3MCUsICM0REFBRkYgMTIwJSkgIWltcG9ydGFudDtcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDEwdmg7XG4gICAgLS1wYWRkaW5nLWVuZDogMTB2aDtcbiAgICAtLXBhZGRpbmctdG9wOiAwcHg7XG4gICAgLS1wYWRkaW5nLWJvdHRvbTogMHB4O1xuICAgIC0tYm9yZGVyLXJhZGl1czogMTAwcHg7XG4gICAgLS1ib3JkZXItY29sb3I6IHdoaXRlO1xuICAgIC0tYm9yZGVyLXdpZHRoOjFweDtcbiAgICAtLWJvcmRlci1zdHlsZTogc29saWQ7XG4gICAgZm9udC1mYW1pbHk6ICdPcGVuU2FucycsIHNhbnMtc2VyaWY7XG4gICAgZm9udC13ZWlnaHQ6IDQwMFxuICB9XG5cblxuIl19 */"
+module.exports = ".center {\n  margin-top: 6vh;\n  text-align: center;\n  width: 100%;\n  margin-left: -7vh; }\n\n.btn-create {\n  margin-top: 2vh;\n  --background: transparent;\n  --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;\n  --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;\n  --padding-start: 10vh;\n  --padding-end: 10vh;\n  --padding-top: 0px;\n  --padding-bottom: 0px;\n  --border-radius: 100px;\n  --border-color: white;\n  --border-width:1px;\n  --border-style: solid;\n  font-family: 'OpenSans', sans-serif;\n  font-weight: 400; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9leWVsaW5lL0RvY3VtZW50cy9HaXRIdWIvRXlld2FsbGV0QXBwL3NyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBZTtFQUNmLGtCQUFrQjtFQUNsQixXQUFXO0VBQ1gsaUJBQ0osRUFBQTs7QUFFRTtFQUNFLGVBQWU7RUFDZix5QkFBYTtFQUNiLGtHQUF1QjtFQUN2Qiw4RkFBbUI7RUFDbkIscUJBQWdCO0VBQ2hCLG1CQUFjO0VBQ2Qsa0JBQWM7RUFDZCxxQkFBaUI7RUFDakIsc0JBQWdCO0VBQ2hCLHFCQUFlO0VBQ2Ysa0JBQWU7RUFDZixxQkFBZTtFQUNmLG1DQUFtQztFQUNuQyxnQkFDRixFQUFBIiwiZmlsZSI6InNyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNlbnRlcntcbiAgICBtYXJnaW4tdG9wOiA2dmg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIG1hcmdpbi1sZWZ0OiAtN3ZoXG59XG5cbiAgLmJ0bi1jcmVhdGV7XG4gICAgbWFyZ2luLXRvcDogMnZoO1xuICAgIC0tYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gICAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogbGluZWFyLWdyYWRpZW50KDQ1ZGVnLCAjNzMwMEZGIC0xMCUsICM1NTg0RkYgNzAlLCAjNERBQUZGIDEyMCUpICFpbXBvcnRhbnQ7XG4gICAgLS1iYWNrZ3JvdW5kLWhvdmVyOiBsaW5lYXItZ3JhZGllbnQoNDVkZWcsICM3MzAwRkYgLTEwJSwgIzU1ODRGRiA3MCUsICM0REFBRkYgMTIwJSkgIWltcG9ydGFudDtcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDEwdmg7XG4gICAgLS1wYWRkaW5nLWVuZDogMTB2aDtcbiAgICAtLXBhZGRpbmctdG9wOiAwcHg7XG4gICAgLS1wYWRkaW5nLWJvdHRvbTogMHB4O1xuICAgIC0tYm9yZGVyLXJhZGl1czogMTAwcHg7XG4gICAgLS1ib3JkZXItY29sb3I6IHdoaXRlO1xuICAgIC0tYm9yZGVyLXdpZHRoOjFweDtcbiAgICAtLWJvcmRlci1zdHlsZTogc29saWQ7XG4gICAgZm9udC1mYW1pbHk6ICdPcGVuU2FucycsIHNhbnMtc2VyaWY7XG4gICAgZm9udC13ZWlnaHQ6IDQwMFxuICB9XG5cblxuIl19 */"
 
 /***/ }),
 
@@ -92,6 +92,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/axios/axios.service */ "./src/app/services/axios/axios.service.ts");
 /* harmony import */ var _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../pin-modal/pin-modal.page */ "./src/app/pin-modal/pin-modal.page.ts");
 /* harmony import */ var _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/fingerprint/touch-login.service */ "./src/app/services/fingerprint/touch-login.service.ts");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _services_aesjs_aes_js_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/aesjs/aes-js.service */ "./src/app/services/aesjs/aes-js.service.ts");
+
+
 
 
 
@@ -102,15 +106,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginPage = /** @class */ (function () {
-    function LoginPage(loadingController, toastController, aut, menu, router, loginHttpReq, modalCtrl, touchCtrl) {
+    function LoginPage(loadingController, toastController, auth, menu, router, http, modalCtrl, touchCtrl, store, aesjs) {
         this.loadingController = loadingController;
         this.toastController = toastController;
-        this.aut = aut;
+        this.auth = auth;
         this.menu = menu;
         this.router = router;
-        this.loginHttpReq = loginHttpReq;
+        this.http = http;
         this.modalCtrl = modalCtrl;
         this.touchCtrl = touchCtrl;
+        this.store = store;
+        this.aesjs = aesjs;
+        this.pockets = [];
     }
     LoginPage.prototype.ngOnInit = function () {
         this.menu.enable(false);
@@ -123,20 +130,62 @@ var LoginPage = /** @class */ (function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                this.aut.login(this.username, this.password).then(function (data) {
-                    if (data !== null) {
-                        // @ts-ignore
-                        // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
-                        // this.router.navigate(['/perfil',data.id]);
-                        _this.router.navigate(['/app/tabs']);
-                    }
-                    else {
-                        _this.presentToast();
-                    }
-                }).catch(function (error) {
+                this.auth.login(this.username, this.password).then(function (data) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+                    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                console.info('datos de inicio de sesión', data);
+                                if (!data) return [3 /*break*/, 5];
+                                // @ts-ignore
+                                // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
+                                // this.router.navigate(['/perfil',data.id]);
+                                return [4 /*yield*/, this.getPocketsList()];
+                            case 1:
+                                // @ts-ignore
+                                // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
+                                // this.router.navigate(['/perfil',data.id]);
+                                _a.sent();
+                                console.info('mis pockets', this.pockets);
+                                return [4 /*yield*/, this.router.navigate(['/app/tabs', { pockets: JSON.stringify(this.pockets) }])];
+                            case 2:
+                                _a.sent();
+                                return [4 /*yield*/, this.getUserProfile()];
+                            case 3:
+                                _a.sent();
+                                this.pockets = this.aesjs.encrypt(JSON.stringify(this.pockets));
+                                return [4 /*yield*/, this.store.set('pockets', this.pockets)];
+                            case 4:
+                                _a.sent();
+                                return [3 /*break*/, 7];
+                            case 5: return [4 /*yield*/, this.presentToast()];
+                            case 6:
+                                _a.sent();
+                                _a.label = 7;
+                            case 7: return [2 /*return*/];
+                        }
+                    });
+                }); }).catch(function (error) {
                     console.log(error);
                 });
                 return [2 /*return*/];
+            });
+        });
+    };
+    LoginPage.prototype.getUserProfile = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var profile;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.get('profile/1/view', this.auth, null)];
+                    case 1:
+                        profile = _a.sent();
+                        console.info(profile);
+                        profile = this.aesjs.encrypt(JSON.stringify(profile));
+                        return [4 /*yield*/, this.store.set('profile', profile)];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
             });
         });
     };
@@ -148,7 +197,6 @@ var LoginPage = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.modalCtrl.getTop()];
                     case 1:
                         moda = _a.sent();
-                        console.log(moda);
                         return [4 /*yield*/, this.modalCtrl.create({
                                 component: _pin_modal_pin_modal_page__WEBPACK_IMPORTED_MODULE_6__["PinModalPage"],
                                 componentProps: {
@@ -181,6 +229,21 @@ var LoginPage = /** @class */ (function () {
             });
         });
     };
+    LoginPage.prototype.getPocketsList = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _a;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.http.get('user-wallet/index', this.auth, null)];
+                    case 1:
+                        _a.pockets = _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-login',
@@ -194,7 +257,9 @@ var LoginPage = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
             _services_axios_axios_service__WEBPACK_IMPORTED_MODULE_5__["AxiosService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
-            _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_7__["TouchLoginService"]])
+            _services_fingerprint_touch_login_service__WEBPACK_IMPORTED_MODULE_7__["TouchLoginService"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"],
+            _services_aesjs_aes_js_service__WEBPACK_IMPORTED_MODULE_9__["AesJsService"]])
     ], LoginPage);
     return LoginPage;
 }());

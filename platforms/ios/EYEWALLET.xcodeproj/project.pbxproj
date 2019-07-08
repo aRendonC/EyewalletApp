@@ -31,6 +31,7 @@
 		8D16D34DDD634ABF92C0B039 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B475724C654575A18566A5 /* CDVSplashScreen.m */; };
 		1719B166C0EE4816B6BBBC2C /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0203EE91EBAE4592863FB32A /* CDVViewController+SplashScreen.m */; };
 		AE12D08888354E409066A72B /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D0711E6721485D8F18127A /* CDVStatusBar.m */; };
+		137D83DDB8C94F60A164E512 /* QRScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D735B43AEE204897AADEFDF6 /* QRScanner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		1F33847F387D4488B0253C32 /* CDVViewController+SplashScreen.h */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.h"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		53D0711E6721485D8F18127A /* CDVStatusBar.m */ = {isa = PBXFileReference; name = "CDVStatusBar.m"; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		3C775C78D273406D82DC16D1 /* CDVStatusBar.h */ = {isa = PBXFileReference; name = "CDVStatusBar.h"; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		D735B43AEE204897AADEFDF6 /* QRScanner.swift */ = {isa = PBXFileReference; name = "QRScanner.swift"; path = "cordova-plugin-qrscanner/QRScanner.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 				1F33847F387D4488B0253C32 /* CDVViewController+SplashScreen.h */,
 				53D0711E6721485D8F18127A /* CDVStatusBar.m */,
 				3C775C78D273406D82DC16D1 /* CDVStatusBar.h */,
+				D735B43AEE204897AADEFDF6 /* QRScanner.swift */,
 			);
 			name = Plugins;
 			path = "EYEWALLET/Plugins";
@@ -390,6 +393,7 @@
 				8D16D34DDD634ABF92C0B039 /* CDVSplashScreen.m in Sources */,
 				1719B166C0EE4816B6BBBC2C /* CDVViewController+SplashScreen.m in Sources */,
 				AE12D08888354E409066A72B /* CDVStatusBar.m in Sources */,
+				137D83DDB8C94F60A164E512 /* QRScanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +430,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.starter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -449,6 +457,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.starter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -492,6 +503,10 @@
 				SKIP_INSTALL = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.starter;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -533,6 +548,9 @@
 				SKIP_INSTALL = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.starter;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

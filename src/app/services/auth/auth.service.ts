@@ -9,7 +9,7 @@ import {Storage} from "@ionic/storage";
   providedIn: 'root'
 })
 export class AuthService {
-  usuario = {
+  usuario: any = {
     id: null,
     rolId: null,
     segundoFactor: null,
@@ -42,11 +42,11 @@ export class AuthService {
             //error de la plataforma o datos incorrectos
           } else {
             this.usuario = data.data;
-            this.store.set('user', this.usuario)
-            console.log(await this.store.get('user'))
+            await this.store.set('user', this.usuario);
+            console.log(this.usuario);
             // localStorage.setItem('user', JSON.stringify(this.usuario));
             // this.timer.iniciarTemporizador();
-            console.info('data', data)
+            console.info('data', data);
             resolve(data);
           }
         })
@@ -65,7 +65,7 @@ export class AuthService {
 
   async intentarLogin() {
     // this.usuario = JSON.parse(window.localStorage.getItem('user'));
-    this.usuario = await this.store.get('user')
+    this.usuario = await this.store.get('user');
     if (this.usuario == null) {
       this.usuario = {
         id: null,
@@ -82,8 +82,8 @@ export class AuthService {
   }
 
   async isLogin() {
-    const user = await this.store.get('user')
-    console.info(user)
+    let user = await this.store.get('user');
+    console.info(user);
     return !!user;
   }
 

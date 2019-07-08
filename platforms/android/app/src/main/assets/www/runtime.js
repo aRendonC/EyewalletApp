@@ -63,7 +63,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"common":"common","home-home-module":"home-home-module","registry-pin-registry-pin-module":"registry-pin-registry-pin-module","default~registry-registry-module~restore-restore-module":"default~registry-registry-module~restore-restore-module","registry-registry-module":"registry-registry-module","restore-restore-module":"restore-restore-module","login-login-module":"login-login-module","pin-pin-module":"pin-pin-module","profile-profile-module":"profile-profile-module","tabs-tabs-module":"tabs-tabs-module"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"common":"common","home-home-module":"home-home-module","registry-pin-registry-pin-module":"registry-pin-registry-pin-module","dashboard-dashboard-module":"dashboard-dashboard-module","default~registry-registry-module~restore-restore-module":"default~registry-registry-module~restore-restore-module","registry-registry-module":"registry-registry-module","restore-restore-module":"restore-restore-module","list-pockets-list-pockets-module":"list-pockets-list-pockets-module","login-login-module":"login-login-module","pin-pin-module":"pin-pin-module","profile-profile-module":"profile-profile-module","send-cryptocurrencies-send-cryptocurrencies-module":"send-cryptocurrencies-send-cryptocurrencies-module","tabs-tabs-module":"tabs-tabs-module"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
