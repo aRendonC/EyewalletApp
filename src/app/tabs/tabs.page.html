@@ -1,17 +1,19 @@
 <ion-tabs>
-    <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="/">
-            <ion-icon name="apps"></ion-icon>
-            <ion-label>Inicio</ion-label>
+    <ion-tab-bar class="tab-bg" slot="bottom">
+        <ion-tab-button class="tab-btn" tab="prices">
+            <img src="../../assets/img/tabs/tab-prices.svg">
         </ion-tab-button>
-
-        <ion-tab-button tab="create-profile">
-            <ion-icon name="send"></ion-icon>
-            <ion-label>Perfil</ion-label>
+        <ion-tab-button class="tab-btn" tab="vault">
+            <img src="../../assets/img/tabs/tab-vault.svg">
         </ion-tab-button>
-        <ion-tab-button (click)="logOut()">
-            <ion-icon name="flash"></ion-icon>
-            <ion-label>Cerrar sesión</ion-label>
+        <ion-tab-button class="tab-btn" tab="dashboard">
+            <img src="../../assets/img/tabs/tab-wallet.svg">
+        </ion-tab-button>
+        <ion-tab-button class="tab-btn" tab="card">
+            <img src="../../assets/img/tabs/tab-card.svg">
+        </ion-tab-button>
+        <ion-tab-button class="tab-btn" tab="profile">
+            <img src="../../assets/img/tabs/tab-profile.svg">
         </ion-tab-button>
     </ion-tab-bar>
 
