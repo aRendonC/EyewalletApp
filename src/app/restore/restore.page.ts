@@ -38,6 +38,7 @@ export class RestorePage implements OnInit {
   public repearNewPasswordOk: boolean = false;
   public dataDeviceId: any;
   private blockingCounter: number = 0;
+  public path: string = 'login';
 
   constructor(
     private axiosServices: AxiosService,

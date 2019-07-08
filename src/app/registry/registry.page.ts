@@ -33,6 +33,7 @@ export class RegistryPage implements OnInit {
   public emailOk: boolean = false;
   public disableButton: boolean = true;
   public classButton: string = 'button-disable';
+  public path: string = '';
 
   constructor(
     private register: AxiosService,
