@@ -21,6 +21,7 @@ export class DashboardPage implements OnInit {
   ctrlNavigation: boolean = false;
   transactionComponent: any
   public pockets: any = [];
+  public profile: any;
   public params = {
     userId: null,
     type:  null,
@@ -47,11 +48,10 @@ export class DashboardPage implements OnInit {
       protected aesjs: AesJsService,
       public loadingController: LoadingController
   ) {}
-
   ngOnInit() {
+
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     this.getUserProfile();
-
     console.log('gklajdfklsajd', this.crypto);
   }
 
@@ -138,7 +138,7 @@ export class DashboardPage implements OnInit {
 
     profile = this.aesjs.decrypt(profile);
     console.info('Data profile: ', profile);
-
+    this.profile = profile;
     this.params.userId = profile.data.id;
     this.params.type = 4;
     // console.info('Data params: ', this.params);
