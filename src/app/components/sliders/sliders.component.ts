@@ -14,12 +14,14 @@ import {AesJsService} from "../../services/aesjs/aes-js.service";
   templateUrl: './sliders.component.html',
   styleUrls: ['./sliders.component.scss'],
 })
+
 export class SlidersComponent implements OnInit{
   @Input() name: any;
   public lineChart: any;
   public dataGraphic: any;
   public contentDataGrapic: any;
   public profile: any = null
+
 
   @ViewChild('lineCanvas') lineCanvas;
 
@@ -33,6 +35,7 @@ export class SlidersComponent implements OnInit{
 
   }
 
+
   async ngOnInit() {
       this.profile = await this.store.get('profile')
       this.profile = this.aesjs.decrypt(this.profile)
@@ -40,7 +43,15 @@ export class SlidersComponent implements OnInit{
       console.log('se incio')
     this.nameSlider = this.name;
     this.dataGraphic = this.name[0];
+
+    console.log('Uno 1: ', this.dataGraphic.graphic);
+    
     setTimeout(() => {
+      this.grafica();
+    }, 1000);
+  }
+
+  async grafica(){
     let ctx = this.lineCanvas.nativeElement.getContext('2d');
     let gradientStroke = ctx.createLinearGradient(0, 150, 30, 0);
     gradientStroke.addColorStop(1, '#84EAE8');
@@ -48,52 +59,48 @@ export class SlidersComponent implements OnInit{
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: 'line',
       data: {
-          labels: ['', '', '', '', '', '', '', '', '', ''],
-          datasets: [{
-              label: '',
-              data:  this.dataGraphic.graphic,
-              backgroundColor: gradientStroke,
-              borderColor: '#7DDC97',
-              borderWidth: 4,
-              pointRadius: 0,
-          },
-                    ]
+        labels: ['', '', '', '', '', '', '', '', '', ''],
+        datasets: [{
+          label: '',
+          data:  this.dataGraphic.graphic,
+          backgroundColor: gradientStroke,
+          borderColor: '#7DDC97',
+          borderWidth: 4,
+          pointRadius: 0,
+        }]
       },
       options: {
         legend: {
-            display: false
+          display: false
         },
         scales: {
           xAxes: [{
-              gridLines: {
-                drawBorder: false,
-                display: false
-              }
+            gridLines: {
+              drawBorder: false,
+              display: false
+            }
           }],
           yAxes: [{
             ticks: {
               beginAtZero: true,
               display: false
-          },
-              gridLines: {
-                drawBorder: false,
-                display: false
-              }
+            },
+            gridLines: {
+              drawBorder: false,
+              display: false
+            }
           }]
+        }
       }
-      }
-  });
-}, 1000);
-}
-
-  async openModalVerification() {
-    const modal = await this.modalCtrl.create({
-      component: VerificationModalPage,
-      enterAnimation: enterAnimation,
-      leaveAnimation: leaveAnimation
-    })
-    return await modal.present()
+    });
   }
 
-
+    async openModalVerification() {
+      const modal = await this.modalCtrl.create({
+        component: VerificationModalPage,
+        enterAnimation: enterAnimation,
+        leaveAnimation: leaveAnimation
+      })
+      return await modal.present()
+    }
 }

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {ActivatedRoute,Router} from '@angular/router';
 import {ModalController,LoadingController} from '@ionic/angular';
 import {VerificationModalPage} from '../verification-modal/verification-modal.page';
 import {enterAnimation} from '../animations/enter';
@@ -10,6 +10,8 @@ import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import { EmptyOutletComponent } from '@angular/router/src/components/empty_outlet';
+import validator from 'validator';
+import { SlidersComponent } from '../components/sliders/sliders.component';
 
 
 @Component({
@@ -17,7 +19,10 @@ import { EmptyOutletComponent } from '@angular/router/src/components/empty_outle
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })
+
 export class DashboardPage implements OnInit {
+  @ViewChild(SlidersComponent) childD:SlidersComponent
+
   ctrlNavigation: boolean = false;
   transactionComponent: any
   public pockets: any = [];
@@ -28,6 +33,8 @@ export class DashboardPage implements OnInit {
     movement: null,
     limit: null
   };
+
+  @Input() gra : SlidersComponent
 
   public crypto: any = [
     {name: 'Bitcoin', background: 'contentBitcoin', value: '', valueUsd: '', graphic: []},
@@ -45,14 +52,13 @@ export class DashboardPage implements OnInit {
       private auth: AuthService,
       private store: Storage,
       protected aesjs: AesJsService,
-      public loadingController: LoadingController
+      public loadingController: LoadingController,
+      private routes: Router,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     this.getUserProfile();
-
-    console.log('gklajdfklsajd', this.crypto);
   }
 
   async openModalVerification() {
@@ -64,25 +70,28 @@ export class DashboardPage implements OnInit {
 
     return await modal.present();
   }
-
   private getUserId(): any {
     return this.storage.getDataLocal('profile');
   }
-  getDataPocket(data: []) {
-    console.log('estoy recibiendo data en la pagina dashboard', data)
-    this.getTransactionHistory(data)
+  
+  public getDataPocket(data: any) {
+    console.log('estoy recibiendo data en la pagina dashboard', data);
+
+    this.crypto.forEach(element => {
+      element.graphic = [];
+      if (data.pocket.currencyId === 1 && element.name === 'Bitcoin') {
+        element.value = data.pocket.balance;
+
+        data.data.forEach(elementGraphic => {
+          element.graphic.push(parseFloat(elementGraphic.balance_after));
+        });
+      }
+    });
+    console.log('DataUpdata: ', this.crypto[0].graphic);
+
+    this.childD.grafica();
   }
-  send() {
 
-  }
-
-  receive() {
-
-  }
-
-  priceBtc() {
-
-  }
 
   getTransactionHistory(data: any){
     console.log(data)
@@ -131,7 +140,8 @@ export class DashboardPage implements OnInit {
     const loading = await this.loadingController.create({
       message: '',
       duration: 7000
-    });
+  });
+
     await loading.present();
 
     let profile = await this.store.get('profile');
@@ -176,6 +186,6 @@ export class DashboardPage implements OnInit {
     });
 
     this.crypto[0].graphic = this.dataGraphic;
+    console.log('zzz: ', this.crypto[0].graphic)
   }
-
 }
