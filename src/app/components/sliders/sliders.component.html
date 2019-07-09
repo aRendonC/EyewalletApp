@@ -19,7 +19,7 @@
                 </ion-card>
 
                 <ion-label class="text-valance" mode="ios">{{names.value}}</ion-label>
-                <ion-label class="text-usd">{{names.valueUsd}}</ion-label>
+                <ion-label class="text-usd">{{(names.value * names.valueUsd).toFixed(3)}}</ion-label>
 
                 <canvas #lineCanvas></canvas>
 
