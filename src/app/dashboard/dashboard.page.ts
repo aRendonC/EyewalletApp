@@ -1,13 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
-import {ActivatedRoute} from "@angular/router";
-import {ModalController} from "@ionic/angular";
-import {VerificationModalPage} from "../verification-modal/verification-modal.page";
-import {enterAnimation} from "../animations/enter";
-import {leaveAnimation} from "../animations/leave";
-import {Storage} from "@ionic/storage";
-import {AesJsService} from "../services/aesjs/aes-js.service";
-=======
 import {ActivatedRoute} from '@angular/router';
 import {ModalController,LoadingController} from '@ionic/angular';
 import {VerificationModalPage} from '../verification-modal/verification-modal.page';
@@ -19,7 +10,6 @@ import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import { EmptyOutletComponent } from '@angular/router/src/components/empty_outlet';
->>>>>>> dashbordEyeWallet
 
 
 @Component({
@@ -28,34 +18,7 @@ import { EmptyOutletComponent } from '@angular/router/src/components/empty_outle
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
-<<<<<<< HEAD
   ctrlNavigation: boolean = false;
-  imgLeft:string=null;
-  imgRight:string=null;
-  classLeft:string=null;
-  bandera:string=null;
-  pockets: any = []
-  public crypto = [
-    {name:"Bitcoin",background:"contentBitcoin"},
-    {name:"Ethereum",background:"contentEtherium"}
-  ];
-  constructor(
-      private route: ActivatedRoute,
-      private modalCtrl: ModalController,
-      private store: Storage,
-      private aesjs: AesJsService
-  ) {
-    this.classLeft="resize-logo-left1";
-    this.imgLeft = "../../assets/img/btn-left-s.svg";
-    this.imgRight="../../assets/img/btn-right.svg";
-    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
-    console.log('estos son mis pockets', this.pockets)
-  }
-
-
-   ngOnInit() {
-=======
-
   public pockets: any = [];
   public params = {
     userId: null,
@@ -83,13 +46,12 @@ export class DashboardPage implements OnInit {
       protected aesjs: AesJsService,
       public loadingController: LoadingController
   ) {}
- 
+
   ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     this.getUserProfile();
 
     console.log('gklajdfklsajd', this.crypto);
->>>>>>> dashbordEyeWallet
   }
 
   async openModalVerification() {
@@ -113,10 +75,6 @@ export class DashboardPage implements OnInit {
   receive() {
 
   }
-<<<<<<< HEAD
-  enviar(){}
-=======
->>>>>>> dashbordEyeWallet
 
   priceBtc() {
 
@@ -131,7 +89,7 @@ export class DashboardPage implements OnInit {
 
     let profile = await this.store.get('profile');
 
-    profile = JSON.parse(this.aesjs.decrypt(profile));
+    profile = this.aesjs.decrypt(profile);
     console.info('Data profile: ', profile);
 
     this.params.userId = profile.data.id;
@@ -171,5 +129,5 @@ export class DashboardPage implements OnInit {
 
     this.crypto[0].graphic = this.dataGraphic;
   }
-  
+
 }

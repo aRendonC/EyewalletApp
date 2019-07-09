@@ -51,7 +51,8 @@ export class ListPocketsPage implements OnInit {
     } else {
 
       let profile = await this.store.get('profile')
-      profile = JSON.parse(this.aesjs.decrypt(profile))
+      profile = this.aesjs.decrypt(profile)
+      profile = profile.data
       console.info(profile)
       this.params.userId = profile.id
       console.info(this.params)

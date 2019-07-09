@@ -28,6 +28,7 @@ export class SlidersComponent implements OnInit{
   ) {}
 
   async ngOnInit() {
+      console.log('se incio')
     this.nameSlider = this.name;
     this.dataGraphic = this.name[0];
     setTimeout(() => {

@@ -20,10 +20,6 @@ const routes: Routes = [
 		path: 'profile',
 		loadChildren: '../profile/profile.module#ProfilePageModule'
 	  },
-	  {
-    	path: 'dashboard',
-        loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
-      },
       {
         path:'create-profile',
         loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'

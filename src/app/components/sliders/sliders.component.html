@@ -1,31 +1,31 @@
-<ion-content>
+
     <ion-slides>
         <ion-slide *ngFor="let names of name">
-          <div class="{{names.background}}">
-            <div class="center">
-                <ion-label class="text-moneda">{{names.name}}</ion-label>
+            <div class="{{names.background}}">
+                <div class="center">
+                    <ion-label class="text-moneda">{{names.name}}</ion-label>
+                </div>
+                <ion-card class="cardwith">
+                    <ion-card-header>
+
+                        <ion-card-title class="card-title">Completar tu Perfil</ion-card-title>
+                        <ion-card-subtitle class="card-titlesub">Completa tu perfil para empezar a usarla</ion-card-subtitle>
+                    </ion-card-header>
+
+                    <ion-card-content>
+                        <ion-img  class="logo-card" src="../../../assets/img/home-logo.svg" (click)="enviar()"></ion-img>
+                        <ion-button class="btn-continuar" (click)="openModalVerification()">Continuar</ion-button>
+                    </ion-card-content>
+                </ion-card>
+
+                <ion-label class="text-valance" mode="ios">{{names.value}}</ion-label>
+                <ion-label class="text-usd">{{names.valueUsd}}</ion-label>
+
+                <canvas #lineCanvas></canvas>
+
+
+
             </div>
-            <ion-card class="cardwith">
-                <ion-card-header>
-                    
-                  <ion-card-title class="card-title">Completar tu Perfil</ion-card-title>
-                  <ion-card-subtitle class="card-titlesub">Completa tu perfil para empezar a usarla</ion-card-subtitle>
-                </ion-card-header>
-              
-                <ion-card-content>
-                    <ion-img  class="logo-card" src="../../../assets/img/home-logo.svg" (click)="enviar()"></ion-img>
-                    <ion-button class="btn-continuar" (click)="openModalVerification()">Continuar</ion-button>
-                </ion-card-content>
-            </ion-card>
-      
-            <ion-label class="text-valance" mode="ios">{{names.value}}</ion-label>
-            <ion-label class="text-usd">{{names.valueUsd}}</ion-label>
-           
-            <canvas #lineCanvas></canvas>
-      
-           
-            
-        </div>
         </ion-slide>
-      </ion-slides>
-</ion-content>
+    </ion-slides>
+

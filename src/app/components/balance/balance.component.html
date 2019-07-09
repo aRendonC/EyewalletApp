@@ -1,4 +1,4 @@
-<ion-infinite-scroll (ionInfinite)="loadData($event)">
+<ion-infinite-scroll class="mt-dashboard" >
         <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more data...">
           <div class="card" *ngFor="let transaction of transactions">
             <img class="status-icon" src={{transaction.typeIcon}}>
