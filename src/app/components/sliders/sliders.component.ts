@@ -37,6 +37,10 @@ export class SlidersComponent implements OnInit{
 
 
   async ngOnInit() {
+      this.profile = await this.store.get('profile')
+      this.profile = this.aesjs.decrypt(this.profile)
+      console.log(this.profile)
+      console.log('se incio')
     this.nameSlider = this.name;
     this.dataGraphic = this.name[0];
     
