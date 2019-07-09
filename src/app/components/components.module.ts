@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {ChartComponent} from './chart/chart.component';
 import {PocketComponent} from "./pocket/pocket.component";
 import {ListPocketsPage} from "../list-pockets/list-pockets.page";
+import {BalanceComponent} from "./balance/balance.component";
 import { ReturnPageComponent } from './return-page/return-page.component';
 
 //constants components export
@@ -14,6 +15,7 @@ const COMPONENTS = [
   ChartComponent,
 	PocketComponent,
   SlidersComponent,
+  BalanceComponent,
   ReturnPageComponent
 ]
 @NgModule({
