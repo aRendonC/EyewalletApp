@@ -5,6 +5,7 @@ import {AesJsService} from "../services/aesjs/aes-js.service";
 import {AuthService} from "../services/auth/auth.service";
 import {AxiosService} from "../services/axios/axios.service";
 import {ModalController} from "@ionic/angular";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-verification-modal',
   templateUrl: './verification-modal.page.html',
@@ -22,13 +23,15 @@ export class VerificationModalPage implements OnInit {
       protected aesjs: AesJsService,
       protected auth: AuthService,
       private http: AxiosService,
-      private modalCtrl: ModalController
+      private modalCtrl: ModalController,
+      private router: Router
   ) { }
 
   ngOnInit() {
   }
 
   async closeModal() {
+    await this.router.navigate(['/app/tabs/create-profile']);
     await this.modalCtrl.dismiss();
   }
 

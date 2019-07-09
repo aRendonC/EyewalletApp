@@ -162,10 +162,11 @@ export class DashboardPage implements OnInit {
 
   async getListTransactions(params, auth){
     let response = await this.http.post('transaction/all', params, auth);
+    console.log('todas mis transacciones', response)
     let dataTransaction = response.data;
 
     dataTransaction.forEach(element => {
-      console.log(element.balance_after);
+      console.log('adasdasdasdas', element.balance_after);
 
       this.crypto.forEach(element1 => {
         if (element1.name === 'Bitcoin') {

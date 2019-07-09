@@ -2,9 +2,11 @@ import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
+import {Storage} from "@ionic/storage";
 import {enterAnimation} from '../../animations/enter';
 import {leaveAnimation} from '../../animations/leave';
 import { Chart } from 'chart.js';
+import {AesJsService} from "../../services/aesjs/aes-js.service";
 
 
 @Component({
@@ -18,6 +20,7 @@ export class SlidersComponent implements OnInit{
   public lineChart: any;
   public dataGraphic: any;
   public contentDataGrapic: any;
+  public profile: any = null
 
   @ViewChild('lineCanvas') lineCanvas;
 
@@ -25,9 +28,16 @@ export class SlidersComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private modalCtrl: ModalController,
-  ) {}
+    private store: Storage,
+    private aesjs: AesJsService
+  ) {
+
+  }
 
   async ngOnInit() {
+      this.profile = await this.store.get('profile')
+      this.profile = this.aesjs.decrypt(this.profile)
+      console.log(this.profile)
       console.log('se incio')
     this.nameSlider = this.name;
     this.dataGraphic = this.name[0];

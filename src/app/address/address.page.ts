@@ -6,7 +6,7 @@ import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
-import {AxiosService} from '../services/axios/axios.service'; 
+import {AxiosService} from '../services/axios/axios.service';
 
 @Component({
   selector: 'app-address',
@@ -32,7 +32,7 @@ export class AddressPage implements OnInit {
   public city = '';
   public user: any = '';
   public bodyForm: any = {};
-  
+
 
 
   private headers: HttpHeaders;
@@ -61,8 +61,8 @@ getCountries() {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     "Access-Control-Allow-Origin":"*" ,
-    "Access-Control-Allow-Headers":"*" , 
-    "Access-Control-Allow-Methods":"*" 
+    "Access-Control-Allow-Headers":"*" ,
+    "Access-Control-Allow-Methods":"*"
   });
   const url = 'https://geodata.solutions/restapi?dd=1';
   this.http.get(url)
@@ -123,17 +123,17 @@ async createProfile(userId: any, address1: any, address2: any, country: any, sta
   city = this.city;
   zip = this.zip;
   this.user = await this.store.get('profile');
-  this.user = JSON.parse(this.aes.decrypt(this.user));
-  userId = this.user.userId;
+  this.user = this.aes.decrypt(this.user);
+  userId = this.user.data.userId;
   this.bodyForm = {userId, address1, address2, country, state, city, zip};
   console.log(`profile/${this.user.id}/update`);
   console.log(this.bodyForm);
   console.log(this.aut);
-  const response = await this.axios.put(`profile/${this.user.id}/update`, this.bodyForm, this.aut);
+  const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
   console.log('respuesta put', response);
   if (response.status === 200) {
-  this.router.navigate(['app/tabs/profile']);
-  this.store.set('user', JSON.stringify(response.data));
+  await this.router.navigate(['app/tabs']);
+  await this.store.set('user', JSON.stringify(response.data));
   }
 }
 

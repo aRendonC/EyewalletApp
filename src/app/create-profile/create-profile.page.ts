@@ -49,8 +49,9 @@ export class CreateProfilePage implements OnInit {
     birthdate = this.birthdate.slice(0, 10);
     identification = this.identification;
     this.user = await this.store.get('profile');
-    this.user = JSON.parse(this.aes.decrypt(this.user));
-    userId = this.user.userId;
+    console.log(this.user)
+    this.user = this.aes.decrypt(this.user);
+    userId = this.user.data.userId;
     this.bodyForm = {userId, firstname, lastname, birthdate, identification};
     console.log(this.bodyForm);
     const response = await this.axios.put(`profile/${this.user.id}/update`, this.bodyForm, this.aut);

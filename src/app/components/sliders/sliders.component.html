@@ -5,7 +5,7 @@
                 <div class="center">
                     <ion-label class="text-moneda">{{names.name}}</ion-label>
                 </div>
-                <ion-card class="cardwith">
+                <ion-card class="cardwith" *ngIf="profile.level === 0">
                     <ion-card-header>
 
                         <ion-card-title class="card-title">Completar tu Perfil</ion-card-title>
