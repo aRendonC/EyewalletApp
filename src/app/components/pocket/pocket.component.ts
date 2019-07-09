@@ -36,10 +36,7 @@ export class PocketComponent implements OnInit {
     this.classLeft="resize-logo-left1";
     this.imgLeft = "../../assets/img/btn-left-s.svg";
     this.imgRight="../../assets/img/btn-right.svg";
-    this.pocket = this.pockets[0];
-    if (!this.pocket) {
       this.getPocketStore()
-    }
   }
 
   async ngOnInit() {
@@ -98,7 +95,7 @@ export class PocketComponent implements OnInit {
 
   async receiveCash() {
     console.log(this.pocket);
-    await this.router.navigate(['/app/tabs/receive-funds', {pocket: JSON.stringify(this.pocket)}]);
+    await this.router.navigate(['/receive-funds', {pocket: JSON.stringify(this.pocket)}]);
   }
 
   async sendCash() {
@@ -108,7 +105,7 @@ export class PocketComponent implements OnInit {
     if(profile.level === 0) {
       await this.presentToast()
     } else {
-      await this.router.navigate(['/app/tabs/send-currency', {pocket: JSON.stringify(this.pocket)}]);
+      await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
     }
   }
 
