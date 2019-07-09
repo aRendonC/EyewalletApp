@@ -1,30 +1,24 @@
 
     <ion-slides>
-        <ion-slide *ngFor="let names of name">
+        <ion-slide class="mt-14" *ngFor="let names of name">
             <div class="{{names.background}}">
                 <div class="center">
                     <ion-label class="text-moneda">{{names.name}}</ion-label>
                 </div>
                 <ion-card class="cardwith" *ngIf="profile.level === 0">
                     <ion-card-header>
-
-                        <ion-card-title class="card-title">Completar tu Perfil</ion-card-title>
-                        <ion-card-subtitle class="card-titlesub">Completa tu perfil para empezar a usarla</ion-card-subtitle>
+                        <ion-card-title class="card-title">Completa tu Perfil</ion-card-title>
+                        <p class="card-titlesub">Completa  tu perfil hoy para empezar a usarla exitosamente.</p>
                     </ion-card-header>
-
                     <ion-card-content>
                         <ion-img  class="logo-card" src="../../../assets/img/home-logo.svg"></ion-img>
                         <ion-button class="btn-continuar" (click)="openModalVerification()">Continuar</ion-button>
                     </ion-card-content>
                 </ion-card>
-
                 <ion-label class="text-valance" mode="ios">{{names.value}}</ion-label>
                 <ion-label class="text-usd">{{(names.value * names.valueUsd).toFixed(3)}}</ion-label>
 
                 <canvas #lineCanvas></canvas>
-
-
-
             </div>
         </ion-slide>
     </ion-slides>

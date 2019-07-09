@@ -2,7 +2,10 @@
 @import "../../../global.scss";
 .bgdashboard{
     --bullet-background:  url('../../../assets/img/bg-dashboard.png');
+}
 
+.move-filter{
+    margin-top: 1vh;
 }
 
 .text-moneda{
@@ -11,6 +14,10 @@
     font-weight: 500;
     color: black;
     font-size: 34px;
+}
+
+.mt-14{
+    margin-top: 14vh;
 }
 
 .center{
@@ -58,37 +65,43 @@ ion-slides, ion-slide {
 }
 
 .cardwith{
-    opacity: 0.80;
+    opacity: 1;
     height: 25%;
-
-background: rgb(151,245,249);
-background: linear-gradient(48deg, rgba(151,245,249,1) 0%, rgba(126,213,246,1) 15%, rgba(82,157,243,1) 44%, rgba(71,129,223,1) 58%, rgba(45,60,173,1) 91%, rgba(45,60,173,1) 96%, rgba(45,60,173,1) 98%);
+    background: linear-gradient(-17deg, #97f5f9 -30%, #7ed5f6 -45%, #529df3 44%, #4781df 118%, #2d3cad 131%, #2d3cad 106%, #2d3cad 188%);
 }
 
 .card-title{
-    color:#28255C;
-    font-size: 18px;
+    color: #28255C;
+    font-size: 2.9vh;
     margin-right: 40%;
     text-align: left;
+    font-family: 'Poppins', sans-serif;
 }
 
 .card-titlesub{
-    color:#28255C;
-    font-size: 8px;
+    color: #28255C;
+    font-size: 2vh;
+    width: 27vh;
     margin-right: 30%;
-    text-align:left;
-
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
 }
 
 .btn-continuar{
-    --background:#28255C;
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+    font-size: 2vh;
+    background: #354E91;
+    color: white;
     margin-right: 60%;
+    padding: 2vh 5vh;
+    border-radius: 11px;
+    margin-top: -11vh;
 }
 
 .logo-card{
-    top:-15%;
-    left: 50%;
-    position: absolute;
-    width: 50%;
-    height: 50%;
+    margin-top: -14vh;
+    margin-left: 56vw;
+    width: 15vh;
+    height: 17vh;
 }

@@ -26,6 +26,7 @@ export class DashboardPage implements OnInit {
   ctrlNavigation: boolean = false;
   transactionComponent: any
   public pockets: any = [];
+  public profile: any;
   public params = {
     userId: null,
     type:  null,
@@ -148,7 +149,7 @@ export class DashboardPage implements OnInit {
 
     profile = this.aesjs.decrypt(profile);
     console.info('Data profile: ', profile);
-
+    this.profile = profile;
     this.params.userId = profile.data.id;
     this.params.type = 4;
     // console.info('Data params: ', this.params);
