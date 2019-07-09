@@ -15,11 +15,11 @@ import {AesJsService} from "../services/aesjs/aes-js.service";
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
   username: string;
   password: string;
   dataReturned: any;
   pockets: any = [];
+  public path: string = '';
 
   constructor(
     private loadingController: LoadingController,
@@ -99,4 +99,7 @@ export class LoginPage implements OnInit {
     this.pockets = await this.http.get('user-wallet/index', this.auth, null);
   }
 
+  public async restore() {
+    await this.router.navigate(['restore']);
+  }
 }
