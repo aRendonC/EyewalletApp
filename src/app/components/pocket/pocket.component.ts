@@ -18,7 +18,7 @@ export class PocketComponent implements OnInit {
   @Input() pockets: any = [];
   @Input() urlPresent: any = '';
   @Input() ctrlNavigation: boolean = false;
-  @Output() dataBalance = new EventEmitter();
+  @Output() dataBalance = new EventEmitter<[]>();
   public pocket: any = '';
   imgLeft:string=null;
   imgRight:string=null;
