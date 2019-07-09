@@ -19,6 +19,7 @@ import { EmptyOutletComponent } from '@angular/router/src/components/empty_outle
 })
 export class DashboardPage implements OnInit {
   ctrlNavigation: boolean = false;
+  transactionComponent: any
   public pockets: any = [];
   public params = {
     userId: null,
@@ -69,6 +70,7 @@ export class DashboardPage implements OnInit {
   }
   getDataPocket(data: []) {
     console.log('estoy recibiendo data en la pagina dashboard', data)
+    this.getTransactionHistory(data)
   }
   send() {
 
@@ -80,6 +82,49 @@ export class DashboardPage implements OnInit {
 
   priceBtc() {
 
+  }
+
+  getTransactionHistory(data: any){
+    console.log(data)
+    this.transactionComponent = data.data
+    const btc = data.btc;
+    console.log('este es el betece', btc)
+    this.transactionComponent.forEach(element => {
+      //
+      const amountFinal = element.amount_finally;
+      const amountDollar = (amountFinal * btc).toFixed(2);
+      // extrae la hora de cada objeto
+      const time = element.date.slice(11, 16);
+      const dateFormat = `${element.date.slice(8, 10)}.${element.date.slice(5, 7)}.${element.date.slice(2, 4)}`;
+      if (element.confirmation >= 0 && element.confirmation <= 2) {
+        const confirmationText = 'Confirmando';
+        // Agregar el elemento confirmationText al objeto transactions
+        Object.assign(element, {confirmationText});
+      } else {
+        const confirmationText = 'Confirmado';
+        // Agregar el elemento confirmationText al objeto transactions
+        Object.assign(element, {confirmationText});
+      }
+      if (element.type === 1) {
+        const plusMinus = '-';
+        const typeIcon = '../../assets/img/balanceComponent/sent-icon.svg';
+        // Agregar el elemento typeIcon y plusMinus al objeto transactions
+        Object.assign(element, {typeIcon});
+        Object.assign(element, {plusMinus});
+      } else if (element.type === 0) {
+        const typeIcon = '../../assets/img/balanceComponent/receive-icon.svg';
+        const plusMinus = '+';
+        // Agregar el elemento typeIcon y plusMinus al objeto transactions
+        Object.assign(element, {typeIcon});
+        Object.assign(element, {plusMinus});
+      }
+      // Agregar el elemento time al objeto transactions
+      Object.assign(element, {time});
+      // Agregar el elemento dateFormat al objeto transactions
+      Object.assign(element, {dateFormat});
+      // Agregar el elemento amountDollar al objeto transactions
+      Object.assign(element, {amountDollar});
+    });
   }
 
   async getUserProfile() {

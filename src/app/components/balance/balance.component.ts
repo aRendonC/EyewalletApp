@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { AxiosService } from '../../services/axios/axios.service';
 import {AuthService} from '../../services/auth/auth.service';
@@ -11,30 +11,32 @@ import {AesJsService} from '../../services/aesjs/aes-js.service';
   styleUrls: ['./balance.component.scss'],
 })
 export class BalanceComponent implements OnInit {
+  @Input()transactions: any;
   public bodyForm: any;
   public userId: any;
-  public transactions: any;
   public transaction: any;
   private headers: HttpHeaders;
   private user: any;
   public prueba: any;
   public pockets;
+
   constructor(
     private http: HttpClient,
     private aut: AuthService,
     private store: Storage,
     private axios: AxiosService,
-    private aes: AesJsService,
+    private aesjs: AesJsService,
 
   ) { }
 
   async getPocketsList() {
-    this.pockets = await this.axios.get('user-wallet/index', this.aut, null);
+    this.pockets = await this.store.get('pockets');
+    this.pockets = this.aesjs.decrypt(this.pockets)
   }
 
   async ngOnInit() {
     this.user = await this.store.get('profile');
-    this.user = this.aes.decrypt(this.user);
+    this.user = this.aesjs.decrypt(this.user);
     await this.getPocketsList();
     const userId = this.user.data.userId;
     const type = 0;
