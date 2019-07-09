@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
 import {ModalController, ToastController} from "@ionic/angular";
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
@@ -18,7 +18,8 @@ export class PocketComponent implements OnInit {
   @Input() pockets: any = [];
   @Input() urlPresent: any = '';
   @Input() ctrlNavigation: boolean = false;
-  public pocket: any = ''
+  @Output() dataBalance = new EventEmitter();
+  public pocket: any = '';
   imgLeft:string=null;
   imgRight:string=null;
   classLeft:string=null;
@@ -35,19 +36,19 @@ export class PocketComponent implements OnInit {
     this.classLeft="resize-logo-left1";
     this.imgLeft = "../../assets/img/btn-left-s.svg";
     this.imgRight="../../assets/img/btn-right.svg";
-    this.pocket = this.pockets[0]
+    this.pocket = this.pockets[0];
     if (!this.pocket) {
       this.getPocketStore()
     }
   }
 
   async ngOnInit() {
-    console.log('esto debería cambiar siempre', this.router.url)
-    this.urlPresent = this.router.url.slice(0, 9)
-    console.log(this.urlPresent)
+    console.log('esto debería cambiar siempre', this.router.url);
+    this.urlPresent = this.router.url.slice(0, 9);
+    console.log(this.urlPresent);
     this.router.events.subscribe((event: any) => {
       // console.log('este es un observable lindo 7w7',event)
-      this.urlPresent = this.urlPresent.slice(9, 23)
+      this.urlPresent = this.urlPresent.slice(9, 23);
       console.log('el evento de la ruta', this.urlPresent)
       //   if (event instanceof NavigationEnd ) {
       //     url = event.url
@@ -57,9 +58,9 @@ export class PocketComponent implements OnInit {
     })
   }
   async getPocketStore() {
-    this.pockets = await this.store.get('pockets')
+    this.pockets = await this.store.get('pockets');
     // console.log('los pokets en el componente', this.pockets)
-    this.pockets = this.aesjs.decrypt(this.pockets)
+    this.pockets = this.aesjs.decrypt(this.pockets);
     this.pocket = this.pockets[0]
   }
   async openPocketsModal() {
@@ -74,24 +75,36 @@ export class PocketComponent implements OnInit {
       }
     });
 
-    modalPocket.onDidDismiss().then((pocket:any)=> {
-      console.log(pocket)
-      if(pocket.data)this.pocket = pocket.data
+    modalPocket.onDidDismiss().then(async (pocket:any)=> {
+      console.log(pocket);
+      if(pocket.data) {
+        this.pocket = pocket.data;
+        console.log(this.pocket);
+        let body = {
+          userId: this.pocket.userId,
+          type: 0,
+          wallet_id: this.pocket.id
+        };
+        let dataResponse = await this.http.post('transaction/index', body, this.auth);
+        dataResponse.pocket = this.pocket
+        this.dataBalance.emit(dataResponse)
+        console.log(this.dataBalance)
+      }
       console.log(this.pocket)
-    })
+    });
 
     return await modalPocket.present();
   }
 
   async receiveCash() {
-    console.log(this.pocket)
+    console.log(this.pocket);
     await this.router.navigate(['/app/tabs/receive-funds', {pocket: JSON.stringify(this.pocket)}]);
   }
 
   async sendCash() {
-    let profile = await this.store.get('profile')
-    profile = this.aesjs.decrypt(profile)
-    console.log(profile)
+    let profile = await this.store.get('profile');
+    profile = this.aesjs.decrypt(profile);
+    console.log(profile);
     if(profile.level === 0) {
       await this.presentToast()
     } else {

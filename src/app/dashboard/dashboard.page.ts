@@ -67,7 +67,9 @@ export class DashboardPage implements OnInit {
   private getUserId(): any {
     return this.storage.getDataLocal('profile');
   }
-
+  getDataPocket(data) {
+    console.log('estoy recibiendo data en la pagina dashboard', data)
+  }
   send() {
 
   }
