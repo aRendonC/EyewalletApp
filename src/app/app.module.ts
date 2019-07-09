@@ -22,6 +22,9 @@ import {PinModalPage} from "./pin-modal/pin-modal.page";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
+//Services
+import {LoadingService} from "./services/loading/loading.service";
+
 // LocalStorage.
 import { IonicStorageModule } from '@ionic/storage';
 import {ComponentsModule} from "./components/components.module";
@@ -58,7 +61,8 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
     NativePageTransitions,
     FingerprintAIO,
     TouchLoginService,
-    Clipboard
+    Clipboard,
+      LoadingService
   ],
   bootstrap: [
     AppComponent

@@ -65,12 +65,12 @@ export class PinModalPage implements OnInit {
         console.log('pinData para validacion', pinData)
         console.log('pindata desde el store', user.pin)
         if(pinData === user.pin.toString()) {
-          await this.closeModal()
           user.pin = this.aesjs.encrypt(user.pin)
           console.info('user encriptado', user)
           this.store.set('user', user)
           console.table('todo el store', this.store)
           await this.router.navigate(['/app/tabs']);
+          await this.closeModal()
         } else {
           this.ctrlPin = false
           setTimeout(() => {

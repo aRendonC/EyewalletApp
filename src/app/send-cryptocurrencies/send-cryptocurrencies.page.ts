@@ -20,6 +20,7 @@ export class SendCryptocurrenciesPage implements OnInit {
     scanner: any;
     ctrlButtonSend: boolean = true;
     bodyForm: FormGroup;
+    placeHolder: any = ''
     body = {
         amount: '',
         to_address: '',
@@ -76,6 +77,7 @@ export class SendCryptocurrenciesPage implements OnInit {
                     // start scanning
                      this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
                         console.log('Scanned something', text);
+                        this.placeHolder = text
                          this.bodyForm.value.to_address = text;
                         await this.unSuscribed()
                     });

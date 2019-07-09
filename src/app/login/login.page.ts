@@ -8,6 +8,7 @@ import {PinModalPage} from '../pin-modal/pin-modal.page';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
+import {LoadingService} from "../services/loading/loading.service";
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ import {AesJsService} from "../services/aesjs/aes-js.service";
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  ctrlCssBlur: boolean = false;
   username: string;
   password: string;
   dataReturned: any;
@@ -31,7 +33,8 @@ export class LoginPage implements OnInit {
     public modalCtrl: ModalController,
     private touchCtrl: TouchLoginService,
     private store: Storage,
-    private aesjs: AesJsService
+    private aesjs: AesJsService,
+    private loadingCtrl: LoadingService
   ) {
   }
 
@@ -45,6 +48,8 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
+    await this.loadingCtrl.present({});
+    this.ctrlCssBlur = true;
     this.auth.login(this.username, this.password).then(async (data) => {
       console.info('datos de inicio de sesión', data);
       if (data) {
@@ -54,12 +59,16 @@ export class LoginPage implements OnInit {
         await this.getUserProfile();
         await this.getPocketsList();
         // this.pockets = JSON.stringify(this.pockets)
-        console.info('mis pockets', this.pockets)
-        this.touchCtrl.isLocked = false
+        console.info('mis pockets', this.pockets);
+        this.touchCtrl.isLocked = false;
+        this.ctrlCssBlur = false;
+        await this.loadingCtrl.dismiss();
        await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
-        this.pockets = this.aesjs.encrypt(this.pockets)
+        this.pockets = this.aesjs.encrypt(this.pockets);
         await this.store.set('pockets', this.pockets)
       } else {
+        this.ctrlCssBlur = false;
+        await this.loadingCtrl.dismiss();
         await this.presentToast();
       }
     }).catch((error) => {
@@ -68,14 +77,14 @@ export class LoginPage implements OnInit {
   }
 
   async getUserProfile() {
-    console.log('auth del usuario', this.auth)
+    console.log('auth del usuario', this.auth);
     let profile = await this.http.get('profile/1/view', this.auth, null);
     console.info(profile);
-    profile = this.aesjs.encrypt(profile)
+    profile = this.aesjs.encrypt(profile);
     await this.store.set('profile', profile)
   }
   async openModal() {
-    const moda = await this.modalCtrl.getTop()
+    const moda = await this.modalCtrl.getTop();
     const modal = await this.modalCtrl.create({
       component: PinModalPage,
       componentProps: {

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {ActivatedRoute,Router} from '@angular/router';
-import {ModalController,LoadingController} from '@ionic/angular';
+import {ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../verification-modal/verification-modal.page';
 import {enterAnimation} from '../animations/enter';
 import {leaveAnimation} from '../animations/leave';
@@ -9,9 +9,8 @@ import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
-import { EmptyOutletComponent } from '@angular/router/src/components/empty_outlet';
-import validator from 'validator';
 import { SlidersComponent } from '../components/sliders/sliders.component';
+import {LoadingService} from "../services/loading/loading.service";
 
 
 @Component({
@@ -53,13 +52,13 @@ export class DashboardPage implements OnInit {
       private auth: AuthService,
       private store: Storage,
       protected aesjs: AesJsService,
-      public loadingController: LoadingController,
+      public loadingController: LoadingService,
       private routes: Router,
   ) {}
 
   async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
-    this.getUserProfile();
+    await this.getUserProfile();
   }
 
   async openModalVerification() {
@@ -74,8 +73,8 @@ export class DashboardPage implements OnInit {
   private getUserId(): any {
     return this.storage.getDataLocal('profile');
   }
-  
-  public getDataPocket(data: any) {
+
+  public async getDataPocket(data: any) {
     console.log('estoy recibiendo data en la pagina dashboard', data);
 
     this.crypto.forEach(element => {
@@ -89,8 +88,8 @@ export class DashboardPage implements OnInit {
       }
     });
     console.log('DataUpdata: ', this.crypto[0].graphic);
-
-    this.childD.grafica();
+    this.getTransactionHistory(data)
+    await this.childD.grafica();
   }
 
 
@@ -138,13 +137,7 @@ export class DashboardPage implements OnInit {
   }
 
   async getUserProfile() {
-    const loading = await this.loadingController.create({
-      message: '',
-      duration: 7000
-  });
-
-    await loading.present();
-
+    await this.loadingController.present({cssClass: 'textLoadingBlack'})
     let profile = await this.store.get('profile');
 
     profile = this.aesjs.decrypt(profile);
@@ -156,7 +149,7 @@ export class DashboardPage implements OnInit {
     let response = await this.http.post('transaction/historyBTC', this.params, this.auth);
 
     //llamar el listado de transacciones
-    this.getListTransactions(this.params,this.auth);
+    await this.getListTransactions(this.params,this.auth);
 
     let usdbtc = JSON.parse(response.data[0].dolar);
 
@@ -175,7 +168,7 @@ export class DashboardPage implements OnInit {
     console.log('todas mis transacciones', response)
     let dataTransaction = response.data;
 
-    
+
 
     if(dataTransaction!=0){
       dataTransaction.forEach(element => {
@@ -185,13 +178,12 @@ export class DashboardPage implements OnInit {
           }
         });
       });
-  
+
       this.crypto[0].graphic = this.dataGraphic;
     }else{
       this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
       this.crypto[0].value=0;
     }
-
-    
+    await this.loadingController.dismiss()
   }
 }

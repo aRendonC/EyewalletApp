@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {AxiosService} from '../axios/axios.service';
-import {MenuController, ToastController} from '@ionic/angular';
+import {MenuController, ModalController, ToastController} from '@ionic/angular';
 import {TimerService} from '../timer/timer.service';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import { DeviceService } from '../device/device.service';
+import {PinModalPage} from "../../pin-modal/pin-modal.page";
 
 
 @Injectable({
@@ -18,17 +19,19 @@ export class AuthService {
     accessToken: null,
   };
 
-  constructor(private  api: AxiosService,
-                    private toastController: ToastController,
-                    private timer: TimerService,
-                    private router: Router,
-                    private menu: MenuController,
-                    private store: Storage,
-                    private device: DeviceService
+  constructor(
+      private  api: AxiosService,
+      private toastController: ToastController,
+      private timer: TimerService,
+      private router: Router,
+      private menu: MenuController,
+      private store: Storage,
+      private device: DeviceService,
+      private modalCtrl: ModalController
   ) {
-    this.intentarLogin();
+    this.persistenceLogin();
   }
-
+//This function is a loginService, parameter required user, password
   async login(user, password) {
     let device: any = await this.device.getDataDevice();
     console.log('Data of login: ', device);
@@ -50,7 +53,6 @@ export class AuthService {
             this.usuario = data.data;
             await this.store.set('user', this.usuario);
             console.log(this.usuario);
-            // localStorage.setItem('user', JSON.stringify(this.usuario));
             // this.timer.iniciarTemporizador();
             console.info('data', data);
             resolve(data);
@@ -69,17 +71,24 @@ export class AuthService {
     return null;
   }
 
-  async intentarLogin() {
-    // this.usuario = JSON.parse(window.localStorage.getItem('user'));
+  async persistenceLogin() {
     this.usuario = await this.store.get('user');
-    if (this.usuario == null) {
-      this.usuario = {
-        id: null,
-        rolId: null,
-        segundoFactor: null,
-        accessToken: null
-      };
+    console.log('persistencia de usuario0', this.usuario)
+    if (this.usuario) {
+      await this.openModal()
     }
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: PinModalPage,
+      componentProps: {
+        paramID: 123,
+        paramTitle : 'Test title'
+      }
+    });
+
+    return await modal.present();
   }
 
   setUserId(userId) {
@@ -93,13 +102,12 @@ export class AuthService {
     return !!user;
   }
 
-  logout() {
-    this.timer.logout(false);
-    // localStorage.removeItem('user');
-    // this.store.remove('user')
-    // this.store.clear();
-    this.menu.enable(false);
-    this.router.navigate(['']);
+  async logout() {
+    // this.timer.logout(false);
+    await this.store.remove('user')
+    await this.store.clear();
+    await this.menu.enable(false);
+    await this.router.navigate(['']);
   }
 
 }
