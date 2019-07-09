@@ -13,8 +13,9 @@ import {AesJsService} from "../services/aesjs/aes-js.service";
 export class PinModalPage implements OnInit {
   @Input() modalTitle: string;
   @Input() modelID: number;
-  private pin: any = []
-  public ctrlPin: boolean = true
+  public pin: any = [];
+  public ctrlPin: boolean = true;
+  private currentRoute: string = null;
 
   constructor(
       private modalCtrl: ModalController,
@@ -27,9 +28,11 @@ export class PinModalPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.info(this.pin)
+    console.info(this.pin);
     console.table(this.navParams.data.paramTitle);
     // console.table(this.modalTitle);
+    this.currentRoute = this.router.url
+    console.log('esta es mi ruta actual', this.currentRoute)
     this.modelID = this.navParams.data.paramID;
     this.modalTitle = this.navParams.data.paramTitle;
     this.platform.backButton.subscribeWithPriority(9999,() => {
@@ -47,32 +50,32 @@ export class PinModalPage implements OnInit {
   }
 
   async savePinData(number: number) {
-    this.ctrlPin = true
+    this.ctrlPin = true;
     if (this.pin.length < 6) {
-      this.pin.push(number)
+      this.pin.push(number);
       console.warn(this.pin)
     }
     if (this.pin.length === 6) {
-      let pinData: string = ''
+      let pinData: string = '';
       this.pin.forEach(data => {
         pinData += data.toString()
-      })
-      console.log(pinData)
-      let user = await this.store.get('user')
-      console.log('usuario', user)
+      });
+      console.log(pinData);
+      let user = await this.store.get('user');
+      console.log('usuario', user);
       if(user) {
-        user.pin = this.aesjs.decrypt(user.pin)
-        console.log('pinData para validacion', pinData)
-        console.log('pindata desde el store', user.pin)
+        user.pin = this.aesjs.decrypt(user.pin);
+        console.log('pinData para validacion', pinData);
+        console.log('pindata desde el store', user.pin);
         if(pinData === user.pin.toString()) {
-          user.pin = this.aesjs.encrypt(user.pin)
-          console.info('user encriptado', user)
-          this.store.set('user', user)
-          console.table('todo el store', this.store)
+          user.pin = this.aesjs.encrypt(user.pin);
+          console.info('user encriptado', user);
+          this.store.set('user', user);
+          console.table('todo el store', this.store);
           await this.router.navigate(['/app/tabs']);
           await this.closeModal()
         } else {
-          this.ctrlPin = false
+          this.ctrlPin = false;
           setTimeout(() => {
             this.pin = []
           }, 500)
@@ -90,7 +93,7 @@ export class PinModalPage implements OnInit {
   showFingerPrint() {
     this.faio.isAvailable()
         .then(result => {
-          console.log('huella avaliable', result)
+          console.log('huella avaliable', result);
           this.faio.show({
             clientId: 'Identificar de huella',
             clientSecret: 'password',   //Only necessary for Android
@@ -100,7 +103,7 @@ export class PinModalPage implements OnInit {
 
           })
               .then((result: any) => {
-                console.log('huella verificada correctamente', result)
+                console.log('huella verificada correctamente', result);
                 this.router.navigate(['/app/tabs']);
                 this.closeModal()
                 // this.login();

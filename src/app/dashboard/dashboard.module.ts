@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { DashboardPage } from './dashboard.page';
 import { ComponentsModule } from '../components/components.module';
-import {VerificationModalPage} from "../verification-modal/verification-modal.page";
 
 const routes: Routes = [
   {

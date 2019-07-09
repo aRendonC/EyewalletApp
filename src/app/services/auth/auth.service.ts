@@ -74,7 +74,7 @@ export class AuthService {
   async persistenceLogin() {
     this.usuario = await this.store.get('user');
     console.log('persistencia de usuario0', this.usuario)
-    if (this.usuario) {
+    if (this.usuario.pin) {
       await this.openModal()
     }
   }

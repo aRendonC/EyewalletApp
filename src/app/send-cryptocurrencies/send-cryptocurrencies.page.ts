@@ -15,6 +15,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class SendCryptocurrenciesPage implements OnInit {
   @Input() public pockets: any = [];
+    totalSend: any = null
     ctrlNavigation: boolean = true;
     isOn  = false;
     scanner: any;
@@ -30,9 +31,10 @@ export class SendCryptocurrenciesPage implements OnInit {
         description: 'descripcion',
         currencyId: ''
     };
-    fee = {
+    fee: any = {
         data: null,
-        estimated_network_fee: 0
+        estimated_network_fee: 0,
+        error_message: null
     };
     scanSub: any;
   constructor(
@@ -49,9 +51,8 @@ export class SendCryptocurrenciesPage implements OnInit {
   ngOnInit() {
       this.bodyForm = new FormGroup({
           amount: new FormControl('', Validators.compose([
-              Validators.minLength(6),
               Validators.required,
-              Validators.maxLength(6)
+              Validators.maxLength(8)
           ])),
           to_address: new FormControl('', Validators.compose([
               Validators.required
@@ -111,7 +112,13 @@ export class SendCryptocurrenciesPage implements OnInit {
         console.log(this.bodyForm);
         this.fee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
         this.fee = this.fee.data.data;
+        if(this.fee.error_message) {
+
+        } else {
+            this.totalSend = 'Total del envío ' + (parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee))
+        }
         console.log(this.fee)
+        console.log(this.totalSend)
     }
 
     async sendCoin() {

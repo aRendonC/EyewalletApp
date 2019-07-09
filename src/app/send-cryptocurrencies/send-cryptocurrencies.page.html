@@ -47,6 +47,9 @@
               <ion-select-option value="3">Baja</ion-select-option>
             </ion-select>
         </ion-col>
+          <ion-col *ngIf="totalSend" size="12" align-self-center>
+            <ion-input [disabled]="true" [placeholder]="totalSend"></ion-input>
+          </ion-col>
         <ion-col size="12" align-self-center>
           <ion-button (click)="sendCoin()" class="buttonSend" [disabled]="!bodyForm.valid">Enviar</ion-button>
         </ion-col>
