@@ -6,6 +6,8 @@ import { AxiosService } from '../services/axios/axios.service';
 import {ModalController} from '@ionic/angular';
 import {PinModalPage} from '../pin-modal/pin-modal.page';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
+import {Storage} from "@ionic/storage";
+import {AesJsService} from "../services/aesjs/aes-js.service";
 
 @Component({
   selector: 'app-login',
@@ -13,20 +15,23 @@ import {TouchLoginService} from "../services/fingerprint/touch-login.service";
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
   username: string;
   password: string;
   dataReturned: any;
+  pockets: any = [];
+  public path: string = '';
 
   constructor(
     private loadingController: LoadingController,
     private toastController: ToastController,
-    private aut: AuthService,
+    private auth: AuthService,
     private menu: MenuController,
     private router: Router,
-    private loginHttpReq: AxiosService,
+    private http: AxiosService,
     public modalCtrl: ModalController,
-    private touchCtrl: TouchLoginService
+    private touchCtrl: TouchLoginService,
+    private store: Storage,
+    private aesjs: AesJsService
   ) {
   }
 
@@ -40,23 +45,35 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    this.aut.login(this.username, this.password).then((data) => {
-      if (data !== null) {
+    this.auth.login(this.username, this.password).then(async (data) => {
+      console.info('datos de inicio de sesión', data)
+      if (data) {
         // @ts-ignore
         // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
         // this.router.navigate(['/perfil',data.id]);
-        this.router.navigate(['/app/tabs']);
+        await this.getUserProfile();
+        await this.getPocketsList()
+        // this.pockets = JSON.stringify(this.pockets)
+        console.info('mis pockets', this.pockets)
+       await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
+        this.pockets = this.aesjs.encrypt(this.pockets)
+        await this.store.set('pockets', this.pockets)
       } else {
-        this.presentToast();
+        await this.presentToast();
       }
     }).catch((error) => {
       console.log(error);
     });
   }
 
+  async getUserProfile() {
+    let profile = await this.http.get('profile/1/view', this.auth, null )
+    console.info(profile)
+    profile = this.aesjs.encrypt(profile)
+    await this.store.set('profile', profile)
+  }
   async openModal() {
     const moda = await this.modalCtrl.getTop()
-    console.log(moda)
     const modal = await this.modalCtrl.create({
       component: PinModalPage,
       componentProps: {
@@ -76,4 +93,11 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
+  async getPocketsList() {
+    this.pockets = await this.http.get('user-wallet/index', this.auth, null);
+  }
+
+  public async restore() {
+    await this.router.navigate(['restore']);
+  }
 }

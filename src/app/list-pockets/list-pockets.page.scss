@@ -1,0 +1,23 @@
+
+.centerContent{
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+h5{
+  color: white;
+}
+
+ion-label{
+  text-align: center;
+  --color: white !important;
+}
+
+ion-item{
+  --border-color: white;
+  --border-bottom: white;
+  --background: transparent;
+}

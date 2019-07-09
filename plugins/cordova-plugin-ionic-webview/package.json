@@ -1,41 +1,43 @@
 {
-  "_from": "cordova-plugin-ionic-webview@^4.0.0",
+  "_args": [
+    [
+      "cordova-plugin-ionic-webview@4.1.1",
+      "/Users/eyeline/Documents/GitHub/EyewalletApp"
+    ]
+  ],
+  "_from": "cordova-plugin-ionic-webview@4.1.1",
   "_id": "cordova-plugin-ionic-webview@4.1.1",
   "_inBundle": false,
-  "_integrity": "sha512-y8drBhMdkHKUr0zu+UGkFGsDrkCsxjbCd3RzzlyDxcEzdHWvasRM5gyDiKBHkziT2iHYzEAjXwkT1ZXKU3OY9Q==",
+  "_integrity": "sha1-e9+/qkmPa9D5LbTLUc4MSGrAcjM=",
   "_location": "/cordova-plugin-ionic-webview",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "cordova-plugin-ionic-webview@^4.0.0",
+    "raw": "cordova-plugin-ionic-webview@4.1.1",
     "name": "cordova-plugin-ionic-webview",
     "escapedName": "cordova-plugin-ionic-webview",
-    "rawSpec": "^4.0.0",
+    "rawSpec": "4.1.1",
     "saveSpec": null,
-    "fetchSpec": "^4.0.0"
+    "fetchSpec": "4.1.1"
   },
   "_requiredBy": [
-    "#DEV:/",
-    "#USER"
+    "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-4.1.1.tgz",
-  "_shasum": "7bdfbfaa498f6bd0f92db4cb51ce0c486ac07233",
-  "_spec": "cordova-plugin-ionic-webview@^4.0.0",
-  "_where": "/Users/eyeline/Documents/ionic/eyewallet",
+  "_spec": "4.1.1",
+  "_where": "/Users/eyeline/Documents/GitHub/EyewalletApp",
   "author": {
     "name": "Ionic Team"
   },
   "bugs": {
     "url": "https://github.com/ionic-team/cordova-plugin-ionic-webview/issues"
   },
-  "bundleDependencies": false,
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "deprecated": false,
   "description": "Ionic Web View Engine Plugin",
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.0",

@@ -1,4 +1,6 @@
 <ion-content padding class="bghome">
+    <app-return-page [path]="path"></app-return-page>
+
     <div class="move-logo">
         <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
         <div class="center">
@@ -8,7 +10,6 @@
         </div>
     </div>
     <form #formulario (ngSubmit)="login()" class="transparent move-form">
-    <!-- <form #formulanrio (submit)="login()" class="transparent move-form"> -->
         <ion-list class="transparent">
             <!-- Usuario -->
             <ion-item class="transparent white-line">
@@ -22,12 +23,9 @@
             </ion-item>
         </ion-list>
         <div class="move-btn">
-                <ion-button type="submit" class="btn-start" mode="ios" >Iniciar Sesión</ion-button>
+            <ion-button type="submit" class="btn-start" mode="ios" >Iniciar Sesión</ion-button>
             <br>
-            <ion-button href="/registry" class="btn-create" mode="ios">Recuperar Contraseña</ion-button>
-        </div>
-        <div text-center="">
-            <ion-button (click)="openModal()">Open Modal</ion-button>
+            <ion-button (click)="restore()" class="btn-create" mode="ios">Recuperar Contraseña</ion-button>
         </div>
     </form>
 </ion-content>

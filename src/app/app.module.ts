@@ -8,7 +8,6 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {IonicStorageModule} from '@ionic/storage';
 
 import {AxiosService} from './services/axios/axios.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -20,17 +19,33 @@ import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 import {TouchLoginService} from './services/fingerprint/touch-login.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from "./pin-modal/pin-modal.page";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
+// LocalStorage.
+import { IonicStorageModule } from '@ionic/storage';
+import {ComponentsModule} from "./components/components.module";
+import {VerificationModalPage} from "./verification-modal/verification-modal.page";
+
+
+// Plugins cordova.
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
-  declarations: [AppComponent, PinModalPage],
-  entryComponents: [PinModalPage],
+
+  declarations: [AppComponent, PinModalPage, VerificationModalPage],
+  entryComponents: [PinModalPage, VerificationModalPage],
   imports: [
-      BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ComponentsModule,
+    BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()],
+    IonicStorageModule.forRoot(),
+    NgxQRCodeModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -43,8 +58,11 @@ import {PinModalPage} from "./pin-modal/pin-modal.page";
     NativePageTransitions,
     FingerprintAIO,
     TouchLoginService,
+    Clipboard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
-export class AppModule {
-}
+
+export class AppModule {}

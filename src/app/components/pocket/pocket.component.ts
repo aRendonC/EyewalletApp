@@ -1,0 +1,113 @@
+import {Component, Input, OnInit} from '@angular/core';
+import {AxiosService} from "../../services/axios/axios.service";
+import {ModalController, ToastController} from "@ionic/angular";
+import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
+import {enterAnimation} from "../../animations/enter";
+import {leaveAnimation} from "../../animations/leave";
+import {AuthService} from "../../services/auth/auth.service";
+import {Event, ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {Storage} from "@ionic/storage";
+import {AesJsService} from "../../services/aesjs/aes-js.service";
+
+@Component({
+  selector: 'app-pocket',
+  templateUrl: './pocket.component.html',
+  styleUrls: ['./pocket.component.scss'],
+})
+export class PocketComponent implements OnInit {
+  @Input() pockets: any = [];
+  @Input() urlPresent: any = '';
+  @Input() ctrlNavigation: boolean = false;
+  public pocket: any = ''
+  imgLeft:string=null;
+  imgRight:string=null;
+  classLeft:string=null;
+  constructor(
+      private http: AxiosService,
+      public modalCtrl: ModalController,
+      protected auth: AuthService,
+      private router: Router,
+      private store: Storage,
+      private aesjs: AesJsService,
+      protected nvaigation: ActivatedRoute,
+      private toastCtrl: ToastController
+  ) {
+    this.classLeft="resize-logo-left1";
+    this.imgLeft = "../../assets/img/btn-left-s.svg";
+    this.imgRight="../../assets/img/btn-right.svg";
+    this.pocket = this.pockets[0]
+    if (!this.pocket) {
+      this.getPocketStore()
+    }
+  }
+
+  async ngOnInit() {
+    console.log('esto debería cambiar siempre', this.router.url)
+    this.urlPresent = this.router.url.slice(0, 9)
+    console.log(this.urlPresent)
+    this.router.events.subscribe((event: any) => {
+      // console.log('este es un observable lindo 7w7',event)
+      this.urlPresent = this.urlPresent.slice(9, 23)
+      console.log('el evento de la ruta', this.urlPresent)
+      //   if (event instanceof NavigationEnd ) {
+      //     url = event.url
+      //     url = url.slice(9, 23)
+      //     this.urlPresent = url == '/send-currency';
+      // }
+    })
+  }
+  async getPocketStore() {
+    this.pockets = await this.store.get('pockets')
+    // console.log('los pokets en el componente', this.pockets)
+    this.pockets = this.aesjs.decrypt(this.pockets)
+    this.pocket = this.pockets[0]
+  }
+  async openPocketsModal() {
+    this.pockets = await this.http.get('user-wallet/index', this.auth, null);
+    const modalPocket = await this.modalCtrl.create({
+      component: ListPocketsPage,
+      animated: true,
+      enterAnimation: enterAnimation,
+      leaveAnimation: leaveAnimation,
+      componentProps: {
+        pockets: this.pockets
+      }
+    });
+
+    modalPocket.onDidDismiss().then((pocket:any)=> {
+      console.log(pocket)
+      if(pocket.data)this.pocket = pocket.data
+      console.log(this.pocket)
+    })
+
+    return await modalPocket.present();
+  }
+
+  async receiveCash() {
+    console.log(this.pocket)
+    await this.router.navigate(['/app/tabs/receive-funds', {pocket: JSON.stringify(this.pocket)}]);
+  }
+
+  async sendCash() {
+    let profile = await this.store.get('profile')
+    profile = this.aesjs.decrypt(profile)
+    console.log(profile)
+    if(profile.level === 0) {
+      await this.presentToast()
+    } else {
+      await this.router.navigate(['/app/tabs/send-currency', {pocket: JSON.stringify(this.pocket)}]);
+    }
+  }
+
+  async goToHome() {
+    await this.router.navigate(['/app/tabs']);
+  }
+
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Lo sentimos, sus documentos no han sido verificados',
+      duration: 2000
+    });
+    toast.present();
+  }
+}

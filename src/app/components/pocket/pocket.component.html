@@ -1,0 +1,13 @@
+<div *ngIf="!ctrlNavigation">
+  <img (click)="receiveCash()"  [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>
+  <p (click)="openPocketsModal()">
+
+    <img class="resize-logo"  src="../../../assets/img/pocketsComponent/pockets.png"/>
+    <ion-label class="resize-text" >{{pocket?.label}}</ion-label>
+  </p>
+  <img (click)="sendCash()" class="resize-logo-right" src="../../assets/img/btn-right.svg"/>
+</div>
+<div *ngIf="ctrlNavigation">
+    <img (click)="goToHome()"  class="resize-logo-close" src="../../../assets/img/sendCripto/backTop.png"/>
+</div>
+

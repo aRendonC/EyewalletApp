@@ -7,7 +7,19 @@
     "files": {}
   },
   "installed_plugins": {
+    "com-badrit-base64": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "com.telerik.plugins.nativepagetransitions": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-clipboard": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-androidx": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-androidx-adapter": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-camera": {
@@ -24,6 +36,9 @@
     },
     "cordova-plugin-ionic-webview": {
       "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-qrscanner": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-splashscreen": {
