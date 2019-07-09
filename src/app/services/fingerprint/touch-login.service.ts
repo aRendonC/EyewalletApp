@@ -7,6 +7,7 @@ import {AuthService} from '../auth/auth.service';
 import { Router } from '@angular/router';
 import {PinModalPage} from '../../pin-modal/pin-modal.page';
 import {Storage} from "@ionic/storage";
+import {LoadingService} from "../loading/loading.service";
 
 @Injectable()
 export class TouchLoginService implements OnInit {
@@ -26,7 +27,8 @@ export class TouchLoginService implements OnInit {
       private auth: AuthService,
       private router: Router,
       public modalCtrl: ModalController,
-      private storage: Storage
+      private storage: Storage,
+      private loadingCtrl: LoadingService
       ) {
   }
 
@@ -36,41 +38,42 @@ export class TouchLoginService implements OnInit {
               return;
           }
 
-      this.platform.ready().then(() => {
-              this.onPauseSubscription = this.platform.pause.subscribe(() => {
-                  this.splashScreen.show();
-              });
-              this.onResumeSubscription = this.platform.resume.subscribe(async () => {
-                  if (!this.isLocked) {
-                      this.isLocked = true;
-                      if (this.auth.isLogin()) {
-                          if (this.isTouch) {
-                              this.user = await this.storage.get('user')
-                              console.log(this.user)
-                              if (this.user) {
-                                  const modal = await this.modalCtrl.getTop()
-                                  console.log('modal get top', modal)
-                                  if(modal === undefined) this.showFingerPrint()
-
-                              }
-                              // this.login();
-                              console.log('bloqueado', this.isLocked);
+      this.platform.ready().then(async () => {
+          await this.loadingCtrl.dismiss()
+          this.onPauseSubscription = this.platform.pause.subscribe(() => {
+              this.splashScreen.show();
+          });
+          this.onResumeSubscription = this.platform.resume.subscribe(async () => {
+              if (!this.isLocked) {
+                  this.isLocked = true;
+                  if (this.auth.isLogin()) {
+                      if (this.isTouch) {
+                          this.user = await this.storage.get('user')
+                          console.log(this.user)
+                          if (this.user) {
+                              const modal = await this.modalCtrl.getTop()
+                              console.log('modal get top', modal)
+                              if (modal === undefined) this.showFingerPrint()
 
                           }
-                      } else {
-                          console.log('verificar este if');
-                          // let nav = this.app.getActiveNav();
+                          // this.login();
+                          console.log('bloqueado', this.isLocked);
 
-                          // nav.setRoot('LoginPage');
-                          // nav.popToRoot;
                       }
-                  }
-                  console.log('no bloqueado', this.isLocked);
-                  this.splashScreen.hide();
-                  this.isLocked = false;
+                  } else {
+                      console.log('verificar este if');
+                      // let nav = this.app.getActiveNav();
 
-              });
-          }).catch(er => {
+                      // nav.setRoot('LoginPage');
+                      // nav.popToRoot;
+                  }
+              }
+              console.log('no bloqueado', this.isLocked);
+              this.splashScreen.hide();
+              this.isLocked = false;
+
+          });
+      }).catch(er => {
               console.info('esto sería para navegador', er);
           });
       }

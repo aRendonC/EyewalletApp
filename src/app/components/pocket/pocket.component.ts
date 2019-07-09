@@ -36,24 +36,25 @@ export class PocketComponent implements OnInit {
     this.classLeft="resize-logo-left1";
     this.imgLeft = "../../assets/img/btn-left-s.svg";
     this.imgRight="../../assets/img/btn-right.svg";
-      this.getPocketStore()
+
   }
 
-  async ngOnInit() {
-    console.log('esto debería cambiar siempre', this.router.url);
-    this.urlPresent = this.router.url.slice(0, 9);
-    console.log(this.urlPresent);
-    this.router.events.subscribe((event: any) => {
-      // console.log('este es un observable lindo 7w7',event)
-      this.urlPresent = this.urlPresent.slice(9, 23);
-      console.log('el evento de la ruta', this.urlPresent)
-      //   if (event instanceof NavigationEnd ) {
-      //     url = event.url
-      //     url = url.slice(9, 23)
-      //     this.urlPresent = url == '/send-currency';
-      // }
-    })
-  }
+   async ngOnInit() {
+     await this.getPocketStore()
+     // console.log('esto debería cambiar siempre', this.router.url);
+     // this.urlPresent = this.router.url.slice(0, 9);
+     // console.log(this.urlPresent);
+     // this.router.events.subscribe((event: any) => {
+     //   // console.log('este es un observable lindo 7w7',event)
+     //   this.urlPresent = this.urlPresent.slice(9, 23);
+     //   console.log('el evento de la ruta', this.urlPresent)
+     //   //   if (event instanceof NavigationEnd ) {
+     //   //     url = event.url
+     //   //     url = url.slice(9, 23)
+     //   //     this.urlPresent = url == '/send-currency';
+     //   // }
+     // })
+   }
   async getPocketStore() {
     this.pockets = await this.store.get('pockets');
     // console.log('los pokets en el componente', this.pockets)
