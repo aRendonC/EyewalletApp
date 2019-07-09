@@ -12,6 +12,7 @@ import {NavigationExtras, Router} from '@angular/router';
 
 // Storage
 import {Storage} from '@ionic/storage';
+import {DeviceService} from "../services/device/device.service";
 
 @Component({
   selector: 'app-registry',
@@ -38,11 +39,12 @@ export class RegistryPage implements OnInit {
   constructor(
     private register: AxiosService,
     private router: Router,
-    private store: Storage
+    private store: Storage,
+    private device: DeviceService
   ) { }
 
   ngOnInit() {
-    
+
   }
 
   public validateEmail(event): void {
@@ -118,12 +120,14 @@ export class RegistryPage implements OnInit {
     this.classButton = this.disableButton ? 'button-disable' : 'button-enable';
   }
 
-  public sendDataRegistry() {
+  public async sendDataRegistry() {
+   let device = await this.device.getDataDevice();
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
 	    phone: this.dataRegistry.phone,
-	    password: this.dataRegistry.password
+	    password: this.dataRegistry.password,
+      deviceId: device.uuid
     };
 
     this.register.post(urlRegistry, dataBody)

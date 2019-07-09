@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ModalController,LoadingController} from '@ionic/angular';
 import {VerificationModalPage} from '../verification-modal/verification-modal.page';

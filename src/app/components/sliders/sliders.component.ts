@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild} from '@angular/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
@@ -16,7 +16,6 @@ import {AesJsService} from "../../services/aesjs/aes-js.service";
 })
 export class SlidersComponent implements OnInit{
   @Input() name: any;
-
   public lineChart: any;
   public dataGraphic: any;
   public contentDataGrapic: any;
@@ -95,5 +94,6 @@ export class SlidersComponent implements OnInit{
     })
     return await modal.present()
   }
+
 
 }
