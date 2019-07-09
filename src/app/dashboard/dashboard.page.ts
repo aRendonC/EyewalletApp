@@ -152,7 +152,6 @@ export class DashboardPage implements OnInit {
     this.profile = profile;
     this.params.userId = profile.data.id;
     this.params.type = 4;
-    // console.info('Data params: ', this.params);
 
     let response = await this.http.post('transaction/historyBTC', this.params, this.auth);
 
@@ -176,17 +175,23 @@ export class DashboardPage implements OnInit {
     console.log('todas mis transacciones', response)
     let dataTransaction = response.data;
 
-    dataTransaction.forEach(element => {
-      console.log('adasdasdasdas', element.balance_after);
+    
 
-      this.crypto.forEach(element1 => {
-        if (element1.name === 'Bitcoin') {
-          this.dataGraphic.push(parseFloat(element.balance_after));
-        }
+    if(dataTransaction!=0){
+      dataTransaction.forEach(element => {
+        this.crypto.forEach(element1 => {
+          if (element1.name === 'Bitcoin') {
+            this.dataGraphic.push(parseFloat(element.balance_after));
+          }
+        });
       });
-    });
+  
+      this.crypto[0].graphic = this.dataGraphic;
+    }else{
+      this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
+      this.crypto[0].value=0;
+    }
 
-    this.crypto[0].graphic = this.dataGraphic;
-    console.log('zzz: ', this.crypto[0].graphic)
+    
   }
 }
