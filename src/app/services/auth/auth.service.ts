@@ -29,7 +29,7 @@ export class AuthService {
       private device: DeviceService,
       private modalCtrl: ModalController
   ) {
-    this.persistenceLogin();
+    // this.persistenceLogin();
   }
 //This function is a loginService, parameter required user, password
   async login(user, password) {
@@ -64,7 +64,8 @@ export class AuthService {
     });
   }
 
-  accessParam() {
+ async accessParam() {
+    this.usuario = await this.store.get('user')
     if (this.usuario != null) {
       return this.usuario.accessToken;
     }

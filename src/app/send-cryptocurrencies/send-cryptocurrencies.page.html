@@ -21,7 +21,7 @@
       </div>
 
       <div class="content-buttons-qr">
-        <ion-input [disabled]="!ctrlButtonSend" formControlName="to_address" type="text" [placeholder]="placeHolder"  class="input"></ion-input>
+        <ion-input [disabled]="!ctrlButtonSend" (ionBlur)="getFeeTransaction()" formControlName="to_address" type="text" [placeholder]="placeHolder"  class="input"></ion-input>
       </div>
 
     </div>

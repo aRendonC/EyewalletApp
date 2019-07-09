@@ -21,7 +21,7 @@ import {LoadingService} from "../services/loading/loading.service";
 
 export class DashboardPage implements OnInit {
   @ViewChild(SlidersComponent) childD:SlidersComponent
-
+  ctrlCssBlur: boolean = false
   ctrlNavigation: boolean = false;
   transactionComponent: any
   public pockets: any = [];
@@ -137,6 +137,7 @@ export class DashboardPage implements OnInit {
   }
 
   async getUserProfile() {
+    this.ctrlCssBlur = true
     await this.loadingController.present({cssClass: 'textLoadingBlack'})
     let profile = await this.store.get('profile');
 
@@ -184,6 +185,7 @@ export class DashboardPage implements OnInit {
       this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
       this.crypto[0].value=0;
     }
+    this.ctrlCssBlur = false
     await this.loadingController.dismiss()
   }
 }

@@ -108,17 +108,20 @@ export class SendCryptocurrenciesPage implements OnInit {
     }
 
     async getFeeTransaction(event) {
-        console.log(event);
-        console.log(this.bodyForm);
-        this.fee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
-        this.fee = this.fee.data.data;
-        if(this.fee.error_message) {
-
-        } else {
-            this.totalSend = 'Total del envío ' + (parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee))
-        }
-        console.log(this.fee)
-        console.log(this.totalSend)
+      if(this.bodyForm.value.to_address && this.bodyForm.value.amount) {
+          console.log(event);
+          console.log(this.bodyForm);
+          this.fee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
+          this.fee = this.fee.data.data;
+          if(this.fee.error_message) {
+          } else {
+              this.totalSend = 'Total del envío ' + (parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee))
+          }
+          console.log(this.fee)
+          console.log(this.totalSend)
+      } else {
+          console.log('falta un campo')
+      }
     }
 
     async sendCoin() {
@@ -196,6 +199,6 @@ export class SendCryptocurrenciesPage implements OnInit {
             message: text,
             duration: 2000
         });
-        toast.present();
+        await toast.present();
     }
 }

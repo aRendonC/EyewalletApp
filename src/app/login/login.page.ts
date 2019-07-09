@@ -78,7 +78,7 @@ export class LoginPage implements OnInit {
 
   async getUserProfile() {
     console.log('auth del usuario', this.auth);
-    let profile = await this.http.get('profile/1/view', this.auth, null);
+    let profile = await this.http.get('profile/1/view',this.auth, null);
     console.info(profile);
     profile = this.aesjs.encrypt(profile);
     await this.store.set('profile', profile)
