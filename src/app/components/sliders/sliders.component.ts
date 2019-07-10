@@ -2,11 +2,11 @@ import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
-import {Storage} from "@ionic/storage";
+import {Storage} from '@ionic/storage';
 import {enterAnimation} from '../../animations/enter';
 import {leaveAnimation} from '../../animations/leave';
 import { Chart } from 'chart.js';
-import {AesJsService} from "../../services/aesjs/aes-js.service";
+import {AesJsService} from '../../services/aesjs/aes-js.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ import {AesJsService} from "../../services/aesjs/aes-js.service";
   styleUrls: ['./sliders.component.scss'],
 })
 
-export class SlidersComponent implements OnInit{
+export class SlidersComponent implements OnInit {
   @Input() name: any;
   public lineChart: any;
   public dataGraphic: any;
@@ -41,17 +41,16 @@ export class SlidersComponent implements OnInit{
       this.profile = this.aesjs.decrypt(this.profile)
       console.log(this.profile)
       console.log('se incio')
-    this.nameSlider = this.name;
-    this.dataGraphic = this.name[0];
-    
-    setTimeout(() => {
+      this.nameSlider = this.name;
+      this.dataGraphic = this.name[0];
+      setTimeout(() => {
       this.grafica();
     }, 1000);
   }
 
   async grafica(){
-    let ctx = this.lineCanvas.nativeElement.getContext('2d');
-    let gradientStroke = ctx.createLinearGradient(0, 150, 30, 0);
+    const ctx = this.lineCanvas.nativeElement.getContext('2d');
+    const gradientStroke = ctx.createLinearGradient(0, 150, 30, 0);
     gradientStroke.addColorStop(1, '#84EAE8');
     gradientStroke.addColorStop(0, 'white');
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
@@ -96,9 +95,9 @@ export class SlidersComponent implements OnInit{
     async openModalVerification() {
       const modal = await this.modalCtrl.create({
         component: VerificationModalPage,
-        enterAnimation: enterAnimation,
-        leaveAnimation: leaveAnimation
-      })
+        enterAnimation,
+        leaveAnimation
+      });
       return await modal.present()
     }
 }

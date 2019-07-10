@@ -10,7 +10,7 @@ import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import { SlidersComponent } from '../components/sliders/sliders.component';
-import {LoadingService} from "../services/loading/loading.service";
+import {LoadingService} from '../services/loading/loading.service';
 
 
 @Component({
@@ -20,10 +20,9 @@ import {LoadingService} from "../services/loading/loading.service";
 })
 
 export class DashboardPage implements OnInit {
-  @ViewChild(SlidersComponent) childD:SlidersComponent
-  ctrlCssBlur: boolean = false
-  ctrlNavigation: boolean = false;
-  transactionComponent: any
+  @ViewChild(SlidersComponent) childD: SlidersComponent;
+  ctrlNavigation = false;
+  transactionComponent: any;
   public pockets: any = [];
   public profile: any;
   public params = {
@@ -34,7 +33,7 @@ export class DashboardPage implements OnInit {
     limit: null
   };
 
-  @Input() gra : SlidersComponent
+  @Input() gra: SlidersComponent;
 
   public crypto: any = [
     {name: 'Bitcoin', background: 'contentBitcoin', value: '', valueUsd: '', graphic: []},

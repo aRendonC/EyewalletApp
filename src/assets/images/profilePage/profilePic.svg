@@ -1,0 +1,18 @@
+<svg id="Grupo_2370" data-name="Grupo 2370" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="183.878" height="183.878" viewBox="0 0 183.878 183.878">
+  <defs>
+    <filter id="Elipse_29" x="0" y="0" width="183.878" height="183.878" filterUnits="userSpaceOnUse">
+      <feOffset dy="32" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="16.5" result="blur"/>
+      <feFlood flood-color="#fff" flood-opacity="0.451"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Elipse_29)">
+    <circle id="Elipse_29-2" data-name="Elipse 29" cx="42.439" cy="42.439" r="42.439" transform="translate(49.5 17.5)" fill="#fff"/>
+  </g>
+  <path id="Rectángulo_6372" data-name="Rectángulo 6372" d="M16.2,0H29.578A16.866,16.866,0,0,1,46.444,16.866v2.346A1.841,1.841,0,0,1,44.6,21.052H4.852A4.852,4.852,0,0,1,0,16.2v0A16.2,16.2,0,0,1,16.2,0Z" transform="translate(68.717 65.14)" fill="none" stroke="#5487ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <circle id="Elipse_30" data-name="Elipse 30" cx="12.027" cy="12.027" r="12.027" transform="translate(79.911 33.686)" stroke-width="2" stroke="#5487ff" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path id="Trazado_139" data-name="Trazado 139" d="M537.923,275.708a8.806,8.806,0,0,1-.441-4.6" transform="translate(-454.169 -226.887)" fill="none" stroke="#5487ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <path id="Trazado_140" data-name="Trazado 140" d="M540.951,255.5a8.762,8.762,0,0,1,11.034-3.348" transform="translate(-456.442 -214.419)" fill="none" stroke="#5487ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+</svg>

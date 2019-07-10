@@ -1,0 +1,156 @@
+.bg-profile{
+    position: relative;
+    z-index: 4;
+    width: 100vw;
+}
+.no-padding{
+    padding: 0px;
+}
+.move-profile {
+    top: -3vh;
+    margin-top: -32vh;
+    margin-left: 27vw;
+    position: relative;
+    z-index: 5;
+}
+.move-name{
+    position: relative;
+    z-index: 5;
+    margin-top: -11vh;
+    margin-left: 18vh;
+    color: white;
+    font-family: 'Open-Sans', sans-serif;
+    font-weight: 400;
+}
+
+.move-engine{
+    margin-left: 14vw;
+    margin-top: -3vh;
+}
+
+.move-add{
+    margin-top: -1.9em;
+    margin-left: 6.4em;
+    position: absolute;
+    z-index: 7;
+}
+
+.absolute{
+    position: absolute;
+}
+
+.move-profilePic{
+    position: relative;
+    z-index: 5;
+    top: -20px;
+    margin-top: -12em;
+    margin-left: -11.6em;
+}
+
+.labels{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    --color: #93B5E5;
+    margin-left: 4vh;
+}
+
+.text{
+    font-family: 'Open-Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #272759;
+    width: 60%;
+}
+
+.move-profileInfo{
+    top: -7em;
+    --offset-top: 1103px !important;
+    --offset-bottom: 300px !important;
+}
+
+ion-item{
+    --border-color: #D1C9FF;
+}
+
+.text-blue{
+    font-family: 'Open-Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #5496FF;
+    width: 60%;
+}
+
+.text-second{
+    font-family: 'Open-Sans', sans-serif;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    color: #272759;
+    width: 100%;
+}
+
+.item-second{
+    --border-color: transparent;
+    padding: 6px 0px;
+}
+
+.item-images{
+    padding: 26px 0px;
+    --border-color: transparent;
+}
+
+.pad-lr{
+    padding: 0 1em;
+}
+
+.delete-account{
+    font-family: 'Open-Sans', sans-serif;
+    text-align: center;
+    font-weight: 700;
+    color: #F4317F;
+    width: 100%;
+    padding: 26px 0px;
+}
+
+.item-verify {
+    width: 54%;
+    height: 6%;
+    border-radius: 0px 0px 22.34px 0px;
+    --background: linear-gradient(#ff7c6e 0%, #f4317f 100%);
+    --border-color: transparent;
+    position: relative;
+    z-index: 2;
+}
+.item-delete{
+    --border-color: transparent;
+}
+.item-sendMail {
+    margin-top: -1.3em;
+    margin-left: 10em;
+    width: 60%;
+    height: 6%;
+    --background: linear-gradient(#4daaff 0%, #5584ff 21.72%, #7300ff 100%);
+    --border-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.mail-verify{
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Open-Sans', sans-serif;
+    color: white;
+    margin: -25px 0px 0px 0px;
+}
+
+.mail-sendMail{
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Open-Sans', sans-serif;
+    color: white;
+    margin: -25px 0px 0px 63px;
+}
+
+
+

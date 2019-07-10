@@ -18,7 +18,7 @@ import {Device} from '@ionic-native/device/ngx';
 import {NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 import {TouchLoginService} from './services/fingerprint/touch-login.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
-import {PinModalPage} from "./pin-modal/pin-modal.page";
+import {PinModalPage} from './pin-modal/pin-modal.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
@@ -27,8 +27,8 @@ import {LoadingService} from "./services/loading/loading.service";
 
 // LocalStorage.
 import { IonicStorageModule } from '@ionic/storage';
-import {ComponentsModule} from "./components/components.module";
-import {VerificationModalPage} from "./verification-modal/verification-modal.page";
+import {ComponentsModule} from './components/components.module';
+import {VerificationModalPage} from './verification-modal/verification-modal.page';
 
 
 // Plugins cordova.

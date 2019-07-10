@@ -10,15 +10,10 @@ const routes: Routes = [
   {path: 'restore', loadChildren: './restore/restore.module#RestorePageModule'},
   {path: 'pin', loadChildren: './pin/pin.module#PinPageModule'},
   {path: 'list-pockets', loadChildren: './list-pockets/list-pockets.module#ListPocketsPageModule' },
-  {
-    path: 'receive-funds',
-    loadChildren: './receive-funds/receive-funds.module#ReceiveFundsPageModule'
-  },
-  {
-    path: 'send-currency',
-    loadChildren: './send-cryptocurrencies/send-cryptocurrencies.module#SendCryptocurrenciesPageModule'
-  }
-
+  {path: 'create-profile', loadChildren: './create-profile/create-profile.module#CreateProfilePageModule'},
+  {path: 'address', loadChildren: './address/address.module#AddressPageModule'},
+  {path: 'receive-funds', loadChildren: './receive-funds/receive-funds.module#ReceiveFundsPageModule'},
+  {path: 'send-currency', loadChildren: './send-cryptocurrencies/send-cryptocurrencies.module#SendCryptocurrenciesPageModule'},
 ];
 
 @NgModule({
