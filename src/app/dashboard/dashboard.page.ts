@@ -104,8 +104,8 @@ export class DashboardPage implements OnInit {
       const amountFinal = element.amount_finally;
       const amountDollar = (amountFinal * btc).toFixed(2);
       // extrae la hora de cada objeto
-      const time = element.date.slice(11, 16);
-      const dateFormat = `${element.date.slice(8, 10)}.${element.date.slice(5, 7)}.${element.date.slice(2, 4)}`;
+      const time = element.date_transaction.slice(11, 16);
+      const dateFormat = `${element.date_transaction.slice(8, 10)}.${element.date_transaction.slice(5, 7)}.${element.date_transaction.slice(2, 4)}`;
       if (element.confirmation >= 0 && element.confirmation <= 2) {
         const confirmationText = 'Confirmando';
         // Agregar el elemento confirmationText al objeto transactions
@@ -159,7 +159,7 @@ export class DashboardPage implements OnInit {
     console.table('históico transaccción', response)
     this.crypto.forEach(element => {
       if (element.name === 'Bitcoin') {
-        console.log('valor btc', usdbtc.USDBTC)
+        console.log('valor btc', usdbtc)
         element.value = this.pockets[0].balance
         element.valueUsd = this.pockets[0].balance * usdbtc.toFixed(8);
       }
