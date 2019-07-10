@@ -24,7 +24,7 @@ export class PricesPage implements OnInit {
     this.user = await this.store.get('profile');
     this.user = this.aesjs.decrypt(this.user);
     this.bodyForm = {
-      userId: this.user.userId,
+      userId: this.user.data.userId,
     };
     this.cryptoPrices = await this.axios.post('transaction/priceBTC', this.bodyForm, this.auth);
     this.cryptoPrices = this.cryptoPrices.data.descripcion;
