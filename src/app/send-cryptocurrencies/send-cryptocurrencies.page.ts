@@ -107,13 +107,13 @@ export class SendCryptocurrenciesPage implements OnInit {
         this.scanSub.unsubscribe();
     }
 
-    async getFeeTransaction(event) {
+    async getFeeTransaction() {
       if(this.bodyForm.value.to_address && this.bodyForm.value.amount) {
-          console.log(event);
           console.log(this.bodyForm);
           this.fee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
           this.fee = this.fee.data.data;
           if(this.fee.error_message) {
+              this.totalSend = this.fee.error_message
           } else {
               this.totalSend = 'Total del envío ' + (parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee))
           }

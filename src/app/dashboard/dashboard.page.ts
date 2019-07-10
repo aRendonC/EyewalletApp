@@ -78,13 +78,14 @@ export class DashboardPage implements OnInit {
     console.log('estoy recibiendo data en la pagina dashboard', data);
 
     this.crypto.forEach(element => {
-      element.graphic = [];
       if (data.pocket.currencyId === 1 && element.name === 'Bitcoin') {
         element.value = data.pocket.balance;
-
-        data.data.forEach(elementGraphic => {
-          element.graphic.push(parseFloat(elementGraphic.balance_after));
-        });
+        if(data.data[0]) {
+          data.data.forEach(elementGraphic => {
+            console.warn(elementGraphic)
+            element.graphic.push(parseFloat(elementGraphic.balance_after));
+          });
+        }
       }
     });
     console.log('DataUpdata: ', this.crypto[0].graphic);
@@ -147,19 +148,20 @@ export class DashboardPage implements OnInit {
     this.params.userId = profile.data.id;
     this.params.type = 4;
 
-    let response = await this.http.post('transaction/historyBTC', this.params, this.auth);
+    let response = await this.http.post('transaction/index', this.params, this.auth);
 
     //llamar el listado de transacciones
     await this.getListTransactions(this.params,this.auth);
 
-    let usdbtc = JSON.parse(response.data[0].dolar);
+    let usdbtc = response.btc;
 
-    let usd = JSON.parse(response.data[0].descripcion);
-
+    // let usd = JSON.parse(response.data[0].descripcion);
+    console.table('históico transaccción', response)
     this.crypto.forEach(element => {
       if (element.name === 'Bitcoin') {
-        element.value = usdbtc.USDBTC.toFixed(8);
-        element.valueUsd = usd.BTC.USD.toFixed(2);
+        console.log('valor btc', usdbtc.USDBTC)
+        element.value = this.pockets[0].balance
+        element.valueUsd = this.pockets[0].balance * usdbtc.toFixed(8);
       }
     });
   }

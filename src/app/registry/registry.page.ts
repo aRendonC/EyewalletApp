@@ -90,7 +90,7 @@ export class RegistryPage implements OnInit {
     const passwordLength = {
       min: 6,
       max: undefined
-    }
+    };
 
     if (!validator.isEmpty(event) &&
       validator.isLength(event, passwordLength) &&
@@ -122,6 +122,7 @@ export class RegistryPage implements OnInit {
 
   public async sendDataRegistry() {
    let device = await this.device.getDataDevice();
+   console.log('datos del dispositivo', device);
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
@@ -131,16 +132,16 @@ export class RegistryPage implements OnInit {
     };
 
     this.register.post(urlRegistry, dataBody)
-    .then(response => {
+    .then(async response => {
       if (response.status === 200) {
         console.log(response.data);
-        this.store.set('user', response.data)
+        this.store.set('user', response.data);
         let navigationExtras: NavigationExtras = {
           queryParams: {
             user: JSON.stringify(response.data),
           }
-        }
-        this.router.navigate(['/registry-pin'], navigationExtras);
+        };
+        await this.router.navigate(['/registry-pin'], navigationExtras);
       }
     });
   }

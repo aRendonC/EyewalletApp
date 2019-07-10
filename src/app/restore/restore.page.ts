@@ -12,6 +12,7 @@ import { DataLocalService } from '../services/data-local/data-local.service';
 
 // Constants.
 import * as CONSTANTS from '../constanst';
+import {LoadingService} from "../services/loading/loading.service";
 
 @Component({
   selector: 'app-restore',
@@ -46,7 +47,8 @@ export class RestorePage implements OnInit {
     private aesJs: AesJsService,
     private router: Router,
     private toastController: ToastController,
-    private dataLocal: DataLocalService
+    private dataLocal: DataLocalService,
+    private loadingCtrl: LoadingService
   ) { }
 
   ngOnInit() {
@@ -121,7 +123,7 @@ export class RestorePage implements OnInit {
   }
 
   private encryptPin(pin): any {
-    return this.aesJs.encrypt(pin);
+    return this.aesJs.encryptNoJson(pin);
   }
 
   private async presentToast() {
@@ -154,7 +156,8 @@ export class RestorePage implements OnInit {
     }
   }
 
-  public restorePassword(): void {
+  public async restorePassword() {
+    await this.loadingCtrl.present({})
     const path: string = 'auth/recovery';
 
     const dataBody: object = {
@@ -165,15 +168,18 @@ export class RestorePage implements OnInit {
     };
 
     this.axiosServices.post(path, dataBody)
-    .then(response => {
-      if (response.status === 200) {
-        this.blockingCounter = 0;
-        this.dataRestorePassword.blocked = false;
-        this.router.navigate(['']);
-      } else if (response.status === 500) {
-        this.blockingCounter++;
-        this.blockWallet(this.blockingCounter);
-      }
-    });
+        .then(async response => {
+          console.log(response)
+          if (response.status === 200) {
+            this.blockingCounter = 0;
+            this.dataRestorePassword.blocked = false;
+            await this.router.navigate(['']);
+            await this.loadingCtrl.dismiss()
+          } else if (response.status === 500) {
+            this.blockingCounter++;
+            this.blockWallet(this.blockingCounter);
+            await this.loadingCtrl.dismiss()
+          }
+        });
   }
 }
