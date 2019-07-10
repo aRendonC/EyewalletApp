@@ -8,7 +8,7 @@ import * as CONSTANTS from '../constanst';
 import { AxiosService } from '../services/axios/axios.service';
 
 // Navigations.
-import {NavigationExtras, Router} from '@angular/router';
+import { Router} from '@angular/router';
 
 // Storage
 import {Storage} from '@ionic/storage';
@@ -40,7 +40,7 @@ export class RegistryPage implements OnInit {
     private register: AxiosService,
     private router: Router,
     private store: Storage,
-    private device: DeviceService
+    private device: DeviceService,
   ) { }
 
   ngOnInit() {
@@ -123,6 +123,7 @@ export class RegistryPage implements OnInit {
   public async sendDataRegistry() {
    let device = await this.device.getDataDevice();
    console.log('datos del dispositivo', device);
+   if(!device.uuid) device.uuid = 'aasdfdfasdsssññasdshñ';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
@@ -136,12 +137,13 @@ export class RegistryPage implements OnInit {
       if (response.status === 200) {
         console.log(response.data);
         this.store.set('user', response.data);
-        let navigationExtras: NavigationExtras = {
+        await this.router.navigate(['/registry-pin'], {
           queryParams: {
             user: JSON.stringify(response.data),
-          }
-        };
-        await this.router.navigate(['/registry-pin'], navigationExtras);
+            password: JSON.stringify(this.dataRegistry.password)
+          },
+          queryParamsHandling: 'merge'
+        });
       }
     });
   }

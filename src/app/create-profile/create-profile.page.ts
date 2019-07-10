@@ -51,13 +51,19 @@ export class CreateProfilePage implements OnInit {
     this.user = this.aes.decrypt(this.user);
     this.bodyForm = {
       userId: this.user.data.userId,
-      firstname: this.firstname,
-      lastname: this.lastname,
-      birthdate: this.birthdate.slice(0, 10),
-      identification: this.identification
+      firstName: this.firstname,
+      lastName: this.lastname,
+      zipcode: '',
+      identification: this.identification,
+      birthDay: this.birthdate.slice(0, 10),
+      state: '',
+      country: '',
+      city: ''
     };
     console.log(this.bodyForm);
-    const response = await this.axios.put(`profile/${this.user.id}/update`, this.bodyForm, this.aut);
+    console.log(this.aut)
+    // const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
+    const response = await this.axios.put(`profile/${this.bodyForm.userId}/update`, this.bodyForm, this.aut);
     console.log('eso me responde al crear el perfil', response);
     if (response.status === 200) {
       await this.router.navigate(['/address']);

@@ -17,11 +17,11 @@ export class RegistryPinPage implements OnInit {
   bodyForm: FormGroup;
   private devic: any = {};
   private user: any = null;
-  
+
   constructor(
       private axios: AxiosService,
       private device: DeviceService,
-      private route: ActivatedRoute,
+      private activatedRoute: ActivatedRoute,
       private router: Router,
       private auth: AuthService,
       private store: Storage
@@ -29,12 +29,10 @@ export class RegistryPinPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      console.log(params);
-      this.user = JSON.parse(params.user);
-      console.table('usuario datos pasados', this.user);
-      this.auth.usuario.accessToken = this.user.accessToken;
-    });
+    this.user = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('user'))
+    this.user.data.password = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('password'))
+    console.log('con estos datos iniciar sesión', this.user)
+    this.auth.usuario.accessToken = this.user.accessToken;
     this.bodyForm = new FormGroup({
       pin: new FormControl('', Validators.compose([
         Validators.minLength(6),
@@ -51,15 +49,18 @@ export class RegistryPinPage implements OnInit {
     console.info(this.bodyForm);
     console.info(data);
     console.info('datos del device', this.devic);
+    if(!this.devic.uuid) this.devic.uuid = 'aasdfdfasdsssññasdshñ'
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     console.log('bodyForm', this.bodyForm);
     console.log('auth service', this.auth);
     const response = await this.axios.put('profile/1/pin', this.bodyForm.value, this.auth)
-    console.log(response);
+    console.log('acá registra el pin respuesta----->', response);
     if (response.status === 200) {
-      this.router.navigate(['app/tabs']);
-      this.store.set('user', this.user.data);
+      let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password)
+      if(loginUser.status === 200){
+        await this.router.navigate(['/app/tabs'])
+      }
     }
   }
 }

@@ -58,9 +58,18 @@ export class PocketComponent implements OnInit {
      // })
    }
   async getPocketStore() {
-    this.pockets = await this.store.get('pockets');
-    // console.log('los pokets en el componente', this.pockets)
-    this.pockets = this.aesjs.decrypt(this.pockets);
+    this.pockets = await this.store.get('pockets')
+    if(!this.pockets){
+      let response  = await this.http.get('user-wallet/index', this.auth, null);
+      this.pockets = response
+      console.log('mis pockets luego de registrarme', this.pockets)
+      response = await this.aesjs.encrypt(response)
+      await this.store.set('pockets', response)
+    } else {
+      this.pockets = this.aesjs.decrypt(this.pockets);
+    }
+    console.log('los pokets en el componente', this.pockets)
+
     this.pocket = this.pockets[0]
   }
   async openPocketsModal() {

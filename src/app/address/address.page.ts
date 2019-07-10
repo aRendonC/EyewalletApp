@@ -89,7 +89,7 @@ ionViewDidLeave() {
 //
 // }
 
-private statesFn(selectedCountry) {
+ statesFn(selectedCountry) {
     this.cities = []
     this.states = [];
     this.statesList = [
@@ -130,7 +130,7 @@ private statesFn(selectedCountry) {
 // });
 // }
 
-private citiesFn(selectedState) {
+ citiesFn(selectedState) {
  this.cities = [];
 this.citiesList = [
     {0: "37354", 1: "Tarapaca", 2: "Amazonas"},

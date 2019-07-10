@@ -4,7 +4,7 @@ import * as CONSTANTS from '../constanst';
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {AuthService} from "../services/auth/auth.service";
 import {AxiosService} from "../services/axios/axios.service";
-import {ModalController} from "@ionic/angular";
+import {ModalController, ToastController} from "@ionic/angular";
 import {Router} from "@angular/router";
 @Component({
   selector: 'app-verification-modal',
@@ -24,13 +24,14 @@ export class VerificationModalPage implements OnInit {
       protected auth: AuthService,
       private http: AxiosService,
       private modalCtrl: ModalController,
-      private router: Router
+      private router: Router,
+      private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
   }
-  async closeModal() {
-    await this.modalCtrl.dismiss();
+  async closeModal(data) {
+    await this.modalCtrl.dismiss(data);
   }
   async goToCreateProfile() {
     await this.router.navigate(['/create-profile']);
@@ -41,7 +42,11 @@ export class VerificationModalPage implements OnInit {
     if (!this.ctrlInput) {
       this.phone = await this.store.get('profile')
       this.phone = this.aesjs.decrypt(this.phone)
-      this.phone = this.phone.phone;
+      console.info(this.phone)
+      this.phone = this.phone.data.phone;
+      if(!this.phone) {
+        await this.goToCreateProfile()
+      }
       this.ctrlInput = true;
     } else {
 
@@ -63,11 +68,27 @@ export class VerificationModalPage implements OnInit {
     }
     let response = await this.http.post('user/validateCodePhone', body, this.auth)
     console.log(response)
-    if(response.data) {
-     await this.closeModal()
+    if(response.status === 200) {
+      let profile = await this.store.get('profile')
+      profile = this.aesjs.decrypt(profile)
+      profile.level = response.level
+      console.log('este es el perficl actualizado', profile)
+      await this.closeModal(profile)
+      profile = this.aesjs.encrypt(profile)
+      await this.store.set('profile', profile)
+      await this.presentToast('Teléfono ha sido verificado correctamente')
     } else {
+      await this.presentToast('Error de código')
       //poner el toast de error, muchas gracias.
     }
+  }
+
+  async presentToast(text) {
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 2000
+    });
+   await toast.present();
   }
 
 }

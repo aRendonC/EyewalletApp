@@ -93,11 +93,15 @@ export class SlidersComponent implements OnInit {
   }
 
     async openModalVerification() {
-      const modal = await this.modalCtrl.create({
+      const modalVerification = await this.modalCtrl.create({
         component: VerificationModalPage,
         enterAnimation,
         leaveAnimation
       });
-      return await modal.present()
+      modalVerification.onDidDismiss().then(async (profile:any)=> {
+        console.log(profile);
+        this.profile.level = profile.level
+      });
+      return await modalVerification.present()
     }
 }
