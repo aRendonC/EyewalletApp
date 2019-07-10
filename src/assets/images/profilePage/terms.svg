@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="66" height="52.654" viewBox="0 0 66 52.654">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="24.053" height="28.952" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_2377" data-name="Grupo 2377" transform="translate(-2859.081 -1970.342)">
+    <g id="Componente_74_2" data-name="Componente 74 – 2" transform="translate(2879.075 1970.342)" clip-path="url(#clip-path)">
+      <path id="Trazado_177" data-name="Trazado 177" d="M662.026,1380.408H639.474v-27.452h22.553v27.452Z" transform="translate(-638.724 -1352.206)" fill="none" stroke="#272759" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Línea_16" data-name="Línea 16" x2="12.279" transform="translate(5.887 12.988)" fill="none" stroke="#5496ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Línea_17" data-name="Línea 17" x2="12.279" transform="translate(5.887 17.796)" fill="none" stroke="#5496ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Línea_18" data-name="Línea 18" x2="12.279" transform="translate(5.887 22.604)" fill="none" stroke="#5496ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Trazado_178" data-name="Trazado 178" d="M673.706,1352.956v6.153h7.4" transform="translate(-657.801 -1352.206)" fill="none" stroke="#272759" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+    <text id="Terminos_de_uso" data-name="Terminos de uso" transform="translate(2859.081 2020.996)" fill="#93b5e5" font-size="8" font-family="OpenSans-Bold, Open Sans" font-weight="700" letter-spacing="0.001em"><tspan x="0" y="0">Terminos de uso</tspan></text>
+  </g>
+</svg>

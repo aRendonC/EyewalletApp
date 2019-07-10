@@ -6,7 +6,7 @@ import {AxiosService } from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import { AesJsService } from '../services/aesjs/aes-js.service';
-import {LoadingService} from "../services/loading/loading.service";
+import {LoadingService} from '../services/loading/loading.service';
 
 
 @Component({
@@ -45,10 +45,9 @@ export class CreateProfilePage implements OnInit {
   // Esta función me lleva a la pagina que tiene dirección pero primero envia los
   // datos del form a la API medinte un put request
   async address() {
-    await this.loadingCtrl.present({})
+    await this.loadingCtrl.present({});
     // Nombre
     this.user = await this.store.get('profile');
-    console.log(this.user)
     this.user = this.aes.decrypt(this.user);
     this.bodyForm = {
       userId: this.user.data.userId,
@@ -62,8 +61,9 @@ export class CreateProfilePage implements OnInit {
     console.log(response);
     if (response.status === 200) {
       await this.loadingCtrl.dismiss()
-      await this.router.navigate(['app/tabs/address']);
+      this.router.navigate(['/address']);
       this.store.set('user', JSON.stringify(response.data));
+      console.log( await this.store.set('user', JSON.stringify(response.data)));
     } else {
       await this.loadingCtrl.dismiss()
     }

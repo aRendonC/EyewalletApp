@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23.124" height="23.124" viewBox="0 0 23.124 23.124">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="23.124" height="23.124" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.028" x2="0.5" y2="1.139" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4daaff"/>
+      <stop offset="0.217" stop-color="#5584ff"/>
+      <stop offset="1" stop-color="#7300ff"/>
+    </linearGradient>
+  </defs>
+  <g id="Símbolo_30_2" data-name="Símbolo 30 – 2" clip-path="url(#clip-path)">
+    <g id="Componente_82_1" data-name="Componente 82 – 1" clip-path="url(#clip-path)">
+      <circle id="Elipse_31" data-name="Elipse 31" cx="11.562" cy="11.562" r="11.562" fill="url(#linear-gradient)"/>
+      <g id="Grupo_215" data-name="Grupo 215" transform="translate(8.044 6.442)">
+        <rect id="Rectángulo_6373" data-name="Rectángulo 6373" width="2.191" height="1.194" rx="0.597" transform="matrix(0.849, 0.528, -0.528, 0.849, 5.282, 0)" fill="#fff"/>
+        <path id="Trazado_157" data-name="Trazado 157" d="M641.393,371.989l-4.279,6.887a.284.284,0,0,0-.04.187l.169,1.266a.284.284,0,0,0,.372.231l1.21-.409a.285.285,0,0,0,.15-.119l4.279-6.887a.284.284,0,0,0-.091-.391l-1.379-.856A.284.284,0,0,0,641.393,371.989Z" transform="translate(-637.072 -370.442)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

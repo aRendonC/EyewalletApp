@@ -18,6 +18,7 @@ export class TabsPage {
 
   logOut() {
     this.auth.logout();
+    
   }
   verifiLoading(data: boolean) {
     this.ctrlCssBlur = data
