@@ -77,6 +77,7 @@ export class AxiosService {
     }
     console.log(body);
     console.log(user);
+    console.log(this.headers);
     return this.http.put(url, (body != null) ? body : body, {
       headers: this.headers
     }).toPromise();

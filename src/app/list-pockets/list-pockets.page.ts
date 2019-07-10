@@ -72,7 +72,7 @@ export class ListPocketsPage implements OnInit {
     }
   }
 
-  async closeModal(pocket: any) {
+  async closeModal(pocket: object) {
     console.info(pocket);
     await this.modalCtrl.dismiss(pocket);
   }

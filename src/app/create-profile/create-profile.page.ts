@@ -58,12 +58,11 @@ export class CreateProfilePage implements OnInit {
     };
     console.log(this.bodyForm);
     const response = await this.axios.put(`profile/${this.user.id}/update`, this.bodyForm, this.aut);
-    console.log(response);
+    console.log('eso me responde al crear el perfil', response);
     if (response.status === 200) {
-      await this.loadingCtrl.dismiss()
-      this.router.navigate(['/address']);
-      this.store.set('user', JSON.stringify(response.data));
-      console.log( await this.store.set('user', JSON.stringify(response.data)));
+      await this.router.navigate(['/address']);
+      // this.store.set('user', JSON.stringify(response.data));
+      // console.log( await this.store.set('user', JSON.stringify(response.data)));
     } else {
       await this.loadingCtrl.dismiss()
     }

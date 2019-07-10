@@ -21,6 +21,7 @@ import {LoadingService} from '../services/loading/loading.service';
 
 export class DashboardPage implements OnInit {
   @ViewChild(SlidersComponent) childD: SlidersComponent;
+  ctrlCssBlur: boolean = false
   ctrlNavigation = false;
   transactionComponent: any;
   public pockets: any = [];

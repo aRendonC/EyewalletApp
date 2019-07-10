@@ -66,6 +66,7 @@ export class AuthService {
 
  async accessParam() {
     this.usuario = await this.store.get('user')
+     console.log('accesParamss ------>', this.usuario)
     if (this.usuario != null) {
       return this.usuario.accessToken;
     }
