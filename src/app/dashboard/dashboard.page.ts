@@ -32,6 +32,7 @@ export class DashboardPage implements OnInit {
     movement: null,
     limit: null
   };
+  public ctrlCssBlur: any;
 
   @Input() gra: SlidersComponent;
 

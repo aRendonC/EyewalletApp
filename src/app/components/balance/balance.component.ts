@@ -86,5 +86,6 @@ export class BalanceComponent implements OnInit {
       // Agregar el elemento amountDollar al objeto transactions
       Object.assign(element, {amountDollar});
     });
+    console.log('estas son mis transacciones', this.transactions);
   }
 }

@@ -18,6 +18,7 @@ export class ProfilePage implements OnInit {
   temporizador: any;
   pockets: any = [];
   country: any = '';
+  fullName: any = '';
 
   constructor(
     private store: Storage,
@@ -47,14 +48,15 @@ export class ProfilePage implements OnInit {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     await this.getProfile();
     await this.countryLowercase();
-    console.log(this.profile.user.firstName);
+    this.fullName = `${this.profile.user.firstName}${' '}${this.profile.user.lastName}`;
+    console.log(this.fullName);
     this.profileShow = {
       id: this.profile.id,
       phone: this.profile.phone,
       date: this.profile.createdAt.slice(0, 10),
       country: this.country,
       mail : this.profile.user.email,
-      fullName : `${this.profile.user.firstName}${' '}${this.profile.user.lastName}`,
+      fullName : this.fullName,
     };
     console.log(this.profileShow);
   }
