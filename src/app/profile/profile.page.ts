@@ -13,7 +13,14 @@ import {AesJsService} from '../services/aesjs/aes-js.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  profileShow: any;
+  profileShow = {
+    fullName: '',
+    id: '',
+    phone: '',
+    date: '',
+    country: '',
+    mail: ''
+  };
   profile: any;
   temporizador: any;
   pockets: any = [];
@@ -30,32 +37,29 @@ export class ProfilePage implements OnInit {
   ) {
     this.temporizador = this.timer.temporizador;
   }
-
+  async ngOnInit() {
+    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
+    await this.getProfile();
+  }
   async getProfile() {
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
     this.profile = this.profile.data;
+    console.log('este es el perfil', this.profile)
+    this.profileShow.id = this.profile.user.id
+    this.profileShow.phone = this.profile.phone
+    this.profileShow.date = this.profile.createdAt.slice(0, 10)
+    if(this.profile.user.email) this.profileShow.mail = this.profile.user.email
+    if(this.profile.user.firstName) this.profileShow.fullName = this.profile.user.firstName + this.profile.user.lastName
+    if(this.profile.country) {
+      this.profileShow.country = this.countryLowercase()
+    }
+    console.log(this.profileShow);
   }
 
-  async countryLowercase() {
-    await this.getProfile();
+  countryLowercase() {
     const countryUpper = this.profile.country[0];
     const countryLower = this.profile.country.slice(1).toLowerCase();
-    this.country = countryUpper + countryLower;
-  }
-  async ngOnInit() {
-    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
-    await this.getProfile();
-    await this.countryLowercase();
-    console.log(this.profile.user.firstName);
-    this.profileShow = {
-      id: this.profile.id,
-      phone: this.profile.phone,
-      date: this.profile.createdAt.slice(0, 10),
-      country: this.country,
-      mail : this.profile.user.email,
-      fullName : `${this.profile.user.firstName}${' '}${this.profile.user.lastName}`,
-    };
-    console.log(this.profileShow);
+   return countryUpper + countryLower;
   }
 }

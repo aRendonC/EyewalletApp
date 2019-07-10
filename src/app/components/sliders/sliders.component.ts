@@ -99,8 +99,11 @@ export class SlidersComponent implements OnInit {
         leaveAnimation
       });
       modalVerification.onDidDismiss().then(async (profile:any)=> {
-        console.log(profile);
-        this.profile.level = profile.level
+        console.error('se está cerrando el modal con este dato', profile)
+        if(profile.data != undefined) {
+          console.log(profile);
+          this.profile.level = profile.level
+        }
       });
       return await modalVerification.present()
     }

@@ -33,13 +33,13 @@ export class TouchLoginService implements OnInit {
   }
 
       ngOnInit() {
-      console.info('este es el touch login');
+      console.log('este es el touch login');
       if (this.initialized) {
               return;
           }
 
       this.platform.ready().then(async () => {
-          await this.loadingCtrl.dismiss()
+          // await this.loadingCtrl.dismiss()
           this.onPauseSubscription = this.platform.pause.subscribe(() => {
               this.splashScreen.show();
           });
