@@ -1,9 +1,29 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>prices</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <ion-grid class="no-padding">
+        <ion-row>
+            <ion-col class="no-padding">
+                    <img class="bg-profile" src="../../assets/images/bg-profile.png"> 
+            </ion-col>
+        </ion-row>
+</ion-grid>
+</ion-content>
+<ion-content class="move-cryptoInfo">
+  <ion-grid fixed class="padding-prices">
+    <ion-row>
+      <!-- Put ngFor here *ngFor="let cryptoPrice of cryptoPrices" -->
+      <ion-col size="6">
+          <div class="crypto-card"> 
+            <img class="move-cryptoLogo" src="../../assets/images/pricesPage/bitcoinLogo.svg">
+          <div class="priceDetails">
+              <p class="cryptoName">Bitcoin</p>
+              <p class="cryptoCode">BTC</p>
+              <p class="cryptoPriceName">Price</p>
+              <p class="cryptoPrice">211.86</p>
+          </div>
+          </div>
+      </ion-col>
+      <ion-col size="6"></ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

@@ -25,6 +25,7 @@ export class ProfilePage implements OnInit {
   temporizador: any;
   pockets: any = [];
   country: any = '';
+  fullName: any = '';
 
   constructor(
     private store: Storage,
@@ -60,6 +61,6 @@ export class ProfilePage implements OnInit {
   countryLowercase() {
     const countryUpper = this.profile.country[0];
     const countryLower = this.profile.country.slice(1).toLowerCase();
-   return countryUpper + countryLower;
+    return countryUpper + countryLower;
   }
 }

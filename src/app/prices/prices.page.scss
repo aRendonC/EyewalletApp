@@ -1,0 +1,70 @@
+.no-padding{
+    padding: 0px;
+}
+.crypto-card{
+    width: 157.73px;
+    height: 200.46px;
+    background: white;
+    border-radius: 9.33px;
+    box-shadow: 0px 32px 20px rgba(51, 51, 203, 0.05);
+}
+
+.move-cryptoInfo{
+    top: -7em;
+    --offset-top: -4px !important;
+    --offset-bottom: 300px !important;
+}
+
+.padding-prices{
+    padding: 0px 30px;
+}
+
+.move-cryptoLogo{
+    margin-left: 65px;
+    margin-top: 22px;
+    position: absolute;
+}
+
+.cryptoName{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0em;
+    line-height: 16px;
+    text-align: left;
+    color: #272759;    
+}
+.cryptoCode{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0em;
+    line-height: 16px;
+    text-align: left;
+    color: #93b5e5;
+
+}
+.cryptoPriceName{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0em;
+    line-height: 16px;
+    text-align: left;
+    color: #272759;  
+}
+.cryptoPrice{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0em;
+    line-height: 16px;
+    text-align: left;
+    color: #93b5e5;
+}
+
+.priceDetails{
+    margin-left: 21px;
+    top: 53px;
+    position: absolute;
+}
