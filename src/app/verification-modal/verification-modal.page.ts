@@ -33,7 +33,7 @@ export class VerificationModalPage implements OnInit {
     await this.modalCtrl.dismiss();
   }
   async goToCreateProfile() {
-    await this.router.navigate(['/app/tabs/create-profile']);
+    await this.router.navigate(['/create-profile']);
     await this.modalCtrl.dismiss();
   }
 
@@ -41,18 +41,18 @@ export class VerificationModalPage implements OnInit {
     if (!this.ctrlInput) {
       this.phone = await this.store.get('profile')
       this.phone = this.aesjs.decrypt(this.phone)
-      this.phone = this.phone.phone
-      this.ctrlInput = true
+      this.phone = this.phone.phone;
+      this.ctrlInput = true;
     } else {
 
-      console.log(this.phone)
+      console.log(this.phone);
     }
   }
 
   async sendCodeVerification() {
-    let type = 'phone'
-    let response = await this.http.post('user/sendCodeVerification', {type}, this.auth,)
-    console.log(response)
+    const type = 'phone';
+    const response = await this.http.post('user/sendCodeVerification', {type}, this.auth,)
+    console.log(response);
     this.ctrlVerification = true
   }
 

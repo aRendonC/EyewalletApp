@@ -63,9 +63,9 @@ async getCountries() {
   this.headers = new HttpHeaders({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "*",
-    "Access-Control-Allow-Methods": "*"
+    'Access-Control-Allow-Origin': '*' ,
+    'Access-Control-Allow-Headers': '*' ,
+    'Access-Control-Allow-Methods': '*'
   });
   const url = 'https://geodata.solutions/restapi?dd=1';
   this.http.get(url)
@@ -95,6 +95,9 @@ getState(country: any) {
   this.headers = new HttpHeaders({
   Accept: 'application/json',
   'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*' ,
+  'Access-Control-Allow-Headers': '*' ,
+  'Access-Control-Allow-Methods': '*'
   });
   const url = `https://geodata.solutions/restapi?dd=1&country=${this.countryCode}`;
   this.http.get(url).toPromise().then(data => {
@@ -116,6 +119,9 @@ getCity(state: any) {
   this.headers = new HttpHeaders({
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*' ,
+    'Access-Control-Allow-Headers': '*' ,
+    'Access-Control-Allow-Methods': '*'
     });
   const url = `https://geodata.solutions/restapi?dd=1&country=${this.countryCode}&state=${this.stateCode}`;
   this.http.get(url).toPromise().then(data => {
@@ -123,8 +129,8 @@ getCity(state: any) {
   });
 }
 
-async createProfile(){
-  await this.loadingCtrl.present({})
+async createProfile() {
+  await this.loadingCtrl.present({});
   this.user = await this.store.get('profile');
   this.user = this.aes.decrypt(this.user);
   this.bodyForm = {
@@ -143,10 +149,10 @@ async createProfile(){
   console.log('respuesta put', response);
   if (response.status === 200) {
     await this.loadingCtrl.dismiss()
-  await this.router.navigate(['app/tabs']);
-  await this.store.set('user', JSON.stringify(response.data));
+    await this.router.navigate(['app/tabs']);
+    await this.store.set('user', JSON.stringify(response.data));
   } else {
-    await this.loadingCtrl.dismiss()
+    await this.loadingCtrl.dismiss();
   }
 }
 

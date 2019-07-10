@@ -9,25 +9,20 @@ const routes: Routes = [
     children: [
       {
         path: '',
-       loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
+        loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
       },
       {
         path: 'home',
         loadChildren: '../home/home.module#HomePageModule'
-
       },
       {
-		path: 'profile',
-		loadChildren: '../profile/profile.module#ProfilePageModule'
-	  },
-      {
-        path:'create-profile',
-        loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'
+        path: 'profile',
+        loadChildren: '../profile/profile.module#ProfilePageModule'
       },
       {
-        path: 'address',
-        loadChildren: '../address/address.module#AddressPageModule'
-      },
+        path: 'prices',
+        loadChildren: '../prices/prices.module#PricesPageModule'
+      }
     ]
   },
 ];
