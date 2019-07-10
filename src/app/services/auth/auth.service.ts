@@ -29,13 +29,13 @@ export class AuthService {
       private device: DeviceService,
       private modalCtrl: ModalController
   ) {
-    this.persistenceLogin();
+    // this.persistenceLogin();
   }
 //This function is a loginService, parameter required user, password
   async login(user, password) {
     let device: any = await this.device.getDataDevice();
     console.log('Data of login: ', device);
-    if(!device.uuid) device.uuid = '7219d0c4ee046311'
+    if(!device.uuid) device.uuid = '77219d0c4ee046311'
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password: password, deviceId: device.uuid})
         .then(async (data: any) => {
@@ -64,7 +64,8 @@ export class AuthService {
     });
   }
 
-  accessParam() {
+ async accessParam() {
+    this.usuario = await this.store.get('user')
     if (this.usuario != null) {
       return this.usuario.accessToken;
     }

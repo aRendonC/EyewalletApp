@@ -21,7 +21,7 @@ import {LoadingService} from "../services/loading/loading.service";
 
 export class DashboardPage implements OnInit {
   @ViewChild(SlidersComponent) childD:SlidersComponent
-
+  ctrlCssBlur: boolean = false
   ctrlNavigation: boolean = false;
   transactionComponent: any
   public pockets: any = [];
@@ -78,13 +78,14 @@ export class DashboardPage implements OnInit {
     console.log('estoy recibiendo data en la pagina dashboard', data);
 
     this.crypto.forEach(element => {
-      element.graphic = [];
       if (data.pocket.currencyId === 1 && element.name === 'Bitcoin') {
         element.value = data.pocket.balance;
-
-        data.data.forEach(elementGraphic => {
-          element.graphic.push(parseFloat(elementGraphic.balance_after));
-        });
+        if(data.data[0]) {
+          data.data.forEach(elementGraphic => {
+            console.warn(elementGraphic)
+            element.graphic.push(parseFloat(elementGraphic.balance_after));
+          });
+        }
       }
     });
     console.log('DataUpdata: ', this.crypto[0].graphic);
@@ -103,8 +104,8 @@ export class DashboardPage implements OnInit {
       const amountFinal = element.amount_finally;
       const amountDollar = (amountFinal * btc).toFixed(2);
       // extrae la hora de cada objeto
-      const time = element.date.slice(11, 16);
-      const dateFormat = `${element.date.slice(8, 10)}.${element.date.slice(5, 7)}.${element.date.slice(2, 4)}`;
+      const time = element.date_transaction.slice(11, 16);
+      const dateFormat = `${element.date_transaction.slice(8, 10)}.${element.date_transaction.slice(5, 7)}.${element.date_transaction.slice(2, 4)}`;
       if (element.confirmation >= 0 && element.confirmation <= 2) {
         const confirmationText = 'Confirmando';
         // Agregar el elemento confirmationText al objeto transactions
@@ -137,6 +138,7 @@ export class DashboardPage implements OnInit {
   }
 
   async getUserProfile() {
+    this.ctrlCssBlur = true
     await this.loadingController.present({cssClass: 'textLoadingBlack'})
     let profile = await this.store.get('profile');
 
@@ -146,19 +148,20 @@ export class DashboardPage implements OnInit {
     this.params.userId = profile.data.id;
     this.params.type = 4;
 
-    let response = await this.http.post('transaction/historyBTC', this.params, this.auth);
+    let response = await this.http.post('transaction/index', this.params, this.auth);
 
     //llamar el listado de transacciones
     await this.getListTransactions(this.params,this.auth);
 
-    let usdbtc = JSON.parse(response.data[0].dolar);
+    let usdbtc = response.btc;
 
-    let usd = JSON.parse(response.data[0].descripcion);
-
+    // let usd = JSON.parse(response.data[0].descripcion);
+    console.table('históico transaccción', response)
     this.crypto.forEach(element => {
       if (element.name === 'Bitcoin') {
-        element.value = usdbtc.USDBTC.toFixed(8);
-        element.valueUsd = usd.BTC.USD.toFixed(2);
+        console.log('valor btc', usdbtc)
+        element.value = this.pockets[0].balance
+        element.valueUsd = this.pockets[0].balance * usdbtc.toFixed(8);
       }
     });
   }
@@ -184,6 +187,7 @@ export class DashboardPage implements OnInit {
       this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
       this.crypto[0].value=0;
     }
+    this.ctrlCssBlur = false
     await this.loadingController.dismiss()
   }
 }

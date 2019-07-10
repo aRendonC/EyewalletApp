@@ -8,6 +8,7 @@ import {AuthService} from "../../services/auth/auth.service";
 import {Event, ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../../services/aesjs/aes-js.service";
+import {LoadingService} from "../../services/loading/loading.service";
 
 @Component({
   selector: 'app-pocket',
@@ -31,7 +32,8 @@ export class PocketComponent implements OnInit {
       private store: Storage,
       private aesjs: AesJsService,
       protected nvaigation: ActivatedRoute,
-      private toastCtrl: ToastController
+      private toastCtrl: ToastController,
+      private loadingCtrl: LoadingService
   ) {
     this.classLeft="resize-logo-left1";
     this.imgLeft = "../../assets/img/btn-left-s.svg";
@@ -62,6 +64,7 @@ export class PocketComponent implements OnInit {
     this.pocket = this.pockets[0]
   }
   async openPocketsModal() {
+    await this.loadingCtrl.present({cssClass: 'textLoadingBlack'})
     this.pockets = await this.http.get('user-wallet/index', this.auth, null);
     const modalPocket = await this.modalCtrl.create({
       component: ListPocketsPage,
@@ -90,13 +93,18 @@ export class PocketComponent implements OnInit {
       }
       console.log(this.pocket)
     });
-
+    await this.loadingCtrl.dismiss()
     return await modalPocket.present();
   }
 
   async receiveCash() {
     console.log(this.pocket);
-    await this.router.navigate(['/receive-funds', {pocket: JSON.stringify(this.pocket)}]);
+    await this.router.navigate([
+        '/receive-funds'],{
+      queryParams: {
+        pocket: JSON.stringify(this.pocket)
+      }, queryParamsHandling: 'merge'
+    });
   }
 
   async sendCash() {

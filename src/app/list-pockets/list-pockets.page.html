@@ -40,7 +40,7 @@
       <!-- Contraseña -->
     </ion-list>
     <div class="move-btn">
-      <ion-button type="submit" class="btn-start" mode="ios" (click)="createPocket()" >Crear pocket</ion-button>
+      <ion-button [disabled]="ctrlButtonCreate" type="submit" class="btn-start" mode="ios" (click)="createPocket()" >Crear pocket</ion-button>
     </div>
 
 </ion-content>

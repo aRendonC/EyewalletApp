@@ -29,8 +29,10 @@ export class VerificationModalPage implements OnInit {
 
   ngOnInit() {
   }
-
   async closeModal() {
+    await this.modalCtrl.dismiss();
+  }
+  async goToCreateProfile() {
     await this.router.navigate(['/app/tabs/create-profile']);
     await this.modalCtrl.dismiss();
   }
@@ -38,7 +40,7 @@ export class VerificationModalPage implements OnInit {
   async startVerification() {
     if (!this.ctrlInput) {
       this.phone = await this.store.get('profile')
-      this.phone = JSON.parse(this.aesjs.decrypt(this.phone))
+      this.phone = this.aesjs.decrypt(this.phone)
       this.phone = this.phone.phone
       this.ctrlInput = true
     } else {

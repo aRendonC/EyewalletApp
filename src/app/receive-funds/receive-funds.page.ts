@@ -20,7 +20,7 @@ export class ReceiveFundsPage implements OnInit {
   public buttonCopy: string = CONSTANTS.RECEIVE_FUNDS.BUTTON_COPY;
   public ctrlNavigation = true;
   public pockets = null;
-  
+
   public amount = null;
   public codeQr = null;
   public addressCodeQR = null;
@@ -32,8 +32,8 @@ export class ReceiveFundsPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    const data = JSON.parse(this.activateRouter.snapshot.paramMap.get('pocket'));
-
+    const data = JSON.parse(this.activateRouter.snapshot.queryParamMap.get('pocket'));
+    console.log(data)
     this.amount = data.balance;
     this.codeQr = data.address;
     this.pockets = data;

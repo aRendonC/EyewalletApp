@@ -25,12 +25,12 @@ export class AxiosService {
   }
 
   public get(endpoint: string, user?: any, params?: any) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve) => {
       let url = `${this.url}${endpoint}`;
       if (user != null) {
         this.headers = new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + user.accessParam()
+          Authorization: 'Bearer ' + await user.accessParam()
         })
       }
       if (params) {
@@ -44,35 +44,35 @@ export class AxiosService {
       this.http.get(url, {
         headers: this.headers
       }).toPromise()
-        .then(value => {
-          resolve(value);
-        }).catch(err => {
+          .then(value => {
+            resolve(value);
+          }).catch(err => {
       });
     });
   }
 
-  public post(endpoint: string, body: object, user?: any): Promise<any> {
+  public async post(endpoint: string, body: object, user?: any): Promise<any> {
     const url = `${this.url}${endpoint}`;
     if (user != null) {
       this.headers = new HttpHeaders({
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        authorization: 'Bearer ' + user.accessParam()
+        authorization: 'Bearer ' + await user.accessParam()
       });
     }
-    console.log('body post', body);
+    console.log('este es el header en el post', this.headers);
     return this.http.post(url, (body != null) ? body : body, {
       headers: this.headers
     }).toPromise();
   }
 
-  public put(endpoint: string, body: object, user?: any): Promise<any> {
+  public async put(endpoint: string, body: object, user?: any): Promise<any> {
     const url = `${this.url}${endpoint}`;
     if (user) {
-      this.headers = new  HttpHeaders({
+      this.headers = new HttpHeaders({
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        authorization: 'Bearer ' + user.accessParam()
+        authorization: 'Bearer ' + await user.accessParam()
       });
     }
     console.log(body);

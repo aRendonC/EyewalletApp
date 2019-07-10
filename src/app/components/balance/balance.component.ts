@@ -46,6 +46,7 @@ export class BalanceComponent implements OnInit {
     this.bodyForm = {userId, type, wallet_id, movement, limit};
     this.transactions = await this.axios.post('transaction/index', this.bodyForm, this.aut);
     // Saca la data del objeto de transacciones
+    console.log('estas son mis transacciones desde el componente balacne', this.transactions)
     const btc = this.transactions.btc;
     this.transactions = this.transactions.data;
     this.transactions.forEach(element => {
@@ -53,8 +54,9 @@ export class BalanceComponent implements OnInit {
       const amountFinal = element.amount_finally;
       const amountDollar = (amountFinal * btc).toFixed(2);
       // extrae la hora de cada objeto
-      const time = element.date.slice(11, 16);
-      const dateFormat = `${element.date.slice(8, 10)}.${element.date.slice(5, 7)}.${element.date.slice(2, 4)}`;
+      console.log('estos son llas iteraciones de transaccion', this.transactions)
+      const time = element.date_transaction.slice(11, 16);
+      const dateFormat = `${element.date_transaction.slice(8, 10)}.${element.date_transaction.slice(5, 7)}.${element.date_transaction.slice(2, 4)}`;
       if (element.confirmation >= 0 && element.confirmation <= 2) {
         const confirmationText = 'Confirmando';
         // Agregar el elemento confirmationText al objeto transactions
