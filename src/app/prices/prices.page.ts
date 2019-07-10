@@ -70,7 +70,7 @@ export class PricesPage implements OnInit {
   // Crea un objeto con el userID para que el Backend me entregue los precios de las criptos
   buildBodyForm() {
     this.bodyForm = {
-      userId: this.user.userId,
+      userId: this.user.data.userId,
     };
   }
 
