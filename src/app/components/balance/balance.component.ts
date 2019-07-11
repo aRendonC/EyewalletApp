@@ -34,15 +34,8 @@ export class BalanceComponent implements OnInit {
 
   async ngOnInit() {
     this.user = await this.store.get('profile');
-    if (!this.user) {
-      let profile = await this.axios.get('profile/1/view', this.auth, null);
-      this.user = profile
-      console.info('esta es a respuesta de endpoint', profile);
-      profile = this.aesjs.encrypt(profile);
-      await this.store.set('profile', profile)
-    } else {
-      this.user = this.aesjs.decrypt(this.user);
-    }
+    this.user = this.aesjs.decrypt(this.user);
+
     console.info('este es el usuario en e componente balance', this.user)
 
     await this.getPocketsList();
