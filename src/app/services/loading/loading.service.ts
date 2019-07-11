@@ -30,7 +30,7 @@ export class LoadingService {
       spinner: 'crescent',
       cssClass: `loadingSpinner ${cssClass}`,
     }
-    
+
     return await this.loadingCtrl.create(options).then(a => {
       a.present().then(() => {
         console.log('presented');

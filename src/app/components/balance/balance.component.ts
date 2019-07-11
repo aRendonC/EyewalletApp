@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { AxiosService } from '../../services/axios/axios.service';
+import {AxiosService} from '../../services/axios/axios.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../../services/aesjs/aes-js.service';
@@ -10,7 +10,7 @@ import {AesJsService} from '../../services/aesjs/aes-js.service';
   styleUrls: ['./balance.component.scss'],
 })
 export class BalanceComponent implements OnInit {
-  @Input()transactions: any;
+  @Input() transactions: any;
   public bodyForm: any;
   public userId: any;
   public transaction: any;
@@ -46,7 +46,7 @@ export class BalanceComponent implements OnInit {
     console.info('este es el usuario en e componente balance', this.user)
 
     await this.getPocketsList();
-    const userId = this.user.data.userId;
+    const userId = this.user.userId;
     const type = 0;
     const wallet_id = this.pockets[0].id;
     const movement = null;
@@ -57,7 +57,7 @@ export class BalanceComponent implements OnInit {
     this.transactions = await this.axios.post('transaction/index', this.bodyForm, this.auth);
     // Saca la data del objeto de transacciones
     console.log('estas son mis transacciones desde el componente balacne', this.transactions)
-    if(this.transactions.status === 200) {
+    if (this.transactions.status === 200) {
       const btc = this.transactions.btc;
       this.transactions = this.transactions.data;
       this.transactions.forEach(element => {
