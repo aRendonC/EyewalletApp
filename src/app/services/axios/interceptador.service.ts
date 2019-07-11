@@ -14,13 +14,14 @@ import {LoadingService} from "../loading/loading.service";
 export class InterceptadorService implements HttpInterceptor {
 
   constructor(
-      private storage: Storage,
-      private auth: AuthService,
-      private alertCtrl: AlertController,
-      private navCtrl: NavController,
-      private timer: TimerService,
-      private loadCtrl: LoadingService
-  ) {}
+    private storage: Storage,
+    private auth: AuthService,
+    private alertCtrl: AlertController,
+    private navCtrl: NavController,
+    private timer: TimerService,
+    private loadCtrl: LoadingService
+  ) {
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.auth.isLogin()) {
@@ -50,13 +51,11 @@ export class InterceptadorService implements HttpInterceptor {
         map((event: HttpEvent<any>) => {
           return event;
         }),
-        catchError( (error: HttpErrorResponse) => {
+        catchError((error: HttpErrorResponse) => {
           console.log('esta es la respuesta del interceptador', error)
           if (error.status === 401) {
-             this.logout();
-             this.navCtrl.navigateRoot('/login');
-             this.presentAlerta();
-             this.loadCtrl.present({})
+            this.logout();
+            this.navCtrl.navigateRoot('/login');
           }
           return throwError(error);
         }));

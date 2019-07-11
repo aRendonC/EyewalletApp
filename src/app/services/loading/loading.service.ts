@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {LoadingController} from "@ionic/angular";
 
 @Injectable({
@@ -6,17 +6,20 @@ import {LoadingController} from "@ionic/angular";
 })
 export class LoadingService {
   isLoading: boolean = false;
+
   constructor(
-      private loadingCtrl: LoadingController
-  ) { }
+    private loadingCtrl: LoadingController
+  ) {
+  }
+
   //Types spinners
   //lines" | "lines-small" | "bubbles" | "circles" | "crescent" | "dots"'.
   //This function is a style Loading Controller
   //To present loading, use this.loading.present() in your page or component
   //Text parameter is optional, cssClass is optional
-  async present({text = 'Por favor no cierre su sesión', cssClass = 'textLoading'}) {
+  async present({text = 'Por favor no cierre su sesión', cssClass = 'textLoading', dutration = false}) {
     this.isLoading = true;
-    return await this.loadingCtrl.create({
+    const options: any = {
       message: text,
       translucent: true,
       animated: true,
@@ -26,7 +29,9 @@ export class LoadingService {
       showBackdrop: false,
       spinner: 'crescent',
       cssClass: `loadingSpinner ${cssClass}`,
-    }).then(a => {
+    }
+    
+    return await this.loadingCtrl.create(options).then(a => {
       a.present().then(() => {
         console.log('presented');
         if (!this.isLoading) {
