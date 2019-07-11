@@ -12,4 +12,4 @@ www
 /.www
 plugins
 /plugins
-./src/environments
+/src/environments
