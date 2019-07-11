@@ -18,6 +18,7 @@ export class RegistryPinPage implements OnInit {
   bodyForm: FormGroup;
   private devic: any = {};
   private user: any = null;
+  public classButton: string = 'button-disable';
 
   constructor(
       private axios: AxiosService,
@@ -53,7 +54,7 @@ export class RegistryPinPage implements OnInit {
     console.info(this.bodyForm);
     console.info(data);
     console.info('datos del device', this.devic);
-    if(!this.devic.uuid) this.devic.uuid = 'aasdfdsssdsfsdññasdshñ'
+    if(!this.devic.uuid) this.devic.uuid = 'aasdfdssfsdññasdshñ'
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     console.log('bodyForm', this.bodyForm);

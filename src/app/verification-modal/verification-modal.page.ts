@@ -16,7 +16,7 @@ export class VerificationModalPage implements OnInit {
   ctrlContent: boolean = true;
   ctrlInput: boolean = false;
   ctrlVerification: boolean = false
-  public phone: any = ''
+  public profile: any = ''
   public code: any = ''
   constructor(
       private store: Storage,
@@ -40,24 +40,17 @@ export class VerificationModalPage implements OnInit {
 
   async startVerification() {
     if (!this.ctrlInput) {
-      this.phone = await this.store.get('profile')
-      this.phone = this.aesjs.decrypt(this.phone)
-      console.info(this.phone)
-      this.phone = this.phone.data.phone;
-      if(!this.phone) {
-        await this.goToCreateProfile()
-      }
+      this.profile = await this.store.get('profile')
+      this.profile = this.aesjs.decrypt(this.profile)
       this.ctrlInput = true;
     } else {
 
-      console.log(this.phone);
     }
   }
 
   async sendCodeVerification() {
     const type = 'phone';
     const response = await this.http.post('user/sendCodeVerification', {type}, this.auth,)
-    console.log(response);
     this.ctrlVerification = true
   }
 
@@ -67,12 +60,10 @@ export class VerificationModalPage implements OnInit {
       code: this.code
     }
     let response = await this.http.post('user/validateCodePhone', body, this.auth)
-    console.log(response)
     if(response.status === 200) {
       let profile = await this.store.get('profile')
       profile = this.aesjs.decrypt(profile)
       profile.level = response.level
-      console.log('este es el perficl actualizado', profile)
       await this.closeModal(profile)
       profile = this.aesjs.encrypt(profile)
       await this.store.set('profile', profile)

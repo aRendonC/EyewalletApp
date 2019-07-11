@@ -139,7 +139,7 @@ export class DashboardPage implements OnInit {
     let profile = await this.store.get('profile');
     profile = await this.aesjs.decrypt(profile);
     this.profile = profile;
-    this.params.userId = profile.id;
+    this.params.userId = profile.userId;
     this.params.type = 4;
     let response = await this.http.post('transaction/index', this.params, this.auth);
 

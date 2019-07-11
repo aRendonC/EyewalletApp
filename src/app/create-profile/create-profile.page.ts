@@ -50,7 +50,7 @@ export class CreateProfilePage implements OnInit {
     this.user = await this.store.get('profile');
     this.user = this.aes.decrypt(this.user);
     this.bodyForm = {
-      userId: this.user.data.userId,
+      userId: this.user.userId,
       firstName: this.firstname,
       lastName: this.lastname,
       zipcode: '',
@@ -60,11 +60,8 @@ export class CreateProfilePage implements OnInit {
       country: '',
       city: ''
     };
-    console.log(this.bodyForm);
-    console.log(this.aut)
     // const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
     const response = await this.axios.put(`profile/${this.bodyForm.userId}/update`, this.bodyForm, this.aut);
-    console.log('eso me responde al crear el perfil', response);
     if (response.status === 200) {
       await this.router.navigate(['/address']);
       // this.store.set('user', JSON.stringify(response.data));

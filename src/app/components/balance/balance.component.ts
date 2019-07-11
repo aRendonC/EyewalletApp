@@ -27,16 +27,12 @@ export class BalanceComponent implements OnInit {
   ) { }
   async getPocketsList() {
     this.pockets = await this.store.get('pockets');
-    console.log('estos son los pockets en e componente balance', this.pockets)
     this.pockets = this.aesjs.decrypt(this.pockets)
   }
 
   async ngOnInit() {
     this.user = await this.store.get('profile');
     this.user = this.aesjs.decrypt(this.user);
-
-    console.info('este es el usuario en e componente balance', this.user)
-
     await this.getPocketsList();
     const userId = this.user.userId;
     const type = 0;
@@ -45,10 +41,8 @@ export class BalanceComponent implements OnInit {
     const limit = 50;
 
     this.bodyForm = {userId, type, wallet_id, movement, limit};
-    console.warn('esta es la data que debo enviar para traer las transacciones', this.bodyForm)
     this.transactions = await this.axios.post('transaction/index', this.bodyForm, this.auth);
     // Saca la data del objeto de transacciones
-    console.log('estas son mis transacciones desde el componente balacne', this.transactions)
     if (this.transactions.status === 200) {
       const btc = this.transactions.btc;
       this.transactions = this.transactions.data;
@@ -57,7 +51,6 @@ export class BalanceComponent implements OnInit {
         const amountFinal = element.amount_finally;
         const amountDollar = (amountFinal * btc).toFixed(2);
         // extrae la hora de cada objeto
-        console.log('estos son llas iteraciones de transaccion', this.transactions)
         const time = element.date_transaction.slice(11, 16);
         const dateFormat = `${element.date_transaction.slice(8, 10)}.${element.date_transaction.slice(5, 7)}.${element.date_transaction.slice(2, 4)}`;
         if (element.confirmation >= 0 && element.confirmation <= 2) {

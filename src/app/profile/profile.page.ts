@@ -45,8 +45,6 @@ export class ProfilePage implements OnInit {
   async getProfile() {
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
-    this.profile = this.profile.data;
-    console.log('este es el perfil', this.profile)
     this.profileShow.id = this.profile.user.id
     this.profileShow.phone = this.profile.phone
     this.profileShow.date = this.profile.createdAt.slice(0, 10)
@@ -55,7 +53,6 @@ export class ProfilePage implements OnInit {
     if(this.profile.country) {
       this.profileShow.country = this.countryLowercase()
     }
-    console.log(this.profileShow);
   }
 
   countryLowercase() {

@@ -102,13 +102,10 @@ ionViewDidLeave() {
       {0: "Baja California", 1: "Baja California", 2: 'Mexico'},
       {0: "Mexico City", 1: "Mexico City", 2: 'Mexico'}
     ];
-    console.log('el país seleccionado', selectedCountry);
-    console.log('el ciudades en el momento',  this.cities);
     this.statesList.forEach(element => {
       if (element[2] === selectedCountry) {
         this.states.push(element)
     }});
-  console.log(this.states)
 }
 
 // getState(country: any) {
@@ -174,14 +171,12 @@ async createProfile() {
   await this.loadingCtrl.present({});
   this.user = await this.store.get('profile');
   this.user = this.aes.decrypt(this.user);
-  this.bodyForm.userId = this.user.data.id
-  const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
-  console.log(response)
+  this.bodyForm.userId = this.user.id
+  const response = await this.axios.put(`profile/${this.user.id}/update`, this.bodyForm, this.aut);
   if (response.status === 200) {
-     let profile = await this.axios.get('profile/1/view',this.aut, null);
-      profile = this.aes.encrypt(profile);
+     let profile: any = await this.axios.get(`profile/${this.user.id}/view`,this.aut, null);
+      profile = this.aes.encrypt(profile.data);
       await this.store.set('profile', profile);
-      console.log('nuevo perfil', profile)
     await this.loadingCtrl.dismiss();
     await this.router.navigate(['app/tabs']);
     // await this.store.set('user', JSON.stringify(response.data));
