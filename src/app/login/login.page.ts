@@ -50,32 +50,27 @@ export class LoginPage implements OnInit {
     await this.loadingCtrl.present({});
     this.ctrlCssBlur = true;
     this.auth.login(this.username, this.password).then(async (data: any) => {
-      console.info('========datos de inicio de sesión', data);
-      if (data.status == 200) {
-        await this.getUserProfile();
-        await this.getPocketsList();
-        console.info('mis pockets', this.pockets);
-        this.touchCtrl.isLocked = false;
-        this.ctrlCssBlur = false;
-        await this.loadingCtrl.dismiss();
-        await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
-        this.pockets = this.aesjs.encrypt(this.pockets);
-        await this.store.set('pockets', this.pockets)
-      } else {
-        await this.loadingCtrl.dismiss();
-        this.ctrlCssBlur = false;
-        await this.presentToast();
-      }
+      if (data) {
+        if (data.status == 200) {
+          await this.getUserProfile(data.data.profile);
+          await this.getPocketsList();
+          console.info('mis pockets', this.pockets);
+          this.touchCtrl.isLocked = false;
+          this.ctrlCssBlur = false;
+          await this.loadingCtrl.dismiss();
+          await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
+          this.pockets = this.aesjs.encrypt(this.pockets);
+          await this.store.set('pockets', this.pockets)
+        } else this.clearData();
+      } else this.clearData()
+
     }).catch((error) => {
       this.ctrlCssBlur = false;
       console.log(error);
     });
   }
 
-  async getUserProfile() {
-    console.log('auth del usuario', this.auth);
-    let profile = await this.http.get('profile/1/view', this.auth, null);
-    console.info(profile);
+  async getUserProfile(profile) {
     profile = this.aesjs.encrypt(profile);
     await this.store.set('profile', profile)
   }
@@ -107,5 +102,11 @@ export class LoginPage implements OnInit {
 
   public async restore() {
     await this.router.navigate(['restore']);
+  }
+
+  public async clearData() {
+    await this.loadingCtrl.dismiss();
+    this.ctrlCssBlur = false;
+    await this.presentToast();
   }
 }

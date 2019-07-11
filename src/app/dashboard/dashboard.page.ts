@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {ActivatedRoute,Router} from '@angular/router';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../verification-modal/verification-modal.page';
 import {enterAnimation} from '../animations/enter';
@@ -9,9 +9,8 @@ import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
-import { SlidersComponent } from '../components/sliders/sliders.component';
+import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
-import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 
 @Component({
@@ -29,7 +28,7 @@ export class DashboardPage implements OnInit {
   public profile: any;
   public params = {
     userId: null,
-    type:  null,
+    type: null,
     wallet_id: null,
     movement: null,
     limit: null
@@ -46,16 +45,17 @@ export class DashboardPage implements OnInit {
   public dataArrayGraphic = [];
 
   constructor(
-      private route: ActivatedRoute,
-      private modalCtrl: ModalController,
-      private storage: DataLocalService,
-      private http: AxiosService,
-      private auth: AuthService,
-      private store: Storage,
-      protected aesjs: AesJsService,
-      public loadingController: LoadingService,
-      private routes: Router,
-  ) {}
+    private route: ActivatedRoute,
+    private modalCtrl: ModalController,
+    private storage: DataLocalService,
+    private http: AxiosService,
+    private auth: AuthService,
+    private store: Storage,
+    protected aesjs: AesJsService,
+    public loadingController: LoadingService,
+    private routes: Router,
+  ) {
+  }
 
   async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
@@ -71,6 +71,7 @@ export class DashboardPage implements OnInit {
 
     return await modal.present();
   }
+
   private getUserId(): any {
     return this.storage.getDataLocal('profile');
   }
@@ -79,7 +80,7 @@ export class DashboardPage implements OnInit {
     this.crypto.forEach(element => {
       if (data.pocket.currencyId === 1 && element.name === 'Bitcoin') {
         element.value = data.pocket.balance;
-        if(data.data[0]) {
+        if (data.data[0]) {
           data.data.forEach(elementGraphic => {
             element.graphic.push(parseFloat(elementGraphic.balance_after));
           });
@@ -91,7 +92,7 @@ export class DashboardPage implements OnInit {
   }
 
 
-  getTransactionHistory(data: any){
+  getTransactionHistory(data: any) {
     this.transactionComponent = data.data;
     const btc = data.btc;
     this.transactionComponent.forEach(element => {
@@ -136,30 +137,22 @@ export class DashboardPage implements OnInit {
     this.ctrlCssBlur = true;
     await this.loadingController.present({cssClass: 'textLoadingBlack'});
     let profile = await this.store.get('profile');
-    if(!profile) {
-       profile = await this.http.get('profile/1/view',this.auth, null);
-      profile = this.aesjs.encrypt(profile);
-      await this.store.set('profile', profile);
-      profile = this.aesjs.decrypt(profile)
-    } else {
-      profile = this.aesjs.decrypt(profile);
-    }
-
+    profile = await this.aesjs.decrypt(profile);
     this.profile = profile;
-    this.params.userId = profile.data.id;
+    this.params.userId = profile.id;
     this.params.type = 4;
     let response = await this.http.post('transaction/index', this.params, this.auth);
 
     //llamar el listado de transacciones
     // await this.getListTransactions(this.params,this.auth);
-    if(!this.pockets) {
+    if (!this.pockets) {
       this.pockets = await this.store.get('pockets');
-      if(this.pockets) {
+      if (this.pockets) {
         this.pockets = this.aesjs.decrypt(this.pockets)
       }
     }
-    if(response.status === 200) {
-      if(response.data[0]) {
+    if (response.status === 200) {
+      if (response.data[0]) {
         let usdbtc = response.btc;
 
         // let usd = JSON.parse(response.data[0].descripcion);
@@ -172,23 +165,23 @@ export class DashboardPage implements OnInit {
         this.ctrlCssBlur = false;
         await this.loadingController.dismiss()
       } else {
-        this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
-        this.crypto[0].value= this.pockets[0].balance;
+        this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.crypto[0].value = this.pockets[0].balance;
         this.ctrlCssBlur = false;
         await this.loadingController.dismiss()
       }
     } else {
-      this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
-      this.crypto[0].value= this.pockets[0].balance;
+      this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.crypto[0].value = this.pockets[0].balance;
       this.ctrlCssBlur = false;
       await this.loadingController.dismiss()
     }
   }
 
-  async getListTransactions(params, auth){
+  async getListTransactions(params, auth) {
     let response = await this.http.post('transaction/all', params, auth);
     let dataTransaction = response.data;
-    if(dataTransaction[0]){
+    if (dataTransaction[0]) {
       dataTransaction.forEach(element => {
         this.crypto.forEach(element1 => {
           if (element1.name === 'Bitcoin') {
@@ -198,9 +191,9 @@ export class DashboardPage implements OnInit {
       });
 
       this.crypto[0].graphic = this.dataGraphic;
-    }else{
-      this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
-      this.crypto[0].value=0;
+    } else {
+      this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.crypto[0].value = 0;
     }
     this.ctrlCssBlur = false;
     await this.loadingController.dismiss()
