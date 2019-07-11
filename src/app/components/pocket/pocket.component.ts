@@ -18,7 +18,7 @@ import {LoadingService} from "../../services/loading/loading.service";
 export class PocketComponent implements OnInit {
   @Input() pockets: any = [];
   @Input() urlPresent: any = '';
-  @Input() ctrlNavigation: boolean = false;
+  @Input() ctrlNavigation: number = 0;
   @Output() dataBalance = new EventEmitter<[]>();
   public pocket: any = '';
   imgLeft:string=null;
@@ -136,6 +136,6 @@ export class PocketComponent implements OnInit {
       message: 'Lo sentimos, sus documentos no han sido verificados',
       duration: 2000
     });
-    toast.present();
+    await toast.present();
   }
 }

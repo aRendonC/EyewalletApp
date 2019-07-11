@@ -18,7 +18,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 export class ReceiveFundsPage implements OnInit {
   public textAmount: string = CONSTANTS.RECEIVE_FUNDS.AMOUNT;
   public buttonCopy: string = CONSTANTS.RECEIVE_FUNDS.BUTTON_COPY;
-  public ctrlNavigation = true;
+  public ctrlNavigation: number = 1;
   public pockets = null;
 
   public amount = null;

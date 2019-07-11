@@ -42,7 +42,8 @@ export class RegistryPage implements OnInit {
     private router: Router,
     private store: Storage,
     private device: DeviceService,
-    private loadingCtrl: LoadingService
+    private loadingCtrl: LoadingService,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
@@ -126,7 +127,7 @@ export class RegistryPage implements OnInit {
     await this.loadingCtrl.present({})
    let device = await this.device.getDataDevice();
    console.log('datos del dispositivo', device);
-   if(!device.uuid) device.uuid = 'aasdfdfasdsssññasdshñ';
+   if(!device.uuid) device.uuid = 'aasdfdsssdsfsdññasdshñ';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
@@ -139,7 +140,7 @@ export class RegistryPage implements OnInit {
     .then(async response => {
       if (response.status === 200) {
         console.log(response.data);
-        this.store.set('user', response.data);
+       await this.store.set('user', response.data);
         await this.router.navigate(['/registry-pin'], {
           queryParams: {
             user: JSON.stringify(response.data),
@@ -147,9 +148,19 @@ export class RegistryPage implements OnInit {
           },
           queryParamsHandling: 'merge'
         });
+        await this.loadingCtrl.dismiss()
       } else {
+        await this.presentToast(response.data)
         await this.loadingCtrl.dismiss()
       }
     });
+  }
+
+  async presentToast(text) {
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 2000
+    });
+     await toast.present();
   }
 }

@@ -22,8 +22,8 @@ import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 export class DashboardPage implements OnInit {
   @ViewChild(SlidersComponent) childD: SlidersComponent;
-  ctrlCssBlur: boolean = false
-  ctrlNavigation = false;
+  ctrlCssBlur: boolean = false;
+  ctrlNavigation = 0;
   transactionComponent: any;
   public pockets: any = [];
   public profile: any;
@@ -76,30 +76,24 @@ export class DashboardPage implements OnInit {
   }
 
   public async getDataPocket(data: any) {
-    console.log('estoy recibiendo data en la pagina dashboard', data);
-
     this.crypto.forEach(element => {
       if (data.pocket.currencyId === 1 && element.name === 'Bitcoin') {
         element.value = data.pocket.balance;
         if(data.data[0]) {
           data.data.forEach(elementGraphic => {
-            console.warn(elementGraphic)
             element.graphic.push(parseFloat(elementGraphic.balance_after));
           });
         }
       }
     });
-    console.log('DataUpdata: ', this.crypto[0].graphic);
-    this.getTransactionHistory(data)
+    this.getTransactionHistory(data);
     await this.childD.grafica();
   }
 
 
   getTransactionHistory(data: any){
-    console.log(data)
-    this.transactionComponent = data.data
+    this.transactionComponent = data.data;
     const btc = data.btc;
-    console.log('este es el betece', btc)
     this.transactionComponent.forEach(element => {
       //
       const amountFinal = element.amount_finally;
@@ -139,34 +133,27 @@ export class DashboardPage implements OnInit {
   }
 
   async getUserProfile() {
-    this.ctrlCssBlur = true
-    await this.loadingController.present({cssClass: 'textLoadingBlack'})
+    this.ctrlCssBlur = true;
+    await this.loadingController.present({cssClass: 'textLoadingBlack'});
     let profile = await this.store.get('profile');
-    console.info('Data profile: ', profile);
     if(!profile) {
        profile = await this.http.get('profile/1/view',this.auth, null);
-      console.info(profile);
       profile = this.aesjs.encrypt(profile);
-      await this.store.set('profile', profile)
+      await this.store.set('profile', profile);
       profile = this.aesjs.decrypt(profile)
     } else {
       profile = this.aesjs.decrypt(profile);
-      console.info('Data profile: ', profile);
     }
 
-    console.info('Estos son los datos del perfil luego de la api o del store', profile);
     this.profile = profile;
     this.params.userId = profile.data.id;
     this.params.type = 4;
-    console.info('Parámetros para enviar a buscar: ', this.params);
-    console.info('Parámetros del auth de usuario login o registrado', this.auth);
     let response = await this.http.post('transaction/index', this.params, this.auth);
 
     //llamar el listado de transacciones
     // await this.getListTransactions(this.params,this.auth);
     if(!this.pockets) {
-      this.pockets = await this.store.get('pockets')
-      console.info('estos son los pockets en el dashboard luego de registrame', this.pockets)
+      this.pockets = await this.store.get('pockets');
       if(this.pockets) {
         this.pockets = this.aesjs.decrypt(this.pockets)
       }
@@ -176,49 +163,31 @@ export class DashboardPage implements OnInit {
         let usdbtc = response.btc;
 
         // let usd = JSON.parse(response.data[0].descripcion);
-        console.table('históico transaccción', response)
-        console.error('error del poket', this.pockets)
         this.crypto.forEach(element => {
           if (element.name === 'Bitcoin') {
-            console.log('valor btc', usdbtc)
-            element.value = this.pockets[0].balance
+            element.value = this.pockets[0].balance;
             element.valueUsd = this.pockets[0].balance * usdbtc.toFixed(8);
           }
         });
-        this.ctrlCssBlur = false
+        this.ctrlCssBlur = false;
         await this.loadingController.dismiss()
       } else {
-        console.info('respuesta no es 200')
-        console.info('respuesta no es 200',  this.crypto)
-        console.info('respuesta no es 200',  this.pockets)
         this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
-        console.error('primera pockert', this.pockets[0].balance)
-        console.error('primera pockert', this.crypto[0].graphic.length )
         this.crypto[0].value= this.pockets[0].balance;
-        this.ctrlCssBlur = false
+        this.ctrlCssBlur = false;
         await this.loadingController.dismiss()
       }
     } else {
-      console.info('respuesta no es 200')
-      console.info('respuesta no es 200',  this.crypto)
-      console.info('respuesta no es 200',  this.pockets)
       this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
-      console.error('primera pockert', this.pockets[0].balance)
-      console.error('primera pockert', this.crypto[0].graphic.length )
       this.crypto[0].value= this.pockets[0].balance;
-      this.ctrlCssBlur = false
+      this.ctrlCssBlur = false;
       await this.loadingController.dismiss()
     }
   }
 
   async getListTransactions(params, auth){
-
     let response = await this.http.post('transaction/all', params, auth);
-    console.log('todas mis transacciones', response)
     let dataTransaction = response.data;
-
-
-
     if(dataTransaction[0]){
       dataTransaction.forEach(element => {
         this.crypto.forEach(element1 => {
@@ -233,7 +202,7 @@ export class DashboardPage implements OnInit {
       this.crypto[0].graphic = [0,0,0,0,0,0,0,0,0,0,0,0];
       this.crypto[0].value=0;
     }
-    this.ctrlCssBlur = false
+    this.ctrlCssBlur = false;
     await this.loadingController.dismiss()
   }
 }

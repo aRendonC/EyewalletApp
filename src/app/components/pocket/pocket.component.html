@@ -1,4 +1,4 @@
-<div *ngIf="!ctrlNavigation" class="z-pocket">
+<div *ngIf="ctrlNavigation === 0" class="z-pocket">
   <img (click)="receiveCash()"  [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>
   <p (click)="openPocketsModal()">
 
@@ -7,7 +7,11 @@
   </p>
   <img (click)="sendCash()" class="resize-logo-right" src="../../assets/img/btn-right.svg"/>
 </div>
-<div *ngIf="ctrlNavigation">
+<div *ngIf="ctrlNavigation === 1">
     <img (click)="goToHome()"  class="resize-logo-close" src="../../../assets/img/sendCripto/backTop.png"/>
+</div>
+
+<div *ngIf="ctrlNavigation === 2" class="z-pocket">
+poner acá el cerrar sesión
 </div>
 

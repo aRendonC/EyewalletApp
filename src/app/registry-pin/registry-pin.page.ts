@@ -53,7 +53,7 @@ export class RegistryPinPage implements OnInit {
     console.info(this.bodyForm);
     console.info(data);
     console.info('datos del device', this.devic);
-    if(!this.devic.uuid) this.devic.uuid = 'aasdfdfasdsssññasdshñ'
+    if(!this.devic.uuid) this.devic.uuid = 'aasdfdsssdsfsdññasdshñ'
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     console.log('bodyForm', this.bodyForm);
@@ -64,6 +64,7 @@ export class RegistryPinPage implements OnInit {
       let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password)
       if(loginUser.status === 200){
         await this.router.navigate(['/app/tabs'])
+        await this.loadingCtrl.dismiss()
       }
     } else {
       await this.loadingCtrl.dismiss()

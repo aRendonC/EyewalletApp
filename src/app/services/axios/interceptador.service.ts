@@ -6,18 +6,21 @@ import {AuthService} from '../auth/auth.service';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {TimerService} from '../timer/timer.service';
+import {LoadingService} from "../loading/loading.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptadorService implements HttpInterceptor {
 
-  constructor(private storage: Storage,
-              private auth: AuthService,
-              private alertCtrl: AlertController,
-              private navCtrl: NavController,
-              private timer: TimerService) {
-  }
+  constructor(
+      private storage: Storage,
+      private auth: AuthService,
+      private alertCtrl: AlertController,
+      private navCtrl: NavController,
+      private timer: TimerService,
+      private loadCtrl: LoadingService
+  ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.auth.isLogin()) {
@@ -47,11 +50,13 @@ export class InterceptadorService implements HttpInterceptor {
         map((event: HttpEvent<any>) => {
           return event;
         }),
-        catchError((error: HttpErrorResponse) => {
+        catchError( (error: HttpErrorResponse) => {
+          console.log('esta es la respuesta del interceptador', error)
           if (error.status === 401) {
-            this.logout();
-            this.navCtrl.navigateRoot('/login');
-            this.presentAlerta();
+             this.logout();
+             this.navCtrl.navigateRoot('/login');
+             this.presentAlerta();
+             this.loadCtrl.present({})
           }
           return throwError(error);
         }));
@@ -61,12 +66,12 @@ export class InterceptadorService implements HttpInterceptor {
   }
 
 
-  logout() {
-    this.storage.remove('user')
-    this.storage.clear();
-    this.timer.resetTimer();
-    this.navCtrl.navigateRoot('/login');
-    this.presentAlerta();
+  async logout() {
+    await this.storage.remove('user')
+    await this.storage.clear();
+    // this.timer.resetTimer();
+    await this.navCtrl.navigateRoot('/login');
+    await this.presentAlerta();
   }
 
   async presentAlerta() {

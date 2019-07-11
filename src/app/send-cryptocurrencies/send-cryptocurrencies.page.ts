@@ -17,7 +17,7 @@ import {LoadingService} from "../services/loading/loading.service";
 export class SendCryptocurrenciesPage implements OnInit {
   @Input() public pockets: any = [];
     totalSend: any = null
-    ctrlNavigation: boolean = true;
+    ctrlNavigation: number = 1;
     isOn  = false;
     scanner: any;
     ctrlButtonSend: boolean = true;

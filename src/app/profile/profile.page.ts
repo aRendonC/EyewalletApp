@@ -25,6 +25,7 @@ export class ProfilePage implements OnInit {
   temporizador: any;
   pockets: any = [];
   country: any = '';
+  public ctrlNavigation = 2;
 
   constructor(
     private store: Storage,

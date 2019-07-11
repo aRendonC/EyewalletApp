@@ -39,11 +39,13 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
   declarations: [AppComponent, PinModalPage, VerificationModalPage],
   entryComponents: [PinModalPage, VerificationModalPage],
   imports: [
+    ComponentsModule,
     ReactiveFormsModule,
     FormsModule,
-    ComponentsModule,
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      hardwareBackButton: false
+    }),
     AppRoutingModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),

@@ -57,7 +57,6 @@ export class AddressPage implements OnInit {
 async ngOnInit() {
   // await this.getCountries();
   this.menu.enable(false);
-  this.touchCtrl.isLocked = true;
   await this.loadingCtrl.dismiss();
 }
 ionViewDidLeave() {
@@ -149,8 +148,6 @@ this.citiesList = [
     {0: "98000", 1: "Camalu", 2: "Baja California"},
     {0: "95947", 1: "Xochimilco", 2: "Mexico City"}
   ];
-console.log('estado seleccionado', selectedState)
-console.log('las ciudades en el momento', this.cities)
   this.citiesList.forEach(element => {
     if (element[2] === selectedState) {
       this.cities.push(element)
@@ -177,13 +174,16 @@ async createProfile() {
   await this.loadingCtrl.present({});
   this.user = await this.store.get('profile');
   this.user = this.aes.decrypt(this.user);
-  console.log(this.user);
-  console.log(this.bodyForm);
   this.bodyForm.userId = this.user.data.id
-  console.log(this.aut);
   const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
-  console.log('respuesta put', response);
+  console.log(response)
   if (response.status === 200) {
+     let profile = await this.axios.get('profile/1/view',this.aut, null);
+      profile = this.aes.encrypt(profile);
+      await this.store.set('profile', profile);
+      profile = this.aes.decrypt(profile)
+      console.log('nuevo perfil', profile)
+      this.store.set('profile', profile)
     await this.loadingCtrl.dismiss();
     await this.router.navigate(['app/tabs']);
     // await this.store.set('user', JSON.stringify(response.data));
