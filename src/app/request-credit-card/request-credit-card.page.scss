@@ -1,0 +1,116 @@
+@import '../../global.scss';
+
+.request-credit-card {
+   .content-logo {
+      @extend .all-center;
+      padding: 60px 0 20px 0;
+
+      .image {
+         height: 220px;
+         width: 220px;
+      }
+   }
+
+   .content-logo-display {
+      @extend .content-logo;
+      @extend .disappear-up-dissipated;
+   }
+
+   .content-text-card-form {
+      .content-text-icon {
+         @extend .all-center;
+   
+         .text {
+            font-family: $font-roboto-regular;
+            font-size: 26px;
+            color: #272759;
+            margin: 0 10px 0 0;
+         }
+   
+         .icon {
+            height: 80px;
+            width: 80px;
+         }
+      }
+   
+      .content-image-card {
+         padding: 10px 20px 20px 30px;
+      }
+   
+      .content-form {
+         background: rebeccapurple;
+      }
+   }
+
+   .content-text-card-form-display {
+      .content-text-icon {
+         @extend .all-center;
+   
+         .text {
+            font-family: $font-roboto-regular;
+            font-size: 26px;
+            color: #272759;
+            margin: 0 10px 0 0;
+         }
+   
+         .icon {
+            height: 80px;
+            width: 80px;
+         }
+      }
+   
+      .content-image-card {
+         padding: 10px 20px 20px 30px;
+      }
+   
+      .content-form {
+         background: rebeccapurple;
+      }
+      @extend .disappear-up;
+   }
+}
+
+// Animated. Always use the "animated" class.
+.disappear-up {
+   -webkit-animation-name: disappear-up;
+   animation-name: disappear-up;
+}
+
+.disappear-up-dissipated {
+   -webkit-animation-name: disappear-up-dissipated;
+   animation-name: disappear-up-dissipated;
+}
+
+// Animation of disappear-up.
+@-webkit-keyframes disappear-up {
+   to {
+      opacity: 1;
+      -webkit-transform: translate3d(0, -300px, 0);
+      transform: translate3d(0, -300px, 0);
+   }
+}
+ 
+@keyframes disappear-up {
+   to {
+      opacity: 1;
+      -webkit-transform: translate3d(0, -300px, 0);
+      transform: translate3d(0, -300px, 0);
+   }
+}
+
+// Animation of disappear-up-dissipated.
+@-webkit-keyframes disappear-up-dissipated {
+   to {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -300px, 0);
+      transform: translate3d(0, -300px, 0);
+   }
+}
+ 
+@keyframes disappear-up-dissipated {
+   to {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -300px, 0);
+      transform: translate3d(0, -300px, 0);
+   }
+}
