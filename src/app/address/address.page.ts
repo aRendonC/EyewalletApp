@@ -181,9 +181,7 @@ async createProfile() {
      let profile = await this.axios.get('profile/1/view',this.aut, null);
       profile = this.aes.encrypt(profile);
       await this.store.set('profile', profile);
-      profile = this.aes.decrypt(profile)
       console.log('nuevo perfil', profile)
-      this.store.set('profile', profile)
     await this.loadingCtrl.dismiss();
     await this.router.navigate(['app/tabs']);
     // await this.store.set('user', JSON.stringify(response.data));

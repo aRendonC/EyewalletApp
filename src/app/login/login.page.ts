@@ -50,9 +50,9 @@ export class LoginPage implements OnInit {
   async login() {
     await this.loadingCtrl.present({});
     this.ctrlCssBlur = true;
-    this.auth.login(this.username, this.password).then(async (data) => {
+    this.auth.login(this.username, this.password).then(async (data: any) => {
       console.info('datos de inicio de sesión', data);
-      if (data) {
+      if (data.status === 200) {
         // @ts-ignore
         // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
         // this.router.navigate(['/perfil',data.id]);

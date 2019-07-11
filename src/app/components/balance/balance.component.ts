@@ -25,7 +25,6 @@ export class BalanceComponent implements OnInit {
     private aesjs: AesJsService,
 
   ) { }
-
   async getPocketsList() {
     this.pockets = await this.store.get('pockets');
     console.log('estos son los pockets en e componente balance', this.pockets)
@@ -34,6 +33,7 @@ export class BalanceComponent implements OnInit {
 
   async ngOnInit() {
     this.user = await this.store.get('profile');
+    console.log(this.user)
     if(!this.user){
       let profile = await this.axios.get('profile/1/view',this.auth, null);
       this.user = profile

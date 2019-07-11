@@ -29,7 +29,7 @@ export class TabsPage {
     console.log(profile)
     profile = this.aesjs.decrypt(profile)
 
-    if(profile.data.user.name){
+    if(profile.data.user.firstName){
       await this.router.navigate(['/app/tabs/profile'])
     } else{
       await this.presentToastTabs('Por favor, registre su perfil')
