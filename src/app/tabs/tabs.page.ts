@@ -14,35 +14,36 @@ import {ToastController} from "@ionic/angular";
 export class TabsPage {
 
   ctrlCssBlur: boolean = false
+
   constructor(
-      private auth: AuthService,
-      private loadControl: LoadingService,
-      private router: Router,
-      private store: Storage,
-      private aesjs: AesJsService,
-      private toastCtrl: ToastController
+    private auth: AuthService,
+    private loadControl: LoadingService,
+    private router: Router,
+    private store: Storage,
+    private aesjs: AesJsService,
+    private toastCtrl: ToastController
   ) {
   }
 
-  async goToProfile(){
+  async goToProfile() {
     let profile = await this.store.get('profile')
     console.log(profile)
     profile = this.aesjs.decrypt(profile)
 
-    if(profile.data.user.name){
+    if (profile.user.name) {
       await this.router.navigate(['/app/tabs/profile'])
-    } else{
+    } else {
       await this.presentToastTabs('Por favor, registre su perfil')
       await this.router.navigate(['/create-profile'])
     }
   }
 
- async presentToastTabs(text){
+  async presentToastTabs(text) {
     let toast = await this.toastCtrl.create({
       message: text,
       duration: 2000
     })
-   await toast.present()
+    await toast.present()
   }
 
   verifiLoading(data: boolean) {
