@@ -27,7 +27,6 @@ export class TabsPage {
 
   async goToProfile() {
     let profile = await this.store.get('profile')
-    console.log(profile)
     profile = this.aesjs.decrypt(profile)
 
     if(profile.data.user.firstName){
