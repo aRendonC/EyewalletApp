@@ -28,8 +28,7 @@ export class TabsPage {
   async goToProfile() {
     let profile = await this.store.get('profile')
     profile = this.aesjs.decrypt(profile)
-
-    if (profile.user.name) {
+    if (profile.user.firstName) {
       await this.router.navigate(['/app/tabs/profile'])
     } else {
       await this.presentToastTabs('Por favor, registre su perfil')
