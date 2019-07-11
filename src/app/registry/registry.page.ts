@@ -46,9 +46,7 @@ export class RegistryPage implements OnInit {
     private toastCtrl: ToastController
   ) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   public validateEmail(event): void {
     if (!validator.isEmpty(event) && validator.isEmail(event)) {
