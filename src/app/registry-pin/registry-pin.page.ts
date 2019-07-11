@@ -6,6 +6,7 @@ import {Validators, FormGroup, FormBuilder, FormControl} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
+import {LoadingService} from "../services/loading/loading.service";
 
 @Component({
   selector: 'app-registry-pin',
@@ -24,7 +25,8 @@ export class RegistryPinPage implements OnInit {
       private activatedRoute: ActivatedRoute,
       private router: Router,
       private auth: AuthService,
-      private store: Storage
+      private store: Storage,
+      private loadingCtrl: LoadingService
   ) {
   }
 
@@ -42,9 +44,11 @@ export class RegistryPinPage implements OnInit {
       device: new FormControl(''),
       userId: new FormControl('')
     });
+    await this.loadingCtrl.dismiss()
   }
 
   async registerPin(data: any) {
+    await this.loadingCtrl.present({})
     this.devic = await this.device.getDataDevice();
     console.info(this.bodyForm);
     console.info(data);
@@ -61,6 +65,8 @@ export class RegistryPinPage implements OnInit {
       if(loginUser.status === 200){
         await this.router.navigate(['/app/tabs'])
       }
+    } else {
+      await this.loadingCtrl.dismiss()
     }
   }
 }

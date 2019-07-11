@@ -7,6 +7,7 @@ import {AlertController, ToastController} from "@ionic/angular";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {LoadingService} from "../services/loading/loading.service";
 
 @Component({
   selector: 'app-send-cryptocurrencies',
@@ -45,7 +46,8 @@ export class SendCryptocurrenciesPage implements OnInit {
       private alerrtCtrl: AlertController,
       protected store: Storage,
       private aesjs: AesJsService,
-      private toastCtrl: ToastController
+      private toastCtrl: ToastController,
+      private loadingCtrl: LoadingService
   ) { }
 
   ngOnInit() {
@@ -62,7 +64,8 @@ export class SendCryptocurrenciesPage implements OnInit {
           ])),
           from_address: new FormControl(''),
           description: new FormControl(''),
-          currencyId: new FormControl('')
+          currencyId: new FormControl(''),
+          fee: new FormControl('')
       })
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
     console.log(this.pockets);
@@ -79,9 +82,7 @@ export class SendCryptocurrenciesPage implements OnInit {
                      this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
                         console.log('Scanned something', text);
                         this.placeHolder = text
-                         this.bodyForm.setValue({
-                             to_address: text
-                         });
+                         this.bodyForm.get('to_address').setValue(text)
                         await this.unSuscribed()
                     });
 
@@ -117,7 +118,8 @@ export class SendCryptocurrenciesPage implements OnInit {
           if(this.fee.error_message) {
               this.totalSend = this.fee.error_message
           } else {
-              this.totalSend = 'Total del envío ' + (parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee))
+              this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee)).toFixed(8))
+              this.bodyForm.get('to_address').setValue((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee)).toFixed(8))
           }
           console.log(this.fee)
           console.log(this.totalSend)
@@ -134,7 +136,7 @@ export class SendCryptocurrenciesPage implements OnInit {
             console.info('listo para enviar')
             await this.presentAlertSend()
         } else {
-            console.info('no tiene fondos')
+            await this.presentToast('No tiene fondos suficientes')
         }
     }
 
@@ -168,6 +170,7 @@ export class SendCryptocurrenciesPage implements OnInit {
                         console.log(security)
                         console.log(alertData.pin)
                         if(security === alertData.pin) {
+                            await this.loadingCtrl.present({})
                             security = this.aesjs.encryptNoJson(security)
                             this.bodyForm.value.currencyId = this.pockets.currencyId
                             this.bodyForm.value.pin = security
@@ -178,6 +181,7 @@ export class SendCryptocurrenciesPage implements OnInit {
                             let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth)
                             console.log(response)
                             if (response.status === 200) {
+                                await this.loadingCtrl.dismiss()
                                await this.presentToast('Transacción realizada con éxito')
                             } else {
                                 await this.presentToast('Hubo un error')

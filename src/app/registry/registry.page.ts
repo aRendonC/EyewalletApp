@@ -13,6 +13,7 @@ import { Router} from '@angular/router';
 // Storage
 import {Storage} from '@ionic/storage';
 import {DeviceService} from "../services/device/device.service";
+import {LoadingService} from "../services/loading/loading.service";
 
 @Component({
   selector: 'app-registry',
@@ -41,6 +42,7 @@ export class RegistryPage implements OnInit {
     private router: Router,
     private store: Storage,
     private device: DeviceService,
+    private loadingCtrl: LoadingService
   ) { }
 
   ngOnInit() {
@@ -121,6 +123,7 @@ export class RegistryPage implements OnInit {
   }
 
   public async sendDataRegistry() {
+    await this.loadingCtrl.present({})
    let device = await this.device.getDataDevice();
    console.log('datos del dispositivo', device);
    if(!device.uuid) device.uuid = 'aasdfdfasdsssññasdshñ';
@@ -144,6 +147,8 @@ export class RegistryPage implements OnInit {
           },
           queryParamsHandling: 'merge'
         });
+      } else {
+        await this.loadingCtrl.dismiss()
       }
     });
   }
