@@ -1,0 +1,29 @@
+<ion-content class="request-credit-card">
+  <!-- <app-pocket></app-pocket> -->
+  <div class="class-temp">Component pockets.</div>
+
+  <div [ngClass]="showContentLogo ? 'content-logo' : 'content-logo-card animated animation-content-logo-card'">
+    <ion-img
+      [src]="setImageLogoCard()"
+      [ngClass]="showContentLogo ? 'image-logo' : 'image-card'"
+    ></ion-img>
+  </div>
+
+  <div [ngClass]="showContentLogo ? 'content-text-icon' : 'content-text-icon transition-title'">
+    <span class="text">Solicitar tarjeta</span>
+    <ion-img src="../../assets/icon/icon-request-card.svg" (click)="showForm()" class="icon"></ion-img>
+  </div>
+
+  <div [ngClass]="showContentLogo ? 'content-image-card' : 'content-image-card transition-card'">
+    <ion-img src="../../assets/images/image-card.svg"></ion-img>
+  </div>
+
+  <div [ngClass]="showContentLogo ? 'no-show-form-content' : 'show-form-content transition-form'">
+    <ul class="list">
+      <li *ngFor="let item of itemsDataProfile" class="item">
+        <label class="key-item">{{item}}</label>
+        <label class="value-item">Value item...</label>
+      </li>
+    </ul>
+  </div>
+</ion-content>
