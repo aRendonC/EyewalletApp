@@ -26,6 +26,7 @@ export class ProfilePage implements OnInit {
   pockets: any = [];
   country: any = '';
   public ctrlNavigation = 2;
+  fullName: any = '';
 
   constructor(
     private store: Storage,
