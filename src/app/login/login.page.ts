@@ -52,7 +52,6 @@ export class LoginPage implements OnInit {
     this.auth.login(this.username, this.password).then(async (data: any) => {
       if (data) {
         if (data.status == 200) {
-          await this.getUserProfile(data.data.profile);
           await this.getPocketsList();
           console.info('mis pockets', this.pockets);
           this.touchCtrl.isLocked = false;
@@ -61,18 +60,13 @@ export class LoginPage implements OnInit {
           await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
           this.pockets = this.aesjs.encrypt(this.pockets);
           await this.store.set('pockets', this.pockets)
-        } else this.clearData();
-      } else this.clearData()
+        } else await this.clearData();
+      } else await this.clearData()
 
     }).catch((error) => {
       this.ctrlCssBlur = false;
       console.log(error);
     });
-  }
-
-  async getUserProfile(profile) {
-    profile = this.aesjs.encrypt(profile);
-    await this.store.set('profile', profile)
   }
 
   async openModal() {

@@ -1,17 +1,40 @@
-<div *ngIf="ctrlNavigation === 0" class="z-pocket">
-  <img (click)="receiveCash()"  [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>
-  <p (click)="openPocketsModal()">
+<ion-grid style="padding: 0">
+  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 0" class="z-pocket">
+    <ion-col style="padding: 0" size="3" (click)="receiveCash()">
+      <div class="button-receive center-horizontal center-vertical center bounceInRight">
+        <ion-label style="margin-right: 5%; color: white;">
+          Recibir
+        </ion-label>
+        <img  class="resize-logo-right " src="../../assets/img/pocketsComponent/receive-icon.png"/>
+      </div>
+      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+    </ion-col>
+    <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" (click)="openPocketsModal()">
+        <img  src="../../../assets/img/pocketsComponent/pockets.png"/>
+        <ion-label class="resize-text" >{{pocket?.label}}</ion-label>
+    </ion-col>
+    <ion-col size="3" (click)="sendCash()" class="" style="color: white; padding: 0">
+      <div class="button-send center-horizontal center-vertical center bounceInRight">
+          <img  class="resize-logo-right " src="../../assets/img/pocketsComponent/send-icon.png"/>
+          <ion-label style="margin-left: 5%">
+            Enviar
+          </ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+  <div >
 
-    <img class="resize-logo"  src="../../../assets/img/pocketsComponent/pockets.png"/>
-    <ion-label class="resize-text" >{{pocket?.label}}</ion-label>
-  </p>
-  <img (click)="sendCash()" class="resize-logo-right" src="../../assets/img/btn-right.svg"/>
-</div>
-<div *ngIf="ctrlNavigation === 1">
+
+
+  </div>
+  <div *ngIf="ctrlNavigation === 1">
     <img (click)="goToHome()"  class="resize-logo-close" src="../../../assets/img/sendCripto/backTop.png"/>
-</div>
+  </div>
 
-<div *ngIf="ctrlNavigation === 2" class="z-pocket">
-poner acá el cerrar sesión
-</div>
+  <div *ngIf="ctrlNavigation === 2" class="z-pocket">
+    poner acá el cerrar sesión
+  </div>
+
+
 

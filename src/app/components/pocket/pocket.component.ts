@@ -62,13 +62,11 @@ export class PocketComponent implements OnInit {
     if(!this.pockets){
       let response  = await this.http.get('user-wallet/index', this.auth, null);
       this.pockets = response
-      console.log('mis pockets luego de registrarme', this.pockets)
       response = await this.aesjs.encrypt(response)
       await this.store.set('pockets', response)
     } else {
       this.pockets = this.aesjs.decrypt(this.pockets);
     }
-    console.log('los pokets en el componente', this.pockets)
 
     this.pocket = this.pockets[0]
   }
@@ -86,28 +84,29 @@ export class PocketComponent implements OnInit {
     });
 
     modalPocket.onDidDismiss().then(async (pocket:any)=> {
-      console.log(pocket);
       if(pocket.data) {
+        console.log('este es el pocket seleccionado con el modal', pocket)
         this.pocket = pocket.data;
-        console.log(this.pocket);
         let body = {
           userId: this.pocket.userId,
           type: 0,
-          wallet_id: this.pocket.id
+          address: this.pocket.address
         };
+        console.log(body)
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
-        dataResponse.pocket = this.pocket
-        this.dataBalance.emit(dataResponse)
-        console.log(this.dataBalance)
+        if(dataResponse.status === 200) {
+          dataResponse.pocket = this.pocket
+          this.dataBalance.emit(dataResponse)
+        } else {
+          await this.presentToast(dataResponse.data)
+        }
       }
-      console.log(this.pocket)
     });
     await this.loadingCtrl.dismiss()
     return await modalPocket.present();
   }
 
-  async receiveCash() {
-    console.log(this.pocket);
+  async receiveCash() {;
     await this.router.navigate([
         '/receive-funds'],{
       queryParams: {
@@ -119,9 +118,8 @@ export class PocketComponent implements OnInit {
   async sendCash() {
     let profile = await this.store.get('profile');
     profile = this.aesjs.decrypt(profile);
-    console.log(profile);
     if(profile.level === 0) {
-      await this.presentToast()
+      await this.presentToast('Lo sentimos, sus documentos no han sido verificados')
     } else {
       await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
     }
@@ -131,9 +129,9 @@ export class PocketComponent implements OnInit {
     await this.router.navigate(['/app/tabs']);
   }
 
-  async presentToast() {
+  async presentToast(text) {
     const toast = await this.toastCtrl.create({
-      message: 'Lo sentimos, sus documentos no han sido verificados',
+      message: text,
       duration: 2000
     });
     await toast.present();

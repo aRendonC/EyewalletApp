@@ -17,7 +17,9 @@ $font-medium: Poppins-Medium;
 $font-semibold: Poppins-SemiBold;
 $font-regular: Poppins-Regular;
 $font-roboto-bold: Roboto-Bold;
-$font-roboto-regular: Robot-Regular;
+$font-roboto-medium: Roboto-Medium;
+$font-roboto-regular: Roboto-Regular;
+$font-open-sans-bold: Open-Sans-Bold;
 
 .button-enable {
    --background: #4C6AC0;
@@ -199,3 +201,11 @@ $font-roboto-regular: Robot-Regular;
    color: #2B84FF;
    height: 108px;
 }
+
+//Key for animations.
+.animated {
+   -webkit-animation-duration: 1s;
+   animation-duration: 1s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+ }

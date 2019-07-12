@@ -17,7 +17,6 @@ export class ReceiveFundsPage {
   public textAmount: string = CONSTANTS.RECEIVE_FUNDS.AMOUNT;
   public buttonCopy: string = CONSTANTS.RECEIVE_FUNDS.BUTTON_COPY;
   public ctrlNavigation: number = 1;
-  public pockets = null;
 
   public amount = null;
   public codeQr = null;
@@ -34,7 +33,6 @@ export class ReceiveFundsPage {
     const data = JSON.parse(this.activateRouter.snapshot.queryParamMap.get('pocket'));
     this.amount = data.balance;
     this.codeQr = data.address;
-    this.pockets = data;
   }
 
   public copyCode(): void {

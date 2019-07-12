@@ -23,21 +23,66 @@ export class BalanceComponent implements OnInit {
     private store: Storage,
     private axios: AxiosService,
     private aesjs: AesJsService,
-  ) {
-  }
 
+  ) { }
   async getPocketsList() {
     this.pockets = await this.store.get('pockets');
-    console.log('estos son los pockets en e componente balance', this.pockets)
     this.pockets = this.aesjs.decrypt(this.pockets)
   }
 
   async ngOnInit() {
+
+  }
+
+  getTransactionAll(allTransactions: any) {
+    console.warn(allTransactions)
+    if (allTransactions) {
+      const btc = allTransactions.btc;
+      this.transactions = allTransactions.data
+      this.transactions.forEach(element => {
+        //
+        const amountFinal = element.amount_finally;
+        const amountDollar = (amountFinal * btc).toFixed(2);
+        // extrae la hora de cada objeto
+        const time = element.date_transaction.slice(11, 16);
+        const dateFormat = `${element.date_transaction.slice(8, 10)}.${element.date_transaction.slice(5, 7)}.${element.date_transaction.slice(2, 4)}`;
+        if (element.confirmation >= 0 && element.confirmation <= 2) {
+          const confirmationText = 'Confirmando';
+          // Agregar el elemento confirmationText al objeto transactions
+          Object.assign(element, {confirmationText});
+        } else {
+          const confirmationText = 'Confirmado';
+          // Agregar el elemento confirmationText al objeto transactions
+          Object.assign(element, {confirmationText});
+        }
+        if (element.type === 1) {
+          const plusMinus = '-';
+          const typeIcon = '../../assets/img/balanceComponent/sent-icon.svg';
+          // Agregar el elemento typeIcon y plusMinus al objeto transactions
+          Object.assign(element, {typeIcon});
+          Object.assign(element, {plusMinus});
+        } else if (element.type === 0) {
+          const typeIcon = '../../assets/img/balanceComponent/receive-icon.svg';
+          const plusMinus = '+';
+          // Agregar el elemento typeIcon y plusMinus al objeto transactions
+          Object.assign(element, {typeIcon});
+          Object.assign(element, {plusMinus});
+        }
+        // Agregar el elemento time al objeto transactions
+        Object.assign(element, {time});
+        // Agregar el elemento dateFormat al objeto transactions
+        Object.assign(element, {dateFormat});
+        // Agregar el elemento amountDollar al objeto transactions
+        Object.assign(element, {amountDollar});
+      });
+    } else {
+      this.transactions = []
+    }
+  }
+
+  async getTransaction() {
     this.user = await this.store.get('profile');
     this.user = this.aesjs.decrypt(this.user);
-
-    console.info('este es el usuario en e componente balance', this.user)
-
     await this.getPocketsList();
     const userId = this.user.userId;
     const type = 0;
@@ -46,10 +91,8 @@ export class BalanceComponent implements OnInit {
     const limit = 50;
 
     this.bodyForm = {userId, type, wallet_id, movement, limit};
-    console.warn('esta es la data que debo enviar para traer las transacciones', this.bodyForm)
     this.transactions = await this.axios.post('transaction/index', this.bodyForm, this.auth);
     // Saca la data del objeto de transacciones
-    console.log('estas son mis transacciones desde el componente balacne', this.transactions)
     if (this.transactions.status === 200) {
       const btc = this.transactions.btc;
       this.transactions = this.transactions.data;
@@ -58,7 +101,6 @@ export class BalanceComponent implements OnInit {
         const amountFinal = element.amount_finally;
         const amountDollar = (amountFinal * btc).toFixed(2);
         // extrae la hora de cada objeto
-        console.log('estos son llas iteraciones de transaccion', this.transactions)
         const time = element.date_transaction.slice(11, 16);
         const dateFormat = `${element.date_transaction.slice(8, 10)}.${element.date_transaction.slice(5, 7)}.${element.date_transaction.slice(2, 4)}`;
         if (element.confirmation >= 0 && element.confirmation <= 2) {

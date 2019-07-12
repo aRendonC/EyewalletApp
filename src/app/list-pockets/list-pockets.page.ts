@@ -36,7 +36,6 @@ export class ListPocketsPage implements OnInit {
 
   ngOnInit() {
     this.pockets = this.navParams.data.pockets;
-    console.info('mis pockets en el modal', this.pockets);
     // this.activateRoute.params.subscribe(params => {
     //   this.pockets = params['pockets'];
     // });
@@ -44,7 +43,6 @@ export class ListPocketsPage implements OnInit {
 
   async getCriptoCurrencies() {
     this.currencies = await this.http.get('currency/index', this.auth, null);
-    console.log('estas son mis criptos', this.currencies)
   }
 
   async createPocket() {
@@ -56,12 +54,8 @@ export class ListPocketsPage implements OnInit {
       this.ctrlButtonCreate = true;
       let profile = await this.store.get('profile');
       profile = this.aesjs.decrypt(profile);
-      profile = profile.data;
-      console.info(profile);
       this.params.userId = profile.id;
-      console.info(this.params);
       let response = await this.http.post('user-wallet/create', this.params, this.auth);
-      console.info('poacket cerado', response);
       if(response.status === 200) {
         await this.loadingCtrl.dismiss()
         await this.presentToast();
@@ -73,7 +67,6 @@ export class ListPocketsPage implements OnInit {
   }
 
   async closeModal(pocket: object) {
-    console.info(pocket);
     await this.modalCtrl.dismiss(pocket);
   }
   async presentToast() {
@@ -84,13 +77,10 @@ export class ListPocketsPage implements OnInit {
     await toast.present();
   }
   getIdCurrency(id:any) {
-    console.log(id);
     this.params.currencyId = id
   }
 
   getData(event: any) {
     this.params.label = event;
-    console.info(this.params)
-
   }
 }

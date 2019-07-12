@@ -119,7 +119,7 @@ export class SendCryptocurrenciesPage implements OnInit {
               this.totalSend = this.fee.error_message
           } else {
               this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee)).toFixed(8))
-              this.bodyForm.get('to_address').setValue((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee)).toFixed(8))
+              this.bodyForm.get('fee').setValue((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee)).toFixed(8))
           }
           console.log(this.fee)
           console.log(this.totalSend)
@@ -129,10 +129,10 @@ export class SendCryptocurrenciesPage implements OnInit {
     }
 
     async sendCoin() {
-        console.log(this.body.amount);
-        console.log(this.pockets.balance);
+        console.log('este es el monto a enviar', this.bodyForm.value.amount);
+        console.log('monto del pocket', this.pockets.balance);
         this.ctrlButtonSend = false;
-        if(this.pockets.balance >= this.body.amount) {
+        if(this.pockets.balance >= this.bodyForm.value.amount) {
             console.info('listo para enviar')
             await this.presentAlertSend()
         } else {
@@ -184,6 +184,7 @@ export class SendCryptocurrenciesPage implements OnInit {
                                 await this.loadingCtrl.dismiss()
                                await this.presentToast('Transacción realizada con éxito')
                             } else {
+                                await this.loadingCtrl.dismiss()
                                 await this.presentToast('Hubo un error')
                             }
                         } else {

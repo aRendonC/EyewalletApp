@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import { DeviceService } from '../device/device.service';
 import {PinModalPage} from "../../pin-modal/pin-modal.page";
+import {AesJsService} from "../aesjs/aes-js.service";
 
 
 @Injectable({
@@ -27,19 +28,27 @@ export class AuthService {
       private menu: MenuController,
       private store: Storage,
       private device: DeviceService,
-      private modalCtrl: ModalController
+      private modalCtrl: ModalController,
+      private aesjs: AesJsService
   ) {
     // this.persistenceLogin();
   }
 //This function is a loginService, parameter required user, password
   async login(user, password) {
     let device: any = await this.device.getDataDevice();
-    if(!device.uuid) device.uuid = '37cd19cb5739fb4'
+    // if(!device.uuid) device.uuid = 'aasdfdssfsdññasdshñ'
+      //mi celular
+    if(!device.uuid) device.uuid = '7219d0c4ee046311'
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password: password, deviceId: device.uuid})
         .then(async (data: any) => {
-          console.log('data response', data);
-          if (data.status === 404) {
+          if(data.status === 200) {
+              this.usuario = data.data;
+              await this.store.set('user', this.usuario);
+              await this.setUserProfile(data.data.profile);
+              // this.timer.iniciarTemporizador();
+              resolve(data);
+          } if (data.status === 404) {
             //no existe usuario
             resolve(null)
           } if(data.status === 401) {
@@ -49,12 +58,7 @@ export class AuthService {
             resolve(null)
             //error de la plataforma o datos incorrectos
           } else {
-            this.usuario = data.data;
-            await this.store.set('user', this.usuario);
-            console.log(this.usuario);
-            // this.timer.iniciarTemporizador();
-            console.info('data', data);
-            resolve(data);
+              resolve(null)
           }
         })
         .catch(err => console.log('error data response', err));
@@ -63,9 +67,13 @@ export class AuthService {
     });
   }
 
+    async setUserProfile(profile) {
+        profile = this.aesjs.encrypt(profile);
+        await this.store.set('profile', profile)
+    }
+
  async accessParam() {
     this.usuario = await this.store.get('user')
-     console.log('accesParamss ------>', this.usuario)
     if (this.usuario != null) {
       return this.usuario.accessToken;
     }
@@ -74,7 +82,6 @@ export class AuthService {
 
   async persistenceLogin() {
     this.usuario = await this.store.get('user');
-    console.log('persistencia de usuario0', this.usuario)
     if (this.usuario.pin) {
       await this.openModal()
     }
