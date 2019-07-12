@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class RequestCreditCardPage implements OnInit {
   public showContentLogo: boolean = true;
   public itemsDataProfile: any = [
-    'Name',
-    'Country',
-    'Email',
-    'Id',
-    'Residence'
+    'name',
+    'country',
+    'email',
+    'id',
+    'residence'
   ];
 
   constructor() { }
@@ -27,5 +27,13 @@ export class RequestCreditCardPage implements OnInit {
 
   public setImageLogoCard(): string {
     return `../../assets/${this.showContentLogo ? 'img/home-logo.svg' : 'images/image-card.svg'}`
+  }
+
+  public buttonCancel(): void {
+    console.log('Cancel...');
+  }
+
+  public buttonAcept(): void {
+    console.log('Acept...');
   }
 }

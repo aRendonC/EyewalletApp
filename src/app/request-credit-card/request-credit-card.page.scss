@@ -69,25 +69,71 @@
    .show-form-content {
       .list {
          padding: 0 !important;
+
          .item {
             list-style: none;
-            border-top: solid 0.5px #D1C9FF;
-            padding: 16px 0;
+            border-top: solid 0.3px #D1C9FF;
+            border-bottom: solid 0.3px #D1C9FF;
+            padding: 20px 0;
+            @extend .center-space-around;
 
             .key-item {
                font-family: $font-roboto-medium;
                font-size: 12px;
                color: #93B5E5;
+               display: block;
+               width: 80px;
             }
 
             .value-item {
-               font-family: $font-open-sans-bold;
+               font-family: $font-roboto-bold;
                font-size: 11px;
                color: #272759;
+               width: 180px;
             }
          }
       }
+      
+      .terms-conditions {
+         @extend .center-space-around;
+         margin: 20px 0 0 0;
+
+         .text {
+            font-family: $font-roboto-medium;
+            font-size: 12px;
+            color: #272759;
+         }
+
+         .accept-terms-onditions {
+            --background-checked: #7DDC97;
+         }
+      }
+
+      .content-buttons {
+         margin: 20px 0 20px 0;
+         @extend .center-space-around;
+
+         .button-cancel {
+            --background: #3A1C71;
+            --background: -webkit-linear-gradient(#FF7C6E, #F4317F) !important;
+            --background: linear-gradient(#FF7C6E, #F4317F) !important;
+            width: 40%;
+            border-radius: 10px !important;
+         }
+
+         .button-accept {
+            --background: #3A1C71;
+            --background: -webkit-linear-gradient(#4DAAFF, #7300FF) !important;
+            --background: linear-gradient(#4DAAFF, #7300FF) !important;
+            width: 40%;
+            border-radius: 10px !important;
+         }
+      }
    }
+}
+
+.request-credit-card-scroll {
+   --overflow: auto !important;
 }
 
 // Transitions.

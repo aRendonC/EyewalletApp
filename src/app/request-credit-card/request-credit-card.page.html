@@ -1,4 +1,6 @@
-<ion-content class="request-credit-card">
+<ion-content
+  [ngClass]="showContentLogo ? 'request-credit-card' : 'request-credit-card request-credit-card-scroll'"
+>
   <!-- <app-pocket></app-pocket> -->
   <div class="class-temp">Component pockets.</div>
 
@@ -21,9 +23,24 @@
   <div [ngClass]="showContentLogo ? 'no-show-form-content' : 'show-form-content transition-form'">
     <ul class="list">
       <li *ngFor="let item of itemsDataProfile" class="item">
-        <label class="key-item">{{item}}</label>
-        <label class="value-item">Value item...</label>
+        <label class="key-item" text-capitalize>{{item}}</label>
+        <label class="value-item">Carloserojas431@gmail.com</label>
       </li>
     </ul>
+
+    <div class="terms-conditions">
+      <span class="text">acepto terminos y condiciones</span>
+      <ion-toggle mode="ios" class="accept-terms-onditions"></ion-toggle>
+    </div>
+
+    <div class="content-buttons">
+      <ion-button mode="md" text-capitalize (click)="buttonCancel()" class="button-cancel">
+        Click me
+      </ion-button>
+
+      <ion-button mode="md" text-capitalize (click)="buttonAcept()" class="button-accept">
+        Click me
+      </ion-button>
+    </div>
   </div>
 </ion-content>

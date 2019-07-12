@@ -133,6 +133,12 @@ $font-open-sans-bold: Open-Sans-Bold;
    justify-content: center;
 }
 
+.center-space-around {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+}
+
 .all-center-colum {
    @extend .all-center;
    flex-direction: column;
