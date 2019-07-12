@@ -31,6 +31,56 @@ export class BalanceComponent implements OnInit {
   }
 
   async ngOnInit() {
+
+  }
+
+  getTransactionAll(allTransactions: any) {
+    console.warn(allTransactions)
+    if (allTransactions) {
+      const btc = allTransactions.btc;
+      this.transactions = allTransactions.data
+      this.transactions.forEach(element => {
+        //
+        const amountFinal = element.amount_finally;
+        const amountDollar = (amountFinal * btc).toFixed(2);
+        // extrae la hora de cada objeto
+        const time = element.date_transaction.slice(11, 16);
+        const dateFormat = `${element.date_transaction.slice(8, 10)}.${element.date_transaction.slice(5, 7)}.${element.date_transaction.slice(2, 4)}`;
+        if (element.confirmation >= 0 && element.confirmation <= 2) {
+          const confirmationText = 'Confirmando';
+          // Agregar el elemento confirmationText al objeto transactions
+          Object.assign(element, {confirmationText});
+        } else {
+          const confirmationText = 'Confirmado';
+          // Agregar el elemento confirmationText al objeto transactions
+          Object.assign(element, {confirmationText});
+        }
+        if (element.type === 1) {
+          const plusMinus = '-';
+          const typeIcon = '../../assets/img/balanceComponent/sent-icon.svg';
+          // Agregar el elemento typeIcon y plusMinus al objeto transactions
+          Object.assign(element, {typeIcon});
+          Object.assign(element, {plusMinus});
+        } else if (element.type === 0) {
+          const typeIcon = '../../assets/img/balanceComponent/receive-icon.svg';
+          const plusMinus = '+';
+          // Agregar el elemento typeIcon y plusMinus al objeto transactions
+          Object.assign(element, {typeIcon});
+          Object.assign(element, {plusMinus});
+        }
+        // Agregar el elemento time al objeto transactions
+        Object.assign(element, {time});
+        // Agregar el elemento dateFormat al objeto transactions
+        Object.assign(element, {dateFormat});
+        // Agregar el elemento amountDollar al objeto transactions
+        Object.assign(element, {amountDollar});
+      });
+    } else {
+      this.transactions = []
+    }
+  }
+
+  async getTransaction() {
     this.user = await this.store.get('profile');
     this.user = this.aesjs.decrypt(this.user);
     await this.getPocketsList();

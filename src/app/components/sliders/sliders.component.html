@@ -1,26 +1,82 @@
 
     <ion-slides>
-        <ion-slide class="mt-14" *ngFor="let names of name">
-            <div class="{{names.background}}">
-                <div class="center">
-                    <ion-label class="text-moneda">{{names.name}}</ion-label>
-                </div>
-                <ion-card class="cardwith" *ngIf="profile?.level === 0">
-                <!--<ion-card class="cardwith">-->
-                    <ion-card-header>
-                        <ion-card-title class="card-title">Completa tu Perfil</ion-card-title>
-                        <p class="card-titlesub">Completa  tu perfil hoy para empezar a usarla exitosamente.</p>
-                    </ion-card-header>
-                    <ion-card-content>
-                        <img  class="logo-card" src="../../../assets/img/home-logo.svg"/>
-                        <button class="btn-continuar" (click)="openModalVerification()">Continuar</button>
-                    </ion-card-content>
-                </ion-card>
-                <ion-label class="text-valance" mode="ios">{{names.value}}</ion-label>
-                <ion-label class="text-usd">{{(names.value * names.valueUsd).toFixed(3)}}</ion-label>
+        <ion-slide *ngFor="let names of name">
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="12">
+                        <div class="{{names.background}}">
+                            <div class="center">
+                                <ion-label class="text-moneda">{{names.name}}</ion-label>
+                            </div>
+                            <ion-card class="cardwith" *ngIf="profile?.level === 0">
+                                <!--<ion-card class="cardwith">-->
+                                <ion-card-header>
+                                    <ion-card-title class="card-title">Completa tu Perfil</ion-card-title>
+                                    <p class="card-titlesub">Completa  tu perfil hoy para empezar a usarla exitosamente.</p>
+                                </ion-card-header>
+                                <ion-card-content>
+                                    <img  class="logo-card" src="../../../assets/img/home-logo.svg"/>
+                                    <button class="btn-continuar" (click)="openModalVerification()">Continuar</button>
+                                </ion-card-content>
+                            </ion-card>
+                            <ion-label class="text-valance" mode="ios">{{names.value}}</ion-label>
+                            <ion-label class="text-usd">{{(names.value * names.valueUsd).toFixed(3)}}</ion-label>
 
-                <canvas #lineCanvas></canvas>
-            </div>
+                            <canvas style="width:80vw" #lineCanvas></canvas>
+                        </div>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-infinite-scroll>
+                            <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more data...">
+                                <ion-card *ngFor="let transaction of transactions">
+                                    <ion-card-content>
+                                        <ion-grid>
+                                            <ion-row>
+                                                <ion-col size="2" class="center-vertical center-horizontal center">
+                                                    <img class="status-icon" [src]="transaction.typeIcon"/>
+                                                </ion-col>
+                                                <ion-col size="6">
+                                                    <ion-row>
+                                                        <ion-col size="12">
+                                                            <p class="status">{{transaction.confirmationText}}</p>
+                                                        </ion-col>
+                                                        <ion-col size="12">
+                                                            <ion-row>
+                                                                <ion-col size="6">
+                                                                    <p class="time">{{transaction.time}}</p>
+                                                                </ion-col>
+                                                                <ion-col size="6">
+                                                                    <p class="date"> <span class="dot">•</span>{{transaction.dateFormat}}</p>
+                                                                </ion-col>
+                                                            </ion-row>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                </ion-col>
+                                                <ion-col size="4">
+                                                    <ion-row>
+                                                        <ion-col size="12">
+                                                            <p class="value"><span>{{transaction.plusMinus}}</span><span>$</span><span>{{transaction.amountDollar}}</span></p>
+                                                        </ion-col>
+                                                        <ion-col size="12">
+                                                            <p class="crypto"><span class="crypto-value">{{transaction.amount_finally}}</span><span class="coin">&nbsp;BTC</span></p>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-card-content>
+                                </ion-card>
+                                <!--<div class="card" >-->
+                                <!--</div>-->
+                            </ion-infinite-scroll-content>
+                        </ion-infinite-scroll>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-slide>
     </ion-slides>
+
+
+
+
 

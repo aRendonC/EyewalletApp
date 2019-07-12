@@ -38,18 +38,15 @@ export class AuthService {
     let device: any = await this.device.getDataDevice();
     // if(!device.uuid) device.uuid = 'aasdfdssfsdññasdshñ'
       //mi celular
-    if(!device.uuid) device.uuid = '4e2d36818a5dcf85'
+    if(!device.uuid) device.uuid = '7219d0c4ee046311'
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password: password, deviceId: device.uuid})
         .then(async (data: any) => {
-          console.log('data response', data);
           if(data.status === 200) {
               this.usuario = data.data;
               await this.store.set('user', this.usuario);
               await this.setUserProfile(data.data.profile);
-              console.log(this.usuario);
               // this.timer.iniciarTemporizador();
-              console.info('data', data);
               resolve(data);
           } if (data.status === 404) {
             //no existe usuario
@@ -77,7 +74,6 @@ export class AuthService {
 
  async accessParam() {
     this.usuario = await this.store.get('user')
-     console.log('accesParamss ------>', this.usuario)
     if (this.usuario != null) {
       return this.usuario.accessToken;
     }
@@ -86,7 +82,6 @@ export class AuthService {
 
   async persistenceLogin() {
     this.usuario = await this.store.get('user');
-    console.log('persistencia de usuario0', this.usuario)
     if (this.usuario.pin) {
       await this.openModal()
     }

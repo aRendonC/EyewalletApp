@@ -21,7 +21,7 @@ export class SlidersComponent implements OnInit {
   public dataGraphic: any;
   public contentDataGrapic: any;
   public profile: any = null
-
+  @Input() transactions: any;
 
   @ViewChild('lineCanvas') lineCanvas;
 
@@ -42,54 +42,114 @@ export class SlidersComponent implements OnInit {
       console.log(this.profile)
       console.log('se incio')
       this.nameSlider = this.name;
+      console.table(this.name)
       this.dataGraphic = this.name[0];
-      setTimeout(() => {
-      this.grafica();
-    }, 1000);
+      await this.grafica();
   }
 
   async grafica(){
+    console.log('datos para graficar', this.dataGraphic.graphic)
     const ctx = this.lineCanvas.nativeElement.getContext('2d');
     const gradientStroke = ctx.createLinearGradient(0, 150, 30, 0);
     gradientStroke.addColorStop(1, '#84EAE8');
     gradientStroke.addColorStop(0, 'white');
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-      type: 'line',
-      data: {
-        labels: ['', '', '', '', '', '', '', '', '', ''],
-        datasets: [{
-          label: '',
-          data:  this.dataGraphic.graphic,
-          backgroundColor: gradientStroke,
-          borderColor: '#7DDC97',
-          borderWidth: 4,
-          pointRadius: 0,
-        }]
-      },
-      options: {
-        legend: {
-          display: false
+      this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+        type: 'line',
+        data: {
+          labels: ['', '', '', '', '', '', '', '', '', ''],
+          datasets: [
+              {
+            label: '',
+            data:  this.dataGraphic.graphic,
+            backgroundColor: gradientStroke,
+            borderColor: '#7DDC97',
+            borderWidth: 4,
+            pointRadius: 0,
+          }
+          //   {
+          //     label: '',
+          //     fill: false,
+          //     lineTension: 0.1,
+          //     backgroundColor: gradientStroke,
+          //     borderColor: '#7DDC97',
+          //     borderCapStyle: 'butt',
+          //     borderDash: [],
+          //     borderDashOffset: 0.0,
+          //     borderJoinStyle: 'miter',
+          //     pointBorderColor: 'rgba(75,192,192,1)',
+          //     pointBackgroundColor: '#fff',
+          //     pointBorderWidth: 1,
+          //     pointHoverRadius: 5,
+          //     pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+          //     pointHoverBorderColor: 'rgba(220,220,220,1)',
+          //     pointHoverBorderWidth: 2,
+          //     pointRadius: 0,
+          //     borderWidth: 4,
+          //     pointHitRadius: 10,
+          //     data: this.dataGraphic.graphic,
+          //     spanGaps: false,
+          //   }
+          ]
         },
-        scales: {
-          xAxes: [{
-            gridLines: {
-              drawBorder: false,
-              display: false
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-              display: false
-            },
-            gridLines: {
-              drawBorder: false,
-              display: false
-            }
-          }]
+        // options: {
+        //   legend: {
+        //     display: false
+        //   },
+        //   scales: {
+        //     xAxes: [{
+        //       gridLines: {
+        //         drawBorder: false,
+        //         display: false
+        //       }
+        //     }],
+        //     yAxes: [{
+        //       ticks: {
+        //         beginAtZero: true,
+        //         display: false
+        //       },
+        //       gridLines: {
+        //         drawBorder: false,
+        //         display: false
+        //       }
+        //     }]
+        //   }
+        // }
+        options: {
+          legend: {
+            fullWidth: true,
+            display: false
+          },
+          scales: {
+            yAxes: [{
+              gridLines: {
+                drawBorder: false,
+                display: false
+              },
+              ticks: {
+                beginAtZero: false,
+                display: false
+              }
+            }],
+            xAxes: [{
+              gridLines:{
+                drawBorder: false,
+                display: false
+              },
+              ticks: {
+                autoSkip: false,
+                maxRotation: 90,
+                minRotation: 90
+              }
+            }]
+          }, animation: {
+            duration: 7000,
+          },
+          hover: {
+            animationDuration: 3000
+          },
+          responsiveAnimationDuration: 5000
         }
-      }
-    });
+      });
   }
 
     async openModalVerification() {

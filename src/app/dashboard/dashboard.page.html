@@ -1,8 +1,9 @@
+
 <ion-content class="bgdashboard1" [class.blur]="ctrlCssBlur">
-  <div class="contentdash">
-      <app-pocket [pockets]="pockets"  (dataBalance)="getDataPocket($event)" [ctrlNavigation]="ctrlNavigation"></app-pocket>
-  </div>
+    <div style="margin-top: 20px">
+        <app-pocket [pockets]="pockets"  (dataBalance)="getDataPocket($event)" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+    </div>
   <!--<app-chart name="transaction" limit="10"></app-chart>-->
-    <app-sliders  [name]="crypto" *ngIf="crypto[0].graphic.length > 0"></app-sliders>
-    <app-balance [transactions]="transactionComponent"></app-balance>
+    <app-sliders [transactions]="transactionComponent"  [name]="crypto" *ngIf="crypto[0].graphic.length > 0"></app-sliders>
+    <!--<app-balance [transactions]="transactionComponent"></app-balance>-->
 </ion-content>

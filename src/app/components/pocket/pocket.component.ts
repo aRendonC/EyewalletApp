@@ -85,15 +85,21 @@ export class PocketComponent implements OnInit {
 
     modalPocket.onDidDismiss().then(async (pocket:any)=> {
       if(pocket.data) {
+        console.log('este es el pocket seleccionado con el modal', pocket)
         this.pocket = pocket.data;
         let body = {
           userId: this.pocket.userId,
           type: 0,
-          wallet_id: this.pocket.id
+          address: this.pocket.address
         };
+        console.log(body)
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
-        dataResponse.pocket = this.pocket
-        this.dataBalance.emit(dataResponse)
+        if(dataResponse.status === 200) {
+          dataResponse.pocket = this.pocket
+          this.dataBalance.emit(dataResponse)
+        } else {
+          await this.presentToast(dataResponse.data)
+        }
       }
     });
     await this.loadingCtrl.dismiss()
@@ -113,7 +119,7 @@ export class PocketComponent implements OnInit {
     let profile = await this.store.get('profile');
     profile = this.aesjs.decrypt(profile);
     if(profile.level === 0) {
-      await this.presentToast()
+      await this.presentToast('Lo sentimos, sus documentos no han sido verificados')
     } else {
       await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
     }
@@ -123,9 +129,9 @@ export class PocketComponent implements OnInit {
     await this.router.navigate(['/app/tabs']);
   }
 
-  async presentToast() {
+  async presentToast(text) {
     const toast = await this.toastCtrl.create({
-      message: 'Lo sentimos, sus documentos no han sido verificados',
+      message: text,
       duration: 2000
     });
     await toast.present();
