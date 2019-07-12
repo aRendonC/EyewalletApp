@@ -23,7 +23,6 @@ import {BalanceComponent} from "../components/balance/balance.component";
 export class DashboardPage implements OnInit {
   @ViewChild(SlidersComponent) childD: SlidersComponent;
   @ViewChild(BalanceComponent) balanceComponent: BalanceComponent;
-  ctrlCssBlur: boolean = false;
   ctrlNavigation = 0;
   transactionComponent: any;
   public pockets: any = [];

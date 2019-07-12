@@ -24,7 +24,7 @@ const routes: Routes = [
         loadChildren: '../prices/prices.module#PricesPageModule'
       },
       { path: 'credit-card',
-        loadChildren: './request-credit-card/request-credit-card.module#RequestCreditCardPageModule' }, // request-credit-card
+        loadChildren: '../request-credit-card/request-credit-card.module#RequestCreditCardPageModule' }, // request-credit-card
     ]
   },
   {
