@@ -7,13 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestCreditCardPage implements OnInit {
   public showContentLogo: boolean = true;
-  public itemsDataProfile: any = {
-    name: 'Name',
-    country: 'Country',
-    email: 'Email',
-    id: 'Id',
-    residence: 'Residence'
-  };
+  public itemsDataProfile: any = [
+    'Name',
+    'Country',
+    'Email',
+    'Id',
+    'Residence'
+  ];
 
   constructor() { }
 
@@ -23,5 +23,9 @@ export class RequestCreditCardPage implements OnInit {
   public showForm(): void {
     console.log('Show form...');
     this.showContentLogo = false;
+  }
+
+  public setImageLogoCard(): string {
+    return `../../assets/${this.showContentLogo ? 'img/home-logo.svg' : 'images/image-card.svg'}`
   }
 }
