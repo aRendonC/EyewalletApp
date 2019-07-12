@@ -10,10 +10,12 @@
       <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
     </ion-col>
     <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" (click)="openPocketsModal()">
+      <div  class="center-vertical center center-horizontal">
         <img  src="../../../assets/img/pocketsComponent/pockets.png"/>
-        <ion-label class="resize-text" >{{pocket?.label}}</ion-label>
+        <ion-label >{{pocket?.label}}</ion-label>
+      </div>
     </ion-col>
-    <ion-col size="3" (click)="sendCash()" class="" style="color: white; padding: 0">
+    <ion-col size="3" (click)="sendCash()" class="bounceInRight" style="color: white; padding: 0">
       <div class="button-send center-horizontal center-vertical center bounceInRight">
           <img  class="resize-logo-right " src="../../assets/img/pocketsComponent/send-icon.png"/>
           <ion-label style="margin-left: 5%">

@@ -22,7 +22,10 @@ export class SlidersComponent implements OnInit {
   public contentDataGrapic: any;
   public profile: any = null
   @Input() transactions: any;
-
+  slideOpts = {
+    initialSlide: 0,
+    speed: 1000
+  };
   @ViewChild('lineCanvas') lineCanvas;
 
   nameSlider: string;
