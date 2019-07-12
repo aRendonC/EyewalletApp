@@ -5,25 +5,30 @@
                     <img class="bg-profile" src="../../assets/images/bg-profile.png"> 
             </ion-col>
         </ion-row>
+        <ion-item class="move-itemCryptoPrice">
+          <p class="move-cryptoPrice">{{cryptoCodes}} &nbsp; <span class="mainPrice">{{cryptoValue}}</span><span class="mainCurrency"> &nbsp; USDollar</span></p>
+        </ion-item>
 </ion-grid>
 </ion-content>
 <ion-content class="move-cryptoInfo">
   <ion-grid fixed class="padding-prices">
     <ion-row>
       <!-- Put ngFor here *ngFor="let cryptoPrice of cryptoPrices" -->
-      <ion-col size="6">
-          <div class="crypto-card"> 
-            <img class="move-cryptoLogo" src="../../assets/images/pricesPage/bitcoinLogo.svg">
-          <div class="priceDetails">
-              <p class="cryptoName">Bitcoin</p>
-              <p class="cryptoCode">BTC</p>
-              <p class="cryptoPriceName">Price</p>
-              <p class="cryptoPrice">211.86</p>
-          </div>
+
+      <ion-col size="6" class="card-padding"  *ngFor="let cardPrice of cardPrices; index as index">
+          <div class="crypto-card" [ngClass]="ctrlCssColor" (click)="selectCrypto(cardPrice.cryptoName, index)">
+            <img class="move-cryptoLogo" [ngClass]="ctrlCssColorFont" src={{cardPrice.cryptoImage}}>
+            <img class="LogoBG"src={{cardPrice.cryptoImage}}>
+            <!-- <img class="move-bgLogo" src={{cardPrice.cryptoImage}}> -->
+            <div class="priceDetails">
+                <p class="cryptoName" [ngClass]="ctrlCssColorFont">{{cardPrice.cryptoName}}</p>
+                <p class="cryptoCode"[ngClass]="ctrlCssColorFont">{{cardPrice.cryptoCodes}}</p>
+                <p class="cryptoPriceName"[ngClass]="ctrlCssColorFont">Precio</p>
+                <p class="cryptoPrice"[ngClass]="ctrlCssColorFont">{{cardPrice.cryptoValue}}</p>
+            </div>
           </div>
       </ion-col>
       <ion-col size="6"></ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
