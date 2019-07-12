@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  {path: 'home', loadChildren: './home/home.module#HomePageModule'},
+  {path: '', loadChildren: './home/home.module#HomePageModule'},
   {path: 'login', loadChildren: './login/login.module#LoginPageModule'},
   {path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule'},
   {path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule'},
@@ -14,7 +14,6 @@ const routes: Routes = [
   {path: 'address', loadChildren: './address/address.module#AddressPageModule'},
   {path: 'receive-funds', loadChildren: './receive-funds/receive-funds.module#ReceiveFundsPageModule'},
   {path: 'send-currency', loadChildren: './send-cryptocurrencies/send-cryptocurrencies.module#SendCryptocurrenciesPageModule'},
-  { path: '', loadChildren: './request-credit-card/request-credit-card.module#RequestCreditCardPageModule' }, // request-credit-card
 ];
 
 @NgModule({
