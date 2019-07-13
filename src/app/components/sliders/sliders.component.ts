@@ -26,6 +26,7 @@ export class SlidersComponent implements OnInit {
     initialSlide: 0,
     speed: 1000
   };
+
   @ViewChild('lineCanvas') lineCanvas;
 
   nameSlider: string;
@@ -40,10 +41,10 @@ export class SlidersComponent implements OnInit {
 
 
   async ngOnInit() {
-      this.profile = await this.store.get('profile')
-      this.profile = this.aesjs.decrypt(this.profile)
-      console.log(this.profile)
-      console.log('se incio')
+      this.profile = await this.store.get('profile');
+      this.profile = this.aesjs.decrypt(this.profile);
+      console.log(this.profile);
+      console.log('se incio');
       this.nameSlider = this.name;
       console.table(this.name)
       this.dataGraphic = this.name[0];
