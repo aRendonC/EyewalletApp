@@ -9,6 +9,7 @@ import { TouchSequence } from 'selenium-webdriver';
 import { LoadingService } from '../services/loading/loading.service';
 
 
+
 @Component({
   selector: 'app-prices',
   templateUrl: './prices.page.html',
@@ -313,4 +314,5 @@ async graph() {
       this.cardPrices[5].cryptoClass = 'crypto-card Litecoin';
     }
   }
+
 }
