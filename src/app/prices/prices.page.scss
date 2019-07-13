@@ -104,7 +104,7 @@
 
 .move-cryptoPrice{
     position: absolute;
-    z-index: 3;
+    z-index: 6;
     font-family: "Open Sans";
     font-weight: normal;
     font-size: 18px;
@@ -161,4 +161,17 @@
     position: relative;
     top: -36vw;
     z-index: 3;
+}
+
+.move-graphic{
+    position: relative;
+    z-index: 5;
+    margin-top: -62.9%;
+    margin-left: 0vw;
+    width: 100%;
+}
+
+canvas{
+    width: 103.4% !important;
+    height: 50% !important;
 }

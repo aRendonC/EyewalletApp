@@ -50,12 +50,8 @@ export class SlidersComponent implements OnInit {
       await this.grafica();
   }
 
-<<<<<<< HEAD
   async grafica(){
     console.log('datos para graficar', this.dataGraphic.graphic)
-=======
-  async grafica() {
->>>>>>> Design and functionality of Prices Page
     const ctx = this.lineCanvas.nativeElement.getContext('2d');
     const gradientStroke = ctx.createLinearGradient(0, 150, 30, 0);
     gradientStroke.addColorStop(1, '#84EAE8');

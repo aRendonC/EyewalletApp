@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
+import { Chart } from 'chart.js';
 import { ViewFlags } from '@angular/compiler/src/core';
 import { TouchSequence } from 'selenium-webdriver';
 
@@ -13,6 +14,11 @@ import { TouchSequence } from 'selenium-webdriver';
   styleUrls: ['./prices.page.scss'],
 })
 export class PricesPage implements OnInit {
+  @Input() name: any;
+  @ViewChild('lineCanvas') lineCanvas;
+  public lineChart: any;
+  public dataGraphic: any;
+  public contentDataGrapic: any;
   ctrlCssColor = '';
   ctrlCssColorFont = '';
   private user: any;
@@ -36,10 +42,12 @@ export class PricesPage implements OnInit {
       await this.getProfile();
       await this.buildBodyForm();
       await this.getCryptoPrices();
+      await this.getCryptoPrices24h();
       await this.parseCryptos();
       await this.cardPricesBuilder();
       this.cryptoCodes = this.cardPrices[0].cryptoCodes;
       this.cryptoValue = this.cardPrices[0].cryptoValue;
+      await this.grafica();
     }
 
   // Saca el profile del storage de Ionic
@@ -51,7 +59,7 @@ export class PricesPage implements OnInit {
   // Crea un objeto con el userID para que el Backend me entregue los precios de las criptos
   buildBodyForm() {
     this.bodyForm = {
-      userId: this.user.data.userId,
+      userId: this.user.userId,
     };
   }
 
@@ -65,6 +73,10 @@ export class PricesPage implements OnInit {
   parseCryptos() {
     this.cryptoPrices = this.cryptoPrices.descripcion;
     this.cryptoPrices = JSON.parse(this.cryptoPrices);
+  }
+
+  getCryptoPrices24h() {
+
   }
 
   // Esta funcion crea un array iterable con las 4 criptomonedas principales
@@ -116,6 +128,63 @@ export class PricesPage implements OnInit {
 
   }
 
+// Crea una Grafica;
+async grafica() {
+  const ctx = this.lineCanvas.nativeElement.getContext('2d');
+  const gradientFill = ctx.createLinearGradient(300, 150, 0, 150);
+  gradientFill.addColorStop(0.44, '#84EAE8');
+  gradientFill.addColorStop(1, 'transparent');
+  this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+      type: 'line',
+      data: {
+        labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+        datasets: [
+            {
+          label: '',
+          data:  [10, 10, 10, 10, 10, 120, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, 10, 10, 10, 10, 10, 10, 10, 10],
+          backgroundColor: gradientFill,
+          borderColor: 'transparent',
+          borderWidth: 4,
+          pointRadius: 0,
+        }]
+      },
+      options: {
+        legend: {
+          fullWidth: true,
+          display: false
+        },
+        scales: {
+          yAxes: [{
+            gridLines: {
+              drawBorder: false,
+              display: false
+            },
+            ticks: {
+              beginAtZero: false,
+              display: false
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+              drawBorder: false,
+              display: false
+            },
+            ticks: {
+              autoSkip: false,
+              maxRotation: 90,
+              minRotation: 90
+            }
+          }]
+        }, animation: {
+          duration: 7000,
+        },
+        hover: {
+          animationDuration: 3000
+        },
+        responsiveAnimationDuration: 5000
+      }
+    });
+}
   classSelector() {
     if (this.ctrlCssColorIndex === 0) {
       this.cardPrices[0].fontClass = 'white';
