@@ -1,18 +1,19 @@
 // Dependencies.
 import { Component, OnInit } from '@angular/core';
+import { ToastController, ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 // Services.
 import { DataLocalService } from '../services/data-local/data-local.service';
 import { AesJsService } from '../services/aesjs/aes-js.service';
 import { AuthService } from '../services/auth/auth.service';
-
-// Routes.
-import { Router } from '@angular/router';
+import { AxiosService } from '../services/axios/axios.service';
 
 // Constants.
 import * as CONSTANTS from '../constanst';
-import { AxiosService } from '../services/axios/axios.service';
-import { ToastController } from '@ionic/angular';
+
+// Pages.
+import { ModalInvoicePage } from '../modal-invoice/modal-invoice.page';
 
 @Component({
   selector: 'app-request-credit-card',
@@ -46,7 +47,8 @@ export class RequestCreditCardPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private axiosService: AxiosService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private modalController: ModalController
   ) { }
 
   public async ngOnInit() {
@@ -87,10 +89,21 @@ export class RequestCreditCardPage implements OnInit {
     this.axiosService.post(path, {}, this.authService)
     .then(response => {
       console.log(response);
-      if (response.status !== 200) {
-        this.presentToast();
+      if (response.status === 200) {
+        this.router.navigate(['/card-invoice']);
+      } else {
+        // this.presentToast();
+        this.showModalInvoice();
       }
     });
+  }
+
+  private async showModalInvoice(): Promise<any> {
+    const modalInvoice = await this.modalController.create({
+      component: ModalInvoicePage
+    });
+
+    return await modalInvoice.present();
   }
 
   public handlerToggle(event) {

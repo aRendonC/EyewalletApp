@@ -5,15 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CardInvoicePage } from './card-invoice.page';
-
-// Components.
-import { ComponentsModule } from '../components/components.module';
+import { ModalInvoicePage } from './modal-invoice.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CardInvoicePage
+    component: ModalInvoicePage
   }
 ];
 
@@ -22,9 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    ComponentsModule
+    RouterModule.forChild(routes)
   ],
-  declarations: [CardInvoicePage]
+  declarations: [ModalInvoicePage]
 })
-export class CardInvoicePageModule {}
+export class ModalInvoicePageModule {}
