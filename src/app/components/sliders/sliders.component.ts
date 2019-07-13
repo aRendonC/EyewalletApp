@@ -40,18 +40,22 @@ export class SlidersComponent implements OnInit {
 
 
   async ngOnInit() {
-      this.profile = await this.store.get('profile')
-      this.profile = this.aesjs.decrypt(this.profile)
-      console.log(this.profile)
-      console.log('se incio')
+      this.profile = await this.store.get('profile');
+      this.profile = this.aesjs.decrypt(this.profile);
+      console.log(this.profile);
+      console.log('se incio');
       this.nameSlider = this.name;
       console.table(this.name)
       this.dataGraphic = this.name[0];
       await this.grafica();
   }
 
+<<<<<<< HEAD
   async grafica(){
     console.log('datos para graficar', this.dataGraphic.graphic)
+=======
+  async grafica() {
+>>>>>>> Design and functionality of Prices Page
     const ctx = this.lineCanvas.nativeElement.getContext('2d');
     const gradientStroke = ctx.createLinearGradient(0, 150, 30, 0);
     gradientStroke.addColorStop(1, '#84EAE8');
