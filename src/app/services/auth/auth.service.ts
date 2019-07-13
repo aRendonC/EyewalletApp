@@ -7,6 +7,7 @@ import {Storage} from '@ionic/storage';
 import { DeviceService } from '../device/device.service';
 import {PinModalPage} from "../../pin-modal/pin-modal.page";
 import {AesJsService} from "../aesjs/aes-js.service";
+import {LoadingService} from '../loading/loading.service';
 
 
 @Injectable({
@@ -29,7 +30,8 @@ export class AuthService {
       private store: Storage,
       private device: DeviceService,
       private modalCtrl: ModalController,
-      private aesjs: AesJsService
+      private aesjs: AesJsService,
+      private loadingCtrl: LoadingService
   ) {
     // this.persistenceLogin();
   }
@@ -49,6 +51,7 @@ export class AuthService {
               // this.timer.iniciarTemporizador();
               resolve(data);
           } if (data.status === 404) {
+              await this.loadingCtrl.dismiss()
             //no existe usuario
             resolve(null)
           } if(data.status === 401) {
