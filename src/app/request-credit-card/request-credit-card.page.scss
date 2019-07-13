@@ -3,11 +3,6 @@
 .request-credit-card {
    --overflow: hidden;
 
-   .class-temp {
-      background: orangered;
-      height: 80px;
-   }
-
    .content-logo {
       @extend .all-center;
       margin: 70px 0 0 0;
@@ -21,6 +16,9 @@
    .content-logo-card {
       margin: 70px 0 0 0;
       @extend .all-center;
+      background: white;
+      position: relative;
+      z-index: 1;
 
       .image-card {
          width: 350px;

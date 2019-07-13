@@ -22,6 +22,10 @@ const routes: Routes = [
       {
         path: 'prices',
         loadChildren: '../prices/prices.module#PricesPageModule'
+      },
+      {
+        path: 'request-credit-card',
+        loadChildren: '../request-credit-card/request-credit-card.module#RequestCreditCardPageModule'
       }
     ]
   },

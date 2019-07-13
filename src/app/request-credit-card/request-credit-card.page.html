@@ -1,10 +1,9 @@
 <ion-content
   [ngClass]="showContentLogo ? 'request-credit-card' : 'request-credit-card request-credit-card-scroll'"
 >
-  <!-- <app-pocket></app-pocket> -->
-  <div class="class-temp">Component pockets.</div>
+  <app-pocket></app-pocket>
 
-  <div [ngClass]="showContentLogo ? 'content-logo' : 'content-logo-card animated animation-content-logo-card'">
+  <div [ngClass]="showContentLogo ? 'content-logo' : 'content-logo-card'">
     <ion-img
       [src]="setImageLogoCard()"
       [ngClass]="showContentLogo ? 'image-logo' : 'image-card'"
@@ -12,7 +11,7 @@
   </div>
 
   <div [ngClass]="showContentLogo ? 'content-text-icon' : 'content-text-icon transition-title'">
-    <span class="text">Solicitar tarjeta</span>
+    <span class="text">{{title}}</span>
     <ion-img src="../../assets/icon/icon-request-card.svg" (click)="showForm()" class="icon"></ion-img>
   </div>
 
@@ -22,24 +21,24 @@
 
   <div [ngClass]="showContentLogo ? 'no-show-form-content' : 'show-form-content transition-form'">
     <ul class="list">
-      <li *ngFor="let item of itemsDataProfile" class="item">
+      <li *ngFor="let item of keysDataProfile, let i = index" class="item">
         <label class="key-item" text-capitalize>{{item}}</label>
-        <label class="value-item">Carloserojas431@gmail.com</label>
+        <label class="value-item">{{valuesDataProfile[i]}}</label>
       </li>
     </ul>
 
     <div class="terms-conditions">
-      <span class="text">acepto terminos y condiciones</span>
-      <ion-toggle mode="ios" class="accept-terms-onditions"></ion-toggle>
+      <span class="text">{{termsConditions}}</span>
+      <ion-toggle (ionChange)="handlerToggle($event)" mode="ios" class="accept-terms-onditions"></ion-toggle>
     </div>
 
     <div class="content-buttons">
-      <ion-button mode="md" text-capitalize (click)="buttonCancel()" class="button-cancel">
-        Click me
+      <ion-button mode="md" text-capitalize (click)="buttonCancelNavigate()" class="button-cancel">
+        {{buttonCancel}}
       </ion-button>
 
-      <ion-button mode="md" text-capitalize (click)="buttonAcept()" class="button-accept">
-        Click me
+      <ion-button [disabled]="stateTermsConditions" mode="md" text-capitalize (click)="buttonAcept()" class="button-accept">
+        {{buttonAccept}}
       </ion-button>
     </div>
   </div>
