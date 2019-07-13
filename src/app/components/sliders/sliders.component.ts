@@ -20,7 +20,7 @@ export class SlidersComponent implements OnInit {
   public lineChart: any;
   public dataGraphic: any;
   public contentDataGrapic: any;
-  public profile: any = null
+  public profile: any = null;
 
 
   @ViewChild('lineCanvas') lineCanvas;
@@ -37,10 +37,10 @@ export class SlidersComponent implements OnInit {
 
 
   async ngOnInit() {
-      this.profile = await this.store.get('profile')
-      this.profile = this.aesjs.decrypt(this.profile)
-      console.log(this.profile)
-      console.log('se incio')
+      this.profile = await this.store.get('profile');
+      this.profile = this.aesjs.decrypt(this.profile);
+      console.log(this.profile);
+      console.log('se incio');
       this.nameSlider = this.name;
       this.dataGraphic = this.name[0];
       setTimeout(() => {
@@ -48,7 +48,7 @@ export class SlidersComponent implements OnInit {
     }, 1000);
   }
 
-  async grafica(){
+  async grafica() {
     const ctx = this.lineCanvas.nativeElement.getContext('2d');
     const gradientStroke = ctx.createLinearGradient(0, 150, 30, 0);
     gradientStroke.addColorStop(1, '#84EAE8');

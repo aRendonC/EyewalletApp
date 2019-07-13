@@ -11,39 +11,24 @@
 }
 
 .Bitcoin{
-    margin-top: 8%;
-    width: 36vw;
-    height: 62vw;
     background: linear-gradient(#fac579 0%, #ea5933 100%);
-    border-radius: 9.33px;
-    box-shadow: 0px 32px 20px rgba(51, 51, 203, 0.05);
+    box-shadow: 0px 7px 1px rgba(234, 89, 51, 0.5), 0px 13px 0px rgba(234, 89, 51, 0.3), 0px 18px 1px rgba(234, 89, 51, 0.2)
 }
 
 .Monero{
-    margin-top: 8%;
-    width: 36vw;
-    height: 62vw;
     background: linear-gradient(#ff7c6e 0%, #f4317f 100%);
-    border-radius: 9.33px;
-    box-shadow: 0px 32px 20px rgba(51, 51, 203, 0.05);
+    box-shadow: 0px 7px 1px rgba(244, 49, 127, 0.5), 0px 13px 0px rgba(244, 49, 127, 0.3), 0px 18px 1px rgba(244, 49, 127, 0.2);
 }
 
 .Ethereum{
-    margin-top: 8%;
-    width: 36vw;
-    height: 62vw;
-    border-radius: 9.33px;
     background: linear-gradient(#4daaff 0%, #5584ff 21.7%, #7300ff 100%);
-    box-shadow: 0px 32px 20px rgba(51, 51, 203, 0.05);
+    box-shadow: 0px 7px 1px rgba(115, 0, 255, 0.5), 0px 13px 0px rgba(115, 0, 255, 0.3), 0px 18px 1px rgba(115, 0, 255, 0.2)
 }
 
 .ZCash{
-    margin-top: 8%;
-    width: 36vw;
-    height: 62vw;
-    border-radius: 9.33px;
+
     background: linear-gradient(#FFE900 0%, #FAAD17 100%);
-    box-shadow: 0px 32px 20px rgba(51, 51, 203, 0.05);
+    box-shadow: 0px 7px 1px rgba(250, 173, 23, 0.5), 0px 13px 0px rgba(250, 173, 23, 0.3), 0px 18px 1px rgba(250, 173, 23, 0.2)
 }
 
 .bg-profile{
@@ -170,4 +155,10 @@
     opacity: 0.2;
     -webkit-filter: brightness(0) invert(1);
     filter: brightness(0) invert(1);
+}
+
+.moveGraph{
+    position: relative;
+    top: -36vw;
+    z-index: 3;
 }
