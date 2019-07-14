@@ -27,6 +27,7 @@ export class RequestCreditCardPage implements OnInit {
   public termsConditions: string = CONSTANTS.REQUEST_CARD.TERMS_CONDITIONS;
   public buttonCancel: string = CONSTANTS.REQUEST_CARD.BUTTON_CANCEL;
   public buttonAccept: string = CONSTANTS.REQUEST_CARD.BUTTON_ACCEPT;
+  public incompleteProfile: string = CONSTANTS.REQUEST_CARD.INCOMPLETE_PROFILE;
 
   public dataProfile: any = {};
   public showContentLogo: boolean = true;
@@ -53,7 +54,7 @@ export class RequestCreditCardPage implements OnInit {
 
   public async ngOnInit() {
     this.dataProfile = await this.getDataProfile();
-    const dataUser = this.dataProfile.data
+    const dataUser = this.dataProfile.data;
     this.valuesDataProfile = [
       `${dataUser.user.firstName} ${dataUser.user.lastName}`,
       `${dataUser.country}`,
@@ -73,32 +74,33 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   public setImageLogoCard(): string {
-    return `../../assets/${this.showContentLogo ? 'img/home-logo.svg' : 'images/image-card.svg'}`
+    return `../../assets/${this.showContentLogo ? 'img/home-logo.svg' : 'images/image-card.svg'}`;
   }
 
   public async buttonCancelNavigate(): Promise<any> {
     await this.router.navigate(['/app/tabs']);
   }
 
-  public buttonAcept(): void {
-    this.requestCard();
-  }
-
-  public async requestCard(): Promise<any> {
+  public async buttonAcept(): Promise<any> {
     const path = 'card-request/request';
     this.axiosService.post(path, {}, this.authService)
     .then(response => {
-      console.log(response);
-      if (response.status === 200) {
-        this.router.navigate(['/card-invoice']);
-      } else {
-        // this.presentToast();
-        this.showModalInvoice();
-      }
+      this.getResponseRequestCard(response);
+    })
+    .catch(error => {
+      this.presentToast(CONSTANTS.MESSAGE_ERROR.CONNECTIVITY_PROBLEMS);
     });
   }
 
-  private async showModalInvoice(): Promise<any> {
+  public getResponseRequestCard(data): void {
+    if (data.status === 200) {
+      this.showModalInvoice();
+    } else {
+      this.presentToast(CONSTANTS.REQUEST_CARD.MESSAGE_NO_CARD);
+    }
+  }
+
+  public async showModalInvoice(): Promise<any> {
     const modalInvoice = await this.modalController.create({
       component: ModalInvoicePage
     });
@@ -110,9 +112,9 @@ export class RequestCreditCardPage implements OnInit {
     this.stateTermsConditions = !event.detail.checked;
   }
 
-  private async presentToast() {
+  public async presentToast(messageInfo: string) {
     const toast = await this.toastController.create({
-      message: CONSTANTS.REQUEST_CARD.MESSAGE_NO_CARD,
+      message: messageInfo,
       duration: 3000
     });
 

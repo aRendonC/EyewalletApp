@@ -26,10 +26,6 @@ const routes: Routes = [
       {
         path: 'request-credit-card',
         loadChildren: '../request-credit-card/request-credit-card.module#RequestCreditCardPageModule'
-      },
-      {
-        path: 'card-invoice',
-        loadChildren: '../card-invoice/card-invoice.module#CardInvoicePageModule'
       }
     ]
   },

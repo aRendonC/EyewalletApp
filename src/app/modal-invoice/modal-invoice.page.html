@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>modal-invoice</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="modal-invoice">
+  <ion-img 
+    src="../../../assets/img/sendCripto/backTop.png"
+    (click)="closeModalInvoice()"
+    class="icon-close"
+  ></ion-img>
 
-<ion-content>
+  <div class="content-invoice">
+    <div class="content-logo">
+      <ion-img src="../../assets/img/home-logo.svg" class="image-logo"></ion-img>
+    </div>
 
+    <span class="text-one">Valor de la tarjeta:</span>
+
+    <div class="content-icon-value">
+      <ion-img src="../../../assets/icon/icon-bitcoin.png" class="image"></ion-img>
+      <span class="text-two">$8,0070.78 (USD)</span>
+    </div>
+  </div>
+
+  <div class="content-button">
+    <ion-button (click)="payRequestCard()" shape="round" text-capitalize class="button">
+      Pagar con eywallet
+    </ion-button>
+  </div>
 </ion-content>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal-invoice',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalInvoicePage implements OnInit {
 
-  constructor() { }
+  public constructor(
+    private modalController: ModalController,
+    private router: Router
+  ) { }
 
-  ngOnInit() {
+  public ngOnInit() {
+
   }
 
+  public closeModalInvoice(): void {
+    this.modalController.dismiss();
+  }
+
+  public async payRequestCard(): Promise<any> {
+    this.modalController.dismiss();
+    await this.router.navigate(['card-invoice']);
+  }
 }

@@ -40,5 +40,10 @@ export const REQUEST_CARD = {
    EMAIL: 'E-mail',
    ID: 'ID',
    RESIDENCE: 'Residencia',
-   MESSAGE_NO_CARD: 'El usuario no puede solicitar tarjetas.'
+   MESSAGE_NO_CARD: 'El usuario no puede solicitar tarjetas.',
+   INCOMPLETE_PROFILE: 'Perfil incompleto'
+}
+
+export const MESSAGE_ERROR = {
+   CONNECTIVITY_PROBLEMS: 'Problemas de conectividad.'
 }

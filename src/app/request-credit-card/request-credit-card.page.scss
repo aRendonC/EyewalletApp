@@ -4,25 +4,12 @@
    --overflow: hidden;
 
    .content-logo {
-      @extend .all-center;
-      margin: 70px 0 0 0;
-
-      .image-logo {
-         height: 220px;
-         width: 220px;
-      }
-   }
-
-   .content-logo-card {
-      margin: 70px 0 0 0;
-      @extend .all-center;
-      background: white;
-      position: relative;
-      z-index: 1;
-
-      .image-card {
-         width: 350px;
-      }
+      background-image: url('../../assets/img/home-logo.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      height: 200px;
+      margin: 140px 0 0 0;
    }
 
    .content-text-icon {
@@ -31,6 +18,7 @@
       width: 100%;
       position: absolute;
       z-index: 1;
+      top: 360px;
 
       .text {
          font-family: $font-roboto-regular;
@@ -50,14 +38,13 @@
    }
 
    .content-image-card {
-      @extend .all-center;
-      position: absolute;
       width: 100%;
-      top: 438px;
-
-      ion-img {
-         width: 350px;
-      }
+      height: 200px;
+      background-image: url('../../assets/images/image-card.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: inherit;
+      margin: 116px 0 0 0;
    }
 
    .no-show-form-content {
@@ -146,7 +133,22 @@
    transition-timing-function: linear;
    transition-delay: 0s;
 
-   margin-top: -254px;
+   margin-top: -303px;
+}
+
+.transition-logo-card {
+   -webkit-transition-property: all;
+   -webkit-transition-duration: 0.5s;
+   -webkit-transition-timing-function: linear;
+   -webkit-transition-delay: 0s;
+
+   transition-property: all;
+   transition-duration: 0.5s;
+   transition-timing-function: linear;
+   transition-delay: 0s;
+
+   background-image: url('../../assets/images/image-card.svg') !important;
+   background-size: inherit !important;
 }
 
 .transition-card {
@@ -174,7 +176,7 @@
    transition-timing-function: linear;
    transition-delay: 0s;
 
-   margin-top: 0px !important;
+   margin-top: -290px !important;
 }
 
 // Animations.
