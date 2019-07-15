@@ -78,7 +78,8 @@
    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#41da9c', endColorstr='#15e9e9', GradientType=0 );
  }
 .button-send:hover{
-  margin-right: 0;
+  transform: translate(-60%, 0%);
+  transition: transform 1s linear;
 }
 .button-receive{
   float: left;

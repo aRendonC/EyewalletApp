@@ -21,9 +21,18 @@
     </ul>
 
     <div class="terms-conditions">
+      <span class="text">Selecione billetera</span>
+
+      <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" type="number" name="city" [(ngModel)]="pocket" placeholder="Pocket">
+        <ion-select-option *ngFor="let pocket of pockets" [value]="pocket">{{pocket.label}}</ion-select-option>
+      </ion-select>
+
+    </div>
+    <div class="terms-conditions">
       <span class="text">{{termsConditions}}</span>
       <ion-toggle (ionChange)="handlerToggle($event)" mode="ios" class="accept-terms-onditions"></ion-toggle>
     </div>
+
 
     <div class="content-buttons">
       <ion-button mode="md" text-capitalize (click)="buttonCancelNavigate()" class="button-cancel">

@@ -56,6 +56,9 @@ export class InterceptadorService implements HttpInterceptor {
           if (error.status === 401) {
             this.logout();
             this.navCtrl.navigateRoot('/login');
+          } if (error.status === 501) {
+            this.presentAlerta('!!Tenemos errores internos');
+            this.loadCtrl.dismiss()
           }
           return throwError(error);
         }));
@@ -70,14 +73,14 @@ export class InterceptadorService implements HttpInterceptor {
     await this.storage.clear();
     // this.timer.resetTimer();
     await this.navCtrl.navigateRoot('/login');
-    await this.presentAlerta();
+    await this.presentAlerta('');
   }
 
-  async presentAlerta() {
+  async presentAlerta(text) {
     const alert = await this.alertCtrl.create({
       header: 'INFORMACIÓN',
       subHeader: 'Sesión terminada',
-      message: 'Señor usuario por seguridad su sesión ha sido expirada.',
+      message: text,
       buttons: ['cerrar']
     });
 

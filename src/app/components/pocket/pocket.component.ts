@@ -121,7 +121,7 @@ export class PocketComponent implements OnInit {
     if(profile.level === 0) {
       await this.presentToast('Lo sentimos, sus documentos no han sido verificados')
     } else {
-      await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
+      // await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
     }
   }
 

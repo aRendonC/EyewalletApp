@@ -1,21 +1,23 @@
 <ion-content>
-    <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
 <ion-grid class="no-padding">
     <ion-row>
-
         <ion-col class="no-padding">
-                    <img class="bg-profile" src="../../assets/images/bg-profile.png">
+            <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
+                    <img class="bg-profile" src="../../assets/images/bg-profile.png"/>
                 <div class="absolute">
-                    <img class="move-profile" src="../../assets/images/profilePage/backProfile.svg">
-                    <img class="move-profilePic" src="../../assets/images/profilePage/profilePic.svg">
+                    <img class="move-profile" src="../../assets/images/profilePage/backProfile.svg"/>
+                    <img class="move-profilePic" src="../../assets/images/profilePage/profilePic.svg"/>
                 </div>
             </ion-col>
         </ion-row>
         <ion-row class="move-name">
-            <p>{{profileShow.fullName}}</p>
-            <!-- <img class="move-engine" src="../../assets/images/profilePage/engine.svg"> -->
-            <img class="move-add" src="../../assets/images/profilePage/add-profile-img.svg" (click)="foto()">
-        </ion-row>
+            <form method="post" (ngSubmit)="foto()" >
+                <p>{{profileShow.fullName}}</p>
+                <!-- <img class="move-engine" src="../../assets/images/profilePage/engine.svg"> -->
+                <img type="submit" class="move-add" src="../../assets/images/profilePage/add-profile-img.svg" />
+                <ion-button type="submit"></ion-button>
+            </form>
+    </ion-row>
 </ion-grid>
 </ion-content>
 <ion-content class="move-profileInfo">

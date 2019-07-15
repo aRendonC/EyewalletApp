@@ -117,7 +117,7 @@ export class ProfilePage implements OnInit {
   }
   enviarServidor(data64) {
     this.axios.post('file/uploadFileAvatar',
-        { pic: data64 },
+        { file: data64 },
         this.auth
     ).then(async (data) => {
       this.touchCtrl.isTouch = true;

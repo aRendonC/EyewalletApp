@@ -24,14 +24,36 @@
       </div>
     </ion-col>
   </ion-row>
+  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 2" class="z-pocket">
+    <ion-col style="padding: 0" size="3" (click)="receiveCash()">
+      <div class="button-receive center-horizontal center-vertical center bounceInRight">
+        <ion-label style="margin-right: 5%; color: white;">
+          Calificar
+        </ion-label>
+        <img  class="resize-logo-right " src="../../assets/img/pocketsComponent/calificate.svg"/>
+      </div>
+      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+    </ion-col>
+    <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" (click)="openPocketsModal()">
+      <div  class="center-vertical center center-horizontal">
+        <img  src="../../../assets/img/pocketsComponent/pockets.png"/>
+        <ion-label >{{pocket?.label}}</ion-label>
+      </div>
+    </ion-col>
+    <ion-col size="3" (click)="sendCash()" class="bounceInRight" style="color: white; padding: 0">
+      <div class="button-send center-horizontal center-vertical center bounceInRight">
+        <img  class="resize-logo-right " src="../../assets/img/pocketsComponent/logout.svg"/>
+        <ion-label style="margin-left: 5%">
+          Cerrar Sesión
+        </ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
 </ion-grid>
   <div *ngIf="ctrlNavigation === 1">
     <img (click)="goToHome()"  class="resize-logo-close" src="../../../assets/img/sendCripto/backTop.png"/>
   </div>
 
-  <div *ngIf="ctrlNavigation === 2" class="z-pocket">
-    poner acá el cerrar sesión
-  </div>
 
 
 

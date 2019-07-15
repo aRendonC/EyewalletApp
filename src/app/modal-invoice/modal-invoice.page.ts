@@ -24,6 +24,6 @@ export class ModalInvoicePage implements OnInit {
 
   public async payRequestCard(): Promise<any> {
     this.modalController.dismiss();
-    await this.router.navigate(['card-invoice']);
+    await this.router.navigate(['/app/tabs/card-invoice']);
   }
 }

@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import {Storage} from "@ionic/storage";
 
 // Services.
 import { DataLocalService } from '../services/data-local/data-local.service';
@@ -33,7 +34,8 @@ export class RequestCreditCardPage implements OnInit {
   public showContentLogo: boolean = true;
   public valuesDataProfile: any[] = [];
   public stateTermsConditions: boolean = true;
-  private address = '2N5MCVLCyBhUZwFfPZTxEBZ6pnUp7yQfJS6'
+  public pocket: any = null
+  public pockets: [] = []
 
   public keysDataProfile: any[] = [
     CONSTANTS.REQUEST_CARD.NAME,
@@ -50,11 +52,14 @@ export class RequestCreditCardPage implements OnInit {
     private authService: AuthService,
     private axiosService: AxiosService,
     private toastController: ToastController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private storage: Storage
   ) { }
 
   public async ngOnInit() {
     this.dataProfile = await this.getDataProfile();
+    this.pockets = await this.storage.get('pockets')
+    this.pockets = this.aesJsService.decrypt(this.pockets)
     const dataUser = this.dataProfile;
     console.log(this.dataProfile)
     this.valuesDataProfile = [
@@ -84,22 +89,23 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   public async buttonAcept(): Promise<any> {
+    console.log(this.pocket)
     const path = 'card-request/request';
-    this.axiosService.post(path, {address: this.address}, this.authService)
-    .then(response => {
+    this.axiosService.post(path, {address: this.pocket.address}, this.authService)
+    .then(async response => {
       console.log('pedido de tarjeta', response)
-      this.getResponseRequestCard(response);
+      await this.getResponseRequestCard(response);
     })
     .catch(async error => {
       await this.presentToast(CONSTANTS.MESSAGE_ERROR.CONNECTIVITY_PROBLEMS);
     });
   }
 
-  public getResponseRequestCard(data): void {
+  public async getResponseRequestCard(data) {
     if (data.status === 200) {
-      this.showModalInvoice();
+      await this.showModalInvoice();
     } else {
-      this.presentToast(CONSTANTS.REQUEST_CARD.MESSAGE_NO_CARD);
+      await this.presentToast(CONSTANTS.REQUEST_CARD.MESSAGE_NO_CARD);
     }
   }
 
@@ -121,6 +127,6 @@ export class RequestCreditCardPage implements OnInit {
       duration: 3000
     });
 
-    toast.present();
+    await toast.present();
   }
 }
