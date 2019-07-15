@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="413.468" height="247.437" viewBox="0 0 413.468 247.437">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.48" y1="1.071" x2="0.502" y2="0.437" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#61a6fb"/>
+      <stop offset="0.199" stop-color="#6384fa"/>
+      <stop offset="1" stop-color="#6d00f9"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.498" y1="1.187" x2="0.501" y2="0.276" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="1.095" y1="0.461" x2="-0.686" y2="0.577" xlink:href="#linear-gradient"/>
+    <clipPath id="clip-path">
+      <path id="Rectángulo_6994" data-name="Rectángulo 6994" d="M0,0H413.468a0,0,0,0,1,0,0V223a0,0,0,0,1,0,0H59.459A59.459,59.459,0,0,1,0,163.543V0A0,0,0,0,1,0,0Z" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient-4" x1="0.506" y1="0.673" x2="0.475" y2="0.03" gradientUnits="objectBoundingBox">
+      <stop offset="0.011" stop-color="#61a6fb" stop-opacity="0"/>
+      <stop offset="0.469" stop-color="#6658fa" stop-opacity="0.471"/>
+      <stop offset="1" stop-color="#6d00f9"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-5" x1="0.368" y1="-3.605" x2="0.336" y2="-4.109" xlink:href="#linear-gradient-4"/>
+  </defs>
+  <g id="Grupo_1981" data-name="Grupo 1981" transform="translate(0)">
+    <path id="Rectángulo_6991" data-name="Rectángulo 6991" d="M0,0H388.13a0,0,0,0,1,0,0V209.335a0,0,0,0,1,0,0H55.815A55.815,55.815,0,0,1,0,153.52V0A0,0,0,0,1,0,0Z" transform="translate(12.669 26.288)" opacity="0.5" fill="url(#linear-gradient)"/>
+    <path id="Rectángulo_6992" data-name="Rectángulo 6992" d="M0,0H366.277a0,0,0,0,1,0,0V197.549a0,0,0,0,1,0,0H52.673A52.673,52.673,0,0,1,0,144.877V0A0,0,0,0,1,0,0Z" transform="translate(23.596 49.887)" opacity="0.23" fill="url(#linear-gradient-2)"/>
+    <path id="Rectángulo_6993" data-name="Rectángulo 6993" d="M0,0H413.468a0,0,0,0,1,0,0V223a0,0,0,0,1,0,0H59.459A59.459,59.459,0,0,1,0,163.543V0A0,0,0,0,1,0,0Z" fill="url(#linear-gradient-3)"/>
+    <g id="Grupo_1980" data-name="Grupo 1980">
+      <g id="Grupo_1979" data-name="Grupo 1979" clip-path="url(#clip-path)">
+        <path id="Trazado_1087" data-name="Trazado 1087" d="M638.259,44.556s-12.674,48.412-51.582,43.9S488.059,55.667,433.889,68.579s-40.706,40.139-114.5,46.771c-72.842,6.542-100.953-20.931-123.115-9.239s-10.466,108.643-10.466,108.643,57.721,54.558,83.647,55.446,340.5,7.113,348.8,0,80.327-113.708,80.327-117.352-33.858-84.8-33.858-84.8" transform="translate(-217.46 17.193)" opacity="0.49" fill="url(#linear-gradient-4)"/>
+        <path id="Trazado_1088" data-name="Trazado 1088" d="M616.918,31.333S613.751,81.278,574.7,84.306,471.626,71.01,420.932,94.06s-32.266,47.2-103.418,67.836c-70.242,20.379-103.1-1.2-122.607,14.52s10.54,108.636,10.54,108.636,67.105,42.489,92.721,38.394S633.72,265.2,640.512,256.631s57.057-126.99,56.36-130.567S647.4,49.321,647.4,49.321" transform="translate(-202.183 -18.902)" opacity="0.49" fill="url(#linear-gradient-5)"/>
+      </g>
+    </g>
+  </g>
+</svg>

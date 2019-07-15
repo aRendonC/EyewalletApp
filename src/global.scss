@@ -15,6 +15,7 @@
 // Variables fonts.
 $font-medium: Poppins-Medium;
 $font-semibold: Poppins-SemiBold;
+$font-bold: Poppins-Bold;
 $font-regular: Poppins-Regular;
 $font-roboto-bold: Roboto-Bold;
 $font-roboto-medium: Roboto-Medium;
@@ -149,6 +150,16 @@ $font-open-sans-bold: Open-Sans-Bold;
    display: flex;
    align-items: center;
    justify-content: center;
+}
+
+.all-center-horizontal {
+   display: flex;
+   justify-content: center;
+}
+
+.all-center-vertical {
+   display: flex;
+   align-items: center;
 }
 
 .center-space-around {
