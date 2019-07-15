@@ -22,7 +22,7 @@ export class PricesPage implements OnInit {
   public contentDataGrapic: any;
   public cryptoPrices24h: any;
   public historyCryptos: any;
-  public ctrlNavigation = 1;
+  public ctrlNavigation = 2;
   public arrayBTC = [];
   public arrayETH = [];
   public arrayXMR = [];

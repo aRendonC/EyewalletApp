@@ -10,13 +10,10 @@
                 </div>
             </ion-col>
         </ion-row>
-        <ion-row class="move-name">
-            <form method="post" (ngSubmit)="foto()" >
+        <ion-row class="move-name" (click)="foto()">
                 <p>{{profileShow.fullName}}</p>
                 <!-- <img class="move-engine" src="../../assets/images/profilePage/engine.svg"> -->
                 <img type="submit" class="move-add" src="../../assets/images/profilePage/add-profile-img.svg" />
-                <ion-button type="submit"></ion-button>
-            </form>
     </ion-row>
 </ion-grid>
 </ion-content>

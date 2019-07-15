@@ -56,8 +56,11 @@ export class InterceptadorService implements HttpInterceptor {
           if (error.status === 401) {
             this.logout();
             this.navCtrl.navigateRoot('/login');
-          } if (error.status === 501) {
-            this.presentAlerta('!!Tenemos errores internos');
+          } if (error.status === 502) {
+            this.presentAlerta('!!Tenemos errores internos', 'Ocurrió un error');
+            this.loadCtrl.dismiss()
+          }if (error.status === 0) {
+            this.presentAlerta('!!Tenemos errores internos', 'Ocurrió un error');
             this.loadCtrl.dismiss()
           }
           return throwError(error);
@@ -73,13 +76,13 @@ export class InterceptadorService implements HttpInterceptor {
     await this.storage.clear();
     // this.timer.resetTimer();
     await this.navCtrl.navigateRoot('/login');
-    await this.presentAlerta('');
+    await this.presentAlerta('', '');
   }
 
-  async presentAlerta(text) {
+  async presentAlerta(text, subHeader) {
     const alert = await this.alertCtrl.create({
       header: 'INFORMACIÓN',
-      subHeader: 'Sesión terminada',
+      subHeader: subHeader,
       message: text,
       buttons: ['cerrar']
     });

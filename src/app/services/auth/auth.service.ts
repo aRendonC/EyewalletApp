@@ -116,10 +116,10 @@ export class AuthService {
 
   async logout() {
     // this.timer.logout(false);
-    await this.store.remove('user')
     await this.store.clear();
     await this.menu.enable(false);
     await this.router.navigate(['']);
+    await this.loadingCtrl.dismiss()
   }
 
 }

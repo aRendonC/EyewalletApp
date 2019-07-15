@@ -136,4 +136,8 @@ export class PocketComponent implements OnInit {
     });
     await toast.present();
   }
+  async logOut() {
+    await this.loadingCtrl.present({})
+    await this.auth.logout()
+  }
 }
