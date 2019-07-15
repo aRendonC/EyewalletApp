@@ -1,5 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
+import {TouchLoginService} from "../fingerprint/touch-login.service";
+import {AlertController, ToastController} from "@ionic/angular";
+import {AxiosService} from "../axios/axios.service";
+import {AuthService} from "../auth/auth.service";
 
 /*
   Generated class for the LocalCameraProvider provider.
@@ -9,52 +13,48 @@ import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 */
 @Injectable()
 export class CameraProvider {
-
-  constructor(public camera: Camera) {
+  options: CameraOptions
+  constructor(
+      public camera: Camera,
+      private touchCtrl: TouchLoginService,
+      private toastCtrl: ToastController,
+      private http: AxiosService,
+      private auth: AuthService
+  ) {
   }
 
-  options: CameraOptions = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    saveToPhotoAlbum: false,
-    correctOrientation: true
-  };
 
-  getPhoto(options?: CameraOptions) {
-    this.options.sourceType = this.camera.PictureSourceType.CAMERA;
-    if (options) {
-      this.options = Object.assign(this.options, options);
-    }
-    return new Promise((resolve, reject) => {
-      this.camera.getPicture(this.options)
-        .then(value => {
-          // tslint:disable-next-line:triple-equals
-          if (this.options.destinationType == this.camera.DestinationType.DATA_URL) {
-            resolve(value);
-          } else {
-            resolve(value);
-          }
-        })
-        .catch(err => reject(err));
-    });
+  async getPhoto(sourceType) {
+    let options = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      allowEdit: false,
+      targetWidth: 500,
+      targetHeight: 500,
+      sourceType: sourceType,
+    };
+
+
+      return await this.camera.getPicture(options)
   }
 
-  getPhotoDirectory(options?: CameraOptions) {
-    this.options.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
-    if (options) {
-      this.options = Object.assign(this.options, options);
-    }
-    return new Promise((resolve, reject) => {
-      this.camera.getPicture(this.options)
-        .then(value => {
-          // tslint:disable-next-line:triple-equals
-          if (this.options.destinationType == this.camera.DestinationType.DATA_URL) {
-            resolve(value);
-          } else {
-            resolve(value);
-          }
-        })
-        .catch(err => reject(err));
-    });
+  sendPhoto(data64) {
+     return new Promise(resolve => {
+       this.http.post('file/uploadFileVerification',
+           { file: data64 },
+           this.auth
+       ).then(async (data) => {
+         this.touchCtrl.isTouch = true;
+         // this.auth.user_Info.url_img = data;
+         resolve(data)
+       }).catch((e) => {
+         resolve(e)
+         this.touchCtrl.isTouch = true;
+       });
+     })
   }
+
 }

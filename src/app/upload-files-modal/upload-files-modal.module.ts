@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { UploadFilesModalPage } from './upload-files-modal.page';
+import {ComponentsModule} from "../components/components.module";
 
 const routes: Routes = [
   {
@@ -19,8 +20,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+      ComponentsModule
   ],
-  declarations: [UploadFilesModalPage]
 })
 export class UploadFilesModalPageModule {}

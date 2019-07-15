@@ -8,6 +8,7 @@ import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {CameraProvider} from '../services/camera/camera';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
+import {Camera} from "@ionic-native/camera/ngx";
 
 @Component({
   selector: 'app-profile',
@@ -38,10 +39,10 @@ export class ProfilePage implements OnInit {
     private loadCtrl: LoadingController,
     private route: ActivatedRoute,
     private aesjs: AesJsService,
-    private camera: CameraProvider,
-    private touchCtrl: TouchLoginService,
+    private camera: Camera,
+    private alertCtrl: AlertController,
+    private cameraProvider: CameraProvider,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController
   ) {
     this.temporizador = this.timer.temporizador;
   }
@@ -68,70 +69,64 @@ export class ProfilePage implements OnInit {
     return countryUpper + countryLower;
   }
 
-  async foto() {
+  async photo() {
     const alert = await this.alertCtrl.create({
       buttons: [
         {
           text: 'Tomar foto',
-          handler: () => this.tomarFoto()
+          handler: async () => {
+            let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
+            console.log(takePhoto);
+            if (takePhoto) {
+              let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto)
+              if(responsePhoto.status === 200) {
+                await this.presentToast('Foto cargada correctamente')
+
+              } else {
+                await this.presentToast(responsePhoto.error.msg)
+              }
+            }
+            // if(takePhoto.status === 200) {
+            //  await this.presentToast('Documento cargado correctamente')
+            // } else {
+            //   await this.presentToast(takePhoto.error.msg)
+            // }
+          }
         },
         {
           text: 'Seleccione foto',
-          handler: () => this.seleccionarFoto()
+          handler: async () => {
+            let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
+            if (selectPhoto) {
+              let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto)
+              if(responsePhoto.status === 200) {
+                await this.presentToast('Foto cargada correctamente')
+              } else {
+                await this.presentToast(responsePhoto.error.msg)
+              }
+            }
+            // if(selectPhoto.status === 200) {
+            //   await this.presentToast('Documento cargado correctamente')
+            // } else {
+            //   await this.presentToast(selectPhoto.error.msg)
+            // }
+            console.log(selectPhoto)
+          }
         },
         {
           text: 'cancelar',
           role: 'cancel',
         }
       ]
-    })
-       await alert.present();
-  }
-
-  tomarFoto() {
-    this.touchCtrl.isTouch = false;
-    this.camera.getPhoto().then((data: any) => {
-      this.enviarServidor(data);
-    }).catch(() => {
-      this.touchCtrl.isTouch = true;
     });
+    await alert.present();
   }
 
-  seleccionarFoto() {
-    this.touchCtrl.isTouch = false;
-    this.camera.getPhotoDirectory().then((data: any) => {
-      this.enviarServidor(data);
-    }).catch(async (error) => {
-      const alert = await this.alertCtrl.create({
-        header: 'imagen no seleccionada',
-        buttons: [
-          {
-            text: 'Aceptar',
-            role: 'cancel',
-          }
-        ],
-      })
-      await alert.present();
-      this.touchCtrl.isTouch = true;
+  async presentToast(text) {
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 3000,
     });
+    await toast.present();
   }
-  enviarServidor(data64) {
-    this.axios.post('file/uploadFileAvatar',
-        { file: data64 },
-        this.auth
-    ).then(async (data) => {
-      this.touchCtrl.isTouch = true;
-      // this.auth.user_Info.url_img = data;
-      const toast = await this.toastCtrl.create({
-        message: 'foto subida correctamente',
-        duration: 3000,
-      });
-      await toast.present();
-    }).catch(() => {
-      this.touchCtrl.isTouch = true;
-    });
-  }
-
-
-
 }
