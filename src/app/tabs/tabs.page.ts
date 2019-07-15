@@ -13,7 +13,7 @@ import {ToastController} from "@ionic/angular";
 })
 export class TabsPage {
 
-  ctrlCssBlur: boolean = false
+  ctrlCssBlur: boolean = false;
 
   constructor(
     private auth: AuthService,
@@ -26,14 +26,14 @@ export class TabsPage {
   }
 
   async goToProfile() {
-    let profile = await this.store.get('profile')
-    console.log(profile)
-    profile = this.aesjs.decrypt(profile)
+    let profile = await this.store.get('profile');
+    console.log(profile);
+    profile = this.aesjs.decrypt(profile);
 
     if(profile.user.firstName){
       await this.router.navigate(['/app/tabs/profile'])
     } else {
-      await this.presentToastTabs('Por favor, registre su perfil')
+      await this.presentToastTabs('Por favor, registre su perfil');
       await this.router.navigate(['/create-profile'])
     }
   }
@@ -42,8 +42,19 @@ export class TabsPage {
     let toast = await this.toastCtrl.create({
       message: text,
       duration: 2000
-    })
+    });
     await toast.present()
+  }
+
+  async requestCreditCard() {
+    let profile = await this.store.get('profile');
+    profile = this.aesjs.decrypt(profile);
+    console.log(profile)
+    if(profile.level !== 3) {
+      await this.presentToastTabs('Para solicitar una tarjeta, debe validar sus documentos')
+    } else {
+      await this.router.navigate(['/app/tabs/request-credit-card'])
+    }
   }
 
   verifiLoading(data: boolean) {

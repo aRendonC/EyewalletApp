@@ -29,7 +29,7 @@ const routes: Routes = [
       },
       {
         path: 'card-invoice',
-        loadChildren: './card-invoice/card-invoice.module#CardInvoicePageModule'
+        loadChildren: '../card-invoice/card-invoice.module#CardInvoicePageModule'
       }
     ]
   },
