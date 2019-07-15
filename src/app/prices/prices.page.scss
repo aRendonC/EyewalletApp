@@ -22,13 +22,23 @@
 
 .Ethereum{
     background: linear-gradient(#4daaff 0%, #5584ff 21.7%, #7300ff 100%);
-    box-shadow: 0px 7px 1px rgba(115, 0, 255, 0.5), 0px 13px 0px rgba(115, 0, 255, 0.3), 0px 18px 1px rgba(115, 0, 255, 0.2)
+    box-shadow: 0px 7px 1px rgba(115, 0, 255, 0.5), 0px 13px 0px rgba(115, 0, 255, 0.3), 0px 18px 1px rgba(115, 0, 255, 0.2);
 }
 
 .ZCash{
 
     background: linear-gradient(#FFE900 0%, #FAAD17 100%);
-    box-shadow: 0px 7px 1px rgba(250, 173, 23, 0.5), 0px 13px 0px rgba(250, 173, 23, 0.3), 0px 18px 1px rgba(250, 173, 23, 0.2)
+    box-shadow: 0px 7px 1px rgba(250, 173, 23, 0.5), 0px 13px 0px rgba(250, 173, 23, 0.3), 0px 18px 1px rgba(250, 173, 23, 0.2);
+}
+
+.BitcoinC{
+    background: linear-gradient(#8dc351 0%, #199168 100%);
+    box-shadow: 0px 7px 1px rgba(25, 145, 104, 0.5), 0px 13px 0px rgba(25, 145, 104, 0.3), 0px 18px 1px rgba(25, 145, 104, 0.2);
+}
+
+.Litecoin{
+    background: linear-gradient(#29abe2 0%, #345d9d 100%);
+    box-shadow: 0px 7px 1px rgba(52, 93, 157, 0.5), 0px 13px 0px rgba(105, 138, 190, 0.3), 0px 18px 1px rgba(52, 93, 157, 0.2);
 }
 
 .bg-profile{
@@ -36,6 +46,7 @@
     height: 98.7%;
     position: relative;
     z-index: 3;
+    grid-area: 1/1/4/4;
 }
 .move-cryptoInfo{
     position: relative;
@@ -61,7 +72,7 @@
 .cryptoName{
     font-family: 'Open Sans', sans-serif;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 3.5vw;
     letter-spacing: 0em;
     line-height: 16px;
     text-align: left;
@@ -70,7 +81,7 @@
 .cryptoCode{
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    font-size: 13px;
+    font-size: 3.5vw;
     letter-spacing: 0em;
     line-height: 16px;
     text-align: left;
@@ -80,7 +91,7 @@
 .cryptoPriceName{
     font-family: 'Open Sans', sans-serif;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 3.5vw;
     letter-spacing: 0em;
     line-height: 16px;
     text-align: left;
@@ -89,7 +100,7 @@
 .cryptoPrice{
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    font-size: 13px;
+    font-size: 3.5vw;
     letter-spacing: 0em;
     line-height: 16px;
     text-align: left;
@@ -98,22 +109,22 @@
 
 .priceDetails{
     margin-left: 21px;
-    top: 72px;
+    top: 13vh;
     position: absolute;
 }
 
 .move-cryptoPrice{
-    position: absolute;
-    z-index: 3;
+    z-index: 6;
     font-family: "Open Sans";
     font-weight: normal;
-    font-size: 18px;
+    font-size: 5vw;
     letter-spacing: 0em;
     line-height: 21px;
     color: #93b5e5;
     text-align: center;
     width: 100%;
     margin: 0% 0% 0% 0%;
+    grid-area: 2/2/3/3;
 }
 
 .move-itemCryptoPrice{
@@ -124,7 +135,7 @@
 .mainPrice{
     font-family: 'Roboto', sans-serif;
     font-weight: normal;
-    font-size: 32px;
+    font-size: 8vw;
     line-height: 38px;
     text-align: center;
     color: #fff;
@@ -134,7 +145,7 @@
 .mainCurrency{
     font-family: 'Roboto', sans-serif;
     font-weight: normal;
-    font-size: 13px;
+    font-size: 4vw;
     line-height: 16px;
     text-align: center;
     color: #d1c9ff;
@@ -161,4 +172,24 @@
     position: relative;
     top: -36vw;
     z-index: 3;
+}
+
+.pockets{
+    grid-area: 1/1/1/4;
+}
+
+.move-graphic{
+    grid-area: 3/1/4/4;
+    z-index: 5;
+    width: 104% !important;
+    height: 100% !important;
+    margin-left: -3vw;
+    margin-top: -0.8vw;
+    border-bottom-left-radius: 150px;
+}
+
+.grid-graphic{
+    display: grid;
+    grid-template: auto 20% 60% / auto 74% auto;
+    height: 80%;
 }

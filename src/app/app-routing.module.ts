@@ -15,6 +15,7 @@ const routes: Routes = [
   {path: 'receive-funds', loadChildren: './receive-funds/receive-funds.module#ReceiveFundsPageModule'},
   {path: 'send-currency', loadChildren: './send-cryptocurrencies/send-cryptocurrencies.module#SendCryptocurrenciesPageModule'},
   { path: 'upload-verification-files', loadChildren: './upload-verification-files/upload-verification-files.module#UploadVerificationFilesPageModule' },
+  { path: 'upload-files-modal', loadChildren: './upload-files-modal/upload-files-modal.module#UploadFilesModalPageModule' },
 ];
 
 @NgModule({

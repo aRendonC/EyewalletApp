@@ -1,24 +1,20 @@
 <ion-content>
-    <ion-grid class="no-padding">
-        <ion-row>
-            <ion-col class="no-padding">
-                    <img class="bg-profile" src="../../assets/images/bg-profile.png">
-            </ion-col>
-        </ion-row>
-        <ion-item class="move-itemCryptoPrice">
-          <p class="move-cryptoPrice">{{cryptoCodes}} &nbsp; <span class="mainPrice">{{cryptoValue}}</span><span class="mainCurrency"> &nbsp; USDollar</span></p>
-        </ion-item>
-</ion-grid>
+  <div class="grid-graphic">
+      <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+    <img class="bg-profile" src="../../assets/images/bg-profile.png"> 
+    <p class="move-cryptoPrice">{{cryptoCodes}} &nbsp; <span class="mainPrice">{{cryptoValue}}</span><span class="mainCurrency"> &nbsp; USDollar</span></p>
+    <canvas class="move-graphic" #lineCanvas></canvas>
+  </div>
+
 </ion-content>
 <ion-content class="move-cryptoInfo">
   <ion-grid fixed class="padding-prices">
     <ion-row>
       <!-- Put ngFor here *ngFor="let cryptoPrice of cryptoPrices" -->
-
       <ion-col size="6" class="card-padding"  *ngFor="let cardPrice of cardPrices; index as index">
           <div class = {{cardPrice.cryptoClass}} (click)="selectCrypto(cardPrice.cryptoClass, index)">
-            <img class="move-cryptoLogo {{cardPrice.fontClass}}" [src]="cardPrice.cryptoImage"/>
-            <img class="LogoBG" [src]="cardPrice.cryptoImage"/>
+            <img class="move-cryptoLogo {{cardPrice.fontClass}}" src={{cardPrice.cryptoImage}}>
+            <img class="LogoBG" src={{cardPrice.cryptoImage}}>
             <!-- <img class="move-bgLogo" src={{cardPrice.cryptoImage}}> -->
             <div class= "priceDetails {{cardPrice.fontClass}}">
                 <p class="cryptoName" >{{cardPrice.cryptoName}}</p>
@@ -26,7 +22,6 @@
                 <p class="cryptoPriceName">Precio</p>
                 <p class="cryptoPrice">{{cardPrice.cryptoValue}}</p>
             </div>
-
           </div>
       </ion-col>
       <ion-col size="6"></ion-col>
