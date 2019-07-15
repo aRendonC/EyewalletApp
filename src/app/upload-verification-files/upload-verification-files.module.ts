@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { UploadVerificationFilesPage } from './upload-verification-files.page';
+import {ComponentsModule} from "../components/components.module";
+import {UploadFilesModalPage} from "../upload-files-modal/upload-files-modal.page";
 
 const routes: Routes = [
   {
@@ -19,8 +21,12 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+      ComponentsModule
   ],
-  declarations: [UploadVerificationFilesPage]
+  declarations: [UploadVerificationFilesPage, UploadFilesModalPage],
+  entryComponents: [
+      UploadFilesModalPage
+  ]
 })
 export class UploadVerificationFilesPageModule {}

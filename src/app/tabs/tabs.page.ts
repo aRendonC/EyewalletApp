@@ -60,4 +60,8 @@ export class TabsPage {
   verifiLoading(data: boolean) {
     this.ctrlCssBlur = data
   }
+
+    async gotoUploadFiles() {
+      await this.router.navigate(['/upload-verification-files'])
+    }
 }

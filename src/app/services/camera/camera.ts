@@ -15,14 +15,9 @@ export class CameraProvider {
 
   options: CameraOptions = {
     quality: 100,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    encodingType: this.camera.EncodingType.PNG,
-    mediaType: this.camera.MediaType.PICTURE,
-    correctOrientation: true,
-    allowEdit: false,
-    targetWidth: 500,
-    targetHeight: 500,
-    sourceType: 0,
+    destinationType: this.camera.DestinationType.FILE_URI,
+    saveToPhotoAlbum: false,
+    correctOrientation: true
   };
 
   getPhoto(options?: CameraOptions) {

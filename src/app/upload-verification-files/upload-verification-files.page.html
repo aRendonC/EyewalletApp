@@ -6,7 +6,7 @@
     <span class="title"></span>
   </div>
 
-  <form class="content-form" #form="ngForm" (ngSubmit)="sendDataRegistry()">
+  <form class="content-form" #form="ngForm" >
     <ion-list class="list-form">
       <ion-item class="list-item">
         <ion-img slot="start" class="icon-input" src="../../assets/icon/icon-email.png"></ion-img>
@@ -14,12 +14,10 @@
                 type="email"
                 name="email"
                 [placeholder]="constants.REGISTRY.EMAIL"
-                [(ngModel)]="dataRegistry.email"
-                (ngModelChange)="validateEmail($event)"
                 clear-input
                 class="input"
         ></ion-input>
-        <ion-img *ngIf="emailOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
+        <ion-img slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
       </ion-item>
 
       <ion-item class="list-item">
@@ -28,12 +26,11 @@
                 [placeholder]="constants.REGISTRY.PHONE"
                 type="text"
                 name="phon"
-                [(ngModel)]="dataRegistry.phone"
-                (ngModelChange)="validatePhone($event)"
+
                 clear-input
                 class="input"
         ></ion-input>
-        <ion-img *ngIf="phoneOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
+        <ion-img  slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
       </ion-item>
 
       <ion-item class="list-item">
@@ -42,8 +39,6 @@
                 type="password"
                 [placeholder]="constants.REGISTRY.CONTRASENA"
                 name="password"
-                [(ngModel)]="dataRegistry.password"
-                (ngModelChange)="validatePassword($event)"
                 clear-input
                 class="input"
         ></ion-input>
@@ -72,9 +67,8 @@
               type="submit"
               expand="full"
               text-capitalize
-              [disabled]="disableButton"
               shape="round"
-              [ngClass]="classButton"
+              (click)="openModal()"
       >
         {{constants.REGISTRY.BUTTON}}
       </ion-button>
