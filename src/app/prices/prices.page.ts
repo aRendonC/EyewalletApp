@@ -313,4 +313,5 @@ async graph() {
       this.cardPrices[5].cryptoClass = 'crypto-card Litecoin';
     }
   }
+
 }

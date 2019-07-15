@@ -14,8 +14,6 @@
     font-size: 34px;
 }
 
-.mt-14{
-}
 
 .center{
     top:10%;
@@ -75,13 +73,41 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.card-ver-title{
+    font-size: 2.9vh;
+    padding-left: 1vw;
+    color: white;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+}
+
 .card-titlesub{
     color: #28255C;
     font-size: 2vh;
-    width: 27vh;
-
     text-align: left;
     font-family: 'Poppins', sans-serif;
+}
+
+.header{
+    padding-bottom: 0px;
+}
+
+.card-ver-titlesub{
+    color: white;
+    font-size: 2vh;
+    margin-top: -2vh;
+    margin-left: 3vw;
+    padding-bottom: 7vw;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.card-ver-width{
+    background: #8BB5EA;
+    background-image: url("../../../assets/img/bg-verify.png");
+    background-repeat: no-repeat;
+    background-position: right;
 }
 
 .btn-continuar{
@@ -175,4 +201,15 @@
     padding: 0;
     font-size: 16px;
     line-height: 1.4;
+}
+
+.btn-aceptar{
+    background: linear-gradient(45deg, #00de96 0%, #00ecea 100%);
+    box-shadow: 0px 10.86px 6.79px rgba(0, 127, 59, 0.14);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 3.8vw;
+    padding: 2vw 13vw;
+    border-radius: 1.5vw;
 }

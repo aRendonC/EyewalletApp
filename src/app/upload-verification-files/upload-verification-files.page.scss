@@ -1,0 +1,83 @@
+@import '../../global.scss';
+
+.content-registry {
+    --background: url('../../assets/images/bg-registry.png');
+}
+
+.grid{
+    display: grid;
+    grid-template: auto 9% 8% 37% 5% 9.1% 5% 10.1% auto / auto 65% auto;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-accept{
+    --background: #4C6AC0;
+    --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+    --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+    --padding-start: 27vw;
+    --padding-end: 27vw;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --border-radius: 100px;
+    --opacity: 0.86;
+    font-family: 'Poppins', sans-serif;
+    grid-area: 8/2/8/2;
+}
+
+.box{
+    background-color: white;
+    grid-area: 4/3/5/2;
+    border-radius: 10px;
+    align-self: center;
+}
+
+.lets{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 7vw;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    grid-area: 3/2/2/2;
+}
+
+.terms-bg{
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 3vw;
+    text-align: center;
+    font-weight: 400;
+    padding: 3vw 10vw 3vw 10vw;
+    background-color: #354E91;
+    opacity: 0.5;
+    grid-area: 6/1/6/4;
+}
+
+.anchor-terms{
+    color: black;
+    text-decoration-line: none;
+    font-weight: 700;
+    opacity: 1;
+}
+
+.validations{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 3.5vw;
+    text-align: center;
+    color: #28255C;
+}
+
+.mt7vw{
+    width: 93%;
+}
+
+.ion-items{
+    --border-color: #D2C6FF;
+    --color-focused: #D2C6FF;
+    --background-focused: #D2C6FF;
+    --background-hover: #D2C6FF;
+    --background-activated: #D2C6FF;
+    --background: transparent;
+}
