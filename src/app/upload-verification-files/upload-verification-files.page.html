@@ -1,77 +1,31 @@
 <ion-content class="content-registry">
   <app-return-page ></app-return-page>
+  <div class="grid">
+    <!-- Titulo de la sección -->
+  <p class="lets">¡Vamos a verificar!</p>
 
-  <div class="content-header">
-    <ion-img class="icon" src="../../assets/icon/icon-wallet.png"></ion-img>
-    <span class="title"></span>
+  <!-- Validaciones -->
+  <div class="box">
+  <div class="mt7vw">
+      <ion-item class="ion-items" *ngFor="let validation of validations">
+        <ion-label class="validations" (click) = "openModal(validation.value)">{{validation.text}}</ion-label>
+      </ion-item>
+  </div>
   </div>
 
-  <form class="content-form" #form="ngForm" >
-    <ion-list class="list-form">
-      <ion-item class="list-item">
-        <ion-img slot="start" class="icon-input" src="../../assets/icon/icon-email.png"></ion-img>
-        <ion-input
-                type="email"
-                name="email"
-                [placeholder]="constants.REGISTRY.EMAIL"
-                clear-input
-                class="input"
-        ></ion-input>
-        <ion-img slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
-      </ion-item>
+  <!-- Términos y Condiciones -->
+  <div class="terms-bg">Al crear tu billetera, aceptas los siguientes terminos
+    <span>
+      <a  class="anchor-terms" href="https://eyewallet.com/">Términos de servicio</a>
+    </span>
+    & <span>
+        <a  class="anchor-terms" href="https://eyewallet.com/">Política y privacidad</a>
+    </span>
+  </div>
 
-      <ion-item class="list-item">
-        <ion-img slot="start" class="icon-input" src="../../assets/icon/icon-phone.png"></ion-img>
-        <ion-input
-                [placeholder]="constants.REGISTRY.PHONE"
-                type="text"
-                name="phon"
+  <!-- Botón de Aceptar -->
+  <ion-button class="btn-accept" (click)="onClick()" mode="ios">Acepto</ion-button>
+  </div>
 
-                clear-input
-                class="input"
-        ></ion-input>
-        <ion-img  slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
-      </ion-item>
-
-      <ion-item class="list-item">
-        <ion-img slot="start" class="icon-input" src="../../assets/icon/icon-password.png"></ion-img>
-        <ion-input
-                type="password"
-                [placeholder]="constants.REGISTRY.CONTRASENA"
-                name="password"
-                clear-input
-                class="input"
-        ></ion-input>
-        <ion-img *ngIf="passwordOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
-        <ion-img *ngIf="passwordError" slot="end" class="icon" src="../../assets/icon/icon-data-form-invalid.png"></ion-img>
-      </ion-item>
-    </ion-list>
-
-    <div class="content-terms-conditions">
-			<span class="text">
-				{{constants.REGISTRY.TERMS_AND_CONDITIONS}}
-              <span class="terms-conditions">
-					<a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">
-						{{constants.REGISTRY.TERMS_SERVICE}}
-					</a>
-					&
-					<a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">
-						{{constants.REGISTRY.PRIVACY_POLICY}}
-					</a>
-				</span>
-			</span>
-    </div>
-
-    <div class="content-button">
-      <ion-button
-              type="submit"
-              expand="full"
-              text-capitalize
-              shape="round"
-              (click)="openModal()"
-      >
-        {{constants.REGISTRY.BUTTON}}
-      </ion-button>
-    </div>
-  </form>
+  
 </ion-content>

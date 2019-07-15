@@ -67,7 +67,7 @@ export class CreateProfilePage implements OnInit {
       // this.store.set('user', JSON.stringify(response.data));
       // console.log( await this.store.set('user', JSON.stringify(response.data)));
     } else {
-      await this.loadingCtrl.dismiss()
+      await this.loadingCtrl.dismiss();
     }
   }
 }
