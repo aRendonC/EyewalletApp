@@ -7,7 +7,10 @@ import { Chart } from 'chart.js';
 import { ViewFlags } from '@angular/compiler/src/core';
 import { TouchSequence } from 'selenium-webdriver';
 import { LoadingService } from '../services/loading/loading.service';
+<<<<<<< HEAD
 
+=======
+>>>>>>> Prices Tab 98% Needs Optimization
 
 
 @Component({
