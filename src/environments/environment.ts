@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlBase: 'https://234eed39.ngrok.io/api/v1/'
+  urlBase: 'https://c16e59f8.ngrok.io/api/v1/'
   // urlBase: 'http://mobile.globalcoin.co:3000/api/v1/'
 };
 

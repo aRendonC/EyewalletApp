@@ -2,10 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {TimerService} from '../services/timer/timer.service';
-import {LoadingController} from '@ionic/angular';
+import {AlertController, LoadingController, ToastController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
+import {CameraProvider} from '../services/camera/camera';
+import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 
 @Component({
   selector: 'app-profile',
@@ -36,6 +38,10 @@ export class ProfilePage implements OnInit {
     private loadCtrl: LoadingController,
     private route: ActivatedRoute,
     private aesjs: AesJsService,
+    private camera: CameraProvider,
+    private touchCtrl: TouchLoginService,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController
   ) {
     this.temporizador = this.timer.temporizador;
   }
@@ -61,4 +67,71 @@ export class ProfilePage implements OnInit {
     const countryLower = this.profile.country.slice(1).toLowerCase();
     return countryUpper + countryLower;
   }
+
+  async foto() {
+    const alert = await this.alertCtrl.create({
+      buttons: [
+        {
+          text: 'Tomar foto',
+          handler: () => this.tomarFoto()
+        },
+        {
+          text: 'Seleccione foto',
+          handler: () => this.seleccionarFoto()
+        },
+        {
+          text: 'cancelar',
+          role: 'cancel',
+        }
+      ]
+    })
+       await alert.present();
+  }
+
+  tomarFoto() {
+    this.touchCtrl.isTouch = false;
+    this.camera.getPhoto().then((data: any) => {
+      this.enviarServidor(data);
+    }).catch(() => {
+      this.touchCtrl.isTouch = true;
+    });
+  }
+
+  seleccionarFoto() {
+    this.touchCtrl.isTouch = false;
+    this.camera.getPhotoDirectory().then((data: any) => {
+      this.enviarServidor(data);
+    }).catch(async (error) => {
+      const alert = await this.alertCtrl.create({
+        header: 'imagen no seleccionada',
+        buttons: [
+          {
+            text: 'Aceptar',
+            role: 'cancel',
+          }
+        ],
+      })
+      await alert.present();
+      this.touchCtrl.isTouch = true;
+    });
+  }
+  enviarServidor(data64) {
+    this.axios.post('file/uploadFileAvatar',
+        { pic: data64 },
+        this.auth
+    ).then(async (data) => {
+      this.touchCtrl.isTouch = true;
+      // this.auth.user_Info.url_img = data;
+      const toast = await this.toastCtrl.create({
+        message: 'foto subida correctamente',
+        duration: 3000,
+      });
+      await toast.present();
+    }).catch(() => {
+      this.touchCtrl.isTouch = true;
+    });
+  }
+
+
+
 }

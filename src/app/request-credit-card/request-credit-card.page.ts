@@ -33,6 +33,7 @@ export class RequestCreditCardPage implements OnInit {
   public showContentLogo: boolean = true;
   public valuesDataProfile: any[] = [];
   public stateTermsConditions: boolean = true;
+  private address = '2N5MCVLCyBhUZwFfPZTxEBZ6pnUp7yQfJS6'
 
   public keysDataProfile: any[] = [
     CONSTANTS.REQUEST_CARD.NAME,
@@ -54,7 +55,8 @@ export class RequestCreditCardPage implements OnInit {
 
   public async ngOnInit() {
     this.dataProfile = await this.getDataProfile();
-    const dataUser = this.dataProfile.data;
+    const dataUser = this.dataProfile;
+    console.log(this.dataProfile)
     this.valuesDataProfile = [
       `${dataUser.user.firstName} ${dataUser.user.lastName}`,
       `${dataUser.country}`,
@@ -83,12 +85,13 @@ export class RequestCreditCardPage implements OnInit {
 
   public async buttonAcept(): Promise<any> {
     const path = 'card-request/request';
-    this.axiosService.post(path, {}, this.authService)
+    this.axiosService.post(path, {address: this.address}, this.authService)
     .then(response => {
+      console.log('pedido de tarjeta', response)
       this.getResponseRequestCard(response);
     })
-    .catch(error => {
-      this.presentToast(CONSTANTS.MESSAGE_ERROR.CONNECTIVITY_PROBLEMS);
+    .catch(async error => {
+      await this.presentToast(CONSTANTS.MESSAGE_ERROR.CONNECTIVITY_PROBLEMS);
     });
   }
 
