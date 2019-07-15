@@ -6,6 +6,7 @@ import {AesJsService} from '../services/aesjs/aes-js.service';
 import { Chart } from 'chart.js';
 import { ViewFlags } from '@angular/compiler/src/core';
 import { TouchSequence } from 'selenium-webdriver';
+import { LoadingService } from '../services/loading/loading.service';
 
 
 @Component({
@@ -19,6 +20,14 @@ export class PricesPage implements OnInit {
   public lineChart: any;
   public dataGraphic: any;
   public contentDataGrapic: any;
+  public cryptoPrices24h: any;
+  public historyCryptos: any;
+  public ctrlNavigation = 1;
+  public arrayBTC = [];
+  public arrayETH = [];
+  public arrayXMR = [];
+  public arrayZEC = [];
+  public prices24h = [];
   ctrlCssColor = '';
   ctrlCssColorFont = '';
   private user: any;
@@ -34,11 +43,12 @@ export class PricesPage implements OnInit {
     private auth: AuthService,
     private store: Storage,
     protected aesjs: AesJsService,
+    private loading: LoadingService
   ) { }
-
 
     // Funcion de ciclo de vida (al cargar)
     async ngOnInit() {
+      this.loading.present({});
       await this.getProfile();
       await this.buildBodyForm();
       await this.getCryptoPrices();
@@ -47,7 +57,8 @@ export class PricesPage implements OnInit {
       await this.cardPricesBuilder();
       this.cryptoCodes = this.cardPrices[0].cryptoCodes;
       this.cryptoValue = this.cardPrices[0].cryptoValue;
-      await this.grafica();
+      this.prices24h = this.arrayBTC;
+      await this.graph();
     }
 
   // Saca el profile del storage de Ionic
@@ -75,18 +86,26 @@ export class PricesPage implements OnInit {
     this.cryptoPrices = JSON.parse(this.cryptoPrices);
   }
 
-  getCryptoPrices24h() {
-
+  // Obtiene los precios del Bitcoin de las ultimas 24 Horas
+  async getCryptoPrices24h() {
+    this.cryptoPrices24h = await this.axios.post('transaction/historyBTC', this.bodyForm, this.auth);
+    this.cryptoPrices24h.data.forEach( element => {
+      this.historyCryptos = JSON.parse(element.descripcion);
+      this.arrayBTC.push(this.historyCryptos.BTC.USD);
+      this.arrayETH.push(this.historyCryptos.ETH.USD);
+      this.arrayXMR.push(this.historyCryptos.XMR.USD);
+      this.arrayZEC.push(this.historyCryptos.ZEC.USD);
+    });
   }
 
-  // Esta funcion crea un array iterable con las 4 criptomonedas principales
+  // Esta funcion crea un array iterable con las 6 criptomonedas principales
   async cardPricesBuilder() {
     this.cardPrices = [
       {
         cryptoCodes: 'BTC',
         cryptoImage: '../../assets/images/pricesPage/bitcoinLogo.svg',
-        cryptoClass: 'crypto-card',
-        fontClass: '',
+        cryptoClass: 'crypto-card Bitcoin',
+        fontClass: 'white',
         cryptoName: 'Bitcoin',
         cryptoValue: this.cryptoPrices.BTC.USD
       },
@@ -113,11 +132,28 @@ export class PricesPage implements OnInit {
         fontClass: '',
         cryptoName: 'ZCash',
         cryptoValue: this.cryptoPrices.ZEC.USD
+      },
+      {
+        cryptoCodes: 'BCH',
+        cryptoImage: '../../assets/images/pricesPage/BCHLogo.svg',
+        cryptoClass: 'crypto-card',
+        fontClass: '',
+        cryptoName: 'Bitcoin Cash',
+        cryptoValue: this.cryptoPrices.BCH.USD
+      },
+      {
+        cryptoCodes: 'LTC',
+        cryptoImage: '../../assets/images/pricesPage/LTCLogo.svg',
+        cryptoClass: 'crypto-card',
+        fontClass: '',
+        cryptoName: 'Litecoin',
+        cryptoValue: this.cryptoPrices.LTC.USD
       }
     ];
+    await this.loading.dismiss();
   }
 
-
+// Se activa cuando le doy click a la criptomoneda que necesita el precio
   selectCrypto(cryptoClass, index) {
     this.ctrlCssColor = cryptoClass;
     this.ctrlCssColorIndex = index;
@@ -125,15 +161,14 @@ export class PricesPage implements OnInit {
     this.cryptoCodes = this.selectedCrypto.cryptoCodes;
     this.cryptoValue = this.selectedCrypto.cryptoValue;
     this.classSelector();
-
   }
 
-// Crea una Grafica;
-async grafica() {
+// Crea una Grafica de criptos;
+async graph() {
   const ctx = this.lineCanvas.nativeElement.getContext('2d');
-  const gradientFill = ctx.createLinearGradient(300, 150, 0, 150);
-  gradientFill.addColorStop(0.44, '#84EAE8');
-  gradientFill.addColorStop(1, 'transparent');
+  const gradientFill = ctx.createLinearGradient(262.48, 233, 316.52, 0);
+  gradientFill.addColorStop(0, 'rgba(0, 0, 0, 0.000)');
+  gradientFill.addColorStop(0.7, 'rgba(21, 233, 233, 1.000)');
   this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: 'line',
       data: {
@@ -141,10 +176,10 @@ async grafica() {
         datasets: [
             {
           label: '',
-          data:  [10, 10, 10, 10, 10, 120, 10, 10, 10, 10, 10, 10, 10, 10, 10, 120, 10, 10, 10, 10, 10, 10, 10, 10],
+          data:  this.prices24h,
           backgroundColor: gradientFill,
           borderColor: 'transparent',
-          borderWidth: 4,
+          borderWidth: 0,
           pointRadius: 0,
         }]
       },
@@ -185,8 +220,10 @@ async grafica() {
       }
     });
 }
-  classSelector() {
+  async classSelector() {
     if (this.ctrlCssColorIndex === 0) {
+      this.prices24h = this.arrayBTC;
+      await this.graph();
       this.cardPrices[0].fontClass = 'white';
       this.cardPrices[0].cryptoClass = 'crypto-card Bitcoin';
       this.cardPrices[1].fontClass = '';
@@ -195,7 +232,13 @@ async grafica() {
       this.cardPrices[2].cryptoClass = 'crypto-card';
       this.cardPrices[3].fontClass = '';
       this.cardPrices[3].cryptoClass = 'crypto-card';
+      this.cardPrices[4].fontClass = '';
+      this.cardPrices[4].cryptoClass = 'crypto-card';
+      this.cardPrices[5].fontClass = '';
+      this.cardPrices[5].cryptoClass = 'crypto-card';
     } else if (this.ctrlCssColorIndex === 1) {
+      this.prices24h = this.arrayETH;
+      await this.graph();
       this.cardPrices[0].fontClass = '';
       this.cardPrices[0].cryptoClass = 'crypto-card';
       this.cardPrices[1].fontClass = 'white';
@@ -204,7 +247,13 @@ async grafica() {
       this.cardPrices[2].cryptoClass = 'crypto-card';
       this.cardPrices[3].fontClass = '';
       this.cardPrices[3].cryptoClass = 'crypto-card';
+      this.cardPrices[4].fontClass = '';
+      this.cardPrices[4].cryptoClass = 'crypto-card';
+      this.cardPrices[5].fontClass = '';
+      this.cardPrices[5].cryptoClass = 'crypto-card';
     } else if (this.ctrlCssColorIndex === 2) {
+      this.prices24h = this.arrayXMR;
+      await this.graph();
       this.cardPrices[0].fontClass = '';
       this.cardPrices[0].cryptoClass = 'crypto-card';
       this.cardPrices[1].fontClass = '';
@@ -213,7 +262,13 @@ async grafica() {
       this.cardPrices[2].cryptoClass = 'crypto-card Monero';
       this.cardPrices[3].fontClass = '';
       this.cardPrices[3].cryptoClass = 'crypto-card';
+      this.cardPrices[4].fontClass = '';
+      this.cardPrices[4].cryptoClass = 'crypto-card';
+      this.cardPrices[5].fontClass = '';
+      this.cardPrices[5].cryptoClass = 'crypto-card';
     } else if (this.ctrlCssColorIndex === 3) {
+      this.prices24h = this.arrayZEC;
+      await this.graph();
       this.cardPrices[0].fontClass = '';
       this.cardPrices[0].cryptoClass = 'crypto-card';
       this.cardPrices[1].fontClass = '';
@@ -222,6 +277,40 @@ async grafica() {
       this.cardPrices[2].cryptoClass = 'crypto-card ';
       this.cardPrices[3].fontClass = 'white';
       this.cardPrices[3].cryptoClass = 'crypto-card ZCash';
+      this.cardPrices[4].fontClass = '';
+      this.cardPrices[4].cryptoClass = 'crypto-card';
+      this.cardPrices[5].fontClass = '';
+      this.cardPrices[5].cryptoClass = 'crypto-card';
+    } else if (this.ctrlCssColorIndex === 4) {
+      this.prices24h = this.arrayZEC;
+      await this.graph();
+      this.cardPrices[0].fontClass = '';
+      this.cardPrices[0].cryptoClass = 'crypto-card';
+      this.cardPrices[1].fontClass = '';
+      this.cardPrices[1].cryptoClass = 'crypto-card';
+      this.cardPrices[2].fontClass = '';
+      this.cardPrices[2].cryptoClass = 'crypto-card ';
+      this.cardPrices[3].fontClass = '';
+      this.cardPrices[3].cryptoClass = 'crypto-card';
+      this.cardPrices[4].fontClass = 'white';
+      this.cardPrices[4].cryptoClass = 'crypto-card BitcoinC';
+      this.cardPrices[5].fontClass = '';
+      this.cardPrices[5].cryptoClass = 'crypto-card';
+    } else if (this.ctrlCssColorIndex === 5) {
+      this.prices24h = this.arrayZEC;
+      await this.graph();
+      this.cardPrices[0].fontClass = '';
+      this.cardPrices[0].cryptoClass = 'crypto-card';
+      this.cardPrices[1].fontClass = '';
+      this.cardPrices[1].cryptoClass = 'crypto-card';
+      this.cardPrices[2].fontClass = '';
+      this.cardPrices[2].cryptoClass = 'crypto-card ';
+      this.cardPrices[3].fontClass = '';
+      this.cardPrices[3].cryptoClass = 'crypto-card';
+      this.cardPrices[4].fontClass = '';
+      this.cardPrices[4].cryptoClass = 'crypto-card';
+      this.cardPrices[5].fontClass = 'white';
+      this.cardPrices[5].cryptoClass = 'crypto-card Litecoin';
     }
   }
 
