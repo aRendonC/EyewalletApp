@@ -8,6 +8,10 @@ import { IonicModule } from '@ionic/angular';
 import { RequestCreditCardPage } from './request-credit-card.page';
 import { ComponentsModule } from '../components/components.module';
 
+// Modal.
+import { ModalInvoicePage } from '../modal-invoice/modal-invoice.page';
+import { ModalInvoicePageModule } from '../modal-invoice/modal-invoice.module';
+
 const routes: Routes = [
   {
     path: '',
@@ -16,14 +20,20 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+    ModalInvoicePage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ComponentsModule
+    ComponentsModule,
+    ModalInvoicePageModule
   ],
-  declarations: [RequestCreditCardPage]
+  declarations: [
+    RequestCreditCardPage
+  ]
 })
 
-export class RequestCreditCardPageModule {}
+export class RequestCreditCardPageModule { }

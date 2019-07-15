@@ -29,3 +29,21 @@ export const RECEIVE_FUNDS = {
    BUTTON_COPY: 'copiar',
    MESSAGE_COPY: 'El código ha sido copiado.'
 }
+
+export const REQUEST_CARD = {
+   REQUEST_CARD: 'Solicitar tarjeta',
+   TERMS_CONDITIONS: 'Acepto términos y condiciones',
+   BUTTON_CANCEL: 'cancelar',
+   BUTTON_ACCEPT: 'aceptar',
+   NAME: 'Nombre',
+   COUNTRY: 'Pais',
+   EMAIL: 'E-mail',
+   ID: 'ID',
+   RESIDENCE: 'Residencia',
+   MESSAGE_NO_CARD: 'El usuario no puede solicitar tarjetas.',
+   INCOMPLETE_PROFILE: 'Perfil incompleto'
+}
+
+export const MESSAGE_ERROR = {
+   CONNECTIVITY_PROBLEMS: 'Problemas de conectividad.'
+}
