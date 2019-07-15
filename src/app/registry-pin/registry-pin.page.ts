@@ -54,12 +54,13 @@ export class RegistryPinPage implements OnInit {
     console.info(this.bodyForm);
     console.info(data);
     console.info('datos del device', this.devic);
-    if(!this.devic.uuid) this.devic.uuid = 'aasdfdssfsdññasdshñ'
+    if(!this.devic.uuid) this.devic.uuid = 'edwigrendon'
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     console.log('bodyForm', this.bodyForm);
     console.log('auth service', this.auth);
-    const response = await this.axios.put('profile/1/pin', this.bodyForm.value, this.auth)
+    console.log('auth service', this.user);
+    const response = await this.axios.put(`profile/${this.user.data.id}/pin`, this.bodyForm.value, this.auth)
     console.log('acá registra el pin respuesta----->', response);
     if (response.status === 200) {
       let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password)

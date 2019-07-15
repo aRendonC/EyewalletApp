@@ -127,7 +127,7 @@ export class RegistryPage implements OnInit {
     await this.loadingCtrl.present({})
    let device = await this.device.getDataDevice();
    console.log('datos del dispositivo', device);
-   if(!device.uuid) device.uuid = 'aasdfdssfsdññasdshñ';
+   if(!device.uuid) device.uuid = '987654321';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
@@ -164,3 +164,4 @@ export class RegistryPage implements OnInit {
      await toast.present();
   }
 }
+
