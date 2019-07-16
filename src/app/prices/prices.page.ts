@@ -167,12 +167,16 @@ export class PricesPage implements OnInit {
 async graph() {
   const ctx = this.lineCanvas.nativeElement.getContext('2d');
   const gradientFill = ctx.createLinearGradient(262.48, 233, 316.52, 0);
-  gradientFill.addColorStop(0, 'rgba(0, 0, 0, 0.000)');
-  gradientFill.addColorStop(0.7, 'rgba(21, 233, 233, 1.000)');
+  gradientFill.addColorStop(0.000, 'rgba(31, 230, 216, 0.510)');
+  gradientFill.addColorStop(0.215, 'rgba(31, 230, 216, 0.431)');
+  gradientFill.addColorStop(0.462, 'rgba(33, 229, 213, 0.769)');
+  gradientFill.addColorStop(0.726, 'rgba(21, 233, 233, 1.000)');
   this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: 'line',
       data: {
-        labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+        labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+          '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+          '', '', '', '', '', '', '', '', '', '', '', ''],
         datasets: [
             {
           label: '',
@@ -184,6 +188,10 @@ async graph() {
         }]
       },
       options: {
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
         legend: {
           fullWidth: true,
           display: false
@@ -211,12 +219,14 @@ async graph() {
             }
           }]
         }, animation: {
-          duration: 7000,
+          duration: 2000,
         },
         hover: {
-          animationDuration: 3000
+          animationDuration: 2000,
+          mode: 'index',
+          intersect: false
         },
-        responsiveAnimationDuration: 5000
+        responsiveAnimationDuration: 2000
       }
     });
 }
