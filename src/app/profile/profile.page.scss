@@ -84,7 +84,7 @@
 }
 
 .move-profileInfo{
-    --offset-top: 6vh !important;
+    --offset-top: 15vh !important;
     --offset-bottom: 0px !important;
     height: 53vh;
 }
@@ -125,6 +125,7 @@ ion-item{
     width: 23vw;
 }
 .pad-lrs{
+    padding: 0 1em;
     width: 19vw;
 }
 
