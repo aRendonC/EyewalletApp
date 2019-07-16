@@ -13,7 +13,7 @@ import {AuthService} from "../auth/auth.service";
 */
 @Injectable()
 export class CameraProvider {
-  options: CameraOptions
+  options: CameraOptions;
   constructor(
       public camera: Camera,
       private touchCtrl: TouchLoginService,
@@ -41,9 +41,15 @@ export class CameraProvider {
       return await this.camera.getPicture(options)
   }
 
-  sendPhoto(data64, type) {
+  sendPhoto(data64, type, sendPath: boolean) {
+    let path;
+    if(sendPath) {
+      path = 'file/uploadFileVerification'
+    } else {
+      path = 'file/uploadFileAvatar'
+    }
      return new Promise(resolve => {
-       this.http.post('file/uploadFileVerification',
+       this.http.post(path,
            { file: data64, type: type },
            this.auth
        ).then(async (data) => {
@@ -51,7 +57,7 @@ export class CameraProvider {
          // this.auth.user_Info.url_img = data;
          resolve(data)
        }).catch((e) => {
-         resolve(e)
+         resolve(e);
          this.touchCtrl.isTouch = true;
        });
      })

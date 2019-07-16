@@ -1,12 +1,12 @@
 <ion-content>
 <div class="grid">
     <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
-    <img class="bg-profile" src="../../assets/images/bg-profile.png"> 
+    <img class="bg-profile" src="../../assets/images/bg-profile.png">
     <img class="move-profile" src="../../assets/images/profilePage/backProfile.svg"/>
-    <!-- <img class="move-profilePic" src="../../assets/images/profilePage/profilePic.svg"/> -->
+     <img class="move-profilePic" [src]="avatar"/>
     <p class="move-name">{{profileShow.fullName}}</p>
     <!-- <img class="move-engine" src="../../assets/images/profilePage/engine.svg"> -->
-    <img type="submit" class="move-add" (click)="picture()" src="../../assets/images/profilePage/add-profile-img.svg"/>
+    <img type="submit" class="move-add" (click)="photo()" src="../../assets/images/profilePage/add-profile-img.svg"/>
 </div>
 
 <ion-content class="move-profileInfo">

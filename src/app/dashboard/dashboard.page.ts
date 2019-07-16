@@ -34,7 +34,6 @@ export class DashboardPage implements OnInit {
     movement: null,
     limit: null
   };
-  public ctrlCssBlur: any;
 
   @Input() gra: SlidersComponent;
 
@@ -147,7 +146,6 @@ export class DashboardPage implements OnInit {
   }
 
   async getUserProfile() {
-    this.ctrlCssBlur = true;
     await this.loadingController.present({cssClass: 'textLoadingBlack'});
     let profile = await this.store.get('profile');
     profile = await this.aesjs.decrypt(profile);
@@ -195,6 +193,7 @@ export class DashboardPage implements OnInit {
   async getListTransactions() {
     let profile = await this.store.get('profile');
     profile = await this.aesjs.decrypt(profile);
+    console.log('pockets para traer transacciones', this.pockets)
     let params = {
       userId: profile.userId,
       type: 0,
@@ -222,7 +221,6 @@ export class DashboardPage implements OnInit {
       this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       this.crypto[0].value = 0;
     }
-    this.ctrlCssBlur = false;
     await this.loadingController.dismiss()
   }
 }

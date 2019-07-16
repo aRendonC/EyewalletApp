@@ -6,7 +6,7 @@ import {LoadingController} from "@ionic/angular";
 })
 export class LoadingService {
   isLoading: boolean = false;
-
+  labelContent: any;
   constructor(
     private loadingCtrl: LoadingController
   ) {
@@ -29,13 +29,20 @@ export class LoadingService {
       showBackdrop: false,
       spinner: 'crescent',
       cssClass: `loadingSpinner ${cssClass}`,
-    }
+    };
 
     return await this.loadingCtrl.create(options).then(a => {
+      this.labelContent = document.getElementsByTagName('app-tabs');
+      if(this.labelContent[0]) {
+        this.labelContent[0].classList.add("blur");
+      }
       a.present().then(() => {
         console.log('presented');
         if (!this.isLoading) {
-          a.dismiss().then(() => console.log('abort presenting'));
+          a.dismiss().then(() => {
+            if(this.labelContent[0]) this.labelContent[0].classList.remove("blur");
+            console.log('abort presenting')
+          });
         }
       });
     });
@@ -44,6 +51,7 @@ export class LoadingService {
 //To dismiss loading, use this.loading.dismiss() in your page or component
   async dismiss() {
     this.isLoading = false;
+    if(this.labelContent[0]) this.labelContent[0].classList.remove("blur");
     return await this.loadingCtrl.dismiss().then(() => console.log('dismissed'));
   }
 }

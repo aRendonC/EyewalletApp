@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
     this.auth.login(this.username, this.password).then(async (data: any) => {
       if (data) {
         if (data.status == 200) {
-          await this.getPocketsList();
+          this.pockets = await this.getPocketsList();
           console.info('mis pockets', this.pockets);
           this.touchCtrl.isLocked = false;
           this.ctrlCssBlur = false;
@@ -91,7 +91,7 @@ export class LoginPage implements OnInit {
   }
 
   async getPocketsList() {
-    this.pockets = await this.http.get('user-wallet/index', this.auth, null);
+     return await this.http.get('user-wallet/index', this.auth, null);
   }
 
   public async restore() {

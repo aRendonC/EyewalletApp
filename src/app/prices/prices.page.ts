@@ -48,7 +48,7 @@ export class PricesPage implements OnInit {
 
     // Funcion de ciclo de vida (al cargar)
     async ngOnInit() {
-      this.loading.present({});
+      await this.loading.present({});
       await this.getProfile();
       await this.buildBodyForm();
       await this.getCryptoPrices();

@@ -40,7 +40,7 @@ export class UploadFilesModalPage implements OnInit {
               let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
               if (takePhoto) {
                 await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
-                let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type);
+                let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type, true);
                 console.log('respuesta foto enviada', responsePhoto)
                 if(responsePhoto.status === 200) {
                   await this.loadingCtrl.dismiss();
@@ -78,7 +78,7 @@ export class UploadFilesModalPage implements OnInit {
               let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
               if (selectPhoto) {
                 await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
-                let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto, this.type);
+                let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto, this.type, true);
                 console.log('respuesta foto enviada', responsePhoto)
                 if(responsePhoto.status === 200) {
                   await this.loadingCtrl.dismiss();

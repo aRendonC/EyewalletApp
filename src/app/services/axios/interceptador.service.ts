@@ -62,6 +62,9 @@ export class InterceptadorService implements HttpInterceptor {
           }if (error.status === 0) {
             this.presentAlerta('!!Tenemos errores internos', 'Ocurrió un error');
             this.loadCtrl.dismiss()
+          } if (error.status === 500) {
+            this.presentAlerta('Ocurrió un error inesperado, por favor intenta nuevamente en unos minutos', 'Ocurrió un error');
+            this.loadCtrl.dismiss()
           }
           return throwError(error);
         }));

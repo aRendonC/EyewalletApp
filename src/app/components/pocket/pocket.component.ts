@@ -58,11 +58,11 @@ export class PocketComponent implements OnInit {
      // })
    }
   async getPocketStore() {
-    this.pockets = await this.store.get('pockets')
+    this.pockets = await this.store.get('pockets');
     if(!this.pockets){
       let response  = await this.http.get('user-wallet/index', this.auth, null);
-      this.pockets = response
-      response = await this.aesjs.encrypt(response)
+      this.pockets = response;
+      response = await this.aesjs.encrypt(response);
       await this.store.set('pockets', response)
     } else {
       this.pockets = this.aesjs.decrypt(this.pockets);
@@ -71,7 +71,7 @@ export class PocketComponent implements OnInit {
     this.pocket = this.pockets[0]
   }
   async openPocketsModal() {
-    await this.loadingCtrl.present({cssClass: 'textLoadingBlack'})
+    await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
     this.pockets = await this.http.get('user-wallet/index', this.auth, null);
     const modalPocket = await this.modalCtrl.create({
       component: ListPocketsPage,
@@ -85,28 +85,28 @@ export class PocketComponent implements OnInit {
 
     modalPocket.onDidDismiss().then(async (pocket:any)=> {
       if(pocket.data) {
-        console.log('este es el pocket seleccionado con el modal', pocket)
+        console.log('este es el pocket seleccionado con el modal', pocket);
         this.pocket = pocket.data;
         let body = {
           userId: this.pocket.userId,
           type: 0,
           address: this.pocket.address
         };
-        console.log(body)
+        console.log(body);
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         if(dataResponse.status === 200) {
-          dataResponse.pocket = this.pocket
+          dataResponse.pocket = this.pocket;
           this.dataBalance.emit(dataResponse)
         } else {
           await this.presentToast(dataResponse.data)
         }
       }
     });
-    await this.loadingCtrl.dismiss()
+    await this.loadingCtrl.dismiss();
     return await modalPocket.present();
   }
 
-  async receiveCash() {;
+  async receiveCash() {
     await this.router.navigate([
         '/receive-funds'],{
       queryParams: {
@@ -137,7 +137,7 @@ export class PocketComponent implements OnInit {
     await toast.present();
   }
   async logOut() {
-    await this.loadingCtrl.present({})
+    await this.loadingCtrl.present({});
     await this.auth.logout()
   }
 }

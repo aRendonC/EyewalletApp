@@ -14,21 +14,21 @@ export class QRScannerService {
     startScanner() {
 
         this.qrScanner.prepare()
-            .then((status: QRScannerStatus) => {
+            .then(async (status: QRScannerStatus) => {
                 if (status.authorized) {
 
                     this.isOn = true;
 
                     // start scanning
-                    const scanSub = this.qrScanner.scan().subscribe((text: string) => {
+                    const scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
                         console.log('Scanned something', text);
 
                         this.isOn = false;
-                        this.qrScanner.hide().then();
+                        await this.qrScanner.hide();
                         scanSub.unsubscribe();
                     });
 
-                    this.qrScanner.show().then();
+                    await this.qrScanner.show();
 
 
                 } else if (status.denied) {
