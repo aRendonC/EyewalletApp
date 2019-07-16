@@ -9,13 +9,12 @@
       background-size: cover;
       background-repeat: no-repeat;
       height: 247px;
-      padding: 20px 0 0 0;
       position: fixed;
       width: 100%;
 
       .content-text-icon-coin {
          @extend .all-center-colum;
-         margin: 54px 0 0 0;
+         margin: 20px 0 0 0;
 
          .text-coin{
             font-family: $font-roboto-bold;
