@@ -8,6 +8,10 @@ import { IonicModule } from '@ionic/angular';
 import { VaultCreatedPage } from './vault-created.page';
 import { ComponentsModule } from '../components/components.module';
 
+// Modal.
+import { ModalResponseStatusPage } from '../modal-response-status/modal-response-status.page';
+import { ModalResponseStatusPageModule } from '../modal-response-status/modal-response-status.module';
+
 const routes: Routes = [
   {
     path: '',
@@ -16,12 +20,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+    ModalResponseStatusPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ComponentsModule
+    ComponentsModule,
+    ModalResponseStatusPageModule
   ],
   declarations: [VaultCreatedPage]
 })

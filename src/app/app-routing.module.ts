@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'upload-verification-files', loadChildren: './upload-verification-files/upload-verification-files.module#UploadVerificationFilesPageModule' },
   { path: 'upload-files-modal', loadChildren: './upload-files-modal/upload-files-modal.module#UploadFilesModalPageModule' },
   { path: 'vault', loadChildren: './vault/vault.module#VaultPageModule' }, // vault
-  { path: '', loadChildren: './vault-created/vault-created.module#VaultCreatedPageModule' } // vault-created
+  { path: '', loadChildren: './vault-created/vault-created.module#VaultCreatedPageModule' }, // vault-created
 ];
 
 @NgModule({
