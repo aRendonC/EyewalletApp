@@ -1,22 +1,14 @@
 <ion-content>
-<ion-grid class="no-padding">
-    <ion-row>
-        <ion-col class="no-padding">
-            <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
-                    <img class="bg-profile" src="../../assets/images/bg-profile.png"/>
-                <div class="absolute">
-                    <img class="move-profile" src="../../assets/images/profilePage/backProfile.svg"/>
-                    <img class="move-profilePic" src="../../assets/images/profilePage/profilePic.svg"/>
-                </div>
-            </ion-col>
-        </ion-row>
-        <ion-row class="move-name" (click)="photo()">
-                <p>{{profileShow.fullName}}</p>
-                <!-- <img class="move-engine" src="../../assets/images/profilePage/engine.svg"> -->
-                <img type="submit" class="move-add" src="../../assets/images/profilePage/add-profile-img.svg" />
-    </ion-row>
-</ion-grid>
-</ion-content>
+<div class="grid">
+    <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+    <img class="bg-profile" src="../../assets/images/bg-profile.png"> 
+    <img class="move-profile" src="../../assets/images/profilePage/backProfile.svg"/>
+    <!-- <img class="move-profilePic" src="../../assets/images/profilePage/profilePic.svg"/> -->
+    <p class="move-name">{{profileShow.fullName}}</p>
+    <!-- <img class="move-engine" src="../../assets/images/profilePage/engine.svg"> -->
+    <img type="submit" class="move-add" (click)="picture()" src="../../assets/images/profilePage/add-profile-img.svg"/>
+</div>
+
 <ion-content class="move-profileInfo">
     <ion-item>
         <ion-label class="labels">ID</ion-label>
@@ -50,15 +42,13 @@
     </ion-item>
     <ion-item class="item-images">
         <img src="../../assets/images/profilePage/notifications.svg" class="pad-lr">
-        <img src="../../assets/images/profilePage/safety.svg" class="pad-lr">
+        <img src="../../assets/images/profilePage/safety.svg" class="pad-lrs">
         <img src="../../assets/images/profilePage/terms.svg" class="pad-lr">
         <img src="../../assets/images/profilePage/friends.svg" class="pad-lr">
     </ion-item>
-    <ion-item class="item-verify">
+    <ion-item class="item-notifications">
         <p class="mail-verify">Tu correo no está verificado!</p>
-    </ion-item>
-    <ion-item class="item-sendMail">
-            <p class="mail-sendMail">Reenviar correo</p>
+        <p class="mail-sendMail">Reenviar correo</p>
     </ion-item>
     <ion-item class="item-delete">
         <p class="delete-account">Eliminar Cuenta</p>

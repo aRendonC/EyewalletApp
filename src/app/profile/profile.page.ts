@@ -24,12 +24,14 @@ export class ProfilePage implements OnInit {
     country: '',
     mail: ''
   };
-  profile: any;
-  temporizador: any;
-  pockets: any = [];
-  country: any = '';
+  public profile: any;
+  public temporizador: any;
+  public pockets: any = [];
+  public country: any = '';
   public ctrlNavigation = 2;
-  fullName: any = '';
+  public fullName: any = '';
+  public word: any;
+  public profilePic: any;
 
   constructor(
     private store: Storage,
@@ -48,19 +50,44 @@ export class ProfilePage implements OnInit {
   }
   async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
+    this.profile = await this.store.get('profile');
+    await this.getPic();
     await this.getProfile();
   }
+
+  async getPic() {
+    this.profilePic = await this.store.get('profile');
+    this.profilePic = this.aesjs.decrypt(this.profile);
+    console.log(this.profilePic);
+  }
+
   async getProfile() {
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
-    this.profileShow.id = this.profile.user.id
-    this.profileShow.phone = this.profile.phone
-    this.profileShow.date = this.profile.createdAt.slice(0, 10)
-    if(this.profile.user.email) this.profileShow.mail = this.profile.user.email
-    if(this.profile.user.firstName) this.profileShow.fullName = this.profile.user.firstName + this.profile.user.lastName
-    if(this.profile.country) {
-      this.profileShow.country = this.countryLowercase()
+    this.profileShow.id = this.profile.user.id;
+    this.profileShow.phone = this.profile.phone;
+    this.profileShow.date = this.profile.createdAt.slice(0, 10);
+    if (this.profile.user.email) {this.profileShow.mail = this.profile.user.email; }
+    this.lowercaseNames(this.profile.user.firstName);
+    this.profile.user.firstName = this.word;
+    this.lowercaseNames(this.profile.user.lastName);
+    this.profile.user.lastName = this.word;
+    if (this.profile.user.firstName) {
+      this.profileShow.fullName = this.profile.user.firstName + ' ' + this.profile.user.lastName;
     }
+    if (this.profile.country) {
+      this.profileShow.country = this.countryLowercase();
+    }
+  }
+
+  // Vuelve en mayúscula cada palabra 
+  lowercaseNames(word) {
+    word = word.split(' ');
+    for (let i = 0, x = word.length; i < x; i++) {
+      word[i] = word[i][0].charAt(0).toUpperCase() + word[i].slice(1).toLowerCase();
+    }
+    word = word.join(' ');
+    this.word = word;
   }
 
   countryLowercase() {
@@ -69,11 +96,16 @@ export class ProfilePage implements OnInit {
     return countryUpper + countryLower;
   }
 
+<<<<<<< HEAD
   async photo() {
+=======
+  async picture() {
+>>>>>>> Profile fixed 90% Avatar image in profile left
     const alert = await this.alertCtrl.create({
       buttons: [
         {
           text: 'Tomar foto',
+<<<<<<< HEAD
           handler: async () => {
             let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
             console.log(takePhoto);
@@ -112,21 +144,82 @@ export class ProfilePage implements OnInit {
             // }
             console.log(selectPhoto)
           }
+=======
+          handler: () => this.takePic()
+        },
+        {
+          text: 'Seleccione foto',
+          handler: () => this.selectPic()
+>>>>>>> Profile fixed 90% Avatar image in profile left
         },
         {
           text: 'cancelar',
           role: 'cancel',
         }
       ]
+<<<<<<< HEAD
+=======
+    })
+       await alert.present();
+  }
+
+  takePic() {
+    this.touchCtrl.isTouch = false;
+    this.camera.getPhoto().then((data: any) => {
+      this.enviarServidor(data);
+    }).catch(() => {
+      this.touchCtrl.isTouch = true;
+>>>>>>> Profile fixed 90% Avatar image in profile left
     });
     await alert.present();
   }
 
+<<<<<<< HEAD
   async presentToast(text) {
     const toast = await this.toastCtrl.create({
       message: text,
       duration: 3000,
+=======
+  selectPic() {
+    this.touchCtrl.isTouch = false;
+    this.camera.getPhotoDirectory().then((data: any) => {
+      this.enviarServidor(data);
+    }).catch(async (error) => {
+      const alert = await this.alertCtrl.create({
+        header: 'imagen no seleccionada',
+        buttons: [
+          {
+            text: 'Aceptar',
+            role: 'cancel',
+          }
+        ],
+      })
+      await alert.present();
+      this.touchCtrl.isTouch = true;
+>>>>>>> Profile fixed 90% Avatar image in profile left
     });
     await toast.present();
   }
+<<<<<<< HEAD
+=======
+  enviarServidor(data64) {
+    this.axios.post('file/uploadFileAvatar',
+        { file: data64 },
+        this.auth
+    ).then(async (data) => {
+      this.touchCtrl.isTouch = true;
+      // this.auth.user_Info.url_img = data;
+      const toast = await this.toastCtrl.create({
+        message: 'foto subida correctamente',
+        duration: 3000,
+      });
+      await toast.present();
+    }).catch(() => {
+      this.touchCtrl.isTouch = true;
+    });
+  }
+
+// https://f4782120.ngrok.io/eyewallet/web/
+
+>>>>>>> Profile fixed 90% Avatar image in profile left
 }
