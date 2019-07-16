@@ -20,7 +20,7 @@
       <ion-button  class="btn-start" mode="ios" (click)="closeModal()">Chequear luego</ion-button>
     </div>
   </div>
-  <div *ngIf="ctrlDocument" style="margin-top: 10%">
+  <div *ngIf="ctrlDocument && !ctrlDocumentBack" style="margin-top: 10%">
     <ion-card *ngIf="documentList === 0" class="center" color="Light">
       <ion-card-header>
         <ion-card-title  type="ios" color="Light" class="center center-vertical center-horizontal">
@@ -81,7 +81,27 @@
       <ion-button  class="btn-start" mode="ios" (click)="takePhoto()">Continuar</ion-button>
     </div>
   </div>
-  <div *ngIf="ctrlDocumentAddress" style="margin-top: 10%">
+  <div *ngIf="ctrlDocumentBack && ctrlDocumentAddress" style="margin-top: 10%">
+    <ion-card  class="center" color="Light">
+      <ion-card-header>
+        <ion-card-title  type="ios" color="Light" class="center center-vertical center-horizontal">
+          <ion-label style="color:#3D95FF;padding: 0 20px 10px 20px;">Toma una foto de la parta trasera de tu
+          documento</ion-label>
+        </ion-card-title>
+        <ion-card-subtitle type="ios" color="Light" class="center center-vertical center-horizontal">
+          <ion-label style="color:#3D95FF;padding: 0 20px 10px 20px;">Asegúrese de que su documento
+            sea legible.</ion-label>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-img src="../../assets/img/upload/takephoto.svg"></ion-img>
+      </ion-card-content>
+    </ion-card>
+    <div class="move-btn">
+      <ion-button  class="btn-start" mode="ios" (click)="takePhoto()">Continuar</ion-button>
+    </div>
+  </div>
+  <div *ngIf="ctrlDocumentAddress && ctrlDocumentBack" style="margin-top: 10%">
     <ion-card class="center" color="Light">
       <ion-card-header>
         <ion-card-title  type="ios" color="Light" class="center center-vertical center-horizontal">
@@ -92,7 +112,7 @@
         </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <ion-img src="../../assets/img/upload/takephoto.svg"></ion-img>
+        <ion-img src="../../assets/img/upload/tarjeta.svg"></ion-img>
       </ion-card-content>
     </ion-card>
     <div class="move-btn">

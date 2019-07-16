@@ -38,10 +38,10 @@ export class UploadFilesModalPage implements OnInit {
             text: 'Tomar foto',
             handler: async () => {
               let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
-              console.log(takePhoto);
               if (takePhoto) {
                 await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
                 let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type);
+                console.log('respuesta foto enviada', responsePhoto)
                 if(responsePhoto.status === 200) {
                   await this.loadingCtrl.dismiss();
                   await this.presentToast('Documento cargado correctamente, por favor toque la pantalla para continuar');
@@ -60,20 +60,16 @@ export class UploadFilesModalPage implements OnInit {
                         this.ctrlDocumentBack = true
                       }else {
                         this.type = 'address';
-                        this.ctrlDocumentAddress = true
+                        this.ctrlDocumentAddress = true;
                         this.ctrlDocument = false;
                       }
                     }
                   }
                 } else {
+                  await this.loadingCtrl.dismiss();
                   await this.presentToast(responsePhoto.error.msg)
                 }
               }
-              // if(takePhoto.status === 200) {
-              //  await this.presentToast('Documento cargado correctamente')
-              // } else {
-              //   await this.presentToast(takePhoto.error.msg)
-              // }
             }
           },
           {
@@ -81,7 +77,9 @@ export class UploadFilesModalPage implements OnInit {
             handler: async () => {
               let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
               if (selectPhoto) {
+                await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
                 let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto, this.type);
+                console.log('respuesta foto enviada', responsePhoto)
                 if(responsePhoto.status === 200) {
                   await this.loadingCtrl.dismiss();
                   await this.presentToast('Documento cargado correctamente, por favor toque la pantalla para continuar');
@@ -100,21 +98,16 @@ export class UploadFilesModalPage implements OnInit {
                         this.ctrlDocumentBack = true
                       }else {
                         this.type = 'address';
-                        this.ctrlDocumentAddress = true
+                        this.ctrlDocumentAddress = true;
                         this.ctrlDocument = false;
                       }
                     }
                   }
                 } else {
+                  await this.loadingCtrl.dismiss();
                   await this.presentToast(responsePhoto.error.msg)
                 }
               }
-              // if(selectPhoto.status === 200) {
-              //   await this.presentToast('Documento cargado correctamente')
-              // } else {
-              //   await this.presentToast(selectPhoto.error.msg)
-              // }
-              console.log(selectPhoto)
             }
           },
           {
