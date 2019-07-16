@@ -25,19 +25,18 @@ $font-open-sans-bold: Open-Sans-Bold;
    --background: #4C6AC0;
    font-family: $font-medium;
    --color: white;
-   font-size: 18px !important;
+   width: 90% !important;
 }
 
 .button-disable {
    --background: #4C6AC0;
    font-family: $font-medium;
    --color: white;
-   font-size: 18px !important;
+   width: 90% !important;
 }
 
 .bghome{
-   --background:  url('/assets/img/bg-home.png');
-   --background-repeat: no-repeat;
+   --background:  url('/assets/img/bg-home.png') no-repeat center center / cover;
 }
 
 .move-logo{
@@ -46,7 +45,9 @@ $font-open-sans-bold: Open-Sans-Bold;
 }
 
 .resize-logo {
-   width: 60%;
+   width: 141PX;
+   height: 141px;
+   margin: 30px auto 0 auto;
 }
 
 .text-eyewallet{
@@ -89,22 +90,39 @@ $font-open-sans-bold: Open-Sans-Bold;
    margin-left: 4vw
 }
 
-.btn-start{
+.btn-start {
    --background: #4C6AC0;
    --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
    --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-   --padding-start: 15vh;
-   --padding-end: 14vh;
-   --padding-top: 0px;
-   --padding-bottom: 0px;
+   width: 90% !important;
    --border-radius: 100px;
    --opacity: 0.86;
    font-family: 'Poppins', sans-serif;
 }
 
+.btn-create {
+   margin-top: 2vh;
+   --background: transparent;
+   --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+   --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+   width: 90% !important;
+   --border-radius: 100px;
+   --border-color: white;
+   --border-width:1px;
+   --border-style: solid;
+   font-family: 'OpenSans', sans-serif;
+   font-weight: 400
+}
+
 .move-btn{
    margin-top: 5vh;
    text-align: center
+}
+
+.center {
+   margin-top: 30px !important;
+   text-align: center;
+   width: 100%;
 }
 
 .white-line{
