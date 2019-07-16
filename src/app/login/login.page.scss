@@ -1,25 +1,4 @@
 .center{
-    margin-top: 6vh;
     text-align: center;
     width: 100%;
-    margin-left: -7vh
 }
-
-  .btn-create{
-    margin-top: 2vh;
-    --background: transparent;
-    --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-    --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-    --padding-start: 10vh;
-    --padding-end: 10vh;
-    --padding-top: 0px;
-    --padding-bottom: 0px;
-    --border-radius: 100px;
-    --border-color: white;
-    --border-width:1px;
-    --border-style: solid;
-    font-family: 'OpenSans', sans-serif;
-    font-weight: 400
-  }
-
-
