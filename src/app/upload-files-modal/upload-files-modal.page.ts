@@ -13,8 +13,11 @@ import {LoadingService} from "../services/loading/loading.service";
 export class UploadFilesModalPage implements OnInit {
   ctrlSelfie: boolean = true;
   ctrlDocument: boolean = false;
+  ctrlDocumentBack: boolean = false;
   ctrlDocumentAddress: boolean = false;
   @Input() documentList = 0 ;
+  // type address, identification, identification2, photo
+  public type: string = 'photo';
   constructor(
       private camera: Camera,
       private cameraProvider: CameraProvider,
@@ -37,22 +40,29 @@ export class UploadFilesModalPage implements OnInit {
               let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
               console.log(takePhoto);
               if (takePhoto) {
-                await this.loadingCtrl.present({cssClass: 'textLoadingBlack'})
-                let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto)
+                await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
+                let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type);
                 if(responsePhoto.status === 200) {
-                  await this.loadingCtrl.dismiss()
-                  await this.presentToast('Documento cargado correctamente, por favor toque la pantalla para continuar')
-                  this.ctrlSelfie = false
+                  await this.loadingCtrl.dismiss();
+                  await this.presentToast('Documento cargado correctamente, por favor toque la pantalla para continuar');
+                  this.ctrlSelfie = false;
                   if(this.ctrlDocumentAddress) {
-                    await this.presentToast('Todos sus documentos han sido cargados correctamente')
-                    await this.closeModal()
+                    await this.presentToast('Todos sus documentos han sido cargados correctamente');
+                    await this.closeModal();
                     await this.router.navigate(['/app/tabs'])
                   } else {
                     if(!this.ctrlDocument) {
-                      this.ctrlDocument = true
+                      this.ctrlDocument = true;
+                      this.type = 'identification'
                     } else {
-                      this.ctrlDocument = false
-                      this.ctrlDocumentAddress = true
+                      if(!this.ctrlDocumentBack) {
+                        this.type = 'identification2';
+                        this.ctrlDocumentBack = true
+                      }else {
+                        this.type = 'address';
+                        this.ctrlDocumentAddress = true
+                        this.ctrlDocument = false;
+                      }
                     }
                   }
                 } else {
@@ -71,20 +81,28 @@ export class UploadFilesModalPage implements OnInit {
             handler: async () => {
               let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
               if (selectPhoto) {
-                let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto)
+                let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto, this.type);
                 if(responsePhoto.status === 200) {
-                  await this.presentToast('Documento cargado correctamente, por favor toque la pantalla para continuar')
-                  this.ctrlSelfie = false
+                  await this.loadingCtrl.dismiss();
+                  await this.presentToast('Documento cargado correctamente, por favor toque la pantalla para continuar');
+                  this.ctrlSelfie = false;
                   if(this.ctrlDocumentAddress) {
-                    await this.presentToast('Todos sus documentos han sido cargados correctamente')
-                    await this.closeModal()
+                    await this.presentToast('Todos sus documentos han sido cargados correctamente');
+                    await this.closeModal();
                     await this.router.navigate(['/app/tabs'])
                   } else {
                     if(!this.ctrlDocument) {
-                      this.ctrlDocument = true
+                      this.ctrlDocument = true;
+                      this.type = 'identification'
                     } else {
-                      this.ctrlDocument = false
-                      this.ctrlDocumentAddress = true
+                      if(!this.ctrlDocumentBack) {
+                        this.type = 'identification2';
+                        this.ctrlDocumentBack = true
+                      }else {
+                        this.type = 'address';
+                        this.ctrlDocumentAddress = true
+                        this.ctrlDocument = false;
+                      }
                     }
                   }
                 } else {

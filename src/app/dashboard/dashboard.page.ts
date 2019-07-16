@@ -40,8 +40,7 @@ export class DashboardPage implements OnInit {
 
   public crypto: any = [
     {name: 'Bitcoin', background: 'contentBitcoin', value: '', valueUsd: '', graphic: []},
-    {name: 'Ethereum', background: 'contentEtherium', value: '', valueUsd: '', graphic: []}
-
+    // {name: 'Ethereum', background: 'contentEtherium', value: '', valueUsd: '', graphic: []}
   ];
 
   public dataGraphic = [];

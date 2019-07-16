@@ -41,10 +41,10 @@ export class CameraProvider {
       return await this.camera.getPicture(options)
   }
 
-  sendPhoto(data64) {
+  sendPhoto(data64, type) {
      return new Promise(resolve => {
        this.http.post('file/uploadFileVerification',
-           { file: data64 },
+           { file: data64, type: type },
            this.auth
        ).then(async (data) => {
          this.touchCtrl.isTouch = true;

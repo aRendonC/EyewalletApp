@@ -7,7 +7,6 @@ import {ActivatedRoute} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {CameraProvider} from '../services/camera/camera';
-import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import {Camera} from "@ionic-native/camera/ngx";
 
 @Component({
@@ -16,6 +15,7 @@ import {Camera} from "@ionic-native/camera/ngx";
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  public type: string = 'avatar';
   profileShow = {
     fullName: '',
     id: '',
@@ -78,7 +78,7 @@ export class ProfilePage implements OnInit {
             let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
             console.log(takePhoto);
             if (takePhoto) {
-              let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto)
+              let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type)
               if(responsePhoto.status === 200) {
                 await this.presentToast('Foto cargada correctamente')
 
@@ -98,7 +98,7 @@ export class ProfilePage implements OnInit {
           handler: async () => {
             let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
             if (selectPhoto) {
-              let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto)
+              let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto, this.type)
               if(responsePhoto.status === 200) {
                 await this.presentToast('Foto cargada correctamente')
               } else {
