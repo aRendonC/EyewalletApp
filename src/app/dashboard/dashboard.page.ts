@@ -93,8 +93,6 @@ export class DashboardPage implements OnInit {
           data.data.forEach(elementGraphic => {
             console.table(elementGraphic)
             element.graphic.push(parseFloat(elementGraphic.balance_after));
-            // element.value = this.pockets[0].balance;
-            // element.valueUsd = this.pockets[0].balance * response.btc.toFixed(8);
           });
         } else {
           element.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -198,9 +196,11 @@ export class DashboardPage implements OnInit {
     let profile = await this.store.get('profile');
     profile = await this.aesjs.decrypt(profile);
     let params = {
-      userId: profile.userId
+      userId: profile.userId,
+      type: 0,
+      address: this.pockets[0].address
     };
-    let response = await this.http.post('transaction/all', params, this.auth);
+    let response = await this.http.post('transaction/index', params, this.auth);
     console.table('estas son todas mis transacciones', response);
     let dataTransaction = response.data;
     if (dataTransaction[0]) {

@@ -44,6 +44,7 @@ export class RequestCreditCardPage implements OnInit {
     CONSTANTS.REQUEST_CARD.ID,
     CONSTANTS.REQUEST_CARD.RESIDENCE
   ];
+  ctrlNavigation: number = 4;
 
   constructor(
     private dataLocalService: DataLocalService,

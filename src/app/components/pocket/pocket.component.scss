@@ -71,6 +71,15 @@
   height: 50px;
   background: white;
 }
+.add-card-button{
+  float: right;
+  margin-right: -102%;
+  border-radius: 30px 0 0 30px;
+  width: 150%;
+  height: 50px;
+  background: white;
+  border: 2px solid #27E3C9;
+}
 
 .qualify-button{
   float: left;
@@ -80,8 +89,22 @@
   height: 50px;
   background: white;
 }
+.active-card-button{
+  float: left;
+  margin-left: -75%;
+  border-radius: 0 30px 30px 0;
+  width: 125%;
+  height: 50px;
+  background: white;
+  border: 2px solid #5496FF;
+}
 .image-logout{
   width: 10%;
+  /* top: 17.5%; */
+  /* position: absolute; */
+}
+.image-add-card{
+  width: 20%;
   /* top: 17.5%; */
   /* position: absolute; */
 }
@@ -89,7 +112,15 @@
   color: black;
   margin: 0 7px 0 0;
 }
-
+.text-activate-card{
+  color: #5496FF;
+  margin: 0 7px 0 0;
+}
+.text-add-card{
+  margin-right: 19%;
+  margin-left: 5%;
+  color: #27E3C9;
+}
 .image-qualify{
   width: 20%;
 }
@@ -110,6 +141,14 @@
 .button-send:hover{
   transform: translate(-60%, 0%);
   transition: transform 1s linear;
+}
+.button-back{
+  float: left;
+  margin-left: -65%;
+  border-radius: 0 30px 30px 0;
+  width: 100%;
+  height: 50px;
+  background: white;
 }
 .button-receive{
   float: left;

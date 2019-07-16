@@ -154,13 +154,13 @@ export class PricesPage implements OnInit {
   }
 
 // Se activa cuando le doy click a la criptomoneda que necesita el precio
-  selectCrypto(cryptoClass, index) {
+  async selectCrypto(cryptoClass, index) {
     this.ctrlCssColor = cryptoClass;
     this.ctrlCssColorIndex = index;
     this.selectedCrypto = this.cardPrices[index];
     this.cryptoCodes = this.selectedCrypto.cryptoCodes;
     this.cryptoValue = this.selectedCrypto.cryptoValue;
-    this.classSelector();
+    await this.classSelector();
   }
 
 // Crea una Grafica de criptos;

@@ -55,70 +55,25 @@ export class SlidersComponent implements OnInit {
   async grafica(){
     console.log('datos para graficar', this.dataGraphic.graphic)
     const ctx = this.lineCanvas.nativeElement.getContext('2d');
-    const gradientStroke = ctx.createLinearGradient(0, 150, 30, 0);
-    gradientStroke.addColorStop(1, '#84EAE8');
-    gradientStroke.addColorStop(0, 'white');
+    const gradientStroke = ctx.createLinearGradient(154.000, 0.000, 146.000, 300.000);
+    gradientStroke.addColorStop(0.006, 'rgba(21, 233, 233, 1.000)');
+    gradientStroke.addColorStop(0.416, 'rgba(61, 219, 163, 0)');
+    gradientStroke.addColorStop(0.945, 'rgba(255, 255, 255, 0)');
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: 'line',
       data: {
         labels: ['', '', '', '', '', '', '', '', '', ''],
         datasets: [
             {
-          label: '',
-          data:  this.dataGraphic.graphic,
-          backgroundColor: gradientStroke,
-          borderColor: '#7DDC97',
-          borderWidth: 4,
-          pointRadius: 0,
-        }
-        //   {
-        //     label: '',
-        //     fill: false,
-        //     lineTension: 0.1,
-        //     backgroundColor: gradientStroke,
-        //     borderColor: '#7DDC97',
-        //     borderCapStyle: 'butt',
-        //     borderDash: [],
-        //     borderDashOffset: 0.0,
-        //     borderJoinStyle: 'miter',
-        //     pointBorderColor: 'rgba(75,192,192,1)',
-        //     pointBackgroundColor: '#fff',
-        //     pointBorderWidth: 1,
-        //     pointHoverRadius: 5,
-        //     pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-        //     pointHoverBorderColor: 'rgba(220,220,220,1)',
-        //     pointHoverBorderWidth: 2,
-        //     pointRadius: 0,
-        //     borderWidth: 4,
-        //     pointHitRadius: 10,
-        //     data: this.dataGraphic.graphic,
-        //     spanGaps: false,
-        //   }
-        ]
+              label: '',
+              data:  this.dataGraphic.graphic,
+              backgroundColor: gradientStroke,
+              borderColor: '#15E9E9',
+              borderWidth: 4,
+              pointRadius: 0,
+           }
+         ]
       },
-      // options: {
-      //   legend: {
-      //     display: false
-      //   },
-      //   scales: {
-      //     xAxes: [{
-      //       gridLines: {
-      //         drawBorder: false,
-      //         display: false
-      //       }
-      //     }],
-      //     yAxes: [{
-      //       ticks: {
-      //         beginAtZero: true,
-      //         display: false
-      //       },
-      //       gridLines: {
-      //         drawBorder: false,
-      //         display: false
-      //       }
-      //     }]
-      //   }
-      // }
       options: {
         legend: {
           fullWidth: true,
