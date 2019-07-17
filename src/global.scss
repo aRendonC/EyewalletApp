@@ -282,3 +282,35 @@ $font-open-sans-bold: Open-Sans-Bold;
 //    background: rgb(134,31,194) !important;
 //    color: white !important;
 //  }
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+   bottom: 48%;
+   left: 10%;
+   width: 100%;
+}
+
+.swiper-pagination-bullet-active {
+   height: 12px;
+   width: 12px;
+   background: rgba(77,170,255,1);
+   background: -moz-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(77,170,255,1)), color-stop(24%, rgba(85,132,255,1)), color-stop(100%, rgba(115,0,255,1)));
+   background: -webkit-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   background: -o-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   background: -ms-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   background: linear-gradient(to bottom, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4daaff', endColorstr='#7300ff', GradientType=0 );
+}
+.swiper-pagination-bullet {
+   background: rgba(77,170,255,1);
+   background: -moz-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(77,170,255,1)), color-stop(24%, rgba(85,132,255,0.88)), color-stop(100%, rgba(115,0,255,0.5)));
+   background: -webkit-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   background: -o-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   background: -ms-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   background: linear-gradient(to bottom, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4daaff', endColorstr='#7300ff', GradientType=0 );
+}
+
+.swiper-pagination {
+   text-align: left;
+}

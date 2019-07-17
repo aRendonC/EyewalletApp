@@ -1,5 +1,5 @@
 
-    <ion-slides [options]="slideOpts">
+    <ion-slides [options]="slideOpts" pager="true" mode="ios" (ionSlideDoubleTap)="cambioDeSlider()">
         <ion-slide *ngFor="let names of name">
             <ion-grid>
                 <ion-row>

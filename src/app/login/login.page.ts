@@ -70,27 +70,6 @@ export class LoginPage implements OnInit {
     });
   }
 
-  // async openModal() {
-  //   const moda = await this.modalCtrl.getTop();
-  //   const modal = await this.modalCtrl.create({
-  //     component: PinModalPage,
-  //     componentProps: {
-  //       paramID: 123,
-  //       paramTitle: 'Test title'
-  //     }
-  //   });
-  //
-  //   return await modal.present();
-  // }
-
-  // async presentToast() {
-  //   const toast = await this.toastController.create({
-  //     message: 'Usuario o contraseña incorrecta.',
-  //     duration: 2000
-  //   });
-  //   toast.present();
-  // }
-
   async getPocketsList() {
      return await this.http.get('user-wallet/index', this.auth, null);
   }

@@ -24,7 +24,7 @@ export class SlidersComponent implements OnInit {
   @Input() transactions: any;
   slideOpts = {
     initialSlide: 0,
-    speed: 1000
+    speed: 1000,
   };
   labelGrapich = [];
 
@@ -139,5 +139,8 @@ export class SlidersComponent implements OnInit {
   // Esta función envia a la verificación de documentos
   verification() {
     this.router.navigate(['/upload-verification-files']);
+  }
+  cambioDeSlider(){
+    console.log('cambio el slider')
   }
 }

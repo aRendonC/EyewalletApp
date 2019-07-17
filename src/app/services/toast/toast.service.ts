@@ -14,7 +14,7 @@ export class ToastService {
   async presentToast(
       {
         text = 'Error interno',
-        duration = 3000,
+        duration = 2000,
         closeButtonText = 'Cerrar',
         position = this.position,
         showCloseButton = false,

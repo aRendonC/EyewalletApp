@@ -7,6 +7,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {LoadingService} from "../services/loading/loading.service";
+import {AesJsService} from "../services/aesjs/aes-js.service";
 
 @Component({
   selector: 'app-registry-pin',
@@ -19,6 +20,7 @@ export class RegistryPinPage implements OnInit {
   private devic: any = {};
   private user: any = null;
   public classButton: string = 'button-disable';
+  pockets: any = [];
 
   constructor(
       private axios: AxiosService,
@@ -27,14 +29,15 @@ export class RegistryPinPage implements OnInit {
       private router: Router,
       private auth: AuthService,
       private store: Storage,
-      private loadingCtrl: LoadingService
+      private loadingCtrl: LoadingService,
+      private aesjs: AesJsService
   ) {
   }
 
   async ngOnInit() {
-    this.user = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('user'))
-    this.user.data.password = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('password'))
-    console.log('con estos datos iniciar sesión', this.user)
+    this.user = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('user'));
+    this.user.data.password = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('password'));
+    console.log('con estos datos iniciar sesión', this.user);
     this.auth.usuario.accessToken = this.user.accessToken;
     this.bodyForm = new FormGroup({
       pin: new FormControl('', Validators.compose([
@@ -49,27 +52,34 @@ export class RegistryPinPage implements OnInit {
   }
 
   async registerPin(data: any) {
-    await this.loadingCtrl.present({})
+    await this.loadingCtrl.present({});
     this.devic = await this.device.getDataDevice();
     console.info(this.bodyForm);
     console.info(data);
     console.info('datos del device', this.devic);
-    if(!this.devic.uuid) this.devic.uuid = 'edwigrendon'
+    if(!this.devic.uuid) this.devic.uuid = 'edwigrendon';
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     console.log('bodyForm', this.bodyForm);
     console.log('auth service', this.auth);
     console.log('auth service', this.user);
-    const response = await this.axios.put(`profile/${this.user.data.id}/pin`, this.bodyForm.value, this.auth)
+    const response = await this.axios.put(`profile/${this.user.data.id}/pin`, this.bodyForm.value, this.auth);
     console.log('acá registra el pin respuesta----->', response);
     if (response.status === 200) {
-      let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password)
+      let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password);
       if(loginUser.status === 200){
-        await this.router.navigate(['/app/tabs'])
+        this.pockets = await this.getPocketsList();
+        await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
+        this.pockets = this.aesjs.encrypt(this.pockets);
+        await this.store.set('pockets', this.pockets)
         await this.loadingCtrl.dismiss()
       }
     } else {
       await this.loadingCtrl.dismiss()
     }
+  }
+
+  async getPocketsList() {
+    return await this.axios.get('user-wallet/index', this.auth, null);
   }
 }

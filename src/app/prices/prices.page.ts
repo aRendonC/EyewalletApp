@@ -168,8 +168,8 @@ export class PricesPage implements OnInit {
         element.cryptoValue = this.cryptoPrices.LTC.USD;
       }
     });
-    // await this.loading.dismiss();
-    // this.ctrlCssBlur = false;
+    await this.loading.dismiss();
+    this.ctrlCssBlur = false;
   }
 // Se activa cuando le doy click a la criptomoneda que necesita el precio
   async selectCrypto(cryptoClass, index) {

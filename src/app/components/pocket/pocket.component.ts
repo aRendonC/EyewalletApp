@@ -1,14 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
-import {ModalController, ToastController} from "@ionic/angular";
+import {AlertController, ModalController, ToastController} from "@ionic/angular";
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
 import {enterAnimation} from "../../animations/enter";
 import {leaveAnimation} from "../../animations/leave";
 import {AuthService} from "../../services/auth/auth.service";
-import {Event, ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../../services/aesjs/aes-js.service";
 import {LoadingService} from "../../services/loading/loading.service";
+import {ToastService} from "../../services/toast/toast.service";
 
 @Component({
   selector: 'app-pocket',
@@ -31,9 +32,9 @@ export class PocketComponent implements OnInit {
       private router: Router,
       private store: Storage,
       private aesjs: AesJsService,
-      protected nvaigation: ActivatedRoute,
-      private toastCtrl: ToastController,
-      private loadingCtrl: LoadingService
+      private toastCtrl: ToastService,
+      private loadingCtrl: LoadingService,
+      private alertCtrl: AlertController
   ) {
     this.classLeft="resize-logo-left1";
     this.imgLeft = "../../assets/img/btn-left-s.svg";
@@ -98,7 +99,7 @@ export class PocketComponent implements OnInit {
           dataResponse.pocket = this.pocket;
           this.dataBalance.emit(dataResponse)
         } else {
-          await this.presentToast(dataResponse.data)
+          await this.toastCtrl.presentToast({text: dataResponse.error.msg})
         }
       }
     });
@@ -119,7 +120,7 @@ export class PocketComponent implements OnInit {
     let profile = await this.store.get('profile');
     profile = this.aesjs.decrypt(profile);
     if(profile.level === 0) {
-      await this.presentToast('Lo sentimos, sus documentos no han sido verificados')
+      await this.toastCtrl.presentToast({text: 'Lo sentimos, sus documentos no han sido verificados'})
     } else {
       await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
     }
@@ -129,12 +130,28 @@ export class PocketComponent implements OnInit {
     await this.router.navigate(['/app/tabs']);
   }
 
-  async presentToast(text) {
-    const toast = await this.toastCtrl.create({
-      message: text,
-      duration: 2000
+  async presentAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Cerrar Sesión',
+      message: '¿Desea cerrar su sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: async () => {
+            await this.logOut();
+            await this.toastCtrl.presentToast({text: 'Su sesión ha sido cerrada correctamente'})
+          }
+        }
+      ]
     });
-    await toast.present();
+    await alert.present();
   }
   async logOut() {
     await this.loadingCtrl.present({});

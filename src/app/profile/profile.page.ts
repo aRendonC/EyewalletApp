@@ -121,10 +121,11 @@ export class ProfilePage implements OnInit {
               if(responsePhoto.status === 200) {
                 this.touchCtrl.isTouch = true;
                 this.avatar = this.urlAvatar + responsePhoto.data;
+                console.log(this.avatar)
                 await this.loadingCtrl.dismiss();
                 await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
                 this.profile.avatar = responsePhoto.data;
-                this.aesjs.encrypt(this.profile);
+                this.profile = this.aesjs.encrypt(this.profile);
                 await this.store.set('profile', this.profile)
 
               } else {
@@ -146,10 +147,10 @@ export class ProfilePage implements OnInit {
               console.log('respuesta de foto', responsePhoto);
               if(responsePhoto.status === 200) {
                 this.touchCtrl.isTouch = true;
-                this.avatar = this.urlAvatar + responsePhoto.data.url;
+                this.avatar = this.urlAvatar + responsePhoto.data;
                 await this.loadingCtrl.dismiss();
                 await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
-                this.profile.avatar = responsePhoto.data.url;
+                this.profile.avatar = responsePhoto.data;
                 this.profile = this.aesjs.encrypt(this.profile);
                 await this.store.set('profile', this.profile)
 

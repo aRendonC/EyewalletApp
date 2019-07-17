@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card-invoice.page.scss'],
 })
 export class CardInvoicePage implements OnInit {
+    ctrlNavigation: number = 4;
 
   constructor() { }
 

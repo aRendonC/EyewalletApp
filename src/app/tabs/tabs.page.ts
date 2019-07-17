@@ -51,7 +51,7 @@ export class TabsPage {
 
   public async requestCreditCard(): Promise<any> {
     const profile = await this.getDataProfile();
-    this.validateNavigationRequestCard(profile);
+    await this.validateNavigationRequestCard(profile);
   }
 
   private async getDataProfile(): Promise<any> {
@@ -60,6 +60,7 @@ export class TabsPage {
   }
 
   private async validateNavigationRequestCard(profile: any): Promise<any> {
+    console.log(profile)
     if(profile.level !== 3) {
       await this.presentToastTabs('Para solicitar una tarjeta, debe validar sus documentos');
       await this.router.navigate(['/app/upload-verification-files']);
