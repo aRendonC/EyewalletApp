@@ -49,15 +49,13 @@
     grid-area: 1/1/4/4;
 }
 .move-cryptoInfo{
-    position: relative;
-    z-index: 2;
-    top: -37%;
-    --offset-top: 6vw !important;
-    --offset-bottom: 300px !important;
+    --offset-top: 15vh !important;
+    --offset-bottom: 0px !important;
+    height: 53vh;
 }
 
 .padding-prices{
-    padding: 40% 30px 0% 30px;
+    padding: 0% 30px 0% 30px;
 }
 
 .move-cryptoLogo{
@@ -182,14 +180,20 @@
     grid-area: 3/1/4/4;
     z-index: 5;
     width: 104% !important;
-    height: 100% !important;
+    height: 104.8% !important;
     margin-left: -3vw;
-    margin-top: -0.8vw;
-    border-bottom-left-radius: 150px;
+    margin-top: -2.4vw;
+    border-bottom-left-radius: 35vw;
+    border-top-left-radius: 0px;
+}
+.grid-graphic {
+    display: grid;
+    grid-template: 25% 17% 60% / auto 74% auto;
+    height: 39%;
 }
 
-.grid-graphic{
-    display: grid;
-    grid-template: auto 20% 60% / auto 74% auto;
-    height: 80%;
+.move-profileInfo{
+    --offset-top: 6vh !important;
+    --offset-bottom: 0px !important;
+    height: 53vh;
 }

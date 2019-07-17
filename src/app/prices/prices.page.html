@@ -1,12 +1,9 @@
-<ion-content>
   <div class="grid-graphic">
     <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
     <img class="bg-profile" src="../../assets/images/bg-profile.png"> 
     <p class="move-cryptoPrice">{{cryptoCodes}} &nbsp; <span class="mainPrice">{{cryptoValue}}</span><span class="mainCurrency"> &nbsp; USDollar</span></p>
     <canvas class="move-graphic" #lineCanvas></canvas>
   </div>
-
-</ion-content>
 <ion-content class="move-cryptoInfo">
   <ion-grid fixed class="padding-prices">
     <ion-row>
