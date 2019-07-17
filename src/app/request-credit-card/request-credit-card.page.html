@@ -16,14 +16,22 @@
     <ul class="list">
       <li *ngFor="let item of keysDataProfile, let i = index" class="item">
         <label class="key-item" text-capitalize>{{item}}</label>
-        <label class="value-item">{{valuesDataProfile[i] || incompleteProfile}}</label>
+        <label class="value-item">{{valuesDataProfile[i] }}</label>
       </li>
     </ul>
 
     <div class="terms-conditions">
       <span class="text">Selecione billetera</span>
 
-      <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" type="number" name="city" [(ngModel)]="pocket" placeholder="Pocket">
+      <ion-select
+        class="move-input"
+        done-text="Aceptar"
+        cancel-text="Cancelar"
+        type="number"
+        name="city"
+        [(ngModel)]="pocketSelected"
+        placeholder="Pocket"
+      >
         <ion-select-option *ngFor="let pocket of pockets" [value]="pocket">{{pocket.label}}</ion-select-option>
       </ion-select>
 

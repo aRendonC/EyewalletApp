@@ -10,11 +10,19 @@
       <ion-img src="../../assets/img/home-logo.svg" class="image-logo"></ion-img>
     </div>
 
-    <span class="text-one">Valor de la tarjeta:</span>
+    <div class="content-icon-value-usd">
+      <span class="content-icon-text">
+        <ion-img src="../../../assets/icon/icon-bitcoin.png" class="image"></ion-img>
+        <span class="text-icon">Valor</span>
+      </span>
 
-    <div class="content-icon-value">
-      <ion-img src="../../../assets/icon/icon-bitcoin.png" class="image"></ion-img>
-      <span class="text-two">$8,0070.78 (USD)</span>
+      <span class="text-two">${{ dataBill.card.priceUSD }} ({{ dataBill.card?.currency }})</span>
+    </div>
+
+    <div class="content-icon-value-usd">
+      <span class="text-two">eyewallet.com</span>
+      
+      <span class="text-two">{{ priceCardCoin }} {{ dataBill.cripto.currency }}</span>
     </div>
   </div>
 
