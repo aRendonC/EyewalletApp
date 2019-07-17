@@ -55,6 +55,7 @@ export class SlidersComponent implements OnInit {
   }
 
   async grafica(){
+    this.labelGrapich = [];
     for(let i = 0; i <= this.dataGraphic.graphic.length -1; i++){
       this.labelGrapich.push('')
     }
