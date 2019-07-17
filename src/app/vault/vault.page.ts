@@ -1,8 +1,6 @@
 // Dependencies.
 import { Component, OnInit } from '@angular/core';
-
-// Constants.
-import * as CONSTANTS from '../constanst';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vault',
@@ -10,16 +8,17 @@ import * as CONSTANTS from '../constanst';
   styleUrls: ['./vault.page.scss'],
 })
 export class VaultPage implements OnInit {
-  public buttonDisabled: boolean = true;
+  public buttonDisabled: boolean = false;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
 
   }
 
   public continueCreateVault(): void {
-    console.log('Continue...');
-    
+    this.router.navigate(['vault-created']);
   }
 }
