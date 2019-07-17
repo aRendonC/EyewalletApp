@@ -1,14 +1,12 @@
 // Dependencies.
 import { Component, OnInit } from '@angular/core';
-import { ToastController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import {Storage} from "@ionic/storage";
 
 // Services.
 import { DataLocalService } from '../services/data-local/data-local.service';
 import { AesJsService } from '../services/aesjs/aes-js.service';
-import { AuthService } from '../services/auth/auth.service';
-import { AxiosService } from '../services/axios/axios.service';
 
 // Constants.
 import * as CONSTANTS from '../constanst';
@@ -28,14 +26,13 @@ export class RequestCreditCardPage implements OnInit {
   public termsConditions: string = CONSTANTS.REQUEST_CARD.TERMS_CONDITIONS;
   public buttonCancel: string = CONSTANTS.REQUEST_CARD.BUTTON_CANCEL;
   public buttonAccept: string = CONSTANTS.REQUEST_CARD.BUTTON_ACCEPT;
-  public incompleteProfile: string = CONSTANTS.REQUEST_CARD.INCOMPLETE_PROFILE;
 
   public dataProfile: any = {};
   public showContentLogo: boolean = true;
   public valuesDataProfile: any[] = [];
   public stateTermsConditions: boolean = true;
-  public pocket: any = null
-  public pockets: [] = []
+  public pockets: any[] = [];
+  public pocketSelected: any;
 
   public keysDataProfile: any[] = [
     CONSTANTS.REQUEST_CARD.NAME,
@@ -50,26 +47,34 @@ export class RequestCreditCardPage implements OnInit {
     private dataLocalService: DataLocalService,
     private aesJsService: AesJsService,
     private router: Router,
-    private authService: AuthService,
-    private axiosService: AxiosService,
-    private toastController: ToastController,
     private modalController: ModalController,
-    private storage: Storage
+    private storage: Storage,
   ) { }
 
   public async ngOnInit() {
     this.dataProfile = await this.getDataProfile();
-    this.pockets = await this.storage.get('pockets')
-    this.pockets = this.aesJsService.decrypt(this.pockets)
-    const dataUser = this.dataProfile;
-    console.log(this.dataProfile)
+    this.setDataProfile(this.dataProfile);
+    this.pockets = await this.getDataListPockets();
+    this.pocketSelected = this.pockets[0];
+  }
+
+  private async getDataListPockets(): Promise<any[]> {
+    const dataPockets = await this.storage.get('pockets');
+    return this.aesJsService.decrypt(dataPockets)
+  }
+
+  private setDataProfile(dataProfile: any): void {
     this.valuesDataProfile = [
-      `${dataUser.user.firstName} ${dataUser.user.lastName}`,
-      `${dataUser.country}`,
-      `${dataUser.user.email}`,
-      `${dataUser.user.id}`,
-      'null'
+      `${this.validateDataProfile(dataProfile.user.firstName)} ${this.validateDataProfile(dataProfile.user.lastName)}`,
+      `${this.validateDataProfile(dataProfile.country)}`,
+      `${this.validateDataProfile(dataProfile.user.email)}`,
+      `${this.validateDataProfile(dataProfile.identification)}`,
+      'Valor indefinido'
     ];
+  }
+
+  private validateDataProfile(validateData): any {
+    return validateData !== null ? validateData : 'Por favor complete su perfil';
   }
 
   private async getDataProfile(): Promise<any> {
@@ -90,29 +95,15 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   public async buttonAcept(): Promise<any> {
-    console.log(this.pocket)
-    const path = 'card-request/request';
-    this.axiosService.post(path, {address: this.pocket.address}, this.authService)
-    .then(async response => {
-      console.log('pedido de tarjeta', response)
-      await this.getResponseRequestCard(response);
-    })
-    .catch(async error => {
-      await this.presentToast(CONSTANTS.MESSAGE_ERROR.CONNECTIVITY_PROBLEMS);
-    });
-  }
-
-  public async getResponseRequestCard(data) {
-    if (data.status === 200) {
-      await this.showModalInvoice();
-    } else {
-      await this.presentToast(CONSTANTS.REQUEST_CARD.MESSAGE_NO_CARD);
-    }
+    await this.showModalInvoice();
   }
 
   public async showModalInvoice(): Promise<any> {
     const modalInvoice = await this.modalController.create({
-      component: ModalInvoicePage
+      component: ModalInvoicePage,
+      componentProps: {
+        dataPocket: this.pocketSelected
+      }
     });
 
     return await modalInvoice.present();
@@ -120,14 +111,5 @@ export class RequestCreditCardPage implements OnInit {
 
   public handlerToggle(event) {
     this.stateTermsConditions = !event.detail.checked;
-  }
-
-  public async presentToast(messageInfo: string) {
-    const toast = await this.toastController.create({
-      message: messageInfo,
-      duration: 3000
-    });
-
-    await toast.present();
   }
 }

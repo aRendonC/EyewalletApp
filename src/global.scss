@@ -161,6 +161,12 @@ $font-open-sans-bold: Open-Sans-Bold;
    align-items: center;
 }
 
+.center-space-between {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
 .center-space-around {
    display: flex;
    align-items: center;
