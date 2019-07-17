@@ -34,22 +34,22 @@
             <p class="text-blue">3.0.0</p>
     </ion-item>
     <ion-item class="item-second">
-        <p class="text-second"> <img src="../../assets/images/profilePage/secondFactor.svg">&nbsp; Segundo Factor</p>
+        <p (click)= "secondFactor()" class="text-second"> <img src="../../assets/images/profilePage/secondFactor.svg">&nbsp; Segundo Factor</p>
     </ion-item>
     <ion-item class="item-second">
-        <p class="text-second"><img src="../../assets/images/profilePage/EyeWeb.svg"> &nbsp; Eyewallet Web</p>
+        <p  (click)= "secondFactor()" class="text-second"><img src="../../assets/images/profilePage/EyeWeb.svg"> &nbsp; Eyewallet Web</p>
     </ion-item>
     <ion-item class="item-images">
-        <img src="../../assets/images/profilePage/notifications.svg" class="pad-lr">
-        <img src="../../assets/images/profilePage/safety.svg" class="pad-lrs">
-        <img src="../../assets/images/profilePage/terms.svg" class="pad-lr">
-        <img src="../../assets/images/profilePage/friends.svg" class="pad-lr">
+        <img (click)="notifications()" src="../../assets/images/profilePage/notifications.svg" class="pad-lr">
+        <img (click)="safety()" src="../../assets/images/profilePage/safety.svg" class="pad-lrs">
+        <img (click)="terms()" src="../../assets/images/profilePage/terms.svg" class="pad-lr">
+        <img (click)="invite()" src="../../assets/images/profilePage/friends.svg" class="pad-lr">
     </ion-item>
     <ion-item class="item-notifications">
         <p class="mail-verify">Tu correo no está verificado!</p>
-        <p class="mail-sendMail">Reenviar correo</p>
+        <p (click)="sendMail()" class="mail-sendMail">Reenviar correo</p>
     </ion-item>
     <ion-item class="item-delete">
-        <p class="delete-account">Eliminar Cuenta</p>
+        <p  (click)="deleteAccount()" class="delete-account">Eliminar Cuenta</p>
     </ion-item>
 </ion-content>
