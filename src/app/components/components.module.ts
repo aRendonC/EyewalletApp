@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SlidersComponent} from './sliders/sliders.component';
 import {IonicModule} from '@ionic/angular';
 
+
 //components
 import {ChartComponent} from './chart/chart.component';
 import {PocketComponent} from "./pocket/pocket.component";

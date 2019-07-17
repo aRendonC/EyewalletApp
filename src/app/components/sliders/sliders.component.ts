@@ -7,6 +7,7 @@ import {enterAnimation} from '../../animations/enter';
 import {leaveAnimation} from '../../animations/leave';
 import { Chart } from 'chart.js';
 import {AesJsService} from '../../services/aesjs/aes-js.service';
+import {IonSlides} from "@ionic/angular";
 
 
 @Component({
@@ -22,9 +23,22 @@ export class SlidersComponent implements OnInit {
   public contentDataGrapic: any;
   public profile: any = null;
   @Input() transactions: any;
+  @ViewChild('slideWithNav') slideWithNav: IonSlides
+  @ViewChild('slideWithNav2') slideWithNav2: IonSlides
   slideOpts = {
     initialSlide: 0,
+    slidesPerView: 1,
     speed: 1000,
+    loop: true,
+  };
+  slideOptsName = {
+    spaceBetween: 1,
+    initialSlide: 0,
+    slidesPerView: 3,
+    speed: 1000,
+    loop: true,
+    centeredSlides: true,
+    effect: 'coverflow',
   };
   labelGrapich = [];
 
@@ -140,7 +154,9 @@ export class SlidersComponent implements OnInit {
   verification() {
     this.router.navigate(['/upload-verification-files']);
   }
-  cambioDeSlider(){
-    console.log('cambio el slider')
+  async cambioDeSlider(slideView1, slideView2) {
+    await slideView1.slideNext()
+    await slideView2.slideNext()
+    // this.checkIfNavDisabled(slideView);
   }
 }

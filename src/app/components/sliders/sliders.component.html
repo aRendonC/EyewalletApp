@@ -1,5 +1,18 @@
-
-    <ion-slides [options]="slideOpts" pager="true" mode="ios" (ionSlideDoubleTap)="cambioDeSlider()">
+<!--<ion-slides  #slideWithNav-->
+             <!--[options]="slideOptsName"-->
+             <!--mode="ios"-->
+             <!--(ionSlideDoubleTap)="cambioDeSlider(slideWithNav, slideWithNav2)">-->
+    <!--<ion-slide *ngFor="let names of name">-->
+        <!--<div class="center">-->
+            <!--<ion-label >{{names.name}}</ion-label>-->
+        <!--</div>-->
+    <!--</ion-slide>-->
+<!--</ion-slides>-->
+    <ion-slides  #slideWithNav2
+                 [options]="slideOpts"
+                 pager="true"
+                 mode="ios"
+                 (ionSlideDoubleTap)="cambioDeSlider(slideWithNav, slideWithNav2)">
         <ion-slide *ngFor="let names of name">
             <ion-grid>
                 <ion-row>
