@@ -26,6 +26,7 @@
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/device": "^5.8.0",
     "@ionic-native/fingerprint-aio": "^5.8.0",
+    "@ionic-native/geolocation": "^5.10.0",
     "@ionic-native/native-page-transitions": "^5.8.0",
     "@ionic-native/qr-scanner": "^5.9.0",
     "@ionic-native/splash-screen": "^5.0.0",

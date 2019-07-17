@@ -100,7 +100,6 @@ export class PricesPage implements OnInit {
     async ngOnInit() {
       this.loading.present({
         cssClass: 'textLoadingBlack'});
-      this.ctrlCssBlur = true;
       await this.getProfile();
       await this.buildBodyForm();
       await this.getCryptoPrices();
