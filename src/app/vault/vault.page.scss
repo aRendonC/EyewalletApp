@@ -1,0 +1,112 @@
+@import '../../global.scss';
+
+.vault {
+   display: flex;
+   justify-content: center;
+
+   .header {
+      background-image: url('../../assets/images/vault-header-background.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 247px;
+      position: fixed;
+      width: 100%;
+
+      .content-text-icon-coin {
+         @extend .all-center-colum;
+         margin: 20px 0 0 0;
+
+         .text-coin{
+            font-family: $font-roboto-bold;
+            font-size: 15px;
+            color: white;
+            margin: 0 0 10px 0;
+         }
+
+         .icon-coin {
+            width: 54px;
+         }
+      }
+   }
+
+   .content-balance-duration {
+      background: white;
+      box-shadow: 0px 10.86px 6.79px rgba(55, 45, 204, 0.1);
+      width: 84%;
+      margin: 30px auto;
+      padding: 10px 0;
+      border-radius: 8px;
+      @extend .all-center-colum;
+
+      .title {
+         font-family: $font-bold;
+         font-size: 15px;
+         color: #2B2A5B;
+         margin: 0 0 3px 0;
+      }
+
+      .balance {
+         font-family: $font-medium;
+         font-size: 14px;
+         color: #404F8D;
+         margin: 0 0 20px 0;
+      }
+
+      .text-duration{
+         font-family: $font-bold;
+         font-size: 12px;
+         color: #6194FC;
+         margin: 0 0 3px 0;
+      }
+
+      .text-other {
+         font-family: $font-medium;
+         font-size: 10px;
+         color: #2B2A5B;
+      }
+
+      .table {
+         width: 66%;
+
+         tr {
+            td {
+               padding: 20px 4px 10px 4px;
+            }
+
+            .title {
+               font-family: $font-bold;
+               font-size: 12px;
+               color: #6194FC;
+            }
+
+            .text {
+               font-family: $font-regular;
+               font-size: 10px;
+               color: #97B4E7;
+               text-align: right;
+            }
+         }
+
+         .row-border {
+            border-bottom: solid 0.5px #CCC4FC;
+         }
+      }
+   }
+
+   .content-balance {
+      margin-top: 270px !important;
+   }
+
+   .content-button {
+      @extend .all-center;
+      margin: 50px 0;
+
+      .button {
+         width: 70%;
+         font-family: $font-medium;
+         font-size: 16px;
+         --color: white;
+         --background: linear-gradient(#7ddc97 0%, #84eae8 100%);
+      }
+   }
+}

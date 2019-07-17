@@ -28,7 +28,6 @@ import {LoadingService} from "./services/loading/loading.service";
 // LocalStorage.
 import { IonicStorageModule } from '@ionic/storage';
 import {ComponentsModule} from './components/components.module';
-import {VerificationModalPage} from './verification-modal/verification-modal.page';
 
 
 // Plugins cordova.
@@ -36,8 +35,8 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
 
-  declarations: [AppComponent, PinModalPage, VerificationModalPage],
-  entryComponents: [PinModalPage, VerificationModalPage],
+  declarations: [AppComponent, PinModalPage],
+  entryComponents: [PinModalPage],
   imports: [
     ComponentsModule,
     ReactiveFormsModule,

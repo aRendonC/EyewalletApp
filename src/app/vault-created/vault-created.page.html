@@ -1,0 +1,48 @@
+<ion-content class="vault-created">
+  <div class="header">
+    <app-pocket></app-pocket>
+
+    <div class="content-text-icon-coin">
+      <span class="text-coin">Bitcoin (BTC)</span>
+      <ion-img src="../../assets/icon/icon-coin-btc.svg" class="icon-coin"></ion-img>
+    </div>
+  </div>
+
+  <div class="earning-information">
+    <table class="table">
+      <tr class="row-border">
+        <td class="title">Cantidad</td>
+        <td class="text">0.000 BTC</td>
+      </tr>
+
+      <tr>
+        <td class="title">Cantidad USD</td>
+        <td class="text">0.000 $</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="content-icon-coin-background"></div>
+
+  <div class="content-button">
+    <ion-button
+      [disabled]="buttonDisabled"
+      (click)="acceptCreationVault()"
+      class="button"
+      text-capitalize
+      shape="round"
+    >
+      Aceptar
+    </ion-button>
+  </div>
+
+  <div class="content-terms-conditions">
+    <span class="text-one">
+      Cuando haces click en "Siguiente", aceptas
+    </span>
+
+    <span class="text-two">
+      Términos de servicio - políticas y privacidad
+    </span>
+  </div>
+</ion-content>

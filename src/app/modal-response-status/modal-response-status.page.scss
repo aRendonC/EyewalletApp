@@ -1,0 +1,29 @@
+@import '../../global.scss';
+
+.modal-response-status {
+   @extend .backGroundGradient;
+
+   .content-modal-response-status {
+      height: 100%;
+      @extend .all-center;
+
+      .content-icon-status-message {
+         background-color: white;
+         width: 70%;
+         @extend .all-center-colum;
+         padding: 20px;
+         border-radius: 4px;
+
+         .icon {
+            width: 100px;
+            margin: 0 0 20px 0;
+         }
+
+         .message {
+            font-family: $font-semibold;
+            font-size: 12px;
+            color: #6194FC;
+         }
+      }
+   }
+}

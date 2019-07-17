@@ -1,0 +1,107 @@
+@import '../../global.scss';
+
+.vault-created {
+   display: flex;
+   justify-content: center;
+
+   .header {
+      height: 247px;
+      background-image: url('../../assets/images/vault-header-background.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: fixed;
+      width: 100%;
+
+      .content-text-icon-coin {
+         @extend .all-center-colum;
+         margin: 20px 0 0 0;
+
+         .text-coin{
+            font-family: $font-roboto-bold;
+            font-size: 15px;
+            color: white;
+            margin: 0 0 10px 0;
+         }
+
+         .icon-coin {
+            width: 54px;
+         }
+      }
+   }
+
+   .earning-information {
+      background: white;
+      box-shadow: 0px 10.86px 6.79px rgba(55, 45, 204, 0.1);
+      width: 84%;
+      margin: 270px auto 30PX auto;
+      padding: 10px 0;
+      border-radius: 8px;
+      @extend .all-center-colum;
+
+      .table {
+         width: 66%;
+
+         tr {
+            td {
+               padding: 20px 4px 10px 4px;
+            }
+
+            .title {
+               font-family: $font-bold;
+               font-size: 12px;
+               color: #6194FC;
+            }
+
+            .text {
+               font-family: $font-bold;
+               font-size: 12px;
+               color: #2B2A5B;
+               text-align: right;
+            }
+         }
+
+         .row-border {
+            border-bottom: solid 0.5px #CCC4FC;
+         }
+      }
+   }
+
+   .content-icon-coin-background {
+      height: 200px;
+      background-image: url('../../assets/images/coin-bitcoin-background.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0 0 30px 0;
+   }
+
+   .content-button {
+      @extend .all-center;
+      margin: 0 0 40px 0;
+
+      .button {
+         width: 70%;
+         font-family: $font-medium;
+         font-size: 16px;
+         --color: white;
+         --background: linear-gradient(#7ddc97 0%, #84eae8 100%);
+      }
+   }
+
+   .content-terms-conditions {
+      @extend .all-center-colum;
+      margin: 0 0 20px 0;
+
+      .text-one {
+         font-family: $font-regular;
+         font-size: 11px;
+         color: #7B88BF;
+      }
+
+      .text-two {
+         font-family: $font-bold;
+         font-size: 11px;
+         color: #6194FC;
+      }
+   }
+}

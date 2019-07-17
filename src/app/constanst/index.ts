@@ -44,6 +44,12 @@ export const REQUEST_CARD = {
    INCOMPLETE_PROFILE: 'Perfil incompleto'
 }
 
+export const VAULT = {
+   TITLE_BALANCE: 'saldo disponible',
+   TITLE_DURATION: 'duración',
+   TEXT_EARNING: 'total ganancias'
+}
+
 export const MESSAGE_ERROR = {
    CONNECTIVITY_PROBLEMS: 'Problemas de conectividad.'
 }
