@@ -98,9 +98,7 @@ export class PricesPage implements OnInit {
 
     // Funcion de ciclo de vida (al cargar)
     async ngOnInit() {
-      await this.loading.present({
-        cssClass: 'textLoadingBlack'});
-      this.ctrlCssBlur = true;
+      this.loading.present({cssClass: 'textLoadingBlack'});
       await this.getProfile();
       await this.buildBodyForm();
       await this.getCryptoPrices();
@@ -168,8 +166,7 @@ export class PricesPage implements OnInit {
         element.cryptoValue = this.cryptoPrices.LTC.USD;
       }
     });
-    // await this.loading.dismiss();
-    // this.ctrlCssBlur = false;
+    await this.loading.dismiss();
   }
 // Se activa cuando le doy click a la criptomoneda que necesita el precio
   async selectCrypto(cryptoClass, index) {
