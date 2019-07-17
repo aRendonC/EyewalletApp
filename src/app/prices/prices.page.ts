@@ -17,6 +17,7 @@ import { LoadingService } from '../services/loading/loading.service';
 export class PricesPage implements OnInit {
   @Input() name: any;
   @ViewChild('lineCanvas') lineCanvas;
+  public ctrlCssBlur = false;
   public lineChart: any;
   public dataGraphic: any;
   public contentDataGrapic: any;
@@ -97,7 +98,9 @@ export class PricesPage implements OnInit {
 
     // Funcion de ciclo de vida (al cargar)
     async ngOnInit() {
-      this.loading.present({cssClass: 'textLoadingBlack'});
+      this.loading.present({
+        cssClass: 'textLoadingBlack'});
+      this.ctrlCssBlur = true;
       await this.getProfile();
       await this.buildBodyForm();
       await this.getCryptoPrices();
@@ -165,59 +168,9 @@ export class PricesPage implements OnInit {
         element.cryptoValue = this.cryptoPrices.LTC.USD;
       }
     });
-    await this.loading.dismiss();
-    // = [
-    //   {
-    //     cryptoCodes: 'BTC',
-    //     cryptoImage: '../../assets/images/pricesPage/bitcoinLogo.svg',
-    //     cryptoClass: 'crypto-card Bitcoin',
-    //     fontClass: 'white',
-    //     cryptoName: 'Bitcoin',
-    //     cryptoValue: this.cryptoPrices.BTC.USD
-    //   },
-    //   {
-    //     cryptoCodes: 'ETH',
-    //     cryptoImage: '../../assets/images/pricesPage/etherLogo.svg',
-    //     cryptoClass: 'crypto-card',
-    //     fontClass: '',
-    //     cryptoName: 'Ethereum',
-    //     cryptoValue: this.cryptoPrices.ETH.USD
-    //   },
-    //   {
-    //     cryptoCodes: 'XMR',
-    //     cryptoImage: '../../assets/images/pricesPage/moneroLogo.svg',
-    //     cryptoClass: 'crypto-card',
-    //     fontClass: '',
-    //     cryptoName: 'Monero',
-    //     cryptoValue: this.cryptoPrices.XMR.USD
-    //   },
-    //   {
-    //     cryptoCodes: 'ZEC',
-    //     cryptoImage: '../../assets/images/pricesPage/zLogo.svg',
-    //     cryptoClass: 'crypto-card',
-    //     fontClass: '',
-    //     cryptoName: 'ZCash',
-    //     cryptoValue: this.cryptoPrices.ZEC.USD
-    //   },
-    //   {
-    //     cryptoCodes: 'BCH',
-    //     cryptoImage: '../../assets/images/pricesPage/BCHLogo.svg',
-    //     cryptoClass: 'crypto-card',
-    //     fontClass: '',
-    //     cryptoName: 'Bitcoin Cash',
-    //     cryptoValue: this.cryptoPrices.BCH.USD
-    //   },
-    //   {
-    //     cryptoCodes: 'LTC',
-    //     cryptoImage: '../../assets/images/pricesPage/LTCLogo.svg',
-    //     cryptoClass: 'crypto-card',
-    //     fontClass: '',
-    //     cryptoName: 'Litecoin',
-    //     cryptoValue: this.cryptoPrices.LTC.USD
-    //   }
-    // ];
+    // await this.loading.dismiss();
+    // this.ctrlCssBlur = false;
   }
-
 // Se activa cuando le doy click a la criptomoneda que necesita el precio
   async selectCrypto(cryptoClass, index) {
     this.ctrlCssColor = cryptoClass;
