@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {TimerService} from '../services/timer/timer.service';
-import {AlertController, LoadingController, ToastController} from '@ionic/angular';
+import {AlertController,} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
@@ -10,6 +10,7 @@ import {CameraProvider} from '../services/camera/camera';
 import {Camera} from "@ionic-native/camera/ngx";
 import {LoadingService} from "../services/loading/loading.service";
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,7 @@ import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 })
 export class ProfilePage implements OnInit {
   public type: string = 'avatar';
-  urlAvatar = 'https://f4782120.ngrok.io/api/v1/';
+  urlAvatar = 'https://f4782120.ngrok.io/eyewallet/web/';
   avatar = null;
   profileShow: any = {
     fullName: '',
@@ -48,7 +49,7 @@ export class ProfilePage implements OnInit {
     private camera: Camera,
     private alertCtrl: AlertController,
     private cameraProvider: CameraProvider,
-    private toastCtrl: ToastController,
+    private toastCtrl: ToastService,
     private touchCtrl: TouchLoginService,
   ) {
     this.temporizador = this.timer.temporizador;
@@ -120,7 +121,7 @@ export class ProfilePage implements OnInit {
                 this.touchCtrl.isTouch = true;
                 this.avatar = this.urlAvatar + responsePhoto.data;
                 await this.loadingCtrl.dismiss();
-                await this.presentToast('Foto cargada correctamente');
+                await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
                 this.profile.avatar = responsePhoto.data;
                 this.aesjs.encrypt(this.profile);
                 await this.store.set('profile', this.profile)
@@ -128,7 +129,7 @@ export class ProfilePage implements OnInit {
               } else {
                 this.touchCtrl.isTouch = true;
                 await this.loadingCtrl.dismiss();
-                await this.presentToast(responsePhoto.error.msg)
+                await this.toastCtrl.presentToast({text: responsePhoto.error.msg})
               }
             }
           }
@@ -144,17 +145,17 @@ export class ProfilePage implements OnInit {
               console.log('respuesta de foto', responsePhoto);
               if(responsePhoto.status === 200) {
                 this.touchCtrl.isTouch = true;
-                this.avatar = this.urlAvatar + responsePhoto.data;
+                this.avatar = this.urlAvatar + responsePhoto.data.url;
                 await this.loadingCtrl.dismiss();
-                await this.presentToast('Foto cargada correctamente');
-                this.profile.avatar = responsePhoto.data;
-                this.aesjs.encrypt(this.profile);
+                await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
+                this.profile.avatar = responsePhoto.data.url;
+                this.profile = this.aesjs.encrypt(this.profile);
                 await this.store.set('profile', this.profile)
 
               } else {
                 this.touchCtrl.isTouch = true;
                 await this.loadingCtrl.dismiss();
-                await this.presentToast(responsePhoto.error.msg)
+                await this.toastCtrl.presentToast({text: responsePhoto.error.msg})
               }
             }
           }
@@ -166,13 +167,5 @@ export class ProfilePage implements OnInit {
       ]
     });
     await alert.present();
-  }
-
-  async presentToast(text) {
-    const toast = await this.toastCtrl.create({
-      message: text,
-      duration: 3000,
-    });
-    await toast.present();
   }
 }

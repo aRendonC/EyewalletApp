@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14.059" height="15.627" viewBox="0 0 14.059 15.627">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="14.059" height="15.627" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#14a9ff"/>
+      <stop offset="0.213" stop-color="#2b84ff"/>
+      <stop offset="1" stop-color="#8000ff"/>
+    </linearGradient>
+  </defs>
+  <g id="Componente_83_1" data-name="Componente 83 – 1" clip-path="url(#clip-path)">
+    <path id="Trazado_984" data-name="Trazado 984" d="M10434.507-2299.269a1.629,1.629,0,0,0-.043.375v0a1.667,1.667,0,0,0,.055.373c.01.035.021.068.032.1a1.742,1.742,0,0,0,.118.272c.011.02.015.041.026.061l3.849,6.4a1.586,1.586,0,0,0,2.191.541,1.618,1.618,0,0,0,.536-2.212l-2.38-3.957h8.036a1.6,1.6,0,0,0,1.595-1.611,1.6,1.6,0,0,0-1.595-1.611h-7.937l2.256-3.514a1.622,1.622,0,0,0-.473-2.229,1.58,1.58,0,0,0-.865-.259,1.587,1.587,0,0,0-1.339.735l-3.85,6c-.012.017-.018.036-.028.053s-.017.021-.023.032-.017.046-.027.067a1.7,1.7,0,0,0-.106.271C10434.525-2299.336,10434.514-2299.3,10434.507-2299.269Z" transform="translate(-10434.464 2306.531)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

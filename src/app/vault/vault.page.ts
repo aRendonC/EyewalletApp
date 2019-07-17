@@ -11,6 +11,7 @@ import * as CONSTANTS from '../constanst';
 })
 export class VaultPage implements OnInit {
   public buttonDisabled: boolean = true;
+  ctrlNavigation: number = 5;
 
   constructor() { }
 

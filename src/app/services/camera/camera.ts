@@ -32,8 +32,8 @@ export class CameraProvider {
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
       allowEdit: false,
-      targetWidth: 500,
-      targetHeight: 500,
+      targetWidth: 250,
+      targetHeight: 250,
       sourceType: sourceType,
     };
 

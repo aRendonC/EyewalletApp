@@ -1,4 +1,4 @@
-<ion-grid style="padding: 0 0 0 0">
+<ion-grid style="padding: 0 0 0 0" class="margin-pocket-component" >
   <ion-row style="padding: 0" *ngIf="ctrlNavigation === 0" class="z-pocket">
     <ion-col style="padding: 0" size="3" (click)="receiveCash()">
       <div  class="button-receive center-horizontal center-vertical center bounceInRight">
@@ -91,8 +91,25 @@
       </div>
     </ion-col>
   </ion-row>
+  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 5" class="z-pocket">
+    <ion-col style="padding: 0" size="3" (click)="goToHome()">
+      <div class="active-card-button center-horizontal center-vertical center bounceInRight">
+        <ion-label class="text-activate-card">
+          Atrás
+        </ion-label>
+        <img  class="image-qualify " src="../../assets/img/tabs/back-icon-2.svg"/>
+      </div>
+      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+    </ion-col>
+    <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" >
+      <div style="margin-top: 0 !important;" class="center-vertical center center-horizontal">
+        <img  src="../../../assets/img/tabs/tab-vault.svg"/>
+        <ion-label style="color: white">Nueva Bóveda</ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
 </ion-grid>
-  <div *ngIf="ctrlNavigation === 1">
+  <div *ngIf="ctrlNavigation === 1" class="margin-pocket-component" >
     <ion-grid>
       <ion-row>
         <ion-col style="padding: 0" size="3" (click)="goToHome()" >

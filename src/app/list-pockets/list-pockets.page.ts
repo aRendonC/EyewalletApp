@@ -5,6 +5,7 @@ import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {LoadingService} from "../services/loading/loading.service";
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-list-pockets',
@@ -30,7 +31,7 @@ export class ListPocketsPage implements OnInit {
     private auth: AuthService,
     private store: Storage,
     protected aesjs: AesJsService,
-    private toastCtrl: ToastController,
+    private toastCtrl: ToastService,
     private loadingCtrl: LoadingService
       ) { }
 
@@ -58,9 +59,10 @@ export class ListPocketsPage implements OnInit {
       let response = await this.http.post('user-wallet/create', this.params, this.auth);
       if(response.status === 200) {
         await this.loadingCtrl.dismiss()
-        await this.presentToast();
+        await this.toastCtrl.presentToast({text: 'Pocket creado correctamente'});
         await this.closeModal(null)
       }
+      await this.toastCtrl.presentToast({text: response.error.msg});
       await this.loadingCtrl.dismiss()
       this.ctrlButtonCreate = false
     }
@@ -68,13 +70,6 @@ export class ListPocketsPage implements OnInit {
 
   async closeModal(pocket: object) {
     await this.modalCtrl.dismiss(pocket);
-  }
-  async presentToast() {
-    const toast = await this.toastCtrl.create({
-      message: 'Pocket creado correctamente',
-      duration: 2000
-    });
-    await toast.present();
   }
   getIdCurrency(id:any) {
     this.params.currencyId = id

@@ -1,6 +1,6 @@
 <ion-content class="vault">
   <div class="header">
-    <app-pocket></app-pocket>
+    <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
 
     <div class="content-text-icon-coin">
       <span class="text-coin">Bitcoin (BTC)</span>
@@ -49,13 +49,13 @@
 
   <div class="content-button">
     <ion-button
-      [disabled]="buttonDisabled"
+      [disabled]="!buttonDisabled"
       (click)="continueCreateVault()"
       class="button"
       text-capitalize
       shape="round"
     >
-      Siguiente
+      Próximamente
     </ion-button>
   </div>
 </ion-content>

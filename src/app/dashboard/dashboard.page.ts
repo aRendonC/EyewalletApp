@@ -149,6 +149,7 @@ export class DashboardPage implements OnInit {
     await this.loadingController.present({cssClass: 'textLoadingBlack'});
     let profile = await this.store.get('profile');
     profile = await this.aesjs.decrypt(profile);
+    console.log('perfil del usuario', profile)
     this.profile = profile;
     this.params.userId = profile.userId;
     this.params.type = 4;

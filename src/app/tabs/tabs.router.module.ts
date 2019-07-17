@@ -30,6 +30,10 @@ const routes: Routes = [
       {
         path: 'card-invoice',
         loadChildren: '../card-invoice/card-invoice.module#CardInvoicePageModule'
+      },
+      {
+        path: 'vault',
+        loadChildren: '../vault/vault.module#VaultPageModule'
       }
     ]
   },

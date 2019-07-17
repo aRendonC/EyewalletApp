@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, MenuController, ModalController, ToastController} from '@ionic/angular';
+import {LoadingController, MenuController, ModalController} from '@ionic/angular';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {AxiosService} from '../services/axios/axios.service';
@@ -8,6 +8,7 @@ import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {LoadingService} from "../services/loading/loading.service";
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private loadingController: LoadingController,
-    private toastController: ToastController,
+    private toastController: ToastService,
     private auth: AuthService,
     private menu: MenuController,
     private router: Router,
@@ -60,8 +61,8 @@ export class LoginPage implements OnInit {
           await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
           this.pockets = this.aesjs.encrypt(this.pockets);
           await this.store.set('pockets', this.pockets)
-        } else await this.clearData();
-      } else await this.clearData()
+        } else await this.clearData(data);
+      } else await this.clearData(data)
 
     }).catch((error) => {
       this.ctrlCssBlur = false;
@@ -69,26 +70,26 @@ export class LoginPage implements OnInit {
     });
   }
 
-  async openModal() {
-    const moda = await this.modalCtrl.getTop();
-    const modal = await this.modalCtrl.create({
-      component: PinModalPage,
-      componentProps: {
-        paramID: 123,
-        paramTitle: 'Test title'
-      }
-    });
+  // async openModal() {
+  //   const moda = await this.modalCtrl.getTop();
+  //   const modal = await this.modalCtrl.create({
+  //     component: PinModalPage,
+  //     componentProps: {
+  //       paramID: 123,
+  //       paramTitle: 'Test title'
+  //     }
+  //   });
+  //
+  //   return await modal.present();
+  // }
 
-    return await modal.present();
-  }
-
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'Usuario o contraseña incorrecta.',
-      duration: 2000
-    });
-    toast.present();
-  }
+  // async presentToast() {
+  //   const toast = await this.toastController.create({
+  //     message: 'Usuario o contraseña incorrecta.',
+  //     duration: 2000
+  //   });
+  //   toast.present();
+  // }
 
   async getPocketsList() {
      return await this.http.get('user-wallet/index', this.auth, null);
@@ -98,9 +99,10 @@ export class LoginPage implements OnInit {
     await this.router.navigate(['restore']);
   }
 
-  public async clearData() {
+  public async clearData(error) {
+    console.log(error)
     await this.loadingCtrl.dismiss();
     this.ctrlCssBlur = false;
-    await this.presentToast();
+    await this.toastController.presentToast({text: error, duration: 1000});
   }
 }

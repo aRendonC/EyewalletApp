@@ -38,7 +38,7 @@ export class AuthService {
 //This function is a loginService, parameter required user, password
   async login(user, password) {
     let device: any = await this.device.getDataDevice();
-    if(!device.uuid) device.uuid = 'db138d0c77c067a9'
+    if(!device.uuid) device.uuid = '7219d0c4ee046311'
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password: password, deviceId: device.uuid})
         .then(async (data: any) => {
@@ -49,18 +49,17 @@ export class AuthService {
               await this.setUserProfile(data.data.profile);
               // this.timer.iniciarTemporizador();
               resolve(data);
-          } if (data.status === 404) {
-              await this.loadingCtrl.dismiss()
+          } else if (data.status === 404) {
             //no existe usuario
-            resolve(null)
-          } if(data.status === 401) {
-            resolve(null)
+            resolve(data.error.msg)
+          } else if(data.status === 401) {
+            resolve(data.error.msg)
             //no está autorizado por credenciales (puede estar registrado)
-          } if(data.status === 500) {
-            resolve(null)
+          } else if(data.status === 500) {
+            resolve(data.error.msg)
             //error de la plataforma o datos incorrectos
           } else {
-              resolve(null)
+              resolve(data.error.msg)
           }
         })
         .catch(err => console.log('error data response', err));
