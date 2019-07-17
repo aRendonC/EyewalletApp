@@ -37,6 +37,7 @@ export class ProfilePage implements OnInit {
   public fullName: any = '';
   public word: any;
   public profilePic: any;
+  public verify: any;
 
   constructor(
     private store: Storage,
@@ -167,5 +168,37 @@ export class ProfilePage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  async sendMail() {
+    const bodyMail: any = {type: 'email'};
+    this.verify = await this.axios.post('user/sendCodeVerification', bodyMail, this.auth);
+    if (this.verify.status === 200) {
+      this.toastCtrl.presentToast({text: 'Correo enviado'});
+    } else {
+      this.toastCtrl.presentToast({text: 'Tenemos problemas con reenviar el correo, por favor reinicie la aplicación o espere'});
+    }
+  }
+
+  notifications() {
+    this.toastCtrl.presentToast({text: 'Próximamente'});
+  }
+  safety() {
+    this.toastCtrl.presentToast({text: 'Próximamente'});
+  }
+  terms() {
+	this.toastCtrl.presentToast({text: 'Próximamente'});
+  }
+  invite() {
+	this.toastCtrl.presentToast({text: 'Próximamente'});
+  }
+  deleteAccount() {
+	this.toastCtrl.presentToast({text: 'Próximamente'});
+  }
+  secondFactor() {
+	this.toastCtrl.presentToast({text: 'Próximamente'});
+  }
+  eyewalletWeb() {
+	this.toastCtrl.presentToast({text: 'Próximamente'});
   }
 }

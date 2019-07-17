@@ -17,6 +17,7 @@ import { LoadingService } from '../services/loading/loading.service';
 export class PricesPage implements OnInit {
   @Input() name: any;
   @ViewChild('lineCanvas') lineCanvas;
+  public ctrlCssBlur = false;
   public lineChart: any;
   public dataGraphic: any;
   public contentDataGrapic: any;
@@ -33,7 +34,56 @@ export class PricesPage implements OnInit {
   private user: any;
   public bodyForm: any;
   public cryptoPrices: any;
-  public cardPrices: any = [];
+  public cardPrices = [
+    {
+      cryptoCodes: 'BTC',
+      cryptoImage: '../../assets/images/pricesPage/bitcoinLogo.svg',
+      cryptoClass: 'crypto-card Bitcoin',
+      fontClass: 'white',
+      cryptoName: 'Bitcoin',
+      cryptoValue: ''
+    },
+    {
+      cryptoCodes: 'ETH',
+      cryptoImage: '../../assets/images/pricesPage/etherLogo.svg',
+      cryptoClass: 'crypto-card',
+      fontClass: '',
+      cryptoName: 'Ethereum',
+      cryptoValue: ''
+    },
+    {
+      cryptoCodes: 'XMR',
+      cryptoImage: '../../assets/images/pricesPage/moneroLogo.svg',
+      cryptoClass: 'crypto-card',
+      fontClass: '',
+      cryptoName: 'Monero',
+      cryptoValue: ''
+    },
+    {
+      cryptoCodes: 'ZEC',
+      cryptoImage: '../../assets/images/pricesPage/zLogo.svg',
+      cryptoClass: 'crypto-card',
+      fontClass: '',
+      cryptoName: 'ZCash',
+      cryptoValue: ''
+    },
+    {
+      cryptoCodes: 'BCH',
+      cryptoImage: '../../assets/images/pricesPage/BCHLogo.svg',
+      cryptoClass: 'crypto-card',
+      fontClass: '',
+      cryptoName: 'Bitcoin Cash',
+      cryptoValue: ''
+    },
+    {
+      cryptoCodes: 'LTC',
+      cryptoImage: '../../assets/images/pricesPage/LTCLogo.svg',
+      cryptoClass: 'crypto-card',
+      fontClass: '',
+      cryptoName: 'Litecoin',
+      cryptoValue: ''
+    }
+  ];
   public ctrlCssColorIndex = 0;
   public selectedCrypto: any ;
   public cryptoCodes: any ;
@@ -48,7 +98,9 @@ export class PricesPage implements OnInit {
 
     // Funcion de ciclo de vida (al cargar)
     async ngOnInit() {
-      await this.loading.present({});
+      await this.loading.present({
+        cssClass: 'textLoadingBlack'});
+      this.ctrlCssBlur = true;
       await this.getProfile();
       await this.buildBodyForm();
       await this.getCryptoPrices();
@@ -100,59 +152,25 @@ export class PricesPage implements OnInit {
 
   // Esta funcion crea un array iterable con las 6 criptomonedas principales
   async cardPricesBuilder() {
-    this.cardPrices = [
-      {
-        cryptoCodes: 'BTC',
-        cryptoImage: '../../assets/images/pricesPage/bitcoinLogo.svg',
-        cryptoClass: 'crypto-card Bitcoin',
-        fontClass: 'white',
-        cryptoName: 'Bitcoin',
-        cryptoValue: this.cryptoPrices.BTC.USD
-      },
-      {
-        cryptoCodes: 'ETH',
-        cryptoImage: '../../assets/images/pricesPage/etherLogo.svg',
-        cryptoClass: 'crypto-card',
-        fontClass: '',
-        cryptoName: 'Ethereum',
-        cryptoValue: this.cryptoPrices.ETH.USD
-      },
-      {
-        cryptoCodes: 'XMR',
-        cryptoImage: '../../assets/images/pricesPage/moneroLogo.svg',
-        cryptoClass: 'crypto-card',
-        fontClass: '',
-        cryptoName: 'Monero',
-        cryptoValue: this.cryptoPrices.XMR.USD
-      },
-      {
-        cryptoCodes: 'ZEC',
-        cryptoImage: '../../assets/images/pricesPage/zLogo.svg',
-        cryptoClass: 'crypto-card',
-        fontClass: '',
-        cryptoName: 'ZCash',
-        cryptoValue: this.cryptoPrices.ZEC.USD
-      },
-      {
-        cryptoCodes: 'BCH',
-        cryptoImage: '../../assets/images/pricesPage/BCHLogo.svg',
-        cryptoClass: 'crypto-card',
-        fontClass: '',
-        cryptoName: 'Bitcoin Cash',
-        cryptoValue: this.cryptoPrices.BCH.USD
-      },
-      {
-        cryptoCodes: 'LTC',
-        cryptoImage: '../../assets/images/pricesPage/LTCLogo.svg',
-        cryptoClass: 'crypto-card',
-        fontClass: '',
-        cryptoName: 'Litecoin',
-        cryptoValue: this.cryptoPrices.LTC.USD
+    this.cardPrices.forEach(element => {
+      console.log(element);
+      if (element.cryptoCodes === 'BTC') {
+        element.cryptoValue = this.cryptoPrices.BTC.USD;
+      } else if (element.cryptoCodes === 'ETH') {
+        element.cryptoValue = this.cryptoPrices.ETH.USD;
+      } else if (element.cryptoCodes === 'XMR') {
+        element.cryptoValue = this.cryptoPrices.XMR.USD;
+      } else if (element.cryptoCodes === 'ZEC') {
+        element.cryptoValue = this.cryptoPrices.ZEC.USD;
+      } else if (element.cryptoCodes === 'BCH') {
+        element.cryptoValue = this.cryptoPrices.BCH.USD;
+      } else if (element.cryptoCodes === 'LTC') {
+        element.cryptoValue = this.cryptoPrices.LTC.USD;
       }
-    ];
-    await this.loading.dismiss();
+    });
+    // await this.loading.dismiss();
+    // this.ctrlCssBlur = false;
   }
-
 // Se activa cuando le doy click a la criptomoneda que necesita el precio
   async selectCrypto(cryptoClass, index) {
     this.ctrlCssColor = cryptoClass;

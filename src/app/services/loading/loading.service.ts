@@ -17,17 +17,17 @@ export class LoadingService {
   //This function is a style Loading Controller
   //To present loading, use this.loading.present() in your page or component
   //Text parameter is optional, cssClass is optional
-  async present({text = 'Por favor no cierre su sesión', cssClass = 'textLoading', dutration = false}) {
+  async present({text = '<p class="loadingText">Por favor no cierre su sesión</p>', cssClass = 'textLoading', duration = false}) {
     this.isLoading = true;
     const options: any = {
-      message: text,
+      message: `${text}<img class="spinner" src="../../assets/img/spinner.svg">`,
       translucent: true,
       animated: true,
       backdropDismiss: false,
       keyboardClose: false,
       mode: 'ios',
       showBackdrop: false,
-      spinner: 'crescent',
+      spinner: 'hide',
       cssClass: `loadingSpinner ${cssClass}`,
     };
 
