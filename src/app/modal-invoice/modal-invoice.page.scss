@@ -23,27 +23,31 @@
       }
     }
 
-    .text-one {
-      display: block;
-      width: 100%;
-      text-align: center;
+    .content-icon-value-usd {
+      width: 80%;
       margin: 0 0 10px 0;
-      font-family: $font-roboto-regular;
-      font-size: 5vw;
-      color: #272759;
-    }
+      @extend .center-space-between;
 
-    .content-icon-value {
-      @extend .all-center;
+      .content-icon-text {
+        display: flex;
+        align-items: center;
 
-      .image {
-        margin: 0 20px 0 0;
+        .image {
+          width: 34px;
+          margin: 0 20px 0 0;
+        }
+
+        .text-icon {
+          font-family: $font-roboto-regular;
+          font-size: 16px;
+          color: #28255C;
+        }
       }
-  
+
       .text-two {
         font-family: $font-roboto-regular;
-        font-size: 4vw;
-        color: #272759;
+        font-size: 16px;
+        color: #28255C;
       }
     }
   }

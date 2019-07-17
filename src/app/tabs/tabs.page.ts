@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {ToastController} from "@ionic/angular";
+import { AxiosService } from '../services/axios/axios.service';
+import { getTestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-tabs',
@@ -21,7 +23,8 @@ export class TabsPage {
     private router: Router,
     private store: Storage,
     private aesjs: AesJsService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private axiosService: AxiosService
   ) {
   }
 
@@ -46,14 +49,24 @@ export class TabsPage {
     await toast.present()
   }
 
-  async requestCreditCard() {
-    let profile = await this.store.get('profile');
-    profile = this.aesjs.decrypt(profile);
-    console.log(profile)
+  public async requestCreditCard(): Promise<any> {
+    const profile = await this.getDataProfile();
+    this.validateNavigationRequestCard(profile);
+  }
+
+  private async getDataProfile(): Promise<any> {
+    const profile = await this.store.get('profile');
+    return this.aesjs.decrypt(profile);
+  }
+
+  private async validateNavigationRequestCard(profile: any): Promise<any> {
     if(profile.level !== 3) {
-      await this.presentToastTabs('Para solicitar una tarjeta, debe validar sus documentos')
-    } else {
+      await this.presentToastTabs('Para solicitar una tarjeta, debe validar sus documentos');
+      await this.router.navigate(['/app/upload-verification-files']);
+    } else if (profile.level === 3 && profile.solicitud === false) {
       await this.router.navigate(['/app/tabs/request-credit-card'])
+    } else if (profile.level === 3 && profile.solicitud === true) {
+      await this.router.navigate(['/app/tabs/card-invoice']);
     }
   }
 
