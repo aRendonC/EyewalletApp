@@ -16,13 +16,13 @@
         <span class="text-icon">Valor</span>
       </span>
 
-      <span class="text-two">$8,0070.78 ({{dataBill.card.currency || 'aaa'}})</span>
+      <span class="text-two">${{ dataBill.card.priceUSD }} ({{ dataBill.card?.currency }})</span>
     </div>
 
     <div class="content-icon-value-usd">
       <span class="text-two">eyewallet.com</span>
       
-      <span class="text-two">0,014785 BTC</span>
+      <span class="text-two">{{ priceCardCoin }} {{ dataBill.cripto.currency }}</span>
     </div>
   </div>
 
