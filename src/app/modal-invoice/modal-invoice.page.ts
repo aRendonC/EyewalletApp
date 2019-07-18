@@ -2,11 +2,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import {Storage} from "@ionic/storage";
 
 //Services.
 import { AxiosService } from '../services/axios/axios.service';
 import { AuthService } from '../services/auth/auth.service';
 import { LoadingService } from '../services/loading/loading.service';
+import {AesJsService} from "../services/aesjs/aes-js.service";
 
 @Component({
   selector: 'app-modal-invoice',
@@ -34,7 +36,9 @@ export class ModalInvoicePage implements OnInit {
     private axiosService: AxiosService,
     private authService: AuthService,
     private loadingServices: LoadingService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private storage: Storage,
+    private aesjs: AesJsService
   ) { }
 
   public async ngOnInit() {
@@ -66,14 +70,27 @@ export class ModalInvoicePage implements OnInit {
   }
 
   public async payRequestCard(): Promise<any> {
-    const responsePay = await this.requestCard();
-    if (responsePay.status === 200) {
-      this.closeModalInvoice();
-      await this.router.navigate(['/app/tabs/card-invoice']);
-    } else if (responsePay.status === 401) {
-      this.presentToast(responsePay.error.msg);
-    } else {
-      this.presentToast('Error de conexión');
+    console.log(this.dataPocket)
+    let profile: any = await this.storage.get('profile')
+    console.log(profile)
+    profile = this.aesjs.decrypt(profile)
+    if(this.dataPocket.balance >= this.priceCardCoin){
+      const responsePay = await this.requestCard();
+      console.log('respuesta de solicitud de card', responsePay)
+      if (responsePay.status === 200) {
+        this.closeModalInvoice();
+        await this.router.navigate(['/app/tabs/card-invoice']);
+        profile.solicitud = true;
+        profile = this.aesjs.encrypt(profile)
+        await this.storage.set('profile', profile)
+        console.log()
+      } else if (responsePay.status === 401) {
+        await this.presentToast(responsePay.error.msg);
+      } else {
+        await this.presentToast('Error de conexión');
+      }
+    }else{
+      await this.presentToast('Este pocket no tiene saldo suficiente. Pot favor seleccione otro pocket');
     }
   }
 
