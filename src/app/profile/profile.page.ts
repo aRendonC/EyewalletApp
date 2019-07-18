@@ -7,7 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {CameraProvider} from '../services/camera/camera';
-import {Camera} from "@ionic-native/camera/ngx";
+import {Camera} from '@ionic-native/camera/ngx';
 import {LoadingService} from "../services/loading/loading.service";
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {ToastService} from "../services/toast/toast.service";
@@ -183,18 +183,18 @@ export class ProfilePage implements OnInit {
     this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   terms() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   invite() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   deleteAccount() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   secondFactor() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   eyewalletWeb() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
 }

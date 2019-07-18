@@ -7,7 +7,8 @@ import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {AxiosService} from '../services/axios/axios.service';
-import {LoadingService} from "../services/loading/loading.service";
+import {LoadingService} from '../services/loading/loading.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-address',
@@ -19,11 +20,8 @@ export class AddressPage implements OnInit {
   public arrayStates: any = [];
   public selectedCountry = '';
   public selectedState = '';
-  public countries: any[]  = [
-      {0: "Colombia", 1: "Colombia"},
-      {0: "United States", 1: "United States"},
-      {0: "Mexico", 1: "Mexico"}
-      ];
+  public zipCode = '';
+  public countries: any[];
   public statesList = Array();
   public states = Array();
   public cities = Array();
@@ -31,6 +29,9 @@ export class AddressPage implements OnInit {
   public zip: any;
   public userId: any;
   public user: any = '';
+  public country: any = '';
+  public state: any = '';
+  public city: any = '';
   public bodyForm = {
     userId: null,
     address1: null,
@@ -51,13 +52,14 @@ export class AddressPage implements OnInit {
     private store: Storage,
     private aes: AesJsService,
     private axios: AxiosService,
-    private loadingCtrl: LoadingService
+    private loadingCtrl: LoadingService,
+    private geolocation: Geolocation
   ) { }
 
 async ngOnInit() {
   // await this.getCountries();
   this.menu.enable(false);
-  await this.loadingCtrl.dismiss();
+  this.getLocation();
 }
 ionViewDidLeave() {
   this.menu.enable(true);
@@ -88,25 +90,56 @@ ionViewDidLeave() {
 //
 // }
 
- statesFn(selectedCountry) {
-    this.cities = []
-    this.states = [];
-    this.statesList = [
-      {0: "Amazonas", 1: "Amazonas", 2: 'Colombia'},
-      {0: "Cesar", 1: "Cesar", 2: 'Colombia'},
-      {0: "Choco", 1: "Choco", 2: 'Colombia'},
-      {0: "Alaska", 1: "Alaska", 2: 'United States'},
-      {0: "Alabama", 1: "Alabama", 2: 'United States'},
-      {0: "Arkansas", 1: "Arkansas", 2: 'United States'},
-      {0: "Mexico", 1: "Mexico", 2: 'Mexico'},
-      {0: "Baja California", 1: "Baja California", 2: 'Mexico'},
-      {0: "Mexico City", 1: "Mexico City", 2: 'Mexico'}
-    ];
-    this.statesList.forEach(element => {
-      if (element[2] === selectedCountry) {
-        this.states.push(element)
-    }});
+async getLocation() {
+ 
+  // this.headers = new HttpHeaders({
+  //   'Accept': 'application/json',
+  //   'Content-Type': 'application/json',
+  //   'Access-Control-Allow-Origin': '*' ,
+  //   'Access-Control-Allow-Headers': '*' ,
+  //   'Access-Control-Allow-Methods': '*'
+  // }),
+  this.geolocation.getCurrentPosition().then(async (resp) => {
+    await this.http
+    .get(`https://us1.locationiq.com/v1/reverse.php?key=pk.cce23ccc0da9140d669b1913c63e90cb&lat=${resp.coords.latitude}&lon=${resp.coords.longitude}&format=json`)
+    .subscribe(
+      (data: any) => {
+        this.country = data.address.country;
+        this.state = data.address.state;
+        this.city = data.address.city;
+        this.zipCode = data.address.postcode;
+        this.loadingCtrl.dismiss();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+   }).catch((error) => {
+     console.log(error);
+   });
 }
+
+
+
+//  statesFn(selectedCountry) {
+//     this.cities = []
+//     this.states = [];
+//     this.statesList = [
+//       {0: "Amazonas", 1: "Amazonas", 2: 'Colombia'},
+//       {0: "Cesar", 1: "Cesar", 2: 'Colombia'},
+//       {0: "Choco", 1: "Choco", 2: 'Colombia'},
+//       {0: "Alaska", 1: "Alaska", 2: 'United States'},
+//       {0: "Alabama", 1: "Alabama", 2: 'United States'},
+//       {0: "Arkansas", 1: "Arkansas", 2: 'United States'},
+//       {0: "Mexico", 1: "Mexico", 2: 'Mexico'},
+//       {0: "Baja California", 1: "Baja California", 2: 'Mexico'},
+//       {0: "Mexico City", 1: "Mexico City", 2: 'Mexico'}
+//     ];
+//     this.statesList.forEach(element => {
+//       if (element[2] === selectedCountry) {
+//         this.states.push(element)
+//     }});
+// }
 
 // getState(country: any) {
 //   this.selectedCountry = country.detail.value;
@@ -126,30 +159,30 @@ ionViewDidLeave() {
 // });
 // }
 
- citiesFn(selectedState) {
- this.cities = [];
-this.citiesList = [
-    {0: "37354", 1: "Tarapaca", 2: "Amazonas"},
-    {0: "37552", 1: "Puerto Narino", 2: "Amazonas"},
-    {0: "37722", 1: "Leticia", 2: "Amazonas"},
-    {0: "37296", 1: "Valledupar", 2: "Cesar"},
-    {0: "37360", 1: "Tamalameque", 2: "Cesar"},
-    {0: "37474", 1: "San Diego", 2: "Cesar"},
-    {0: "37307", 1: "Ungia", 2: "Choco"},
-    {0: "37362", 1: "Tado", 2: "Choco"},
-    {0: "37461", 1: "San Jose del Palmar", 2: "Choco"},
-    {0: "11347", 1: "Metlakatla", 2: "Alaska"},
-    {0: "22", 1: "Bayou La Batre", 2: "Alabama"},
-    {0: "258", 1: "Alexander", 2: "Arkansas"},
-    {0: "95891", 1: "Zumpango", 2: "Mexico"},
-    {0: "98000", 1: "Camalu", 2: "Baja California"},
-    {0: "95947", 1: "Xochimilco", 2: "Mexico City"}
-  ];
-  this.citiesList.forEach(element => {
-    if (element[2] === selectedState) {
-      this.cities.push(element)
-  }});
-}
+//  citiesFn(selectedState) {
+//  this.cities = [];
+// this.citiesList = [
+//     {0: "37354", 1: "Tarapaca", 2: "Amazonas"},
+//     {0: "37552", 1: "Puerto Narino", 2: "Amazonas"},
+//     {0: "37722", 1: "Leticia", 2: "Amazonas"},
+//     {0: "37296", 1: "Valledupar", 2: "Cesar"},
+//     {0: "37360", 1: "Tamalameque", 2: "Cesar"},
+//     {0: "37474", 1: "San Diego", 2: "Cesar"},
+//     {0: "37307", 1: "Ungia", 2: "Choco"},
+//     {0: "37362", 1: "Tado", 2: "Choco"},
+//     {0: "37461", 1: "San Jose del Palmar", 2: "Choco"},
+//     {0: "11347", 1: "Metlakatla", 2: "Alaska"},
+//     {0: "22", 1: "Bayou La Batre", 2: "Alabama"},
+//     {0: "258", 1: "Alexander", 2: "Arkansas"},
+//     {0: "95891", 1: "Zumpango", 2: "Mexico"},
+//     {0: "98000", 1: "Camalu", 2: "Baja California"},
+//     {0: "95947", 1: "Xochimilco", 2: "Mexico City"}
+//   ];
+//   this.citiesList.forEach(element => {
+//     if (element[2] === selectedState) {
+//       this.cities.push(element)
+//   }});
+// }
 
 // getCity(state: any) {
 //   this.citiesFn(state.detail.value);
@@ -168,16 +201,16 @@ this.citiesList = [
 // }
 
 async createProfile() {
-  await this.loadingCtrl.present({});
+  this.loadingCtrl.present({
+    cssClass: 'textLoadingBlack'});
   this.user = await this.store.get('profile');
   this.user = this.aes.decrypt(this.user);
-  this.bodyForm.userId = this.user.id
+  this.bodyForm.userId = this.user.id;
   const response = await this.axios.put(`profile/${this.user.id}/update`, this.bodyForm, this.aut);
   if (response.status === 200) {
-     let profile: any = await this.axios.get(`profile/${this.user.id}/view`,this.aut, null);
-      profile = this.aes.encrypt(profile.data);
-      await this.store.set('profile', profile);
-    await this.loadingCtrl.dismiss();
+    let profile: any = await this.axios.get(`profile/${this.user.id}/view`, this.aut, null);
+    profile = this.aes.encrypt(profile.data);
+    await this.store.set('profile', profile);
     await this.router.navigate(['app/tabs']);
     // await this.store.set('user', JSON.stringify(response.data));
   } else {

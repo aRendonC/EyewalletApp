@@ -8,133 +8,133 @@
         <!--</div>-->
     <!--</ion-slide>-->
 <!--</ion-slides>-->
-    <ion-slides  #slideWithNav2
-                 [options]="slideOpts"
-                 [pager]="pager"
-                 mode="ios"
-                 (ionSlideDoubleTap)="cambioDeSlider(slideWithNav2)">
-        <ion-slide *ngFor="let names of name">
-            <ion-grid>
-                <ion-row>
-                    <ion-col size="12">
-                        <div class="{{names.background}}">
-                            <!-- Nombre de la criptomoneda -->
-                            <div class="center">
-                                <ion-label class="text-moneda">{{names.name}}</ion-label>
-                            </div>
-                            <!-- Card de completar Perfil -->
-                            <ion-card class="cardwith" *ngIf="profile?.level === 0">
-                                <ion-card-header class="header">
-                                    <ion-card-title class="card-title">Completa tu Perfil</ion-card-title>
-                                </ion-card-header>
-                                <ion-card-content>
-                                    <ion-grid>
-                                        <ion-row>
-                                            <ion-col size="8">
-                                                <ion-grid>
-                                                    <ion-row>
-                                                        <ion-col size="12">
-                                                            <p class="card-titlesub">Completa  tu perfil hoy para empezar a usarla exitosamente.
-                                                            </p>
-                                                        </ion-col>
-                                                        <ion-col size="12">
-                                                            <button class="btn-continuar" (click)="openModalVerification()">Continuar</button>
-                                                        </ion-col>
-                                                    </ion-row>
-                                                </ion-grid>
-                                            </ion-col>
-                                            <ion-col size="4">
-                                                <img  class="logo-card" src="../../../assets/img/home-logo.svg"/>
-                                            </ion-col>
-                                        </ion-row>
-                                    </ion-grid>
-                                </ion-card-content>
-                            </ion-card>
-                            <!-- Card de verificación de documentos -->
-                            <ion-card class="card-ver-width"  *ngIf="profile?.level === 1">
-                                <ion-card-header>
-                                    <ion-card-title class="card-ver-title">Documentos necesarios</ion-card-title>
-                                </ion-card-header>
-                                <ion-card-content>
-                                    <ion-grid>
-                                        <ion-row>
-                                            <ion-col size="12">
-                                                <p class="card-ver-titlesub">Tenemos algunos problemas con los documentos que nos ha proporcionado.Por favor, intente de nuevo para continuar</p>
-                                            </ion-col>
-                                            <ion-col size="12">
-                                                <button class="btn-aceptar" (click)="verification()">Aceptar</button>
-                                            </ion-col>
-                                        </ion-row>
-                                    </ion-grid>
-                                </ion-card-content>
-                            </ion-card>
-                            <!-- Fin card de verificación de documentos -->
-                            <ion-grid>
+<ion-slides  #slideWithNav2
+[options]="slideOpts"
+[pager]="pager"
+mode="ios"
+(ionSlideDoubleTap)="cambioDeSlider(slideWithNav2)">
+<ion-slide *ngFor="let names of name">
+<ion-grid>
+<ion-row>
+   <ion-col size="12">
+	   <div class="{{names.background}}">
+		   <!-- Nombre de la criptomoneda -->
+		   <div class="center">
+			   <ion-label class="text-moneda">{{names.name}}</ion-label>
+		   </div>
+		   <!-- Card de completar Perfil -->
+		   <ion-card class="cardwith" *ngIf="profile?.level === 0">
+			   <ion-card-header class="header">
+				   <ion-card-title class="card-title">Completa tu Perfil</ion-card-title>
+			   </ion-card-header>
+			   <ion-card-content>
+				   <ion-grid>
+					   <ion-row>
+						   <ion-col size="8">
+							   <ion-grid>
+								   <ion-row>
+									   <ion-col size="12">
+										   <p class="card-titlesub">Completa  tu perfil hoy para empezar a usarla exitosamente.
+										   </p>
+									   </ion-col>
+									   <ion-col size="12">
+										   <button class="btn-continuar" (click)="openModalVerification()">Continuar</button>
+									   </ion-col>
+								   </ion-row>
+							   </ion-grid>
+						   </ion-col>
+						   <ion-col size="4">
+							   <img  class="logo-card" src="../../../assets/img/home-logo.svg"/>
+						   </ion-col>
+					   </ion-row>
+				   </ion-grid>
+			   </ion-card-content>
+		   </ion-card>
+		   <!-- Card de verificación de documentos -->
+		   <ion-card class="card-ver-width"  *ngIf="profile?.level === 1">
+			   <ion-card-header>
+				   <ion-card-title class="card-ver-title">Documentos necesarios</ion-card-title>
+			   </ion-card-header>
+			   <ion-card-content>
+				   <ion-grid>
+					   <ion-row>
+						   <ion-col size="12">
+							   <p class="card-ver-titlesub">Tenemos algunos problemas con los documentos que nos ha proporcionado.Por favor, intente de nuevo para continuar</p>
+						   </ion-col>
+						   <ion-col size="12">
+							   <button class="btn-aceptar" (click)="verification()">Aceptar</button>
+						   </ion-col>
+					   </ion-row>
+				   </ion-grid>
+			   </ion-card-content>
+		   </ion-card>
+		   <!-- Fin card de verificación de documentos -->
+		   <ion-grid>
+			   <ion-row>
+				   <ion-col size="12">
+					   <ion-label class="text-valance" mode="ios">{{names.value}}</ion-label>
+				   </ion-col>
+				   <ion-col size="4">
+					   <ion-label class="text-usd">{{(names.value * names.valueUsd).toFixed(3)}}</ion-label>
+				   </ion-col>
+			   </ion-row>
+		   </ion-grid>
+		   <div>
+			   <canvas style="width:80vw" #lineCanvas></canvas>
+		   </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-slide>
+</ion-slides>
+
+<ion-col size="12">
+    <ion-infinite-scroll>
+        <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more data...">
+            <ion-card *ngFor="let transaction of transactions" class="sc-ion-card-ios-h-transactions">
+                <ion-card-content style="padding: 0">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="2" class="center-vertical center-horizontal ">
+                                <img class="status-icon" [src]="transaction.typeIcon"/>
+                            </ion-col>
+                            <ion-col size="6">
                                 <ion-row>
                                     <ion-col size="12">
-                                        <ion-label class="text-valance" mode="ios">{{names.value}}</ion-label>
+                                        <p class="status">{{transaction.confirmationText}}</p>
                                     </ion-col>
-                                    <ion-col size="4">
-                                        <ion-label class="text-usd">{{(names.value * names.valueUsd).toFixed(3)}}</ion-label>
+                                    <ion-col size="12">
+                                        <ion-row>
+                                            <ion-col size="6">
+                                                <p class="time">{{transaction.time}}</p>
+                                            </ion-col>
+                                            <ion-col size="6">
+                                                <p class="date"> <span class="dot">•</span>{{transaction.dateFormat}}</p>
+                                            </ion-col>
+                                        </ion-row>
                                     </ion-col>
                                 </ion-row>
-                            </ion-grid>
-                            <div>
-                                <canvas style="width:80vw" #lineCanvas></canvas>
-                            </div>
-                        </div>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-slide>
-    </ion-slides>
-
-    <ion-col size="12">
-        <ion-infinite-scroll>
-            <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more data...">
-                <ion-card *ngFor="let transaction of transactions" class="sc-ion-card-ios-h-transactions">
-                    <ion-card-content style="padding: 0">
-                        <ion-grid>
-                            <ion-row>
-                                <ion-col size="2" class="center-vertical center-horizontal ">
-                                    <img class="status-icon" [src]="transaction.typeIcon"/>
-                                </ion-col>
-                                <ion-col size="6">
-                                    <ion-row>
-                                        <ion-col size="12">
-                                            <p class="status">{{transaction.confirmationText}}</p>
-                                        </ion-col>
-                                        <ion-col size="12">
-                                            <ion-row>
-                                                <ion-col size="6">
-                                                    <p class="time">{{transaction.time}}</p>
-                                                </ion-col>
-                                                <ion-col size="6">
-                                                    <p class="date"> <span class="dot">•</span>{{transaction.dateFormat}}</p>
-                                                </ion-col>
-                                            </ion-row>
-                                        </ion-col>
-                                    </ion-row>
-                                </ion-col>
-                                <ion-col size="4">
-                                    <ion-row>
-                                        <ion-col size="12">
-                                            <p class="value"><span>{{transaction.plusMinus}}</span><span>$</span><span>{{transaction.amountDollar}}</span></p>
-                                        </ion-col>
-                                        <ion-col size="12">
-                                            <p class="crypto"><span class="crypto-value">{{transaction.amount_finally}}</span><span class="coin">&nbsp;BTC</span></p>
-                                        </ion-col>
-                                    </ion-row>
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                    </ion-card-content>
-                </ion-card>
-                <!--<div class="card" >-->
-                <!--</div>-->
-            </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-    </ion-col>
+                            </ion-col>
+                            <ion-col size="4">
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <p class="value"><span>{{transaction.plusMinus}}</span><span>$</span><span>{{transaction.amountDollar}}</span></p>
+                                    </ion-col>
+                                    <ion-col size="12">
+                                        <p class="crypto"><span class="crypto-value">{{transaction.amount_finally}}</span><span class="coin">&nbsp;BTC</span></p>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-content>
+            </ion-card>
+            <!--<div class="card" >-->
+            <!--</div>-->
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-col>
 
 
 

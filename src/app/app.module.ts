@@ -21,8 +21,8 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from './pin-modal/pin-modal.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-
-//Services
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+// Services
 import {LoadingService} from "./services/loading/loading.service";
 
 // LocalStorage.
@@ -32,11 +32,12 @@ import {ComponentsModule} from './components/components.module';
 
 // Plugins cordova.
 import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { VerificationModalPage } from './verification-modal/verification-modal.page';
 
 @NgModule({
 
-  declarations: [AppComponent, PinModalPage],
-  entryComponents: [PinModalPage],
+  declarations: [AppComponent, PinModalPage, VerificationModalPage],
+  entryComponents: [PinModalPage, VerificationModalPage],
   imports: [
     ComponentsModule,
     ReactiveFormsModule,
@@ -52,6 +53,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
   ],
   providers: [
     StatusBar,
+    Geolocation,
     SplashScreen,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {provide: HTTP_INTERCEPTORS, useClass: InterceptadorService, multi: true},

@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   // urlBase: 'https://app.eyewallet.com:3000/api/v1/'
+  urlBase: 'https://0fa1e61c.ngrok.io/api/v1/',
   urlAvatar: 'https://0fa1e61c.ngrok.io/web/',
-  urlBase: 'https://0fa1e61c.ngrok.io/api/v1/'
+  flag: 'https://0fa1e61c.ngrok.io/web/uploads/flags/'
 };

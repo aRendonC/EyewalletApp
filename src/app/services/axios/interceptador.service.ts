@@ -30,16 +30,16 @@ export class InterceptadorService implements HttpInterceptor {
       if (token) {
         request = request.clone({
           setHeaders: {
-            Authorization: token
+            Authorization: token,
           }
         });
       }
 
       if (!request.headers.has('Content-Type')) {
         request = request.clone({
-          setHeaders: {
-            'content-type': 'application/json'
-          }
+          // setHeaders: {
+          //   'content-type': 'application/json'
+          // }
         });
       }
 

@@ -5,8 +5,8 @@ import {TimerService} from '../timer/timer.service';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import { DeviceService } from '../device/device.service';
-import {PinModalPage} from "../../pin-modal/pin-modal.page";
-import {AesJsService} from "../aesjs/aes-js.service";
+import {PinModalPage} from '../../pin-modal/pin-modal.page';
+import {AesJsService} from '../aesjs/aes-js.service';
 import {LoadingService} from '../loading/loading.service';
 
 
@@ -35,12 +35,12 @@ export class AuthService {
   ) {
     // this.persistenceLogin();
   }
-//This function is a loginService, parameter required user, password
+// This function is a loginService, parameter required user, password
   async login(user, password) {
-    let device: any = await this.device.getDataDevice();
-    if(!device.uuid) device.uuid = '7219d0c4ee046311'
+    const device: any = await this.device.getDataDevice();
+    if (!device.uuid) {device.uuid = '7219d0c4ee046311'; }
     return new Promise((resolve) => {
-      this.api.post('auth/login', {email: user, password: password, deviceId: device.uuid})
+      this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
         .then(async (data: any) => {
           if(data.status === 200) {
               this.usuario = data.data;
@@ -58,7 +58,7 @@ export class AuthService {
             resolve(data.error.msg)
             //error de la plataforma o datos incorrectos
           } else {
-              resolve(data.error.msg)
+              resolve(null);
           }
         })
         .catch(err => console.log('error data response', err));
@@ -69,11 +69,11 @@ export class AuthService {
 
     async setUserProfile(profile) {
         profile = this.aesjs.encrypt(profile);
-        await this.store.set('profile', profile)
+        await this.store.set('profile', profile);
     }
 
  async accessParam() {
-    this.usuario = await this.store.get('user')
+    this.usuario = await this.store.get('user');
     if (this.usuario != null) {
       return this.usuario.accessToken;
     }
@@ -83,7 +83,7 @@ export class AuthService {
   async persistenceLogin() {
     this.usuario = await this.store.get('user');
     if (this.usuario.pin) {
-      await this.openModal()
+      await this.openModal();
     }
   }
 
@@ -105,7 +105,7 @@ export class AuthService {
   }
 
   async isLogin() {
-    let user = await this.store.get('user');
+    const user = await this.store.get('user');
     console.info(user);
     return !!user;
   }
@@ -115,7 +115,7 @@ export class AuthService {
     await this.store.clear();
     await this.menu.enable(false);
     await this.router.navigate(['']);
-    await this.loadingCtrl.dismiss()
+    await this.loadingCtrl.dismiss();
   }
 
 }
