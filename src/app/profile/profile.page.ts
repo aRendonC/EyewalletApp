@@ -7,10 +7,10 @@ import {ActivatedRoute} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {CameraProvider} from '../services/camera/camera';
-import {Camera} from "@ionic-native/camera/ngx";
+import {Camera} from '@ionic-native/camera/ngx';
 import {LoadingService} from "../services/loading/loading.service";
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
-import {ToastService} from "../services/toast/toast.service";
+import {ToastService} from '../services/toast/toast.service';
 
 @Component({
   selector: 'app-profile',
@@ -113,10 +113,10 @@ export class ProfilePage implements OnInit {
           handler: async () => {
             this.touchCtrl.isTouch = false;
             await this.loadingCtrl.present({});
-            let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
+            const takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
             console.log(takePhoto);
             if (takePhoto) {
-              let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type, false);
+              const responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type, false);
               console.log('respuesta de foto', responsePhoto);
               if(responsePhoto.status === 200) {
                 this.touchCtrl.isTouch = true;
@@ -187,18 +187,18 @@ export class ProfilePage implements OnInit {
     this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   terms() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   invite() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   deleteAccount() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   secondFactor() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
   eyewalletWeb() {
-	this.toastCtrl.presentToast({text: 'Próximamente'});
+    this.toastCtrl.presentToast({text: 'Próximamente'});
   }
 }
