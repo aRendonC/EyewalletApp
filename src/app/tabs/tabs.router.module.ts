@@ -8,7 +8,7 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: '',
+        path: 'dashboard',
         loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
       },
       {
@@ -38,8 +38,8 @@ const routes: Routes = [
     ]
   },
   {
-    path: '',
-    redirectTo: '/tabs/',
+    path: 'dashboard',
+    redirectTo: '/tabs/dashboard',
     pathMatch: 'full'
   }
 ];

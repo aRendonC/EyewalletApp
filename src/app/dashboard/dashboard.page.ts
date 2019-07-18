@@ -39,7 +39,7 @@ export class DashboardPage implements OnInit {
 
   public crypto: any = [
     {name: 'Bitcoin', background: 'contentBitcoin', value: '', valueUsd: '', graphic: []},
-    {name: 'Ethereum', background: 'contentEtherium', value: '', valueUsd: '', graphic: []}
+    // {name: 'Ethereum', background: 'contentEtherium', value: '', valueUsd: '', graphic: []}
   ];
 
   public dataGraphic = [];
@@ -79,8 +79,6 @@ export class DashboardPage implements OnInit {
   }
 
   public async getDataPocket(data: any) {
-    console.log('este es el pocket que enviamos', data);
-    let num = 0;
     this.crypto.forEach(element => {
       element.graphic = [];
       if (data.pocket.currencyId === 1) {
@@ -98,13 +96,11 @@ export class DashboardPage implements OnInit {
         }
       }
     });
-    console.log('estos datos por poket', this.crypto);
     this.getTransactionHistory(data);
     await this.childD.grafica();
   }
 
   getTransactionHistory(data: any) {
-    console.log(data);
     this.transactionComponent = data.data;
     const btc = data.btc;
     this.transactionComponent.forEach(element => {
@@ -148,9 +144,7 @@ export class DashboardPage implements OnInit {
   async getUserProfile() {
     await this.loadingController.present({cssClass: 'textLoadingBlack'});
     let profile = await this.store.get('profile');
-    console.log('perfil del usuario', profile);
     profile = await this.aesjs.decrypt(profile);
-    console.log('perfil del usuario', profile);
     this.profile = profile;
     this.params.userId = profile.userId;
     this.params.type = 4;
@@ -195,14 +189,12 @@ export class DashboardPage implements OnInit {
   async getListTransactions() {
     let profile = await this.store.get('profile');
     profile = await this.aesjs.decrypt(profile);
-    console.log('pockets para traer transacciones', this.pockets);
     let params = {
       userId: profile.userId,
       type: 0,
       address: this.pockets[0].address
     };
     let response = await this.http.post('transaction/index', params, this.auth);
-    console.table('estas son todas mis transacciones', response);
     let dataTransaction = response.data;
     if (dataTransaction[0]) {
       this.getTransactionHistory(response);
@@ -216,7 +208,6 @@ export class DashboardPage implements OnInit {
           }
         });
       });
-      console.warn(this.crypto);
       this.crypto[0].graphic = this.dataGraphic;
     } else {
       // this.balanceComponent.getTransactionAll(null);

@@ -62,9 +62,14 @@
 }
 
 .move-profilePic{
+    border-radius: 80px;
     position: relative;
+    justify-self: center;
+    align-self: center;
     z-index: 5;
     grid-area: 2/2/2/2;
+    width: 20vw;
+    height: 20vw;
 }
 
 .labels{

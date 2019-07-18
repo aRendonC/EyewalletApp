@@ -68,7 +68,6 @@ export class SendCryptocurrenciesPage implements OnInit {
           fee: new FormControl('')
       })
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
-    console.log(this.pockets);
       this.body.from_address = this.pockets.address
   }
 
@@ -80,7 +79,6 @@ export class SendCryptocurrenciesPage implements OnInit {
 
                     // start scanning
                      this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
-                        console.log('Scanned something', text);
                         this.placeHolder = text
                          this.bodyForm.get('to_address').setValue(text)
                         await this.unSuscribed()
@@ -103,7 +101,6 @@ export class SendCryptocurrenciesPage implements OnInit {
 
     async unSuscribed() {
         this.isOn = false;
-        console.log(this.isOn);
         let element = document.getElementById('QRScaner');
         element.classList.remove('show-qr-scanner');
        await this.qrScanner.destroy();
@@ -112,7 +109,6 @@ export class SendCryptocurrenciesPage implements OnInit {
 
     async getFeeTransaction() {
       if(this.bodyForm.value.to_address && this.bodyForm.value.amount) {
-          console.log(this.bodyForm);
           this.fee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
           this.fee = this.fee.data.data;
           if(this.fee.error_message) {
@@ -121,16 +117,12 @@ export class SendCryptocurrenciesPage implements OnInit {
               this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee)).toFixed(8))
               this.bodyForm.get('fee').setValue((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee)).toFixed(8))
           }
-          console.log(this.fee)
-          console.log(this.totalSend)
       } else {
           console.log('falta un campo')
       }
     }
 
     async sendCoin() {
-        console.log('este es el monto a enviar', this.bodyForm.value.amount);
-        console.log('monto del pocket', this.pockets.balance);
         this.ctrlButtonSend = false;
         if(this.pockets.balance >= this.bodyForm.value.amount) {
             console.info('listo para enviar')
@@ -165,21 +157,14 @@ export class SendCryptocurrenciesPage implements OnInit {
                     text: 'Ok',
                     handler: async (alertData) => {
                         let security = await this.store.get('user')
-                        console.log(security)
                         security = this.aesjs.decryptNoJson(security.pin)
-                        console.log(security)
-                        console.log(alertData.pin)
                         if(security === alertData.pin) {
                             await this.loadingCtrl.present({})
                             security = this.aesjs.encryptNoJson(security)
                             this.bodyForm.value.currencyId = this.pockets.currencyId
                             this.bodyForm.value.pin = security
                             this.bodyForm.value.from_address = this.pockets.address
-                            console.log('pin encriptado', security)
-                            console.log('envió')
-                            console.log(this.bodyForm)
                             let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth)
-                            console.log(response)
                             if (response.status === 200) {
                                 await this.loadingCtrl.dismiss()
                                await this.presentToast('Transacción realizada con éxito')
@@ -191,7 +176,6 @@ export class SendCryptocurrenciesPage implements OnInit {
                             await this.presentToast('Pin incorrecto')
                         }
                         this.ctrlButtonSend = true;
-                        console.log(alertData);
                         console.log('Confirm Ok');
                     }
                 }

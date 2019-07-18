@@ -42,7 +42,6 @@ export class AuthService {
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password: password, deviceId: device.uuid})
         .then(async (data: any) => {
-            console.log('LOGIN: ', data.data);
           if(data.status === 200) {
               this.usuario = data.data;
               await this.store.set('user', this.usuario);

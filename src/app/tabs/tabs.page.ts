@@ -14,9 +14,15 @@ import { getTestBed } from '@angular/core/testing';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-
+  public currentRoute: any = 'dashboard';
   ctrlCssBlur: boolean = false;
-
+  public tabs = {
+    'prices': 'prices',
+    'vault': 'vault',
+    'dashboard': 'dashboard',
+    'card-invoice': 'card-invoice',
+    'profile': 'profile'
+  }
   constructor(
     private auth: AuthService,
     private loadControl: LoadingService,
@@ -26,6 +32,7 @@ export class TabsPage {
     private toastCtrl: ToastController,
     private axiosService: AxiosService
   ) {
+    this.getActiveRoute()
   }
 
   async goToProfile() {
@@ -41,6 +48,10 @@ export class TabsPage {
     }
   }
 
+  getActiveRoute(){
+    this.currentRoute = this.router.url.split('/')[3]
+    console.log('---------->rutas en las tabs', this.currentRoute)
+  }
   async presentToastTabs(text) {
     let toast = await this.toastCtrl.create({
       message: text,
@@ -60,7 +71,7 @@ export class TabsPage {
   }
 
   private async validateNavigationRequestCard(profile: any): Promise<any> {
-    console.log(profile)
+    console.log(profile);
     if(profile.level !== 3) {
       await this.presentToastTabs('Para solicitar una tarjeta, debe validar sus documentos');
       await this.router.navigate(['/app/upload-verification-files']);

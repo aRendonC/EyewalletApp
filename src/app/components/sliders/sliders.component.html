@@ -10,9 +10,9 @@
 <!--</ion-slides>-->
     <ion-slides  #slideWithNav2
                  [options]="slideOpts"
-                 pager="true"
+                 [pager]="pager"
                  mode="ios"
-                 (ionSlideDoubleTap)="cambioDeSlider(slideWithNav, slideWithNav2)">
+                 (ionSlideDoubleTap)="cambioDeSlider(slideWithNav2)">
         <ion-slide *ngFor="let names of name">
             <ion-grid>
                 <ion-row>

@@ -58,7 +58,8 @@ export class LoginPage implements OnInit {
           this.touchCtrl.isLocked = false;
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
-          await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
+          await this.router.navigate([
+              '/app/tabs/dashboard'])
           this.pockets = this.aesjs.encrypt(this.pockets);
           await this.store.set('pockets', this.pockets)
         } else await this.clearData(data);

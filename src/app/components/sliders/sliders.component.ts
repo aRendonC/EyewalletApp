@@ -23,13 +23,14 @@ export class SlidersComponent implements OnInit {
   public contentDataGrapic: any;
   public profile: any = null;
   @Input() transactions: any;
-  @ViewChild('slideWithNav') slideWithNav: IonSlides
-  @ViewChild('slideWithNav2') slideWithNav2: IonSlides
+  @ViewChild('slideWithNav') slideWithNav: IonSlides;
+  @ViewChild('slideWithNav2') slideWithNav2: IonSlides;
+  public pager: boolean = false;
   slideOpts = {
     initialSlide: 0,
     slidesPerView: 1,
     speed: 1000,
-    loop: true,
+    loop: false,
   };
   slideOptsName = {
     spaceBetween: 1,
@@ -60,10 +61,7 @@ export class SlidersComponent implements OnInit {
   async ngOnInit() {
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
-    console.log(this.profile);
-    console.log('se incio');
     this.nameSlider = this.name;
-    console.table(this.name);
     this.dataGraphic = this.name[0];
     await this.grafica();
   }
@@ -73,8 +71,10 @@ export class SlidersComponent implements OnInit {
     for(let i = 0; i <= this.dataGraphic.graphic.length -1; i++){
       this.labelGrapich.push('')
     }
-    console.log(this.labelGrapich);
-    console.log('datos para graficar', this.dataGraphic.graphic);
+    if (this.name.length > 1) {
+      this.pager = true;
+      this.slideOpts.loop = true
+    }
     const ctx = this.lineCanvas.nativeElement.getContext('2d');
     const gradientStroke = ctx.createLinearGradient(154.000, 0.000, 146.000, 300.000);
     gradientStroke.addColorStop(0.006, 'rgba(21, 233, 233, 1.000)');
@@ -143,7 +143,6 @@ export class SlidersComponent implements OnInit {
     modalVerification.onDidDismiss().then(async (profile:any)=> {
       console.error('se está cerrando el modal con este dato', profile);
       if(profile.data != undefined) {
-        console.log(profile);
         this.profile.level = profile.level
       }
     });
@@ -154,9 +153,8 @@ export class SlidersComponent implements OnInit {
   verification() {
     this.router.navigate(['/upload-verification-files']);
   }
-  async cambioDeSlider(slideView1, slideView2) {
-    await slideView1.slideNext()
-    await slideView2.slideNext()
+  async cambioDeSlider(slideView2) {
+     await slideView2.slideNext()
     // this.checkIfNavDisabled(slideView);
   }
 }

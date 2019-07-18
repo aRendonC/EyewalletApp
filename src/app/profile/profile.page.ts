@@ -11,6 +11,7 @@ import {Camera} from "@ionic-native/camera/ngx";
 import {LoadingService} from "../services/loading/loading.service";
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {ToastService} from "../services/toast/toast.service";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,7 @@ import {ToastService} from "../services/toast/toast.service";
 })
 export class ProfilePage implements OnInit {
   public type: string = 'avatar';
-  urlAvatar = 'https://f4782120.ngrok.io/eyewallet/web/';
+  urlAvatar = environment.urlAvatar;
   avatar = null;
   profileShow: any = {
     fullName: '',
@@ -58,7 +59,6 @@ export class ProfilePage implements OnInit {
   async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     this.profile = await this.store.get('profile');
-    console.log(this.profile);
     await this.getPic();
     await this.getProfile();
   }
@@ -66,7 +66,6 @@ export class ProfilePage implements OnInit {
   async getPic() {
     this.profilePic = await this.store.get('profile');
     this.profilePic = this.aesjs.decrypt(this.profile);
-    console.log(this.profilePic);
   }
 
   async getProfile() {
@@ -114,14 +113,11 @@ export class ProfilePage implements OnInit {
             this.touchCtrl.isTouch = false;
             await this.loadingCtrl.present({});
             let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
-            console.log(takePhoto);
             if (takePhoto) {
               let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type, false);
-              console.log('respuesta de foto', responsePhoto);
               if(responsePhoto.status === 200) {
                 this.touchCtrl.isTouch = true;
                 this.avatar = this.urlAvatar + responsePhoto.data;
-                console.log(this.avatar)
                 await this.loadingCtrl.dismiss();
                 await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
                 this.profile.avatar = responsePhoto.data;
@@ -144,7 +140,6 @@ export class ProfilePage implements OnInit {
             let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
             if (selectPhoto) {
               let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto, this.type, false);
-              console.log('respuesta de foto', responsePhoto);
               if(responsePhoto.status === 200) {
                 this.touchCtrl.isTouch = true;
                 this.avatar = this.urlAvatar + responsePhoto.data;

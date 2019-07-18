@@ -14,3 +14,21 @@
     --color-selected: white;
     --color:white;
 }
+
+.img-icon-tabs{
+    width: 50%;
+}
+.tab{
+    width: 10vw;
+    height: 10vw;
+}
+.img-icon-tabs-selected{
+    filter: invert(1);
+}
+.selected-tab{
+    background: white;
+    border-radius: 50px;
+    -moz-box-shadow:    0 9px 18px 2px #fff;
+    -webkit-box-shadow: 0 9px 18px 2px #fff;
+    box-shadow:         0 9px 18px 2px #fff;
+}

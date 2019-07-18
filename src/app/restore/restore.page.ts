@@ -169,7 +169,6 @@ export class RestorePage implements OnInit {
 
     this.axiosServices.post(path, dataBody)
         .then(async response => {
-          console.log(response)
           if (response.status === 200) {
             this.blockingCounter = 0;
             this.dataRestorePassword.blocked = false;

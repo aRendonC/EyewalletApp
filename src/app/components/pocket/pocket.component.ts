@@ -86,14 +86,12 @@ export class PocketComponent implements OnInit {
 
     modalPocket.onDidDismiss().then(async (pocket:any)=> {
       if(pocket.data) {
-        console.log('este es el pocket seleccionado con el modal', pocket);
         this.pocket = pocket.data;
         let body = {
           userId: this.pocket.userId,
           type: 0,
           address: this.pocket.address
         };
-        console.log(body);
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         if(dataResponse.status === 200) {
           dataResponse.pocket = this.pocket;

@@ -26,7 +26,6 @@ export class ToastService {
     } else {
       cssClass = 'Clase- error'
     }
-    console.log(position);
     const toast = await this.toastCtrl.create({
       message: `<p class="${{cssClass}}" style="color: white; background: black; height: 100px">` + text + `</p>`,
       duration: duration,
