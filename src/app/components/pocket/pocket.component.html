@@ -1,13 +1,130 @@
-<div *ngIf="!ctrlNavigation">
-  <img (click)="receiveCash()"  [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>
-  <p (click)="openPocketsModal()">
+<ion-grid style="padding: 0 0 0 0" class="margin-pocket-component" >
+  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 0" class="z-pocket">
+    <ion-col style="padding: 0" size="3" (click)="receiveCash()">
+      <div  class="button-receive center-horizontal center-vertical center bounceInRight">
+        <ion-label style="margin-right: 5%; color: white;">
+          Recibir
+        </ion-label>
+        <img  class="resize-logo-right " src="../../assets/img/pocketsComponent/receive-icon.png"/>
+      </div>
+      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+    </ion-col>
+    <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" (click)="openPocketsModal()">
+      <div style="margin-top: 0 !important;"  class="center-vertical center center-horizontal">
+        <img  src="../../../assets/img/pocketsComponent/pockets.png"/>
+        <ion-label >{{pocket?.label}}</ion-label>
+      </div>
+    </ion-col>
+    <ion-col size="3"  (click)="sendCash()" class="bounceInRight" style="color: white; padding: 0">
+      <div class="button-send center-horizontal center-vertical center">
+          <img  class="resize-logo-right " src="../../assets/img/pocketsComponent/send-icon.png"/>
+          <ion-label style="margin-left: 5%">
+            Enviar
+          </ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 2" class="z-pocket">
+    <ion-col style="padding: 0" size="3">
+      <div class="qualify-button center-horizontal center-vertical center bounceInRight">
+        <ion-label class="text-qualify">
+          Calificar
+        </ion-label>
+        <img  class="image-qualify " src="../../assets/img/pocketsComponent/calificate.svg"/>
+      </div>
+      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+    </ion-col>
+    <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" >
+      <div style="margin-top: 0 !important;"  class="center-vertical center center-horizontal">
+        <img  src="../../../assets/img/tabs/tab-profile.svg"/>
+        <ion-label style="color: white">Usuario</ion-label>
+      </div>
+    </ion-col>
+    <ion-col (click)="presentAlert()" size="3" class="bounceInRight" style="color: white; padding: 0">
+      <div class="logOut-button center-horizontal center-vertical center bounceInRight">
+        <img  class="image-logout " src="../../assets/img/pocketsComponent/logout.svg"/>
+        <ion-label style="margin-right: -10%; margin-left: 5%; color: black;">
+          Cerrar Sesión
+        </ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 3" class="z-pocket">
+    <ion-col style="padding: 0" size="3">
+      <div class="qualify-button center-horizontal center-vertical center bounceInRight">
+        <ion-label class="text-qualify">
+          Calificar
+        </ion-label>
+        <img  class="image-qualify " src="../../assets/img/pocketsComponent/calificate.svg"/>
+      </div>
+      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+    </ion-col>
+    <ion-col style="margin-top: 0 !important; padding: 0" size="6" class="center-vertical center center-horizontal" >
+      <div  class="center-vertical center center-horizontal">
+        <img  src="../../../assets/img/tabs/prices.svg"/>
+        <ion-label style="color: white">Precios</ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 4" class="z-pocket">
+    <ion-col style="padding: 0" size="3">
+      <div class="active-card-button center-horizontal center-vertical center bounceInRight">
+        <ion-label class="text-activate-card">
+          Activar
+        </ion-label>
+        <img  class="image-qualify " src="../../assets/img/pocketsComponent/calificate.svg"/>
+      </div>
+      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+    </ion-col>
+    <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" >
+      <div style="margin-top: 0 !important;" class="center-vertical center center-horizontal">
+        <img style="filter: invert(100%)"  src="../../../assets/img/tabs/tab-card.svg"/>
+        <ion-label style="color: black">Crédito</ion-label>
+      </div>
+    </ion-col>
+    <ion-col  size="3" class="bounceInRight" style="color: white; padding: 0">
+      <div class="add-card-button center-horizontal center-vertical center bounceInRight">
+        <img  class="image-add-card " src="../../assets/img/tabs/add-card.svg"/>
+        <ion-label class="text-add-card">
+          Agregar
+        </ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 5" class="z-pocket">
+    <ion-col style="padding: 0" size="3" (click)="goToHome()">
+      <div class="active-card-button center-horizontal center-vertical center bounceInRight">
+        <ion-label class="text-activate-card">
+          Atrás
+        </ion-label>
+        <img  class="image-qualify " src="../../assets/img/tabs/back-icon-2.svg"/>
+      </div>
+      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+    </ion-col>
+    <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" >
+      <div style="margin-top: 0 !important;" class="center-vertical center center-horizontal">
+        <img  src="../../../assets/img/tabs/tab-vault.svg"/>
+        <ion-label style="color: white">Nueva Bóveda</ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+  <div *ngIf="ctrlNavigation === 1" class="margin-pocket-component" >
+    <ion-grid style="padding: 0 0 0 0">
+      <ion-row>
+        <ion-col style="padding: 0" size="3" (click)="goToHome()" >
+          <div class="button-back center-horizontal center-vertical center bounceInRight">
+            <ion-label style="margin-right: 5%; color: black;">
+              Volver
+            </ion-label>
+            <img  class="resize-logo-right " src="../../assets/img/tabs/back-icon.svg"/>
+          </div>
+          <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
-    <img class="resize-logo"  src="../../../assets/img/pocketsComponent/pockets.png"/>
-    <ion-label class="resize-text" >{{pocket?.label}}</ion-label>
-  </p>
-  <img (click)="sendCash()" class="resize-logo-right" src="../../assets/img/btn-right.svg"/>
-</div>
-<div *ngIf="ctrlNavigation">
-    <img (click)="goToHome()"  class="resize-logo-close" src="../../../assets/img/sendCripto/backTop.png"/>
-</div>
+
+
 

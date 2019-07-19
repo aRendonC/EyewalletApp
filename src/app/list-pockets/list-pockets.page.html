@@ -32,15 +32,15 @@
       <ion-item class="transparent white-line">
         <ion-input  class="white move-input" type="email" name="label" (input)="getData($event.target.value)"  placeholder="Descripción"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-select placeholder="Seleccione Criptomonera" (ionChange)="getIdCurrency($event.target.value)" (change)="getIdCurrency($event.target.value)">
+
+        <ion-select style="color:white;" placeholder="Seleccione Criptomonera" (ionChange)="getIdCurrency($event.target.value)" (change)="getIdCurrency($event.target.value)">
           <ion-select-option [value]="currency.id" (select)="getIdCurrency($event.target.value)" *ngFor="let currency of currencies">{{currency.name}}</ion-select-option>
         </ion-select>
-      </ion-item>
+
       <!-- Contraseña -->
     </ion-list>
     <div class="move-btn">
-      <ion-button type="submit" class="btn-start" mode="ios" (click)="createPocket()" >Crear pocket</ion-button>
+      <ion-button [disabled]="ctrlButtonCreate" type="submit" class="btn-start" mode="ios" (click)="createPocket()" >Crear pocket</ion-button>
     </div>
 
 </ion-content>

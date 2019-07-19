@@ -18,7 +18,14 @@
       <!-- Contraseña -->
     </ion-list>
     <div class="move-btn">
-      <ion-button [disabled]="!bodyForm.valid" type="submit" class="btn-start" mode="ios" >{{constants.PIN.CEATE_PIN}}</ion-button>
+      <ion-button
+              [disabled]="!bodyForm.valid"
+              type="submit"
+              [ngClass]="classButton"
+              mode="ios"
+              expand="full"
+              text-capitalize
+              shape="round">{{constants.PIN.CEATE_PIN}}</ion-button>
     </div>
   </form>
 </ion-content>

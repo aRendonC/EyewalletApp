@@ -1,0 +1,29 @@
+<ion-content class="content-registry">
+  <app-return-page [path]="'/app/tabs/dashboard'"></app-return-page>
+  <div class="grid">
+    <!-- Titulo de la sección -->
+  <p class="lets">¡Vamos a verificar!</p>
+
+  <!-- Validaciones -->
+  <div class="box">
+  <div class="mt7vw">
+      <ion-item class="ion-items" *ngFor="let validation of validations">
+        <ion-label class="validations" (click) = "openModal(validation.value)">{{validation.text}}</ion-label>
+      </ion-item>
+  </div>
+  </div>
+
+  <!-- Términos y Condiciones -->
+  <div class="terms-bg">Al crear tu billetera, aceptas los siguientes terminos
+    <span>
+      <a  class="anchor-terms" href="https://eyewallet.com/">Términos de servicio</a>
+    </span>
+    & <span>
+        <a  class="anchor-terms" href="https://eyewallet.com/">Política y privacidad</a>
+    </span>
+  </div>
+
+  <!-- Botón de Aceptar -->
+  <!--<ion-button class="btn-accept" mode="ios">Acepto</ion-button>-->
+  </div>
+</ion-content>

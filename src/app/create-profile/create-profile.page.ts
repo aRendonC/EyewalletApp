@@ -6,6 +6,7 @@ import {AxiosService } from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import { AesJsService } from '../services/aesjs/aes-js.service';
+import {LoadingService} from '../services/loading/loading.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class CreateProfilePage implements OnInit {
     private aut: AuthService,
     private axios: AxiosService,
     private store: Storage,
-    private aes: AesJsService
+    private aes: AesJsService,
+    private loadingCtrl: LoadingService
   ) { }
 
 
@@ -42,23 +44,30 @@ export class CreateProfilePage implements OnInit {
 
   // Esta función me lleva a la pagina que tiene dirección pero primero envia los
   // datos del form a la API medinte un put request
-  async address(firstname, lastname, birthdate, identification, userId) {
+  async address() {
+    await this.loadingCtrl.present({});
     // Nombre
-    firstname = this.firstname;
-    // Apellido
-    lastname = this.lastname;
-    birthdate = this.birthdate.slice(0, 10);
-    identification = this.identification;
     this.user = await this.store.get('profile');
-    this.user = JSON.parse(this.aes.decrypt(this.user));
-    userId = this.user.userId;
-    this.bodyForm = {userId, firstname, lastname, birthdate, identification};
-    console.log(this.bodyForm);
-    const response = await this.axios.put(`profile/${this.user.id}/update`, this.bodyForm, this.aut);
-    console.log(response);
+    this.user = this.aes.decrypt(this.user);
+    this.bodyForm = {
+      userId: this.user.userId,
+      firstName: this.firstname,
+      lastName: this.lastname,
+      zipcode: '',
+      identification: this.identification,
+      birthDay: this.birthdate.slice(0, 10),
+      state: '',
+      country: '',
+      city: ''
+    };
+    // const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
+    const response = await this.axios.put(`profile/${this.bodyForm.userId}/update`, this.bodyForm, this.aut);
     if (response.status === 200) {
-      this.router.navigate(['app/tabs/address']);
-      this.store.set('user', JSON.stringify(response.data));
+      await this.router.navigate(['/address']);
+      // this.store.set('user', JSON.stringify(response.data));
+      // console.log( await this.store.set('user', JSON.stringify(response.data)));
+    } else {
+      await this.loadingCtrl.dismiss();
     }
   }
 }

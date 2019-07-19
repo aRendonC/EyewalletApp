@@ -64,7 +64,6 @@ export class ChartComponent implements OnInit {
 });*/
 
 await this.http.get('https://gmmclub.com:3001/general/historial').subscribe((data) => {
-console.log(data);
 this.dataTransaction = data;
   this.getData(label);
 });
@@ -76,7 +75,7 @@ this.dataTransaction = data;
       Esta función retorna la data de la grafica. recibe un label que puede ser: transaction - cryptos
    */
   public async getData(label) {
-    
+
     const labelTemporal = [];
     const dataTemporal = [];
     const format = 'dd-MM';
@@ -92,7 +91,7 @@ this.dataTransaction = data;
       });
       // return await this.proccessData(label, labelTemporal, dataTemporal);
     } else if (label == 'transaction') {
-      
+
       this.dataTransaction.forEach((item: any, index) => {
         const value = JSON.parse(item.descripcion);
         if (index <= this.limit) {

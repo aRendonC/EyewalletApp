@@ -30,6 +30,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      console.log('inicio antes del login')
       this.touchLogin.ngOnInit()
     });
   }

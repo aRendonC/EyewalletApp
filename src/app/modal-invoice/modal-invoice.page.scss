@@ -1,0 +1,70 @@
+@import '../../global.scss';
+
+.modal-invoice {
+  @extend .backGroundGradient;
+
+  .icon-close {
+    width: 10vw;
+    margin: 20px 0 0 0;
+  }
+
+  .content-invoice {
+    background: white;
+    margin: 60px 0 0 0;
+    padding: 30px 0;
+    @extend .all-center-colum;
+
+    .content-logo {
+      @extend .all-center;
+      margin: 0 0 60px 0;
+
+      .image-logo {
+        width: 50vw;
+      }
+    }
+
+    .content-icon-value-usd {
+      width: 80%;
+      margin: 0 0 10px 0;
+      @extend .center-space-between;
+
+      .content-icon-text {
+        display: flex;
+        align-items: center;
+
+        .image {
+          width: 34px;
+          margin: 0 20px 0 0;
+        }
+
+        .text-icon {
+          font-family: $font-roboto-regular;
+          font-size: 16px;
+          color: #28255C;
+        }
+      }
+
+      .text-two {
+        font-family: $font-roboto-regular;
+        font-size: 16px;
+        color: #28255C;
+      }
+    }
+  }
+
+  .content-button {
+    @extend .all-center;
+
+    .button {
+      --background: #7DDC97 !important;
+      --background: -webkit-linear-gradient(to right, #7DDC97, #84EAE8) !important;
+      --background: linear-gradient(to right, #7DDC97, #84EAE8) !important;
+      font-family: $font-semibold;
+      font-size: 16px;
+
+
+      width: 66vw;
+      margin: 60px 0 0 0;
+    }
+  }
+}

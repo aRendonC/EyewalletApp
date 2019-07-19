@@ -1,13 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
-import {ModalController, ToastController} from "@ionic/angular";
+import {AlertController, ModalController, ToastController} from "@ionic/angular";
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
 import {enterAnimation} from "../../animations/enter";
 import {leaveAnimation} from "../../animations/leave";
 import {AuthService} from "../../services/auth/auth.service";
-import {Event, ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../../services/aesjs/aes-js.service";
+import {LoadingService} from "../../services/loading/loading.service";
+import {ToastService} from "../../services/toast/toast.service";
 
 @Component({
   selector: 'app-pocket',
@@ -17,8 +19,9 @@ import {AesJsService} from "../../services/aesjs/aes-js.service";
 export class PocketComponent implements OnInit {
   @Input() pockets: any = [];
   @Input() urlPresent: any = '';
-  @Input() ctrlNavigation: boolean = false;
-  public pocket: any = ''
+  @Input() ctrlNavigation: number = 0;
+  @Output() dataBalance = new EventEmitter<[]>();
+  public pocket: any = '';
   imgLeft:string=null;
   imgRight:string=null;
   classLeft:string=null;
@@ -29,40 +32,47 @@ export class PocketComponent implements OnInit {
       private router: Router,
       private store: Storage,
       private aesjs: AesJsService,
-      protected nvaigation: ActivatedRoute,
-      private toastCtrl: ToastController
+      private toastCtrl: ToastService,
+      private loadingCtrl: LoadingService,
+      private alertCtrl: AlertController
   ) {
     this.classLeft="resize-logo-left1";
     this.imgLeft = "../../assets/img/btn-left-s.svg";
     this.imgRight="../../assets/img/btn-right.svg";
-    this.pocket = this.pockets[0]
-    if (!this.pocket) {
-      this.getPocketStore()
-    }
+
   }
 
-  async ngOnInit() {
-    console.log('esto debería cambiar siempre', this.router.url)
-    this.urlPresent = this.router.url.slice(0, 9)
-    console.log(this.urlPresent)
-    this.router.events.subscribe((event: any) => {
-      // console.log('este es un observable lindo 7w7',event)
-      this.urlPresent = this.urlPresent.slice(9, 23)
-      console.log('el evento de la ruta', this.urlPresent)
-      //   if (event instanceof NavigationEnd ) {
-      //     url = event.url
-      //     url = url.slice(9, 23)
-      //     this.urlPresent = url == '/send-currency';
-      // }
-    })
-  }
+   async ngOnInit() {
+     await this.getPocketStore()
+     // console.log('esto debería cambiar siempre', this.router.url);
+     // this.urlPresent = this.router.url.slice(0, 9);
+     // console.log(this.urlPresent);
+     // this.router.events.subscribe((event: any) => {
+     //   // console.log('este es un observable lindo 7w7',event)
+     //   this.urlPresent = this.urlPresent.slice(9, 23);
+     //   console.log('el evento de la ruta', this.urlPresent)
+     //   //   if (event instanceof NavigationEnd ) {
+     //   //     url = event.url
+     //   //     url = url.slice(9, 23)
+     //   //     this.urlPresent = url == '/send-currency';
+     //   // }
+     // })
+   }
   async getPocketStore() {
-    this.pockets = await this.store.get('pockets')
-    // console.log('los pokets en el componente', this.pockets)
-    this.pockets = this.aesjs.decrypt(this.pockets)
+    this.pockets = await this.store.get('pockets');
+    if(!this.pockets){
+      let response  = await this.http.get('user-wallet/index', this.auth, null);
+      this.pockets = response;
+      response = await this.aesjs.encrypt(response);
+      await this.store.set('pockets', response)
+    } else {
+      this.pockets = this.aesjs.decrypt(this.pockets);
+    }
+
     this.pocket = this.pockets[0]
   }
   async openPocketsModal() {
+    await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
     this.pockets = await this.http.get('user-wallet/index', this.auth, null);
     const modalPocket = await this.modalCtrl.create({
       component: ListPocketsPage,
@@ -74,40 +84,76 @@ export class PocketComponent implements OnInit {
       }
     });
 
-    modalPocket.onDidDismiss().then((pocket:any)=> {
-      console.log(pocket)
-      if(pocket.data)this.pocket = pocket.data
-      console.log(this.pocket)
-    })
-
+    modalPocket.onDidDismiss().then(async (pocket:any)=> {
+      if(pocket.data) {
+        this.pocket = pocket.data;
+        let body = {
+          userId: this.pocket.userId,
+          type: 0,
+          address: this.pocket.address
+        };
+        console.log('pocket seleccionado', body)
+        let dataResponse = await this.http.post('transaction/index', body, this.auth);
+        if(dataResponse.status === 200) {
+          dataResponse.pocket = this.pocket;
+          this.dataBalance.emit(dataResponse)
+        } else {
+          await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+        }
+      }
+    });
+    await this.loadingCtrl.dismiss();
     return await modalPocket.present();
   }
 
   async receiveCash() {
-    console.log(this.pocket)
-    await this.router.navigate(['/app/tabs/receive-funds', {pocket: JSON.stringify(this.pocket)}]);
+    await this.router.navigate([
+        '/receive-funds'],{
+      queryParams: {
+        pocket: JSON.stringify(this.pocket)
+      }, queryParamsHandling: 'merge'
+    });
   }
 
   async sendCash() {
-    let profile = await this.store.get('profile')
-    profile = this.aesjs.decrypt(profile)
-    console.log(profile)
+    let profile = await this.store.get('profile');
+    profile = this.aesjs.decrypt(profile);
     if(profile.level === 0) {
-      await this.presentToast()
+      await this.toastCtrl.presentToast({text: 'Lo sentimos, sus documentos no han sido verificados'})
     } else {
-      await this.router.navigate(['/app/tabs/send-currency', {pocket: JSON.stringify(this.pocket)}]);
+      await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
     }
   }
 
   async goToHome() {
-    await this.router.navigate(['/app/tabs']);
+    await this.router.navigate(['/app/tabs/dashboard']);
   }
 
-  async presentToast() {
-    const toast = await this.toastCtrl.create({
-      message: 'Lo sentimos, sus documentos no han sido verificados',
-      duration: 2000
+  async presentAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Cerrar Sesión',
+      message: '¿Desea cerrar su sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: async () => {
+            await this.logOut();
+            await this.toastCtrl.presentToast({text: 'Su sesión ha sido cerrada correctamente'})
+          }
+        }
+      ]
     });
-    toast.present();
+    await alert.present();
+  }
+  async logOut() {
+    await this.loadingCtrl.present({});
+    await this.auth.logout()
   }
 }

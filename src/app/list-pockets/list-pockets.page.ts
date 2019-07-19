@@ -1,9 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ModalController, NavParams, ToastController} from "@ionic/angular";
-import {AxiosService} from "../services/axios/axios.service";
-import {AuthService} from "../services/auth/auth.service";
-import {Storage} from "@ionic/storage";
-import {AesJsService} from "../services/aesjs/aes-js.service";
+import {ModalController, NavParams, ToastController} from '@ionic/angular';
+import {AxiosService} from '../services/axios/axios.service';
+import {AuthService} from '../services/auth/auth.service';
+import {Storage} from '@ionic/storage';
+import {AesJsService} from '../services/aesjs/aes-js.service';
+import {LoadingService} from "../services/loading/loading.service";
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-list-pockets',
@@ -11,13 +13,14 @@ import {AesJsService} from "../services/aesjs/aes-js.service";
   styleUrls: ['./list-pockets.page.scss'],
 })
 export class ListPocketsPage implements OnInit {
+  ctrlButtonCreate: boolean = false;
   public ctrlCreatePocket: boolean = true;
   public params = {
     label: null,
     currencyId:  null,
     userId: null
-  }
-  public currencies: {} = []
+  };
+  public currencies: {} = [];
   private userId: number;
   @Input() pockets: any = [];
 
@@ -28,61 +31,51 @@ export class ListPocketsPage implements OnInit {
     private auth: AuthService,
     private store: Storage,
     protected aesjs: AesJsService,
-    private toastCtrl: ToastController,
+    private toastCtrl: ToastService,
+    private loadingCtrl: LoadingService
       ) { }
 
   ngOnInit() {
-    this.pockets = this.navParams.data.pockets
-    console.info('mis pockets en el modal', this.pockets)
+    this.pockets = this.navParams.data.pockets;
     // this.activateRoute.params.subscribe(params => {
     //   this.pockets = params['pockets'];
     // });
   }
 
   async getCriptoCurrencies() {
-    this.currencies = await this.http.get('currency/index', this.auth, null)
-    console.log(this.currencies)
+    this.currencies = await this.http.get('currency/index', this.auth, null);
   }
 
   async createPocket() {
     if (this.ctrlCreatePocket) {
-      this.ctrlCreatePocket = false
+      this.ctrlCreatePocket = false;
       await this.getCriptoCurrencies()
     } else {
-
-      let profile = await this.store.get('profile')
-      profile = JSON.parse(this.aesjs.decrypt(profile))
-      console.info(profile)
-      this.params.userId = profile.id
-      console.info(this.params)
-      let response = await this.http.post('user-wallet/create', this.params, this.auth)
-      console.info('poacket cerado', response)
+      await this.loadingCtrl.present({})
+      this.ctrlButtonCreate = true;
+      let profile = await this.store.get('profile');
+      profile = this.aesjs.decrypt(profile);
+      this.params.userId = profile.id;
+      let response = await this.http.post('user-wallet/create', this.params, this.auth);
       if(response.status === 200) {
-        await this.presentToast()
+        await this.loadingCtrl.dismiss()
+        await this.toastCtrl.presentToast({text: 'Pocket creado correctamente'});
         await this.closeModal(null)
       }
+      await this.toastCtrl.presentToast({text: response.error.msg});
+      await this.loadingCtrl.dismiss()
+      this.ctrlButtonCreate = false
     }
   }
 
-  async closeModal(pocket: any) {
-    console.info(pocket)
+  async closeModal(pocket: object) {
     await this.modalCtrl.dismiss(pocket);
   }
-  async presentToast() {
-    const toast = await this.toastCtrl.create({
-      message: 'Pocket creado correctamente',
-      duration: 2000
-    });
-    toast.present();
-  }
   getIdCurrency(id:any) {
-    console.log(id)
     this.params.currencyId = id
   }
 
   getData(event: any) {
-    this.params.label = event
-    console.info(this.params)
-
+    this.params.label = event;
   }
 }

@@ -21,3 +21,8 @@ ion-item{
   --border-bottom: white;
   --background: transparent;
 }
+ion-item:hover {
+  --background-color: transparent;
+  --background: transparent;
+  background: transparent;
+}

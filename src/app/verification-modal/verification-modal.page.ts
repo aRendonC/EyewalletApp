@@ -4,7 +4,8 @@ import * as CONSTANTS from '../constanst';
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {AuthService} from "../services/auth/auth.service";
 import {AxiosService} from "../services/axios/axios.service";
-import {ModalController} from "@ionic/angular";
+import {ModalController, ToastController} from "@ionic/angular";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-verification-modal',
   templateUrl: './verification-modal.page.html',
@@ -15,39 +16,41 @@ export class VerificationModalPage implements OnInit {
   ctrlContent: boolean = true;
   ctrlInput: boolean = false;
   ctrlVerification: boolean = false
-  public phone: any = ''
+  public profile: any = ''
   public code: any = ''
   constructor(
       private store: Storage,
       protected aesjs: AesJsService,
       protected auth: AuthService,
       private http: AxiosService,
-      private modalCtrl: ModalController
+      private modalCtrl: ModalController,
+      private router: Router,
+      private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
   }
-
-  async closeModal() {
+  async closeModal(data) {
+    await this.modalCtrl.dismiss(data);
+  }
+  async goToCreateProfile() {
+    await this.router.navigate(['/create-profile']);
     await this.modalCtrl.dismiss();
   }
 
   async startVerification() {
     if (!this.ctrlInput) {
-      this.phone = await this.store.get('profile')
-      this.phone = JSON.parse(this.aesjs.decrypt(this.phone))
-      this.phone = this.phone.phone
-      this.ctrlInput = true
+      this.profile = await this.store.get('profile')
+      this.profile = this.aesjs.decrypt(this.profile)
+      this.ctrlInput = true;
     } else {
 
-      console.log(this.phone)
     }
   }
 
   async sendCodeVerification() {
-    let type = 'phone'
-    let response = await this.http.post('user/sendCodeVerification', {type}, this.auth,)
-    console.log(response)
+    const type = 'phone';
+    const response = await this.http.post('user/sendCodeVerification', {type}, this.auth,)
     this.ctrlVerification = true
   }
 
@@ -57,12 +60,26 @@ export class VerificationModalPage implements OnInit {
       code: this.code
     }
     let response = await this.http.post('user/validateCodePhone', body, this.auth)
-    console.log(response)
-    if(response.data) {
-     await this.closeModal()
+    if(response.status === 200) {
+      let profile = await this.store.get('profile')
+      profile = this.aesjs.decrypt(profile)
+      profile.level = response.level
+      await this.closeModal(profile)
+      profile = this.aesjs.encrypt(profile)
+      await this.store.set('profile', profile)
+      await this.presentToast('Teléfono ha sido verificado correctamente')
     } else {
+      await this.presentToast('Error de código')
       //poner el toast de error, muchas gracias.
     }
+  }
+
+  async presentToast(text) {
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 2000
+    });
+   await toast.present();
   }
 
 }

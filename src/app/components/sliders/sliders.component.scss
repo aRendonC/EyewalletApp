@@ -1,19 +1,232 @@
 
+@import "../../../global.scss";
 .bgdashboard{
     --bullet-background:  url('../../../assets/img/bg-dashboard.png');
-    
+}
+
+.move-filter{
 }
 
 .text-moneda{
-    margin-top:5%;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     color: black;
     font-size: 34px;
 }
 
+
 .center{
     top:10%;
     text-align: center;
     width: 100%;
+}
+
+.contentBitcoin{
+    width: 100%;
+    height: 100%;
+    background-image:  url('../../../assets/img/bg-dashboard.png');
+    background-position: 0em -2cm;
+}
+
+.card-content-md {
+    padding: 0;
+}
+
+.contentEtherium{
+    width: 100%;
+    height: 100%;
+    background:  url('../../../assets/img/bg-etherium.png') no-repeat center center / cover;
+    //background-position: 0em -2cm;
+}
+
+
+
+.text-valance{
+    text-align: left;
+    font-family: $font-roboto-bold;
+    color: #28255C;
+    display: block;
+    padding-left: 6%;
+    font-size: 30px;
+}
+
+.text-usd{
+    font-family: $font-roboto-bold;
+    display: block;
+    color: #5495FF;
+    text-align: left;
+    padding-left: 6%;
+
+    font-size: 18px;
+}
+
+.cardwith{
+    opacity: 1;
+    height: 25%;
+    background: linear-gradient(-17deg, #97f5f9 -30%, #7ed5f6 -45%, #529df3 44%, #4781df 118%, #2d3cad 131%, #2d3cad 106%, #2d3cad 188%);
+}
+
+.card-title{
+    color: #28255C;
+    font-size: 2.9vh;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+}
+
+.card-ver-title{
+    font-size: 2.9vh;
+    padding-left: 1vw;
+    color: white;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+}
+
+.card-titlesub{
+    color: #28255C;
+    font-size: 2vh;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header{
+    padding-bottom: 0px;
+}
+
+.card-ver-titlesub{
+    color: white;
+    font-size: 2vh;
+    margin-top: -2vh;
+    margin-left: 3vw;
+    padding-bottom: 7vw;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.card-ver-width{
+    background: #8BB5EA;
+    background-image: url("../../../assets/img/bg-verify.png");
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.btn-continuar{
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+    font-size: 2vh;
+    background: #354E91;
+    color: white;
+
+    padding: 2vh 5vh;
+    border-radius: 11px;
+}
+
+.logo-card{
+
+    width: 15vh;
+    height: 17vh;
+}
+
+.card{
+    width: 90vw;
+    height: 12vh;
+
+    border-radius:100px;
+    background: white;
+    box-shadow: 10px 10px 50px -22px rgba(51,51,203,0.59);
+    --background: blue
+}
+
+.status{
+
+    font-family: 'Open-Sans', sans-serif;
+    font-weight: 700;
+    font-size: 4vw;
+}
+
+.m-dashboard {
+
+}
+
+.time{
+    font-size: 3.4vw;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #92B4E4;
+}
+
+.date{
+    font-size: 3.4vw;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #92B4E4;
+}
+
+.dot{
+    color: #15E9E9
+}
+
+.value{
+    color: #272759;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.crypto{
+    font-size: 3vw;
+    color: #5496FF;
+    font-family: 'Open-Sans', sans-serif;
+    font-weight: 700;
+}
+
+.status-icon{
+    width: 50%;
+}
+.sc-ion-card-md-h {
+    height: auto;
+}
+
+.sc-ion-card-ios-h-transactions {
+    height: auto;
+    --background: var(--ion-item-background,transparent);
+    --color: var(--ion-color-step-550,#737373);
+    margin: 10px;
+    border-radius: 50px;
+    font-size: 14px;
+    -webkit-box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.card-content-ios-transactions {
+    height: auto;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.btn-aceptar{
+    background: linear-gradient(45deg, #00de96 0%, #00ecea 100%);
+    box-shadow: 0px 10.86px 6.79px rgba(0, 127, 59, 0.14);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 3.8vw;
+    padding: 2vw 13vw;
+    border-radius: 1.5vw;
+}
+//.swiper-container {
+//    width: 100%;
+//    padding-top: 50px;
+//    padding-bottom: 50px;
+//}
+//.swiper-slide {
+//    background-position: center;
+//    background-size: cover;
+//    width: 300px;
+//    height: 300px;
+//}
+.swiper-slide-next{
+    font-size: 10px;
+}
+.swiper-slide-prev{
+    font-size: 10px;
 }

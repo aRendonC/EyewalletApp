@@ -8,52 +8,40 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: '',
-       loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
+        path: 'dashboard',
+        loadChildren: '../dashboard/dashboard.module#DashboardPageModule'
       },
       {
         path: 'home',
         loadChildren: '../home/home.module#HomePageModule'
-
       },
       {
         path: 'profile',
-        children: [
-          {
-            path: '',
-            loadChildren: '../profile/profile.module#ProfilePageModule'
-          }
-        ]
+        loadChildren: '../profile/profile.module#ProfilePageModule'
       },
       {
-        path: 'create-profile',
-        children: [
-          {
-            path:'',
-            loadChildren: '../create-profile/create-profile.module#CreateProfilePageModule'
-          },
-        ]
+        path: 'prices',
+        loadChildren: '../prices/prices.module#PricesPageModule'
       },
       {
-        path: 'address',
-        children: [
-          {
-            path: '',
-            loadChildren: '../address/address.module#AddressPageModule'
-          }
-        ]
+        path: 'request-credit-card',
+        loadChildren: '../request-credit-card/request-credit-card.module#RequestCreditCardPageModule'
       },
       {
-        path: 'receive-funds',
-        children: [
-          {
-            path: '',
-            loadChildren: '../receive-funds/receive-funds.module#ReceiveFundsPageModule'
-          }
-        ]
+        path: 'card-invoice',
+        loadChildren: '../card-invoice/card-invoice.module#CardInvoicePageModule'
+      },
+      {
+        path: 'vault',
+        loadChildren: '../vault/vault.module#VaultPageModule'
       }
     ]
   },
+  {
+    path: 'dashboard',
+    redirectTo: '/tabs/dashboard',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

@@ -15,26 +15,29 @@
 // Variables fonts.
 $font-medium: Poppins-Medium;
 $font-semibold: Poppins-SemiBold;
+$font-bold: Poppins-Bold;
 $font-regular: Poppins-Regular;
 $font-roboto-bold: Roboto-Bold;
+$font-roboto-medium: Roboto-Medium;
+$font-roboto-regular: Roboto-Regular;
+$font-open-sans-bold: Open-Sans-Bold;
 
 .button-enable {
    --background: #4C6AC0;
    font-family: $font-medium;
    --color: white;
-   font-size: 18px !important;
+   width: 90% !important;
 }
 
 .button-disable {
    --background: #4C6AC0;
    font-family: $font-medium;
    --color: white;
-   font-size: 18px !important;
+   width: 90% !important;
 }
 
 .bghome{
-   --background:  url('/assets/img/bg-home.png');
-   --background-repeat: no-repeat;
+   --background:  url('/assets/img/bg-home.png') no-repeat center center / cover;
 }
 
 .move-logo{
@@ -43,7 +46,9 @@ $font-roboto-bold: Roboto-Bold;
 }
 
 .resize-logo {
-   width: 60%;
+   width: 141PX;
+   height: 141px;
+   margin: 30px auto 0 auto;
 }
 
 .text-eyewallet{
@@ -86,22 +91,38 @@ $font-roboto-bold: Roboto-Bold;
    margin-left: 4vw
 }
 
-.btn-start{
+.btn-start {
    --background: #4C6AC0;
    --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
    --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-   --padding-start: 15vh;
-   --padding-end: 14vh;
-   --padding-top: 0px;
-   --padding-bottom: 0px;
+   width: 90% !important;
    --border-radius: 100px;
    --opacity: 0.86;
    font-family: 'Poppins', sans-serif;
 }
 
+.btn-create {
+   margin-top: 2vh;
+   --background: transparent;
+   --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+   --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+   width: 90% !important;
+   --border-radius: 100px;
+   --border-color: white;
+   --border-width:1px;
+   --border-style: solid;
+   font-family: 'OpenSans', sans-serif;
+   font-weight: 400
+}
+
 .move-btn{
    margin-top: 5vh;
    text-align: center
+}
+
+.center {
+   text-align: center;
+   width: 100%;
 }
 
 .white-line{
@@ -128,6 +149,28 @@ $font-roboto-bold: Roboto-Bold;
    display: flex;
    align-items: center;
    justify-content: center;
+}
+
+.all-center-horizontal {
+   display: flex;
+   justify-content: center;
+}
+
+.all-center-vertical {
+   display: flex;
+   align-items: center;
+}
+
+.center-space-between {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.center-space-around {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
 }
 
 .all-center-colum {
@@ -167,4 +210,107 @@ $font-roboto-bold: Roboto-Bold;
 }
 .contentdash{
    top:10%;
+}
+
+.loadingSpinner {
+   --background: transparent;
+   --width: 100%;
+   --height: 100%;
+   --max-width: 100%;
+   --max-height: 100%;
+}
+
+.spinner{
+   position: relative;
+   z-index: 50;
+   width: 40%;
+   margin: 0vw 20vw 0vw 20vw;
+   animation: rotation 0.6s infinite linear;
+}
+
+.loadingText{
+   color: white;
+   font-family: 'Poppins', sans-serif;
+   font-size: 5vw;
+   font-weight: 500;
+   text-align: center;
+}
+
+@keyframes rotation {
+   from {
+         -webkit-transform: rotate(0deg);
+   }
+   to {
+         -webkit-transform: rotate(359deg);
+   }
+}
+
+.blur{
+   filter: blur(6px);
+}
+.textLoading{
+   color: white;
+}
+.textLoadingBlack{
+   background-image: linear-gradient(rgba(20, 169, 255, 0.6) 0%, rgba(43, 132, 255, 0.6) 21.26%, rgba(128, 0, 255, 0.6) 180%);
+}
+.loading-translucent.sc-ion-loading-ios-h .loading-wrapper.sc-ion-loading-ios {
+   background-color: transparent !important;
+   -webkit-backdrop-filter: saturate(180%) blur(20px);
+   backdrop-filter: saturate(180%) blur(20px);
+   display: flex !important;
+   flex-direction: column-reverse !important;
+}
+.spinner-bubbles.sc-ion-loading-ios, .spinner-circles.sc-ion-loading-ios, .spinner-crescent.sc-ion-loading-ios, .spinner-dots.sc-ion-loading-ios, .spinner-lines.sc-ion-loading-ios, .spinner-lines-small.sc-ion-loading-ios {
+   width: 100px;
+   color: #2B84FF;
+   height: 108px;
+}
+
+//Key for animations.
+.animated {
+   -webkit-animation-duration: 1s;
+   animation-duration: 1s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+ }
+
+.margin-pocket-component{
+   margin-top: 3%;
+}
+//  .tab-selected{
+//    background: rgb(134,31,194) !important;
+//    color: white !important;
+//  }
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+   bottom: 48%;
+   left: 10%;
+   width: 100%;
+}
+
+.swiper-pagination-bullet-active {
+   height: 12px;
+   width: 12px;
+   background: rgba(77,170,255,1);
+   background: -moz-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(77,170,255,1)), color-stop(24%, rgba(85,132,255,1)), color-stop(100%, rgba(115,0,255,1)));
+   background: -webkit-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   background: -o-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   background: -ms-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   background: linear-gradient(to bottom, rgba(77,170,255,1) 0%, rgba(85,132,255,1) 24%, rgba(115,0,255,1) 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4daaff', endColorstr='#7300ff', GradientType=0 );
+}
+.swiper-pagination-bullet {
+   background: rgba(77,170,255,1);
+   background: -moz-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(77,170,255,1)), color-stop(24%, rgba(85,132,255,0.88)), color-stop(100%, rgba(115,0,255,0.5)));
+   background: -webkit-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   background: -o-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   background: -ms-linear-gradient(top, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   background: linear-gradient(to bottom, rgba(77,170,255,1) 0%, rgba(85,132,255,0.88) 24%, rgba(115,0,255,0.5) 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4daaff', endColorstr='#7300ff', GradientType=0 );
+}
+
+.swiper-pagination {
+   text-align: left;
 }

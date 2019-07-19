@@ -6,17 +6,21 @@ import {AuthService} from '../auth/auth.service';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {TimerService} from '../timer/timer.service';
+import {LoadingService} from "../loading/loading.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptadorService implements HttpInterceptor {
 
-  constructor(private storage: Storage,
-              private auth: AuthService,
-              private alertCtrl: AlertController,
-              private navCtrl: NavController,
-              private timer: TimerService) {
+  constructor(
+    private storage: Storage,
+    private auth: AuthService,
+    private alertCtrl: AlertController,
+    private navCtrl: NavController,
+    private timer: TimerService,
+    private loadCtrl: LoadingService
+  ) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -26,16 +30,16 @@ export class InterceptadorService implements HttpInterceptor {
       if (token) {
         request = request.clone({
           setHeaders: {
-            Authorization: token
+            Authorization: token,
           }
         });
       }
 
       if (!request.headers.has('Content-Type')) {
         request = request.clone({
-          setHeaders: {
-            'content-type': 'application/json'
-          }
+          // setHeaders: {
+          //   'content-type': 'application/json'
+          // }
         });
       }
 
@@ -48,10 +52,19 @@ export class InterceptadorService implements HttpInterceptor {
           return event;
         }),
         catchError((error: HttpErrorResponse) => {
+          console.log('esta es la respuesta del interceptador', error)
           if (error.status === 401) {
             this.logout();
             this.navCtrl.navigateRoot('/login');
-            this.presentAlerta();
+          } if (error.status === 502) {
+            this.presentAlerta('!!Tenemos errores internos', 'Ocurrió un error');
+            this.loadCtrl.dismiss()
+          }if (error.status === 0) {
+            this.presentAlerta('!!Tenemos errores internos', 'Ocurrió un error');
+            this.loadCtrl.dismiss()
+          } if (error.status === 500) {
+            this.presentAlerta('Ocurrió un error inesperado, por favor intenta nuevamente en unos minutos', 'Ocurrió un error');
+            this.loadCtrl.dismiss()
           }
           return throwError(error);
         }));
@@ -61,19 +74,19 @@ export class InterceptadorService implements HttpInterceptor {
   }
 
 
-  logout() {
-    this.storage.remove('user')
-    this.storage.clear();
-    this.timer.resetTimer();
-    this.navCtrl.navigateRoot('/login');
-    this.presentAlerta();
+  async logout() {
+    await this.storage.remove('user')
+    await this.storage.clear();
+    // this.timer.resetTimer();
+    await this.navCtrl.navigateRoot('/login');
+    await this.presentAlerta('', '');
   }
 
-  async presentAlerta() {
+  async presentAlerta(text, subHeader) {
     const alert = await this.alertCtrl.create({
       header: 'INFORMACIÓN',
-      subHeader: 'Sesión terminada',
-      message: 'Señor usuario por seguridad su sesión ha sido expirada.',
+      subHeader: subHeader,
+      message: text,
       buttons: ['cerrar']
     });
 

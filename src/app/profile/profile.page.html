@@ -1,29 +1,58 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>
-            Perfil del usuario
-            <app-pocket [pockets]="pockets"></app-pocket>
-            <p style="font-size: 12px">
-                <ion-icon name="stopwatch"></ion-icon>
-                {{temporizador.minutos}} minutos {{temporizador.segundos}} segundos
-            </p>
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
-<ion-content>
-    <ion-avatar style="margin-left: 45%; margin-right: 45%">
-        <img src="https://via.placeholder.com/150">
-    </ion-avatar>
-    <ion-card>
-        <ion-card-header>
-            <h4>Información personal</h4>
-        </ion-card-header>
-        <ion-card-content>
+<div class="grid">
+    <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+    <img class="bg-profile" src="../../assets/images/bg-profile.png">
+    <img class="move-profile" src="../../assets/images/profilePage/backProfile.svg"/>
+     <img class="move-profilePic" [src]="avatar"/>
+    <p class="move-name">{{profileShow.fullName}}</p>
+    <!-- <img class="move-engine" src="../../assets/images/profilePage/engine.svg"> -->
+    <img type="submit" class="move-add" (click)="photo()" src="../../assets/images/profilePage/add-profile-img.svg"/>
+</div>
 
-        </ion-card-content>
-    </ion-card>
-
+<ion-content class="move-profileInfo">
+    <ion-item>
+        <ion-label class="labels">ID</ion-label>
+            <p class="text">{{profileShow.id}}</p>
+    </ion-item>
+    <ion-item>
+        <ion-label class="labels">Celular</ion-label>
+            <p class="text">{{profileShow.phone}}</p>
+    </ion-item>
+    <ion-item>
+        <ion-label class="labels">Registro</ion-label>
+            <p class="text">{{profileShow.date}}</p>
+    </ion-item>
+    <ion-item>
+        <ion-label class="labels">País</ion-label>
+            <p class="text">{{profileShow.country}}</p>
+    </ion-item>
+    <ion-item>
+        <ion-label class="labels">Email</ion-label>
+            <p class="text">{{profileShow.mail}}</p>
+    </ion-item>
+    <ion-item>
+        <ion-label class="labels">Versión</ion-label>
+            <p class="text-blue">3.0.0</p>
+    </ion-item>
+    <ion-item class="item-second">
+        <p (click)= "secondFactor()" class="text-second"> <img src="../../assets/images/profilePage/secondFactor.svg">&nbsp; Segundo Factor</p>
+    </ion-item>
+    <ion-item class="item-second">
+        <p  (click)= "secondFactor()" class="text-second"><img src="../../assets/images/profilePage/EyeWeb.svg"> &nbsp; Eyewallet Web</p>
+    </ion-item>
+    <ion-item class="item-images">
+        <img (click)="notifications()" src="../../assets/images/profilePage/notifications.svg" class="pad-lr">
+        <img (click)="safety()" src="../../assets/images/profilePage/safety.svg" class="pad-lrs">
+        <img (click)="terms()" src="../../assets/images/profilePage/terms.svg" class="pad-lr">
+        <img (click)="invite()" src="../../assets/images/profilePage/friends.svg" class="pad-lr">
+    </ion-item>
+    <ion-item class="item-notifications" *ngIf="userVerifications.email === 0">
+        <p class="mail-verify">Tu correo no está verificado!</p>
+        <p (click)="sendMail()" class="mail-sendMail">Reenviar correo</p>
+    </ion-item>
+    <ion-item class="item-notifications" *ngIf="userVerifications.email === 1">
+        <p class="mail-verify-success">Tu email está verificado!</p>
+    </ion-item>
+    <ion-item class="item-delete">
+        <p  (click)="deleteAccount()" class="delete-account">Eliminar Cuenta</p>
+    </ion-item>
 </ion-content>

@@ -1,0 +1,61 @@
+<ion-content class="vault">
+  <div class="header">
+    <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
+
+    <div class="content-text-icon-coin">
+      <span class="text-coin">Bitcoin (BTC)</span>
+      <ion-img src="../../assets/icon/icon-coin-btc.svg" class="icon-coin"></ion-img>
+    </div>
+  </div>
+
+  <div class="content-balance-duration content-balance">
+    <span class="title">Saldo disponible</span>
+
+    <span class="balance">0.00000000 BTC</span>
+
+    <table class="table">
+      <tr class="row-border">
+        <td class="title">BTC</td>
+        <td class="text padding-text">0.000</td>
+        <td class="title">USD</td>
+        <td class="text">0.000</td>
+      </tr>
+
+      <tr>
+        <td class="title">Matrícula</td>
+        <td class="text padding-text">0.000</td>
+        <td class="title">USD</td>
+        <td class="text">0.000</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="content-balance-duration">
+    <span class="title">Duración</span>
+
+    <span class="text-duration">3 meses - 3%</span>
+
+    <span class="text-other">Total ganancias</span>
+
+    <table class="table">
+      <tr>
+        <td class="title">BTC</td>
+        <td class="text padding-text">0.000</td>
+        <td class="title">USD</td>
+        <td class="text">0.000</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="content-button">
+    <ion-button
+      [disabled]="!buttonDisabled"
+      (click)="continueCreateVault()"
+      class="button"
+      text-capitalize
+      shape="round"
+    >
+      Próximamente
+    </ion-button>
+  </div>
+</ion-content>

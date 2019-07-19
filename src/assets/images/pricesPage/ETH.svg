@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23.665" height="37.347" viewBox="0 0 23.665 37.347">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.497" y1="0.284" x2="0.505" y2="2.487" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4daaff"/>
+      <stop offset="0.217" stop-color="#5584ff"/>
+      <stop offset="1" stop-color="#7300ff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.497" y1="-0.902" x2="0.505" y2="2.788" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="0.497" y1="-0.969" x2="0.504" y2="1.528" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Grupo_2373" data-name="Grupo 2373" transform="translate(-122 -305)">
+    <path id="Trazado_17" data-name="Trazado 17" d="M997.829,1140.1l-11.263,18.478,11.014-4.566.249-.115.249.115,11.014,4.566Z" transform="translate(-863.999 -835.1)" fill="url(#linear-gradient)"/>
+    <path id="Trazado_18" data-name="Trazado 18" d="M997.907,1164.464l-11.135,4.618,11.135,6.415,11.135-6.415Z" transform="translate(-864.076 -844.274)" fill="url(#linear-gradient-2)"/>
+    <path id="Trazado_19" data-name="Trazado 19" d="M997.489,1180.665l-11.832-6.822,11.832,16.309,11.833-16.309Z" transform="translate(-863.657 -847.806)" fill="url(#linear-gradient-3)"/>
+  </g>
+</svg>

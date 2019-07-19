@@ -1,0 +1,31 @@
+@import '../../global.scss';
+
+.card-invoice {
+   .content-logo {
+      @extend .all-center;
+      margin: 16vw 0;
+
+      .image {
+         width: 50vw;
+      }
+   }
+
+   .content-text-icon {
+      @extend .all-center;
+      margin: 0 0 10vw 0;
+
+      .text {
+         font-family: $font-roboto-regular;
+         font-size: 26px;
+         color: #272759;
+      }
+   }
+
+   .content-image-card {
+      @extend .all-center;
+
+      .image {
+         width: 90vw;
+      }
+   }
+}

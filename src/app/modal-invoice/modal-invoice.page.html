@@ -1,0 +1,34 @@
+<ion-content class="modal-invoice">
+  <ion-img 
+    src="../../../assets/img/sendCripto/backTop.png"
+    (click)="closeModalInvoice()"
+    class="icon-close"
+  ></ion-img>
+
+  <div class="content-invoice">
+    <div class="content-logo">
+      <ion-img src="../../assets/img/home-logo.svg" class="image-logo"></ion-img>
+    </div>
+
+    <div class="content-icon-value-usd">
+      <span class="content-icon-text">
+        <ion-img src="../../../assets/icon/icon-bitcoin.png" class="image"></ion-img>
+        <span class="text-icon">Valor</span>
+      </span>
+
+      <span class="text-two">${{ dataBill.card.priceUSD }} ({{ dataBill.card?.currency }})</span>
+    </div>
+
+    <div class="content-icon-value-usd">
+      <span class="text-two">eyewallet.com</span>
+      
+      <span class="text-two">{{ priceCardCoin }} {{ dataBill.cripto.currency }}</span>
+    </div>
+  </div>
+
+  <div class="content-button">
+    <ion-button (click)="payRequestCard()" shape="round" text-capitalize class="button">
+      Pagar con eywallet
+    </ion-button>
+  </div>
+</ion-content>

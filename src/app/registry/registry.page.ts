@@ -8,10 +8,12 @@ import * as CONSTANTS from '../constanst';
 import { AxiosService } from '../services/axios/axios.service';
 
 // Navigations.
-import {NavigationExtras, Router} from '@angular/router';
+import { Router} from '@angular/router';
 
 // Storage
 import {Storage} from '@ionic/storage';
+import {DeviceService} from "../services/device/device.service";
+import {LoadingService} from "../services/loading/loading.service";
 
 @Component({
   selector: 'app-registry',
@@ -38,12 +40,13 @@ export class RegistryPage implements OnInit {
   constructor(
     private register: AxiosService,
     private router: Router,
-    private store: Storage
+    private store: Storage,
+    private device: DeviceService,
+    private loadingCtrl: LoadingService,
+    private toastCtrl: ToastController
   ) { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 
   public validateEmail(event): void {
     if (!validator.isEmpty(event) && validator.isEmail(event)) {
@@ -88,7 +91,7 @@ export class RegistryPage implements OnInit {
     const passwordLength = {
       min: 6,
       max: undefined
-    }
+    };
 
     if (!validator.isEmpty(event) &&
       validator.isLength(event, passwordLength) &&
@@ -118,26 +121,45 @@ export class RegistryPage implements OnInit {
     this.classButton = this.disableButton ? 'button-disable' : 'button-enable';
   }
 
-  public sendDataRegistry() {
+  public async sendDataRegistry() {
+    await this.loadingCtrl.present({})
+   let device = await this.device.getDataDevice();
+   console.log('datos del dispositivo', device);
+   if(!device.uuid) device.uuid = '987654321';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
 	    phone: this.dataRegistry.phone,
-	    password: this.dataRegistry.password
+	    password: this.dataRegistry.password,
+      deviceId: device.uuid
     };
 
     this.register.post(urlRegistry, dataBody)
-    .then(response => {
+    .then(async response => {
       if (response.status === 200) {
         console.log(response.data);
-        this.store.set('user', response.data)
-        let navigationExtras: NavigationExtras = {
+       await this.store.set('user', response.data);
+        await this.router.navigate(['/registry-pin'], {
           queryParams: {
             user: JSON.stringify(response.data),
-          }
-        }
-        this.router.navigate(['/registry-pin'], navigationExtras);
+            password: JSON.stringify(this.dataRegistry.password)
+          },
+          queryParamsHandling: 'merge'
+        });
+        await this.loadingCtrl.dismiss()
+      } else {
+        await this.presentToast(response.data)
+        await this.loadingCtrl.dismiss()
       }
     });
   }
+
+  async presentToast(text) {
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 2000
+    });
+     await toast.present();
+  }
 }
+

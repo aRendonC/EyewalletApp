@@ -17,7 +17,7 @@ import {ComponentsModule} from '../components/components.module';
         path: '',
         component: HomePage
       }
-    ])
+    ]),
   ],
   declarations: [
     HomePage
