@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    await this.store.clear()
+    await this.store.clear();
     await this.loadingCtrl.present({});
     this.ctrlCssBlur = true;
     this.auth.login(this.username, this.password).then(async (data: any) => {
@@ -59,11 +59,11 @@ export class LoginPage implements OnInit {
           this.touchCtrl.isLocked = false;
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
-          let pockets = this.pockets
-          pockets = this.aesjs.encrypt(pockets)
-          await this.store.set('pocket', pockets)
+          let pockets = this.pockets;
+          pockets = this.aesjs.encrypt(pockets);
+          await this.store.set('pocket', pockets);
           await this.router.navigate([
-              '/app/tabs/dashboard'])
+              '/app/tabs/dashboard']);
           this.pockets = this.aesjs.encrypt( this.pockets[0]);
           await this.store.set('pockets',  this.pockets)
         } else await this.clearData(data);
@@ -84,7 +84,7 @@ export class LoginPage implements OnInit {
   }
 
   public async clearData(error) {
-    console.log(error)
+    console.log(error);
     await this.loadingCtrl.dismiss();
     this.ctrlCssBlur = false;
     await this.toastController.presentToast({text: error, duration: 1000});

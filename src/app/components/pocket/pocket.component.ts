@@ -92,6 +92,7 @@ export class PocketComponent implements OnInit {
           type: 0,
           address: this.pocket.address
         };
+        await this.loadingCtrl.present({cssClass: 'textLoadingBlack'})
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         if(dataResponse.status === 200) {
           dataResponse.pocket = this.pocket;

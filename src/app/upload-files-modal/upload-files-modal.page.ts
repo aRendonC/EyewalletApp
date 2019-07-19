@@ -7,7 +7,6 @@ import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
-import {SlidersComponent} from "../components/sliders/sliders.component";
 
 @Component({
   selector: 'app-upload-files-modal',
@@ -15,6 +14,7 @@ import {SlidersComponent} from "../components/sliders/sliders.component";
   styleUrls: ['./upload-files-modal.page.scss'],
 })
 export class UploadFilesModalPage implements OnInit {
+  public profile = null;
   ctrlSelfie: boolean = true;
   ctrlDocument: boolean = false;
   ctrlDocumentBack: boolean = false;
@@ -33,12 +33,13 @@ export class UploadFilesModalPage implements OnInit {
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingService,
     protected store: Storage,
-    protected aesjs: AesJsService,
-    protected slidersComponent: SlidersComponent,
+    protected aesjs: AesJsService
   ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.profile = await this.store.get('profile')
+    this.profile = this.aesjs.decrypt(this.profile)
   }
 
   async takePhoto() {
@@ -127,8 +128,10 @@ export class UploadFilesModalPage implements OnInit {
     let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
     console.log('respuesta de las fotos', responsePhoto);
     if (responsePhoto.status === 200) {
-      this.slidersComponent.profile.level = responsePhoto.verification.level;
-      this.setStorageVerification(responsePhoto.verification);
+      this.profile.complete = responsePhoto.verification.complete;
+      let profileVerification = this.aesjs.encrypt(this.profile)
+      await this.store.set('profile', profileVerification)
+      await this.setStorageVerification(responsePhoto.verification);
       await this.loadingCtrl.dismiss();
       this.ctrlSelfie = false;
       this.ctrlDocument = true;
@@ -144,8 +147,10 @@ export class UploadFilesModalPage implements OnInit {
     let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
     console.log('respuesta de las fotos', responsePhoto);
     if (responsePhoto.status === 200) {
-      this.slidersComponent.profile.level = responsePhoto.verification.level;
-      this.setStorageVerification(responsePhoto.verification);
+      this.profile.complete = responsePhoto.verification.complete;
+      let profileVerification = this.aesjs.encrypt(this.profile)
+      await this.store.set('profile', profileVerification)
+      await this.setStorageVerification(responsePhoto.verification);
       await this.loadingCtrl.dismiss();
       this.ctrlDocument = false;
       this.ctrlDocumentBack = true;
@@ -161,8 +166,10 @@ export class UploadFilesModalPage implements OnInit {
     let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
     console.log('respuesta de las fotos', responsePhoto);
     if (responsePhoto.status === 200) {
-      this.slidersComponent.profile.level = responsePhoto.verification.level;
-      this.setStorageVerification(responsePhoto.verification);
+      this.profile.complete = responsePhoto.verification.complete;
+      let profileVerification = this.aesjs.encrypt(this.profile)
+      await this.store.set('profile', profileVerification)
+      await this.setStorageVerification(responsePhoto.verification);
       await this.loadingCtrl.dismiss();
       this.ctrlDocumentBack = false;
       this.ctrlDocumentAddress = true;
@@ -178,8 +185,10 @@ export class UploadFilesModalPage implements OnInit {
     let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
     console.log('respuesta de las fotos', responsePhoto);
     if (responsePhoto.status === 200) {
-      this.slidersComponent.profile.level = responsePhoto.verification.level;
-      this.setStorageVerification(responsePhoto.verification);
+      this.profile.complete = responsePhoto.verification.complete;
+      let profileVerification = this.aesjs.encrypt(this.profile)
+      await this.store.set('profile', profileVerification)
+      await this.setStorageVerification(responsePhoto.verification);
       await this.loadingCtrl.dismiss();
       this.ctrlDocumentAddress = false;
       await this.toastCtrl.presentToast({text: 'Todos sus documentos han sido cargados correctamente'});

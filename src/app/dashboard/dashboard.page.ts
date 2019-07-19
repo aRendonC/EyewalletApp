@@ -96,7 +96,6 @@ export class DashboardPage implements OnInit{
   }
 
   public async getDataPocket(data: any) {
-    await this.loadingController.present({cssClass: 'textLoadingBlack'})
     this.crypto.forEach(element => {
       element.graphic = [];
       if (data.pocket.currencyId === 1) {
@@ -116,6 +115,7 @@ export class DashboardPage implements OnInit{
     this.crypto.amountPending = data.amountPending;
     await this.getTransactionHistory(data);
     await this.childD.grafica();
+    await this.loadingController.dismiss()
   }
 
   async getTransactionHistory(data: any) {
