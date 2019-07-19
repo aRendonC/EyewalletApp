@@ -125,7 +125,7 @@ export class PocketComponent implements OnInit {
   }
 
   async goToHome() {
-    await this.router.navigate(['/app/tabs']);
+    await this.router.navigate(['/app/tabs/dashboard']);
   }
 
   async presentAlert() {

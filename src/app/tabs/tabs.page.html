@@ -33,9 +33,10 @@
         <ion-tab-button
                 class="tab-btn"
                 (click)="requestCreditCard()">
-            <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs['card-invoice']">
+            <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs['card-invoice'] ||
+                currentRoute === tabs['request-credit-card']">
                 <img
-                        [class.img-icon-tabs-selected]="currentRoute === tabs['card-invoice']"
+                        [class.img-icon-tabs-selected]="currentRoute === tabs['card-invoice'] || currentRoute === tabs['request-credit-card']"
                         class="img-icon-tabs"
                         src="../../assets/img/tabs/tab-card.svg"/>
             </div>

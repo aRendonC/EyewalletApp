@@ -69,7 +69,7 @@ export class RegistryPinPage implements OnInit {
       let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password);
       if(loginUser.status === 200){
         this.pockets = await this.getPocketsList();
-        await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
+        await this.router.navigate(['/app/tabs/dashboard', {pockets: JSON.stringify(this.pockets)}]);
         this.pockets = this.aesjs.encrypt(this.pockets);
         await this.store.set('pockets', this.pockets)
         await this.loadingCtrl.dismiss()

@@ -49,7 +49,7 @@ export class UploadFilesModalPage implements OnInit {
                   if(this.ctrlDocumentAddress) {
                     await this.presentToast('Todos sus documentos han sido cargados correctamente');
                     await this.closeModal();
-                    await this.router.navigate(['/app/tabs'])
+                    await this.router.navigate(['/app/tabs/dashboard'])
                   } else {
                     if(!this.ctrlDocument) {
                       this.ctrlDocument = true;
@@ -87,7 +87,7 @@ export class UploadFilesModalPage implements OnInit {
                   if(this.ctrlDocumentAddress) {
                     await this.presentToast('Todos sus documentos han sido cargados correctamente');
                     await this.closeModal();
-                    await this.router.navigate(['/app/tabs'])
+                    await this.router.navigate(['/app/tabs/dashboard'])
                   } else {
                     if(!this.ctrlDocument) {
                       this.ctrlDocument = true;
