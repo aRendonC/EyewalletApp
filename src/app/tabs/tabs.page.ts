@@ -21,7 +21,8 @@ export class TabsPage {
     'vault': 'vault',
     'dashboard': 'dashboard',
     'card-invoice': 'card-invoice',
-    'profile': 'profile'
+    'profile': 'profile',
+    'request-credit-card': 'request-credit-card'
   }
   constructor(
     private auth: AuthService,

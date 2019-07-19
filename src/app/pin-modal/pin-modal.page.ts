@@ -62,7 +62,7 @@ export class PinModalPage implements OnInit {
         if(pinData === user.pin.toString()) {
           user.pin = this.aesjs.encrypt(user.pin);
           this.store.set('user', user);
-          await this.router.navigate(['/app/tabs']);
+          await this.router.navigate(['/app/tabs/dashboard']);
           await this.closeModal()
         } else {
           this.ctrlPin = false;
@@ -90,7 +90,7 @@ export class PinModalPage implements OnInit {
 
           })
               .then((result: any) => {
-                this.router.navigate(['/app/tabs']);
+                this.router.navigate(['/app/tabs/dashboard']);
                 this.closeModal()
                 // this.login();
                 // this.isLocked = false;

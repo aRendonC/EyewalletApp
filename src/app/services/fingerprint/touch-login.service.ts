@@ -108,7 +108,7 @@ export class TouchLoginService implements OnInit {
     }
 
   login() {
-      this.router.navigate(['/app/tabs']);
+      this.router.navigate(['/app/tabs/dashboard']);
   }
 
     async openModal() {

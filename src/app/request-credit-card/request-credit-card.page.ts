@@ -91,7 +91,7 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   public async buttonCancelNavigate(): Promise<any> {
-    await this.router.navigate(['/app/tabs']);
+    await this.router.navigate(['/app/tabs/dashboard']);
   }
 
   public async buttonAcept(): Promise<any> {
