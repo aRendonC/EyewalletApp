@@ -18,6 +18,7 @@
             <ion-input
                name="pin"
                placeholder="Pin"
+               [pattern]="[0-9]"
                [(ngModel)]="dataRestorePassword.pin"
                (ngModelChange)="validatePin($event)"
                clearInput
