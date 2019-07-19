@@ -26,9 +26,12 @@ export class RegistryPage implements OnInit {
   public dataRegistry = {
     email: '',
     phone: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   };
 
+  public confirmPasswordOk: boolean = false;
+  public confirmPasswordError: boolean = false;
   public passwordOk: boolean = false;
   public passwordError: boolean = false;
   public phoneOk: boolean = false;
@@ -93,11 +96,11 @@ export class RegistryPage implements OnInit {
       max: undefined
     };
 
-    if (!validator.isEmpty(event) &&
+    if (
+      !validator.isEmpty(event) &&
       validator.isLength(event, passwordLength) &&
-      validator.isAlphanumeric(event) &&
-      !validator.isNumeric(event) &&
-      !validator.isAlpha(event)
+      !validator.isAlphanumeric(event) &&
+      validator.isAscii(event)
     ) {
       this.dataRegistry.password = event;
       this.passwordOk = true;
@@ -111,8 +114,39 @@ export class RegistryPage implements OnInit {
     }
   }
 
+  public validateConfirmPassword(event): void {
+    const passwordLength = {
+      min: 6,
+      max: undefined
+    };
+
+    if (
+      !validator.isEmpty(event) &&
+      validator.isLength(event, passwordLength) &&
+      !validator.isAlphanumeric(event) &&
+      validator.isAscii(event)
+    ) {
+      this.dataRegistry.confirmPassword = event;
+
+      if (this.dataRegistry.password === event) {
+        this.confirmPasswordOk = true;
+        this.confirmPasswordError = false;
+      } else {
+        this.confirmPasswordOk = false;
+        this.confirmPasswordError = true;
+      }
+      this.enableButton();
+      
+    } else {
+      this.dataRegistry.confirmPassword = event;
+      this.confirmPasswordOk = false;
+      this.enableButton();
+      this.confirmPasswordError = true;
+    }
+  }
+
   public enableButton(): void {
-    if (this.emailOk && this.phoneOk && this.passwordOk) {
+    if (this.emailOk && this.phoneOk && this.passwordOk && this.confirmPasswordOk && (this.dataRegistry.password === this.dataRegistry.confirmPassword)) {
       this.disableButton = false;
     } else {
       this.disableButton = true;
@@ -123,14 +157,12 @@ export class RegistryPage implements OnInit {
 
   public async sendDataRegistry() {
     await this.loadingCtrl.present({})
-   let device = await this.device.getDataDevice();
-   console.log('datos del dispositivo', device);
-   if(!device.uuid) device.uuid = '987654321';
+    const device = await this.device.getDataDevice();
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
-	    phone: this.dataRegistry.phone,
-	    password: this.dataRegistry.password,
+      phone: this.dataRegistry.phone,
+      password: this.dataRegistry.password,
       deviceId: device.uuid
     };
 

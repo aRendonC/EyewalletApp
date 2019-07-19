@@ -50,8 +50,22 @@
 				<ion-img *ngIf="passwordOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
 				<ion-img *ngIf="passwordError" slot="end" class="icon" src="../../assets/icon/icon-data-form-invalid.png"></ion-img>
 			</ion-item>
-		</ion-list>
 
+			<ion-item class="list-item">
+				<ion-img class="icon-input" src="../../assets/icon/icon-password.svg"></ion-img>
+				<ion-input
+					type="password"
+					placeholder="Confirmar contraseña"
+					name="confirmPassword"
+					[(ngModel)]="dataRegistry.confirmPassword"
+					(ngModelChange)="validateConfirmPassword($event)"
+					clear-input
+					class="input"
+				></ion-input>
+				<ion-img *ngIf="confirmPasswordOk" slot="end" class="icon" src="../../assets/icon/icon-data-form-valid.png"></ion-img>
+				<ion-img *ngIf="confirmPasswordError" slot="end" class="icon" src="../../assets/icon/icon-data-form-invalid.png"></ion-img>
+			</ion-item>
+		</ion-list>
 		<div class="content-terms-conditions">
 			<span class="text">
 				{{constants.REGISTRY.TERMS_AND_CONDITIONS}}
