@@ -21,7 +21,10 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from './pin-modal/pin-modal.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+// Geolocation Plugins
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 // Services
 import {LoadingService} from "./services/loading/loading.service";
 
@@ -53,7 +56,9 @@ import { VerificationModalPage } from './verification-modal/verification-modal.p
   ],
   providers: [
     StatusBar,
+    AndroidPermissions,
     Geolocation,
+    LocationAccuracy,
     SplashScreen,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {provide: HTTP_INTERCEPTORS, useClass: InterceptadorService, multi: true},
