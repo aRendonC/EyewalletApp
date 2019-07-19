@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, MenuController, ModalController} from '@ionic/angular';
+import {MenuController, ModalController} from '@ionic/angular';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {AxiosService} from '../services/axios/axios.service';
-import {PinModalPage} from '../pin-modal/pin-modal.page';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
@@ -16,15 +15,14 @@ import {ToastService} from "../services/toast/toast.service";
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  ctrlCssBlur: boolean = false;
-  username: string;
-  password: string;
-  dataReturned: any;
-  pockets: any = [];
+  public ctrlCssBlur: boolean = false;
+  public username: string;
+  public password: string;
+  public dataReturned: any;
+  public pockets: any = [];
   public path: string = '';
 
   constructor(
-    private loadingController: LoadingController,
     private toastController: ToastService,
     private auth: AuthService,
     private menu: MenuController,
@@ -35,13 +33,9 @@ export class LoginPage implements OnInit {
     private store: Storage,
     private aesjs: AesJsService,
     private loadingCtrl: LoadingService
-  ) {
-  }
+  ) { }
 
-  ngOnInit() {
-    this.menu.enable(false);
-    this.touchCtrl.isLocked = true;
-  }
+  ngOnInit() { }
 
   ionViewDidLeave() {
     this.menu.enable(true);
@@ -51,7 +45,8 @@ export class LoginPage implements OnInit {
     await this.store.clear();
     await this.loadingCtrl.present({});
     this.ctrlCssBlur = true;
-    this.auth.login(this.username, this.password).then(async (data: any) => {
+    this.auth.login(this.username, this.password)
+    .then(async (data: any) => {
       if (data) {
         if (data.status == 200) {
           this.pockets = await this.getPocketsList();
@@ -68,15 +63,15 @@ export class LoginPage implements OnInit {
           await this.store.set('pockets',  this.pockets)
         } else await this.clearData(data);
       } else await this.clearData(data)
-
-    }).catch((error) => {
+    })
+    .catch((error) => {
       this.ctrlCssBlur = false;
       console.log(error);
     });
   }
 
-  async getPocketsList() {
-     return await this.http.get('user-wallet/index', this.auth, null);
+  public async getPocketsList() {
+    return await this.http.get('user-wallet/index', this.auth, null);
   }
 
   public async restore() {

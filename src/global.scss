@@ -101,6 +101,14 @@ $font-open-sans-bold: Open-Sans-Bold;
    font-family: 'Poppins', sans-serif;
 }
 
+.btn-start-inactive {
+   --background: #4C6AC0;
+   width: 90% !important;
+   --border-radius: 100px;
+   --opacity: 0.86;
+   font-family: 'Poppins', sans-serif;
+}
+
 .btn-create {
    margin-top: 2vh;
    --background: transparent;
@@ -220,7 +228,7 @@ $font-open-sans-bold: Open-Sans-Bold;
    --max-height: 100%;
 }
 
-.spinner{
+.spinner {
    position: relative;
    z-index: 50;
    width: 40%;

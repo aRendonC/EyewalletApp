@@ -1,4 +1,4 @@
-<ion-content padding class="bghome" >
+<ion-content padding class="bghome" [class.blur]="ctrlCssBlur">
    <app-return-page [path]="path"></app-return-page>
 
    <div>
@@ -15,6 +15,7 @@
          <!-- Usuario -->
          <ion-item class="transparent white-line">
             <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
+
             <ion-input
                name="pin"
                placeholder="Pin"
@@ -32,6 +33,7 @@
          <!-- Contraseña -->
          <ion-item class="transparent white-line">
             <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
+
             <ion-input
                   type="password"
                 name="password"
@@ -41,11 +43,15 @@
                 clear-input
                class="white move-input"
             ></ion-input>
+
+            <ion-img *ngIf="newPasswordOk" slot="end" class="icon-pass-success-error-ipsr" src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
+				<ion-img *ngIf="newPasswordError" slot="end" class="icon-pass-success-error-ipsr" src="../../assets/icon/icon-data-form-invalid.svg"></ion-img>
          </ion-item>
 
          <!-- Repita Contraseña -->
          <ion-item class="transparent white-line">
             <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
+
             <ion-input
                type="password"
                name="rewrite password"
@@ -55,6 +61,9 @@
 					clear-input
                class="white move-input"
             ></ion-input>
+
+            <ion-img *ngIf="repeatNewPasswordOk" slot="end" class="icon-pass-success-error-ipsr" src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
+				<ion-img *ngIf="repeatNewPasswordError" slot="end" class="icon-pass-success-error-ipsr" src="../../assets/icon/icon-data-form-invalid.svg"></ion-img>
          </ion-item>
       </ion-list>
 
@@ -63,7 +72,8 @@
             type="submit"
             [disabled]="buttonDisabled"
             mode="ios"
-            class="btn-start"
+            shape="round"
+            [ngClass]="buttonDisabled ? 'button-disable' : 'button-enable'"
          >Actualizar Contraseña</ion-button>
       </div>
    </form>

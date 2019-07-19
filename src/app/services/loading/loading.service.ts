@@ -9,8 +9,7 @@ export class LoadingService {
   labelContent: any;
   constructor(
     private loadingCtrl: LoadingController
-  ) {
-  }
+  ) { }
 
   // Types spinners
   // lines" | "lines-small" | "bubbles" | "circles" | "crescent" | "dots"'.
@@ -31,12 +30,14 @@ export class LoadingService {
       cssClass: `loadingSpinner ${cssClass}`,
     };
 
-    return await this.loadingCtrl.create(options).then(a => {
+    return await this.loadingCtrl.create(options)
+    .then(a => {
       this.labelContent = document.getElementsByTagName('app-tabs');
       if(this.labelContent[0]) {
         this.labelContent[0].classList.add("blur");
       }
-      a.present().then(() => {
+      a.present()
+      .then(() => {
         console.log('presented');
         if (!this.isLoading) {
           a.dismiss().then(() => {
