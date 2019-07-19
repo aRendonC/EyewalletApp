@@ -1,18 +1,20 @@
 // Dependecies.
 import { Component, OnInit } from '@angular/core';
-import validator from 'validator';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 // Services.
 import { AxiosService } from '../services/axios/axios.service';
 import { DeviceService } from '../services/device/device.service';
 import { AesJsService } from '../services/aesjs/aes-js.service';
-import { Router } from '@angular/router';
 import { DataLocalService } from '../services/data-local/data-local.service';
+import {LoadingService} from "../services/loading/loading.service";
 
 // Constants.
 import * as CONSTANTS from '../constanst';
-import {LoadingService} from "../services/loading/loading.service";
+
+// Utils.
+import * as utils from '../../assets/utils';
 
 @Component({
   selector: 'app-restore',
@@ -28,15 +30,12 @@ export class RestorePage implements OnInit {
     blocked: false
   };
 
-  private newPasswordLength: object = {
-    min: 6,
-    max: undefined
-  }
-
   public buttonDisabled: boolean = true;
   public pinOk: boolean = false;
   public newPasswordOk: boolean = false;
-  public repearNewPasswordOk: boolean = false;
+  public newPasswordError: boolean;
+  public repeatNewPasswordOk: boolean = false;
+  public repeatNewPasswordError: boolean;
   public dataDeviceId: any;
   private blockingCounter: number = 0;
   public path: string = 'login';
@@ -59,16 +58,7 @@ export class RestorePage implements OnInit {
   }
 
   public validatePin(event: string): void {
-    const pinLength: object = {
-      min: 6,
-      max: 6
-    }
-
-    if (
-      !validator.isEmpty(event) &&
-      validator.isNumeric(event) &&
-      validator.isLength(event, pinLength)
-    ) {
+    if (utils.validatePin(event)) {
       this.dataRestorePassword.pin = event;
       this.pinOk = true;
       this.enableButton();
@@ -80,42 +70,33 @@ export class RestorePage implements OnInit {
   }
 
   public validateNewPassword(event: string): void {
-    if (
-      !validator.isEmpty(event) &&
-      validator.isLength(event, this.newPasswordLength) &&
-      validator.isAlphanumeric(event) &&
-      !validator.isNumeric(event) &&
-      !validator.isAlpha(event)
-    ) {
+    if (utils.validatePassword(event)) {
       this.dataRestorePassword.newPassword = event;
       this.newPasswordOk = true;
+      this.newPasswordError = false;
       this.enableButton();
     } else {
       this.dataRestorePassword.newPassword = event;
       this.newPasswordOk = false;
+      this.newPasswordError = true;
       this.enableButton();
     }
   }
 
   public validateRepeatNewPassword(event: string): void {
-    if (
-      !validator.isEmpty(event) &&
-      validator.isLength(event, this.newPasswordLength) &&
-      validator.isAlphanumeric(event) &&
-      !validator.isNumeric(event) &&
-      !validator.isAlpha(event) &&
-      event === this.dataRestorePassword.newPassword
-    ) {
-      this.repearNewPasswordOk = true;
+    if (utils.validatePassword(event) && event === this.dataRestorePassword.newPassword) {
+      this.repeatNewPasswordOk = true;
+      this.repeatNewPasswordError = false;
       this.enableButton();
     } else {
-      this.repearNewPasswordOk = false;
+      this.repeatNewPasswordOk = false;
+      this.repeatNewPasswordError = true;
       this.enableButton();
     }
   }
 
   private enableButton(): void {
-    if (this.pinOk && this.newPasswordOk) {
+    if (this.pinOk && this.newPasswordOk && this.repeatNewPasswordOk) {
       this.buttonDisabled = false;
     } else {
       this.buttonDisabled = true;
@@ -156,7 +137,7 @@ export class RestorePage implements OnInit {
     }
   }
 
-  public async restorePassword() {
+  public async restorePassword(): Promise<any> {
     await this.loadingCtrl.present({})
     const path: string = 'auth/recovery';
 
@@ -168,17 +149,17 @@ export class RestorePage implements OnInit {
     };
 
     this.axiosServices.post(path, dataBody)
-        .then(async response => {
-          if (response.status === 200) {
-            this.blockingCounter = 0;
-            this.dataRestorePassword.blocked = false;
-            await this.router.navigate(['']);
-            await this.loadingCtrl.dismiss()
-          } else if (response.status === 500) {
-            this.blockingCounter++;
-            this.blockWallet(this.blockingCounter);
-            await this.loadingCtrl.dismiss()
-          }
-        });
+    .then(async response => {
+      if (response.status === 200) {
+        this.blockingCounter = 0;
+        this.dataRestorePassword.blocked = false;
+        await this.router.navigate(['']);
+        await this.loadingCtrl.dismiss()
+      } else if (response.status === 500) {
+        this.blockingCounter++;
+        this.blockWallet(this.blockingCounter);
+        await this.loadingCtrl.dismiss()
+      }
+    });
   }
 }

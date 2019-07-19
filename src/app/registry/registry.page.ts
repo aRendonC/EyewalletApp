@@ -1,19 +1,20 @@
 // Dependencies.
 import { Component, OnInit } from '@angular/core';
-import validator from 'validator';
 import { ToastController } from '@ionic/angular';
+import { Router} from '@angular/router';
+import {Storage} from '@ionic/storage';
+
+// Services.
+import { AxiosService } from '../services/axios/axios.service';
+import {DeviceService} from "../services/device/device.service";
+import {LoadingService} from "../services/loading/loading.service";
 
 // Constants.
 import * as CONSTANTS from '../constanst';
-import { AxiosService } from '../services/axios/axios.service';
 
-// Navigations.
-import { Router} from '@angular/router';
-
-// Storage
-import {Storage} from '@ionic/storage';
-import {DeviceService} from "../services/device/device.service";
-import {LoadingService} from "../services/loading/loading.service";
+// Utils.
+import * as utils from '../../assets/utils';
+import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 
 @Component({
   selector: 'app-registry',
@@ -46,13 +47,16 @@ export class RegistryPage implements OnInit {
     private store: Storage,
     private device: DeviceService,
     private loadingCtrl: LoadingService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private touchCtrl: TouchLoginService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.touchCtrl.isTouch = false
+  }
 
   public validateEmail(event): void {
-    if (!validator.isEmpty(event) && validator.isEmail(event)) {
+    if (utils.validateEmail(event)) {
       this.dataRegistry.email = event;
       this.emailOk = true;
       this.enableButton();
@@ -64,22 +68,7 @@ export class RegistryPage implements OnInit {
   }
 
   public validatePhone(event): void {
-    const locale = [
-      'ar-AE', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW',
-      'ar-SA', 'ar-SY', 'ar-TN', 'be-BY', 'bg-BG', 'bn-BD',
-      'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-CA',
-      'en-GB', 'en-GH', 'en-HK', 'en-IE', 'en-IN', 'en-KE',
-      'en-MU', 'en-NG', 'en-NZ', 'en-RW', 'en-SG', 'en-UG',
-      'en-US', 'en-TZ', 'en-ZA', 'en-ZM', 'en-PK', 'es-ES',
-      'es-MX', 'es-PY', 'es-UY', 'et-EE', 'fa-IR', 'fi-FI',
-      'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT', 'ja-JP',
-      'kk-KZ', 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO',
-      'pl-PL', 'pt-PT', 'pt-BR', 'ro-RO', 'ru-RU', 'sl-SI',
-      'sk-SK', 'sr-RS', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
-      'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW'
-    ];
-
-    if (!validator.isEmpty(event) && validator.isMobilePhone(event, locale)) {
+    if (utils.validatePhone(event)) {
       this.dataRegistry.phone = event;
       this.phoneOk = true;
       this.enableButton();
@@ -91,17 +80,7 @@ export class RegistryPage implements OnInit {
   }
 
   public validatePassword(event): void {
-    const passwordLength = {
-      min: 6,
-      max: undefined
-    };
-
-    if (
-      !validator.isEmpty(event) &&
-      validator.isLength(event, passwordLength) &&
-      !validator.isAlphanumeric(event) &&
-      validator.isAscii(event)
-    ) {
+    if (utils.validatePassword(event)) {
       this.dataRegistry.password = event;
       this.passwordOk = true;
       this.enableButton();
@@ -115,17 +94,7 @@ export class RegistryPage implements OnInit {
   }
 
   public validateConfirmPassword(event): void {
-    const passwordLength = {
-      min: 6,
-      max: undefined
-    };
-
-    if (
-      !validator.isEmpty(event) &&
-      validator.isLength(event, passwordLength) &&
-      !validator.isAlphanumeric(event) &&
-      validator.isAscii(event)
-    ) {
+    if (utils.validatePassword(event)) {
       this.dataRegistry.confirmPassword = event;
 
       if (this.dataRegistry.password === event) {
@@ -136,7 +105,6 @@ export class RegistryPage implements OnInit {
         this.confirmPasswordError = true;
       }
       this.enableButton();
-      
     } else {
       this.dataRegistry.confirmPassword = event;
       this.confirmPasswordOk = false;
@@ -146,7 +114,13 @@ export class RegistryPage implements OnInit {
   }
 
   public enableButton(): void {
-    if (this.emailOk && this.phoneOk && this.passwordOk && this.confirmPasswordOk && (this.dataRegistry.password === this.dataRegistry.confirmPassword)) {
+    if (
+      this.emailOk &&
+      this.phoneOk &&
+      this.passwordOk &&
+      this.confirmPasswordOk &&
+      (this.dataRegistry.password === this.dataRegistry.confirmPassword)
+    ) {
       this.disableButton = false;
     } else {
       this.disableButton = true;
@@ -155,7 +129,7 @@ export class RegistryPage implements OnInit {
     this.classButton = this.disableButton ? 'button-disable' : 'button-enable';
   }
 
-  public async sendDataRegistry() {
+  public async sendDataRegistry(): Promise<any> {
     await this.loadingCtrl.present({})
     const device = await this.device.getDataDevice();
     const urlRegistry: string = 'auth/register';
@@ -169,14 +143,14 @@ export class RegistryPage implements OnInit {
     this.register.post(urlRegistry, dataBody)
     .then(async response => {
       if (response.status === 200) {
-        console.log(response.data);
-       await this.store.set('user', response.data);
+        await this.store.set('user', response.data);
+        this.touchCtrl.isTouch = true;
         await this.router.navigate(['/registry-pin'], {
-          queryParams: {
-            user: JSON.stringify(response.data),
-            password: JSON.stringify(this.dataRegistry.password)
-          },
-          queryParamsHandling: 'merge'
+        queryParams: {
+        user: JSON.stringify(response.data),
+        password: JSON.stringify(this.dataRegistry.password)
+        },
+        queryParamsHandling: 'merge'
         });
         await this.loadingCtrl.dismiss()
       } else {
@@ -186,7 +160,7 @@ export class RegistryPage implements OnInit {
     });
   }
 
-  async presentToast(text) {
+  public async presentToast(text): Promise<any> {
     const toast = await this.toastCtrl.create({
       message: text,
       duration: 2000
@@ -194,4 +168,3 @@ export class RegistryPage implements OnInit {
      await toast.present();
   }
 }
-

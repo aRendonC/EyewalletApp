@@ -53,3 +53,18 @@ export const VAULT = {
 export const MESSAGE_ERROR = {
    CONNECTIVITY_PROBLEMS: 'Problemas de conectividad.'
 }
+
+export const  LOCATION_PHONE_NUMBER: string[] = [
+   'ar-AE', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW',
+   'ar-SA', 'ar-SY', 'ar-TN', 'be-BY', 'bg-BG', 'bn-BD',
+   'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-CA',
+   'en-GB', 'en-GH', 'en-HK', 'en-IE', 'en-IN', 'en-KE',
+   'en-MU', 'en-NG', 'en-NZ', 'en-RW', 'en-SG', 'en-UG',
+   'en-US', 'en-TZ', 'en-ZA', 'en-ZM', 'en-PK', 'es-ES',
+   'es-MX', 'es-PY', 'es-UY', 'et-EE', 'fa-IR', 'fi-FI',
+   'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT', 'ja-JP',
+   'kk-KZ', 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO',
+   'pl-PL', 'pt-PT', 'pt-BR', 'ro-RO', 'ru-RU', 'sl-SI',
+   'sk-SK', 'sr-RS', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
+   'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW'
+];
