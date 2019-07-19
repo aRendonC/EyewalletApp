@@ -32,8 +32,7 @@ export class RegistryPinPage implements OnInit {
       private store: Storage,
       private loadingCtrl: LoadingService,
       private aesjs: AesJsService
-  ) {
-  }
+  ) { }
 
   async ngOnInit() {
     this.user = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('user'));
@@ -48,11 +47,12 @@ export class RegistryPinPage implements OnInit {
       device: new FormControl(''),
       userId: new FormControl('')
     });
-    // await this.loadingCtrl.dismiss()
   }
 
-  async registerPin(data: any) {
-    await this.loadingCtrl.present({});
+  public async registerPin(data: any) {
+    await this.loadingCtrl.present({text: 'Validando creacion de billetera'});
+    this.ctrlCssBlur = true;
+
     this.devic = await this.device.getDataDevice();
     console.info(this.bodyForm);
     console.info(data);
@@ -70,12 +70,15 @@ export class RegistryPinPage implements OnInit {
       if(loginUser.status === 200){
         this.pockets = await this.getPocketsList();
         await this.router.navigate(['/app/tabs/dashboard']);
-        this.pockets = this.aesjs.encrypt(this.pockets);
-        await this.store.set('pockets', this.pockets)
-        // await this.loadingCtrl.dismiss()
+        this.pockets = this.aesjs.encrypt(this.pockets[0]);
+        await this.store.set('pockets', this.pockets);
+
+        await this.loadingCtrl.dismiss();
+        this.ctrlCssBlur = false;
       }
     } else {
-      // await this.loadingCtrl.dismiss()
+      await this.loadingCtrl.dismiss();
+      this.ctrlCssBlur = false;
     }
   }
 
