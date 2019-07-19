@@ -1,9 +1,7 @@
 // Dependencies.
 import { Component, OnInit } from '@angular/core';
-import validator from 'validator';
 
 // Navigations.
-import { ToastController } from '@ionic/angular';
 import { Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 
@@ -12,13 +10,13 @@ import { AxiosService } from '../services/axios/axios.service';
 import {DeviceService} from "../services/device/device.service";
 import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
+import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 
 // Constants.
 import * as CONSTANTS from '../constanst';
 
 // Utils.
 import * as utils from '../../assets/utils';
-import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 
 @Component({
   selector: 'app-registry',
@@ -169,12 +167,4 @@ export class RegistryPage implements OnInit {
       }
     });
   }
-
-  // async presentToast(text) {
-  //   const toast = await this.toastCtrl.create({
-  //     message: text,
-  //     duration: 2000
-  //   });
-  //    await toast.present();
-  // }
 }
