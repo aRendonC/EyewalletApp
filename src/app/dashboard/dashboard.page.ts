@@ -12,6 +12,7 @@ import {AesJsService} from '../services/aesjs/aes-js.service';
 import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
 import {BalanceComponent} from "../components/balance/balance.component";
+import { PinModalPage } from '../pin-modal/pin-modal.page';
 
 
 @Component({
@@ -57,6 +58,14 @@ export class DashboardPage implements OnInit {
     private routes: Router,
   ) {
   }
+
+
+    async Modal() {
+      const modal = await this.modalCtrl.create({
+        component: PinModalPage
+      });
+      modal.present();
+    }
 
   async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));

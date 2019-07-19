@@ -1,5 +1,5 @@
 export const REGISTRY = {
-   TITLE: 'crear una nueva billetera',
+   TITLE: 'Crear una nueva Billetera',
    LABEL_USER: 'Usuario',
    CONTRASENA: 'Contraseña',
    EMAIL: 'Correo',

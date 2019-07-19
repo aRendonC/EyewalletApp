@@ -23,6 +23,7 @@ import {LoadingService} from "../services/loading/loading.service";
 
 export class RegistryPage implements OnInit {
   public constants: any = CONSTANTS;
+  ctrlCssBlur: boolean = false;
   public dataRegistry = {
     email: '',
     phone: '',
@@ -122,7 +123,8 @@ export class RegistryPage implements OnInit {
   }
 
   public async sendDataRegistry() {
-    await this.loadingCtrl.present({})
+    await this.loadingCtrl.present({});
+    this.ctrlCssBlur = true;
    let device = await this.device.getDataDevice();
    console.log('datos del dispositivo', device);
    if(!device.uuid) device.uuid = '987654321';
@@ -146,10 +148,12 @@ export class RegistryPage implements OnInit {
           },
           queryParamsHandling: 'merge'
         });
-        await this.loadingCtrl.dismiss()
+        await this.loadingCtrl.dismiss();
+        this.ctrlCssBlur = false;
       } else {
-        await this.presentToast(response.data)
-        await this.loadingCtrl.dismiss()
+        await this.presentToast(response.data);
+        await this.loadingCtrl.dismiss();
+        this.ctrlCssBlur = false;
       }
     });
   }
