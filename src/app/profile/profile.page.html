@@ -45,9 +45,12 @@
         <img (click)="terms()" src="../../assets/images/profilePage/terms.svg" class="pad-lr">
         <img (click)="invite()" src="../../assets/images/profilePage/friends.svg" class="pad-lr">
     </ion-item>
-    <ion-item class="item-notifications">
+    <ion-item class="item-notifications" *ngIf="userVerifications.email === 0">
         <p class="mail-verify">Tu correo no está verificado!</p>
         <p (click)="sendMail()" class="mail-sendMail">Reenviar correo</p>
+    </ion-item>
+    <ion-item class="item-notifications" *ngIf="userVerifications.email === 1">
+        <p class="mail-verify-success">Tu email está verificado!</p>
     </ion-item>
     <ion-item class="item-delete">
         <p  (click)="deleteAccount()" class="delete-account">Eliminar Cuenta</p>

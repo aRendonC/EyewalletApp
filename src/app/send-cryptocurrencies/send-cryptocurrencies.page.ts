@@ -8,6 +8,7 @@ import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {LoadingService} from "../services/loading/loading.service";
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-send-cryptocurrencies',
@@ -16,13 +17,13 @@ import {LoadingService} from "../services/loading/loading.service";
 })
 export class SendCryptocurrenciesPage implements OnInit {
   @Input() public pockets: any = [];
-    totalSend: any = null
+    totalSend: any = null;
     ctrlNavigation: number = 1;
     isOn  = false;
     scanner: any;
     ctrlButtonSend: boolean = true;
     bodyForm: FormGroup;
-    placeHolder: any = ''
+    placeHolder: any = '';
     body = {
         amount: '',
         to_address: '',
@@ -32,12 +33,9 @@ export class SendCryptocurrenciesPage implements OnInit {
         description: 'descripcion',
         currencyId: ''
     };
-    fee: any = {
-        data: null,
-        estimated_network_fee: 0,
-        error_message: null
-    };
+    fee: any = null;
     scanSub: any;
+    feeAndSend: any = null;
   constructor(
       private route: ActivatedRoute,
       private qrScanner: QRScanner,
@@ -46,7 +44,7 @@ export class SendCryptocurrenciesPage implements OnInit {
       private alerrtCtrl: AlertController,
       protected store: Storage,
       private aesjs: AesJsService,
-      private toastCtrl: ToastController,
+      private toastCtrl: ToastService,
       private loadingCtrl: LoadingService
   ) { }
 
@@ -66,7 +64,7 @@ export class SendCryptocurrenciesPage implements OnInit {
           description: new FormControl(''),
           currencyId: new FormControl(''),
           fee: new FormControl('')
-      })
+      });
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
       this.body.from_address = this.pockets.address
   }
@@ -79,8 +77,8 @@ export class SendCryptocurrenciesPage implements OnInit {
 
                     // start scanning
                      this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
-                        this.placeHolder = text
-                         this.bodyForm.get('to_address').setValue(text)
+                        this.placeHolder = text;
+                         this.bodyForm.get('to_address').setValue(text);
                         await this.unSuscribed()
                     });
 
@@ -109,13 +107,14 @@ export class SendCryptocurrenciesPage implements OnInit {
 
     async getFeeTransaction() {
       if(this.bodyForm.value.to_address && this.bodyForm.value.amount) {
+          console.log(this.bodyForm);
           this.fee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
-          this.fee = this.fee.data.data;
-          if(this.fee.error_message) {
-              this.totalSend = this.fee.error_message
-          } else {
-              this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee)).toFixed(8))
-              this.bodyForm.get('fee').setValue((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee.estimated_network_fee)).toFixed(8))
+          console.log(this.fee);
+          if(this.fee.status === 200) {
+              this.fee = this.fee.data;
+              this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8));
+              this.feeAndSend = (parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8)
+              // this.totalSend = this.fee.error_message
           }
       } else {
           console.log('falta un campo')
@@ -124,11 +123,11 @@ export class SendCryptocurrenciesPage implements OnInit {
 
     async sendCoin() {
         this.ctrlButtonSend = false;
-        if(this.pockets.balance >= this.bodyForm.value.amount) {
-            console.info('listo para enviar')
+        if(this.pockets.balance >= this.feeAndSend) {
+            console.info('listo para enviar');
             await this.presentAlertSend()
         } else {
-            await this.presentToast('No tiene fondos suficientes')
+            await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes'})
         }
     }
 
@@ -156,24 +155,34 @@ export class SendCryptocurrenciesPage implements OnInit {
                 }, {
                     text: 'Ok',
                     handler: async (alertData) => {
-                        let security = await this.store.get('user')
-                        security = this.aesjs.decryptNoJson(security.pin)
+                        let security = await this.store.get('user');
+                        security = this.aesjs.decryptNoJson(security.pin);
                         if(security === alertData.pin) {
-                            await this.loadingCtrl.present({})
-                            security = this.aesjs.encryptNoJson(security)
-                            this.bodyForm.value.currencyId = this.pockets.currencyId
-                            this.bodyForm.value.pin = security
-                            this.bodyForm.value.from_address = this.pockets.address
-                            let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth)
+                            await this.loadingCtrl.present({});
+                            security = this.aesjs.encryptNoJson(security);
+                            this.bodyForm.value.currencyId = this.pockets.currencyId;
+                            this.bodyForm.value.pin = security;
+                            this.bodyForm.value.from_address = this.pockets.address;
+                            this.bodyForm.value.fee = this.fee;
+                            console.log('body para enviar criptos', this.bodyForm);
+                            let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
+                            console.log('respuesta de la transaccion', response)
                             if (response.status === 200) {
-                                await this.loadingCtrl.dismiss()
-                               await this.presentToast('Transacción realizada con éxito')
+                                await this.loadingCtrl.dismiss();
+                               await this.toastCtrl.presentToast({text: 'Transacción realizada con éxito'})
+                                let dataResponse = await this.getPocketTransaction();
+                                if(dataResponse.status === 200) {
+                                    dataResponse.pocket = this.pockets;
+                                  await this.store.set('transaction', dataResponse)
+                                } else {
+                                    await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+                                }
                             } else {
-                                await this.loadingCtrl.dismiss()
-                                await this.presentToast('Hubo un error')
+                                await this.loadingCtrl.dismiss();
+                                await this.toastCtrl.presentToast({text: 'Hubo un error'})
                             }
                         } else {
-                            await this.presentToast('Pin incorrecto')
+                            await this.toastCtrl.presentToast({text: 'Pin incorrecto'})
                         }
                         this.ctrlButtonSend = true;
                         console.log('Confirm Ok');
@@ -185,11 +194,20 @@ export class SendCryptocurrenciesPage implements OnInit {
         await alert.present();
     }
 
-    async presentToast(text) {
-        const toast = await this.toastCtrl.create({
-            message: text,
-            duration: 2000
-        });
-        await toast.present();
+    // async presentToast(text) {
+    //     const toast = await this.toastCtrl.create({
+    //         message: text,
+    //         duration: 2000
+    //     });
+    //     await toast.present();
+    // }
+
+    async getPocketTransaction() {
+        let body = {
+            userId: this.pockets.userId,
+            type: 0,
+            address: this.pockets.address
+        };
+        return await this.http.post('transaction/index', body, this.auth);
     }
 }

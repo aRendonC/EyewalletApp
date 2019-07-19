@@ -10,6 +10,7 @@ import {AxiosService} from '../services/axios/axios.service';
 import {LoadingService} from '../services/loading/loading.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
+
 @Component({
   selector: 'app-address',
   templateUrl: './address.page.html',
@@ -91,7 +92,7 @@ ionViewDidLeave() {
 // }
 
 async getLocation() {
- 
+
   // this.headers = new HttpHeaders({
   //   'Accept': 'application/json',
   //   'Content-Type': 'application/json',

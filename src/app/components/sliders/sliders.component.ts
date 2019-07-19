@@ -62,6 +62,7 @@ export class SlidersComponent implements OnInit {
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
     this.nameSlider = this.name;
+    console.log(this.name)
     this.dataGraphic = this.name[0];
     await this.grafica();
   }

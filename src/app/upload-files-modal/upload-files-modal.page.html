@@ -20,7 +20,7 @@
       <ion-button  class="btn-start" mode="ios" (click)="closeModal()">Chequear luego</ion-button>
     </div>
   </div>
-  <div *ngIf="ctrlDocument && !ctrlDocumentBack" style="margin-top: 10%">
+  <div *ngIf="ctrlDocument" style="margin-top: 10%">
     <ion-card *ngIf="documentList === 0" class="center" color="Light">
       <ion-card-header>
         <ion-card-title  type="ios" color="Light" class="center center-vertical center-horizontal">
@@ -81,7 +81,7 @@
       <ion-button  class="btn-start" mode="ios" (click)="takePhoto()">Continuar</ion-button>
     </div>
   </div>
-  <div *ngIf="ctrlDocumentBack && ctrlDocumentAddress" style="margin-top: 10%">
+  <div *ngIf="ctrlDocumentBack" style="margin-top: 10%">
     <ion-card  class="center" color="Light">
       <ion-card-header>
         <ion-card-title  type="ios" color="Light" class="center center-vertical center-horizontal">
@@ -101,7 +101,7 @@
       <ion-button  class="btn-start" mode="ios" (click)="takePhoto()">Continuar</ion-button>
     </div>
   </div>
-  <div *ngIf="ctrlDocumentAddress && ctrlDocumentBack" style="margin-top: 10%">
+  <div *ngIf="ctrlDocumentAddress" style="margin-top: 10%">
     <ion-card class="center" color="Light">
       <ion-card-header>
         <ion-card-title  type="ios" color="Light" class="center center-vertical center-horizontal">

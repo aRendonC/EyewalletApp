@@ -1,6 +1,7 @@
 <ion-tabs [class.blur]="ctrlCssBlur" style="background: white" (ionTabsWillChange)="getActiveRoute()">
     <ion-tab-bar class="tab-bg" slot="bottom">
         <ion-tab-button
+                mode="ios"
                 class="tab-btn"
                 [tab]="tabs.prices">
             <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs.prices">
@@ -11,6 +12,7 @@
             </div>
         </ion-tab-button>
         <ion-tab-button
+                mode="ios"
                 class="tab-btn"
                 [tab]="tabs.vault">
             <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs.vault">
@@ -21,6 +23,7 @@
             </div>
         </ion-tab-button>
         <ion-tab-button
+                mode="ios"
                 class="tab-btn"
                 [tab]="tabs.dashboard">
             <div class="tab center-horizontal" [class.selected-tab]="currentRoute === tabs.dashboard">
@@ -31,6 +34,7 @@
             </div>
         </ion-tab-button>
         <ion-tab-button
+                mode="ios"
                 class="tab-btn"
                 (click)="requestCreditCard()">
             <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs['card-invoice'] ||
@@ -42,6 +46,7 @@
             </div>
         </ion-tab-button>
         <ion-tab-button
+                mode="ios"
                 class="tab-btn"
                 (click)="goToProfile()">
             <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs.profile">

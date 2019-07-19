@@ -19,6 +19,7 @@ import {environment} from "../../environments/environment";
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  public userVerifications: any = null;
   public type: string = 'avatar';
   urlAvatar = environment.urlAvatar;
   avatar = null;
@@ -69,6 +70,9 @@ export class ProfilePage implements OnInit {
   }
 
   async getProfile() {
+    this.userVerifications = await this.axios.get('user-verification/status', this.auth, null);
+    this.userVerifications = this.userVerifications.data
+    console.log(this.userVerifications)
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
     this.avatar = this.urlAvatar + this.profile.avatar;

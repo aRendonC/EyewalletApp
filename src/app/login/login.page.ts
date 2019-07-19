@@ -48,6 +48,7 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
+    await this.store.clear()
     await this.loadingCtrl.present({});
     this.ctrlCssBlur = true;
     this.auth.login(this.username, this.password).then(async (data: any) => {

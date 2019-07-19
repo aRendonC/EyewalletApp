@@ -20,7 +20,7 @@ import {BalanceComponent} from "../components/balance/balance.component";
   styleUrls: ['./dashboard.page.scss'],
 })
 
-export class DashboardPage implements OnInit {
+export class DashboardPage {
   @ViewChild(SlidersComponent) childD: SlidersComponent;
   @ViewChild(BalanceComponent) balanceComponent: BalanceComponent;
   ctrlNavigation = 0;
@@ -58,10 +58,23 @@ export class DashboardPage implements OnInit {
   ) {
   }
 
-  async ngOnInit() {
-    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
-    await this.getUserProfile();
-    await this.getListTransactions()
+  // async ngOnInit() {
+  //   this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
+  //   await this.getUserProfile();
+  //   await this.getListTransactions()
+  // }
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter dashboard')
+    // await this.getUserProfile();
+    // let transaction = await this.store.get('transaction')
+    // if(transaction) {
+    //   console.log(transaction)
+      // this.getDataPocket(transaction)
+      // await this.store.remove('transaction')
+    // }
+  }
+  ionViewWillEnter(){
+    console.log('ionViewWillEnter')
   }
 
   async openModalVerification() {
@@ -142,55 +155,23 @@ export class DashboardPage implements OnInit {
   }
 
   async getUserProfile() {
-    await this.loadingController.present({cssClass: 'textLoadingBlack'});
     let profile = await this.store.get('profile');
     profile = await this.aesjs.decrypt(profile);
     this.profile = profile;
     this.params.userId = profile.userId;
     this.params.type = 4;
-    // console.log('parametros para transaction/index', this.params)
-    // let response = await this.http.post('transaction/index', this.params, this.auth);
-    // console.table(response)
-    //llamar el listado de transacciones
-    // await this.getListTransactions(this.params,this.auth);
     if (!this.pockets) {
       this.pockets = await this.store.get('pockets');
       if (this.pockets) {
         this.pockets = this.aesjs.decrypt(this.pockets)
       }
     }
-    // if (response.status === 200) {
-    //   if (response.data[0]) {
-    //     let usdbtc = response.btc;
-    //
-    //     // let usd = JSON.parse(response.data[0].descripcion);
-    //     this.crypto.forEach(element => {
-    //       if (element.name === 'Bitcoin') {
-    //         element.value = this.pockets[0].balance;
-    //         element.valueUsd = this.pockets[0].balance * usdbtc.toFixed(8);
-    //       }
-    //     });
-    //     this.ctrlCssBlur = false;
-    //     await this.loadingController.dismiss()
-    //   } else {
-    //     this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    //     this.crypto[0].value = this.pockets[0].balance;
-    //     this.ctrlCssBlur = false;
-    //     await this.loadingController.dismiss()
-    //   }
-    // } else {
-    //   this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    //   this.crypto[0].value = this.pockets[0].balance;
-    //   this.ctrlCssBlur = false;
-    //   await this.loadingController.dismiss()
-    // }
   }
 
   async getListTransactions() {
-    let profile = await this.store.get('profile');
-    profile = await this.aesjs.decrypt(profile);
+    await this.loadingController.present({cssClass: 'textLoadingBlack'});
     let params = {
-      userId: profile.userId,
+      userId: this.profile.userId,
       type: 0,
       address: this.pockets[0].address
     };
@@ -208,6 +189,8 @@ export class DashboardPage implements OnInit {
           }
         });
       });
+      console.log(dataTransaction)
+      this.crypto.amountPending = response.amountPending;
       this.crypto[0].graphic = this.dataGraphic;
     } else {
       // this.balanceComponent.getTransactionAll(null);

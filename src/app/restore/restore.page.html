@@ -13,15 +13,17 @@
    <form #form="ngForm" (ngSubmit)="restorePassword()" class="transparent move-form">
       <ion-list class="transparent">
          <!-- Usuario -->
-         <ion-item class="transparent white-line"> 
+         <ion-item class="transparent white-line">
             <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
             <ion-input
-               type="password"
                name="pin"
                placeholder="Pin"
                [(ngModel)]="dataRestorePassword.pin"
                (ngModelChange)="validatePin($event)"
-					clear-input
+               clearInput
+               type="password"
+               pattern="[0-9]*"
+               inputmode="number"
                class="white move-input"
             ></ion-input>
          </ion-item>
@@ -30,12 +32,12 @@
          <ion-item class="transparent white-line">
             <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
             <ion-input
-               type="password"
-               name="password"
-               placeholder="Nueva Contraseña"
-               [(ngModel)]="dataRestorePassword.newPassword"
+                  type="password"
+                name="password"
+                placeholder="Nueva Contraseña"
+                [(ngModel)]="dataRestorePassword.newPassword"
                (ngModelChange)="validateNewPassword($event)"
-					clear-input
+                clear-input
                class="white move-input"
             ></ion-input>
          </ion-item>

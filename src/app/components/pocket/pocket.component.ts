@@ -92,6 +92,7 @@ export class PocketComponent implements OnInit {
           type: 0,
           address: this.pocket.address
         };
+        console.log('pocket seleccionado', body)
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         if(dataResponse.status === 200) {
           dataResponse.pocket = this.pocket;
