@@ -77,6 +77,7 @@ export class SlidersComponent implements OnInit {
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
     this.profile.completed = userVerifications.completed
+    await this.setProfileStore()
     console.log('profile del usuario',this.profile)
     this.nameSlider = this.name;
     this.dataGraphic = this.name[0];
@@ -86,6 +87,11 @@ export class SlidersComponent implements OnInit {
   async getProfileStore(){
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
+  }
+
+  async setProfileStore(){
+    let profile = this.aesjs.encrypt(this.profile)
+    await this.store.set('profile', profile)
   }
 
   async grafica(){
