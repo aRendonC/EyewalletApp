@@ -39,6 +39,7 @@ export class RestorePage implements OnInit {
   public dataDeviceId: any;
   private blockingCounter: number = 0;
   public path: string = 'login';
+  public ctrlCssBlur = false;
 
   constructor(
     private axiosServices: AxiosService,
@@ -107,15 +108,6 @@ export class RestorePage implements OnInit {
     return this.aesJs.encryptNoJson(pin);
   }
 
-  private async presentToast() {
-    const toast = await this.toastController.create({
-      message: CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED,
-      duration: 3000
-    });
-
-    toast.present();
-  }
-
   private blockWallet(blockingCounter: number): void {
     const keyDataLocal: string = 'storageBlockingData';
 
@@ -132,13 +124,14 @@ export class RestorePage implements OnInit {
     } else if (blockingCounter === 3) {
       this.blockingCounter = 0;
       this.dataLocal.setDataLocal(keyDataLocal, this.blockingCounter);
-      this.presentToast();
+      this.presentToast(CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED);
       this.router.navigate(['']);
     }
   }
 
   public async restorePassword(): Promise<any> {
-    await this.loadingCtrl.present({})
+    await this.loadingCtrl.present({});
+    this.ctrlCssBlur = true;
     const path: string = 'auth/recovery';
 
     const dataBody: object = {
@@ -150,16 +143,37 @@ export class RestorePage implements OnInit {
 
     this.axiosServices.post(path, dataBody)
     .then(async response => {
-      if (response.status === 200) {
-        this.blockingCounter = 0;
-        this.dataRestorePassword.blocked = false;
-        await this.router.navigate(['']);
-        await this.loadingCtrl.dismiss()
-      } else if (response.status === 500) {
-        this.blockingCounter++;
-        this.blockWallet(this.blockingCounter);
-        await this.loadingCtrl.dismiss()
-      }
+      await this.validateResponseChangePassword(response);
+      await this.loadingCtrl.dismiss();
+      this.ctrlCssBlur = false;
+    })
+    .catch(async error => {
+      await this.loadingCtrl.dismiss();
+      this.ctrlCssBlur = false;
+      this.presentToast('Errores de conexion');
     });
+  }
+
+  private async validateResponseChangePassword(data: any): Promise<any> {
+    if (data.status === 200) {
+      this.presentToast('Cambio de contraseña exitoso');
+      this.blockingCounter = 0;
+      this.dataRestorePassword.blocked = false;
+      await this.router.navigate(['']);
+      // await this.loadingCtrl.dismiss()
+    } else if (data.status === 500) {
+      this.blockingCounter++;
+      this.blockWallet(this.blockingCounter);
+      // await this.loadingCtrl.dismiss()
+    }
+  }
+
+  private async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000
+    });
+
+    toast.present();
   }
 }

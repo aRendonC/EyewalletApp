@@ -9,14 +9,14 @@ export class LoadingService {
   labelContent: any;
   constructor(
     private loadingCtrl: LoadingController
-  ) {
-  }
+  ) { }
 
   // Types spinners
   // lines" | "lines-small" | "bubbles" | "circles" | "crescent" | "dots"'.
   // This function is a style Loading Controller
   // To present loading, use this.loading.present() in your page or component
   // Text parameter is optional, cssClass is optional
+  // -------------------------
   async present({text = '<p class="loadingText">Por favor no cierre su sesión</p>', cssClass = 'textLoading', duration = false}) {
     this.isLoading = true;
     const options: any = {
@@ -31,12 +31,14 @@ export class LoadingService {
       cssClass: `loadingSpinner ${cssClass}`,
     };
 
-    return await this.loadingCtrl.create(options).then(a => {
+    return await this.loadingCtrl.create(options)
+    .then(a => {
       this.labelContent = document.getElementsByTagName('app-tabs');
       if(this.labelContent[0]) {
         this.labelContent[0].classList.add("blur");
       }
-      a.present().then(() => {
+      a.present()
+      .then(() => {
         console.log('presented');
         if (!this.isLoading) {
           a.dismiss().then(() => {
