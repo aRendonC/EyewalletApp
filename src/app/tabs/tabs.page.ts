@@ -4,9 +4,8 @@ import {LoadingService} from "../services/loading/loading.service";
 import {Router} from "@angular/router";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
-import {ToastController} from "@ionic/angular";
 import { AxiosService } from '../services/axios/axios.service';
-import { getTestBed } from '@angular/core/testing';
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-tabs',
@@ -30,7 +29,7 @@ export class TabsPage {
     private router: Router,
     private store: Storage,
     private aesjs: AesJsService,
-    private toastCtrl: ToastController,
+    private toastCtrl: ToastService,
     private axiosService: AxiosService
   ) {
     this.getActiveRoute()
@@ -40,11 +39,10 @@ export class TabsPage {
     let profile = await this.store.get('profile');
     console.log(profile);
     profile = this.aesjs.decrypt(profile);
-
     if(profile.user.firstName){
       await this.router.navigate(['/app/tabs/profile'])
     } else {
-      await this.presentToastTabs('Por favor, registre su perfil');
+      await this.toastCtrl.presentToast({text: 'Por favor, registre su perfil'});
       await this.router.navigate(['/create-profile'])
     }
   }
@@ -52,13 +50,6 @@ export class TabsPage {
   getActiveRoute(){
     this.currentRoute = this.router.url.split('/')[3]
     console.log('---------->rutas en las tabs', this.currentRoute)
-  }
-  async presentToastTabs(text) {
-    let toast = await this.toastCtrl.create({
-      message: text,
-      duration: 2000
-    });
-    await toast.present()
   }
 
   public async requestCreditCard(): Promise<any> {
@@ -74,8 +65,8 @@ export class TabsPage {
   private async validateNavigationRequestCard(profile: any): Promise<any> {
     console.log(profile);
     if(profile.level !== 3) {
-      await this.presentToastTabs('Para solicitar una tarjeta, debe validar sus documentos');
-      await this.router.navigate(['/app/upload-verification-files']);
+      await this.toastCtrl.presentToast({text: 'Para solicitar una tarjeta, debe validar sus documentos'});
+      await this.router.navigate(['upload-verification-files']);
     } else if (profile.level === 3 && profile.solicitud === false) {
       await this.router.navigate(['/app/tabs/request-credit-card'])
     } else if (profile.level === 3 && profile.solicitud === true) {
@@ -87,7 +78,4 @@ export class TabsPage {
     this.ctrlCssBlur = data
   }
 
-    async gotoUploadFiles() {
-      await this.router.navigate(['/upload-verification-files'])
-    }
 }

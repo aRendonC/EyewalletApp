@@ -37,7 +37,6 @@ export class RegistryPinPage implements OnInit {
   async ngOnInit() {
     this.user = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('user'));
     this.user.data.password = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('password'));
-    console.log('con estos datos iniciar sesión', this.user);
     this.auth.usuario.accessToken = this.user.accessToken;
     this.bodyForm = new FormGroup({
       pin: new FormControl('', Validators.compose([

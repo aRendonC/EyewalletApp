@@ -3,7 +3,7 @@ import {TimerService} from '../services/timer/timer.service';
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {CameraProvider} from '../services/camera/camera';
-import {AlertController, ToastController} from '@ionic/angular';
+import {AlertController} from '@ionic/angular';
 import {DeviceService} from '../services/device/device.service';
 import {Router} from '@angular/router';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
@@ -29,7 +29,6 @@ export class HomePage implements OnInit {
               private auth: AuthService,
               private camera: CameraProvider,
               private alertCtrl: AlertController,
-              private toastCtrl: ToastController,
               private touchCtrl: TouchLoginService,
               private device: DeviceService,
               ) {

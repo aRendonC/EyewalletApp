@@ -1,5 +1,5 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../verification-modal/verification-modal.page';
 import {enterAnimation} from '../animations/enter';
@@ -12,6 +12,7 @@ import {AesJsService} from '../services/aesjs/aes-js.service';
 import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
 import {BalanceComponent} from "../components/balance/balance.component";
+import { filter } from 'rxjs/operators'
 
 
 @Component({
@@ -20,7 +21,7 @@ import {BalanceComponent} from "../components/balance/balance.component";
   styleUrls: ['./dashboard.page.scss'],
 })
 
-export class DashboardPage {
+export class DashboardPage implements OnInit{
   @ViewChild(SlidersComponent) childD: SlidersComponent;
   @ViewChild(BalanceComponent) balanceComponent: BalanceComponent;
   ctrlNavigation = 0;
@@ -54,27 +55,30 @@ export class DashboardPage {
     private store: Storage,
     protected aesjs: AesJsService,
     public loadingController: LoadingService,
-    private routes: Router,
+    private router: Router,
   ) {
+    this.router.events.pipe(
+        filter(event => event instanceof NavigationStart)
+    ).subscribe((route: NavigationStart) => {
+      console.log('Route: '+route.url)
+      this.getTransactionsSend()
+    });
   }
 
-  // async ngOnInit() {
-  //   this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
-  //   await this.getUserProfile();
-  //   await this.getListTransactions()
-  // }
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter dashboard')
-    // await this.getUserProfile();
-    // let transaction = await this.store.get('transaction')
-    // if(transaction) {
-    //   console.log(transaction)
-      // this.getDataPocket(transaction)
-      // await this.store.remove('transaction')
-    // }
+  async ngOnInit() {
+    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
+    await this.getUserProfile();
+    await this.getListTransactions()
   }
-  ionViewWillEnter(){
-    console.log('ionViewWillEnter')
+
+  async getTransactionsSend(){
+    let transaction = await this.store.get('transaction')
+    console.log(transaction)
+    if(transaction) {
+      console.log(transaction)
+      await this.getDataPocket(transaction)
+      await this.store.remove('transaction')
+    }
   }
 
   async openModalVerification() {
@@ -92,13 +96,13 @@ export class DashboardPage {
   }
 
   public async getDataPocket(data: any) {
+    await this.loadingController.present({cssClass: 'textLoadingBlack'})
     this.crypto.forEach(element => {
       element.graphic = [];
       if (data.pocket.currencyId === 1) {
         element.value = data.pocket.balance;
         element.valueUsd = data.pocket.balance * data.btc.toFixed(8);
         if (data.data[0]) {
-          console.log('los datos de this.crypto', element);
           // console.log(num ++)
           data.data.forEach(elementGraphic => {
             console.table(elementGraphic);
@@ -109,11 +113,12 @@ export class DashboardPage {
         }
       }
     });
-    this.getTransactionHistory(data);
+    this.crypto.amountPending = data.amountPending;
+    await this.getTransactionHistory(data);
     await this.childD.grafica();
   }
 
-  getTransactionHistory(data: any) {
+  async getTransactionHistory(data: any) {
     this.transactionComponent = data.data;
     const btc = data.btc;
     this.transactionComponent.forEach(element => {
@@ -160,6 +165,7 @@ export class DashboardPage {
     this.profile = profile;
     this.params.userId = profile.userId;
     this.params.type = 4;
+    console.log('pokets del usuario', this.pockets)
     if (!this.pockets) {
       this.pockets = await this.store.get('pockets');
       if (this.pockets) {
@@ -173,18 +179,18 @@ export class DashboardPage {
     let params = {
       userId: this.profile.userId,
       type: 0,
-      address: this.pockets[0].address
+      address: this.pockets.address
     };
     let response = await this.http.post('transaction/index', params, this.auth);
     let dataTransaction = response.data;
     if (dataTransaction[0]) {
-      this.getTransactionHistory(response);
+      await this.getTransactionHistory(response);
       // this.balanceComponent.getTransactionAll(response);
       dataTransaction.forEach(element => {
         this.crypto.forEach(element1 => {
           if (element1.name === 'Bitcoin') {
-            element1.value = this.pockets[0].balance;
-            element1.valueUsd = this.pockets[0].balance * response.btc.toFixed(8);
+            element1.value = this.pockets.balance;
+            element1.valueUsd = this.pockets.balance * response.btc.toFixed(8);
             this.dataGraphic.push(parseFloat(element.balance_after));
           }
         });

@@ -19,7 +19,9 @@ import {environment} from "../../environments/environment";
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  public userVerifications: any = null;
+  public userVerifications: any = {
+    email: ''
+  }
   public type: string = 'avatar';
   urlAvatar = environment.urlAvatar;
   avatar = null;

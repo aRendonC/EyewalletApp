@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {LoadingController, MenuController, ToastController} from '@ionic/angular';
+import {MenuController} from '@ionic/angular';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';

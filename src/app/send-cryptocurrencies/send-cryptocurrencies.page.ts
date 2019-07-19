@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner/ngx";
 import {AxiosService} from "../services/axios/axios.service";
 import {AuthService} from "../services/auth/auth.service";
-import {AlertController, ToastController} from "@ionic/angular";
+import {AlertController} from "@ionic/angular";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -45,8 +45,10 @@ export class SendCryptocurrenciesPage implements OnInit {
       protected store: Storage,
       private aesjs: AesJsService,
       private toastCtrl: ToastService,
-      private loadingCtrl: LoadingService
+      private loadingCtrl: LoadingService,
+      private router: Router
   ) { }
+
 
   ngOnInit() {
       this.bodyForm = new FormGroup({
@@ -166,17 +168,19 @@ export class SendCryptocurrenciesPage implements OnInit {
                             this.bodyForm.value.fee = this.fee;
                             console.log('body para enviar criptos', this.bodyForm);
                             let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
-                            console.log('respuesta de la transaccion', response)
+                            console.log('respuesta de la transaccion', response);
                             if (response.status === 200) {
                                 await this.loadingCtrl.dismiss();
-                               await this.toastCtrl.presentToast({text: 'Transacción realizada con éxito'})
+                               await this.toastCtrl.presentToast({text: 'Transacción realizada con éxito'});
                                 let dataResponse = await this.getPocketTransaction();
+                                await this.store.set('pockets',  this.pockets)
                                 if(dataResponse.status === 200) {
                                     dataResponse.pocket = this.pockets;
                                   await this.store.set('transaction', dataResponse)
                                 } else {
                                     await this.toastCtrl.presentToast({text: dataResponse.error.msg})
                                 }
+                                await this.router.navigate(['app/tabs/dashboard'])
                             } else {
                                 await this.loadingCtrl.dismiss();
                                 await this.toastCtrl.presentToast({text: 'Hubo un error'})

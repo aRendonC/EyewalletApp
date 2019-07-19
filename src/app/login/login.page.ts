@@ -55,14 +55,17 @@ export class LoginPage implements OnInit {
       if (data) {
         if (data.status == 200) {
           this.pockets = await this.getPocketsList();
-          console.info('mis pockets', this.pockets);
+          console.info('mis pockets', this.pockets[0]);
           this.touchCtrl.isLocked = false;
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
+          let pockets = this.pockets
+          pockets = this.aesjs.encrypt(pockets)
+          await this.store.set('pocket', pockets)
           await this.router.navigate([
               '/app/tabs/dashboard'])
-          this.pockets = this.aesjs.encrypt(this.pockets);
-          await this.store.set('pockets', this.pockets)
+          this.pockets = this.aesjs.encrypt( this.pockets[0]);
+          await this.store.set('pockets',  this.pockets)
         } else await this.clearData(data);
       } else await this.clearData(data)
 

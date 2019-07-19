@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CameraProvider} from "../services/camera/camera";
-import {AlertController, ModalController, ToastController} from "@ionic/angular";
+import {AlertController, ModalController} from "@ionic/angular";
 import {Camera} from '@ionic-native/camera/ngx';
 import {Router} from "@angular/router";
 import {LoadingService} from "../services/loading/loading.service";

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
-import {AlertController, ModalController, ToastController} from "@ionic/angular";
+import {AlertController, ModalController} from "@ionic/angular";
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
 import {enterAnimation} from "../../animations/enter";
 import {leaveAnimation} from "../../animations/leave";
@@ -69,7 +69,7 @@ export class PocketComponent implements OnInit {
       this.pockets = this.aesjs.decrypt(this.pockets);
     }
 
-    this.pocket = this.pockets[0]
+    this.pocket = this.pockets
   }
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
@@ -92,7 +92,6 @@ export class PocketComponent implements OnInit {
           type: 0,
           address: this.pocket.address
         };
-        console.log('pocket seleccionado', body)
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         if(dataResponse.status === 200) {
           dataResponse.pocket = this.pocket;

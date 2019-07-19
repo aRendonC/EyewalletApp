@@ -1,7 +1,6 @@
 // Dependecies.
 import { Component, OnInit } from '@angular/core';
 import validator from 'validator';
-import { ToastController } from '@ionic/angular';
 
 // Services.
 import { AxiosService } from '../services/axios/axios.service';
@@ -13,6 +12,7 @@ import { DataLocalService } from '../services/data-local/data-local.service';
 // Constants.
 import * as CONSTANTS from '../constanst';
 import {LoadingService} from "../services/loading/loading.service";
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-restore',
@@ -46,7 +46,7 @@ export class RestorePage implements OnInit {
     private deviceService: DeviceService,
     private aesJs: AesJsService,
     private router: Router,
-    private toastController: ToastController,
+    private toastController: ToastService,
     private dataLocal: DataLocalService,
     private loadingCtrl: LoadingService
   ) { }
@@ -126,14 +126,14 @@ export class RestorePage implements OnInit {
     return this.aesJs.encryptNoJson(pin);
   }
 
-  private async presentToast() {
-    const toast = await this.toastController.create({
-      message: CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED,
-      duration: 3000
-    });
-
-    toast.present();
-  }
+  // private async presentToast() {
+  //   const toast = await this.toastController.create({
+  //     message: CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED,
+  //     duration: 3000
+  //   });
+  //
+  //   toast.present();
+  // }
 
   private blockWallet(blockingCounter: number): void {
     const keyDataLocal: string = 'storageBlockingData';
@@ -144,14 +144,14 @@ export class RestorePage implements OnInit {
     });
   }
 
-  private validateStorageBlockingData(response: any, blockingCounter: any, keyDataLocal: any) {
+  private async validateStorageBlockingData(response: any, blockingCounter: any, keyDataLocal: any) {
     if (response === undefined || response === null || blockingCounter <= 2) {
       this.dataLocal.setDataLocal(keyDataLocal, blockingCounter);
       if (blockingCounter === 2) this.dataRestorePassword.blocked = true;
     } else if (blockingCounter === 3) {
       this.blockingCounter = 0;
       this.dataLocal.setDataLocal(keyDataLocal, this.blockingCounter);
-      this.presentToast();
+      await this.toastController.presentToast({text: CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED});
       this.router.navigate(['']);
     }
   }

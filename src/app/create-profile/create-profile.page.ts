@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoadingController, MenuController, ToastController} from '@ionic/angular';
+import {MenuController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import {AxiosService } from '../services/axios/axios.service';

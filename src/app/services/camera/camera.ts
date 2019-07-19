@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {TouchLoginService} from "../fingerprint/touch-login.service";
-import {AlertController, ToastController} from "@ionic/angular";
 import {AxiosService} from "../axios/axios.service";
 import {AuthService} from "../auth/auth.service";
 
@@ -17,7 +16,6 @@ export class CameraProvider {
   constructor(
       public camera: Camera,
       private touchCtrl: TouchLoginService,
-      private toastCtrl: ToastController,
       private http: AxiosService,
       private auth: AuthService
   ) {

@@ -1,11 +1,11 @@
 // Dependencies.
 import {Component} from '@angular/core';
-import {ToastController} from '@ionic/angular';
 // Constants.
 import * as CONSTANTS from '../constanst';
 import {ActivatedRoute} from '@angular/router';
 // Plugins cordova.
 import {Clipboard} from '@ionic-native/clipboard/ngx';
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-receive-funds',
@@ -25,7 +25,7 @@ export class ReceiveFundsPage {
   constructor(
     private activateRouter: ActivatedRoute,
     private clipboard: Clipboard,
-    private toastController: ToastController
+    private toastController: ToastService
   ) {
   }
 
@@ -36,17 +36,8 @@ export class ReceiveFundsPage {
     this.codeQr = data.address;
   }
 
-  public copyCode(): void {
-    this.clipboard.copy(this.codeQr);
-    this.presentToast();
-  }
-
-  private async presentToast() {
-    const toast = await this.toastController.create({
-      message: CONSTANTS.RECEIVE_FUNDS.MESSAGE_COPY,
-      duration: 2000
-    });
-
-    toast.present();
+  public async copyCode(): Promise<any> {
+    await this.clipboard.copy(this.codeQr);
+    await this.toastController.presentToast({text: CONSTANTS.RECEIVE_FUNDS.MESSAGE_COPY});
   }
 }

@@ -1,7 +1,6 @@
 // Dependencies.
 import { Component, OnInit } from '@angular/core';
 import validator from 'validator';
-import { ToastController } from '@ionic/angular';
 
 // Constants.
 import * as CONSTANTS from '../constanst';
@@ -14,6 +13,7 @@ import { Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import {DeviceService} from "../services/device/device.service";
 import {LoadingService} from "../services/loading/loading.service";
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-registry',
@@ -43,7 +43,7 @@ export class RegistryPage implements OnInit {
     private store: Storage,
     private device: DeviceService,
     private loadingCtrl: LoadingService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastService
   ) { }
 
   ngOnInit() { }
@@ -148,18 +148,18 @@ export class RegistryPage implements OnInit {
         });
         await this.loadingCtrl.dismiss()
       } else {
-        await this.presentToast(response.data)
+        await this.toastCtrl.presentToast({text: response.error.msg})
         await this.loadingCtrl.dismiss()
       }
     });
   }
 
-  async presentToast(text) {
-    const toast = await this.toastCtrl.create({
-      message: text,
-      duration: 2000
-    });
-     await toast.present();
-  }
+  // async presentToast(text) {
+  //   const toast = await this.toastCtrl.create({
+  //     message: text,
+  //     duration: 2000
+  //   });
+  //    await toast.present();
+  // }
 }
 
