@@ -65,6 +65,7 @@ export class DashboardPage implements OnInit{
     });
   }
 
+
   async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     await this.getUserProfile();

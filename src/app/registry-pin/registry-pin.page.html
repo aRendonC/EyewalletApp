@@ -1,10 +1,10 @@
-<ion-content padding class="bghome">
+<ion-content padding class="bghome" [class.blur]="ctrlCssBlur">
   <div class="move-logo">
     <img class="resize-logo" src="./assets/img/home-logo.svg"/>
     <div class="center">
-      <ion-label class="text-eyewallet">{{constants.TITLES.EYEWALLET}}</ion-label>
+      <ion-label class="text-eyewallet">EYEWALLET</ion-label>
       <br>
-      <ion-label class="text-crypto">{{constants.TITLES.CRYPTO_BANCK}}</ion-label>
+      <ion-label class="text-crypto">CRYPTOBANK</ion-label>
     </div>
   </div>
   <form #formulario="ngForm" (ngSubmit)="registerPin(bodyForm.value)" [formGroup]="bodyForm"  class="transparent move-form">
@@ -13,7 +13,7 @@
       <!-- Usuario -->
       <ion-item class="transparent white-line">
         <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
-        <ion-input  class="white move-input" type="email" name="username" formControlName="pin"  [placeholder]="constants.PIN.ENTER_PIN"></ion-input>
+        <ion-input  class="white move-input" type="number" name="username" formControlName="pin"  [placeholder]="constants.PIN.ENTER_PIN"></ion-input>
       </ion-item>
       <!-- Contraseña -->
     </ion-list>
@@ -25,7 +25,7 @@
               mode="ios"
               expand="full"
               text-capitalize
-              shape="round">{{constants.PIN.CEATE_PIN}}</ion-button>
+              shape="round">Crear Pin</ion-button>
     </div>
   </form>
 </ion-content>

@@ -28,6 +28,7 @@ import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 
 export class RegistryPage implements OnInit {
   public constants: any = CONSTANTS;
+  ctrlCssBlur: boolean = false;
   public dataRegistry = {
     email: '',
     phone: '',
@@ -133,9 +134,12 @@ export class RegistryPage implements OnInit {
     this.classButton = this.disableButton ? 'button-disable' : 'button-enable';
   }
 
-  public async sendDataRegistry(): Promise<any> {
-    await this.loadingCtrl.present({})
-    const device = await this.device.getDataDevice();
+  public async sendDataRegistry() {
+    await this.loadingCtrl.present({});
+    this.ctrlCssBlur = true;
+   let device = await this.device.getDataDevice();
+   console.log('datos del dispositivo', device);
+   if(!device.uuid) device.uuid = '987654321';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
@@ -156,10 +160,12 @@ export class RegistryPage implements OnInit {
         },
         queryParamsHandling: 'merge'
         });
-        await this.loadingCtrl.dismiss()
+        await this.loadingCtrl.dismiss();
+        this.ctrlCssBlur = false;
       } else {
         await this.toastCtrl.presentToast({text: response.error.msg})
         await this.loadingCtrl.dismiss()
+        this.ctrlCssBlur = false;
       }
     });
   }

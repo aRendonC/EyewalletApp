@@ -15,6 +15,7 @@ import {LoadingService} from '../services/loading/loading.service';
   styleUrls: ['./create-profile.page.scss'],
 })
 export class CreateProfilePage implements OnInit {
+  public ctrlCssBlur = false;
   public firstname: '';
   public lastname: '';
   public birthdate: '';
@@ -45,7 +46,9 @@ export class CreateProfilePage implements OnInit {
   // Esta función me lleva a la pagina que tiene dirección pero primero envia los
   // datos del form a la API medinte un put request
   async address() {
-    await this.loadingCtrl.present({});
+    await this.loadingCtrl.present({
+      cssClass: 'textLoadingBlack'});;
+    this.ctrlCssBlur = true;
     // Nombre
     this.user = await this.store.get('profile');
     this.user = this.aes.decrypt(this.user);
@@ -68,6 +71,7 @@ export class CreateProfilePage implements OnInit {
       // console.log( await this.store.set('user', JSON.stringify(response.data)));
     } else {
       await this.loadingCtrl.dismiss();
+      this.ctrlCssBlur = false;
     }
   }
 }
