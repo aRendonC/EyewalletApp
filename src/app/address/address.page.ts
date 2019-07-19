@@ -11,6 +11,7 @@ import {LoadingService} from '../services/loading/loading.service';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-address',
@@ -18,6 +19,8 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
   styleUrls: ['./address.page.scss'],
 })
 export class AddressPage implements OnInit {
+  public classButton = 'button-disable';
+  public ctrlCssBlur = false;
   public arrayCountries: any = [];
   public arrayStates: any = [];
   public selectedCountry = '';
@@ -64,7 +67,6 @@ async ngOnInit() {
   // await this.getCountries();
   this.checkGPSPermission();
   this.menu.enable(false);
-  this.getLocation();
 }
 ionViewDidLeave() {
   this.menu.enable(true);
@@ -96,7 +98,7 @@ ionViewDidLeave() {
 // }
 
 async getLocation() {
- 
+
   // this.headers = new HttpHeaders({
   //   'Accept': 'application/json',
   //   'Content-Type': 'application/json',
@@ -114,6 +116,7 @@ async getLocation() {
         this.city = data.address.city;
         this.zipCode = data.address.postcode;
         this.loadingCtrl.dismiss();
+        this.ctrlCssBlur = false;
       },
       (error) => {
         console.log(error);
@@ -126,15 +129,17 @@ async getLocation() {
 
 checkGPSPermission() {
   this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
-    result => {
+    async result => {
       if (result.hasPermission) {
-
-        //If having permission show 'Turn On GPS' dialogue
+        // If having permission show 'Turn On GPS' dialogue
         this.askToTurnOnGPS();
+        console.log('Me pide que encienda el GPS');
       } else {
-
-        //If not having permission ask for permission
+        // If not having permission ask for permission
         this.requestGPSPermission();
+        console.log('Si no tengo permiso pidame el permiso y entra a la funcion de requestGPSPermission');
+        await this.loadingCtrl.dismiss();
+        this.ctrlCssBlur = false;
       }
     },
     err => {
@@ -156,8 +161,10 @@ requestGPSPermission() {
             this.askToTurnOnGPS();
           },
           error => {
+            // this.loadingCtrl.dismiss();
+            // this.ctrlCssBlur = false;
             // Show alert if user click on 'No Thanks'
-            alert('requestPermission Error requesting location permissions ' + error)
+            // alert('requestPermission Error requesting location permissions ' + error);
           }
         );
     }
@@ -165,13 +172,17 @@ requestGPSPermission() {
 }
 
 
-askToTurnOnGPS() {
-  this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+async askToTurnOnGPS() {
+  await this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
     () => {
       // When GPS Turned ON call method to get Accurate location coordinates
       this.getLocation();
+      console.log('Obtiene mi localizacion ');
     },
-    error => alert('Error requesting location permissions ' + JSON.stringify(error))
+    error => {
+      console.log('Error requesting location permissions ' + JSON.stringify(error));
+    }
+    //  alert('Error requesting location permissions ' + JSON.stringify(error))
   );
 }
 
@@ -257,6 +268,7 @@ askToTurnOnGPS() {
 async createProfile() {
   this.loadingCtrl.present({
     cssClass: 'textLoadingBlack'});
+  this.ctrlCssBlur = true;
   this.user = await this.store.get('profile');
   this.user = this.aes.decrypt(this.user);
   this.bodyForm.userId = this.user.id;
@@ -264,11 +276,15 @@ async createProfile() {
   if (response.status === 200) {
     let profile: any = await this.axios.get(`profile/${this.user.id}/view`, this.aut, null);
     profile = this.aes.encrypt(profile.data);
+    await this.loadingCtrl.dismiss();
+    this.ctrlCssBlur = false;
     await this.store.set('profile', profile);
     await this.router.navigate(['app/tabs']);
     // await this.store.set('user', JSON.stringify(response.data));
   } else {
     await this.loadingCtrl.dismiss();
+    this.ctrlCssBlur = false;
+    await this.router.navigate(['app/tabs']);
   }
 }
 

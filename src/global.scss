@@ -136,14 +136,7 @@ $font-open-sans-bold: Open-Sans-Bold;
 
 
 .backGroundGradient {
-   --background: rgba(46,178,255,1);
-   --background: -moz-linear-gradient(top, rgba(46,178,255,1) 0%, rgba(140,26,255,0.48) 100%);
-   --background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(46,178,255,1)), color-stop(100%, rgba(140,26,255,0.48)));
-   --background: -webkit-linear-gradient(top, rgba(46,178,255,1) 0%, rgba(140,26,255,0.48) 100%);
-   --background: -o-linear-gradient(top, rgba(46,178,255,1) 0%, rgba(140,26,255,0.48) 100%);
-   --background: -ms-linear-gradient(top, rgba(46,178,255,1) 0%, rgba(140,26,255,0.48) 100%);
-   --background: linear-gradient(to bottom, rgba(46,178,255,1) 0%, rgba(140,26,255,0.48) 100%);
-   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2eb2ff', endColorstr='#8c1aff', GradientType=0 );
+   --background: linear-gradient(rgba(20, 169, 255, 0.7) 0%, rgba(43, 132, 255, 0.7) 21.26%, rgba(128, 0, 255, 0.7) 180%);
 }
 
 .all-center {

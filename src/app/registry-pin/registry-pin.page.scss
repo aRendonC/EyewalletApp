@@ -10,3 +10,19 @@
   --opacity: 0.86;
   font-family: 'Poppins', sans-serif;
 }
+.resize-logo {
+  width: 141px;
+  height: 141px;
+  margin: 0 25vw;
+}
+.move-logo {
+  margin-top: 5vh;
+  margin-left: 0vh;
+}
+
+.button-disable {
+  --background: #4C6AC0;
+  font-family: Poppins-Medium;
+  --color: white;
+  width: 100% !important; 
+}

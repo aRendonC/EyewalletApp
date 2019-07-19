@@ -6,8 +6,8 @@ import {Validators, FormGroup, FormBuilder, FormControl} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
-import {LoadingService} from "../services/loading/loading.service";
-import {AesJsService} from "../services/aesjs/aes-js.service";
+import {LoadingService} from '../services/loading/loading.service';
+import {AesJsService} from '../services/aesjs/aes-js.service';
 
 @Component({
   selector: 'app-registry-pin',
@@ -15,6 +15,7 @@ import {AesJsService} from "../services/aesjs/aes-js.service";
   styleUrls: ['./registry-pin.page.scss'],
 })
 export class RegistryPinPage implements OnInit {
+  public ctrlCssBlur = false;
   public constants: any = CONSTANTS;
   bodyForm: FormGroup;
   private devic: any = {};
@@ -48,7 +49,7 @@ export class RegistryPinPage implements OnInit {
       device: new FormControl(''),
       userId: new FormControl('')
     });
-    await this.loadingCtrl.dismiss()
+    // await this.loadingCtrl.dismiss()
   }
 
   async registerPin(data: any) {
@@ -72,10 +73,10 @@ export class RegistryPinPage implements OnInit {
         await this.router.navigate(['/app/tabs/dashboard', {pockets: JSON.stringify(this.pockets)}]);
         this.pockets = this.aesjs.encrypt(this.pockets);
         await this.store.set('pockets', this.pockets)
-        await this.loadingCtrl.dismiss()
+        // await this.loadingCtrl.dismiss()
       }
     } else {
-      await this.loadingCtrl.dismiss()
+      // await this.loadingCtrl.dismiss()
     }
   }
 
