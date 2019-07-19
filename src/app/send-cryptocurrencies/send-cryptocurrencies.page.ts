@@ -46,7 +46,10 @@ export class SendCryptocurrenciesPage implements OnInit {
       private aesjs: AesJsService,
       private toastCtrl: ToastService,
       private loadingCtrl: LoadingService
-  ) { }
+  ) { 
+
+      this.presentQRScanner();
+  }
 
   ngOnInit() {
       this.bodyForm = new FormGroup({
@@ -100,6 +103,7 @@ export class SendCryptocurrenciesPage implements OnInit {
     async unSuscribed() {
         this.isOn = false;
         let element = document.getElementById('QRScaner');
+        console.log("camera",element)
         element.classList.remove('show-qr-scanner');
        await this.qrScanner.destroy();
         this.scanSub.unsubscribe();

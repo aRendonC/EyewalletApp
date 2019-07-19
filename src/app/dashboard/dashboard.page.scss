@@ -1,10 +1,14 @@
 
-.bgdashboard{
-    --background:  url('../../assets/img/bg-dashboard.png');
-    --background-repeat: no-repeat;
+.bgdashboard1{
+    // --background:  url('../../assets/img/bg-dashboard.png');
+    // --background-repeat: no-repeat;
+    background-image: linear-gradient(rgba(20, 169, 255, 0.6) 0%, rgba(43, 132, 255, 0.6) 21.26%, rgba(128, 0, 255, 0.6) 180%);
 
 }
 
+ion-content{
+--ion-background-color:  linear-gradient(hsl(180, 33%, 98%) 0%, #fafbfc 70.26%, rgba(128, 0, 255, 0.6) 180%);
+}
 
 
 .resize-logo {

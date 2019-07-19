@@ -58,11 +58,11 @@ export class DashboardPage {
   ) {
   }
 
-  // async ngOnInit() {
-  //   this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
-  //   await this.getUserProfile();
-  //   await this.getListTransactions()
-  // }
+  async ngOnInit() {
+    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
+    await this.getUserProfile();
+    await this.getListTransactions()
+  }
   ionViewDidEnter() {
     console.log('ionViewDidEnter dashboard')
     // await this.getUserProfile();
