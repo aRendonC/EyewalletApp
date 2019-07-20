@@ -97,7 +97,7 @@ export class PricesPage implements OnInit {
     // Funcion de ciclo de vida (al cargar)
     async ngOnInit() {
       // Activa el Loader
-      this.loading.present({cssClass: 'textLoadingBlack'});
+      this.loading.present({text: 'Cargando precios de las criptomonedas', cssClass: 'textLoadingBlack'});
       // Obtiene el perfil desde el storage
       await this.getProfile();
       // Crea el body para hacer el request al Backend
