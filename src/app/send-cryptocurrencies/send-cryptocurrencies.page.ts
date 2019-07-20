@@ -134,10 +134,11 @@ export class SendCryptocurrenciesPage implements OnInit {
     }
 
     async sendCoin() {
+      console.log(this.bodyForm)
         this.ctrlButtonSend = false;
         if(this.pockets.balance >= this.feeAndSend) {
             console.info('listo para enviar');
-            await this.presentAlertSend()
+            // await this.presentAlertSend()
         } else {
             await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes'})
         }

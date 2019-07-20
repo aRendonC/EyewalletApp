@@ -2,7 +2,7 @@
   <ion-header translucent class="bacground-header">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-button (click)="unSuscribed()">
+        <ion-button>
           <ion-icon slot="icon-only" name="md-arrow-round-back"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -12,9 +12,10 @@
   <ion-nav  >
 
   </ion-nav>
-  <div class="bacgroundQRScanner" >
+  <div class="bacgroundQRScanner center-horizontal center center-vertical" >
     <div style="width: 100%" [ngClass]="cssGradient">
       <!--<ion-button (click)="unSuscribed()">Cerrar</ion-button>-->
+      <img style="width: 50%" src="../../assets/img/sendCripto/targetQr.png"/>
     </div>
   </div>
 
