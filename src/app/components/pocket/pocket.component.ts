@@ -63,13 +63,14 @@ export class PocketComponent implements OnInit {
     if(!this.pockets){
       let response  = await this.http.get('user-wallet/index', this.auth, null);
       this.pockets = response;
-      response = await this.aesjs.encrypt(response);
-      await this.store.set('pockets', response)
+      response = this.aesjs.encrypt(response);
+      await this.store.set('pocket', response)
     } else {
       this.pockets = this.aesjs.decrypt(this.pockets);
     }
 
     this.pocket = this.pockets
+    console.log(this.pocket)
   }
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});

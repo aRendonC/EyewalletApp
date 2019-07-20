@@ -13,6 +13,7 @@ import {ToastService} from "../services/toast/toast.service";
   styleUrls: ['./list-pockets.page.scss'],
 })
 export class ListPocketsPage implements OnInit {
+  public ctrlCssBlur = false;
   ctrlButtonCreate: boolean = false;
   public ctrlCreatePocket: boolean = true;
   public params = {
@@ -54,17 +55,20 @@ export class ListPocketsPage implements OnInit {
       await this.getCriptoCurrencies()
     } else {
       if( this.params.label) {
-        await this.loadingCtrl.present({});
+        await this.loadingCtrl.present({text: 'Creando Pocket', cssClass: 'textLoadingBlack'});
+        this.ctrlCssBlur = true;
         this.ctrlButtonCreate = true;
         let profile = await this.store.get('profile');
         profile = this.aesjs.decrypt(profile);
         this.params.userId = profile.id;
         let response = await this.http.post('user-wallet/create', this.params, this.auth);
         if(response.status === 200) {
+          this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
           await this.toastCtrl.presentToast({text: 'Pocket creado correctamente'});
           await this.closeModal(null)
         } else {
+          this.ctrlCssBlur = false;
           await this.toastCtrl.presentToast({text: response.error.msg});
           await this.loadingCtrl.dismiss();
           this.ctrlButtonCreate = false
