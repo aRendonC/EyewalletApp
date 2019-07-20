@@ -25,7 +25,6 @@ export class SendCryptocurrenciesPage implements OnInit {
   isOn = false;
   scanner: any;
   ctrlButtonSend: boolean = true;
-  totalApplied: any = {}
   bodyForm: FormGroup;
   placeHolder: any = '';
   body = {
@@ -37,6 +36,13 @@ export class SendCryptocurrenciesPage implements OnInit {
     description: 'descripcion',
     currencyId: ''
   };
+  totalApplied: any = {
+    percent: 0,
+    priceCriptoUsd: 0,
+    amountMin: 0,
+    amountMaxUsd: 0,
+    amountMaxBtc: 0
+  }
   fee: any = null;
   scanSub: any;
   feeAndSend: any = null;
@@ -55,7 +61,7 @@ export class SendCryptocurrenciesPage implements OnInit {
   ) { }
 
 
-  ngOnInit() {
+  async ngOnInit() {
     this.bodyForm = new FormGroup({
       amount: new FormControl('', Validators.compose([
         Validators.required,
@@ -74,6 +80,12 @@ export class SendCryptocurrenciesPage implements OnInit {
     });
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
     this.body.from_address = this.pockets.address
+  }
+
+  async ionViewDidEnter() {
+    await this.getFeeTransaction();
+    await this.getPriceCripto()
+    await this.firstTransaction()
   }
 
   presentQRScanner() {
@@ -155,17 +167,33 @@ export class SendCryptocurrenciesPage implements OnInit {
     }
   }
 
+  async calculateUSD(event) {
+    if (event.length <= 13) {
+      this.totalApplied.amountMaxBtc = (event / this.totalApplied.priceCriptoUsd).toFixed(8);
+      this.fee = ((this.totalApplied.amountMaxBtc * this.totalApplied.percent) / 100).toFixed(5)
+      this.bodyForm.value.amount = parseFloat(this.totalApplied.amountMaxBtc);
+      this.bodyForm.value.fee = this.fee
+      this.feeAndSend = this.totalApplied.amountMaxBtc + this.fee;
+    }
+  }
 
   async sendCoin() {
-    console.log(this.bodyForm)
-    this.ctrlButtonSend = false;
-    if (this.pockets.balance >= this.feeAndSend) {
-      console.info('listo para enviar');
-      // await this.presentAlertSend()
+    this.bodyForm.value.fee = this.fee
+    console.log(this.bodyForm.value)
+    console.log("formulario es valido: ", this.bodyForm.valid)
+    if (this.bodyForm.value.amount != "" && this.bodyForm.value.fee != "" && this.bodyForm.value.to_address != "") {
+      this.ctrlButtonSend = false;
+      console.log("=========> balance de la pocket ", this.pockets.balance)
+      console.log("=========> balance feeAndSend ", this.feeAndSend)
+      if (this.pockets.balance >= this.feeAndSend) {
+        await this.presentAlertSend()
+      } else {
+        await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes'})
+      }
     } else {
-      await this.toastCtrl.presentToast({ text: 'No tiene fondos suficientes' })
+      await this.toastCtrl.presentToast({text: 'Por favor seleccione una prioridad o ingrese la direccion de destino'});
     }
-  };
+  }
 
   async presentAlertSend() {
     const alert = await this.alerrtCtrl.create({
@@ -186,7 +214,6 @@ export class SendCryptocurrenciesPage implements OnInit {
           cssClass: 'secondary',
           handler: (alertData) => {
             this.ctrlButtonSend = true;
-            console.log(alertData);
           }
         }, {
           text: 'Ok',
@@ -200,7 +227,6 @@ export class SendCryptocurrenciesPage implements OnInit {
               this.bodyForm.value.pin = security;
               this.bodyForm.value.from_address = this.pockets.address;
               this.bodyForm.value.fee = this.fee;
-              console.log('body para enviar criptos', this.bodyForm);
               let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
               console.log('respuesta de la transaccion', response);
               if (response.status === 200) {
@@ -229,7 +255,7 @@ export class SendCryptocurrenciesPage implements OnInit {
       ]
     });
 
-
+    await alert.present();
   }
   async getPocketTransaction() {
     let body = {
