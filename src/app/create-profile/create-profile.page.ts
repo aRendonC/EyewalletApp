@@ -15,7 +15,7 @@ import {LoadingService} from '../services/loading/loading.service';
   styleUrls: ['./create-profile.page.scss'],
 })
 export class CreateProfilePage implements OnInit {
-  public ctrlCssBlur = false
+  public ctrlCssBlur = false;
   public firstname: '';
   public lastname: '';
   public birthdate: any = null;
@@ -39,16 +39,11 @@ export class CreateProfilePage implements OnInit {
     this.menu.enable(false);
     this.touchCtrl.isLocked = true;
   }
-  ionViewDidLeave() {
-    this.menu.enable(true);
-  }
 
   // Esta función me lleva a la pagina que tiene dirección pero primero envia los
   // datos del form a la API medinte un put request
   async address() {
     if(this.birthdate) {
-      this.ctrlCssBlur = true
-      await this.loadingCtrl.present({});
       // Nombre
       this.user = await this.store.get('profile');
       this.user = this.aes.decrypt(this.user);
@@ -66,13 +61,12 @@ export class CreateProfilePage implements OnInit {
       // const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
       const response = await this.axios.put(`profile/${this.bodyForm.userId}/update`, this.bodyForm, this.aut);
       if (response.status === 200) {
-        this.ctrlCssBlur = false
+        this.ctrlCssBlur = false;
         await this.router.navigate(['/address']);
         // this.store.set('user', JSON.stringify(response.data));
         // console.log( await this.store.set('user', JSON.stringify(response.data)));
       } else {
         this.ctrlCssBlur = false
-        await this.loadingCtrl.dismiss();
       }
     }
   }

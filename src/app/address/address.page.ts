@@ -73,23 +73,23 @@ export class AddressPage implements OnInit {
                         await this.loadingCtrl.dismiss();
                         this.ctrlCssBlur = false;
                     },
-                    (error) => {
+                    async (error) => {
+                        await this.loadingCtrl.dismiss();
+                        this.ctrlCssBlur = false;
                         console.log(error);
                     }
                 );
-        }).catch((error) => {
+        }).catch(async (error) => {
+            await this.loadingCtrl.dismiss();
+            this.ctrlCssBlur = false;
             console.log(error);
         });
     }
 
     async checkGPSPermission() {
-        await this.loadingCtrl.present({text: 'Obteniendo datos de localización...', cssClass: 'textLoadingBlack'});
-        this.ctrlCssBlur = true;
         this.touchCtrl.isTouch = false;
         this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
             async result => {
-                await this.loadingCtrl.dismiss();
-                this.ctrlCssBlur = false;
                 if (result.hasPermission) {
                     // If having permission show 'Turn On GPS' dialogue
                     await this.askToTurnOnGPS();
@@ -102,8 +102,6 @@ export class AddressPage implements OnInit {
                 }
             },
             async err => {
-                await this.loadingCtrl.dismiss();
-                this.ctrlCssBlur = false;
                 alert(err);
             }
         );
@@ -134,6 +132,8 @@ export class AddressPage implements OnInit {
 
 
     async askToTurnOnGPS() {
+        await this.loadingCtrl.present({text: 'Obteniendo datos de localización...', cssClass: 'textLoadingBlack'});
+        this.ctrlCssBlur = true;
         await this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
             async () => {
                 // When GPS Turned ON call method to get Accurate location coordinates

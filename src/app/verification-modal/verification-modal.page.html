@@ -67,7 +67,7 @@
         <p>Puede usar su teléfono móvil para habilitar la autenticación de dos pasos para recibir alertas</p>
       </div>
       <ion-item>
-        <ion-input [(ngModel)]="code" placeholder="Código" size="full"></ion-input>
+        <ion-input type="number" [(ngModel)]="code" placeholder="Código" size="full"></ion-input>
       </ion-item>
       <div class="move-btn" >
         <ion-button  class="btn-start" (click)="verifyCode()" mode="ios">Verificar</ion-button>

@@ -41,8 +41,9 @@ export class SendCryptocurrenciesPage implements OnInit {
     priceCriptoUsd: 0,
     amountMin: 0,
     amountMaxUsd: 0,
-    amountMaxBtc: 0
-  }
+    amountMaxBtc: 0,
+    address: null
+  };
   fee: any = null;
   scanSub: any;
   feeAndSend: any = null;
@@ -83,15 +84,15 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   async ionViewDidEnter() {
-    await this.getFeeTransaction();
-    await this.getPriceCripto()
+
+    await this.getPriceCripto();
     await this.firstTransaction()
   }
 
   presentQRScanner() {
     this.qrScanner.prepare()
       .then(async (status: QRScannerStatus) => {
-        this.touchCtrl.isTouch = false
+        this.touchCtrl.isTouch = false;
         if (status.authorized) {
           this.isOn = true;
           this.cssGradient = 'backGroundGradientQr';
@@ -126,7 +127,7 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   async unSuscribed() {
-      this.touchCtrl.isTouch = true
+      this.touchCtrl.isTouch = true;
       this.isOn = false;
       this.cssGradient = 'backGroundGradient';
       this.cssCtrlContents = true;
@@ -137,25 +138,30 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   async getFeeTransaction() {
+    this.bodyForm.get('to_address').setValue(this.totalApplied.address);
+    console.log('bodyForm', this.bodyForm.value);
     const dataFee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
+    console.log('dataFee', dataFee);
     this.totalApplied.percent = dataFee.porcentaje;
   }
 
   async getPriceCripto() {
     const data = await this.http.post('currency/price-cripto', { shortName: "BTC" }, this.auth);
-    this.totalApplied.priceCriptoUsd = data.data.USD
+    console.log('data price-cripto', data);
+    this.totalApplied.priceCriptoUsd = data.data.USD;
+    this.totalApplied.address = data.address
   }
 
   async firstTransaction() {
     this.totalApplied.amountMin = (parseFloat(String(0.001)) + parseFloat(String((0.001 * this.totalApplied.percent) / 100))).toFixed(5);
-    this.totalApplied.amountMaxBtc = (this.pockets.balance / (1 + (this.totalApplied.percent / 100))).toFixed(8)
+    this.totalApplied.amountMaxBtc = (this.pockets.balance / (1 + (this.totalApplied.percent / 100))).toFixed(8);
     this.totalApplied.amountMaxUsd = (this.pockets.balance * this.totalApplied.priceCriptoUsd).toFixed(5);
-    this.fee = ((this.totalApplied.amountMaxBtc * this.totalApplied.percent) / 100).toFixed(5)
-    this.bodyForm.value.amount = parseFloat(this.totalApplied.amountMaxBtc);
-
+    this.bodyForm.get('amount').setValue(this.totalApplied.amountMaxBtc);
+    await this.getFeeTransaction();
+    this.fee = ((this.totalApplied.amountMaxBtc * this.totalApplied.percent) / 100).toFixed(5);
     this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8));
     this.feeAndSend = this.pockets.balance;
-    this.bodyForm.value.fee = this.fee
+    this.bodyForm.value.fee = this.fee;
 
     console.log(this.bodyForm.value)
   }
@@ -163,9 +169,9 @@ export class SendCryptocurrenciesPage implements OnInit {
   async calculateBTC(event) {
     if (event.length <= 13) {
       this.totalApplied.amountMaxUsd = (event * this.totalApplied.priceCriptoUsd).toFixed(5);
-      this.fee = ((event * this.totalApplied.percent) / 100).toFixed(5)
+      this.fee = ((event * this.totalApplied.percent) / 100).toFixed(5);
       this.bodyForm.value.amount = parseFloat(event);
-      this.bodyForm.value.fee = this.fee
+      this.bodyForm.value.fee = this.fee;
       this.feeAndSend = event + this.fee;
     }
   }
@@ -173,21 +179,21 @@ export class SendCryptocurrenciesPage implements OnInit {
   async calculateUSD(event) {
     if (event.length <= 13) {
       this.totalApplied.amountMaxBtc = (event / this.totalApplied.priceCriptoUsd).toFixed(8);
-      this.fee = ((this.totalApplied.amountMaxBtc * this.totalApplied.percent) / 100).toFixed(5)
+      this.fee = ((this.totalApplied.amountMaxBtc * this.totalApplied.percent) / 100).toFixed(5);
       this.bodyForm.value.amount = parseFloat(this.totalApplied.amountMaxBtc);
-      this.bodyForm.value.fee = this.fee
+      this.bodyForm.value.fee = this.fee;
       this.feeAndSend = this.totalApplied.amountMaxBtc + this.fee;
     }
   }
 
   async sendCoin() {
-    this.bodyForm.value.fee = this.fee
-    console.log(this.bodyForm.value)
-    console.log("formulario es valido: ", this.bodyForm.valid)
+    this.bodyForm.value.fee = this.fee;
+    console.log(this.bodyForm.value);
+    console.log("formulario es valido: ", this.bodyForm.valid);
     if (this.bodyForm.value.amount != "" && this.bodyForm.value.fee != "" && this.bodyForm.value.to_address != "") {
       this.ctrlButtonSend = false;
-      console.log("=========> balance de la pocket ", this.pockets.balance)
-      console.log("=========> balance feeAndSend ", this.feeAndSend)
+      console.log("=========> balance de la pocket ", this.pockets.balance);
+      console.log("=========> balance feeAndSend ", this.feeAndSend);
       if (this.pockets.balance >= this.feeAndSend) {
         await this.presentAlertSend()
       } else {
