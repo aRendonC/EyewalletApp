@@ -47,7 +47,10 @@ import { VerificationModalPage } from './verification-modal/verification-modal.p
     FormsModule,
     BrowserModule,
     IonicModule.forRoot({
-      hardwareBackButton: false
+      hardwareBackButton: false,
+      mode: "ios",
+      swipeBackEnabled: false,
+      persistConfig: true
     }),
     AppRoutingModule,
     HttpClientModule,

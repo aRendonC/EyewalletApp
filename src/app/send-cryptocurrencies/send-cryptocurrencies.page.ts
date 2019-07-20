@@ -129,24 +129,29 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   async getPriceCripto() {
-    const data = await this.http.post('currency/price-cripto', {shortName: "BTC"}, this.auth);
-    this.totalApplied.priceCriptoUsd = data.data.USD;
-    this.totalApplied.address = data.address;
-    this.bodyForm.get('to_address').setValue(this.totalApplied.address);
-    this.bodyForm.get('amount').setValue(this.pockets.balance);
-    this.getFeeTransaction(true);
+    if(this.pockets.balance > 0)
+    {
+      const data = await this.http.post('currency/price-cripto', {shortName: "BTC"}, this.auth);
+      this.totalApplied.priceCriptoUsd = data.data.USD;
+      this.totalApplied.address = data.address;
+      this.bodyForm.get('to_address').setValue(this.totalApplied.address);
+      this.bodyForm.get('amount').setValue(this.pockets.balance);
+      await this.getFeeTransaction(true);
+    }
   }
 
   async getFeeTransaction(isTransaccion) {
-    const dataFee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
-    console.log("=============> los datos del fee ", dataFee.data)
-    if (dataFee.status === 200) {
-      this.totalApplied.fee = dataFee.data;
-      this.bodyForm.get('fee').setValue(this.totalApplied.fee);
-      if (isTransaccion)
-        this.firstTransaction();
-    } else {
-      this.toastCtrl.presentToast({text: 'faltan datos'})
+    if(this.pockets.balance > 0) {
+      const dataFee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
+      console.log("=============> los datos del fee ", dataFee.data);
+      if (dataFee.status === 200) {
+        this.totalApplied.fee = dataFee.data;
+        this.bodyForm.get('fee').setValue(this.totalApplied.fee);
+        if (isTransaccion)
+          await this.firstTransaction();
+      } else {
+        await this.toastCtrl.presentToast({text: 'faltan datos'})
+      }
     }
   }
 
@@ -157,22 +162,22 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   async calculateBTC(event) {
-    if (event.length <= 13) {
-      this.totalApplied.amountMaxBtc = event
+    if (event.length <= 13 && this.pockets.balance > 0) {
+      this.totalApplied.amountMaxBtc = event;
       this.totalApplied.amountMaxUsd = (this.totalApplied.amountMaxBtc * this.totalApplied.priceCriptoUsd).toFixed(5);
       this.totalApplied.fee = 0;
-      this.bodyForm.get('fee').setValue(0)
+      this.bodyForm.get('fee').setValue(0);
       this.bodyForm.get('amount').setValue(this.totalApplied.amountMaxBtc);
       console.log("===========> los totales por criptos: ", this.totalApplied)
     }
   }
 
   async calculateUSD(event) {
-    if (event.length <= 13) {
+    if (event.length <= 13 && this.pockets.balance > 0) {
       this.totalApplied.amountMaxBtc = (event / this.totalApplied.priceCriptoUsd).toFixed(8);
       this.totalApplied.amountMaxUsd = event;
       this.totalApplied.fee = 0;
-      this.bodyForm.get('fee').setValue(0)
+      this.bodyForm.get('fee').setValue(0);
       this.bodyForm.get('amount').setValue(this.totalApplied.amountMaxBtc);
       console.log("===========> los totales por usd: ", this.totalApplied)
     }
@@ -182,13 +187,14 @@ export class SendCryptocurrenciesPage implements OnInit {
     this.bodyForm.value.fee = this.totalApplied.fee;
     if (this.bodyForm.value.amount != "" && this.bodyForm.value.fee != "" && this.bodyForm.value.to_address != "") {
       this.ctrlButtonSend = false;
+      this.feeAndSend = parseFloat(this.totalApplied.fee) + parseFloat(this.totalApplied.amountMaxBtc);
       if (this.pockets.balance >= this.feeAndSend) {
         await this.presentAlertSend()
       } else {
         await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes'})
       }
     } else {
-      await this.toastCtrl.presentToast({text: 'Por favor seleccione una prioridad o ingrese la direccion de destino'});
+      await this.toastCtrl.presentToast({text: 'Por favor llene todos los campos'});
     }
   }
 

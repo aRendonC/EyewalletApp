@@ -21,7 +21,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="7000" />
     <preference name="orientation" value="portrait" />
-    <preference name="Fullscreen" value="false" />
+    <preference name="Fullscreen" value="true" />
     <preference name="android-windowSoftInputMode" value="adjustResize|adjustPan" />
     <platform name="android">
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">

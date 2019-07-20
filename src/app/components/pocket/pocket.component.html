@@ -12,6 +12,7 @@
     <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" (click)="openPocketsModal()">
       <div style="margin-top: 0 !important;"  class="center-vertical center center-horizontal">
         <img  src="../../../assets/img/pocketsComponent/pockets.png"/>
+        &nbsp;
         <ion-label >{{pocket?.label}}</ion-label>
       </div>
     </ion-col>
@@ -25,7 +26,7 @@
     </ion-col>
   </ion-row>
   <ion-row style="padding: 0" *ngIf="ctrlNavigation === 2" class="z-pocket">
-    <ion-col style="padding: 0" size="3">
+    <ion-col style="padding: 0" size="3" (click)="openUrl('https://play.google.com/store/apps/details?id=com.eyewallet&hl=es')">
       <div class="qualify-button center-horizontal center-vertical center bounceInRight">
         <ion-label class="text-qualify">
           Calificar
@@ -50,12 +51,12 @@
     </ion-col>
   </ion-row>
   <ion-row style="padding: 0" *ngIf="ctrlNavigation === 3" class="z-pocket">
-    <ion-col style="padding: 0" size="3">
+    <ion-col style="padding: 0" size="3" (click)="openUrl('https://www.criptonoticias.com')">
       <div class="qualify-button center-horizontal center-vertical center bounceInRight">
         <ion-label class="text-qualify">
-          Calificar
+          Noticias
         </ion-label>
-        <img  class="image-qualify " src="../../assets/img/pocketsComponent/calificate.svg"/>
+        <img  class="image-qualify " src="../../assets/img/tabs/news.svg"/>
       </div>
       <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
     </ion-col>

@@ -12,7 +12,7 @@
     <ion-nav>
 
     </ion-nav>
-    <div class="bacgroundQRScanner center-horizontal center center-vertical">
+    <div style="margin-top: 30%" class="center-horizontal center center-vertical">
         <div style="width: 100%" [ngClass]="cssGradient">
             <!--<ion-button (click)="unSuscribed()">Cerrar</ion-button>-->
             <img style="width: 50%; filter: opacity(0.3)" src="../../assets/img/sendCripto/targetQr.png"/>
@@ -70,7 +70,7 @@
                         <ion-col size="6" align-self-center class="ion-text-right">
 
                             <ion-select [disabled]="!ctrlButtonSend" formControlName="priority" placeholder="Prioridad"
-                                        (ionChange)="getFeeTransaction()">
+                                        (ionBlur)="getFeeTransaction(false)">
                                 <ion-select-option value="1">Alta</ion-select-option>
                                 <ion-select-option value="2">Media</ion-select-option>
                                 <ion-select-option value="3">Baja</ion-select-option>

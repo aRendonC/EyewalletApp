@@ -13,6 +13,7 @@ import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {ToastService} from "../services/toast/toast.service";
 import {environment} from "../../environments/environment";
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -21,10 +22,10 @@ import {environment} from "../../environments/environment";
 export class ProfilePage implements OnInit {
   public userVerifications: any = {
     email: ''
-  }
+  };
   public type: string = 'avatar';
   urlAvatar = environment.urlAvatar;
-  avatar = null;
+  avatar: any = '';
   profileShow: any = {
     fullName: '',
     id: '',
@@ -74,9 +75,9 @@ export class ProfilePage implements OnInit {
 
   async getProfile() {
     this.userVerifications = await this.axios.get('user-verification/status', this.auth, null);
-    this.userVerifications = this.userVerifications.data
-    console.log(this.userVerifications)
-    this.setStorageVerification(this.userVerifications.data)
+    this.userVerifications = this.userVerifications.data;
+    console.log(this.userVerifications);
+    this.setStorageVerification(this.userVerifications.data);
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
     this.avatar = this.urlAvatar + this.profile.avatar;
@@ -123,6 +124,10 @@ export class ProfilePage implements OnInit {
             this.touchCtrl.isTouch = false;
             await this.loadingCtrl.present({});
             let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
+            console.log('foto seleccionada', takePhoto);
+            this.avatar = '';
+            this.avatar = await this.setPhoto(takePhoto);
+            console.log('this.avar-------->', this.avatar);
             if (takePhoto) {
               let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type, false);
               if (responsePhoto.status === 200) {
@@ -132,8 +137,9 @@ export class ProfilePage implements OnInit {
                 await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
                 this.profile.avatar = responsePhoto.data;
                 this.profile = this.aesjs.encrypt(this.profile);
-                await this.store.set('profile', this.profile)
+                await this.store.set('profile', this.profile);
 
+                await this.ngOnInit()
               } else {
                 this.touchCtrl.isTouch = true;
                 await this.loadingCtrl.dismiss();
@@ -148,7 +154,11 @@ export class ProfilePage implements OnInit {
             this.touchCtrl.isTouch = false;
             await this.loadingCtrl.present({});
             let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
+            console.log('foto seleccionada', selectPhoto);
             if (selectPhoto) {
+              this.avatar = '';
+              this.avatar = await this.setPhoto(selectPhoto);
+              console.log('this.avatar--------->', this.avatar);
               let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto, this.type, false);
               if (responsePhoto.status === 200) {
                 this.touchCtrl.isTouch = true;
@@ -158,7 +168,7 @@ export class ProfilePage implements OnInit {
                 this.profile.avatar = responsePhoto.data;
                 this.profile = this.aesjs.encrypt(this.profile);
                 await this.store.set('profile', this.profile)
-
+                await this.ngOnInit()
               } else {
                 this.touchCtrl.isTouch = true;
                 await this.loadingCtrl.dismiss();
@@ -217,5 +227,14 @@ export class ProfilePage implements OnInit {
   async setStorageVerification(userVerification) {
     const dataEncrypt = this.aesjs.encrypt(userVerification);
     await this.store.set('userVerification', dataEncrypt)
+  }
+  // decodePhoto(base64, name){
+  //  return fs.writeFile(name, base64, 'base64')
+  // }
+
+  setPhoto(base64){
+    return new Promise(resolve => {
+     resolve("data:image/jpeg;base64,"+ base64);
+    })
   }
 }

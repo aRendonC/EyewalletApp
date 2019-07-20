@@ -158,4 +158,8 @@ export class PocketComponent implements OnInit {
     await this.loadingCtrl.present({});
     await this.auth.logout()
   }
+
+  openUrl(url) {
+    window.open(url, '_blank')
+  }
 }
