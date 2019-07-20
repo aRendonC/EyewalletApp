@@ -1,14 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner/ngx";
-import {AxiosService} from "../services/axios/axios.service";
-import {AuthService} from "../services/auth/auth.service";
-import {AlertController} from "@ionic/angular";
-import {Storage} from "@ionic/storage";
-import {AesJsService} from "../services/aesjs/aes-js.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {LoadingService} from "../services/loading/loading.service";
-import {ToastService} from "../services/toast/toast.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
+import { AxiosService } from "../services/axios/axios.service";
+import { AuthService } from "../services/auth/auth.service";
+import { AlertController } from "@ionic/angular";
+import { Storage } from "@ionic/storage";
+import { AesJsService } from "../services/aesjs/aes-js.service";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { LoadingService } from "../services/loading/loading.service";
+import { ToastService } from "../services/toast/toast.service";
+import { TouchLoginService } from "../services/fingerprint/touch-login.service";
 
 @Component({
   selector: 'app-send-cryptocurrencies',
@@ -17,11 +18,14 @@ import {ToastService} from "../services/toast/toast.service";
 })
 export class SendCryptocurrenciesPage implements OnInit {
   @Input() public pockets: any = [];
+  public cssGradient = 'backGroundGradient';
+  public cssCtrlContents = true;
   totalSend: any = null;
   ctrlNavigation: number = 1;
   isOn = false;
   scanner: any;
   ctrlButtonSend: boolean = true;
+  totalApplied: any = {}
   bodyForm: FormGroup;
   placeHolder: any = '';
   body = {
@@ -33,17 +37,9 @@ export class SendCryptocurrenciesPage implements OnInit {
     description: 'descripcion',
     currencyId: ''
   };
-  totalApplied: any = {
-    percent: 0,
-    priceCriptoUsd: 0,
-    amountMin: 0,
-    amountMaxUsd: 0,
-    amountMaxBtc: 0
-  }
   fee: any = null;
   scanSub: any;
   feeAndSend: any = null;
-
   constructor(
     private route: ActivatedRoute,
     private qrScanner: QRScanner,
@@ -54,12 +50,12 @@ export class SendCryptocurrenciesPage implements OnInit {
     private aesjs: AesJsService,
     private toastCtrl: ToastService,
     private loadingCtrl: LoadingService,
-    private router: Router
-  ) {
-  }
+    private router: Router,
+    private touchCtrl: TouchLoginService
+  ) { }
 
 
-  async ngOnInit() {
+  ngOnInit() {
     this.bodyForm = new FormGroup({
       amount: new FormControl('', Validators.compose([
         Validators.required,
@@ -80,17 +76,20 @@ export class SendCryptocurrenciesPage implements OnInit {
     this.body.from_address = this.pockets.address
   }
 
-  async ionViewDidEnter() {
-    await this.getFeeTransaction();
-    await this.getPriceCripto()
-    await this.firstTransaction()
-  }
-
   presentQRScanner() {
     this.qrScanner.prepare()
       .then(async (status: QRScannerStatus) => {
+        this.touchCtrl.isTouch = false
         if (status.authorized) {
           this.isOn = true;
+          this.cssGradient = 'backGroundGradientQr';
+          this.cssCtrlContents = false;
+          // start scanning
+          this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
+            this.placeHolder = text;
+            this.bodyForm.get('to_address').setValue(text);
+            await this.unSuscribed()
+          });
 
           // start scanning
           this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
@@ -128,7 +127,7 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   async getPriceCripto() {
-    const data = await this.http.post('currency/price-cripto', {shortName: "BTC"}, this.auth);
+    const data = await this.http.post('currency/price-cripto', { shortName: "BTC" }, this.auth);
     this.totalApplied.priceCriptoUsd = data.data.USD
   }
 
@@ -156,33 +155,17 @@ export class SendCryptocurrenciesPage implements OnInit {
     }
   }
 
-  async calculateUSD(event) {
-    if (event.length <= 13) {
-      this.totalApplied.amountMaxBtc = (event / this.totalApplied.priceCriptoUsd).toFixed(8);
-      this.fee = ((this.totalApplied.amountMaxBtc * this.totalApplied.percent) / 100).toFixed(5)
-      this.bodyForm.value.amount = parseFloat(this.totalApplied.amountMaxBtc);
-      this.bodyForm.value.fee = this.fee
-      this.feeAndSend = this.totalApplied.amountMaxBtc + this.fee;
-    }
-  }
 
   async sendCoin() {
-    this.bodyForm.value.fee = this.fee
-    console.log(this.bodyForm.value)
-    console.log("formulario es valido: ", this.bodyForm.valid)
-    if (this.bodyForm.value.amount != "" && this.bodyForm.value.fee != "" && this.bodyForm.value.to_address != "") {
-      this.ctrlButtonSend = false;
-      console.log("=========> balance de la pocket ", this.pockets.balance)
-      console.log("=========> balance feeAndSend ", this.feeAndSend)
-      if (this.pockets.balance >= this.feeAndSend) {
-        await this.presentAlertSend()
-      } else {
-        await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes'})
-      }
+    console.log(this.bodyForm)
+    this.ctrlButtonSend = false;
+    if (this.pockets.balance >= this.feeAndSend) {
+      console.info('listo para enviar');
+      // await this.presentAlertSend()
     } else {
-      await this.toastCtrl.presentToast({text: 'Por favor seleccione una prioridad o ingrese la direccion de destino'});
+      await this.toastCtrl.presentToast({ text: 'No tiene fondos suficientes' })
     }
-  }
+  };
 
   async presentAlertSend() {
     const alert = await this.alerrtCtrl.create({
@@ -203,6 +186,7 @@ export class SendCryptocurrenciesPage implements OnInit {
           cssClass: 'secondary',
           handler: (alertData) => {
             this.ctrlButtonSend = true;
+            console.log(alertData);
           }
         }, {
           text: 'Ok',
@@ -216,36 +200,37 @@ export class SendCryptocurrenciesPage implements OnInit {
               this.bodyForm.value.pin = security;
               this.bodyForm.value.from_address = this.pockets.address;
               this.bodyForm.value.fee = this.fee;
+              console.log('body para enviar criptos', this.bodyForm);
               let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
               console.log('respuesta de la transaccion', response);
               if (response.status === 200) {
                 await this.loadingCtrl.dismiss();
-                await this.toastCtrl.presentToast({text: 'Transacción realizada con éxito'});
+                await this.toastCtrl.presentToast({ text: 'Transacción realizada con éxito' });
                 let dataResponse = await this.getPocketTransaction();
-                await this.store.set('pockets', this.pockets)
+                await this.store.set('pockets', this.pockets);
                 if (dataResponse.status === 200) {
                   dataResponse.pocket = this.pockets;
                   await this.store.set('transaction', dataResponse)
                 } else {
-                  await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+                  await this.toastCtrl.presentToast({ text: dataResponse.error.msg })
                 }
                 await this.router.navigate(['app/tabs/dashboard'])
               } else {
                 await this.loadingCtrl.dismiss();
-                await this.toastCtrl.presentToast({text: 'Hubo un error'})
+                await this.toastCtrl.presentToast({ text: 'Hubo un error' })
               }
             } else {
-              await this.toastCtrl.presentToast({text: 'Pin incorrecto'})
+              await this.toastCtrl.presentToast({ text: 'Pin incorrecto' })
             }
             this.ctrlButtonSend = true;
+            console.log('Confirm Ok');
           }
         }
       ]
     });
 
-    await alert.present();
-  }
 
+  }
   async getPocketTransaction() {
     let body = {
       userId: this.pockets.userId,
@@ -254,11 +239,4 @@ export class SendCryptocurrenciesPage implements OnInit {
     };
     return await this.http.post('transaction/index', body, this.auth);
   }
-
-
 }
-
-//
-//
-// this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8));
-// this.feeAndSend = (parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8)

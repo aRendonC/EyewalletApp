@@ -14,7 +14,6 @@ import {LoadingService} from '../services/loading/loading.service';
 import {BalanceComponent} from "../components/balance/balance.component";
 import { filter } from 'rxjs/operators'
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -22,6 +21,7 @@ import { filter } from 'rxjs/operators'
 })
 
 export class DashboardPage implements OnInit{
+  public ctrlCssBlur: boolean = false;
   @ViewChild(SlidersComponent) childD: SlidersComponent;
   @ViewChild(BalanceComponent) balanceComponent: BalanceComponent;
   ctrlNavigation = 0;
@@ -116,14 +116,12 @@ export class DashboardPage implements OnInit{
     this.crypto.amountPending = data.amountPending;
     await this.getTransactionHistory(data);
     await this.childD.grafica();
-    await this.loadingController.dismiss()
   }
 
   async getTransactionHistory(data: any) {
     this.transactionComponent = data.data;
     const btc = data.btc;
     this.transactionComponent.forEach(element => {
-      //
       const amountFinal = element.amount_finally;
       const amountDollar = (amountFinal * btc).toFixed(2);
       // extrae la hora de cada objeto
@@ -176,17 +174,19 @@ export class DashboardPage implements OnInit{
   }
 
   async getListTransactions() {
-    await this.loadingController.present({cssClass: 'textLoadingBlack'});
+    await this.loadingController.present({text: 'Recopilando información'});
+    this.ctrlCssBlur = true;
+
     let params = {
       userId: this.profile.userId,
       type: 0,
       address: this.pockets.address
     };
+
     let response = await this.http.post('transaction/index', params, this.auth);
     let dataTransaction = response.data;
     if (dataTransaction[0]) {
       await this.getTransactionHistory(response);
-      // this.balanceComponent.getTransactionAll(response);
       dataTransaction.forEach(element => {
         this.crypto.forEach(element1 => {
           if (element1.name === 'Bitcoin') {
@@ -200,10 +200,11 @@ export class DashboardPage implements OnInit{
       this.crypto.amountPending = response.amountPending;
       this.crypto[0].graphic = this.dataGraphic;
     } else {
-      // this.balanceComponent.getTransactionAll(null);
       this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       this.crypto[0].value = 0;
     }
-    await this.loadingController.dismiss()
+
+    await this.loadingController.dismiss();
+    this.ctrlCssBlur = false;
   }
 }

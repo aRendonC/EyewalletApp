@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
 
   async login() {
     await this.store.clear();
-    await this.loadingCtrl.present({});
+    await this.loadingCtrl.present({text: 'Cargando'});
     this.ctrlCssBlur = true;
     this.auth.login(this.username, this.password)
     .then(async (data: any) => {

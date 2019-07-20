@@ -61,7 +61,7 @@ export class RestorePage implements OnInit {
     });
   }
 
-  public validatePin(event: string): void {
+  public validatePin(event: any): void {
     if (utils.validatePin(event)) {
       this.dataRestorePassword.pin = event;
       this.pinOk = true;
@@ -111,38 +111,8 @@ export class RestorePage implements OnInit {
     return this.aesJs.encryptNoJson(pin);
   }
 
-  // private async presentToast() {
-  //   const toast = await this.toastController.create({
-  //     message: CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED,
-  //     duration: 3000
-  //   });
-  //
-  //   toast.present();
-  // }
-
-  private blockWallet(blockingCounter: number): void {
-    const keyDataLocal: string = 'storageBlockingData';
-
-    this.dataLocal.getDataLocal(keyDataLocal)
-    .then(response => {
-      this.validateStorageBlockingData(response, blockingCounter, keyDataLocal);
-    });
-  }
-
-  private async validateStorageBlockingData(response: any, blockingCounter: any, keyDataLocal: any) {
-    if (response === undefined || response === null || blockingCounter <= 2) {
-      this.dataLocal.setDataLocal(keyDataLocal, blockingCounter);
-      if (blockingCounter === 2) this.dataRestorePassword.blocked = true;
-    } else if (blockingCounter === 3) {
-      this.blockingCounter = 0;
-      this.dataLocal.setDataLocal(keyDataLocal, this.blockingCounter);
-      await this.toastController.presentToast({text: CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED});
-      this.router.navigate(['']);
-    }
-  }
-
   public async restorePassword(): Promise<any> {
-    await this.loadingCtrl.present({});
+    await this.loadingCtrl.present({text: 'Cambio de contraseña en proceso'});
     this.ctrlCssBlur = true;
     const path: string = 'auth/recovery';
 
@@ -168,16 +138,37 @@ export class RestorePage implements OnInit {
 
   private async validateResponseChangePassword(data: any): Promise<any> {
     if (data.status === 200) {
-      this.toastController.presentToast({text: 'Cambio de contraseña exitoso'});
       this.blockingCounter = 0;
       this.dataRestorePassword.blocked = false;
+      this.toastController.presentToast({text: 'Cambio de contraseña exitoso'});
       await this.router.navigate(['']);
-      // await this.loadingCtrl.dismiss()
     } else if (data.status === 500) {
       this.blockingCounter++;
-      this.blockWallet(this.blockingCounter);
-      // await this.loadingCtrl.dismiss()
+      await this.blockWallet(this.blockingCounter);
+      this.toastController.presentToast({text: 'Los datos ingresados estan errados'});
+    } else {
+      this.toastController.presentToast({text: 'Los datos ingresados estan errados'});
     }
   }
 
+  private async blockWallet(blockingCounter: number): Promise<any> {
+    const keyDataLocal: string = 'storageBlockingData';
+
+    this.dataLocal.getDataLocal(keyDataLocal)
+    .then(async response => {
+      await this.validateStorageBlockingData(response, blockingCounter, keyDataLocal);
+    });
+  }
+
+  private async validateStorageBlockingData(response: any, blockingCounter: any, keyDataLocal: any) {
+    if (response === undefined || response === null || blockingCounter <= 2) {
+      this.dataLocal.setDataLocal(keyDataLocal, blockingCounter);
+      if (blockingCounter === 2) this.dataRestorePassword.blocked = true;
+    } else if (blockingCounter === 3) {
+      this.blockingCounter = 0;
+      this.dataLocal.setDataLocal(keyDataLocal, this.blockingCounter);
+      await this.toastController.presentToast({text: CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED});
+      this.router.navigate(['']);
+    }
+  }
 }

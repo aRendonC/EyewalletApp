@@ -16,28 +16,28 @@
         </ion-item>
         <!-- Pais -->
         <ion-item class="white-line">
-            <ion-input class="white move-input" type="text" name="country" value={{country}} placeholder="Pais"></ion-input>
+            <ion-input class="white move-input" type="text" name="country" value={{bodyForm.country}} placeholder="Pais"></ion-input>
           <!-- <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" placeholder="País" display-format="YYYY-MM-DD" [(ngModel)]="bodyForm.country" [ngModelOptions]="{standalone: true}" (ionChange)="statesFn($event.detail.value)">
             <ion-select-option *ngFor="let country of countries" [value]="country[0]">{{country[1]}}</ion-select-option>
           </ion-select> -->
         </ion-item>
         <!-- Estado / Region / Provincia / Departamento -->
         <ion-item class="white-line">
-            <ion-input class="white move-input" type="text" name="state" value={{state}} placeholder="Estado / Region / Provincia / Departamento"></ion-input>
+            <ion-input class="white move-input" type="text" name="state" value={{bodyForm.state}} placeholder="Estado / Region / Provincia / Departamento"></ion-input>
             <!-- <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" type="number" name="state" [(ngModel)]="bodyForm.state" placeholder="Estado / Region / Provincia / Departamento" (ionChange)="citiesFn($event.detail.value)">
               <ion-select-option *ngFor="let state of states" [value]="state[0]">{{state[1]}}</ion-select-option>
             </ion-select> -->
         </ion-item>
         <!-- Ciudad -->
         <ion-item class="white-line">
-            <ion-input class="white move-input" type="text" name="city" value={{city}} placeholder="Ciudad"></ion-input>
+            <ion-input class="white move-input" type="text" name="city" value={{bodyForm.city}} placeholder="Ciudad"></ion-input>
             <!-- <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" type="number" name="city" [(ngModel)]="bodyForm.city" placeholder="Ciudad">
                 <ion-select-option *ngFor="let city of cities" [value]="city[0]">{{city[1]}}</ion-select-option>
             </ion-select> -->
         </ion-item>
         <!-- ZIP Code -->
         <ion-item class="white-line">
-            <ion-input type="number" name="ZIP" value={{zipCode}} placeholder="Código Postal"></ion-input>
+            <ion-input type="number" name="ZIP" value={{bodyForm.zipcode}} placeholder="Código Postal"></ion-input>
         </ion-item>
     </ion-list>
 
