@@ -51,10 +51,10 @@ mode="ios"
 			   </ion-card-content>
 		   </ion-card>
 		   <!-- Card de verificación de documentos -->
-		   <ion-card class="card-ver-width"  *ngIf="profile?.level === 1 && profile.completed === 0">
+		   <ion-card class="card-ver-width"  *ngIf="profile?.level === 1 && profile?.completed === 0">
 			   <ion-card-header>
 				   <ion-card-title class="card-ver-title">Documentos necesarios</ion-card-title>
-				   
+
 			   </ion-card-header>
 			   <ion-card-content style="height: 23vh;">
 				   <ion-grid>

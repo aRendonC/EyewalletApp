@@ -67,11 +67,11 @@ export class AddressPage implements OnInit {
 
 async ngOnInit() {
   // await this.getCountries();
-  this.checkGPSPermission();
-  this.menu.enable(false);
+  await this.checkGPSPermission();
+  // this.menu.enable(false);
 }
 ionViewDidLeave() {
-  this.menu.enable(true);
+  // this.menu.enable(true);
 }
 
 // async getCountries() {
@@ -100,7 +100,6 @@ ionViewDidLeave() {
 // }
 
 async getLocation() {
-
   // this.headers = new HttpHeaders({
   //   'Accept': 'application/json',
   //   'Content-Type': 'application/json',
@@ -112,7 +111,7 @@ async getLocation() {
     await this.http
     .get(`https://us1.locationiq.com/v1/reverse.php?key=pk.cce23ccc0da9140d669b1913c63e90cb&lat=${resp.coords.latitude}&lon=${resp.coords.longitude}&format=json`)
     .subscribe(
-      (data: any) => {
+      async (data: any) => {
         this.bodyForm.country = data.address.country
         this.bodyForm.state = data.address.state
         this.bodyForm.city = data.address.city
@@ -121,7 +120,7 @@ async getLocation() {
         // this.state = data.address.state;
         // this.city = data.address.city;
         // this.zipCode = data.address.postcode;
-        this.loadingCtrl.dismiss();
+        await this.loadingCtrl.dismiss();
         this.ctrlCssBlur = false;
       },
       (error) => {
@@ -133,27 +132,28 @@ async getLocation() {
    });
 }
 
-checkGPSPermission() {
-    this.touchCtrl.isTouch = false;
+async checkGPSPermission() {
+  await this.loadingCtrl.present({text: 'Obteniendo datos de localización...',  cssClass: 'textLoadingBlack'});
+  this.touchCtrl.isTouch = false;
   this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
-    async result => {
-      await this.loadingCtrl.dismiss();
-      if (result.hasPermission) {
-        // If having permission show 'Turn On GPS' dialogue
-        this.askToTurnOnGPS();
-        console.log('Me pide que encienda el GPS');
-      } else {
-        // If not having permission ask for permission
-        this.requestGPSPermission();
-        console.log('Si no tengo permiso pidame el permiso y entra a la funcion de requestGPSPermission');
-        this.ctrlCssBlur = false;
-      }
-    },
-    async err => {
-      await this.loadingCtrl.dismiss();
+      async result => {
+        await this.loadingCtrl.dismiss();
+        if (result.hasPermission) {
+          // If having permission show 'Turn On GPS' dialogue
+          await this.askToTurnOnGPS();
+          console.log('Me pide que encienda el GPS');
+        } else {
+          // If not having permission ask for permission
+          this.requestGPSPermission();
+          console.log('Si no tengo permiso pidame el permiso y entra a la funcion de requestGPSPermission');
+          this.ctrlCssBlur = false;
+        }
+      },
+      async err => {
+        await this.loadingCtrl.dismiss();
 
-      alert(err);
-    }
+        alert(err);
+      }
   );
 }
 
@@ -165,12 +165,13 @@ requestGPSPermission() {
       // Show 'GPS Permission Request' dialogue
       this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
         .then(
-          () => {
+          async () => {
             this.touchCtrl.isTouch = true;
             // call method to turn on GPS
-            this.askToTurnOnGPS();
+            await this.askToTurnOnGPS();
           },
           error => {
+            console.log(error)
             // this.loadingCtrl.dismiss();
             // this.ctrlCssBlur = false;
             // Show alert if user click on 'No Thanks'
@@ -186,9 +187,9 @@ requestGPSPermission() {
 
 async askToTurnOnGPS() {
   await this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
-    () => {
+    async () => {
       // When GPS Turned ON call method to get Accurate location coordinates
-      this.getLocation();
+      await this.getLocation();
       console.log('Obtiene mi localizacion ');
     },
     error => {
@@ -278,7 +279,7 @@ async askToTurnOnGPS() {
 // }
 
 async createProfile() {
-  this.loadingCtrl.present({
+  await this.loadingCtrl.present({
     text: 'Almacenando datos',
     cssClass: 'textLoadingBlack'
   });

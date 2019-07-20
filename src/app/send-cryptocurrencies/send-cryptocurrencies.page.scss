@@ -1,15 +1,21 @@
 @import '../../global.scss';
-
+.color-input{
+  border: 1px solid #3D95FF;
+  /* border-color: red; */
+  font-size: 11px;
+  /* border: blanchedalmond; */
+  border-radius: 50px;
+}
 .ReceiveFundsPage {
   //--padding-top: 40px;
   //--padding-bottom: 40px;
 
   .content-code-qr {
     background: white;
-    padding: 0 20px;
+    padding: 20px 20px;
     box-shadow: none;
     border-radius: 16px;
-    width: 80%;
+    width: 95%;
     height: auto;
     margin: auto;
     overflow: auto;
@@ -128,12 +134,13 @@ ion-content {
 }
 
 .backGroundGradientQr {
-  top: 15%;
+  top: 13%;
   --background: linear-gradient(rgba(20, 169, 255, 1) 0%, rgba(43, 132, 255, 1) 21.26%, rgba(128, 0, 255, 1) 180%);
 }
 .positionForm{
   position: static;
   bottom: 0;
+  margin-top: 7px;
 }
 .bacground-header{
   --background: linear-gradient(rgba(20, 169, 255, 1) 0%, rgba(43, 132, 255, 1) 21.26%, rgba(128, 0, 255, 1) 180%);

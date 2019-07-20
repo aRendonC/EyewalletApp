@@ -38,7 +38,7 @@ export class UploadFilesModalPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.profile = await this.store.get('profile')
+    this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile)
   }
 
@@ -128,9 +128,9 @@ export class UploadFilesModalPage implements OnInit {
     let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
     console.log('respuesta de las fotos', responsePhoto);
     if (responsePhoto.status === 200) {
-      this.profile.complete = responsePhoto.verification.complete;
-      let profileVerification = this.aesjs.encrypt(this.profile)
-      await this.store.set('profile', profileVerification)
+      this.profile.completed = responsePhoto.verification.completed;
+      let profileVerification = this.aesjs.encrypt(this.profile);
+      await this.store.set('profile', profileVerification);
       await this.setStorageVerification(responsePhoto.verification);
       await this.loadingCtrl.dismiss();
       this.ctrlSelfie = false;
@@ -147,9 +147,9 @@ export class UploadFilesModalPage implements OnInit {
     let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
     console.log('respuesta de las fotos', responsePhoto);
     if (responsePhoto.status === 200) {
-      this.profile.complete = responsePhoto.verification.complete;
-      let profileVerification = this.aesjs.encrypt(this.profile)
-      await this.store.set('profile', profileVerification)
+      this.profile.completed = responsePhoto.verification.completed;
+      let profileVerification = this.aesjs.encrypt(this.profile);
+      await this.store.set('profile', profileVerification);
       await this.setStorageVerification(responsePhoto.verification);
       await this.loadingCtrl.dismiss();
       this.ctrlDocument = false;
@@ -166,9 +166,9 @@ export class UploadFilesModalPage implements OnInit {
     let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
     console.log('respuesta de las fotos', responsePhoto);
     if (responsePhoto.status === 200) {
-      this.profile.complete = responsePhoto.verification.complete;
-      let profileVerification = this.aesjs.encrypt(this.profile)
-      await this.store.set('profile', profileVerification)
+      this.profile.completed = responsePhoto.verification.completed;
+      let profileVerification = this.aesjs.encrypt(this.profile);
+      await this.store.set('profile', profileVerification);
       await this.setStorageVerification(responsePhoto.verification);
       await this.loadingCtrl.dismiss();
       this.ctrlDocumentBack = false;
@@ -185,9 +185,9 @@ export class UploadFilesModalPage implements OnInit {
     let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
     console.log('respuesta de las fotos', responsePhoto);
     if (responsePhoto.status === 200) {
-      this.profile.complete = responsePhoto.verification.complete;
-      let profileVerification = this.aesjs.encrypt(this.profile)
-      await this.store.set('profile', profileVerification)
+      this.profile.completed = responsePhoto.verification.completed;
+      let profileVerification = this.aesjs.encrypt(this.profile);
+      await this.store.set('profile', profileVerification);
       await this.setStorageVerification(responsePhoto.verification);
       await this.loadingCtrl.dismiss();
       this.ctrlDocumentAddress = false;

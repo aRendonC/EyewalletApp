@@ -43,6 +43,7 @@ export class LoginPage implements OnInit {
 
   async login() {
     await this.store.clear();
+    console.log('el store se está limpiando en el login', await this.store.keys())
     await this.loadingCtrl.present({text: 'Cargando'});
     this.ctrlCssBlur = true;
     this.auth.login(this.username, this.password)

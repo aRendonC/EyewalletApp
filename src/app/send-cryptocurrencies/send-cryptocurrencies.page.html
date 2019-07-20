@@ -2,7 +2,7 @@
   <ion-header translucent>
     <ion-toolbar class="bacground-header">
       <ion-buttons slot="start">
-        <ion-button color="white">
+        <ion-button style="color: white" color="white">
           <ion-icon slot="icon-only" name="md-arrow-round-back"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -26,34 +26,20 @@
     <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
   </div>
   <form #formulario="ngForm" [formGroup]="bodyForm" class="positionForm">
-    <ion-card class="content-code-qr" [class.show-qr-scanner]="isOn">
-
+    <ion-card class="content-code-qr center" [class.show-qr-scanner]="isOn">
       <div class="code-qr-header" (click)="presentQRScanner()">
-        <span class="title"></span>
-
-        <div class="content-icon-amount">
+        <div class="content-icon-amount center">
           <ion-label>Escanea aquí tu código QR o copia la dirección de tu wallet</ion-label>
-          <span class="amount"></span>
         </div>
       </div>
-
-          <div class="content-buttons-qr">
-            <ion-input [disabled]="!ctrlButtonSend" (ionBlur)="getFeeTransaction()" style="font-size: 11px;"
-              formControlName="to_address" type="text" [placeholder]="placeHolder" class="input"></ion-input>
-          </div>
-
-          <div class="content-code-qr-chil" (click)="presentQRScanner()">
-            <ion-img style="width: 50%" src="../../assets/img/sendCripto/cameraImage.png"></ion-img>
-          </div>
-
-          <div class="content-buttons-qr">
-            <ion-input [disabled]="!ctrlButtonSend" (ionBlur)="getFeeTransaction()" style="font-size: 11px;"
-              formControlName="to_address" type="text" [placeholder]="placeHolder" class="input"></ion-input>
-          </div>
-
-
-
-        </ion-card>
+      <div class="content-code-qr-chil center-horizontal center-vertical" (click)="presentQRScanner()">
+        <ion-img  src="../../assets/img/sendCripto/cameraImage.png"></ion-img>
+      </div>
+      <div class="content-buttons-qr color-input">
+        <ion-input [disabled]="!ctrlButtonSend" (ionBlur)="getFeeTransaction()" style="font-size: 11px;" formControlName="to_address" type="text" [placeholder]="placeHolder" class="input">
+            </ion-input>
+      </div>
+    </ion-card>
 
         <ion-card>
             <ion-list justify-content-center>

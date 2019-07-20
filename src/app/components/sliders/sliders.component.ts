@@ -87,6 +87,7 @@ export class SlidersComponent implements OnInit {
   async getProfileStore(){
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
+    console.log('perfil componente slider', this.profile)
   }
 
   async setProfileStore(){
@@ -172,6 +173,7 @@ export class SlidersComponent implements OnInit {
       console.error('se está cerrando el modal con este dato', profile);
       if(profile.data != undefined) {
         this.profile.level = profile.level
+        this.profile.completed = profile.completed
       }
     });
     return await modalVerification.present()
