@@ -1,9 +1,31 @@
-<ion-content id="QRScaner" class="ReceiveFundsPage backGroundGradient" [class.show-qr-scanner]="isOn">
-  <div class="contentdash">
+<ion-content (click)="unSuscribed()" [class.display-none]="cssCtrlContents" style="--background: none transparent;">
+  <ion-header translucent [ngClass]="cssGradient">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="unSuscribed()">
+          <ion-icon slot="icon-only" name="md-arrow-round-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-nav  >
+
+  </ion-nav>
+  <div class="bacgroundQRScanner" >
+    <div style="width: 100%" [ngClass]="cssGradient">
+      <!--<ion-button (click)="unSuscribed()">Cerrar</ion-button>-->
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-content id="QRScaner" class="ReceiveFundsPage" [ngClass]="cssGradient">
+  <div class="contentdash" [class.show-qr-scanner]="isOn">
     <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
   </div>
-  <form #formulario="ngForm" [formGroup]="bodyForm">
-  <ion-card class="content-code-qr"  >
+  <form #formulario="ngForm" [formGroup]="bodyForm" class="positionForm">
+  <ion-card class="content-code-qr" [class.show-qr-scanner]="isOn" >
 
     <div class="code-qr-header" (click)="presentQRScanner()">
       <span class="title"></span>
@@ -21,7 +43,13 @@
       </div>
 
       <div class="content-buttons-qr">
-        <ion-input [disabled]="!ctrlButtonSend" (ionBlur)="getFeeTransaction()" style="font-size: 11px;" formControlName="to_address" type="text" [placeholder]="placeHolder"  class="input"></ion-input>
+        <ion-input
+                [disabled]="!ctrlButtonSend"
+                (ionBlur)="getFeeTransaction()"
+                style="font-size: 11px;" formControlName="to_address"
+                type="text"
+                [placeholder]="placeHolder"
+                class="input"></ion-input>
       </div>
 
     </div>
@@ -60,4 +88,4 @@
   </form>
 </ion-content>
 
-<ion-button [class.show-qr-scanner]="!isOn" (click)="unSuscribed()">Cerrar</ion-button>
+

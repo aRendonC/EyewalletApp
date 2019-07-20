@@ -15,10 +15,10 @@ import {LoadingService} from '../services/loading/loading.service';
   styleUrls: ['./create-profile.page.scss'],
 })
 export class CreateProfilePage implements OnInit {
-  public ctrlCssBlur = false;
+  public ctrlCssBlur = false
   public firstname: '';
   public lastname: '';
-  public birthdate: '';
+  public birthdate: any = null;
   private user: any = null;
   public bodyForm: any = {};
   public identification: 0;
@@ -46,32 +46,34 @@ export class CreateProfilePage implements OnInit {
   // Esta función me lleva a la pagina que tiene dirección pero primero envia los
   // datos del form a la API medinte un put request
   async address() {
-    await this.loadingCtrl.present({
-      cssClass: 'textLoadingBlack'});;
-    this.ctrlCssBlur = true;
-    // Nombre
-    this.user = await this.store.get('profile');
-    this.user = this.aes.decrypt(this.user);
-    this.bodyForm = {
-      userId: this.user.userId,
-      firstName: this.firstname,
-      lastName: this.lastname,
-      zipcode: '',
-      identification: this.identification,
-      birthDay: this.birthdate.slice(0, 10),
-      state: '',
-      country: '',
-      city: ''
-    };
-    // const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
-    const response = await this.axios.put(`profile/${this.bodyForm.userId}/update`, this.bodyForm, this.aut);
-    if (response.status === 200) {
-      await this.router.navigate(['/address']);
-      // this.store.set('user', JSON.stringify(response.data));
-      // console.log( await this.store.set('user', JSON.stringify(response.data)));
-    } else {
-      await this.loadingCtrl.dismiss();
-      this.ctrlCssBlur = false;
+    if(this.birthdate) {
+      this.ctrlCssBlur = true
+      await this.loadingCtrl.present({});
+      // Nombre
+      this.user = await this.store.get('profile');
+      this.user = this.aes.decrypt(this.user);
+      this.bodyForm = {
+        userId: this.user.userId,
+        firstName: this.firstname,
+        lastName: this.lastname,
+        zipcode: '',
+        identification: this.identification,
+        birthDay: this.birthdate.slice(0, 10),
+        state: '',
+        country: '',
+        city: ''
+      };
+      // const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
+      const response = await this.axios.put(`profile/${this.bodyForm.userId}/update`, this.bodyForm, this.aut);
+      if (response.status === 200) {
+        this.ctrlCssBlur = false
+        await this.router.navigate(['/address']);
+        // this.store.set('user', JSON.stringify(response.data));
+        // console.log( await this.store.set('user', JSON.stringify(response.data)));
+      } else {
+        this.ctrlCssBlur = false
+        await this.loadingCtrl.dismiss();
+      }
     }
   }
 }

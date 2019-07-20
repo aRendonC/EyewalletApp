@@ -113,3 +113,25 @@ ion-content {
   --border-radius: 16.93px;
   --background: linear-gradient(#61a6fb 0%, #6384fa 19.86%, #6d00f9 100%);
 }
+
+.display-none{
+  display: none;
+}
+
+.display-block{
+  display: block;
+}
+.bacgroundQRScanner{
+  text-align: center;
+  height: 100%;
+
+}
+
+.backGroundGradientQr {
+  top: 20%;
+  --background: linear-gradient(rgba(20, 169, 255, 1) 0%, rgba(43, 132, 255, 1) 21.26%, rgba(128, 0, 255, 1) 180%);
+}
+.positionForm{
+  position: fixed;
+  bottom: 0;
+}

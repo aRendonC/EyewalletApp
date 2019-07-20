@@ -9,6 +9,7 @@ import {AesJsService} from "../services/aesjs/aes-js.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
+import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 
 @Component({
   selector: 'app-send-cryptocurrencies',
@@ -17,6 +18,8 @@ import {ToastService} from "../services/toast/toast.service";
 })
 export class SendCryptocurrenciesPage implements OnInit {
   @Input() public pockets: any = [];
+  public cssGradient = 'backGroundGradient';
+  public cssCtrlContents = true;
     totalSend: any = null;
     ctrlNavigation: number = 1;
     isOn  = false;
@@ -46,7 +49,8 @@ export class SendCryptocurrenciesPage implements OnInit {
       private aesjs: AesJsService,
       private toastCtrl: ToastService,
       private loadingCtrl: LoadingService,
-      private router: Router
+      private router: Router,
+      private touchCtrl: TouchLoginService
   ) { }
 
 
@@ -76,7 +80,8 @@ export class SendCryptocurrenciesPage implements OnInit {
             .then(async (status: QRScannerStatus) => {
                 if (status.authorized) {
                     this.isOn = true;
-
+                    this.cssGradient = 'backGroundGradientQr';
+                    this.cssCtrlContents = false;
                     // start scanning
                      this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
                         this.placeHolder = text;
@@ -101,7 +106,10 @@ export class SendCryptocurrenciesPage implements OnInit {
 
     async unSuscribed() {
         this.isOn = false;
+        this.cssGradient = 'backGroundGradient';
+        this.cssCtrlContents = true;
         let element = document.getElementById('QRScaner');
+        console.log(element);
         element.classList.remove('show-qr-scanner');
        await this.qrScanner.destroy();
         this.scanSub.unsubscribe();
@@ -173,7 +181,7 @@ export class SendCryptocurrenciesPage implements OnInit {
                                 await this.loadingCtrl.dismiss();
                                await this.toastCtrl.presentToast({text: 'Transacción realizada con éxito'});
                                 let dataResponse = await this.getPocketTransaction();
-                                await this.store.set('pockets',  this.pockets)
+                                await this.store.set('pockets',  this.pockets);
                                 if(dataResponse.status === 200) {
                                     dataResponse.pocket = this.pockets;
                                   await this.store.set('transaction', dataResponse)
