@@ -8,7 +8,7 @@
   <div class="box">
   <div class="mt7vw">
       <ion-item class="ion-items" *ngFor="let validation of validations">
-        <ion-label class="validations" (click) = "openModal(validation.value)">{{validation.text}}</ion-label>
+        <ion-label class="validations" (click) = "openModal(validation.value, validation.img)">{{validation.text}}</ion-label>
       </ion-item>
   </div>
   </div>

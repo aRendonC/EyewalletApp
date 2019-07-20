@@ -13,26 +13,19 @@
       <!-- Usuario -->
       <ion-item class="transparent white-line">
         <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
-        <ion-input 
-          class="white move-input"
-          type="number"
-          name="username"
-          formControlName="pin" 
-          [placeholder]="constants.PIN.ENTER_PIN"
-        ></ion-input>
+        <ion-input  class="white move-input" type="number" name="username" formControlName="pin"  [placeholder]="constants.PIN.ENTER_PIN"></ion-input>
       </ion-item>
       <!-- Contraseña -->
     </ion-list>
     <div class="move-btn">
       <ion-button
-        [disabled]="false"
-        type="submit"
-        [ngClass]="classButton"
-        mode="ios"
-        expand="full"
-        text-capitalize
-        shape="round"
-      >Crear Pin</ion-button>
+              [disabled]="!bodyForm.valid"
+              type="submit"
+              [ngClass]="classButton"
+              mode="ios"
+              expand="full"
+              text-capitalize
+              shape="round">Crear Pin</ion-button>
     </div>
   </form>
 </ion-content>
