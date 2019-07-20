@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../verification-modal/verification-modal.page';
+import {PinModalPage} from '../pin-modal/pin-modal.page';
 import {enterAnimation} from '../animations/enter';
 import {leaveAnimation} from '../animations/leave';
 import {DataLocalService} from '../services/data-local/data-local.service';
@@ -11,8 +12,8 @@ import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
-import {BalanceComponent} from "../components/balance/balance.component";
-import { filter } from 'rxjs/operators'
+import {BalanceComponent} from '../components/balance/balance.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -60,8 +61,8 @@ export class DashboardPage implements OnInit{
     this.router.events.pipe(
         filter(event => event instanceof NavigationStart)
     ).subscribe((route: NavigationStart) => {
-      console.log('Route: '+route.url)
-      this.getTransactionsSend()
+      console.log('Route: ' + route.url);
+      this.getTransactionsSend();
     });
   }
 
@@ -87,7 +88,15 @@ export class DashboardPage implements OnInit{
       enterAnimation: enterAnimation,
       leaveAnimation: leaveAnimation,
     });
+    return await modal.present();
+  }
 
+  async Modal() {
+    const modal = await this.modalCtrl.create({
+      component: PinModalPage,
+      enterAnimation,
+      leaveAnimation,
+    });
     return await modal.present();
   }
 
