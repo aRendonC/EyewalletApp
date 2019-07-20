@@ -11,7 +11,6 @@ import {LoadingService} from '../services/loading/loading.service';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
-import { async } from '@angular/core/testing';
 
 
 @Component({
@@ -268,7 +267,9 @@ async askToTurnOnGPS() {
 
 async createProfile() {
   this.loadingCtrl.present({
-    cssClass: 'textLoadingBlack'});
+    text: 'Almacenando datos',
+    cssClass: 'textLoadingBlack'
+  });
   this.ctrlCssBlur = true;
   this.user = await this.store.get('profile');
   this.user = this.aes.decrypt(this.user);
