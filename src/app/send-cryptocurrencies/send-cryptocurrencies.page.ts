@@ -78,6 +78,7 @@ export class SendCryptocurrenciesPage implements OnInit {
     presentQRScanner() {
         this.qrScanner.prepare()
             .then(async (status: QRScannerStatus) => {
+                this.touchCtrl.isTouch = false
                 if (status.authorized) {
                     this.isOn = true;
                     this.cssGradient = 'backGroundGradientQr';
@@ -105,6 +106,7 @@ export class SendCryptocurrenciesPage implements OnInit {
     }
 
     async unSuscribed() {
+        this.touchCtrl.isTouch = true
         this.isOn = false;
         this.cssGradient = 'backGroundGradient';
         this.cssCtrlContents = true;
