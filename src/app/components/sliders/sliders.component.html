@@ -51,21 +51,23 @@ mode="ios"
 			   </ion-card-content>
 		   </ion-card>
 		   <!-- Card de verificación de documentos -->
-		   <ion-card class="card-ver-width"  *ngIf="profile?.level === 1">
+		   <ion-card class="card-ver-width"  *ngIf="profile?.level === 1 && profile.completed === 0">
 			   <ion-card-header>
 				   <ion-card-title class="card-ver-title">Documentos necesarios</ion-card-title>
+				   
 			   </ion-card-header>
-			   <ion-card-content>
+			   <ion-card-content style="height: 23vh;">
 				   <ion-grid>
 					   <ion-row>
 						   <ion-col size="12">
 							   <p class="card-ver-titlesub">Tenemos algunos problemas con los documentos que nos ha proporcionado.Por favor, intente de nuevo para continuar</p>
 						   </ion-col>
 						   <ion-col size="12">
-							   <button class="btn-aceptar" (click)="verification()">Aceptar</button>
+							   <button class="btn-aceptar" (click)="verificationPage()">Aceptar</button>
 						   </ion-col>
 					   </ion-row>
 				   </ion-grid>
+				<img class="img-verify" src="../../../assets/img/bg-verify.svg" />
 			   </ion-card-content>
 		   </ion-card>
 		   <!-- Fin card de verificación de documentos -->

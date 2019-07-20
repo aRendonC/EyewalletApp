@@ -19,7 +19,9 @@ import {environment} from "../../environments/environment";
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  public userVerifications: any = null;
+  public userVerifications: any = {
+    email: ''
+  }
   public type: string = 'avatar';
   urlAvatar = environment.urlAvatar;
   avatar = null;
@@ -57,6 +59,7 @@ export class ProfilePage implements OnInit {
   ) {
     this.temporizador = this.timer.temporizador;
   }
+
   async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     this.profile = await this.store.get('profile');
@@ -73,13 +76,16 @@ export class ProfilePage implements OnInit {
     this.userVerifications = await this.axios.get('user-verification/status', this.auth, null);
     this.userVerifications = this.userVerifications.data
     console.log(this.userVerifications)
+    this.setStorageVerification(this.userVerifications.data)
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
     this.avatar = this.urlAvatar + this.profile.avatar;
     this.profileShow.id = this.profile.user.id;
     this.profileShow.phone = this.profile.phone;
     this.profileShow.date = this.profile.createdAt.slice(0, 10);
-    if (this.profile.user.email) {this.profileShow.mail = this.profile.user.email; }
+    if (this.profile.user.email) {
+      this.profileShow.mail = this.profile.user.email;
+    }
     this.lowercaseNames(this.profile.user.firstName);
     this.profile.user.firstName = this.word;
     this.lowercaseNames(this.profile.user.lastName);
@@ -119,7 +125,7 @@ export class ProfilePage implements OnInit {
             let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
             if (takePhoto) {
               let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type, false);
-              if(responsePhoto.status === 200) {
+              if (responsePhoto.status === 200) {
                 this.touchCtrl.isTouch = true;
                 this.avatar = this.urlAvatar + responsePhoto.data;
                 await this.loadingCtrl.dismiss();
@@ -144,7 +150,7 @@ export class ProfilePage implements OnInit {
             let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
             if (selectPhoto) {
               let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto, this.type, false);
-              if(responsePhoto.status === 200) {
+              if (responsePhoto.status === 200) {
                 this.touchCtrl.isTouch = true;
                 this.avatar = this.urlAvatar + responsePhoto.data;
                 await this.loadingCtrl.dismiss();
@@ -183,22 +189,33 @@ export class ProfilePage implements OnInit {
   notifications() {
     this.toastCtrl.presentToast({text: 'Próximamente'});
   }
+
   safety() {
     this.toastCtrl.presentToast({text: 'Próximamente'});
   }
+
   terms() {
     this.toastCtrl.presentToast({text: 'Próximamente'});
   }
+
   invite() {
     this.toastCtrl.presentToast({text: 'Próximamente'});
   }
+
   deleteAccount() {
     this.toastCtrl.presentToast({text: 'Próximamente'});
   }
+
   secondFactor() {
     this.toastCtrl.presentToast({text: 'Próximamente'});
   }
+
   eyewalletWeb() {
     this.toastCtrl.presentToast({text: 'Próximamente'});
+  }
+
+  async setStorageVerification(userVerification) {
+    const dataEncrypt = this.aesjs.encrypt(userVerification);
+    await this.store.set('userVerification', dataEncrypt)
   }
 }

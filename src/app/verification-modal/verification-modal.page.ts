@@ -4,8 +4,9 @@ import * as CONSTANTS from '../constanst';
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {AuthService} from "../services/auth/auth.service";
 import {AxiosService} from "../services/axios/axios.service";
-import {ModalController, ToastController} from "@ionic/angular";
+import {ModalController} from "@ionic/angular";
 import {Router} from "@angular/router";
+import {ToastService} from "../services/toast/toast.service";
 @Component({
   selector: 'app-verification-modal',
   templateUrl: './verification-modal.page.html',
@@ -25,7 +26,7 @@ export class VerificationModalPage implements OnInit {
       private http: AxiosService,
       private modalCtrl: ModalController,
       private router: Router,
-      private toastCtrl: ToastController
+      private toastCtrl: ToastService
   ) { }
 
   ngOnInit() {
@@ -67,19 +68,19 @@ export class VerificationModalPage implements OnInit {
       await this.closeModal(profile)
       profile = this.aesjs.encrypt(profile)
       await this.store.set('profile', profile)
-      await this.presentToast('Teléfono ha sido verificado correctamente')
+      await this.toastCtrl.presentToast({text: 'Teléfono ha sido verificado correctamente'})
     } else {
-      await this.presentToast('Error de código')
+      await this.toastCtrl.presentToast({text: 'Error de código'})
       //poner el toast de error, muchas gracias.
     }
   }
 
-  async presentToast(text) {
-    const toast = await this.toastCtrl.create({
-      message: text,
-      duration: 2000
-    });
-   await toast.present();
-  }
+  // async presentToast(text) {
+  //   const toast = await this.toastCtrl.create({
+  //     message: text,
+  //     duration: 2000
+  //   });
+  //  await toast.present();
+  // }
 
 }

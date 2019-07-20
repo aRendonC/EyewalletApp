@@ -59,7 +59,7 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   private async getDataListPockets(): Promise<any[]> {
-    const dataPockets = await this.storage.get('pockets');
+    const dataPockets = await this.storage.get('pocket');
     return this.aesJsService.decrypt(dataPockets)
   }
 

@@ -15,7 +15,6 @@
          font-family: $font-semibold;
          font-size: 17px;
          color: white;
-         text-transform: capitalize;
       }
    }
 
@@ -45,6 +44,10 @@
                --placeholder-color: white;
                color: white;
                margin-left: 20px;
+            }
+
+            .icon-success-error {
+               width: 24px;
             }
          }
       }

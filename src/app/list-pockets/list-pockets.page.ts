@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ModalController, NavParams, ToastController} from '@ionic/angular';
+import {ModalController, NavParams} from '@ionic/angular';
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
@@ -20,7 +20,7 @@ export class ListPocketsPage implements OnInit {
     currencyId:  null,
     userId: null
   };
-  public currencies: {} = [];
+  public currencies: any = [];
   private userId: number;
   @Input() pockets: any = [];
 
@@ -44,6 +44,8 @@ export class ListPocketsPage implements OnInit {
 
   async getCriptoCurrencies() {
     this.currencies = await this.http.get('currency/index', this.auth, null);
+    console.log(this.currencies)
+    this.currencies = this.currencies.data
   }
 
   async createPocket() {
@@ -51,20 +53,23 @@ export class ListPocketsPage implements OnInit {
       this.ctrlCreatePocket = false;
       await this.getCriptoCurrencies()
     } else {
-      await this.loadingCtrl.present({})
-      this.ctrlButtonCreate = true;
-      let profile = await this.store.get('profile');
-      profile = this.aesjs.decrypt(profile);
-      this.params.userId = profile.id;
-      let response = await this.http.post('user-wallet/create', this.params, this.auth);
-      if(response.status === 200) {
-        await this.loadingCtrl.dismiss()
-        await this.toastCtrl.presentToast({text: 'Pocket creado correctamente'});
-        await this.closeModal(null)
+      if( this.params.label) {
+        await this.loadingCtrl.present({});
+        this.ctrlButtonCreate = true;
+        let profile = await this.store.get('profile');
+        profile = this.aesjs.decrypt(profile);
+        this.params.userId = profile.id;
+        let response = await this.http.post('user-wallet/create', this.params, this.auth);
+        if(response.status === 200) {
+          await this.loadingCtrl.dismiss();
+          await this.toastCtrl.presentToast({text: 'Pocket creado correctamente'});
+          await this.closeModal(null)
+        } else {
+          await this.toastCtrl.presentToast({text: response.error.msg});
+          await this.loadingCtrl.dismiss();
+          this.ctrlButtonCreate = false
+        }
       }
-      await this.toastCtrl.presentToast({text: response.error.msg});
-      await this.loadingCtrl.dismiss()
-      this.ctrlButtonCreate = false
     }
   }
 

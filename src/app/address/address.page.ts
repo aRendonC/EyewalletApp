@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {LoadingController, MenuController, ToastController} from '@ionic/angular';
+import {MenuController} from '@ionic/angular';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {AxiosService} from '../services/axios/axios.service';
 import {LoadingService} from '../services/loading/loading.service';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
+import { async } from '@angular/core/testing';
 
 
 @Component({
@@ -17,6 +20,8 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   styleUrls: ['./address.page.scss'],
 })
 export class AddressPage implements OnInit {
+  public classButton = 'button-disable';
+  public ctrlCssBlur = false;
   public arrayCountries: any = [];
   public arrayStates: any = [];
   public selectedCountry = '';
@@ -54,13 +59,15 @@ export class AddressPage implements OnInit {
     private aes: AesJsService,
     private axios: AxiosService,
     private loadingCtrl: LoadingService,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private androidPermissions: AndroidPermissions,
+    private locationAccuracy: LocationAccuracy
   ) { }
 
 async ngOnInit() {
   // await this.getCountries();
+  this.checkGPSPermission();
   this.menu.enable(false);
-  this.getLocation();
 }
 ionViewDidLeave() {
   this.menu.enable(true);
@@ -110,6 +117,7 @@ async getLocation() {
         this.city = data.address.city;
         this.zipCode = data.address.postcode;
         this.loadingCtrl.dismiss();
+        this.ctrlCssBlur = false;
       },
       (error) => {
         console.log(error);
@@ -120,7 +128,64 @@ async getLocation() {
    });
 }
 
+checkGPSPermission() {
+  this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
+    async result => {
+      if (result.hasPermission) {
+        // If having permission show 'Turn On GPS' dialogue
+        this.askToTurnOnGPS();
+        console.log('Me pide que encienda el GPS');
+      } else {
+        // If not having permission ask for permission
+        this.requestGPSPermission();
+        console.log('Si no tengo permiso pidame el permiso y entra a la funcion de requestGPSPermission');
+        await this.loadingCtrl.dismiss();
+        this.ctrlCssBlur = false;
+      }
+    },
+    err => {
+      alert(err);
+    }
+  );
+}
 
+requestGPSPermission() {
+  this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+    if (canRequest) {
+      console.log('4');
+    } else {
+      // Show 'GPS Permission Request' dialogue
+      this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
+        .then(
+          () => {
+            // call method to turn on GPS
+            this.askToTurnOnGPS();
+          },
+          error => {
+            // this.loadingCtrl.dismiss();
+            // this.ctrlCssBlur = false;
+            // Show alert if user click on 'No Thanks'
+            // alert('requestPermission Error requesting location permissions ' + error);
+          }
+        );
+    }
+  });
+}
+
+
+async askToTurnOnGPS() {
+  await this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+    () => {
+      // When GPS Turned ON call method to get Accurate location coordinates
+      this.getLocation();
+      console.log('Obtiene mi localizacion ');
+    },
+    error => {
+      console.log('Error requesting location permissions ' + JSON.stringify(error));
+    }
+    //  alert('Error requesting location permissions ' + JSON.stringify(error))
+  );
+}
 
 //  statesFn(selectedCountry) {
 //     this.cities = []
@@ -204,6 +269,7 @@ async getLocation() {
 async createProfile() {
   this.loadingCtrl.present({
     cssClass: 'textLoadingBlack'});
+  this.ctrlCssBlur = true;
   this.user = await this.store.get('profile');
   this.user = this.aes.decrypt(this.user);
   this.bodyForm.userId = this.user.id;
@@ -211,11 +277,15 @@ async createProfile() {
   if (response.status === 200) {
     let profile: any = await this.axios.get(`profile/${this.user.id}/view`, this.aut, null);
     profile = this.aes.encrypt(profile.data);
+    await this.loadingCtrl.dismiss();
+    this.ctrlCssBlur = false;
     await this.store.set('profile', profile);
     await this.router.navigate(['app/tabs']);
     // await this.store.set('user', JSON.stringify(response.data));
   } else {
     await this.loadingCtrl.dismiss();
+    this.ctrlCssBlur = false;
+    await this.router.navigate(['app/tabs']);
   }
 }
 

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AxiosService} from '../axios/axios.service';
-import {MenuController, ModalController, ToastController} from '@ionic/angular';
+import {MenuController, ModalController} from '@ionic/angular';
 import {TimerService} from '../timer/timer.service';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
@@ -23,7 +23,6 @@ export class AuthService {
 
   constructor(
       private  api: AxiosService,
-      private toastController: ToastController,
       private timer: TimerService,
       private router: Router,
       private menu: MenuController,

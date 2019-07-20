@@ -1,6 +1,6 @@
 // Dependencies.
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController} from '@ionic/angular';
 import { Router } from '@angular/router';
 import {Storage} from "@ionic/storage";
 
@@ -9,6 +9,7 @@ import { AxiosService } from '../services/axios/axios.service';
 import { AuthService } from '../services/auth/auth.service';
 import { LoadingService } from '../services/loading/loading.service';
 import {AesJsService} from "../services/aesjs/aes-js.service";
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-modal-invoice',
@@ -36,7 +37,7 @@ export class ModalInvoicePage implements OnInit {
     private axiosService: AxiosService,
     private authService: AuthService,
     private loadingServices: LoadingService,
-    private toastController: ToastController,
+    private toastController: ToastService,
     private storage: Storage,
     private aesjs: AesJsService
   ) { }
@@ -85,12 +86,12 @@ export class ModalInvoicePage implements OnInit {
         await this.storage.set('profile', profile)
         console.log()
       } else if (responsePay.status === 401) {
-        await this.presentToast(responsePay.error.msg);
+        await this.toastController.presentToast({text: responsePay.error.msg});
       } else {
-        await this.presentToast('Error de conexión');
+        await this.toastController.presentToast({text: 'Error de conexión'});
       }
     }else{
-      await this.presentToast('Este pocket no tiene saldo suficiente. Pot favor seleccione otro pocket');
+      await this.toastController.presentToast({text: 'Este pocket no tiene saldo suficiente. Pot favor seleccione otro pocket'});
     }
   }
 
@@ -111,14 +112,5 @@ export class ModalInvoicePage implements OnInit {
       await this.loadingServices.dismiss();
       console.error('Connection error: ', error);
     });
-  }
-
-  private async presentToast(message: string) {
-    const toast = await this.toastController.create({
-      message,
-      duration: 3000
-    });
-
-    toast.present();
   }
 }

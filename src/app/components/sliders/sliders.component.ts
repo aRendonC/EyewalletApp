@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
 import {Storage} from '@ionic/storage';
@@ -8,6 +8,9 @@ import {leaveAnimation} from '../../animations/leave';
 import { Chart } from 'chart.js';
 import {AesJsService} from '../../services/aesjs/aes-js.service';
 import {IonSlides} from "@ionic/angular";
+import {AxiosService} from "../../services/axios/axios.service";
+import {AuthService} from "../../services/auth/auth.service";
+import {filter} from "rxjs/operators";
 
 
 @Component({
@@ -53,18 +56,42 @@ export class SlidersComponent implements OnInit {
       private store: Storage,
       private aesjs: AesJsService,
       private router: Router,
+      private http: AxiosService,
+      private auth: AuthService
   ) {
-
+    this.router.events.pipe(
+        filter(event => event instanceof NavigationStart)
+    ).subscribe((route: NavigationStart) => {
+      console.log('Route: '+route.url)
+      this.getProfileStore()
+    });
   }
 
 
   async ngOnInit() {
+    let userVerifications: any = await this.http.get('user-verification/status', this.auth, null);
+    console.log(userVerifications)
+    userVerifications = userVerifications.data
+    const dataEncrypt = this.aesjs.encrypt(userVerifications);
+    await this.store.set('userVerification', dataEncrypt)
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
+    this.profile.completed = userVerifications.completed
+    await this.setProfileStore()
+    console.log('profile del usuario',this.profile)
     this.nameSlider = this.name;
-    console.log(this.name)
     this.dataGraphic = this.name[0];
     await this.grafica();
+  }
+
+  async getProfileStore(){
+    this.profile = await this.store.get('profile');
+    this.profile = this.aesjs.decrypt(this.profile);
+  }
+
+  async setProfileStore(){
+    let profile = this.aesjs.encrypt(this.profile)
+    await this.store.set('profile', profile)
   }
 
   async grafica(){
@@ -151,7 +178,7 @@ export class SlidersComponent implements OnInit {
   }
 
   // Esta función envia a la verificación de documentos
-  verification() {
+  verificationPage() {
     this.router.navigate(['/upload-verification-files']);
   }
   async cambioDeSlider(slideView2) {

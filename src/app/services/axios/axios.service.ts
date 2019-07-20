@@ -60,7 +60,6 @@ export class AxiosService {
         authorization: 'Bearer ' + await user.accessParam()
       });
     }
-    console.log('este es el header en el post', this.headers);
     return this.http.post(url, (body != null) ? body : body, {
       headers: this.headers
     }).toPromise();
@@ -75,9 +74,6 @@ export class AxiosService {
         authorization: 'Bearer ' + await user.accessParam()
       });
     }
-    console.log(body);
-    console.log(user);
-    console.log(this.headers);
     return this.http.put(url, (body != null) ? body : body, {
       headers: this.headers
     }).toPromise();

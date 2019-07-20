@@ -14,8 +14,9 @@
   --ion-background-color:white;
 }
 .imgLogo{
-  height: 70vh;
-  width: auto;
+  width: 40%;
+  height: 40%;
+  padding: 10vw 0vw 10vw 0vw;
   margin: auto;
   display: block;
 }
@@ -35,7 +36,7 @@ ion-col{
 }
 
 .background-image{
-  --background: url(../../assets/img/touchId/backGroundTouch.svg) no-repeat center center / cover;
+  --background: linear-gradient(#14a9ff 8%, #2b84ff 51.26%, #8000ff 191%);
   --background-size: cover;
 }
 ion-list{
