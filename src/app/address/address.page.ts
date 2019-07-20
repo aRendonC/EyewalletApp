@@ -279,7 +279,9 @@ async askToTurnOnGPS() {
 
 async createProfile() {
   this.loadingCtrl.present({
-    cssClass: 'textLoadingBlack'});
+    text: 'Almacenando datos',
+    cssClass: 'textLoadingBlack'
+  });
   this.ctrlCssBlur = true;
   this.user = await this.store.get('profile');
   this.user = this.aes.decrypt(this.user);

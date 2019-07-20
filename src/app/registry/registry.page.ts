@@ -1,9 +1,7 @@
 // Dependencies.
 import { Component, OnInit } from '@angular/core';
-import validator from 'validator';
 
 // Navigations.
-import { ToastController } from '@ionic/angular';
 import { Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 
@@ -12,13 +10,13 @@ import { AxiosService } from '../services/axios/axios.service';
 import {DeviceService} from "../services/device/device.service";
 import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
+import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 
 // Constants.
 import * as CONSTANTS from '../constanst';
 
 // Utils.
 import * as utils from '../../assets/utils';
-import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 
 @Component({
   selector: 'app-registry',
@@ -134,12 +132,12 @@ export class RegistryPage implements OnInit {
     this.classButton = this.disableButton ? 'button-disable' : 'button-enable';
   }
 
-  public async sendDataRegistry() {
-    await this.loadingCtrl.present({});
+  public async sendDataRegistry(): Promise<any> {
+    await this.loadingCtrl.present({text: 'Creando billetera'});
     this.ctrlCssBlur = true;
-   let device = await this.device.getDataDevice();
-   console.log('datos del dispositivo', device);
-   if(!device.uuid) device.uuid = '987654321';
+    let device = await this.device.getDataDevice();
+    console.log('datos del dispositivo', device);
+    if(!device.uuid) device.uuid = '987654321';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
@@ -150,31 +148,31 @@ export class RegistryPage implements OnInit {
 
     this.register.post(urlRegistry, dataBody)
     .then(async response => {
-      if (response.status === 200) {
-        await this.store.set('user', response.data);
-        this.touchCtrl.isTouch = true;
-        await this.router.navigate(['/registry-pin'], {
-        queryParams: {
-        user: JSON.stringify(response.data),
-        password: JSON.stringify(this.dataRegistry.password)
-        },
-        queryParamsHandling: 'merge'
-        });
-        await this.loadingCtrl.dismiss();
-        this.ctrlCssBlur = false;
-      } else {
-        await this.toastCtrl.presentToast({text: response.error.msg})
-        await this.loadingCtrl.dismiss()
-        this.ctrlCssBlur = false;
-      }
+      await this.validateRegistry(response);
+      await this.loadingCtrl.dismiss();
+      this.ctrlCssBlur = false;
+    })
+    .catch(async error => {
+      await this.loadingCtrl.dismiss();
+      this.ctrlCssBlur = false;
+      await this.toastCtrl.presentToast({text: 'Errorres de conexión'});
     });
   }
 
-  // async presentToast(text) {
-  //   const toast = await this.toastCtrl.create({
-  //     message: text,
-  //     duration: 2000
-  //   });
-  //    await toast.present();
-  // }
+  private async validateRegistry(response: any): Promise<any> {
+    if (response.status === 200) {
+      await this.store.set('user', response.data);
+      this.touchCtrl.isTouch = true;
+      await this.router.navigate(['/registry-pin'], {
+        queryParams: {
+          user: JSON.stringify(response.data),
+          password: JSON.stringify(this.dataRegistry.password)
+        },
+        queryParamsHandling: 'merge'
+      });
+      await this.toastCtrl.presentToast({text: 'Por favor cree un pin de 6 dígitos'});
+    } else {
+      await this.toastCtrl.presentToast({text: response.error.msg});
+    }
+  }
 }

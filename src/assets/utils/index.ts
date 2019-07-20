@@ -22,15 +22,6 @@ export const validateEmail = (data: string): boolean => {
    } else {
       return false;
    }
-
-   // if (
-   //    !validator.isEmpty(data) &&
-   //    validator.isMobilePhone(data, CONSTANTS.LOCATION_PHONE_NUMBER)
-   // ) {
-   //    return true;
-   // } else {
-   //    return false;
-   // }
 }
 
 export const validatePassword = (data: string): boolean => {
