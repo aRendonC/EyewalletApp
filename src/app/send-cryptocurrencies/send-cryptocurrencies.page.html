@@ -36,17 +36,6 @@
           <span class="amount"></span>
         </div>
       </div>
-      <form #formulario="ngForm" [formGroup]="bodyForm">
-        <ion-card class="content-code-qr">
-
-          <div class="code-qr-header" (click)="presentQRScanner()">
-            <span class="title"></span>
-
-            <div class="content-icon-amount">
-              <ion-label>Escanea aquí tu código QR o copia la dirección de tu wallet</ion-label>
-              <span class="amount"></span>
-            </div>
-          </div>
 
           <div class="content-buttons-qr">
             <ion-input [disabled]="!ctrlButtonSend" (ionBlur)="getFeeTransaction()" style="font-size: 11px;"
@@ -62,7 +51,7 @@
               formControlName="to_address" type="text" [placeholder]="placeHolder" class="input"></ion-input>
           </div>
 
-          </div>
+
 
         </ion-card>
 

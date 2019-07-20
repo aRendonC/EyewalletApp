@@ -114,7 +114,10 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   async unSuscribed() {
-    this.isOn = false;
+      this.touchCtrl.isTouch = true
+      this.isOn = false;
+      this.cssGradient = 'backGroundGradient';
+      this.cssCtrlContents = true;
     let element = document.getElementById('QRScaner');
     element.classList.remove('show-qr-scanner');
     await this.qrScanner.destroy();
