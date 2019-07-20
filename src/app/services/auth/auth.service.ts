@@ -41,6 +41,7 @@ export class AuthService {
     if (!device.uuid) {
       device.uuid = '7219d0c4ee046311';
       // device.uuid = '37cd19cb5739fb4';
+    //  device.uuid = '928e019bd3cdb0fa';
     }
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
