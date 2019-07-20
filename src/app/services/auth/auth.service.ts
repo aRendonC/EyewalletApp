@@ -4,7 +4,7 @@ import {MenuController, ModalController} from '@ionic/angular';
 import {TimerService} from '../timer/timer.service';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
-import { DeviceService } from '../device/device.service';
+import {DeviceService} from '../device/device.service';
 import {PinModalPage} from '../../pin-modal/pin-modal.page';
 import {AesJsService} from '../aesjs/aes-js.service';
 import {LoadingService} from '../loading/loading.service';
@@ -22,43 +22,45 @@ export class AuthService {
   };
 
   constructor(
-      private  api: AxiosService,
-      private timer: TimerService,
-      private router: Router,
-      private menu: MenuController,
-      private store: Storage,
-      private device: DeviceService,
-      private modalCtrl: ModalController,
-      private aesjs: AesJsService,
-      private loadingCtrl: LoadingService
+    private  api: AxiosService,
+    private timer: TimerService,
+    private router: Router,
+    private menu: MenuController,
+    private store: Storage,
+    private device: DeviceService,
+    private modalCtrl: ModalController,
+    private aesjs: AesJsService,
+    private loadingCtrl: LoadingService
   ) {
     // this.persistenceLogin();
   }
+
 // This function is a loginService, parameter required user, password
   async login(user, password) {
     const device: any = await this.device.getDataDevice();
-    console.log('device del usuario', device)
-    if (!device.uuid) {device.uuid = '7219d0c4ee046311'; }
+    if (!device.uuid) {
+      device.uuid = '37cd19cb5739fb4';
+    }
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
         .then(async (data: any) => {
-          if(data.status === 200) {
-              this.usuario = data.data;
-              await this.store.set('user', this.usuario);
-              await this.setUserProfile(data.data.profile);
-              // this.timer.iniciarTemporizador();
-              resolve(data);
+          if (data.status === 200) {
+            this.usuario = data.data;
+            await this.store.set('user', this.usuario);
+            await this.setUserProfile(data.data.profile);
+            // this.timer.iniciarTemporizador();
+            resolve(data);
           } else if (data.status === 404) {
             //no existe usuario
             resolve(data.error.msg)
-          } else if(data.status === 401) {
+          } else if (data.status === 401) {
             resolve(data.error.msg)
             //no está autorizado por credenciales (puede estar registrado)
-          } else if(data.status === 500) {
+          } else if (data.status === 500) {
             resolve(data.error.msg)
             //error de la plataforma o datos incorrectos
           } else {
-              resolve(null);
+            resolve(null);
           }
         })
         .catch(err => console.log('error data response', err));
@@ -67,12 +69,12 @@ export class AuthService {
     });
   }
 
-    async setUserProfile(profile) {
-        profile = this.aesjs.encrypt(profile);
-        await this.store.set('profile', profile);
-    }
+  async setUserProfile(profile) {
+    profile = this.aesjs.encrypt(profile);
+    await this.store.set('profile', profile);
+  }
 
- async accessParam() {
+  async accessParam() {
     this.usuario = await this.store.get('user');
     if (this.usuario != null) {
       return this.usuario.accessToken;
@@ -92,7 +94,7 @@ export class AuthService {
       component: PinModalPage,
       componentProps: {
         paramID: 123,
-        paramTitle : 'Test title'
+        paramTitle: 'Test title'
       }
     });
 

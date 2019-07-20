@@ -17,201 +17,248 @@ import {ToastService} from "../services/toast/toast.service";
 })
 export class SendCryptocurrenciesPage implements OnInit {
   @Input() public pockets: any = [];
-    totalSend: any = null;
-    ctrlNavigation: number = 1;
-    isOn  = false;
-    scanner: any;
-    ctrlButtonSend: boolean = true;
-    bodyForm: FormGroup;
-    placeHolder: any = '';
-    body = {
-        amount: '',
-        to_address: '',
-        priority: '',
-        from_address: '',
-        pin: '',
-        description: 'descripcion',
-        currencyId: ''
-    };
-    fee: any = null;
-    scanSub: any;
-    feeAndSend: any = null;
+  totalSend: any = null;
+  ctrlNavigation: number = 1;
+  isOn = false;
+  scanner: any;
+  ctrlButtonSend: boolean = true;
+  bodyForm: FormGroup;
+  placeHolder: any = '';
+  body = {
+    amount: '',
+    to_address: '',
+    priority: '',
+    from_address: '',
+    pin: '',
+    description: 'descripcion',
+    currencyId: ''
+  };
+  totalApplied: any = {
+    percent: 0,
+    priceCriptoUsd: 0,
+    amountMin: 0,
+    amountMaxUsd: 0,
+    amountMaxBtc: 0
+  }
+  fee: any = null;
+  scanSub: any;
+  feeAndSend: any = null;
+
   constructor(
-      private route: ActivatedRoute,
-      private qrScanner: QRScanner,
-      private http: AxiosService,
-      protected auth: AuthService,
-      private alerrtCtrl: AlertController,
-      protected store: Storage,
-      private aesjs: AesJsService,
-      private toastCtrl: ToastService,
-      private loadingCtrl: LoadingService,
-      private router: Router
-  ) { }
-
-
-  ngOnInit() {
-      this.bodyForm = new FormGroup({
-          amount: new FormControl('', Validators.compose([
-              Validators.required,
-              Validators.maxLength(8)
-          ])),
-          to_address: new FormControl('', Validators.compose([
-              Validators.required
-              ])),
-          priority: new FormControl('', Validators.compose([
-              Validators.required
-          ])),
-          from_address: new FormControl(''),
-          description: new FormControl(''),
-          currencyId: new FormControl(''),
-          fee: new FormControl('')
-      });
-    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
-      this.body.from_address = this.pockets.address
+    private route: ActivatedRoute,
+    private qrScanner: QRScanner,
+    private http: AxiosService,
+    protected auth: AuthService,
+    private alerrtCtrl: AlertController,
+    protected store: Storage,
+    private aesjs: AesJsService,
+    private toastCtrl: ToastService,
+    private loadingCtrl: LoadingService,
+    private router: Router
+  ) {
   }
 
-    presentQRScanner() {
-        this.qrScanner.prepare()
-            .then(async (status: QRScannerStatus) => {
-                if (status.authorized) {
-                    this.isOn = true;
 
-                    // start scanning
-                     this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
-                        this.placeHolder = text;
-                         this.bodyForm.get('to_address').setValue(text);
-                        await this.unSuscribed()
-                    });
+  async ngOnInit() {
+    this.bodyForm = new FormGroup({
+      amount: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.maxLength(8)
+      ])),
+      to_address: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      priority: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      from_address: new FormControl(''),
+      description: new FormControl(''),
+      currencyId: new FormControl(''),
+      fee: new FormControl('')
+    });
+    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
+    this.body.from_address = this.pockets.address
+  }
 
-                    await this.qrScanner.show();
+  async ionViewDidEnter() {
+    await this.getFeeTransaction();
+    await this.getPriceCripto()
+    await this.firstTransaction()
+  }
+
+  presentQRScanner() {
+    this.qrScanner.prepare()
+      .then(async (status: QRScannerStatus) => {
+        if (status.authorized) {
+          this.isOn = true;
+
+          // start scanning
+          this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
+            this.placeHolder = text;
+            this.bodyForm.get('to_address').setValue(text);
+            await this.unSuscribed()
+          });
+
+          await this.qrScanner.show();
 
 
-                } else if (status.denied) {
-                    // camera permission was permanently denied
-                    // you must use QRScanner.openSettings() method to guide the user to the settings page
-                    // then they can grant the permission from there
-                    this.qrScanner.openSettings();
-                } else {
-                    // permission was denied, but not permanently. You can ask for permission again at a later time.
-                }
-            })
-            .catch((e: any) => console.log('Error is', e));
-    }
-
-    async unSuscribed() {
-        this.isOn = false;
-        let element = document.getElementById('QRScaner');
-        element.classList.remove('show-qr-scanner');
-       await this.qrScanner.destroy();
-        this.scanSub.unsubscribe();
-    }
-
-    async getFeeTransaction() {
-      if(this.bodyForm.value.to_address && this.bodyForm.value.amount) {
-          console.log(this.bodyForm);
-          this.fee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
-          console.log(this.fee);
-          if(this.fee.status === 200) {
-              this.fee = this.fee.data;
-              this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8));
-              this.feeAndSend = (parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8)
-              // this.totalSend = this.fee.error_message
-          }
-      } else {
-          console.log('falta un campo')
-      }
-    }
-
-    async sendCoin() {
-        this.ctrlButtonSend = false;
-        if(this.pockets.balance >= this.feeAndSend) {
-            console.info('listo para enviar');
-            await this.presentAlertSend()
+        } else if (status.denied) {
+          // camera permission was permanently denied
+          // you must use QRScanner.openSettings() method to guide the user to the settings page
+          // then they can grant the permission from there
+          this.qrScanner.openSettings();
         } else {
-            await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes'})
+          // permission was denied, but not permanently. You can ask for permission again at a later time.
         }
-    }
+      })
+      .catch((e: any) => console.log('Error is', e));
+  }
 
-    async presentAlertSend() {
-        const alert = await this.alerrtCtrl.create({
-            backdropDismiss: false,
-            header: 'Ingresa tu PIN',
-            keyboardClose: false,
-            inputs: [
-                {
-                    name: 'pin',
-                    type: 'text',
-                    placeholder: 'Ingrese su pin',
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-                    cssClass: 'secondary',
-                    handler: (alertData) => {
-                        this.ctrlButtonSend = true;
-                        console.log(alertData);
-                    }
-                }, {
-                    text: 'Ok',
-                    handler: async (alertData) => {
-                        let security = await this.store.get('user');
-                        security = this.aesjs.decryptNoJson(security.pin);
-                        if(security === alertData.pin) {
-                            await this.loadingCtrl.present({});
-                            security = this.aesjs.encryptNoJson(security);
-                            this.bodyForm.value.currencyId = this.pockets.currencyId;
-                            this.bodyForm.value.pin = security;
-                            this.bodyForm.value.from_address = this.pockets.address;
-                            this.bodyForm.value.fee = this.fee;
-                            console.log('body para enviar criptos', this.bodyForm);
-                            let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
-                            console.log('respuesta de la transaccion', response);
-                            if (response.status === 200) {
-                                await this.loadingCtrl.dismiss();
-                               await this.toastCtrl.presentToast({text: 'Transacción realizada con éxito'});
-                                let dataResponse = await this.getPocketTransaction();
-                                await this.store.set('pockets',  this.pockets)
-                                if(dataResponse.status === 200) {
-                                    dataResponse.pocket = this.pockets;
-                                  await this.store.set('transaction', dataResponse)
-                                } else {
-                                    await this.toastCtrl.presentToast({text: dataResponse.error.msg})
-                                }
-                                await this.router.navigate(['app/tabs/dashboard'])
-                            } else {
-                                await this.loadingCtrl.dismiss();
-                                await this.toastCtrl.presentToast({text: 'Hubo un error'})
-                            }
-                        } else {
-                            await this.toastCtrl.presentToast({text: 'Pin incorrecto'})
-                        }
-                        this.ctrlButtonSend = true;
-                        console.log('Confirm Ok');
-                    }
+  async unSuscribed() {
+    this.isOn = false;
+    let element = document.getElementById('QRScaner');
+    element.classList.remove('show-qr-scanner');
+    await this.qrScanner.destroy();
+    this.scanSub.unsubscribe();
+  }
+
+  async getFeeTransaction() {
+    const dataFee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
+    this.totalApplied.percent = dataFee.porcentaje;
+  }
+
+  async getPriceCripto() {
+    const data = await this.http.post('currency/price-cripto', {shortName: "BTC"}, this.auth);
+    this.totalApplied.priceCriptoUsd = data.data.USD
+  }
+
+  async firstTransaction() {
+    this.totalApplied.amountMin = (parseFloat(String(0.001)) + parseFloat(String((0.001 * this.totalApplied.percent) / 100))).toFixed(5);
+    this.totalApplied.amountMaxBtc = (this.pockets.balance / (1 + (this.totalApplied.percent / 100))).toFixed(8)
+    this.totalApplied.amountMaxUsd = (this.pockets.balance * this.totalApplied.priceCriptoUsd).toFixed(5);
+    this.fee = ((this.totalApplied.amountMaxBtc * this.totalApplied.percent) / 100).toFixed(5)
+    this.bodyForm.value.amount = parseFloat(this.totalApplied.amountMaxBtc);
+
+    this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8));
+    this.feeAndSend = this.pockets.balance;
+    this.bodyForm.value.fee = this.fee
+
+    console.log(this.bodyForm.value)
+  }
+
+  async calculateBTC(event) {
+    if (event.length <= 13) {
+      this.totalApplied.amountMaxUsd = (event * this.totalApplied.priceCriptoUsd).toFixed(5);
+      this.fee = ((event * this.totalApplied.percent) / 100).toFixed(5)
+      this.bodyForm.value.amount = parseFloat(event);
+      this.bodyForm.value.fee = this.fee
+      this.feeAndSend = event + this.fee;
+    }
+  }
+
+  async calculateUSD(event) {
+    if (event.length <= 13) {
+      this.totalApplied.amountMaxBtc = (event / this.totalApplied.priceCriptoUsd).toFixed(8);
+      this.fee = ((this.totalApplied.amountMaxBtc * this.totalApplied.percent) / 100).toFixed(5)
+      this.bodyForm.value.amount = parseFloat(this.totalApplied.amountMaxBtc);
+      this.bodyForm.value.fee = this.fee
+      this.feeAndSend = this.totalApplied.amountMaxBtc + this.fee;
+    }
+  }
+
+  async sendCoin() {
+    this.bodyForm.value.fee = this.fee
+    console.log(this.bodyForm.value)
+    console.log("formulario es valido: ", this.bodyForm.valid)
+    if (this.bodyForm.value.amount != "" && this.bodyForm.value.fee != "" && this.bodyForm.value.to_address != "") {
+      this.ctrlButtonSend = false;
+      console.log("=========> balance de la pocket ", this.pockets.balance)
+      console.log("=========> balance feeAndSend ", this.feeAndSend)
+      if (this.pockets.balance >= this.feeAndSend) {
+        await this.presentAlertSend()
+      } else {
+        await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes'})
+      }
+    } else {
+      await this.toastCtrl.presentToast({text: 'Por favor seleccione una prioridad o ingrese la direccion de destino'});
+    }
+  }
+
+  async presentAlertSend() {
+    const alert = await this.alerrtCtrl.create({
+      backdropDismiss: false,
+      header: 'Ingresa tu PIN',
+      keyboardClose: false,
+      inputs: [
+        {
+          name: 'pin',
+          type: 'text',
+          placeholder: 'Ingrese su pin',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (alertData) => {
+            this.ctrlButtonSend = true;
+          }
+        }, {
+          text: 'Ok',
+          handler: async (alertData) => {
+            let security = await this.store.get('user');
+            security = this.aesjs.decryptNoJson(security.pin);
+            if (security === alertData.pin) {
+              await this.loadingCtrl.present({});
+              security = this.aesjs.encryptNoJson(security);
+              this.bodyForm.value.currencyId = this.pockets.currencyId;
+              this.bodyForm.value.pin = security;
+              this.bodyForm.value.from_address = this.pockets.address;
+              this.bodyForm.value.fee = this.fee;
+              let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
+              console.log('respuesta de la transaccion', response);
+              if (response.status === 200) {
+                await this.loadingCtrl.dismiss();
+                await this.toastCtrl.presentToast({text: 'Transacción realizada con éxito'});
+                let dataResponse = await this.getPocketTransaction();
+                await this.store.set('pockets', this.pockets)
+                if (dataResponse.status === 200) {
+                  dataResponse.pocket = this.pockets;
+                  await this.store.set('transaction', dataResponse)
+                } else {
+                  await this.toastCtrl.presentToast({text: dataResponse.error.msg})
                 }
-            ]
-        });
+                await this.router.navigate(['app/tabs/dashboard'])
+              } else {
+                await this.loadingCtrl.dismiss();
+                await this.toastCtrl.presentToast({text: 'Hubo un error'})
+              }
+            } else {
+              await this.toastCtrl.presentToast({text: 'Pin incorrecto'})
+            }
+            this.ctrlButtonSend = true;
+          }
+        }
+      ]
+    });
 
-        await alert.present();
-    }
+    await alert.present();
+  }
 
-    // async presentToast(text) {
-    //     const toast = await this.toastCtrl.create({
-    //         message: text,
-    //         duration: 2000
-    //     });
-    //     await toast.present();
-    // }
+  async getPocketTransaction() {
+    let body = {
+      userId: this.pockets.userId,
+      type: 0,
+      address: this.pockets.address
+    };
+    return await this.http.post('transaction/index', body, this.auth);
+  }
 
-    async getPocketTransaction() {
-        let body = {
-            userId: this.pockets.userId,
-            type: 0,
-            address: this.pockets.address
-        };
-        return await this.http.post('transaction/index', body, this.auth);
-    }
+
 }
+
+//
+//
+// this.totalSend = 'Total del envío ' + ((parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8));
+// this.feeAndSend = (parseFloat(this.bodyForm.value.amount) + parseFloat(this.fee)).toFixed(8)
