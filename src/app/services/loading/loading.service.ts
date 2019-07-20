@@ -29,7 +29,7 @@ export class LoadingService {
       spinner: 'hide',
       cssClass: `loadingSpinner ${cssClass}`,
     };
-
+    console.log(options);
     return await this.loadingCtrl.create(options)
     .then(a => {
       this.labelContent = document.getElementsByTagName('app-tabs');

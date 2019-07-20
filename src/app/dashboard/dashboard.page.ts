@@ -174,7 +174,7 @@ export class DashboardPage implements OnInit{
   }
 
   async getListTransactions() {
-    await this.loadingController.present({text: 'Recopilando información'});
+    await this.loadingController.present({text: 'Recopilando información', cssClass: 'textLoadingBlack'});
     this.ctrlCssBlur = true;
 
     let params = {
