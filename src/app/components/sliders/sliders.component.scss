@@ -24,8 +24,13 @@
 .contentBitcoin{
     width: 100%;
     height: 100%;
-    background-image:  url('../../../assets/img/bg-dashboard.png');
-    background-position: 0em -2cm;
+    background-image:  url('../../../assets/img/logoBtc.svg');
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+ion-content{
+--ion-background-color:  #00ABE1 !important;
 }
 
 .card-content-md {
@@ -63,7 +68,7 @@
 .cardwith{
     opacity: 1;
     height: 25%;
-    background: linear-gradient(-17deg, #97f5f9 -30%, #7ed5f6 -45%, #529df3 44%, #4781df 118%, #2d3cad 131%, #2d3cad 106%, #2d3cad 188%);
+    background: linear-gradient(-17deg, rgba(151, 245, 249, 0.4) -30%, rgba(126, 213, 246, 0.4) -45%, rgba(82, 157, 243, 0.4) 44%, rgba(82, 157, 243, 0.4) 118%, rgba(45, 60, 173, 0.4) 131%, rgba(45, 60, 173, 0.6) 106%, rgba(45, 60, 173, 0.4) 188%);
 }
 
 .card-title{
@@ -101,13 +106,28 @@
     text-align: left;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
+    position: relative;
+    z-index: 3;
 }
 
 .card-ver-width{
     background: #8BB5EA;
-    background-image: url("../../../assets/img/bg-verify.png");
+    //background-image: url("../../../assets/img/bg-verify.svg");
     background-repeat: no-repeat;
     background-position: right;
+    opacity: 5;
+    position: relative;
+    z-index: 1;
+
+}
+
+.img-verify{
+    width: 20vh;
+    opacity: 0.4;
+    position: relative;
+    z-index: 2;
+    top: -100%;
+    left: 71%;
 }
 
 .btn-continuar{
@@ -201,6 +221,7 @@
     padding: 0;
     font-size: 16px;
     line-height: 1.4;
+    widows: 50px;
 }
 
 .btn-aceptar{
@@ -212,6 +233,8 @@
     font-size: 3.8vw;
     padding: 2vw 13vw;
     border-radius: 1.5vw;
+    position: relative;
+    z-index: 3;
 }
 //.swiper-container {
 //    width: 100%;

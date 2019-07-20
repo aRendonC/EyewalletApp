@@ -65,7 +65,6 @@ export class DashboardPage implements OnInit{
     });
   }
 
-
   async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     await this.getUserProfile();
@@ -116,6 +115,7 @@ export class DashboardPage implements OnInit{
     this.crypto.amountPending = data.amountPending;
     await this.getTransactionHistory(data);
     await this.childD.grafica();
+    await this.loadingController.dismiss()
   }
 
   async getTransactionHistory(data: any) {
