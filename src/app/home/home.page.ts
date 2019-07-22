@@ -37,7 +37,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.touchCtrl.isLocked = true;
+    this.touchCtrl.isTouch = false;
   }
 
   async login() {

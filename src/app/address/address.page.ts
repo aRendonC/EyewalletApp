@@ -116,7 +116,6 @@ export class AddressPage implements OnInit {
                 this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
                     .then(
                         async () => {
-                            this.touchCtrl.isTouch = true;
                             // call method to turn on GPS
                             await this.askToTurnOnGPS();
                         },
