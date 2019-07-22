@@ -71,6 +71,11 @@ export class DashboardPage implements OnInit{
     await this.getUserProfile();
     await this.getListTransactions()
   }
+  ionViewDidEnter(){
+    let elementDashboard: any = document.getElementsByTagName('app-dashboard')
+    console.log(elementDashboard)
+    elementDashboard[0].classList.add("margins-dashboard")
+  }
 
   async getTransactionsSend(){
     let transaction = await this.store.get('transaction')

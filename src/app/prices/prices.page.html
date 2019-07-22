@@ -4,7 +4,7 @@
   <p class="move-cryptoPrice">{{cryptoCodes}} &nbsp; <span class="mainPrice">{{cryptoValue}}</span><span class="mainCurrency"> &nbsp; USDollar</span></p>
   <canvas class="move-graphic" #lineCanvas></canvas>
 </div>
-<ion-content class="move-cryptoInfo" [class.blur]="ctrlCssBlur">
+<ion-content class="move-cryptoInfo" [class.blur]="ctrlCssBlur" [fullscreen]="true">
 <ion-grid fixed class="padding-prices">
   <ion-row>
     <!-- Put ngFor here *ngFor="let cryptoPrice of cryptoPrices" -->

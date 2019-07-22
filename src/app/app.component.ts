@@ -70,21 +70,9 @@ export class AppComponent {
                     console.log('esto es el outlet', outlet)
                     console.log('esta es mi ruta', this.router.url)
                     if (this.router.url === '/app/tabs/dashboard') {
-                        await this.presentAlert()
-                        // console.log('desde acá se sale la aplicaicón')
-                        // if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
-                        //     console.log('acá agarra no sé qué tiempo')
-                        //     // this.platform.exitApp(); // Exit from app
-                        //     navigator['app'].exitApp(); // work in ionic 4
-                        //
-                        // } else {
-                        //     console.log('Acá le muestra un toast para decirle que cerrará la aplicación')
-                        //     await this.toast.presentToast({
-                        //         text: `Press back again to exit App.`,
-                        //         duration: 2000,
-                        //     });
-                        //     this.lastTimeBackPress = new Date().getTime();
-                        // }
+                        let alert = await this.aletrCtrl.getTop()
+                        console.log('este es presentar el alert', alert)
+                        if(alert == undefined) await this.presentAlert()
                     }
                 });
             });
@@ -97,7 +85,9 @@ export class AppComponent {
     async presentAlert() {
         const alert = await this.aletrCtrl.create({
             backdropDismiss: false,
-            header: 'Cerrar aplicación',
+            header: 'Cerrar',
+            message: '¿Desea cerrar la aplicación?',
+            mode: 'ios',
             keyboardClose: false,
             buttons: [
                 {

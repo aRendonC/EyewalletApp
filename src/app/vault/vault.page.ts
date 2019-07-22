@@ -19,8 +19,14 @@ export class VaultPage implements OnInit {
 
   }
 
+  ionViewDidEnter(){
+    let elementDashboard: any = document.getElementsByTagName('app-vault')
+    console.log(elementDashboard)
+    elementDashboard[0].classList.add("margins-dashboard")
+  }
+
   public continueCreateVault(): void {
     console.log('Continue...');
-    
+
   }
 }

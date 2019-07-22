@@ -67,6 +67,11 @@ export class ProfilePage implements OnInit {
     await this.getPic();
     await this.getProfile();
   }
+  ionViewDidEnter(){
+    let elementDashboard: any = document.getElementsByTagName('app-profile')
+    console.log(elementDashboard)
+    elementDashboard[0].classList.add("margins-dashboard")
+  }
 
   async getPic() {
     this.profilePic = await this.store.get('profile');

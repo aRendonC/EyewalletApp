@@ -8,7 +8,7 @@
     <img type="submit" class="move-add" (click)="photo()" src="../../assets/images/profilePage/add-profile-img.svg"/>
 </div>
 
-<ion-content class="move-profileInfo">
+<ion-content class="move-profileInfo" [fullscreen]="true">
     <ion-item>
         <ion-label class="labels">ID</ion-label>
             <p class="text">{{profileShow.id}}</p>

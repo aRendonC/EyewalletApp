@@ -62,6 +62,12 @@ export class PricesPage implements OnInit {
         await this.graph();
     }
 
+    ionViewDidEnter(){
+        let elementDashboard: any = document.getElementsByTagName('app-prices')
+        console.log(elementDashboard)
+        elementDashboard[0].classList.add("margins-dashboard")
+    }
+
     // Saca el profile del storage de Ionic
     async getProfile() {
         this.user = await this.store.get('profile');

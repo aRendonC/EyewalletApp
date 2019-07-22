@@ -13,4 +13,10 @@ export class CardInvoicePage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewDidEnter(){
+    let elementDashboard: any = document.getElementsByTagName('app-card-invoice')
+    console.log(elementDashboard)
+    elementDashboard[0].classList.add("margins-dashboard")
+  }
+
 }

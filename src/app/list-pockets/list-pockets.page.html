@@ -2,9 +2,10 @@
   <h5>Pockets</h5>
     <ion-grid class="ion-text-center">
       <ion-row justify-content-center>
-        <ion-col (click)="closeModal(pocket)" style="--border-bottom-color: white" size="12" *ngFor="let pocket of pockets">
+        <ion-col (click)="closeModal(pocket)" style="--border-bottom-color: white" size="10" *ngFor="let pocket of pockets">
           <ion-item text-center>
             <ion-label>{{pocket.label}}</ion-label>
+            <ion-img src="../assets/icon/icon-bitcoin.png"></ion-img>
           </ion-item>
         </ion-col>
         <ion-col (click)="createPocket()" size="9" justify-content-center class="centerContent">
@@ -17,7 +18,7 @@
     </ion-grid>
 </ion-content>
 <ion-content class="backGroundGradient"  *ngIf="!ctrlCreatePocket" [class.blur]="ctrlCssBlur">
-  <div class="move-logo">
+  <div class="move-logo" style="margin-left: 0">
     <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
     <div class="center">
       <ion-label class="text-eyewallet">EYEWALLET</ion-label>

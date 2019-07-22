@@ -80,9 +80,9 @@ export class SendCryptocurrenciesPage implements OnInit {
       currencyId: new FormControl(''),
       fee: new FormControl('')
     });
-    console.log('pocket sin parseo antes de la ruta', this.pockets)
+    console.log('pocket sin parseo antes de la ruta', this.pockets);
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
-    console.log('pocket seleccionad', this.pockets)
+    console.log('pocket seleccionad', this.pockets);
     this.body.from_address = this.pockets.address
   }
 
@@ -124,8 +124,12 @@ export class SendCryptocurrenciesPage implements OnInit {
     this.cssGradient = 'backGroundGradient';
     this.cssCtrlContents = true;
     let element = document.getElementById('QRScaner');
-    console.log('Etiquetas html de la cámara', element)
+    console.log('Etiquetas html de la cámara', element);
     element.classList.remove('show-qr-scanner');
+    await this.toastCtrl.presentToast({
+      text: 'Código escaneado correctamente, por favor, presione la pantalla para continuar',
+      duration: 3000
+    });
     await this.qrScanner.destroy();
     this.scanSub.unsubscribe();
     this.touchCtrl.isTouch = true;

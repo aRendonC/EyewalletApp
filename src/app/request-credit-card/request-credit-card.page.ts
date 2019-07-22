@@ -58,6 +58,12 @@ export class RequestCreditCardPage implements OnInit {
     this.pocketSelected = this.pockets[0];
   }
 
+  ionViewDidEnter(){
+    let elementDashboard: any = document.getElementsByTagName('app-request-credit-card')
+    console.log(elementDashboard)
+    elementDashboard[0].classList.add("margins-dashboard")
+  }
+
   private async getDataListPockets(): Promise<any[]> {
     const dataPockets = await this.storage.get('pocket');
     console.log(await this.storage.keys())

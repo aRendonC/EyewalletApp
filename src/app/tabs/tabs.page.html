@@ -1,5 +1,5 @@
 <ion-tabs [class.blur]="ctrlCssBlur"   (ionTabsWillChange)="getActiveRoute()" class="background bgdashboard1">
-    <ion-tab-bar class="tab-bg" mode="md" slot="bottom">
+  <div class="tabs">
         <ion-tab-button
                 class="tab-btn"
                 [tab]="tabs.prices">
@@ -55,5 +55,5 @@
                         src="../../assets/img/tabs/tab-profile.svg"/>
             </div>
         </ion-tab-button>
-    </ion-tab-bar>
+  </div>
 </ion-tabs>
