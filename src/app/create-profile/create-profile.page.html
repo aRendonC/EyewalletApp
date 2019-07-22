@@ -1,6 +1,6 @@
 <ion-content padding class="bghome" [class.blur]="ctrlCssBlur">
 
-  
+
 <div class="move-text">
   <p class="profile">Perfil</p>
   <p class="we-need">Necesitamos esta información para verificar tu identidad,
@@ -11,15 +11,15 @@
 <ion-list class="transparent">
     <!-- Nombre -->
     <ion-item class="white-line">
-        <ion-input  class="white move-input" type="text" name="firstname" [(ngModel)]="firstname" (ngModelChange)="validateFirstName($event)" placeholder="Nombre" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-input  class="white move-input" type="text" name="firstname" [(ngModel)]="firstname" placeholder="Nombre" [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
     <!-- Apellido -->
     <ion-item class="white-line">
-        <ion-input class="white move-input" type="text" name="lastname" [(ngModel)]="lastname" (ngModelChange)="validateLastName($event)" placeholder="Apellido" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-input class="white move-input" type="text" name="lastname" [(ngModel)]="lastname"  placeholder="Apellido" [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
     <!-- Fecha de Nacimiento -->
     <ion-item>
-      <ion-datetime class="white" done-text="Aceptar" cancel-text="Cancelar" placeholder="Fecha de Nacimiento" (ngModelChange)="validateLastName($event)" display-format="YYYY-MM-DD" [(ngModel)]="birthdate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      <ion-datetime class="white" done-text="Aceptar" cancel-text="Cancelar" placeholder="Fecha de Nacimiento"  display-format="YYYY-MM-DD" [(ngModel)]="birthdate" [ngModelOptions]="{standalone: true}"></ion-datetime>
     </ion-item>
     <ion-item class="white-line">
         <ion-input class="white move-input" type="number" name="identification" [(ngModel)]="identification" placeholder="Numero de Identificación"></ion-input>

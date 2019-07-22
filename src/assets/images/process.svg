@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="65" height="73.036" viewBox="0 0 65 73.036">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="65" height="73.036" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.522" y1="0.068" x2="0.471" y2="1.076" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fac579"/>
+      <stop offset="1" stop-color="#ea5933"/>
+    </linearGradient>
+    <filter id="Elipse_143" x="3.17" y="10.863" width="58.164" height="58.164" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#b94c1b" flood-opacity="0.424"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Componente_57_4" data-name="Componente 57 – 4" clip-path="url(#clip-path)">
+    <g id="Grupo_2135" data-name="Grupo 2135">
+      <g id="Grupo_2134" data-name="Grupo 2134">
+        <g id="Grupo_2133" data-name="Grupo 2133">
+          <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Elipse_143)">
+            <circle id="Elipse_143-2" data-name="Elipse 143" cx="20.082" cy="20.082" r="20.082" transform="translate(12.17 16.86)" fill="url(#linear-gradient)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <circle id="Elipse_156" data-name="Elipse 156" cx="3" cy="3" r="3" transform="translate(21.54 33.241)" fill="#fff"/>
+    <circle id="Elipse_157" data-name="Elipse 157" cx="3" cy="3" r="3" transform="translate(29.54 33.241)" fill="#fff"/>
+    <circle id="Elipse_158" data-name="Elipse 158" cx="3" cy="3" r="3" transform="translate(37.54 33.241)" fill="#fff"/>
+  </g>
+</svg>
