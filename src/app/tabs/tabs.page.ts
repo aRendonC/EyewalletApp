@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {AuthService} from '../services/auth/auth.service';
 import {LoadingService} from "../services/loading/loading.service";
 import {Router} from "@angular/router";
@@ -6,6 +6,7 @@ import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import { AxiosService } from '../services/axios/axios.service';
 import {ToastService} from "../services/toast/toast.service";
+import {IonRouterOutlet} from "@ionic/angular";
 
 @Component({
   selector: 'app-tabs',
@@ -13,6 +14,7 @@ import {ToastService} from "../services/toast/toast.service";
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
+  @ViewChild(IonRouterOutlet) routerOutlet: IonRouterOutlet;
   public currentRoute: any = 'dashboard';
   ctrlCssBlur: boolean = false;
   public tabs = {

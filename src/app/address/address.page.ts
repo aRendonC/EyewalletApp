@@ -57,6 +57,7 @@ export class AddressPage implements OnInit {
     }
 
     async ngOnInit() {
+        this.touchCtrl.isTouch = false;
         await this.checkGPSPermission();
     }
 
@@ -87,7 +88,6 @@ export class AddressPage implements OnInit {
     }
 
     async checkGPSPermission() {
-        this.touchCtrl.isTouch = false;
         this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
             async result => {
                 if (result.hasPermission) {
