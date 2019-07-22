@@ -80,7 +80,9 @@ export class SendCryptocurrenciesPage implements OnInit {
       currencyId: new FormControl(''),
       fee: new FormControl('')
     });
+    console.log('pocket sin parseo antes de la ruta', this.pockets)
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
+    console.log('pocket seleccionad', this.pockets)
     this.body.from_address = this.pockets.address
   }
 
@@ -99,33 +101,34 @@ export class SendCryptocurrenciesPage implements OnInit {
           this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
             this.placeHolder = text;
             this.bodyForm.get('to_address').setValue(text);
-            await this.unSuscribed()
+            await this.removeCamera()
           });
           this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
             this.placeHolder = text;
             this.bodyForm.get('to_address').setValue(text);
-            await this.unSuscribed()
+            await this.removeCamera()
           });
 
           await this.qrScanner.show();
 
 
         } else if (status.denied) {
-          this.qrScanner.openSettings();
+          // this.qrScanner.openSettings();
         }
       })
       .catch((e: any) => console.log('Error is', e));
   }
 
-  async unSuscribed() {
-    this.touchCtrl.isTouch = true;
+  async removeCamera() {
     this.isOn = false;
     this.cssGradient = 'backGroundGradient';
     this.cssCtrlContents = true;
     let element = document.getElementById('QRScaner');
+    console.log('Etiquetas html de la cámara', element)
     element.classList.remove('show-qr-scanner');
     await this.qrScanner.destroy();
     this.scanSub.unsubscribe();
+    this.touchCtrl.isTouch = true;
   }
 
   async getPriceCripto() {
