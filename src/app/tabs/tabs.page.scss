@@ -24,7 +24,14 @@
   filter: invert(1);
 }
 
-
+:root {
+  ion-tab-button.tab-selected {
+    ion-icon, ion-label {
+      color: var(--ion-color-secondary) !important;
+      --ion-color-base: var(--ion-color-secondary) !important;
+    }
+  }
+}
 //
 //.activated{
 //  background: rgb(134,31,194) !important;
