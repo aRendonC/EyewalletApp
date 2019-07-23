@@ -67,6 +67,7 @@ export class RegistryPinPage implements OnInit {
     console.log('acá registra el pin respuesta----->', response);
     if (response.status === 200) {
       let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password);
+      console.log('logeo de usuario en registrar pin', loginUser)
       if(loginUser.status === 200){
         this.pockets = await this.getPocketsList();
         await this.router.navigate(['/app/tabs/dashboard']);

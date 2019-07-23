@@ -122,7 +122,7 @@ export class RestorePage implements OnInit {
       password: this.dataRestorePassword.newPassword,
       blocked: this.dataRestorePassword.blocked
     };
-
+    console.log(dataBody)
     this.axiosServices.post(path, dataBody)
     .then(async response => {
       await this.validateResponseChangePassword(response);
@@ -137,6 +137,7 @@ export class RestorePage implements OnInit {
   }
 
   private async validateResponseChangePassword(data: any): Promise<any> {
+    console.log(data)
     if (data.status === 200) {
       this.blockingCounter = 0;
       this.dataRestorePassword.blocked = false;

@@ -199,7 +199,6 @@ export class DashboardPage implements OnInit{
       type: 0,
       address: this.pockets.address
     };
-
     let response = await this.http.post('transaction/index', params, this.auth);
     let dataTransaction = response.data;
     if (dataTransaction[0]) {

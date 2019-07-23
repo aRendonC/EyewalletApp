@@ -10,11 +10,6 @@
   border-bottom-left-radius: 104px;
 }
 
-.tab-btn {
-  --background-focused: red;
-  --color-selected: white;
-  --color: white;
-}
 
 .img-icon-tabs {
   width: 50%;
@@ -28,6 +23,13 @@
 .img-icon-tabs-selected {
   filter: invert(1);
 }
+
+
+//
+//.activated{
+//  background: rgb(134,31,194) !important;
+//  color: white !important;
+//}
 
 .selected-tab {
   background: white;
