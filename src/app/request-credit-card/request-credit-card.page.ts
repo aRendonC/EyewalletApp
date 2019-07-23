@@ -98,7 +98,12 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   public async buttonCancelNavigate(): Promise<any> {
+    this.clearData()
     await this.router.navigate(['/app/tabs/dashboard']);
+  }
+
+  clearData(){
+    this.showContentLogo = true
   }
 
   public async buttonAcept(): Promise<any> {

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../verification-modal/verification-modal.page';
@@ -13,7 +13,8 @@ import {AesJsService} from '../services/aesjs/aes-js.service';
 import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
 import {BalanceComponent} from '../components/balance/balance.component';
-import { filter } from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
+import {forkJoin, Observable} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -26,6 +27,8 @@ export class DashboardPage implements OnInit{
   @ViewChild(SlidersComponent) childD: SlidersComponent;
   @ViewChild(BalanceComponent) balanceComponent: BalanceComponent;
   ctrlNavigation = 0;
+  dataObservable: number = 1;
+  location: any
   transactionComponent: any;
   public pockets: any = [];
   public profile: any;
@@ -69,20 +72,20 @@ export class DashboardPage implements OnInit{
   async ngOnInit() {
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     await this.getUserProfile();
-    await this.getListTransactions()
+    await this.getListTransactions();
   }
   ionViewDidEnter(){
-    let elementDashboard: any = document.getElementsByTagName('app-dashboard')
-    console.log(elementDashboard)
+    let elementDashboard: any = document.getElementsByTagName('app-dashboard');
+    console.log(elementDashboard);
     elementDashboard[0].classList.add("margins-dashboard")
   }
 
   async getTransactionsSend(){
-    let transaction = await this.store.get('transaction')
-    console.log(transaction)
+    let transaction = await this.store.get('transaction');
+    console.log(transaction);
     if(transaction) {
-      console.log(transaction)
-      await this.getDataPocket(transaction)
+      console.log(transaction);
+      await this.getDataPocket(transaction);
       await this.store.remove('transaction')
     }
   }
@@ -178,7 +181,7 @@ export class DashboardPage implements OnInit{
     this.profile = profile;
     this.params.userId = profile.userId;
     this.params.type = 4;
-    console.log('pokets del usuario', this.pockets)
+    console.log('pokets del usuario', this.pockets);
     if (!this.pockets) {
       this.pockets = await this.store.get('pockets');
       if (this.pockets) {
@@ -210,7 +213,7 @@ export class DashboardPage implements OnInit{
           }
         });
       });
-      console.log(dataTransaction)
+      console.log(dataTransaction);
       this.crypto.amountPending = response.amountPending;
       this.crypto[0].graphic = this.dataGraphic;
     } else {

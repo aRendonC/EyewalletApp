@@ -67,7 +67,7 @@ export class TabsPage {
 
   private async validateNavigationRequestCard(profile: any): Promise<any> {
     console.log(profile);
-    if(profile.level !== 3) {
+    if(profile.level === 1) {
       if(profile.completed === 0) {
         await this.toastCtrl.presentToast({text: 'Para solicitar una tarjeta, debe validar sus documentos'});
         await this.router.navigate(['upload-verification-files']);
@@ -78,6 +78,8 @@ export class TabsPage {
       await this.router.navigate(['/app/tabs/request-credit-card'])
     } else if (profile.level === 3 && profile.solicitud === true) {
       await this.router.navigate(['/app/tabs/card-invoice']);
+    } else {
+      await this.toastCtrl.presentToast({text: 'Por favor, verifique su correo y teléfono'});
     }
   }
 
