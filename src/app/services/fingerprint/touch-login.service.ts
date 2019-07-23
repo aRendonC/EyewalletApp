@@ -14,7 +14,7 @@ export class TouchLoginService implements OnInit {
 
     private subscription: any = null;
     public isTouch: boolean = true;
-    public isLocked: boolean = false;
+    public isLocked: boolean = true;
     private initialized = false;
     private onPauseSubscription: Subscription;
     private onResumeSubscription: Subscription;
@@ -41,11 +41,10 @@ export class TouchLoginService implements OnInit {
         this.platform.ready().then(async () => {
             // await this.loadingCtrl.dismiss()
             this.onPauseSubscription = this.platform.pause.subscribe(() => {
-                this.splashScreen.show();
+                // this.splashScreen.show();
             });
             this.onResumeSubscription = this.platform.resume.subscribe(async () => {
-                if (!this.isLocked) {
-                    this.isLocked = true;
+                if (this.isLocked) {
                     if (this.auth.isLogin()) {
                         if (this.isTouch) {
                             this.user = await this.storage.get('user')
@@ -67,8 +66,8 @@ export class TouchLoginService implements OnInit {
                     }
                 }
                 console.log('no bloqueado', this.isLocked);
-                this.splashScreen.hide();
-                this.isLocked = false;
+                // this.splashScreen.hide();
+                this.isLocked = true;
 
             });
         }).catch(er => {
@@ -92,7 +91,7 @@ export class TouchLoginService implements OnInit {
                     .then((result: any) => {
                         console.log('huella verificada', result);
                         this.login();
-                        this.isLocked = false;
+                        this.isLocked = true;
 
                     }).catch((error: any) => {
                     console.log('entro al catch, cuando canelo', error);

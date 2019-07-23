@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
         if (data.status == 200) {
           this.pockets = await this.getPocketsList();
           console.info('mis pockets', this.pockets[0]);
-          this.touchCtrl.isLocked = false;
+          this.touchCtrl.isLocked = true;
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
           let pockets = this.pockets;

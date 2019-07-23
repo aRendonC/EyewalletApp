@@ -119,7 +119,7 @@ export class DashboardPage implements OnInit{
           // console.log(num ++)
           data.data.forEach(elementGraphic => {
             console.table(elementGraphic);
-            element.graphic.push(parseFloat(elementGraphic.balance_after));
+           element.graphic.push(parseFloat(elementGraphic.balance_after));
           });
         } else {
           element.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

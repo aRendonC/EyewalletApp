@@ -37,7 +37,7 @@ export class CreateProfilePage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(false);
-    this.touchCtrl.isLocked = true;
+    this.touchCtrl.isLocked = false;
   }
 
   // Esta función me lleva a la pagina que tiene dirección pero primero envia los

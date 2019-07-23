@@ -6,6 +6,7 @@ import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import { AxiosService } from '../services/axios/axios.service';
 import {ToastService} from "../services/toast/toast.service";
+import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 
 @Component({
   selector: 'app-tabs',
@@ -22,7 +23,7 @@ export class TabsPage {
     'card-invoice': 'card-invoice',
     'profile': 'profile',
     'request-credit-card': 'request-credit-card'
-  }
+  };
   constructor(
     private auth: AuthService,
     private loadControl: LoadingService,
@@ -30,7 +31,8 @@ export class TabsPage {
     private store: Storage,
     private aesjs: AesJsService,
     private toastCtrl: ToastService,
-    private axiosService: AxiosService
+    private axiosService: AxiosService,
+    private fingerCtrl: TouchLoginService
   ) {
     this.getActiveRoute()
   }
@@ -48,7 +50,8 @@ export class TabsPage {
   }
 
   getActiveRoute(){
-    this.currentRoute = this.router.url.split('/')[3]
+    this.fingerCtrl.isTouch = true;
+    this.currentRoute = this.router.url.split('/')[3];
     console.log('---------->rutas en las tabs', this.currentRoute)
   }
 
@@ -65,8 +68,12 @@ export class TabsPage {
   private async validateNavigationRequestCard(profile: any): Promise<any> {
     console.log(profile);
     if(profile.level !== 3) {
-      await this.toastCtrl.presentToast({text: 'Para solicitar una tarjeta, debe validar sus documentos'});
-      await this.router.navigate(['upload-verification-files']);
+      if(profile.completed === 0) {
+        await this.toastCtrl.presentToast({text: 'Para solicitar una tarjeta, debe validar sus documentos'});
+        await this.router.navigate(['upload-verification-files']);
+      } else {
+        await this.toastCtrl.presentToast({text: 'Estamos verificando tus documentos'});
+      }
     } else if (profile.level === 3 && profile.solicitud === false) {
       await this.router.navigate(['/app/tabs/request-credit-card'])
     } else if (profile.level === 3 && profile.solicitud === true) {
