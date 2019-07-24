@@ -7,6 +7,7 @@ import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
+import { AuthService } from "../services/auth/auth.service";
 
 @Component({
     selector: 'app-upload-files-modal',
@@ -33,7 +34,8 @@ export class UploadFilesModalPage implements OnInit {
         private modalCtrl: ModalController,
         private loadingCtrl: LoadingService,
         protected store: Storage,
-        protected aesjs: AesJsService
+        protected aesjs: AesJsService,
+        private auth: AuthService
     ) {
     }
 
@@ -61,7 +63,7 @@ export class UploadFilesModalPage implements OnInit {
                                         await this.opdateDocumentBack(takePhoto)
                                     } else {
                                         if (this.ctrlDocumentAddress) {
-                                            await this.opdateAddress(takePhoto)
+                                            await this.updateAddress(takePhoto)
                                         }
                                     }
                                 }
@@ -85,7 +87,7 @@ export class UploadFilesModalPage implements OnInit {
                                         await this.opdateDocumentBack(selectPhoto)
                                     } else {
                                         if (this.ctrlDocumentAddress) {
-                                            await this.opdateAddress(selectPhoto)
+                                            await this.updateAddress(selectPhoto)
                                         }
                                     }
                                 }
@@ -158,7 +160,7 @@ export class UploadFilesModalPage implements OnInit {
         }
     }
 
-    async opdateAddress(photo) {
+    async updateAddress(photo) {
         this.type = 'address';
         let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
         console.log('respuesta de las fotos', responsePhoto);
@@ -171,7 +173,10 @@ export class UploadFilesModalPage implements OnInit {
             this.ctrlDocumentAddress = false;
             await this.toastCtrl.presentToast({text: 'Todos sus documentos han sido cargados correctamente'});
             await this.closeModal();
+            await this.toastCtrl.presentToast({ text: 'Se cerrara su sesión para validar los documentos' });
+            await this.auth.logout();
             await this.router.navigate(['/app/tabs/dashboard'])
+
         } else {
             await this.loadingCtrl.dismiss();
             await this.toastCtrl.presentToast({text: responsePhoto.error.msg})

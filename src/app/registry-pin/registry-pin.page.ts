@@ -50,7 +50,7 @@ export class RegistryPinPage implements OnInit {
   }
 
   public async registerPin(data: any) {
-    await this.loadingCtrl.present({text: 'Validando creacion de billetera'});
+    await this.loadingCtrl.present({text: 'Validando creación de billetera'});
     this.ctrlCssBlur = true;
 
     this.devic = await this.device.getDataDevice();

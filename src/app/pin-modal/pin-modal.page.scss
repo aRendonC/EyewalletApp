@@ -1,3 +1,5 @@
+@import '../../global.scss';
+
 @media (max-height:568px) and (min-height:480px) {
   .space{
     margin: 0% 5% 0% 5% !important;
@@ -102,4 +104,17 @@ ion-col{
   border: none;
 }
 
+.ping-abc{
+  display: flex;
+  flex-direction: column;
+}
+
+.size-abc{
+  font-size: 10px;
+  font-weight: 100;
+}
+
+.number-abc{
+margin-bottom: -2px;
+}
 
