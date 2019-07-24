@@ -71,10 +71,9 @@ ion-col{
 ion-list{
   background: transparent;
 }
-// margin: 4vh 5vw 10vh 5vw;
+
 .btnNoShadow{
   --box-shadow: none;
-  display: grid;
   grid-template: auto auto / auto;
 }
 
@@ -104,9 +103,27 @@ ion-col{
   border: none;
 }
 
-.ping-abc{
+.pin-number-text{
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
+
+  .pin-number {
+    font-family: $font-roboto-regular;
+    font-size: 26px;
+  }
+
+  .pin-text {
+    position: absolute;
+    margin: 18px 0 0 0;
+    font-family: $font-roboto-regular;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
 }
 
 .size-abc{
@@ -118,3 +135,6 @@ ion-col{
 margin-bottom: -2px;
 }
 
+.ion-no-padding {
+  --padding-start: 0;
+}
