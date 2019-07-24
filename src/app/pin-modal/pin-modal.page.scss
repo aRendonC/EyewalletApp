@@ -35,17 +35,17 @@
 .pin-none{
   border: 2px solid white;
   height: 5vw;
-  border-radius: 50px;
   width: 5vw;
+  border-radius: 50px;
   --ion-background-color:transparent;
 }
 
 .pin-ok{
-  border: 2px solid white;
-  height: 6vw;
-  width: 6vw;
-  border-radius: 50px;
+  // border: 2px solid white;
   --ion-background-color:white;
+  height: 5vw;
+  width: 5vw;
+  border-radius: 50px;
 }
 .imgLogo{
   width: 40%;
