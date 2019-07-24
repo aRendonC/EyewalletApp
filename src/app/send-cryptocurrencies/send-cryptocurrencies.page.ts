@@ -91,6 +91,7 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   presentQRScanner() {
+    this.bodyForm.get('to_address').setValue('');
     this.qrScanner.prepare()
       .then(async (status: QRScannerStatus) => {
         this.touchCtrl.isTouch = false;
