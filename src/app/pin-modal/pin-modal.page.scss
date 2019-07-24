@@ -1,30 +1,35 @@
 @import '../../global.scss';
 
-@media (max-height:568px) and (min-height:480px) {
-  .space{
-    margin: 0% 5% 0% 5% !important;
-  }
-}
+.background-image{
+  --background: linear-gradient(#4DAAFF, #2b84ff, #7300FF);
 
-@media (max-height:667px) and (min-height:568px) {
-  .space{
-    margin: 10% 5% 10% 5% !important;
+  .content-logo-icon {
+    @extend .all-center;
+    margin: 80px 0 0 0;
+    .logo-icon {
+      width: 36%;
+    }
   }
-}
 
-@media (max-height:736px) and (min-height:668px) {
-  .space{
-    margin: 15% 5% 15% 5% !important;
-  }
-}
+  .content-texts-error {
+    @extend .all-center;
+    margin: 40px 0 0 0;
 
-@media (max-height:812px) and (min-height:737px) {
-  .space{
-    margin: 30% 5% 30% 5% !important;
+    .icon-error {
+      margin: 0 6px 0 0;
+    }
+
+    .text-message {
+      text-align: center;
+      font-family: $font-semibold;
+      font-family: 18px;
+      color: white;
+    }
   }
-}
-.space{
-  margin: 10% 5% 10% 5%;
+
+  .space {
+    margin: 20px 0 0 0;
+  }
 }
 
 .pin-none{
@@ -56,7 +61,6 @@
   --border-radius: 50%;
   --vertical-align: middle;
   --padding-start: 10px;
-  /* --padding-end: 10px; */
   height: 80px;
 }
 
@@ -64,10 +68,7 @@ ion-col{
   padding: 0;
 }
 
-.background-image{
-  --background: linear-gradient(#14a9ff 8%, #2b84ff 51.26%, #8000ff 191%);
-  --background-size: cover;
-}
+
 ion-list{
   background: transparent;
 }
@@ -81,14 +82,6 @@ ion-button {
   --background: rgba(47, 112, 191, 0.29);
   border: none;
   --box-shadow: none;
-}
-
-h6{
-  font-weight: bold;
-  color: white;
-  opacity: 1;
-  text-decoration: none;
-  --background: rgba(255, 255, 255, 1)
 }
 
 ion-label{
