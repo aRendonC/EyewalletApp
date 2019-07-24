@@ -2,14 +2,15 @@
 
 .request-credit-card {
    --overflow: hidden;
+   --padding-bottom: 20px;
 
    .content-logo {
       background-image: url('../../assets/img/home-logo.svg');
       background-repeat: no-repeat;
       background-position: center;
-      background-size: contain;
+      background-size: 136px 122px;
       height: 200px;
-      margin: 70px 0 0 0;
+      margin: 80px 0 0 0;
    }
 
    .content-text-icon {
@@ -18,7 +19,7 @@
       width: 100%;
       position: absolute;
       z-index: 1;
-      top: 355px;
+      top: 320px;
 
       .text {
          font-family: $font-roboto-regular;
@@ -43,8 +44,8 @@
       background-image: url('../../assets/images/image-card.svg');
       background-repeat: no-repeat;
       background-position: center;
-      background-size: inherit;
-      margin: 116px 0 0 0;
+      background-size: 337px 192px;
+      margin: 60px 0 0 0;
    }
 
    .no-show-form-content {
@@ -133,7 +134,7 @@
    transition-timing-function: linear;
    transition-delay: 0s;
 
-   margin-top: -303px;
+   margin-top: -250px;
 }
 
 .transition-logo-card {
@@ -148,7 +149,7 @@
    transition-delay: 0s;
 
    background-image: url('../../assets/images/image-card.svg') !important;
-   background-size: inherit !important;
+   background-size: 337px 192px !important;
 }
 
 .transition-card {
@@ -176,7 +177,7 @@
    transition-timing-function: linear;
    transition-delay: 0s;
 
-   margin-top: -290px !important;
+   margin-top: -250px !important;
 }
 
 // Animations.

@@ -68,3 +68,5 @@ export const  LOCATION_PHONE_NUMBER: string[] = [
    'sk-SK', 'sr-RS', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
    'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW'
 ];
+
+export const test = {};
