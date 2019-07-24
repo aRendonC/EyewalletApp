@@ -111,7 +111,6 @@ export class AuthService {
 
   async isLogin() {
     const user = await this.store.get('user');
-    console.info(user);
     return !!user;
   }
 

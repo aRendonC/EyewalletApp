@@ -14,7 +14,6 @@ import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
 import {BalanceComponent} from '../components/balance/balance.component';
 import {filter} from 'rxjs/operators';
-import {forkJoin, Observable} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -24,11 +23,11 @@ import {forkJoin, Observable} from "rxjs";
 
 export class DashboardPage implements OnInit{
   public ctrlCssBlur: boolean = false;
-  @ViewChild(SlidersComponent) childD: SlidersComponent;
+  @ViewChild(SlidersComponent) sliderComponent: SlidersComponent;
   @ViewChild(BalanceComponent) balanceComponent: BalanceComponent;
   ctrlNavigation = 0;
   dataObservable: number = 1;
-  location: any
+  location: any;
   transactionComponent: any;
   public pockets: any = [];
   public profile: any;
@@ -41,14 +40,9 @@ export class DashboardPage implements OnInit{
   };
 
   @Input() gra: SlidersComponent;
-  public crypto: any = [
-    {
-      name: '',
-      background: '',
-      value: '',
-      graphic: []
-    }
-  ]
+  public crypto: any = [{
+    graphic: ''
+  }];
   // public crypto: any = [
   //   {name: 'Bitcoin', background: 'contentBitcoin', value: '', valueUsd: '', graphic: []},
   //   // {name: 'Ethereum', background: 'contentEtherium', value: '', valueUsd: '', graphic: []}
@@ -71,7 +65,6 @@ export class DashboardPage implements OnInit{
     this.router.events.pipe(
         filter(event => event instanceof NavigationStart)
     ).subscribe((route: NavigationStart) => {
-      console.log('Route: ' + route.url);
       this.getTransactionsSend();
     });
   }
@@ -83,15 +76,12 @@ export class DashboardPage implements OnInit{
   }
   ionViewDidEnter(){
     let elementDashboard: any = document.getElementsByTagName('app-dashboard');
-    console.log(elementDashboard);
     elementDashboard[0].classList.add("margins-dashboard")
   }
 
   async getTransactionsSend(){
     let transaction = await this.store.get('transaction');
-    console.log(transaction);
     if(transaction) {
-      console.log(transaction);
       await this.getDataPocket(transaction);
       await this.store.remove('transaction')
     }
@@ -120,26 +110,33 @@ export class DashboardPage implements OnInit{
   }
 
   public async getDataPocket(data: any) {
-    this.crypto.forEach(element => {
-      element.graphic = [];
-      if (data.pocket.currencyId === 1) {
-        element.value = data.pocket.balance;
-        element.valueUsd = data.pocket.balance * data.btc.toFixed(8);
+    console.log('los datos cuando se cambia de pocket', data)
+    console.log('estas son las criptomonedas activas en el momento', this.crypto)
+      // this.crypto.push({
+      //   value: data.pocket.balance,
+      //   valueUsd: data.btc.toFixed(8),
+      //   background: data.pocket.currency.name,
+      //   name: data.pocket.currency.name,
+      //   pocketName: data.pocket.label,
+      //   graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      // });
+    this.crypto.forEach(crypto => {
+      crypto.graphic = [];
+      if (data.pocket.currencyId === data.pocket.currencyId) {
+        crypto.value = data.pocket.balance;
+        crypto.valueUsd = data.pocket.balance * data.btc.toFixed(8);
         if (data.data[0]) {
-          // console.log(num ++)
           data.data.forEach(elementGraphic => {
-            console.table(elementGraphic);
-           element.graphic.push(parseFloat(elementGraphic.balance_after));
+            crypto.graphic.push(parseFloat(elementGraphic.balance_after));
           });
         } else {
-          element.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          crypto.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         }
       }
     });
     this.crypto.amountPending = data.amountPending;
     await this.getTransactionHistory(data);
-    await this.childD.grafica();
-    await this.loadingController.dismiss()
+    await this.sliderComponent.grafica();
   }
 
   async getTransactionHistory(data: any) {
@@ -188,7 +185,6 @@ export class DashboardPage implements OnInit{
     this.profile = profile;
     this.params.userId = profile.userId;
     this.params.type = 4;
-    console.log('pokets del usuario', this.pockets);
     if (!this.pockets) {
       this.pockets = await this.store.get('pockets');
       if (this.pockets) {
@@ -198,35 +194,52 @@ export class DashboardPage implements OnInit{
   }
 
   async getListTransactions() {
+    this.crypto = []
     await this.loadingController.present({text: 'Recopilando información', cssClass: 'textLoadingBlack'});
     this.ctrlCssBlur = true;
 
     let params = {
       userId: this.profile.userId,
       type: 0,
-      address: this.pockets.address
+      address: this.pockets[0].address
     };
     let response = await this.http.post('transaction/index', params, this.auth);
+    console.log('transacciones del usuario', response)
     let dataTransaction = response.data;
     if (dataTransaction[0]) {
-      await this.getTransactionHistory(response);
-      dataTransaction.forEach(element => {
-        this.crypto.forEach(element1 => {
-          if (element1.name === 'Bitcoin') {
-            element1.value = this.pockets.balance;
-            element1.valueUsd = this.pockets.balance * response.btc.toFixed(8);
-            this.dataGraphic.push(parseFloat(element.balance_after));
-          }
+      this.getTransactionHistory(response);
+      this.pockets.forEach(pocket => {
+        this.crypto.push({
+          value: pocket.balance,
+          valueUsd: response.btc.toFixed(8),
+          background: pocket.currency.name,
+          name: pocket.currency.name,
+          pocketName: pocket.label,
+          currencyId: pocket.currencyId,
+          graphic: []
         });
       });
-      console.log(dataTransaction);
+        dataTransaction.forEach(transactions => {
+          this.crypto[0].graphic.push(transactions.balance_after)
+        })
       this.crypto.amountPending = response.amountPending;
-      this.crypto[0].graphic = this.dataGraphic;
-    } else {
-      this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      this.crypto[0].value = 0;
-    }
 
+    } else {
+        this.pockets.forEach(pocket => {
+          this.crypto.push({
+            value: pocket.balance,
+            valueUsd: response.btc.toFixed(8),
+            background: pocket.currency.name,
+            name: pocket.currency.name,
+            pocketName: pocket.label,
+            currencyId: pocket.currencyId,
+            graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          });
+      });
+      this.crypto.amountPending = response.amountPending;
+      // this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      // this.crypto[0].valueUsd = response.btc.toFixed(8)
+    }
     await this.loadingController.dismiss();
     this.ctrlCssBlur = false;
   }

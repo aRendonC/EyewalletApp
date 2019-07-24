@@ -62,7 +62,6 @@ export class SlidersComponent implements OnInit {
     this.router.events.pipe(
         filter(event => event instanceof NavigationStart)
     ).subscribe((route: NavigationStart) => {
-      console.log('Route: '+route.url)
       this.getProfileStore()
     });
   }
@@ -70,7 +69,6 @@ export class SlidersComponent implements OnInit {
 
   async ngOnInit() {
     let userVerifications: any = await this.http.get('user-verification/status', this.auth, null);
-    console.log(userVerifications)
     userVerifications = userVerifications.data
     const dataEncrypt = this.aesjs.encrypt(userVerifications);
     await this.store.set('userVerification', dataEncrypt)
@@ -78,7 +76,6 @@ export class SlidersComponent implements OnInit {
     this.profile = this.aesjs.decrypt(this.profile);
     this.profile.completed = userVerifications.completed
     await this.setProfileStore()
-    console.log('profile del usuario',this.profile)
     this.nameSlider = this.name;
     this.dataGraphic = this.name[0];
     await this.grafica();
@@ -87,7 +84,6 @@ export class SlidersComponent implements OnInit {
   async getProfileStore(){
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
-    console.log('perfil componente slider', this.profile)
   }
 
   async setProfileStore(){
@@ -95,8 +91,10 @@ export class SlidersComponent implements OnInit {
     await this.store.set('profile', profile)
   }
 
-  async grafica(){
+  public async grafica(){
     this.labelGrapich = [];
+    console.log('los datos que se inyectan para la grafica', this.dataGraphic)
+    console.log('los datos que se inyectan para la grafica', this.name)
     for(let i = 0; i <= this.dataGraphic.graphic.length -1; i++){
       this.labelGrapich.push('')
     }
@@ -170,7 +168,6 @@ export class SlidersComponent implements OnInit {
       leaveAnimation
     });
     modalVerification.onDidDismiss().then(async (profile:any)=> {
-      console.error('se está cerrando el modal con este dato', profile);
       if(profile.data != undefined) {
         this.profile.level = profile.level
         this.profile.completed = profile.completed

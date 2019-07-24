@@ -60,18 +60,19 @@ export class PocketComponent implements OnInit {
      // })
    }
   async getPocketStore() {
-    this.pockets = await this.store.get('pockets');
-    if(!this.pockets){
-      let response  = await this.http.post('user-wallet/index', {currencyId: this.currencyId}, this.auth);
-      this.pockets = response;
-      response = this.aesjs.encrypt(response);
-      await this.store.set('pocket', response)
-    } else {
-      this.pockets = this.aesjs.decrypt(this.pockets);
-    }
-
-    this.pocket = this.pockets;
-    console.log(this.pocket)
+    this.pocket = this.aesjs.decrypt(await this.store.get('selected-pocket'));
+    // this.pockets = await this.store.get('pockets');
+    // if(!this.pockets){
+    //   let response  = await this.http.post('user-wallet/index', {currencyId: this.currencyId}, this.auth);
+    //   this.pockets = response;
+    //   response = this.aesjs.encrypt(response);
+    //   await this.store.set('pockets', response)
+    // } else {
+    //
+    // }
+    // this.pockets = this.aesjs.decrypt(this.pocket);
+    // this.pocket = this.pockets;
+    console.log('pockets del usuario en el pocket component', this.pocket)
   }
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});

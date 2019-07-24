@@ -13,11 +13,11 @@
             [pager]="pager"
             mode="ios"
             (ionSlideDoubleTap)="cambioDeSlider(slideWithNav2)">
-    <ion-slide *ngFor="let names of name">
+    <ion-slide *ngFor="let names of name; index as index">
         <ion-grid>
             <ion-row>
                 <ion-col size="12">
-                    <div class="{{names.background}}">
+                    <div class="cryptoCurrencies" [ngStyle]="{'background-image': 'url(../../../assets/img/cryptocurrencies/'+names.background +'.png)'}">
                         <!-- Nombre de la criptomoneda -->
                         <div class="center">
                             <ion-label class="text-moneda">{{names.name}}</ion-label>
@@ -95,6 +95,7 @@
         </ion-grid>
     </ion-slide>
 </ion-slides>
+
 <ion-col size="12">
     <ion-label style="font-weight: 800; float: right; margin-right: 5%;">{{name.amountPending}} BTC</ion-label>
     <ion-infinite-scroll>

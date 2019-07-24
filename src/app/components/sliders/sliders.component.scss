@@ -20,13 +20,17 @@
     text-align: center;
     width: 100%;
 }
-
-.contentBitcoin{
+.cryptoCurrencies{
     width: 100%;
     height: 100%;
-    background-image:  url('../../../assets/img/logoBtc.svg');
     background-repeat: no-repeat;
     background-position: top;
+}
+.BITCOIN{
+    background-image:  url('../../../assets/img/cryptocurrencies/BITCOIN.svg');
+}
+.LITECOIN{
+    background-image:  url('../../../assets/img/logoEtherium.png');
 }
 
 ion-content{
