@@ -1,3 +1,5 @@
+@import '../../../global.scss';
+
 .resize-logo {
   width: 6%;
   top: 5%;
@@ -71,14 +73,43 @@
   height: 50px;
   background: white;
 }
+
+.active-card-button{
+  @extend .center-space-around;
+  float: left;
+  border-radius: 0 30px 30px 0;
+  width: 125%;
+  height: 50px;
+  background: white;
+  border: 2px solid #5496FF;
+}
+
+.text-activate-card{
+  color: #5496FF;
+  margin: 0 5px 0 0;
+}
+
+.image-activate-card {
+  width: 20%;
+}
+
 .add-card-button{
+  @extend .center-space-around;
   float: right;
-  //margin-right: -102%;
   border-radius: 30px 0 0 30px;
-  width: 150%;
+  width: 125%;
   height: 50px;
   background: white;
   border: 2px solid #27E3C9;
+}
+
+.image-add-card{
+  width: 20%;
+  margin: 0 5px 0 0;
+}
+
+.text-add-card{
+  color: #27E3C9;
 }
 
 .qualify-button{
@@ -89,38 +120,18 @@
   height: 50px;
   background: white;
 }
-.active-card-button{
-  float: left;
-  //margin-left: -75%;
-  border-radius: 0 30px 30px 0;
-  width: 125%;
-  height: 50px;
-  background: white;
-  border: 2px solid #5496FF;
-}
+
 .image-logout{
   width: 10%;
   /* top: 17.5%; */
   /* position: absolute; */
 }
-.image-add-card{
-  width: 20%;
-  /* top: 17.5%; */
-  /* position: absolute; */
-}
+
 .text-qualify{
   color: black;
   margin: 0 7px 0 0;
 }
-.text-activate-card{
-  color: #5496FF;
-  margin: 0 7px 0 0;
-}
-.text-add-card{
-  margin-right: 19%;
-  margin-left: 5%;
-  color: #27E3C9;
-}
+
 .image-qualify{
   width: 20%;
 }
@@ -150,6 +161,7 @@
   height: 50px;
   background: white;
 }
+
 .button-receive{
   float: left;
   //margin-left: -65%;
@@ -165,6 +177,21 @@
   background: linear-gradient(to bottom, rgba(255,124,110,1) 0%, rgba(244,49,127,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7c6e', endColorstr='#f4317f', GradientType=0 );
 }
+
+.content-icon-text {
+  @extend .all-center;
+
+  .title-icon-text {
+    margin: 0 5px 0 0;
+  }
+
+  .title-text-icon {
+    font-family: $font-roboto-regular;
+    color: #272759;
+    font-size: 17px;
+  }
+}
+
 @-webkit-keyframes bounceInRight {
   from,
   60%,
