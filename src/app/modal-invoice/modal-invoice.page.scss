@@ -16,10 +16,11 @@
 
     .content-logo-modal-invoice {
       @extend .all-center;
-      margin: 0 0 60px 0;
+      margin: 0 0 30px 0;
 
       .image-logo-modal-invoice {
-        width: 50vw;
+        height: 136px;
+        width: 122px;
       }
     }
 
@@ -34,7 +35,7 @@
 
         .image {
           width: 34px;
-          margin: 0 20px 0 0;
+          margin: 0 10px 0 0;
         }
 
         .text-icon {
