@@ -111,7 +111,8 @@ ion-content{
 }
 
 .card-ver-width{
-    background: #8BB5EA;
+    background: linear-gradient(-17deg, rgba(151, 245, 249, 0.4) -30%, rgba(126, 213, 246, 0.4) -45%, rgba(82, 157, 243, 0.4) 44%, rgba(82, 157, 243, 0.4) 118%, rgba(45, 60, 173, 0.4) 131%, rgba(45, 60, 173, 0.6) 106%, rgba(45, 60, 173, 0.4) 188%);
+    
     //background-image: url("../../../assets/img/bg-verify.svg");
     background-repeat: no-repeat;
     background-position: right;

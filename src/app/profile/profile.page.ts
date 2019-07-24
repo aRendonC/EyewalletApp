@@ -66,6 +66,7 @@ export class ProfilePage implements OnInit {
     this.profile = await this.store.get('profile');
     await this.getPic();
     await this.getProfile();
+    console.log('avatar: ',this.urlAvatar+this.profile.avatar);
   }
   ionViewDidEnter(){
     let elementDashboard: any = document.getElementsByTagName('app-profile')
@@ -170,7 +171,7 @@ export class ProfilePage implements OnInit {
                 this.avatar = this.urlAvatar + responsePhoto.data;
                 await this.loadingCtrl.dismiss();
                 await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
-                this.profile.avatar = responsePhoto.data;
+                this.profile.avatar = responsePhoto.data; 
                 this.profile = this.aesjs.encrypt(this.profile);
                 await this.store.set('profile', this.profile)
                 await this.ngOnInit()

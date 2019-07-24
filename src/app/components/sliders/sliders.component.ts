@@ -174,6 +174,7 @@ export class SlidersComponent implements OnInit {
       if(profile.data != undefined) {
         this.profile.level = profile.level
         this.profile.completed = profile.completed
+
       }
     });
     return await modalVerification.present()

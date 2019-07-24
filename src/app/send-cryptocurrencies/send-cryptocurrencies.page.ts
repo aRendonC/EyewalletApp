@@ -195,13 +195,14 @@ export class SendCryptocurrenciesPage implements OnInit {
     if (this.bodyForm.value.amount != "" && this.bodyForm.value.fee != "" && this.bodyForm.value.to_address != "") {
       this.ctrlButtonSend = false;
       this.feeAndSend = parseFloat(this.totalApplied.fee) + parseFloat(this.totalApplied.amountMaxBtc);
+      
       if (this.pockets.balance >= this.feeAndSend) {
-        await this.presentAlertSend()
+        await this.presentAlertSend();
       } else {
-        await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes'})
+        this.toastCtrl.presentToast({text: 'No tiene fondos suficientes'})
       }
     } else {
-      await this.toastCtrl.presentToast({text: 'Por favor llene todos los campos'});
+      this.toastCtrl.presentToast({text: 'Por favor llene todos los campos'});
     }
   }
 
