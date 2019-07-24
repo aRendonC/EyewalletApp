@@ -41,7 +41,6 @@
 }
 
 .pin-ok{
-  // border: 2px solid white;
   --ion-background-color:white;
   height: 5vw;
   width: 5vw;
@@ -116,6 +115,7 @@ ion-col{
     font-family: $font-roboto-regular;
     font-size: 10px;
     letter-spacing: 0.5px;
+    font-weight: 100;
   }
 }
 
