@@ -41,11 +41,18 @@ export class DashboardPage implements OnInit{
   };
 
   @Input() gra: SlidersComponent;
-
   public crypto: any = [
-    {name: 'Bitcoin', background: 'contentBitcoin', value: '', valueUsd: '', graphic: []},
-    // {name: 'Ethereum', background: 'contentEtherium', value: '', valueUsd: '', graphic: []}
-  ];
+    {
+      name: '',
+      background: '',
+      value: '',
+      graphic: []
+    }
+  ]
+  // public crypto: any = [
+  //   {name: 'Bitcoin', background: 'contentBitcoin', value: '', valueUsd: '', graphic: []},
+  //   // {name: 'Ethereum', background: 'contentEtherium', value: '', valueUsd: '', graphic: []}
+  // ];
 
   public dataGraphic = [];
   public dataArrayGraphic = [];

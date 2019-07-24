@@ -25,6 +25,7 @@ export class PocketComponent implements OnInit {
   imgLeft:string=null;
   imgRight:string=null;
   classLeft:string=null;
+  currencyId: any  = null;
   constructor(
       private http: AxiosService,
       public modalCtrl: ModalController,
@@ -61,7 +62,7 @@ export class PocketComponent implements OnInit {
   async getPocketStore() {
     this.pockets = await this.store.get('pockets');
     if(!this.pockets){
-      let response  = await this.http.get('user-wallet/index', this.auth, null);
+      let response  = await this.http.post('user-wallet/index', {currencyId: this.currencyId}, this.auth);
       this.pockets = response;
       response = this.aesjs.encrypt(response);
       await this.store.set('pocket', response)
@@ -69,12 +70,12 @@ export class PocketComponent implements OnInit {
       this.pockets = this.aesjs.decrypt(this.pockets);
     }
 
-    this.pocket = this.pockets
+    this.pocket = this.pockets;
     console.log(this.pocket)
   }
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
-    this.pockets = await this.http.get('user-wallet/index', this.auth, null);
+    this.pockets = await this.http.post('user-wallet/index', {currencyId: this.currencyId}, this.auth);
     const modalPocket = await this.modalCtrl.create({
       component: ListPocketsPage,
       animated: true,
@@ -93,7 +94,7 @@ export class PocketComponent implements OnInit {
           type: 0,
           address: this.pocket.address
         };
-        await this.loadingCtrl.present({cssClass: 'textLoadingBlack'})
+        await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         if(dataResponse.status === 200) {
           await this.loadingCtrl.dismiss();

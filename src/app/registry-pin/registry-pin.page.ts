@@ -57,7 +57,7 @@ export class RegistryPinPage implements OnInit {
     console.info(this.bodyForm);
     console.info(data);
     console.info('datos del device', this.devic);
-    if(!this.devic.uuid) this.devic.uuid = 'edwigrendon';
+    if(!this.devic.uuid) this.devic.uuid = 'asdadsrfgdf';
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     console.log('bodyForm', this.bodyForm);
@@ -84,6 +84,6 @@ export class RegistryPinPage implements OnInit {
   }
 
   async getPocketsList() {
-    return await this.axios.get('user-wallet/index', this.auth, null);
+    return await this.axios.post('user-wallet/index',{currencyId: ''} , this.auth);
   }
 }

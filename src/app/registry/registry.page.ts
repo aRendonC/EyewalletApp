@@ -54,7 +54,7 @@ export class RegistryPage implements OnInit {
     private touchCtrl: TouchLoginService
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.touchCtrl.isTouch = false
   }
 
@@ -137,7 +137,7 @@ export class RegistryPage implements OnInit {
     this.ctrlCssBlur = true;
     let device = await this.device.getDataDevice();
     console.log('datos del dispositivo', device);
-    if(!device.uuid) device.uuid = '987654321';
+    if(!device.uuid) device.uuid = 'asdadsrfgdf';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,

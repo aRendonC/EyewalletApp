@@ -72,7 +72,7 @@ export class LoginPage implements OnInit {
   }
 
   public async getPocketsList() {
-    return await this.http.get('user-wallet/index', this.auth, null);
+    return await this.http.post('user-wallet/index',{currencyId: ''} , this.auth);
   }
 
   public async restore() {
