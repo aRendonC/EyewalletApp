@@ -17,11 +17,11 @@ import {ToastService} from "../../services/toast/toast.service";
   styleUrls: ['./pocket.component.scss'],
 })
 export class PocketComponent implements OnInit {
-  @Input() pockets: any = [];
+  pockets: any = null;
   @Input() urlPresent: any = '';
   @Input() ctrlNavigation: number = 0;
   @Output() dataBalance = new EventEmitter<[]>();
-  public pocket: any = '';
+  @Input() pocket: any = '';
   imgLeft:string=null;
   imgRight:string=null;
   classLeft:string=null;
@@ -44,39 +44,16 @@ export class PocketComponent implements OnInit {
   }
 
    async ngOnInit() {
+    console.log('pockets del usuario en el pocket component', this.pockets)
      await this.getPocketStore()
-     // console.log('esto debería cambiar siempre', this.router.url);
-     // this.urlPresent = this.router.url.slice(0, 9);
-     // console.log(this.urlPresent);
-     // this.router.events.subscribe((event: any) => {
-     //   // console.log('este es un observable lindo 7w7',event)
-     //   this.urlPresent = this.urlPresent.slice(9, 23);
-     //   console.log('el evento de la ruta', this.urlPresent)
-     //   //   if (event instanceof NavigationEnd ) {
-     //   //     url = event.url
-     //   //     url = url.slice(9, 23)
-     //   //     this.urlPresent = url == '/send-currency';
-     //   // }
-     // })
    }
   async getPocketStore() {
-    this.pocket = this.aesjs.decrypt(await this.store.get('selected-pocket'));
-    // this.pockets = await this.store.get('pockets');
-    // if(!this.pockets){
-    //   let response  = await this.http.post('user-wallet/index', {currencyId: this.currencyId}, this.auth);
-    //   this.pockets = response;
-    //   response = this.aesjs.encrypt(response);
-    //   await this.store.set('pockets', response)
-    // } else {
-    //
-    // }
-    // this.pockets = this.aesjs.decrypt(this.pocket);
-    // this.pocket = this.pockets;
+    if(!this.pocket )this.aesjs.decrypt(await this.store.get('selected-pocket'));
     console.log('pockets del usuario en el pocket component', this.pocket)
   }
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
-    this.pockets = await this.http.post('user-wallet/index', {currencyId: this.currencyId}, this.auth);
+    this.pockets = await this.http.post('user-wallet/index', {currencyId: this.pocket.currencyId}, this.auth);
     const modalPocket = await this.modalCtrl.create({
       component: ListPocketsPage,
       animated: true,

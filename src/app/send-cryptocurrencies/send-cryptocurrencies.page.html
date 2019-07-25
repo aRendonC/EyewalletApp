@@ -23,7 +23,7 @@
 
 <ion-content id="QRScaner" class="ReceiveFundsPage" [ngClass]="cssGradient">
     <div class="contentdash" [class.show-qr-scanner]="isOn">
-        <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+        <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
     </div>
     <form #formulario="ngForm" [formGroup]="bodyForm" class="positionForm">
         <ion-card class="content-code-qr center" [class.show-qr-scanner]="isOn">

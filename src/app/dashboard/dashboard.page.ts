@@ -14,6 +14,7 @@ import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
 import {BalanceComponent} from '../components/balance/balance.component';
 import {filter} from 'rxjs/operators';
+import {ToastService} from "../services/toast/toast.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +30,8 @@ export class DashboardPage implements OnInit{
   dataObservable: number = 1;
   location: any;
   transactionComponent: any;
-  public pockets: any = [];
+  public pockets: any = null;
+  public pocket: any
   public profile: any;
   public params = {
     userId: null,
@@ -61,6 +63,7 @@ export class DashboardPage implements OnInit{
     protected aesjs: AesJsService,
     public loadingController: LoadingService,
     private router: Router,
+    private toastCtrl: ToastService
   ) {
     this.router.events.pipe(
         filter(event => event instanceof NavigationStart)
@@ -70,7 +73,8 @@ export class DashboardPage implements OnInit{
   }
 
   async ngOnInit() {
-    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
+    this.pocket = this.aesjs.decrypt(await this.store.get('selected-pocket'));
+    console.log('pockets pasados por ruta', this.pocket)
     await this.getUserProfile();
     await this.getListTransactions();
   }
@@ -185,6 +189,7 @@ export class DashboardPage implements OnInit{
     this.profile = profile;
     this.params.userId = profile.userId;
     this.params.type = 4;
+    console.log(this.pockets)
     if (!this.pockets) {
       this.pockets = await this.store.get('pockets');
       if (this.pockets) {
@@ -207,7 +212,7 @@ export class DashboardPage implements OnInit{
     console.log('transacciones del usuario', response)
     let dataTransaction = response.data;
     if (dataTransaction[0]) {
-      this.getTransactionHistory(response);
+      await this.getTransactionHistory(response);
       this.pockets.forEach(pocket => {
         this.crypto.push({
           value: pocket.balance,
@@ -216,6 +221,7 @@ export class DashboardPage implements OnInit{
           name: pocket.currency.name,
           pocketName: pocket.label,
           currencyId: pocket.currencyId,
+          shortName: pocket.currency.shortName,
           graphic: []
         });
       });
@@ -233,6 +239,7 @@ export class DashboardPage implements OnInit{
             name: pocket.currency.name,
             pocketName: pocket.label,
             currencyId: pocket.currencyId,
+            shortName: pocket.currency.shortName,
             graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           });
       });
@@ -240,7 +247,34 @@ export class DashboardPage implements OnInit{
       // this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       // this.crypto[0].valueUsd = response.btc.toFixed(8)
     }
+    console.log('datos para los sliders',  this.crypto)
     await this.loadingController.dismiss();
     this.ctrlCssBlur = false;
+  }
+
+  async changeDataPocketSlider(cryptoData) {
+    console.log('estos datos recibo en el dashboard cuando cambio de moneda', cryptoData)
+    console.log('estos son los pockets del usuario cuando se cambia la crypto', this.pockets)
+    let selected_pocket = []
+    this.pockets.forEach(pocket => {
+      if (pocket.currencyId === cryptoData.currencyId) {
+        selected_pocket.push(pocket)
+      }
+    })
+    this.pocket = selected_pocket[0]
+    let body = {
+      userId: this.pocket.userId,
+      type: 0,
+      address: this.pocket.address
+    };
+    let dataResponse = await this.http.post('transaction/index', body, this.auth);
+    if(dataResponse.status === 200) {
+      dataResponse.pocket = this.pocket;
+      await this.getDataPocket(dataResponse)
+    } else {
+      await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+    }
+    console.log('estos son los datos cuando cambio de moneda', dataResponse)
+    console.log('este es el pocket seleccionado', selected_pocket)
   }
 }

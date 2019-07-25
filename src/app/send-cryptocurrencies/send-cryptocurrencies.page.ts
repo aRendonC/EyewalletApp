@@ -80,7 +80,6 @@ export class SendCryptocurrenciesPage implements OnInit {
       currencyId: new FormControl(''),
       fee: new FormControl('')
     });
-    console.log('pocket sin parseo antes de la ruta', this.pockets);
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
     console.log('pocket seleccionad', this.pockets);
     this.body.from_address = this.pockets.address
