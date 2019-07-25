@@ -1,5 +1,3 @@
-@import './theme/variables.scss';
-
 // http://ionicframework.com/docs/theming/
 @import '~@ionic/angular/css/core.css';
 @import '~@ionic/angular/css/normalize.css';
@@ -13,13 +11,13 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 // Variables fonts.
+$font-regular: Poppins-Regular;
 $font-medium: Poppins-Medium;
 $font-semibold: Poppins-SemiBold;
 $font-bold: Poppins-Bold;
-$font-regular: Poppins-Regular;
-$font-roboto-bold: Roboto-Bold;
-$font-roboto-medium: Roboto-Medium;
 $font-roboto-regular: Roboto-Regular;
+$font-roboto-medium: Roboto-Medium;
+$font-roboto-bold: Roboto-Bold;
 $font-open-sans-bold: Open-Sans-Bold;
 
 .button-enable {
