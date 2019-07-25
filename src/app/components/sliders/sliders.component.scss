@@ -44,11 +44,19 @@ ion-content{
     //background-position: 0em -2cm;
 }
 
-
-
 .text-valance{
     text-align: left;
     font-family: $font-roboto-bold;
+    color: #28255C;
+    display: block;
+    padding-left: 6%;
+    font-size: 30px;
+}
+
+.ios .text-valance{
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
     color: #28255C;
     display: block;
     padding-left: 6%;
