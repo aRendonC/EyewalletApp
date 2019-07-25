@@ -46,7 +46,7 @@ ion-content{
 
 .text-valance{
     text-align: left;
-    font-family: 'Open Sans', sans-serif;
+    font-family: $font-roboto-bold;
     color: #28255C;
     display: block;
     padding-left: 6%;
@@ -54,7 +54,7 @@ ion-content{
 }
 
 .text-usd{
-    font-family: 'Open Sans', sans-serif;
+    font-family: $font-roboto-bold;
     display: block;
     color: #5495FF;
     text-align: left;
