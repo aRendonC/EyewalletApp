@@ -18,6 +18,7 @@ import {TouchLoginService} from "./services/fingerprint/touch-login.service";
 import {Router} from "@angular/router";
 import {ToastService} from "./services/toast/toast.service";
 import {text} from "@angular/core/src/render3";
+import {LanguageService} from "./services/language/language.service";
 
 @Component({
     selector: 'app-root',
@@ -44,7 +45,8 @@ export class AppComponent {
         private menu: MenuController,
         private router: Router,
         private toast: ToastService,
-        private aletrCtrl: AlertController
+        private aletrCtrl: AlertController,
+        private languageService: LanguageService
     ) {
         this.initializeApp();
 
@@ -55,17 +57,6 @@ export class AppComponent {
         this.platform.ready().then(() => {
             document.addEventListener("backbutton", async (element) => {
                 // code that is executed when the user pressed the back button
-                console.log('hola, estás intentando salir de la aplicación', element)
-                // try {
-                //     const element = await this.actionSheetCtrl.getTop();
-                //     console.log('', element);
-                //     if (element) {
-                //         await element.dismiss();
-                //         return;
-                //     }
-                // } catch (error) {
-                //     console.error(error)
-                // }
                 this.routerOutlets.forEach(async (outlet: IonRouterOutlet) => {
                     console.log('esto es el outlet', outlet)
                     console.log('esta es mi ruta', this.router.url)
@@ -79,6 +70,7 @@ export class AppComponent {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
             this.touchLogin.ngOnInit()
+            this.languageService.setInitialAppLanguage()
         });
     }
 

@@ -1,0 +1,10 @@
+{
+  "PROFILE": {
+    "Email": "Email",
+    "Phone": "Phone"
+  },
+  "ALERT": {
+    "header": "Error",
+    "msg": "There was a problem with your operation"
+  }
+}

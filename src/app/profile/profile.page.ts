@@ -12,6 +12,7 @@ import {LoadingService} from "../services/loading/loading.service";
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {ToastService} from "../services/toast/toast.service";
 import {environment} from "../../environments/environment";
+import {LanguageService} from "../services/language/language.service";
 
 
 @Component({
@@ -23,6 +24,9 @@ export class ProfilePage implements OnInit {
   public userVerifications: any = {
     email: ''
   };
+  languages = [];
+  selected = '';
+  lng = ''
   public type: string = 'avatar';
   urlAvatar = environment.urlAvatar;
   avatar: any = '';
@@ -57,19 +61,24 @@ export class ProfilePage implements OnInit {
     private cameraProvider: CameraProvider,
     private toastCtrl: ToastService,
     private touchCtrl: TouchLoginService,
+    private languageService: LanguageService
   ) {
     this.temporizador = this.timer.temporizador;
   }
 
   async ngOnInit() {
+    this.languages = this.languageService.getLanguages();
+    console.log(this.languages)
+    this.selected = this.languageService.selected;
+    console.log('lenguage seleccionado', this.selected)
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     this.profile = await this.store.get('profile');
     await this.getPic();
     await this.getProfile();
   }
   ionViewDidEnter(){
-    let elementDashboard: any = document.getElementsByTagName('app-profile')
-    console.log(elementDashboard)
+    let elementDashboard: any = document.getElementsByTagName('app-profile');
+    console.log(elementDashboard);
     elementDashboard[0].classList.add("margins-dashboard")
   }
 
@@ -172,7 +181,7 @@ export class ProfilePage implements OnInit {
                 await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
                 this.profile.avatar = responsePhoto.data;
                 this.profile = this.aesjs.encrypt(this.profile);
-                await this.store.set('profile', this.profile)
+                await this.store.set('profile', this.profile);
                 await this.ngOnInit()
               } else {
                 this.touchCtrl.isTouch = true;
@@ -241,5 +250,10 @@ export class ProfilePage implements OnInit {
     return new Promise(resolve => {
      resolve("data:image/jpeg;base64,"+ base64);
     })
+  }
+
+  selectLanguage(){
+    console.log(this.lng)
+    this.languageService.setLanguage(this.lng)
   }
 }
