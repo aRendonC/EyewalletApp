@@ -31,7 +31,7 @@ export class DashboardPage implements OnInit{
   location: any;
   transactionComponent: any;
   public pockets: any = null;
-  public pocket: any
+  public pocket: any;
   public profile: any;
   public params = {
     userId: null,
@@ -74,7 +74,6 @@ export class DashboardPage implements OnInit{
 
   async ngOnInit() {
     this.pocket = this.aesjs.decrypt(await this.store.get('selected-pocket'));
-    console.log('pockets pasados por ruta', this.pocket)
     await this.getUserProfile();
     await this.getListTransactions();
   }
@@ -114,21 +113,11 @@ export class DashboardPage implements OnInit{
   }
 
   public async getDataPocket(data: any) {
-    console.log('los datos cuando se cambia de pocket', data)
-    console.log('estas son las criptomonedas activas en el momento', this.crypto)
-      // this.crypto.push({
-      //   value: data.pocket.balance,
-      //   valueUsd: data.btc.toFixed(8),
-      //   background: data.pocket.currency.name,
-      //   name: data.pocket.currency.name,
-      //   pocketName: data.pocket.label,
-      //   graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-      // });
+    console.log(data)
     this.crypto.forEach(crypto => {
       crypto.graphic = [];
-      if (data.pocket.currencyId === data.pocket.currencyId) {
         crypto.value = data.pocket.balance;
-        crypto.valueUsd = data.pocket.balance * data.btc.toFixed(8);
+        crypto.valueUsd = data.btc.toFixed(8);
         if (data.data[0]) {
           data.data.forEach(elementGraphic => {
             crypto.graphic.push(parseFloat(elementGraphic.balance_after));
@@ -136,8 +125,8 @@ export class DashboardPage implements OnInit{
         } else {
           crypto.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         }
-      }
     });
+    this.crypto.shortName = data.pocket.currency.shortName
     this.crypto.amountPending = data.amountPending;
     await this.getTransactionHistory(data);
     await this.sliderComponent.grafica();
@@ -189,7 +178,6 @@ export class DashboardPage implements OnInit{
     this.profile = profile;
     this.params.userId = profile.userId;
     this.params.type = 4;
-    console.log(this.pockets)
     if (!this.pockets) {
       this.pockets = await this.store.get('pockets');
       if (this.pockets) {
@@ -199,35 +187,51 @@ export class DashboardPage implements OnInit{
   }
 
   async getListTransactions() {
-    this.crypto = []
+    this.crypto = [];
     await this.loadingController.present({text: 'Recopilando información', cssClass: 'textLoadingBlack'});
     this.ctrlCssBlur = true;
-
     let params = {
       userId: this.profile.userId,
       type: 0,
-      address: this.pockets[0].address
+      address: this.pockets[0].address,
+      currencyShortName: this.pockets[0].currency.shortName
     };
     let response = await this.http.post('transaction/index', params, this.auth);
-    console.log('transacciones del usuario', response)
     let dataTransaction = response.data;
     if (dataTransaction[0]) {
       await this.getTransactionHistory(response);
       this.pockets.forEach(pocket => {
-        this.crypto.push({
-          value: pocket.balance,
-          valueUsd: response.btc.toFixed(8),
-          background: pocket.currency.name,
-          name: pocket.currency.name,
-          pocketName: pocket.label,
-          currencyId: pocket.currencyId,
-          shortName: pocket.currency.shortName,
-          graphic: []
-        });
+        if(!this.crypto[0]){
+          this.crypto.push({
+            value: pocket.balance,
+            valueUsd: response.btc.toFixed(8),
+            background: pocket.currency.name,
+            name: pocket.currency.name,
+            pocketName: pocket.label,
+            currencyId: pocket.currencyId,
+            shortName: pocket.currency.shortName,
+            graphic: []
+          });
+        } else {
+          const result = this.crypto.find(data => data.currencyId === pocket.currencyId);
+          if(result == undefined){
+                this.crypto.push({
+                  value: pocket.balance,
+                  valueUsd: response.btc.toFixed(8),
+                  background: pocket.currency.name,
+                  name: pocket.currency.name,
+                  pocketName: pocket.label,
+                  currencyId: pocket.currencyId,
+                  shortName: pocket.currency.shortName,
+                  graphic: []
+                });
+          }
+        }
       });
         dataTransaction.forEach(transactions => {
           this.crypto[0].graphic.push(transactions.balance_after)
-        })
+        });
+      this.crypto.shortName = this.pockets[0].currency.shortName
       this.crypto.amountPending = response.amountPending;
 
     } else {
@@ -243,38 +247,36 @@ export class DashboardPage implements OnInit{
             graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           });
       });
+      this.crypto.shortName = this.pockets[0].currency.shortName
       this.crypto.amountPending = response.amountPending;
       // this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       // this.crypto[0].valueUsd = response.btc.toFixed(8)
     }
-    console.log('datos para los sliders',  this.crypto)
     await this.loadingController.dismiss();
     this.ctrlCssBlur = false;
   }
 
   async changeDataPocketSlider(cryptoData) {
-    console.log('estos datos recibo en el dashboard cuando cambio de moneda', cryptoData)
-    console.log('estos son los pockets del usuario cuando se cambia la crypto', this.pockets)
-    let selected_pocket = []
+    let selected_pocket = [];
     this.pockets.forEach(pocket => {
       if (pocket.currencyId === cryptoData.currencyId) {
         selected_pocket.push(pocket)
       }
-    })
-    this.pocket = selected_pocket[0]
+    });
+    this.pocket = selected_pocket[0];
     let body = {
       userId: this.pocket.userId,
       type: 0,
-      address: this.pocket.address
+      address: this.pocket.address,
+      currencyShortName: this.pocket.currency.shortName
     };
     let dataResponse = await this.http.post('transaction/index', body, this.auth);
+    console.log('pocket cuando cambio el slider', this.pocket)
     if(dataResponse.status === 200) {
       dataResponse.pocket = this.pocket;
       await this.getDataPocket(dataResponse)
     } else {
       await this.toastCtrl.presentToast({text: dataResponse.error.msg})
     }
-    console.log('estos son los datos cuando cambio de moneda', dataResponse)
-    console.log('este es el pocket seleccionado', selected_pocket)
   }
 }

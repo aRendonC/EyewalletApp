@@ -99,7 +99,7 @@
     <canvas style="width:100%" #lineCanvas></canvas>
 </div>
 <ion-col size="12">
-    <ion-label style="font-weight: 800; float: right; margin-right: 5%;">{{name.amountPending}} BTC</ion-label>
+    <ion-label style="font-weight: 800; float: right; margin-right: 5%;">{{name.amountPending}} {{name.shortName}}</ion-label>
     <ion-infinite-scroll>
         <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more data...">
             <ion-card *ngFor="let transaction of transactions" class="sc-ion-card-ios-h-transactions">

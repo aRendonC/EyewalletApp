@@ -86,6 +86,8 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   async ionViewDidEnter() {
+    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
+    console.log('pocket seleccionad', this.pockets);
     await this.getPriceCripto();
   }
 
@@ -236,6 +238,7 @@ export class SendCryptocurrenciesPage implements OnInit {
               this.bodyForm.value.pin = security;
               this.bodyForm.value.from_address = this.pockets.address;
               this.bodyForm.value.fee = this.totalApplied.fee;
+              console.log(this.bodyForm)
               let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
               console.log('respuesta de la transaccion', response);
               if (response.status === 200) {

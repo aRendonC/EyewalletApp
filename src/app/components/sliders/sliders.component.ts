@@ -21,6 +21,7 @@ import {ToastService} from "../../services/toast/toast.service";
 })
 
 export class SlidersComponent implements OnInit {
+    progress: number
     @Input() name: any;
     public lineChart: any;
     public dataGraphic: any;
@@ -87,6 +88,7 @@ export class SlidersComponent implements OnInit {
         await this.setProfileStore();
         this.nameSlider = this.name;
         this.dataGraphic = this.name[0];
+        console.log(this.name)
         await this.grafica();
 
     }
@@ -107,8 +109,6 @@ export class SlidersComponent implements OnInit {
 
     public async grafica() {
         this.labelGrapich = [];
-        console.log('los datos que se inyectan para la grafica', this.dataGraphic);
-        console.log('los datos que se inyectan para la grafica', this.name);
         for (let i = 0; i <= this.dataGraphic.graphic.length - 1; i++) {
             this.labelGrapich.push('')
         }
@@ -165,7 +165,7 @@ export class SlidersComponent implements OnInit {
                         }
                     }]
                 }, animation: {
-                    duration: 1000,
+                    duration: 800,
                 },
                 hover: {
                     animationDuration: 1000
