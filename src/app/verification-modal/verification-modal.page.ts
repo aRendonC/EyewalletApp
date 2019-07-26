@@ -71,14 +71,12 @@ export class VerificationModalPage implements OnInit {
                 let profile = await this.store.get('profile');
                 profile = this.aesjs.decrypt(profile);
                 profile.level = response.level;
-                console.log('perfil en modal verifiacion phone', profile);
                 await this.closeModal(profile);
                 profile = this.aesjs.encrypt(profile);
                 await this.store.set('profile', profile);
                 await this.toastCtrl.presentToast({text: 'Teléfono ha sido verificado correctamente'})
             } else {
                 await this.toastCtrl.presentToast({text: 'Error de código'})
-                //poner el toast de error, muchas gracias.
             }
         }
     }

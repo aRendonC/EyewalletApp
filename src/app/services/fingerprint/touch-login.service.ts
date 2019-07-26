@@ -18,7 +18,7 @@ export class TouchLoginService implements OnInit {
     private initialized = false;
     private onPauseSubscription: Subscription;
     private onResumeSubscription: Subscription;
-    private user: any = null
+    private user: any = null;
 
     constructor(
         private faio: FingerprintAIO,
@@ -33,7 +33,6 @@ export class TouchLoginService implements OnInit {
     }
 
     ngOnInit() {
-        console.log('este es el touch login');
         if (this.initialized) {
             return;
         }
@@ -47,31 +46,25 @@ export class TouchLoginService implements OnInit {
                 if (this.isLocked) {
                     if (this.auth.isLogin()) {
                         if (this.isTouch) {
-                            this.user = await this.storage.get('user')
-                            console.log(this.user)
+                            this.user = await this.storage.get('user');
                             if (this.user) {
-                                const modal = await this.modalCtrl.getTop()
-                                console.log('modal get top', modal)
+                                const modal = await this.modalCtrl.getTop();
                                 if (modal === undefined) this.showFingerPrint()
                             }
                             // this.login();
-                            console.log('bloqueado', this.isLocked);
                         }
                     } else {
-                        console.log('verificar este if');
                         // let nav = this.app.getActiveNav();
 
                         // nav.setRoot('LoginPage');
                         // nav.popToRoot;
                     }
                 }
-                console.log('no bloqueado', this.isLocked);
                 // this.splashScreen.hide();
                 this.isLocked = true;
 
             });
         }).catch(er => {
-            console.info('esto sería para navegador', er);
         });
     }
 
@@ -79,7 +72,6 @@ export class TouchLoginService implements OnInit {
     showFingerPrint() {
         this.faio.isAvailable()
             .then(result => {
-                console.log('huella avaliable', result);
                 this.faio.show({
                     clientId: 'Identificar de huella',
                     clientSecret: 'password',   // Only necessary for Android
@@ -89,18 +81,15 @@ export class TouchLoginService implements OnInit {
 
                 })
                     .then((result: any) => {
-                        console.log('huella verificada', result);
                         this.login();
                         this.isLocked = true;
 
                     }).catch((error: any) => {
-                    console.log('entro al catch, cuando canelo', error);
                     this.openModal();
                     // this.exitApp();
                 });
             }).catch((error: any) => {
-            if (this.user) this.openModal()
-            console.log('entro al carch sin cancelar', error)
+            if (this.user) this.openModal();
         });
     }
 

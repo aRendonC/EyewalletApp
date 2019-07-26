@@ -40,11 +40,8 @@ export class CreateProfilePage implements OnInit {
     this.touchCtrl.isLocked = false;
   }
 
-  // Esta función me lleva a la pagina que tiene dirección pero primero envia los
-  // datos del form a la API medinte un put request
   async address() {
     if(this.birthdate) {
-      // Nombre
       this.user = await this.store.get('profile');
       this.user = this.aes.decrypt(this.user);
       this.bodyForm = {
@@ -58,13 +55,11 @@ export class CreateProfilePage implements OnInit {
         country: '',
         city: ''
       };
-      // const response = await this.axios.put(`profile/${this.user.data.id}/update`, this.bodyForm, this.aut);
+
       const response = await this.axios.put(`profile/${this.bodyForm.userId}/update`, this.bodyForm, this.aut);
       if (response.status === 200) {
         this.ctrlCssBlur = false;
         await this.router.navigate(['/address']);
-        // this.store.set('user', JSON.stringify(response.data));
-        // console.log( await this.store.set('user', JSON.stringify(response.data)));
       } else {
         this.ctrlCssBlur = false
       }

@@ -31,7 +31,7 @@ export class UploadVerificationFilesPage implements OnInit {
       componentProps: {
         documentList: value
       }
-    })
+    });
     await modalUploadFiles.present();
   }
 }

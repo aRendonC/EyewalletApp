@@ -23,7 +23,6 @@ export class SlidersComponent implements OnInit {
   @Input() name: any;
   public lineChart: any;
   public dataGraphic: any;
-  public contentDataGrapic: any;
   public profile: any = null;
   @Input() transactions: any;
   @ViewChild('slideWithNav') slideWithNav: IonSlides;
@@ -34,15 +33,6 @@ export class SlidersComponent implements OnInit {
     slidesPerView: 1,
     speed: 1000,
     loop: false,
-  };
-  slideOptsName = {
-    spaceBetween: 1,
-    initialSlide: 0,
-    slidesPerView: 3,
-    speed: 1000,
-    loop: true,
-    centeredSlides: true,
-    effect: 'coverflow',
   };
   labelGrapich = [];
 
@@ -62,7 +52,6 @@ export class SlidersComponent implements OnInit {
     this.router.events.pipe(
         filter(event => event instanceof NavigationStart)
     ).subscribe((route: NavigationStart) => {
-      console.log('Route: '+route.url)
       this.getProfileStore()
     });
   }
@@ -70,15 +59,14 @@ export class SlidersComponent implements OnInit {
 
   async ngOnInit() {
     let userVerifications: any = await this.http.get('user-verification/status', this.auth, null);
-    console.log(userVerifications)
-    userVerifications = userVerifications.data
+    console.log(userVerifications);
+    userVerifications = userVerifications.data;
     const dataEncrypt = this.aesjs.encrypt(userVerifications);
-    await this.store.set('userVerification', dataEncrypt)
+    await this.store.set('userVerification', dataEncrypt);
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
-    this.profile.completed = userVerifications.completed
-    await this.setProfileStore()
-    console.log('profile del usuario',this.profile)
+    this.profile.completed = userVerifications.completed;
+    await this.setProfileStore();
     this.nameSlider = this.name;
     this.dataGraphic = this.name[0];
     await this.grafica();
@@ -87,11 +75,10 @@ export class SlidersComponent implements OnInit {
   async getProfileStore(){
     this.profile = await this.store.get('profile');
     this.profile = this.aesjs.decrypt(this.profile);
-    console.log('perfil componente slider', this.profile)
   }
 
   async setProfileStore(){
-    let profile = this.aesjs.encrypt(this.profile)
+    let profile = this.aesjs.encrypt(this.profile);
     await this.store.set('profile', profile)
   }
 
@@ -172,7 +159,7 @@ export class SlidersComponent implements OnInit {
     modalVerification.onDidDismiss().then(async (profile:any)=> {
       console.error('se está cerrando el modal con este dato', profile);
       if(profile.data != undefined) {
-        this.profile.level = profile.level
+        this.profile.level = profile.level;
         this.profile.completed = profile.completed
 
       }
@@ -180,12 +167,10 @@ export class SlidersComponent implements OnInit {
     return await modalVerification.present()
   }
 
-  // Esta función envia a la verificación de documentos
   verificationPage() {
     this.router.navigate(['/upload-verification-files']);
   }
   async cambioDeSlider(slideView2) {
      await slideView2.slideNext()
-    // this.checkIfNavDisabled(slideView);
   }
 }

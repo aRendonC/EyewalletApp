@@ -44,19 +44,6 @@ export class PocketComponent implements OnInit {
 
    async ngOnInit() {
      await this.getPocketStore()
-     // console.log('esto debería cambiar siempre', this.router.url);
-     // this.urlPresent = this.router.url.slice(0, 9);
-     // console.log(this.urlPresent);
-     // this.router.events.subscribe((event: any) => {
-     //   // console.log('este es un observable lindo 7w7',event)
-     //   this.urlPresent = this.urlPresent.slice(9, 23);
-     //   console.log('el evento de la ruta', this.urlPresent)
-     //   //   if (event instanceof NavigationEnd ) {
-     //   //     url = event.url
-     //   //     url = url.slice(9, 23)
-     //   //     this.urlPresent = url == '/send-currency';
-     //   // }
-     // })
    }
   async getPocketStore() {
     this.pockets = await this.store.get('pockets');
@@ -68,9 +55,7 @@ export class PocketComponent implements OnInit {
     } else {
       this.pockets = this.aesjs.decrypt(this.pockets);
     }
-
-    this.pocket = this.pockets
-    console.log(this.pocket)
+    this.pocket = this.pockets;
   }
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
@@ -93,7 +78,7 @@ export class PocketComponent implements OnInit {
           type: 0,
           address: this.pocket.address
         };
-        await this.loadingCtrl.present({cssClass: 'textLoadingBlack'})
+        await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         if(dataResponse.status === 200) {
           await this.loadingCtrl.dismiss();

@@ -25,7 +25,7 @@ export class InterceptadorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.auth.isLogin()) {
-      const user: any = this.storage.get('user')
+      const user: any = this.storage.get('user');
       const token = user.accessToken;
       if (token) {
         request = request.clone({
@@ -37,9 +37,6 @@ export class InterceptadorService implements HttpInterceptor {
 
       if (!request.headers.has('Content-Type')) {
         request = request.clone({
-          // setHeaders: {
-          //   'content-type': 'application/json'
-          // }
         });
       }
 
@@ -52,7 +49,6 @@ export class InterceptadorService implements HttpInterceptor {
           return event;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('esta es la respuesta del interceptador', error)
           if (error.status === 401) {
             this.logout();
             this.navCtrl.navigateRoot('/login');
@@ -75,9 +71,8 @@ export class InterceptadorService implements HttpInterceptor {
 
 
   async logout() {
-    await this.storage.remove('user')
+    await this.storage.remove('user');
     await this.storage.clear();
-    // this.timer.resetTimer();
     await this.navCtrl.navigateRoot('/login');
     await this.presentAlerta('', '');
   }

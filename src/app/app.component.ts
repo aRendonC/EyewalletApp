@@ -17,7 +17,6 @@ import {TimerService} from './services/timer/timer.service';
 import {TouchLoginService} from "./services/fingerprint/touch-login.service";
 import {Router} from "@angular/router";
 import {ToastService} from "./services/toast/toast.service";
-import {text} from "@angular/core/src/render3";
 
 @Component({
     selector: 'app-root',
@@ -26,8 +25,8 @@ import {text} from "@angular/core/src/render3";
 
 export class AppComponent {
     // set up hardware back button event.
-    lastTimeBackPress = 0;
-    timePeriodToExit = 2000;
+
+
     @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
 
     constructor(
@@ -55,7 +54,6 @@ export class AppComponent {
         this.platform.ready().then(() => {
             document.addEventListener("backbutton", async (element) => {
                 // code that is executed when the user pressed the back button
-                console.log('hola, estás intentando salir de la aplicación', element)
                 // try {
                 //     const element = await this.actionSheetCtrl.getTop();
                 //     console.log('', element);
@@ -67,11 +65,8 @@ export class AppComponent {
                 //     console.error(error)
                 // }
                 this.routerOutlets.forEach(async (outlet: IonRouterOutlet) => {
-                    console.log('esto es el outlet', outlet)
-                    console.log('esta es mi ruta', this.router.url)
                     if (this.router.url === '/app/tabs/dashboard') {
-                        let alert = await this.aletrCtrl.getTop()
-                        console.log('este es presentar el alert', alert)
+                        let alert = await this.aletrCtrl.getTop();
                         if(alert == undefined) await this.presentAlert()
                     }
                 });

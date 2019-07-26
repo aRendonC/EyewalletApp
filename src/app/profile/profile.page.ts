@@ -69,8 +69,8 @@ export class ProfilePage implements OnInit {
     console.log('avatar: ',this.urlAvatar+this.profile.avatar);
   }
   ionViewDidEnter(){
-    let elementDashboard: any = document.getElementsByTagName('app-profile')
-    console.log(elementDashboard)
+    let elementDashboard: any = document.getElementsByTagName('app-profile');
+    console.log(elementDashboard);
     elementDashboard[0].classList.add("margins-dashboard")
   }
 
@@ -105,7 +105,6 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  // Vuelve en mayúscula cada palabra
   lowercaseNames(word) {
     word = word.split(' ');
     for (let i = 0, x = word.length; i < x; i++) {
@@ -171,9 +170,9 @@ export class ProfilePage implements OnInit {
                 this.avatar = this.urlAvatar + responsePhoto.data;
                 await this.loadingCtrl.dismiss();
                 await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
-                this.profile.avatar = responsePhoto.data; 
+                this.profile.avatar = responsePhoto.data;
                 this.profile = this.aesjs.encrypt(this.profile);
-                await this.store.set('profile', this.profile)
+                await this.store.set('profile', this.profile);
                 await this.ngOnInit()
               } else {
                 this.touchCtrl.isTouch = true;
@@ -234,9 +233,6 @@ export class ProfilePage implements OnInit {
     const dataEncrypt = this.aesjs.encrypt(userVerification);
     await this.store.set('userVerification', dataEncrypt)
   }
-  // decodePhoto(base64, name){
-  //  return fs.writeFile(name, base64, 'base64')
-  // }
 
   setPhoto(base64){
     return new Promise(resolve => {

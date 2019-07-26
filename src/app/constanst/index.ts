@@ -8,27 +8,27 @@ export const REGISTRY = {
    TERMS_SERVICE: 'términos de servicios',
    PRIVACY_POLICY: 'política de privacidad',
    BUTTON: 'crear billetera',
-}
+};
 
 export const RESTORE_PASSWORDO = {
    WALLET_BLOCKED: 'Su cuenta ha sido bloqueada, espere 24 horas.'
-}
+};
 
 export const PIN = {
    CEATE_PIN: 'Crear PIN',
    ENTER_PIN: 'Ingresar PIN'
-}
+};
 
 export const TITLES = {
    EYEWALLET: 'EYEWALLET',
    CRYPTO_BANCK: 'CRYPTO BANK'
-}
+};
 
 export const RECEIVE_FUNDS = {
    AMOUNT: 'monto',
    BUTTON_COPY: 'copiar',
    MESSAGE_COPY: 'El código ha sido copiado.'
-}
+};
 
 export const REQUEST_CARD = {
    REQUEST_CARD: 'Solicitar tarjeta',
@@ -42,17 +42,17 @@ export const REQUEST_CARD = {
    RESIDENCE: 'Residencia',
    MESSAGE_NO_CARD: 'El usuario no puede solicitar tarjetas.',
    INCOMPLETE_PROFILE: 'Perfil incompleto'
-}
+};
 
 export const VAULT = {
    TITLE_BALANCE: 'saldo disponible',
    TITLE_DURATION: 'duración',
    TEXT_EARNING: 'total ganancias'
-}
+};
 
 export const MESSAGE_ERROR = {
    CONNECTIVITY_PROBLEMS: 'Problemas de conectividad.'
-}
+};
 
 export const  LOCATION_PHONE_NUMBER: string[] = [
    'ar-AE', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW',

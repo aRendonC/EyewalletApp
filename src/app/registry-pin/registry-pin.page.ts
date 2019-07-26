@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AxiosService} from '../services/axios/axios.service';
 import {DeviceService} from '../services/device/device.service';
 import * as CONSTANTS from '../constanst';
-import {Validators, FormGroup, FormBuilder, FormControl} from '@angular/forms';
+import {Validators, FormGroup, FormControl} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
@@ -54,20 +54,12 @@ export class RegistryPinPage implements OnInit {
     this.ctrlCssBlur = true;
 
     this.devic = await this.device.getDataDevice();
-    console.info(this.bodyForm);
-    console.info(data);
-    console.info('datos del device', this.devic);
     if(!this.devic.uuid) this.devic.uuid = 'edwigrendon';
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
-    console.log('bodyForm', this.bodyForm);
-    console.log('auth service', this.auth);
-    console.log('auth service', this.user);
     const response = await this.axios.put(`profile/${this.user.data.id}/pin`, this.bodyForm.value, this.auth);
-    console.log('acá registra el pin respuesta----->', response);
     if (response.status === 200) {
       let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password);
-      console.log('logeo de usuario en registrar pin', loginUser)
       if(loginUser.status === 200){
         this.pockets = await this.getPocketsList();
         await this.router.navigate(['/app/tabs/dashboard']);

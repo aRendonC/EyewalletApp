@@ -80,9 +80,7 @@ export class SendCryptocurrenciesPage implements OnInit {
       currencyId: new FormControl(''),
       fee: new FormControl('')
     });
-    console.log('pocket sin parseo antes de la ruta', this.pockets);
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
-    console.log('pocket seleccionad', this.pockets);
     this.body.from_address = this.pockets.address
   }
 
@@ -114,7 +112,7 @@ export class SendCryptocurrenciesPage implements OnInit {
 
 
         } else if (status.denied) {
-          // this.qrScanner.openSettings();
+
         }
       })
       .catch((e: any) => console.log('Error is', e));
@@ -125,7 +123,6 @@ export class SendCryptocurrenciesPage implements OnInit {
     this.cssGradient = 'backGroundGradient';
     this.cssCtrlContents = true;
     let element = document.getElementById('QRScaner');
-    console.log('Etiquetas html de la cámara', element);
     element.classList.remove('show-qr-scanner');
     await this.toastCtrl.presentToast({
       text: 'Código escaneado correctamente, por favor, presione la pantalla para continuar',
@@ -166,7 +163,6 @@ export class SendCryptocurrenciesPage implements OnInit {
   async firstTransaction() {
     this.totalApplied.amountMaxBtc = (this.pockets.balance - this.totalApplied.fee).toFixed(8);
     this.totalApplied.amountMaxUsd = (this.totalApplied.amountMaxBtc * this.totalApplied.priceCriptoUsd).toFixed(5);
-    console.log("===========> los totales primera transaccion: ", this.totalApplied)
   }
 
   async calculateBTC(event) {
@@ -176,7 +172,6 @@ export class SendCryptocurrenciesPage implements OnInit {
       this.totalApplied.fee = 0;
       this.bodyForm.get('fee').setValue(0);
       this.bodyForm.get('amount').setValue(this.totalApplied.amountMaxBtc);
-      console.log("===========> los totales por criptos: ", this.totalApplied)
     }
   }
 
@@ -187,7 +182,6 @@ export class SendCryptocurrenciesPage implements OnInit {
       this.totalApplied.fee = 0;
       this.bodyForm.get('fee').setValue(0);
       this.bodyForm.get('amount').setValue(this.totalApplied.amountMaxBtc);
-      console.log("===========> los totales por usd: ", this.totalApplied)
     }
   }
 
@@ -196,7 +190,7 @@ export class SendCryptocurrenciesPage implements OnInit {
     if (this.bodyForm.value.amount != "" && this.bodyForm.value.fee != "" && this.bodyForm.value.to_address != "") {
       this.ctrlButtonSend = false;
       this.feeAndSend = parseFloat(this.totalApplied.fee) + parseFloat(this.totalApplied.amountMaxBtc);
-      
+
       if (this.pockets.balance >= this.feeAndSend) {
         await this.presentAlertSend();
       } else {
@@ -224,7 +218,7 @@ export class SendCryptocurrenciesPage implements OnInit {
           text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (alertData) => {
+          handler: () => {
             this.ctrlButtonSend = true;
           }
         }, {
@@ -240,7 +234,6 @@ export class SendCryptocurrenciesPage implements OnInit {
               this.bodyForm.value.from_address = this.pockets.address;
               this.bodyForm.value.fee = this.totalApplied.fee;
               let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
-              console.log('respuesta de la transaccion', response);
               if (response.status === 200) {
                 await this.loadingCtrl.dismiss();
                 await this.toastCtrl.presentToast({text: 'Transacción realizada con éxito'});
@@ -261,7 +254,6 @@ export class SendCryptocurrenciesPage implements OnInit {
               await this.toastCtrl.presentToast({text: 'Pin incorrecto'})
             }
             this.ctrlButtonSend = true;
-            console.log('Confirm Ok');
           }
         }
       ]

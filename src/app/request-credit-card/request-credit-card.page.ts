@@ -21,7 +21,7 @@ import { ModalInvoicePage } from '../modal-invoice/modal-invoice.page';
 })
 
 export class RequestCreditCardPage implements OnInit {
-  @ViewChild(IonContent) content: IonContent
+  @ViewChild(IonContent) content: IonContent;
   // Text html.
   public title: string = CONSTANTS.REQUEST_CARD.REQUEST_CARD;
   public termsConditions: string = CONSTANTS.REQUEST_CARD.TERMS_CONDITIONS;
@@ -56,12 +56,12 @@ export class RequestCreditCardPage implements OnInit {
     this.dataProfile = await this.getDataProfile();
     this.setDataProfile(this.dataProfile);
     this.pockets = await this.getDataListPockets();
+    console.log(this.pockets)
     this.pocketSelected = this.pockets[0];
   }
 
   public ionViewDidEnter(): void {
-    let elementDashboard: any = document.getElementsByTagName('app-request-credit-card')
-    console.log(elementDashboard)
+    let elementDashboard: any = document.getElementsByTagName('app-request-credit-card');
     elementDashboard[0].classList.add("margins-dashboard")
   }
 
@@ -74,7 +74,6 @@ export class RequestCreditCardPage implements OnInit {
 
   private async getDataListPockets(): Promise<any[]> {
     const dataPockets = await this.storage.get('pocket');
-    console.log(await this.storage.keys())
     return this.aesJsService.decrypt(dataPockets)
   }
 
@@ -99,10 +98,6 @@ export class RequestCreditCardPage implements OnInit {
 
   public showForm(): void {
     this.showContentLogo = !this.showContentLogo;
-  }
-
-  public setImageLogoCard(): string {
-    return `../../assets/${this.showContentLogo ? 'img/home-logo.svg' : 'images/image-card.svg'}`;
   }
 
   public async buttonCancelNavigate(): Promise<any> {

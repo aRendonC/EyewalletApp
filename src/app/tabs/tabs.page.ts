@@ -39,7 +39,6 @@ export class TabsPage {
 
   async goToProfile() {
     let profile = await this.store.get('profile');
-    console.log(profile);
     profile = this.aesjs.decrypt(profile);
     if(profile.user.firstName){
       await this.router.navigate(['/app/tabs/profile'])
@@ -52,7 +51,6 @@ export class TabsPage {
   getActiveRoute(){
     this.fingerCtrl.isTouch = true;
     this.currentRoute = this.router.url.split('/')[3];
-    console.log('---------->rutas en las tabs', this.currentRoute)
   }
 
   public async requestCreditCard(): Promise<any> {
@@ -66,7 +64,6 @@ export class TabsPage {
   }
 
   private async validateNavigationRequestCard(profile: any): Promise<any> {
-    console.log(profile);
     if(profile.level === 1) {
       if(profile.completed === 0) {
         await this.toastCtrl.presentToast({text: 'Para solicitar una tarjeta, debe validar sus documentos'});

@@ -103,13 +103,11 @@ this.dataTransaction = data;
       });
       return await this.proccessData(label, this.array2, this.array1);
     } else {
-      console.log('label incorrectos');
     }
   }
 
 
   private async proccessData(titulo, label, data) {
-   console.log(data);
     this.lineChart = await new Chart(this.lineCanvas.nativeElement, {
       type: 'line',
       data: {

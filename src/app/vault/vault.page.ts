@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 
 // Constants.
-import * as CONSTANTS from '../constanst';
 
 @Component({
   selector: 'app-vault',
@@ -20,13 +19,11 @@ export class VaultPage implements OnInit {
   }
 
   ionViewDidEnter(){
-    let elementDashboard: any = document.getElementsByTagName('app-vault')
-    console.log(elementDashboard)
+    let elementDashboard: any = document.getElementsByTagName('app-vault');
     elementDashboard[0].classList.add("margins-dashboard")
   }
 
   public continueCreateVault(): void {
-    console.log('Continue...');
 
   }
 }

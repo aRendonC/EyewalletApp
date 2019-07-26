@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ModalController, NavParams, Platform,} from '@ionic/angular';
 import {FingerprintAIO} from "@ionic-native/fingerprint-aio/ngx";
 import {Storage} from "@ionic/storage";
@@ -29,7 +29,7 @@ export class PinModalPage implements OnInit {
 
   ngOnInit() {
     // console.table(this.modalTitle);
-    this.currentRoute = this.router.url
+    this.currentRoute = this.router.url;
     this.modelID = this.navParams.data.paramID;
     this.modalTitle = this.navParams.data.paramTitle;
     this.platform.backButton.subscribeWithPriority(9999,() => {
