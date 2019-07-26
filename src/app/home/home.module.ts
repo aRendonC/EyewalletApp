@@ -5,6 +5,7 @@ import {IonicModule, NavController} from '@ionic/angular';
 import {RouterModule} from '@angular/router';
 import {HomePage} from './home.page';
 import {ComponentsModule} from '../components/components.module';
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {ComponentsModule} from '../components/components.module';
         component: HomePage
       }
     ]),
+      TranslateModule
   ],
   declarations: [
     HomePage

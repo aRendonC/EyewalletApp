@@ -1,4 +1,9 @@
 {
+  "HOMEPAGE": {
+    "EyeWallet": "EYEWALLET",
+    "LogIn": "Iniciar Sesión",
+    "CreateWallet": "Crear Billetera"
+  },
   "PROFILE": {
     "Email": "Email",
     "Phone": "Celular"
@@ -6,5 +11,21 @@
   "ALERT": {
     "header": "Error",
     "msg": "There was a problem with your operation"
+  },
+  "ADDRESS_PAGE": {
+    "Address": "Dirección",
+    "VerifyIdentity": "Esta información es utilizada solo para verificar tu identidad.",
+    "Address1": "Dirección Linea 1",
+    "Address2": "Dirección Linea 2",
+    "Region": "Estado / Region / Provincia / Departamento"
+  },
+  "GENERAL": {
+    "Country": "País",
+    "City": "Ciudad",
+    "PostalCode": "Código postal",
+    "Finalize": "Finalizar",
+    "ConfirmTerms": "Al crear tu billetera, aceptas los siguientes términos",
+    "TermsOfService": "Términos De Servicios",
+    "PrivacyPolicy": "Política De Privacidad"
   }
 }

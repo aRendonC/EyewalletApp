@@ -1,57 +1,57 @@
 <ion-content padding class="bghome" [class.blur]="ctrlCssBlur">
 
     <div class="move-text">
-      <p class="profile">Dirección</p>
-      <p class="we-need">Esta información es utilizada solo para verificar tu identidad.</p>
+      <p class="profile">{{'ADDRESS_PAGE.Address'| translate}}</p>
+      <p class="we-need">{{'ADDRESS_PAGE.VerifyIdentity'| translate}}</p>
     </div>
     <form #formulario (ngSubmit)="createProfile()" class="transparent move-form">
     <ion-list class="transparent">
         <!-- Dirección Linea 1 -->
         <ion-item class="white-line">
-            <ion-input  class="white move-input" type="text" name="firstname" [(ngModel)]="bodyForm.address1"  placeholder="Dirección Linea 1" [ngModelOptions]="{standalone: true}"></ion-input>
+            <ion-input  class="white move-input" type="text" name="firstname" [(ngModel)]="bodyForm.address1"  [placeholder]="'ADDRESS_PAGE.Address1'| translate" [ngModelOptions]="{standalone: true}"></ion-input>
         </ion-item>
         <!-- Dirección Linea 2 -->
         <ion-item class="white-line">
-            <ion-input class="white move-input" type="text" name="lastname" [(ngModel)]="bodyForm.address2" placeholder="Dirección Linea 2" [ngModelOptions]="{standalone: true}"></ion-input>
+            <ion-input class="white move-input" type="text" name="lastname" [(ngModel)]="bodyForm.address2" [placeholder]="'ADDRESS_PAGE.Address1'| translate" [ngModelOptions]="{standalone: true}"></ion-input>
         </ion-item>
         <!-- Pais -->
         <ion-item class="white-line">
-            <ion-input class="white move-input" type="text" name="country" value={{bodyForm.country}} placeholder="Pais"></ion-input>
+            <ion-input class="white move-input" type="text" name="country" value={{bodyForm.country}} [placeholder]="'GENERAL.Country'| translate"></ion-input>
           <!-- <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" placeholder="País" display-format="YYYY-MM-DD" [(ngModel)]="bodyForm.country" [ngModelOptions]="{standalone: true}" (ionChange)="statesFn($event.detail.value)">
             <ion-select-option *ngFor="let country of countries" [value]="country[0]">{{country[1]}}</ion-select-option>
           </ion-select> -->
         </ion-item>
         <!-- Estado / Region / Provincia / Departamento -->
         <ion-item class="white-line">
-            <ion-input class="white move-input" type="text" name="state" value={{bodyForm.state}} placeholder="Estado / Region / Provincia / Departamento"></ion-input>
+            <ion-input class="white move-input" type="text" name="state" value={{bodyForm.state}} [placeholder]="'ADDRESS_PAGE.Region'| translate"></ion-input>
             <!-- <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" type="number" name="state" [(ngModel)]="bodyForm.state" placeholder="Estado / Region / Provincia / Departamento" (ionChange)="citiesFn($event.detail.value)">
               <ion-select-option *ngFor="let state of states" [value]="state[0]">{{state[1]}}</ion-select-option>
             </ion-select> -->
         </ion-item>
         <!-- Ciudad -->
         <ion-item class="white-line">
-            <ion-input class="white move-input" type="text" name="city" value={{bodyForm.city}} placeholder="Ciudad"></ion-input>
+            <ion-input class="white move-input" type="text" name="city" value={{bodyForm.city}} [placeholder]="'GENERAL.City'| translate"></ion-input>
             <!-- <ion-select class="move-input" done-text="Aceptar" cancel-text="Cancelar" type="number" name="city" [(ngModel)]="bodyForm.city" placeholder="Ciudad">
                 <ion-select-option *ngFor="let city of cities" [value]="city[0]">{{city[1]}}</ion-select-option>
             </ion-select> -->
         </ion-item>
         <!-- ZIP Code -->
         <ion-item class="white-line">
-            <ion-input type="number" name="ZIP" value={{bodyForm.zipcode}} placeholder="Código Postal"></ion-input>
+            <ion-input type="number" name="ZIP" value={{bodyForm.zipcode}} [placeholder]="'GENERAL.PostalCode'| translate"></ion-input>
         </ion-item>
     </ion-list>
 
     <div class="transparent move-btn">
-        <ion-button type="submit" class="btn-start" mode="ios" >&nbsp;&nbsp; Finalizar &nbsp;&nbsp;</ion-button>
+        <ion-button type="submit" class="btn-start" mode="ios" >&nbsp;&nbsp; {{'GENERAL.Finalize'| translate}} &nbsp;&nbsp;</ion-button>
     </div>
 
     <div class="content-terms-conditions">
         <span>
-            Al crear tu billetera, aceptas los siguientes términos
+            {{'GENERAL.ConfirmTerms'| translate}}
           <span class="terms-conditions">
-            <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">Términos De Servicios </a>
+            <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions"> {{'GENERAL.TermsOfService'| translate}} </a>
             &
-            <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">Política De Privacidad </a>
+            <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">{{'GENERAL.PrivacyPolicy'| translate}} </a>
           </span>
         </span>
       </div>

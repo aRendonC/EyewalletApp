@@ -25,8 +25,7 @@ export class ProfilePage implements OnInit {
     email: ''
   };
   languages = [];
-  selected = '';
-  lng = ''
+  selectedLanguage = '';
   public type: string = 'avatar';
   urlAvatar = environment.urlAvatar;
   avatar: any = '';
@@ -69,8 +68,8 @@ export class ProfilePage implements OnInit {
   async ngOnInit() {
     this.languages = this.languageService.getLanguages();
     console.log(this.languages)
-    this.selected = this.languageService.selected;
-    console.log('lenguage seleccionado', this.selected)
+    this.selectedLanguage = this.languageService.selected;
+    console.log('lenguage seleccionado', this.selectedLanguage)
     this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
     this.profile = await this.store.get('profile');
     await this.getPic();
@@ -253,7 +252,7 @@ export class ProfilePage implements OnInit {
   }
 
   selectLanguage(){
-    console.log(this.lng)
-    this.languageService.setLanguage(this.lng)
+    console.log(this.selectedLanguage)
+    this.languageService.setLanguage(this.selectedLanguage)
   }
 }
