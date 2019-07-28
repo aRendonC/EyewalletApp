@@ -175,7 +175,7 @@ export class UploadFilesModalPage implements OnInit {
             await this.closeModal();
             await this.toastCtrl.presentToast({ text: 'Se cerrara su sesión para validar los documentos' });
             await this.auth.logout();
-            await this.router.navigate(['/app/tabs/dashboard'])
+            // await this.router.navigate(['/app/tabs/dashboard'])
 
         } else {
             await this.loadingCtrl.dismiss();

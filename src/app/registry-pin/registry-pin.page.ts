@@ -8,6 +8,7 @@ import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {LoadingService} from '../services/loading/loading.service';
 import {AesJsService} from '../services/aesjs/aes-js.service';
+import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 
 @Component({
   selector: 'app-registry-pin',
@@ -31,10 +32,12 @@ export class RegistryPinPage implements OnInit {
       private auth: AuthService,
       private store: Storage,
       private loadingCtrl: LoadingService,
-      private aesjs: AesJsService
+      private aesjs: AesJsService,
+      private touchCtrl: TouchLoginService,
   ) { }
 
   async ngOnInit() {
+    this.touchCtrl.isTouch = false;
     this.user = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('user'));
     this.user.data.password = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('password'));
     this.auth.usuario.accessToken = this.user.accessToken;

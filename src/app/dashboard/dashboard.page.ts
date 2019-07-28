@@ -9,6 +9,7 @@ import {AesJsService} from '../services/aesjs/aes-js.service';
 import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
 import {filter} from 'rxjs/operators';
+import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 
 @Component({
     selector: 'app-dashboard',
@@ -51,6 +52,7 @@ export class DashboardPage implements OnInit {
         protected aesjs: AesJsService,
         public loadingController: LoadingService,
         private router: Router,
+        private touchCtrl: TouchLoginService
     ) {
         this.router.events.pipe(
             filter(event => event instanceof NavigationStart)
@@ -60,6 +62,7 @@ export class DashboardPage implements OnInit {
     }
 
     async ngOnInit() {
+        this.touchCtrl.isLocked = true;
         this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
         await this.getUserProfile();
         await this.getListTransactions();
