@@ -63,8 +63,7 @@ export class PricesPage implements OnInit {
     }
 
     ionViewDidEnter(){
-        let elementDashboard: any = document.getElementsByTagName('app-prices')
-        console.log(elementDashboard)
+        let elementDashboard: any = document.getElementsByTagName('app-prices');
         elementDashboard[0].classList.add("margins-dashboard")
     }
 
@@ -111,7 +110,6 @@ export class PricesPage implements OnInit {
 // Se activa cuando le doy click a la criptomoneda que necesita el precio
     async selectCrypto(cryptoClass, index) {
         this.prices24h = [];
-        console.log(this.prices24h);
         this.ctrlCssColor = cryptoClass;
         this.ctrlCssColorIndex = index;
         this.prices24h = this.cardPrices[index].cryptoValue;
@@ -190,7 +188,6 @@ export class PricesPage implements OnInit {
     }
 
     async classSelector() {
-        console.log(this.cardPrices);
         if (this.ctrlCssColorIndex === 0) {
             await this.graph();
             this.cardPrices[0].fontClass = 'white';

@@ -1,44 +1,50 @@
-@media (max-height:568px) and (min-height:480px) {
-  .space{
-    margin: 0% 5% 0% 5% !important;
-  }
-}
+@import '../../global.scss';
 
-@media (max-height:667px) and (min-height:568px) {
-  .space{
-    margin: 10% 5% 10% 5% !important;
-  }
-}
+.background-image{
+  --background: linear-gradient(#4DAAFF, #2b84ff, #7300FF);
 
-@media (max-height:736px) and (min-height:668px) {
-  .space{
-    margin: 15% 5% 15% 5% !important;
+  .content-logo-icon {
+    @extend .all-center;
+    margin: 80px 0 0 0;
+    .logo-icon {
+      width: 36%;
+    }
   }
-}
 
-@media (max-height:812px) and (min-height:737px) {
-  .space{
-    margin: 30% 5% 30% 5% !important;
+  .content-texts-error {
+    @extend .all-center;
+    margin: 40px 0 0 0;
+
+    .icon-error {
+      margin: 0 6px 0 0;
+    }
+
+    .text-message {
+      text-align: center;
+      font-family: $font-semibold;
+      font-family: 18px;
+      color: white;
+    }
   }
-}
-.space{
-  margin: 10% 5% 10% 5%;
+
+  .space {
+    margin: 20px 0 0 0;
+  }
 }
 
 .pin-none{
   border: 2px solid white;
   height: 5vw;
-  border-radius: 50px;
   width: 5vw;
+  border-radius: 50px;
   --ion-background-color:transparent;
 }
 
 .pin-ok{
-  border: 2px solid white;
-  height: 5vw;
-  border-radius: 50px;
-  width: 5vw;
   --ion-background-color:white;
+  height: 5vw;
+  width: 5vw;
+  border-radius: 50px;
 }
 .imgLogo{
   width: 40%;
@@ -54,7 +60,6 @@
   --border-radius: 50%;
   --vertical-align: middle;
   --padding-start: 10px;
-  /* --padding-end: 10px; */
   height: 80px;
 }
 
@@ -62,17 +67,13 @@ ion-col{
   padding: 0;
 }
 
-.background-image{
-  --background: linear-gradient(#14a9ff 8%, #2b84ff 51.26%, #8000ff 191%);
-  --background-size: cover;
-}
+
 ion-list{
   background: transparent;
 }
-// margin: 4vh 5vw 10vh 5vw;
+
 .btnNoShadow{
   --box-shadow: none;
-  display: grid;
   grid-template: auto auto / auto;
 }
 
@@ -80,14 +81,6 @@ ion-button {
   --background: rgba(47, 112, 191, 0.29);
   border: none;
   --box-shadow: none;
-}
-
-h6{
-  font-weight: bold;
-  color: white;
-  opacity: 1;
-  text-decoration: none;
-  --background: rgba(255, 255, 255, 1)
 }
 
 ion-label{
@@ -102,4 +95,43 @@ ion-col{
   border: none;
 }
 
+.pin-number-text{
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
+  .pin-number {
+    font-family: $font-roboto-regular;
+    font-size: 26px;
+  }
+
+  .pin-text {
+    position: absolute;
+    margin: 18px 0 0 0;
+    font-family: $font-roboto-regular;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    font-weight: 100;
+  }
+}
+
+.size-abc{
+  font-size: 10px;
+  font-weight: 100;
+}
+
+.number-abc{
+margin-bottom: -2px;
+}
+
+.ion-no-padding {
+  --padding-start: 0;
+}
+
+.touch-effect {
+  border-radius: 10px !important;
+}

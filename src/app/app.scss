@@ -5,4 +5,9 @@
 // file can hold Sass mixins, functions, and placeholder classes to be imported
 // and used throughout the application.
 
-@import "../theme/fonts";
+@import '../theme/fonts.scss';
+@import '../global.scss';
+
+* {
+   font-family: $font-regular;
+}

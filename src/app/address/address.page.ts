@@ -67,23 +67,21 @@ export class AddressPage implements OnInit {
         .get(`https://us1.locationiq.com/v1/reverse.php?key=pk.cce23ccc0da9140d669b1913c63e90cb&lat=${resp.coords.latitude}&lon=${resp.coords.longitude}&format=json`)
         .subscribe(
           async (data: any) => {
-            this.bodyForm.country = data.address.country
-            this.bodyForm.state = data.address.state
-            this.bodyForm.city = data.address.city
-            this.bodyForm.zipcode = data.address.postcode
+            this.bodyForm.country = data.address.country;
+            this.bodyForm.state = data.address.state;
+            this.bodyForm.city = data.address.city;
+            this.bodyForm.zipcode = data.address.postcode;
             await this.loadingCtrl.dismiss();
             this.ctrlCssBlur = false;
           },
-          async (error) => {
+          async () => {
             await this.loadingCtrl.dismiss();
             this.ctrlCssBlur = false;
-            console.log(error);
           }
         );
-    }).catch(async (error) => {
+    }).catch(async () => {
       await this.loadingCtrl.dismiss();
       this.ctrlCssBlur = false;
-      console.log(error);
     });
   }
 
@@ -91,13 +89,9 @@ export class AddressPage implements OnInit {
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
       async result => {
         if (result.hasPermission) {
-          // If having permission show 'Turn On GPS' dialogue
           await this.askToTurnOnGPS();
-          console.log('Me pide que encienda el GPS');
         } else {
-          // If not having permission ask for permission
           this.requestGPSPermission();
-          console.log('Si no tengo permiso pidame el permiso y entra a la funcion de requestGPSPermission');
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
         }
@@ -115,11 +109,9 @@ export class AddressPage implements OnInit {
       if (canRequest) {
 
       } else {
-        // Show 'GPS Permission Request' dialogue
         this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
           .then(
             async () => {
-              // call method to turn on GPS
               await this.askToTurnOnGPS();
             },
             error => {
@@ -127,9 +119,9 @@ export class AddressPage implements OnInit {
             }
           );
       }
-    }).catch(er => {
+    }).catch(async er => {
       this.ctrlCssBlur = false;
-      this.loadingCtrl.dismiss();
+      await this.loadingCtrl.dismiss();
     });
   }
 
@@ -139,14 +131,12 @@ export class AddressPage implements OnInit {
     this.ctrlCssBlur = true;
     await this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
       async () => {
-        // When GPS Turned ON call method to get Accurate location coordinates
         await this.getLocation();
       },
       error => {
         this.ctrlCssBlur = false;
         this.loadingCtrl.dismiss();
       }
-      //  alert('Error requesting location permissions ' + JSON.stringify(error))
     );
   }
 
@@ -167,11 +157,10 @@ export class AddressPage implements OnInit {
       this.ctrlCssBlur = false;
       await this.store.set('profile', profile);
       this.touchCtrl.isTouch = true;
-      await this.toastCtrl.presentToast({text: 'Sus datos han sido actualizados'})
+      await this.toastCtrl.presentToast({text: 'Sus datos han sido actualizados'});
       await this.router.navigate(['app/tabs']);
-      // await this.store.set('user', JSON.stringify(response.data));
     } else {
-      await this.toastCtrl.presentToast({text: response.error.msg})
+      await this.toastCtrl.presentToast({text: response.error.msg});
       await this.loadingCtrl.dismiss();
       this.ctrlCssBlur = false;
     }

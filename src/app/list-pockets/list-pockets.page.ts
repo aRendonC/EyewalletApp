@@ -38,14 +38,10 @@ export class ListPocketsPage implements OnInit {
 
   ngOnInit() {
     this.pockets = this.navParams.data.pockets;
-    // this.activateRoute.params.subscribe(params => {
-    //   this.pockets = params['pockets'];
-    // });
   }
 
   async getCriptoCurrencies() {
     this.currencies = await this.http.get('currency/index', this.auth, null);
-    console.log(this.currencies)
     this.currencies = this.currencies.data
   }
 

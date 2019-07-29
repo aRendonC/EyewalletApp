@@ -1,22 +1,18 @@
-// Dependecies.
+
 import { Component, OnInit } from '@angular/core';
-import validator from 'validator';
-import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
-// Services.
 import { AxiosService } from '../services/axios/axios.service';
 import { DeviceService } from '../services/device/device.service';
 import { AesJsService } from '../services/aesjs/aes-js.service';
 import { DataLocalService } from '../services/data-local/data-local.service';
 import {LoadingService} from "../services/loading/loading.service";
 
-// Constants.
 import * as CONSTANTS from '../constanst';
 
 import {ToastService} from "../services/toast/toast.service";
 
-// Utils.
+
 import * as utils from '../../assets/utils';
 
 @Component({
@@ -100,11 +96,7 @@ export class RestorePage implements OnInit {
   }
 
   private enableButton(): void {
-    if (this.pinOk && this.newPasswordOk && this.repeatNewPasswordOk) {
-      this.buttonDisabled = false;
-    } else {
-      this.buttonDisabled = true;
-    }
+    this.buttonDisabled = !(this.pinOk && this.newPasswordOk && this.repeatNewPasswordOk);
   }
 
   private encryptPin(pin): any {
@@ -122,7 +114,6 @@ export class RestorePage implements OnInit {
       password: this.dataRestorePassword.newPassword,
       blocked: this.dataRestorePassword.blocked
     };
-    console.log(dataBody)
     this.axiosServices.post(path, dataBody)
     .then(async response => {
       await this.validateResponseChangePassword(response);
@@ -137,7 +128,6 @@ export class RestorePage implements OnInit {
   }
 
   private async validateResponseChangePassword(data: any): Promise<any> {
-    console.log(data)
     if (data.status === 200) {
       this.blockingCounter = 0;
       this.dataRestorePassword.blocked = false;

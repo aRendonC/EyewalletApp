@@ -18,7 +18,6 @@ export class LoginPage implements OnInit {
   public ctrlCssBlur: boolean = false;
   public username: string;
   public password: string;
-  public dataReturned: any;
   public pockets: any = [];
   public path: string = '';
 
@@ -43,7 +42,6 @@ export class LoginPage implements OnInit {
 
   async login() {
     await this.store.clear();
-    console.log('el store se está limpiando en el login', await this.store.keys())
     await this.loadingCtrl.present({text: 'Cargando'});
     this.ctrlCssBlur = true;
     this.auth.login(this.username, this.password)
@@ -66,7 +64,6 @@ export class LoginPage implements OnInit {
     })
     .catch((error) => {
       this.ctrlCssBlur = false;
-      console.log(error);
     });
   }
 
@@ -79,7 +76,6 @@ export class LoginPage implements OnInit {
   }
 
   public async clearData(error) {
-    console.log(error);
     await this.loadingCtrl.dismiss();
     this.ctrlCssBlur = false;
     await this.toastController.presentToast({text: error, duration: 1000});

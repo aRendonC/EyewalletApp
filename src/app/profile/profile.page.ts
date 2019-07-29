@@ -74,6 +74,7 @@ export class ProfilePage implements OnInit {
     this.profile = await this.store.get('profile');
     await this.getPic();
     await this.getProfile();
+    console.log('avatar: ',this.urlAvatar+this.profile.avatar);
   }
   ionViewDidEnter(){
     let elementDashboard: any = document.getElementsByTagName('app-profile');
@@ -112,7 +113,6 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  // Vuelve en mayúscula cada palabra
   lowercaseNames(word) {
     word = word.split(' ');
     for (let i = 0, x = word.length; i < x; i++) {
@@ -241,9 +241,6 @@ export class ProfilePage implements OnInit {
     const dataEncrypt = this.aesjs.encrypt(userVerification);
     await this.store.set('userVerification', dataEncrypt)
   }
-  // decodePhoto(base64, name){
-  //  return fs.writeFile(name, base64, 'base64')
-  // }
 
   setPhoto(base64){
     return new Promise(resolve => {

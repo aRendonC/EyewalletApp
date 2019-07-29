@@ -1,6 +1,6 @@
 // Dependencies.
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController, IonContent } from '@ionic/angular';
 import { Router } from '@angular/router';
 import {Storage} from "@ionic/storage";
 
@@ -21,6 +21,7 @@ import { ModalInvoicePage } from '../modal-invoice/modal-invoice.page';
 })
 
 export class RequestCreditCardPage implements OnInit {
+  @ViewChild(IonContent) content: IonContent;
   // Text html.
   public title: string = CONSTANTS.REQUEST_CARD.REQUEST_CARD;
   public termsConditions: string = CONSTANTS.REQUEST_CARD.TERMS_CONDITIONS;
@@ -55,13 +56,20 @@ export class RequestCreditCardPage implements OnInit {
     this.dataProfile = await this.getDataProfile();
     this.setDataProfile(this.dataProfile);
     this.pockets = await this.getDataListPockets();
+    console.log(this.pockets)
     this.pocketSelected = this.pockets[0];
   }
 
-  ionViewDidEnter(){
-    let elementDashboard: any = document.getElementsByTagName('app-request-credit-card')
-    console.log(elementDashboard)
+  public ionViewDidEnter(): void {
+    let elementDashboard: any = document.getElementsByTagName('app-request-credit-card');
     elementDashboard[0].classList.add("margins-dashboard")
+  }
+
+  public ionViewWillLeave(): void {
+    if (this.showContentLogo === false) {
+      this.content.scrollToTop();
+      this.showForm();
+    }
   }
 
   private async getDataListPockets(): Promise<any[]> {
@@ -90,20 +98,15 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   public showForm(): void {
-    this.showContentLogo = false;
-  }
-
-  public setImageLogoCard(): string {
-    return `../../assets/${this.showContentLogo ? 'img/home-logo.svg' : 'images/image-card.svg'}`;
+    this.showContentLogo = !this.showContentLogo;
   }
 
   public async buttonCancelNavigate(): Promise<any> {
-    this.clearData()
-    await this.router.navigate(['/app/tabs/dashboard']);
-  }
-
-  clearData(){
-    this.showContentLogo = true
+    if (this.showContentLogo === false) {
+      this.content.scrollToTop();
+      this.showForm();
+      await this.router.navigate(['/app/tabs/dashboard']);
+    }
   }
 
   public async buttonAcept(): Promise<any> {

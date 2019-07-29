@@ -53,16 +53,15 @@ export class ModalInvoicePage implements OnInit {
     const dataBody: any = {
       currencyId: data.currencyId,
 	    address: data.address
-    }
+    };
 
     return this.axiosService.post(path, dataBody, this.authService)
     .then( async response => {
-      await this.loadingServices.dismiss()
+      await this.loadingServices.dismiss();
       return response;
     })
     .catch(async error => {
-      await this.loadingServices.dismiss()
-      console.error('Connection error: ', error);
+      await this.loadingServices.dismiss();
     });
   }
 
@@ -71,20 +70,16 @@ export class ModalInvoicePage implements OnInit {
   }
 
   public async payRequestCard(): Promise<any> {
-    console.log(this.dataPocket)
-    let profile: any = await this.storage.get('profile')
-    console.log(profile)
-    profile = this.aesjs.decrypt(profile)
+    let profile: any = await this.storage.get('profile');
+    profile = this.aesjs.decrypt(profile);
     if(this.dataPocket.balance >= this.priceCardCoin){
       const responsePay = await this.requestCard();
-      console.log('respuesta de solicitud de card', responsePay)
       if (responsePay.status === 200) {
         this.closeModalInvoice();
         await this.router.navigate(['/app/tabs/card-invoice']);
         profile.solicitud = true;
-        profile = this.aesjs.encrypt(profile)
-        await this.storage.set('profile', profile)
-        console.log()
+        profile = this.aesjs.encrypt(profile);
+        await this.storage.set('profile', profile);
       } else if (responsePay.status === 401) {
         await this.toastController.presentToast({text: responsePay.error.msg});
       } else {
@@ -101,7 +96,7 @@ export class ModalInvoicePage implements OnInit {
     const dataBody: any = {
       address: this.dataPocket.address,
 	    currencyId: this.dataPocket.currencyId
-    }
+    };
 
     return this.axiosService.post(path, dataBody, this.authService)
     .then( async response => {

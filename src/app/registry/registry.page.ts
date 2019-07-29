@@ -1,21 +1,19 @@
-// Dependencies.
+
 import { Component, OnInit } from '@angular/core';
 
-// Navigations.
 import { Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 
-// Services.
 import { AxiosService } from '../services/axios/axios.service';
 import {DeviceService} from "../services/device/device.service";
 import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
 import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 
-// Constants.
+
 import * as CONSTANTS from '../constanst';
 
-// Utils.
+
 import * as utils from '../../assets/utils';
 
 @Component({
@@ -136,8 +134,7 @@ export class RegistryPage implements OnInit {
     await this.loadingCtrl.present({text: 'Creando billetera'});
     this.ctrlCssBlur = true;
     let device = await this.device.getDataDevice();
-    console.log('datos del dispositivo', device);
-    if(!device.uuid) device.uuid = 'asdadsrfgdf';
+    if(!device.uuid) device.uuid = '987654321';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,

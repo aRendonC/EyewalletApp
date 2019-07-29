@@ -32,10 +32,8 @@ export class AuthService {
     private aesjs: AesJsService,
     private loadingCtrl: LoadingService
   ) {
-    // this.persistenceLogin();
   }
 
-// This function is a loginService, parameter required user, password
   async login(user, password) {
     const device: any = await this.device.getDataDevice();
     if (!device.uuid) {
@@ -51,17 +49,16 @@ export class AuthService {
             this.usuario = data.data;
             await this.store.set('user', this.usuario);
             await this.setUserProfile(data.data.profile);
-            // this.timer.iniciarTemporizador();
+
             resolve(data);
           } else if (data.status === 404) {
-            //no existe usuario
+
             resolve(data.error.msg)
           } else if (data.status === 401) {
             resolve(data.error.msg)
-            //no está autorizado por credenciales (puede estar registrado)
+
           } else if (data.status === 500) {
             resolve(data.error.msg)
-            //error de la plataforma o datos incorrectos
           } else {
             resolve(null);
           }
@@ -115,7 +112,6 @@ export class AuthService {
   }
 
   async logout() {
-    // this.timer.logout(false);
     await this.store.clear();
     await this.menu.enable(false);
     await this.router.navigate(['']);

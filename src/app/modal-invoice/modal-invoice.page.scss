@@ -14,12 +14,13 @@
     padding: 30px 0;
     @extend .all-center-colum;
 
-    .content-logo {
+    .content-logo-modal-invoice {
       @extend .all-center;
-      margin: 0 0 60px 0;
+      margin: 0 0 30px 0;
 
-      .image-logo {
-        width: 50vw;
+      .image-logo-modal-invoice {
+        height: 136px;
+        width: 122px;
       }
     }
 
@@ -34,7 +35,7 @@
 
         .image {
           width: 34px;
-          margin: 0 20px 0 0;
+          margin: 0 10px 0 0;
         }
 
         .text-icon {

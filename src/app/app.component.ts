@@ -27,8 +27,8 @@ import {LanguageService} from "./services/language/language.service";
 
 export class AppComponent {
     // set up hardware back button event.
-    lastTimeBackPress = 0;
-    timePeriodToExit = 2000;
+
+
     @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
 
     constructor(
@@ -58,11 +58,8 @@ export class AppComponent {
             document.addEventListener("backbutton", async (element) => {
                 // code that is executed when the user pressed the back button
                 this.routerOutlets.forEach(async (outlet: IonRouterOutlet) => {
-                    console.log('esto es el outlet', outlet)
-                    console.log('esta es mi ruta', this.router.url)
                     if (this.router.url === '/app/tabs/dashboard') {
-                        let alert = await this.aletrCtrl.getTop()
-                        console.log('este es presentar el alert', alert)
+                        let alert = await this.aletrCtrl.getTop();
                         if(alert == undefined) await this.presentAlert()
                     }
                 });

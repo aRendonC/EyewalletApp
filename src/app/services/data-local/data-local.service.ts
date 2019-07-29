@@ -1,7 +1,6 @@
-// Dependencies.
+
 import { Injectable } from '@angular/core';
 
-// Storage.
 import { Storage } from '@ionic/storage';
 
 @Injectable({

@@ -1,10 +1,10 @@
-// Dependencies.
+
 import {Injectable} from '@angular/core';
 
-// Http client.
+
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-// Enviroments.
+
 import { environment } from '../../../environments/environment';
 
 @Injectable({
