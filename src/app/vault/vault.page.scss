@@ -14,20 +14,15 @@
       position: fixed;
       width: 100%;
 
-      .content-text-icon-coin {
-         @extend .all-center-colum;
-         margin: 20px 0 0 0;
-
-         .text-coin{
-            font-family: $font-roboto-bold;
-            font-size: 15px;
-            color: white;
-            margin: 0 0 10px 0;
-         }
-
-         .icon-coin {
-            width: 54px;
-         }
+      .select-pocket {
+         width: 60%;
+         font-family: $font-openSans-bold;
+         font-size: 16px;
+         color: #CCC4FC;
+         text-transform: capitalize;
+         margin: 40px auto 0 auto;
+         border-bottom: solid 1px #CCC4FC;
+         padding: 10px 0;
       }
    }
 

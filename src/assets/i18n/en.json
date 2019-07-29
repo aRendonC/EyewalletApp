@@ -27,5 +27,10 @@
     "ConfirmTerms": "Al crear tu billetera, aceptas los siguientes términos",
     "TermsOfService": "Términos De Servicios",
     "PrivacyPolicy": "Política De Privacidad"
+  },
+  "VAULT": {
+    "placeholderPockets": "select a pocket",
+    "buttonOkSelect": "Select",
+    "buttonCancelSelect": "Cancel"
   }
 }

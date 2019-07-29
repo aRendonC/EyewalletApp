@@ -2,16 +2,24 @@
   <div class="header">
     <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
 
-    <div class="content-text-icon-coin">
-      <span class="text-coin">Bitcoin (BTC)</span>
-      <ion-img src="../../assets/icon/icon-coin-btc.svg" class="icon-coin"></ion-img>
-    </div>
+    
+      <ion-select
+        class="select-pocket" 
+        mode="md"
+        [placeholder]="dataPockets.placeholderSelectPocket"
+        [(ngModel)]="dataSelected"
+        (ionChange)="handlerPocketSelected()"
+        [okText]="dataPockets.buttonOkSelect"
+        [cancelText]="dataPockets.buttonCancelSelect"
+      >
+        <ion-select-option *ngFor="let dataPocket of pockets" [value]="dataPocket.label">{{ dataPocket.label }} ({{ dataPocket.currency.shortName }})</ion-select-option>
+      </ion-select>
   </div>
 
   <div class="content-balance-duration content-balance">
     <span class="title">Saldo disponible</span>
 
-    <span class="balance">0.00000000 BTC</span>
+    <span *ngIf="pockets" class="balance">{{ pockets[positionPocketSelected].balance }} {{ pockets[positionPocketSelected].currency.shortName }}</span>
 
     <table class="table">
       <tr class="row-border">
