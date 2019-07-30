@@ -2,38 +2,47 @@
   <div class="header">
     <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
 
-    
-      <ion-select
-        class="select-pocket" 
-        mode="md"
-        [placeholder]="dataPockets.placeholderSelectPocket"
-        [(ngModel)]="dataSelected"
-        (ionChange)="handlerPocketSelected()"
-        [okText]="dataPockets.buttonOkSelect"
-        [cancelText]="dataPockets.buttonCancelSelect"
-      >
-        <ion-select-option *ngFor="let dataPocket of pockets" [value]="dataPocket.label">{{ dataPocket.label }} ({{ dataPocket.currency.shortName }})</ion-select-option>
-      </ion-select>
+    <ion-select
+      class="select-pocket" 
+      mode="md"
+      [placeholder]="dataPockets.placeholderSelectPocket"
+      [(ngModel)]="dataSelected"
+      (ionChange)="handlerPocketSelected()"
+      [okText]="dataPockets.buttonOkSelect"
+      [cancelText]="dataPockets.buttonCancelSelect"
+    >
+      <ion-select-option *ngFor="let dataPocket of pockets" [value]="dataPocket.label">{{ dataPocket.label }} ({{ dataPocket.currency.shortName }})</ion-select-option>
+    </ion-select>
   </div>
 
   <div class="content-balance-duration content-balance">
-    <span class="title">Saldo disponible</span>
+    <span text-capitalize class="title">{{ 'VAULT.textAvailableBalance' | translate }}</span>
 
     <span *ngIf="pockets" class="balance">{{ pockets[positionPocketSelected].balance }} {{ pockets[positionPocketSelected].currency.shortName }}</span>
 
     <table class="table">
       <tr class="row-border">
-        <td class="title">BTC</td>
-        <td class="text padding-text">0.000</td>
+        <td *ngIf="pockets" class="title">{{ pockets[positionPocketSelected].currency.shortName }}</td>
+        <td class="text padding-text">
+          <ion-input
+            [disabled]="inputAmountDisabled"
+            class="input-amount-currency"
+            type="number"
+            [(ngModel)]="valueInvestment"
+            (ionChange)="handlerValueInvestment($event)"
+            (click)="messageWithoutFunds()"
+            placeholder="0.000"
+          ></ion-input>
+        </td>
         <td class="title">USD</td>
-        <td class="text">0.000</td>
+        <td class="text">{{ productCurrencyUsd }}</td>
       </tr>
 
       <tr>
         <td class="title">Matrícula</td>
-        <td class="text padding-text">0.000</td>
+        <td class="text padding-text">{{ enrollmentCurrency }}</td>
         <td class="title">USD</td>
-        <td class="text">0.000</td>
+        <td class="text">{{ enrollmentUSD }}</td>
       </tr>
     </table>
   </div>

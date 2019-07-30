@@ -13,6 +13,7 @@
       height: 247px;
       position: fixed;
       width: 100%;
+      z-index: 3;
 
       .select-pocket {
          width: 60%;
@@ -63,11 +64,21 @@
       }
 
       .table {
-         width: 66%;
+         width: 70%;
 
          tr {
             td {
                padding: 20px 4px 10px 4px;
+               width: 25%;
+
+               .input-amount-currency {
+                  --padding-top: 0;
+                  --padding-end: 0;
+                  --padding-bottom: 0;
+                  --padding-start: 0;
+                  font-family: Poppins-Regular;
+                  font-size: 10px;
+               }
             }
 
             .title {

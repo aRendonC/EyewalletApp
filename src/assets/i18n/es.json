@@ -31,6 +31,10 @@
   "VAULT": {
     "placeholderPockets": "selecciona un bolsillo",
     "buttonOkSelect": "Seleccionar",
-    "buttonCancelSelect": "Cancelar"
+    "buttonCancelSelect": "Cancelar",
+    "textAvailableBalance": "saldo disponible",
+    "messageErrorLoadPage": "Errores temporales, intente mas tarde.",
+    "loading": "Cargando.",
+    "messageWithoutFunds": "El bolsillo no tiene fondos, recargalo o selecciona otro."
   }
 }

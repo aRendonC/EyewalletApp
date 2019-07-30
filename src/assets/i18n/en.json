@@ -31,6 +31,10 @@
   "VAULT": {
     "placeholderPockets": "select a pocket",
     "buttonOkSelect": "Select",
-    "buttonCancelSelect": "Cancel"
+    "buttonCancelSelect": "Cancel",
+    "textAvailableBalance": "available balance",
+    "messageErrorLoadPage": "Temporary errors, try later.",
+    "loading": "Loading.",
+    "messageWithoutFunds": "The pocket has no funds, reload it or select another."
   }
 }
