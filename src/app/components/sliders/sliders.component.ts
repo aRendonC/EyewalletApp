@@ -10,7 +10,6 @@ import {AesJsService} from '../../services/aesjs/aes-js.service';
 import {AxiosService} from "../../services/axios/axios.service";
 import {AuthService} from "../../services/auth/auth.service";
 import {filter} from "rxjs/operators";
-import {LoadingService} from "../../services/loading/loading.service";
 import {ToastService} from "../../services/toast/toast.service";
 
 
@@ -21,36 +20,24 @@ import {ToastService} from "../../services/toast/toast.service";
 })
 
 export class SlidersComponent implements OnInit {
-    progress: number
     @Input() name: any;
     public lineChart: any;
     public dataGraphic: any;
-    public contentDataGrapic: any;
     public profile: any = null;
     @Input() transactions: any;
     @Output() changeCryptoPocket = new EventEmitter<[]>();
     @ViewChild('sliderHeader') sliderHeader: IonSlides;
     @ViewChild('sliderContent') sliderContent: IonSlides;
-    ctrlSliderHeader: boolean = true;
-    ctrlSliderContent: boolean = true;
-    public pager: boolean = false;
     slideOptsName = {
         spaceBetween: 1,
         initialSlide: 0,
         centeredSlides: true,
         slidesPerView: 3,
-        // speed: 1000,
-
     };
     slideOpts = {
         initialSlide: 0,
         slidesPerView: 1,
         loopedSlides: 5,
-        // speed: 1000,
-
-        // thumbs: {
-        //     swiper: this.slideOptsName,
-        // }
     };
     labelGrapich = [];
 
@@ -192,7 +179,7 @@ export class SlidersComponent implements OnInit {
 
     // Esta función envia a la verificación de documentos
     async verificationPage() {
-       await this.router.navigate(['/upload-verification-files']);
+        await this.router.navigate(['/upload-verification-files']);
     }
 
     async changeSliderHeader(sliderContent) {

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //urlBase: 'http://localhost:3000/api/v1/',
-  urlBase: 'https://eyewalletpro.com:3001/api/v1/',
+  urlBase: 'http://localhost:3000/api/v1/',
+  // urlBase: 'https://eyewalletpro.com:3001/api/v1/',
   urlAvatar: 'https://eyewalletpro.com:3001/web/',
   flag: 'https://eyewalletpro.com:3001/web/uploads/flags/'
 //   urlBase: 'https:/eyewalletpro.com:3001/api/v1/',

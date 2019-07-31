@@ -1,0 +1,71 @@
+<div class="grid">
+    <app-pocket [ctrlNavigation]="ctrlNavigation" class="pockets"></app-pocket>
+    <p class="move-name" style="width: 50%">¿Cuánto quieres cambiar?</p>
+    <div class="div-inputs center-vertical">
+        <ion-input (ionBlur)="getFeeTransactionFrom()" [(ngModel)]="inputFrom" placeholder="0.0" [value]="inputFrom">
+            <div class="div-p-currencies" (click)="filterCurrencyFrom(selectCryptoFrom)">
+                <p style="color: white">{{cryptoFrom.currency.shortName}}</p>
+                <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+            </div>
+        </ion-input>
+        <ion-icon (click)="changeCryptoData()" class="icon-change-currencies" ios="ios-repeat" md="md-repeat"></ion-icon>
+        <ion-input [(ngModel)]="inputTo" placeholder="0.0" [value]="inputTo">
+            <div class="div-p-currencies" (click)="filterCurrencyTo(selectCryptoTo)">
+                <p style="color: white">{{cryptoTo.currency.shortName}}</p>
+                <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+            </div>
+        </ion-input>
+    </div>
+    <div class="div-pockets">
+        <div class="div-p-pocket" (click)="selectPocketFrom(pocketsFrom)">
+            <p style="color: white">{{selectedPocketFrom.label}}</p>
+            <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+        </div>
+        <div class="div-p-pocket" (click)="selectPocketTo(pocketsTo)">
+            <p style="color: white">{{selectedPocketTo.label}}</p>
+            <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+        </div>
+    </div>
+    <img class="bg-profile" src="../../assets/images/bg-profile.png"/>
+</div>
+
+<ion-content class="move-profileInfo" [fullscreen]="true">
+    <ion-note style="background: #D1C9FF; height: 60px; color: #375196"
+              class="center center-horizontal center-vertical">
+        ${{usdAmount}}
+    </ion-note>
+    <ion-list>
+        <ion-item>
+            <ion-label>{{selectedPocketFrom.currency.shortName}} Precio</ion-label>
+            <p>{{valueCryptoTo}} {{selectedPocketTo.currency.shortName}}</p>
+        </ion-item>
+        <ion-item>
+            <ion-label>{{selectedPocketFrom.currency.shortName}} Precio Dólar</ion-label>
+            <p>{{valueUsdFrom}} USD</p>
+        </ion-item>
+        <ion-item>
+            <ion-label>Tarifas de Red</ion-label>
+            <p>1 {{selectedPocketFrom.currency.shortName}} - 1 {{selectedPocketTo.currency.shortName}}</p>
+        </ion-item>
+        <ion-item>
+            <ion-label>Límites Comerciales</ion-label>
+            <p>100.00 - 1,00,000 $</p>
+        </ion-item>
+        <ion-item>
+            <ion-label></ion-label>
+            <p></p>
+        </ion-item>
+        <ion-item>
+            <ion-label>Enviar</ion-label>
+            <p>{{inputFrom}} {{selectedPocketFrom.currency.shortName}}</p>
+        </ion-item>
+        <ion-item>
+            <ion-label>Recibir</ion-label>
+            <p>{{inputTo}} {{selectedPocketTo.currency.shortName}}</p>
+        </ion-item>
+    </ion-list>
+    <ion-list class="center-vertical center center-horizontal">
+        <ion-button shape="round" style="width: 70%" class=" button-exchange" (click)="createExchange()">Intercambiar
+        </ion-button>
+    </ion-list>
+</ion-content>

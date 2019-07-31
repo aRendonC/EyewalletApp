@@ -5,14 +5,13 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {IonicModule} from '@ionic/angular';
 
-import {DashboardPage} from './dashboard.page';
-import {ComponentsModule} from '../components/components.module';
-import {TranslateModule} from "@ngx-translate/core";
+import {ExchangePage} from './exchange.page';
+import {ComponentsModule} from "../components/components.module";
 
 const routes: Routes = [
     {
         path: '',
-        component: DashboardPage
+        component: ExchangePage
     }
 ];
 
@@ -22,10 +21,9 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
-        ComponentsModule,
-        TranslateModule
+        ComponentsModule
     ],
-    declarations: [DashboardPage]
+    declarations: [ExchangePage]
 })
-export class DashboardPageModule {
+export class ExchangePageModule {
 }

@@ -2,11 +2,18 @@
   "HOMEPAGE": {
     "EyeWallet": "EYEWALLET",
     "LogIn": "Iniciar Sesión",
-    "CreateWallet": "Crear Billetera"
+    "CreateWallet": "Crear Billetera",
+    "RecoveryPassword": "Recuperar Contraseña"
   },
   "PROFILE": {
     "Email": "Email",
-    "Phone": "Celular"
+    "Phone": "Teléfono",
+    "Register": "Registro",
+    "unverifiedMail": "¡Tu correo no está verificado!",
+    "VerifiedMail": "¡Tu email está verificado!",
+    "DeleteAccount": "Eliminar Cuenta",
+    "ReSendMail": "Reenviar correo",
+    "SecondFactor": "Segundo Factor"
   },
   "ALERT": {
     "header": "Error",
@@ -19,6 +26,53 @@
     "Address2": "Dirección Linea 2",
     "Region": "Estado / Region / Provincia / Departamento"
   },
+  "CARD_INVOICE": {
+    "CardRequest": "Solicitud de tarjeta",
+    "Review": "En Revisión"
+  },
+  "CREATE_PROFILE": {
+    "Verification_Information": "Necesitamos esta información para verificar tu identidad, para el uso de nuestro producto, Solo tomará unos minutos.",
+    "Accept_T&P": "Al crear tu billetera, aceptas los siguientes términos"
+  },
+  "POCKET_COMPONENT": {
+    "NewVault": "Nueva Bóveda",
+    "History": "Historial"
+  },
+  "LIST_POCKETS": {
+    "AddNewPocket": "Agregar un nuevo pocket",
+    "CreatePocket": "Crear pocket"
+  },
+  "INVOICE_MODAL": {
+    "PayEyeWallet": "Pagar con eywallet"
+  },
+  "PIN_MODAL": {
+    "Pin": "Introduce tu pin de seguridad"
+  },
+  "REGISTRY_PAGE": {
+    "NewWallet": "Crear una nueva Billetera",
+    "PhoneExample": "Ejm.: +5712345678",
+    "Password": "Contraseña",
+    "ConfirmPassword": "Confirmar contraseña",
+    "ButtonCreate": "Crear billetera"
+  },
+  "REGISTRY_PIN": {
+    "PutPin": "Ingresar PIN",
+    "CreatePin": "Crear pin"
+  },
+  "REQUEST_CREDIT_CAR_PAGE": {
+    "SelectWallet": "Selecione billetera"
+  },
+  "RESTORE": {
+    "NewPassword": "Nueva contraseña",
+    "RepeatPassword": "Repita nueva contraseña",
+    "UpdatePassword": "Actualizar contraseña"
+  },
+  "SEND_CRYPTO_CURRENCY": {
+    "ScanQR": "Escanea aquí tu código QR o copia la dirección de tu wallet",
+    "High": "Alta",
+    "Medium": "Media",
+    "Low": "Baja"
+  },
   "GENERAL": {
     "Country": "País",
     "City": "Ciudad",
@@ -26,6 +80,30 @@
     "Finalize": "Finalizar",
     "ConfirmTerms": "Al crear tu billetera, aceptas los siguientes términos",
     "TermsOfService": "Términos De Servicios",
-    "PrivacyPolicy": "Política De Privacidad"
+    "PrivacyPolicy": "Política De Privacidad",
+    "Profile": "Perfil",
+    "Name": "Nombre",
+    "Last_Name": "Apellido",
+    "Birthdate": "Fecha de Nacimiento",
+    "Identification": "Numero de Identificación",
+    "Next": "Siguiente",
+    "Receive": "Recibir",
+    "Send": "Enviar",
+    "Qualify": "Calificar",
+    "LogOut": "Cerrar Sesión",
+    "News": "Noticias",
+    "Activate": "Activar",
+    "Add": "Agregar",
+    "Back": "Atrás",
+    "GoBack": "Volver",
+    "Prices": "Precios",
+    "User": "Usuario",
+    "Description": "Descripción",
+    "SelectCryptoCurrency": "Seleccione Criptomonera",
+    "Value": "Valor",
+    "Language": "Lenguaje",
+    "Version": "Versión",
+    "Cancel": "Cancelar",
+    "Accept": "Aceptar"
   }
 }

@@ -22,7 +22,7 @@
     </ul>
 
     <div class="terms-conditions">
-      <span class="text">Selecione billetera</span>
+      <span class="text">{{'REQUEST_CREDIT_CAR_PAGE.SelectWallet' | translate}}</span>
 
       <ion-select
         class="move-input"
@@ -45,11 +45,11 @@
 
     <div class="content-buttons">
       <ion-button mode="md" text-capitalize (click)="buttonCancelNavigate()" class="button-cancel">
-        {{buttonCancel}}
+        {{'GENERAL.Cancel' | translate}}
       </ion-button>
 
       <ion-button [disabled]="stateTermsConditions" mode="md" text-capitalize (click)="buttonAcept()" class="button-accept">
-        {{buttonAccept}}
+        {{'GENERAL.Accept' | translate}}
       </ion-button>
     </div>
   </div>

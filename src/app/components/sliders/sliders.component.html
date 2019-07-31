@@ -1,6 +1,7 @@
 <ion-slides #sliderHeader
             [options]="slideOptsName"
             mode="ios"
+            style="margin-top: 2vh"
             (ionSlideDidChange)="changeSliderContent(sliderHeader)">
     <ion-slide  *ngFor="let names of name; index as index">
         <div class="center">
@@ -97,6 +98,7 @@
 <div style="position: absolute;
     bottom: 41vh;">
     <canvas style="width:100%" #lineCanvas></canvas>
+    <!--<app-chart [name]="name"  *ngIf="name.length > 0"></app-chart>-->
 </div>
 <ion-col size="12">
     <ion-label style="font-weight: 800; float: right; margin-right: 5%;">{{name.amountPending}} {{name.shortName}}</ion-label>
@@ -136,7 +138,7 @@
                                     <ion-col size="12">
                                         <p class="crypto"><span
                                                 class="crypto-value">{{transaction.amount_finally}}</span><span
-                                                class="coin">&nbsp;BTC</span></p>
+                                                class="coin">&nbsp;{{name.shortName}}</span></p>
                                     </ion-col>
                                 </ion-row>
                             </ion-col>

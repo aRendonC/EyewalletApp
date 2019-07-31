@@ -248,8 +248,8 @@ export class ProfilePage implements OnInit {
     })
   }
 
-  selectLanguage(){
+  async selectLanguage() {
     console.log(this.selectedLanguage)
-    this.languageService.setLanguage(this.selectedLanguage)
+    await this.languageService.setLanguage(this.selectedLanguage)
   }
 }

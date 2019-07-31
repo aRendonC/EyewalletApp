@@ -34,7 +34,7 @@
             <ion-input
                   type="password"
                 name="password"
-                placeholder="Nueva Contraseña"
+                placeholder="{{'RESTORE.NewPassword' | translate}}"
                 [(ngModel)]="dataRestorePassword.newPassword"
                (ngModelChange)="validateNewPassword($event)"
                 clear-input
@@ -52,7 +52,7 @@
             <ion-input
                type="password"
                name="rewrite password"
-               placeholder="Repita Nueva Contraseña"
+               placeholder="{{'RESTORE.RepeatPassword' | translate}}"
                [(ngModel)]="dataRestorePassword.repeatNewPassword"
                (ngModelChange)="validateRepeatNewPassword($event)"
 					clear-input
@@ -71,7 +71,7 @@
             mode="ios"
             shape="round"
             [ngClass]="buttonDisabled ? 'button-disable' : 'button-enable'"
-         >Actualizar Contraseña</ion-button>
+         >{{'RESTORE.UpdatePassword' | translate}}</ion-button>
       </div>
    </form>
 </ion-content>

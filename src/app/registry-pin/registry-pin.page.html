@@ -1,31 +1,31 @@
 <ion-content padding class="bghome" [class.blur]="ctrlCssBlur">
-  <div class="move-logo">
-    <img class="resize-logo" src="./assets/img/home-logo.svg"/>
-    <div class="center">
-      <ion-label class="text-eyewallet">EYEWALLET</ion-label>
-      <br>
-      <ion-label class="text-crypto">CRYPTOBANK</ion-label>
+    <div class="move-logo">
+        <img class="resize-logo" src="./assets/img/home-logo.svg"/>
+        <div class="center">
+            <ion-label class="text-eyewallet">EYEWALLET</ion-label>
+            <br>
+            <ion-label class="text-crypto">CRYPTOBANK</ion-label>
+        </div>
     </div>
-  </div>
-  <form #formulario="ngForm" (ngSubmit)="registerPin(bodyForm.value)" [formGroup]="bodyForm"  class="transparent move-form">
-    <!-- <form #formulanrio (submit)="login()" class="transparent move-form"> -->
-    <ion-list class="transparent">
-      <!-- Usuario -->
-      <ion-item class="transparent white-line">
-        <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
-        <ion-input  class="white move-input" type="number" name="username" formControlName="pin"  [placeholder]="constants.PIN.ENTER_PIN"></ion-input>
-      </ion-item>
-      <!-- Contraseña -->
-    </ion-list>
-    <div class="move-btn">
-      <ion-button
-              [disabled]="!bodyForm.valid"
-              type="submit"
-              [ngClass]="classButton"
-              mode="ios"
-              expand="full"
-              text-capitalize
-              shape="round">Crear Pin</ion-button>
-    </div>
-  </form>
+    <form #formulario="ngForm" (ngSubmit)="registerPin(bodyForm.value)" [formGroup]="bodyForm"
+          class="transparent move-form">
+        <ion-list class="transparent">
+            <ion-item class="transparent white-line">
+                <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
+                <ion-input class="white move-input" type="number" name="username" formControlName="pin"
+                           placeholder="{{'REGISTRY_PIN.PutPin' | translate}}"></ion-input>
+            </ion-item>
+        </ion-list>
+        <div class="move-btn">
+            <ion-button
+                    [disabled]="!bodyForm.valid"
+                    type="submit"
+                    [ngClass]="classButton"
+                    mode="ios"
+                    expand="full"
+                    text-capitalize
+                    shape="round">{{'REGISTRY_PIN.CreatePin' | translate}}
+            </ion-button>
+        </div>
+    </form>
 </ion-content>

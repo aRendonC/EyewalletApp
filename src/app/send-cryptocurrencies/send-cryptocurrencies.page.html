@@ -14,10 +14,10 @@
     </ion-nav>
     <div style="margin-top: 41%" class="center-horizontal center center-vertical">
         <div style="width: 80%" [ngClass]="cssGradient">
-           
+
             <img style="width: 50%; filter: opacity(0.3)" src="../../assets/img/sendCripto/targetQr.png"/>
         </div>
-    </div> 
+    </div>
 
 </ion-content>
 
@@ -29,7 +29,7 @@
         <ion-card class="content-code-qr center" [class.show-qr-scanner]="isOn">
             <div class="code-qr-header" (click)="presentQRScanner()">
                 <div class="content-icon-amount center">
-                    <ion-label>Escanea aquí tu código QR o copia la dirección de tu wallet</ion-label>
+                    <ion-label>{{'SEND_CRYPTO_CURRENCY.ScanQR' | translate}}</ion-label>
                 </div>
             </div>
             <div class="content-code-qr-chil center-horizontal center-vertical" (click)="presentQRScanner()">
@@ -37,7 +37,8 @@
             </div>
             <div class="content-buttons-qr color-input">
                 <ion-input [disabled]="!ctrlButtonSend" (ionBlur)="getFeeTransaction(false)" style="font-size: 11px;"
-                           formControlName="to_address" type="text" [placeholder]="placeHolder" class="input" clearInput>
+                           formControlName="to_address" type="text" [placeholder]="placeHolder" class="input"
+                           clearInput>
                 </ion-input>
             </div>
         </ion-card>
@@ -56,13 +57,15 @@
                         <ion-col size="3" align-self-center>
                             <ion-label>{{pockets.currency.shortName}}</ion-label>
                         </ion-col>
-                        <ion-col size="5" type="number" align-self-center class="ion-text-left gradientButton all-center">
+                        <ion-col size="5" type="number" align-self-center
+                                 class="ion-text-left gradientButton all-center">
                             <ion-label> {{pockets.currency.shortName}}: Min.{{totalApplied?.amountMin}} </ion-label>
                         </ion-col>
                         <ion-col size="1"></ion-col>
                         <ion-col size="5" align-self-center class="ion-text-right gradientButtonRight all-center">
                             <ion-input type="number" (ionInput)="calculateUSD($event.target.value)"
-                                       value="{{totalApplied?.amountMaxUsd}}">USD: </ion-input>
+                                       value="{{totalApplied?.amountMaxUsd}}">USD:
+                            </ion-input>
                         </ion-col>
                         <ion-col size="6" align-self-center class="ion-text-left">
                             <ion-label>Cuota: {{totalApplied.fee}}</ion-label>
@@ -71,19 +74,24 @@
 
                             <ion-select [disabled]="!ctrlButtonSend" formControlName="priority" placeholder="Prioridad"
                                         (ionBlur)="getFeeTransaction(false)">
-                                <ion-select-option value="high">Alta</ion-select-option>
-                                <ion-select-option value="medium">Media</ion-select-option>
-                                <ion-select-option value="low">Baja</ion-select-option>
+                                <ion-select-option
+                                        value="high">{{'SEND_CRYPTO_CURRENCY.High' | translate}}</ion-select-option>
+                                <ion-select-option
+                                        value="medium">{{'SEND_CRYPTO_CURRENCY.Medium' | translate}}</ion-select-option>
+                                <ion-select-option
+                                        value="low">{{'SEND_CRYPTO_CURRENCY.Low' | translate}}</ion-select-option>
                             </ion-select>
                         </ion-col>
-                       <ion-col size="12">
-                           <ion-input formControlName="description" placeholder="Descipción"></ion-input>
-                       </ion-col>
+                        <ion-col size="12">
+                            <ion-input formControlName="description"
+                                       placeholder="{{'GENERAL.Description' | translate}}"></ion-input>
+                        </ion-col>
                         <ion-col *ngIf="totalSend" size="12" align-self-center>
                             <ion-input [disabled]="true" [placeholder]="totalSend"></ion-input>
                         </ion-col>
                         <ion-col size="12" align-self-center>
-                            <ion-button (click)="sendCoin()" class="buttonSend">Enviar</ion-button>
+                            <ion-button (click)="sendCoin()"
+                                        class="buttonSend">{{'GENERAL.Send' | translate}}</ion-button>
                         </ion-col>
                     </ion-row>
                 </ion-grid>

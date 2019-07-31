@@ -58,6 +58,7 @@ export class ListPocketsPage implements OnInit {
         profile = this.aesjs.decrypt(profile);
         this.params.userId = profile.id;
         let response = await this.http.post('user-wallet/create', this.params, this.auth);
+        console.log(response)
         if(response.status === 200) {
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();

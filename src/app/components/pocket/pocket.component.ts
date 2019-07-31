@@ -140,4 +140,8 @@ export class PocketComponent implements OnInit {
   openUrl(url) {
     window.open(url, '_blank')
   }
+
+    async goHistoryExchange() {
+      await this.router.navigate(['/app/tabs/history-exchange']);
+    }
 }

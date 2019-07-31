@@ -11,8 +11,6 @@ import {ToastService} from "../services/toast/toast.service";
 import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 
 
-import * as CONSTANTS from '../constanst';
-
 
 import * as utils from '../../assets/utils';
 
@@ -23,7 +21,6 @@ import * as utils from '../../assets/utils';
 })
 
 export class RegistryPage implements OnInit {
-  public constants: any = CONSTANTS;
   ctrlCssBlur: boolean = false;
   public dataRegistry = {
     email: '',

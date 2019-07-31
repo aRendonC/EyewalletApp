@@ -9,7 +9,7 @@
           </ion-item>
         </ion-col>
         <ion-col (click)="createPocket()" size="9" justify-content-center class="centerContent">
-          <h5>Agregar un nuevo pocket</h5>
+          <h5>{{'LIST_POCKETS.AddNewPocket'| translate}}</h5>
         </ion-col>
         <ion-col (click)="createPocket()" justify-content-start size="3" class="centerContent">
           <img src="../../assets/img/pocketsComponent/addIcon.png" alt="">
@@ -31,17 +31,17 @@
     <ion-list class="transparent">
       <!-- Usuario -->
       <ion-item class="transparent white-line">
-        <ion-input  class="white move-input" type="email" name="label" (input)="getData($event.target.value)"  placeholder="Descripción"></ion-input>
+        <ion-input  class="white move-input" type="email" name="label" (input)="getData($event.target.value)"  placeholder="{{'GENERAL.Description'| translate}}"></ion-input>
       </ion-item>
 
-        <ion-select style="color:white;" placeholder="Seleccione Criptomonera" (ionChange)="getIdCurrency($event.target.value)" (change)="getIdCurrency($event.target.value)">
+        <ion-select style="color:white;" placeholder="{{'GENERAL.SelectCryptoCurrency'| translate}}" (ionChange)="getIdCurrency($event.target.value)" (change)="getIdCurrency($event.target.value)">
           <ion-select-option [value]="currency.id" (select)="getIdCurrency($event.target.value)" *ngFor="let currency of currencies">{{currency.name}}</ion-select-option>
         </ion-select>
 
       <!-- Contraseña -->
     </ion-list>
     <div class="move-btn">
-      <ion-button [disabled]="ctrlButtonCreate" type="submit" class="btn-start" mode="ios" (click)="createPocket()" >Crear pocket</ion-button>
+      <ion-button [disabled]="ctrlButtonCreate" type="submit" class="btn-start" mode="ios" (click)="createPocket()" >{{'LIST_POCKETS.CreatePocket'| translate}}</ion-button>
     </div>
 
 </ion-content>

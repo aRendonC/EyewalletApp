@@ -1,97 +1,103 @@
 <ion-content class="content-registry bghome" [class.blur]="ctrlCssBlur">
-	<app-return-page [path]="path"></app-return-page>
+    <app-return-page [path]="path"></app-return-page>
 
-	<div class="content-header">
-		<ion-img class="icon" src="../../assets/icon/icon-wallet.svg"></ion-img>
-		<span class="title">{{constants.REGISTRY.TITLE}}</span>
-	</div>
+    <div class="content-header">
+        <ion-img class="icon" src="../../assets/icon/icon-wallet.svg"></ion-img>
+        <span class="title">{{'REGISTRY_PAGE.NewWallet' | translate}}</span>
+    </div>
 
-	<form class="content-form" #form="ngForm" (ngSubmit)="sendDataRegistry()">
-		<ion-list class="list-form">
-			<ion-item class="list-item">
-				<ion-img class="icon-input-email" src="../../assets/icon/icon-email.svg"></ion-img>
-				<ion-input
-					type="email"
-					name="email"
-					[placeholder]="constants.REGISTRY.EMAIL"
-					[(ngModel)]="dataRegistry.email"
-					(ngModelChange)="validateEmail($event)"
-					clear-input
-					class="input"
-				></ion-input>
-				<ion-img *ngIf="emailOk" slot="end" class="icon-success-error" src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
-			</ion-item>
+    <form class="content-form" #form="ngForm" (ngSubmit)="sendDataRegistry()">
+        <ion-list class="list-form">
+            <ion-item class="list-item">
+                <ion-img class="icon-input-email" src="../../assets/icon/icon-email.svg"></ion-img>
+                <ion-input
+                        type="email"
+                        name="email"
+                        placeholder="{{'PROFILE.Email' | translate}}"
+                        [(ngModel)]="dataRegistry.email"
+                        (ngModelChange)="validateEmail($event)"
+                        clear-input
+                        class="input"
+                ></ion-input>
+                <ion-img *ngIf="emailOk" slot="end" class="icon-success-error"
+                         src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
+            </ion-item>
 
-			<ion-item class="list-item">
-				<ion-img class="icon-input" src="../../assets/icon/icon-phone.svg"></ion-img>
-				<ion-input
-					placeholder="Ejm.: +5712345678"
-					type="text"
-					name="phon"
-					[(ngModel)]="dataRegistry.phone"
-					(ngModelChange)="validatePhone($event)"
-					clear-input
-					class="input"
-				></ion-input>
-				<ion-img *ngIf="phoneOk" slot="end" class="icon-success-error" src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
-			</ion-item>
+            <ion-item class="list-item">
+                <ion-img class="icon-input" src="../../assets/icon/icon-phone.svg"></ion-img>
+                <ion-input
+                        placeholder="{{'REGISTRY_PAGE.PhoneExample' | translate}}"
+                        type="text"
+                        name="phon"
+                        [(ngModel)]="dataRegistry.phone"
+                        (ngModelChange)="validatePhone($event)"
+                        clear-input
+                        class="input"
+                ></ion-input>
+                <ion-img *ngIf="phoneOk" slot="end" class="icon-success-error"
+                         src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
+            </ion-item>
 
-			<ion-item class="list-item">
-				<ion-img class="icon-input" src="../../assets/icon/icon-password.svg"></ion-img>
-				<ion-input
-					type="password"
-					[placeholder]="constants.REGISTRY.CONTRASENA"
-					name="password"
-					[(ngModel)]="dataRegistry.password"
-					(ngModelChange)="validatePassword($event)"
-					clear-input
-					class="input"
-				></ion-input>
-				<ion-img *ngIf="passwordOk" slot="end" class="icon-success-error" src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
-				<ion-img *ngIf="passwordError" slot="end" class="icon-success-error" src="../../assets/icon/icon-data-form-invalid.svg"></ion-img>
-			</ion-item>
+            <ion-item class="list-item">
+                <ion-img class="icon-input" src="../../assets/icon/icon-password.svg"></ion-img>
+                <ion-input
+                        type="password"
+                        placeholder="{{'REGISTRY_PAGE.Password' | translate}}"
+                        name="password"
+                        [(ngModel)]="dataRegistry.password"
+                        (ngModelChange)="validatePassword($event)"
+                        clear-input
+                        class="input"
+                ></ion-input>
+                <ion-img *ngIf="passwordOk" slot="end" class="icon-success-error"
+                         src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
+                <ion-img *ngIf="passwordError" slot="end" class="icon-success-error"
+                         src="../../assets/icon/icon-data-form-invalid.svg"></ion-img>
+            </ion-item>
 
-			<ion-item class="list-item">
-				<ion-img class="icon-input" src="../../assets/icon/icon-password.svg"></ion-img>
-				<ion-input
-					type="password"
-					placeholder="Confirmar contraseña"
-					name="confirmPassword"
-					[(ngModel)]="dataRegistry.confirmPassword"
-					(ngModelChange)="validateConfirmPassword($event)"
-					clear-input
-					class="input"
-				></ion-input>
-				<ion-img *ngIf="confirmPasswordOk" slot="end" class="icon-success-error" src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
-				<ion-img *ngIf="confirmPasswordError" slot="end" class="icon-success-error" src="../../assets/icon/icon-data-form-invalid.svg"></ion-img>
-			</ion-item>
-		</ion-list>
-		<div class="content-terms-conditions">
+            <ion-item class="list-item">
+                <ion-img class="icon-input" src="../../assets/icon/icon-password.svg"></ion-img>
+                <ion-input
+                        type="password"
+                        placeholder="{{'REGISTRY_PAGE.ConfirmPassword' | translate}}"
+                        name="confirmPassword"
+                        [(ngModel)]="dataRegistry.confirmPassword"
+                        (ngModelChange)="validateConfirmPassword($event)"
+                        clear-input
+                        class="input"
+                ></ion-input>
+                <ion-img *ngIf="confirmPasswordOk" slot="end" class="icon-success-error"
+                         src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
+                <ion-img *ngIf="confirmPasswordError" slot="end" class="icon-success-error"
+                         src="../../assets/icon/icon-data-form-invalid.svg"></ion-img>
+            </ion-item>
+        </ion-list>
+        <div class="content-terms-conditions">
 			<span class="text">
-				{{constants.REGISTRY.TERMS_AND_CONDITIONS}}
-				<span class="terms-conditions">
+				{{'GENERAL.ConfirmTerms' | translate}}
+                <span class="terms-conditions">
 					<a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">
-						{{constants.REGISTRY.TERMS_SERVICE}}
+						{{'GENERAL.TermsOfService' | translate}}
 					</a>
 					&
 					<a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">
-						{{constants.REGISTRY.PRIVACY_POLICY}}
+					{{'GENERAL.PrivacyPolicy' | translate}}
 					</a>
 				</span>
 			</span>
-		</div>
+        </div>
 
-		<div class="content-button">
-			<ion-button
-				type="submit"
-				text-capitalize
-				[disabled]="disableButton"
-				shape="round"
-				[ngClass]="classButton"
-				mode="ios"
-			>
-				{{constants.REGISTRY.BUTTON}}
-			</ion-button>
-		</div>
-	</form>
+        <div class="content-button">
+            <ion-button
+                    type="submit"
+                    text-capitalize
+                    [disabled]="disableButton"
+                    shape="round"
+                    [ngClass]="classButton"
+                    mode="ios"
+            >
+                {{'REGISTRY_PAGE.ButtonCreate' | translate}}
+            </ion-button>
+        </div>
+    </form>
 </ion-content>
