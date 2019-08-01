@@ -1,47 +1,66 @@
 <ion-content class="backGroundGradient ion-text-center" *ngIf="ctrlCreatePocket">
-  <h5>Pockets</h5>
+    <ion-grid style="margin-top: 20px;">
+        <ion-row>
+            <ion-col class="center center-vertical center-horizontal" size="2">
+                <img src="../../assets/icon/icon-return-page.svg" alt="Regresar" (click)="closeModal(null)"
+                     class="button-return"/>
+            </ion-col>
+            <ion-col class="center center-vertical center-horizontal" size="10">
+                <h5>Pockets</h5>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
     <ion-grid class="ion-text-center">
-      <ion-row justify-content-center>
-        <ion-col (click)="closeModal(pocket)" style="--border-bottom-color: white" size="10" *ngFor="let pocket of pockets">
-          <ion-item text-center>
-            <ion-label>{{pocket.label}}</ion-label>
-            <ion-img src="../assets/icon/icon-bitcoin.png"></ion-img>
-          </ion-item>
-        </ion-col>
-        <ion-col (click)="createPocket()" size="9" justify-content-center class="centerContent">
-          <h5>Agregar un nuevo pocket</h5>
-        </ion-col>
-        <ion-col (click)="createPocket()" justify-content-start size="3" class="centerContent">
-          <img src="../../assets/img/pocketsComponent/addIcon.png" alt="">
-        </ion-col>
-      </ion-row>
+        <ion-row justify-content-center>
+            <ion-col (click)="closeModal(pocket)" style="--border-bottom-color: white" size="10"
+                     *ngFor="let pocket of pockets">
+                <ion-item text-center>
+                    <ion-label>{{pocket.label}}</ion-label>
+                    <ion-img src="../assets/icon/icon-bitcoin.png"></ion-img>
+                </ion-item>
+            </ion-col>
+            <ion-col (click)="createPocket()" size="9" justify-content-center class="centerContent">
+                <h5>Agregar un nuevo pocket</h5>
+            </ion-col>
+            <ion-col (click)="createPocket()" justify-content-start size="3" class="centerContent">
+                <img src="../../assets/img/pocketsComponent/addIcon.png" alt="">
+            </ion-col>
+        </ion-row>
     </ion-grid>
 </ion-content>
-<ion-content class="backGroundGradient"  *ngIf="!ctrlCreatePocket" [class.blur]="ctrlCssBlur">
-  <div class="move-logo" style="margin-left: 0">
-    <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
-    <div class="center">
-      <ion-label class="text-eyewallet">EYEWALLET</ion-label>
-      <br>
-      <ion-label class="text-crypto">CRYPTO BANK</ion-label>
+<ion-content class="backGroundGradient" *ngIf="!ctrlCreatePocket" [class.blur]="ctrlCssBlur">
+    <img style="top: 30px;" src="../../assets/icon/icon-return-page.svg" alt="Regresar" (click)="closeModal(null)"
+         class="button-return"/>
+    <div class="move-logo" style="margin-left: 0">
+        <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
+        <div class="center">
+            <ion-label class="text-eyewallet">EYEWALLET</ion-label>
+            <br>
+            <ion-label class="text-crypto">CRYPTO BANK</ion-label>
+        </div>
     </div>
-  </div>
 
     <!-- <form #formulanrio (submit)="login()" class="transparent move-form"> -->
     <ion-list class="transparent">
-      <!-- Usuario -->
-      <ion-item class="transparent white-line">
-        <ion-input  class="white move-input" type="email" name="label" (input)="getData($event.target.value)"  placeholder="Descripción"></ion-input>
-      </ion-item>
+        <!-- Usuario -->
+        <ion-item class="transparent white-line">
+            <ion-input class="white move-input" type="email" name="label" (input)="getData($event.target.value)"
+                       placeholder="Descripción"></ion-input>
+        </ion-item>
 
-        <ion-select style="color:white;" placeholder="Seleccione Criptomoneda" (ionChange)="getIdCurrency($event.target.value)" (change)="getIdCurrency($event.target.value)">
-          <ion-select-option [value]="currency.id" (select)="getIdCurrency($event.target.value)" *ngFor="let currency of currencies">{{currency.name}}</ion-select-option>
+        <ion-select style="color:white;" placeholder="Seleccione Criptomoneda"
+                    (ionChange)="getIdCurrency($event.target.value)" (change)="getIdCurrency($event.target.value)">
+            <ion-select-option [value]="currency.id" (select)="getIdCurrency($event.target.value)"
+                               *ngFor="let currency of currencies">{{currency.name}}</ion-select-option>
         </ion-select>
 
-      <!-- Contraseña -->
+        <!-- Contraseña -->
     </ion-list>
     <div class="move-btn">
-      <ion-button [disabled]="ctrlButtonCreate" type="submit" class="btn-start" mode="ios" (click)="createPocket()" >Crear pocket</ion-button>
+        <ion-button [disabled]="ctrlButtonCreate" type="submit" class="btn-start" mode="ios" (click)="createPocket()">
+            Crear pocket
+        </ion-button>
     </div>
 
 </ion-content>

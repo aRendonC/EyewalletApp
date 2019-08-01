@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  urlBase: 'http://b6077568.ngrok.io/api/v1/',
-  urlAvatar: 'http://b6077568.ngrok.io/web/',
-  flag: 'http://b6077568.ngrok.io/web/uploads/flags/'
+  urlBase: 'https://b6077568.ngrok.io/api/v1/',
+  urlAvatar: 'https://b6077568.ngrok.io/web/',
+  flag: 'https://b6077568.ngrok.io/web/uploads/flags/'
   // urlBase: 'https://app.eyewallet.com:3000/api/v1/'
 };
 

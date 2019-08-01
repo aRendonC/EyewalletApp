@@ -134,7 +134,7 @@ export class RegistryPage implements OnInit {
     await this.loadingCtrl.present({text: 'Creando billetera'});
     this.ctrlCssBlur = true;
     let device = await this.device.getDataDevice();
-    if(!device.uuid) device.uuid = 'adstgr654';
+    if(!device.uuid) device.uuid = 'adads654';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
@@ -142,18 +142,21 @@ export class RegistryPage implements OnInit {
       password: this.dataRegistry.password,
       deviceId: device.uuid
     };
-
-    this.register.post(urlRegistry, dataBody)
-    .then(async response => {
-      await this.validateRegistry(response);
-      await this.loadingCtrl.dismiss();
-      this.ctrlCssBlur = false;
-    })
-    .catch(async error => {
-      await this.loadingCtrl.dismiss();
-      this.ctrlCssBlur = false;
-      await this.toastCtrl.presentToast({text: 'Errorres de conexión'});
-    });
+    let responseRegister = await this.register.post(urlRegistry, dataBody, null)
+    console.log(responseRegister)
+    await this.validateRegistry(responseRegister);
+    await this.loadingCtrl.dismiss();
+    // .then(async response => {
+    //   await this.validateRegistry(response);
+    //   await this.loadingCtrl.dismiss();
+    //   this.ctrlCssBlur = false;
+    // })
+    // .catch(async error => {
+    //   console.log('el error del catch cuando te registras', error)
+    //   await this.loadingCtrl.dismiss();
+    //   this.ctrlCssBlur = false;
+    //   await this.toastCtrl.presentToast({text: error});
+    // });
   }
 
   private async validateRegistry(response: any): Promise<any> {

@@ -7,7 +7,7 @@
       <ion-label class="text-crypto">CRYPTOBANK</ion-label>
     </div>
   </div>
-  <form #formulario="ngForm" (ngSubmit)="registerPin(bodyForm.value)" [formGroup]="bodyForm"  class="transparent move-form">
+  <form (ngSubmit)="registerPin()" [formGroup]="bodyForm"  class="transparent move-form">
     <!-- <form #formulanrio (submit)="login()" class="transparent move-form"> -->
     <ion-list class="transparent">
       <!-- Usuario -->

@@ -38,7 +38,7 @@ export class AuthService {
   async login(user, password) {
     const device: any = await this.device.getDataDevice();
     if (!device.uuid) {
-      device.uuid = 'adstgr654';
+      device.uuid = 'adads654';
     }
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
@@ -82,7 +82,8 @@ export class AuthService {
 
   async persistenceLogin() {
     this.usuario = await this.store.get('user');
-    if (this.usuario.pin) {
+    console.log(this.usuario)
+    if (this.usuario) {
       await this.openModal();
     }
   }

@@ -34,13 +34,7 @@ export class RegistryPinPage implements OnInit {
       private loadingCtrl: LoadingService,
       private aesjs: AesJsService,
       private touchCtrl: TouchLoginService,
-  ) { }
-
-  async ngOnInit() {
-    this.touchCtrl.isTouch = false;
-    this.user = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('user'));
-    this.user.data.password = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('password'));
-    this.auth.usuario.accessToken = this.user.accessToken;
+  ) {
     this.bodyForm = new FormGroup({
       pin: new FormControl('', Validators.compose([
         Validators.minLength(6),
@@ -52,12 +46,19 @@ export class RegistryPinPage implements OnInit {
     });
   }
 
-  public async registerPin(data: any) {
+  async ngOnInit() {
+    this.touchCtrl.isTouch = false;
+    this.user = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('user'));
+    this.user.data.password = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('password'));
+    this.auth.usuario.accessToken = this.user.accessToken;
+  }
+
+  public async registerPin() {
     await this.loadingCtrl.present({text: 'Validando creación de billetera'});
     this.ctrlCssBlur = true;
 
     this.devic = await this.device.getDataDevice();
-    if(!this.devic.uuid) this.devic.uuid = 'adstgr654';
+    if(!this.devic.uuid) this.devic.uuid = 'adads654';
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     const response = await this.axios.put(`profile/${this.user.data.id}/pin`, this.bodyForm.value, this.auth);
