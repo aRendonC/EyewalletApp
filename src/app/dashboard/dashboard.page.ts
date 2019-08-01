@@ -96,6 +96,8 @@ export class DashboardPage implements OnInit {
                 crypto.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             }
         });
+        this.crypto.value = data.pocket.balance
+        this.crypto.valueUsd = data.btc
         this.crypto.shortName = data.pocket.currency.shortName;
         this.crypto.amountPending = data.amountPending;
         await this.getTransactionHistory(data);
@@ -193,6 +195,8 @@ export class DashboardPage implements OnInit {
             dataTransaction.forEach(transactions => {
                 this.crypto[0].graphic.push(transactions.balance_after)
             });
+            this.crypto.value = this.pockets[0].balance
+            this.crypto.valueUsd = this.pockets[0].valueUsd
             this.crypto.shortName = this.pockets[0].currency.shortName;
             this.crypto.amountPending = response.amountPending;
 
@@ -209,6 +213,9 @@ export class DashboardPage implements OnInit {
                     graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 });
             });
+            this.crypto.value = this.pockets[0].balance
+            this.crypto.valueUsd = this.pockets[0].valueUsd
+            this.crypto.shortName = this.pockets[0].currency.shortName;
             this.crypto.shortName = this.pockets[0].currency.shortName;
             this.crypto.amountPending = response.amountPending;
             // this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

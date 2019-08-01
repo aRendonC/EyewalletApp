@@ -86,7 +86,7 @@ export class SlidersComponent implements OnInit {
 
     async getProfileStore() {
         this.profile = await this.store.get('profile');
-        this.profile = this.aesjs.decrypt(this.profile);
+        if(this.profile) this.profile = this.aesjs.decrypt(this.profile);
     }
 
     async setProfileStore() {

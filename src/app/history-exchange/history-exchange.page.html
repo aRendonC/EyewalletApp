@@ -1,15 +1,15 @@
 <div class="grid">
     <app-pocket (click)="clearData()" [ctrlNavigation]="ctrlNavigation" class="pockets"></app-pocket>
     <p class="move-name">Historial</p>
-    <ion-searchbar type="number" spellcheck="true" showCancelButton="never" animated="true"
+    <ion-searchbar [disabled]="ctrlTagsHtml" type="number" spellcheck="true" showCancelButton="never" animated="true"
                    (ionInput)="filterSearch($event.target.value)" class="search-input">
-        <ion-select (ionChange)="clearData()" class="select-searchable" [(ngModel)]="cryptoSelected">
+        <ion-select [disabled]="ctrlTagsHtml" (ionChange)="clearData()" class="select-searchable" [(ngModel)]="cryptoSelected">
             <ion-select-option [value]="crypto.currency.shortName"
                                *ngFor="let crypto of cryptoCurrency">{{crypto.currency.shortName}}</ion-select-option>
         </ion-select>
     </ion-searchbar>
     <div class="center-horizontal grd-div-select">
-        <ion-select placeholder="Todo" (ionCancel)="clearData()" (ionChange)="filterWhitStatus()"
+        <ion-select [disabled]="ctrlTagsHtml" placeholder="Todo" (ionCancel)="clearData()" (ionChange)="filterWhitStatus()"
                     class="select-filter-exchange" [(ngModel)]="statusSelected">
             <ion-select-option [value]="status.value"
                                *ngFor="let status of statusExchange">{{status.text}}</ion-select-option>

@@ -140,10 +140,12 @@ export class HistoryExchangePage implements OnInit {
         console.log(history);
         console.log(index);
         if(this.ctrlAccessDetailHistory === 1) {
+            if(this.ctrlCssCard === index){
             console.log('mostrar el datalle de la historia');
             this.ctrlTagsHtml = true;
             this.ctrlAccessDetailHistory = 0
             this.detailHistory = history
+            }
         } else {
             this.ctrlAccessDetailHistory = 1
         }

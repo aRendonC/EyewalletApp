@@ -22,8 +22,8 @@ export class ExchangePage implements OnInit {
     public selectCryptoFrom = [];
     public selectCryptoTo: any = [];
     public usdAmount = 0.00;
-    public valueCryptoTo: any = 0.0
-    public valueUsdFrom = 0.0
+    public valueCryptoTo: any = 0.0;
+    public valueUsdFrom = 0.0;
     public cryptoFrom = {
         currencyId: '',
         currency: {
@@ -276,14 +276,14 @@ export class ExchangePage implements OnInit {
     }
 
     async getFeeTransactionFrom() {
-        if (this.inputFrom > 0.02) {
+        if (this.inputFrom >= 0.0001) {
             let body = {
                 amount: this.inputFrom,
                 currencyShortNameFrom: this.cryptoFrom.currency.shortName,
                 currencyIdFrom: this.cryptoFrom.currencyId
             };
             let responseFee = await this.http.post('exchange/fee', body, this.auth);
-            console.log(responseFee)
+            console.log(responseFee);
             if (responseFee.status === 200) {
                 this.usdAmount = responseFee.data.priceCriptoUsd * this.inputFrom
             }
@@ -303,7 +303,7 @@ export class ExchangePage implements OnInit {
     }
 
     async createExchange() {
-        await this.loadingCtrl.present({text: 'Enviando solicitud', cssClass: 'textLoadingBlack'})
+        await this.loadingCtrl.present({text: 'Enviando solicitud', cssClass: 'textLoadingBlack'});
         let profile = this.aesjs.decrypt(await this.store.get('profile'));
         console.log(profile);
         let body = {
@@ -317,18 +317,22 @@ export class ExchangePage implements OnInit {
             userId: profile.userId,
             priority: "low"
         };
-        if (this.selectedPocketFrom.balance >= 0.01) {
-            let responseExchange = await this.http.post('exchange/create', body, this.auth)
+        if (this.selectedPocketFrom.balance >= 0.0001) {
+            let responseExchange = await this.http.post('exchange/create', body, this.auth);
+            console.log(responseExchange);
             if (responseExchange.statuss === 200) {
-                await this.loadingCtrl.dismiss()
+                await this.loadingCtrl.dismiss();
+                await this.toastCtrl.presentToast({
+                    text: 'Solicitud enviada correctamente'
+                })
             } else {
-                await this.loadingCtrl.dismiss()
+                await this.loadingCtrl.dismiss();
                 await this.toastCtrl.presentToast({
                     text: responseExchange.error.msg
                 })
             }
         } else {
-            await this.loadingCtrl.dismiss()
+            await this.loadingCtrl.dismiss();
             await this.toastCtrl.presentToast({
                 text: `Su pocket ${this.selectedPocketFrom.label} no tiene fondos suficientes`
             })
@@ -337,17 +341,17 @@ export class ExchangePage implements OnInit {
     }
 
     changeCryptoData() {
-        let selectedPocketFrom = this.selectedPocketFrom
-        let selectedPocketTo = this.selectedPocketTo
-        let selectCryptoTo = this.selectCryptoTo
-        let selectCryptoFrom = this.selectCryptoFrom
-        let cryptoFrom = this.cryptoFrom
-        let cryptoTo = this.cryptoTo
-        this.selectedPocketFrom = selectedPocketTo
-        this.selectedPocketTo = selectedPocketFrom
-        this.selectCryptoTo = selectCryptoFrom
-        this.selectCryptoFrom = selectCryptoTo
-        this.cryptoTo = cryptoFrom
+        let selectedPocketFrom = this.selectedPocketFrom;
+        let selectedPocketTo = this.selectedPocketTo;
+        let selectCryptoTo = this.selectCryptoTo;
+        let selectCryptoFrom = this.selectCryptoFrom;
+        let cryptoFrom = this.cryptoFrom;
+        let cryptoTo = this.cryptoTo;
+        this.selectedPocketFrom = selectedPocketTo;
+        this.selectedPocketTo = selectedPocketFrom;
+        this.selectCryptoTo = selectCryptoFrom;
+        this.selectCryptoFrom = selectCryptoTo;
+        this.cryptoTo = cryptoFrom;
         this.cryptoFrom = cryptoTo
     }
 
@@ -356,12 +360,12 @@ export class ExchangePage implements OnInit {
             currencyShortNameFrom: this.selectedPocketFrom.currency.shortName,
             currencyShortNameTo: this.selectedPocketTo.currency.shortName,
             amount: this.inputFrom,
-        }
-        console.log(body)
-        let response = await this.http.post('exchange/price', body, this.auth)
-        console.log(response)
-        this.inputTo = response.amountCriptoTo
-        this.valueUsdFrom = response.priceUsdFrom
+        };
+        console.log(body);
+        let response = await this.http.post('exchange/price', body, this.auth);
+        console.log(response);
+        this.inputTo = response.amountCriptoTo;
+        this.valueUsdFrom = response.priceUsdFrom;
         this.valueCryptoTo = (response.priceUsdFrom / response.priceUsdTo).toFixed(8)
     }
 }
