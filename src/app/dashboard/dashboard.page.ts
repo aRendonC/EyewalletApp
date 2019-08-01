@@ -86,7 +86,7 @@ export class DashboardPage implements OnInit {
             element.graphic = [];
             if (data.pocket.currencyId === 1) {
                 element.value = data.pocket.balance;
-                element.valueUsd = data.pocket.balance * data.btc.toFixed(8);
+                element.valueUsd = data.btc.toFixed(8);
                 if (data.data[0]) {
                     data.data.forEach(elementGraphic => {
                         console.table(elementGraphic);
@@ -166,7 +166,7 @@ export class DashboardPage implements OnInit {
                 this.crypto.forEach(element1 => {
                     if (element1.name === 'Bitcoin') {
                         element1.value = this.pockets.balance;
-                        element1.valueUsd = this.pockets.balance * response.btc.toFixed(8);
+                        element1.valueUsd = response.btc.toFixed(8);
                         this.dataGraphic.push(parseFloat(element.balance_after));
                     }
                 });

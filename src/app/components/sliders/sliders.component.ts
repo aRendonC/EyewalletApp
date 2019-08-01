@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
-import {ModalController} from '@ionic/angular';
+import {IonInfiniteScroll, ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
 import {Storage} from '@ionic/storage';
 import {enterAnimation} from '../../animations/enter';
@@ -27,6 +27,7 @@ export class SlidersComponent implements OnInit {
   @Input() transactions: any;
   @ViewChild('slideWithNav') slideWithNav: IonSlides;
   @ViewChild('slideWithNav2') slideWithNav2: IonSlides;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   public pager: boolean = false;
   slideOpts = {
     initialSlide: 0,
@@ -70,6 +71,7 @@ export class SlidersComponent implements OnInit {
     this.nameSlider = this.name;
     this.dataGraphic = this.name[0];
     await this.grafica();
+    this.infiniteScroll.disabled;
   }
 
   async getProfileStore(){
@@ -172,5 +174,10 @@ export class SlidersComponent implements OnInit {
   }
   async cambioDeSlider(slideView2) {
      await slideView2.slideNext()
+  }
+
+  loadData(event) {
+    event.target.complete();
+    console.log(event)
   }
 }

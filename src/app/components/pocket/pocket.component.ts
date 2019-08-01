@@ -80,6 +80,7 @@ export class PocketComponent implements OnInit {
         };
         await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
+        console.log(dataResponse)
         if(dataResponse.status === 200) {
           await this.loadingCtrl.dismiss();
           dataResponse.pocket = this.pocket;

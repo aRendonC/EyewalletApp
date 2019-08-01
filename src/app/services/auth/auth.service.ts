@@ -38,7 +38,7 @@ export class AuthService {
   async login(user, password) {
     const device: any = await this.device.getDataDevice();
     if (!device.uuid) {
-      device.uuid = 'adads654';
+      device.uuid = '7219d0c4ee046311';
     }
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
