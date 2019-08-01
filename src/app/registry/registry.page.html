@@ -50,6 +50,7 @@
 				<ion-img *ngIf="passwordOk" slot="end" class="icon-success-error" src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
 				<ion-img *ngIf="passwordError" slot="end" class="icon-success-error" src="../../assets/icon/icon-data-form-invalid.svg"></ion-img>
 			</ion-item>
+			<label *ngIf="passwordError" class="information-type-data">La contraseña debe contener mínimo una letra, número y carácter especial</label>
 
 			<ion-item class="list-item">
 				<ion-img class="icon-input" src="../../assets/icon/icon-password.svg"></ion-img>
