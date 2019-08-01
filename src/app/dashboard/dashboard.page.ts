@@ -59,26 +59,15 @@ export class DashboardPage implements OnInit {
         ).subscribe(() => {
             this.getTransactionsSend();
         });
-        console.log(this.pockets)
-
-        if (!this.pockets[0]) {
-            this.store.get('pockets').then(pockets => {
-                this.pockets = pockets
-                console.log(this.pockets)
-                if (this.pockets) {
-                    this.pockets = this.aesjs.decrypt(this.pockets)
-                    console.log(this.pockets)
-                }
-            });
-        }
     }
 
     async ngOnInit() {
         this.touchCtrl.isLocked = true;
-        // this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
+        this.pockets = JSON.parse(this.route.snapshot.queryParamMap.get('pocket'));
+        console.log('estos son los pockets del usuario', this.pockets)
+        // this.pockets = this.pockets[0]
         // console.log(this.pockets)
         await this.getUserProfile();
-        await this.getListTransactions();
     }
 
     ionViewDidEnter() {
@@ -154,6 +143,13 @@ export class DashboardPage implements OnInit {
         this.profile = profile;
         this.params.userId = profile.userId;
         this.params.type = 4;
+        if (!this.pockets) {
+            this.pockets = await this.store.get('pockets');
+            if (this.pockets) {
+                this.pockets = this.aesjs.decrypt(this.pockets)
+            }
+        }
+        await this.getListTransactions();
     }
 
     async getListTransactions() {

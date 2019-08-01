@@ -134,7 +134,7 @@ export class RegistryPage implements OnInit {
     await this.loadingCtrl.present({text: 'Creando billetera'});
     this.ctrlCssBlur = true;
     let device = await this.device.getDataDevice();
-    if(!device.uuid) device.uuid = 'adads654';
+    if(!device.uuid) device.uuid = 'adergrtreg';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,

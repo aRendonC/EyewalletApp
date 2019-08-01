@@ -58,7 +58,7 @@ export class RegistryPinPage implements OnInit {
     this.ctrlCssBlur = true;
 
     this.devic = await this.device.getDataDevice();
-    if(!this.devic.uuid) this.devic.uuid = 'adads654';
+    if(!this.devic.uuid) this.devic.uuid = 'adergrtreg';
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     const response = await this.axios.put(`profile/${this.user.data.id}/pin`, this.bodyForm.value, this.auth);
@@ -68,10 +68,13 @@ export class RegistryPinPage implements OnInit {
       console.log('login de usuario', loginUser)
       if(loginUser.status === 200){
         this.pockets = await this.getPocketsList();
-        await this.router.navigate(['/app/tabs/dashboard']);
+        await this.router.navigate(['/app/tabs/dashboard'], {
+          queryParams: {
+            pocket: JSON.stringify(this.pockets[0])
+          }, queryParamsHandling: 'merge'
+        });
         this.pockets = this.aesjs.encrypt(this.pockets[0]);
         await this.store.set('pockets', this.pockets);
-
         await this.loadingCtrl.dismiss();
         this.ctrlCssBlur = false;
       }

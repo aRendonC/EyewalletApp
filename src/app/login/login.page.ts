@@ -55,7 +55,11 @@ export class LoginPage implements OnInit {
           let pockets = this.pockets;
           pockets = this.aesjs.encrypt(pockets);
           await this.store.set('pocket', pockets);
-          await this.router.navigate(['/app/tabs/dashboard']);
+          await this.router.navigate(['/app/tabs/dashboard'] ,{
+            queryParams: {
+              pocket: JSON.stringify(this.pockets[0])
+            }, queryParamsHandling: 'merge'
+          });
           this.pockets = this.aesjs.encrypt( this.pockets[0]);
           await this.store.set('pockets',  this.pockets)
         } else await this.clearData(data);
