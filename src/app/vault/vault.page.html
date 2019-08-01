@@ -41,7 +41,8 @@
 
       <tr>
         <td text-capitalize class="title">{{ 'VAULT.tuitiosText' | translate }}</td>
-        <td class="text padding-text">{{ enrollmentCurrency }}</td>
+        <td *ngIf="!loadingValuesFee" class="text padding-text">{{ enrollmentCurrency }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
         <td class="title">{{ USD }}</td>
         <td *ngIf="!loadingValuesFee" class="text">{{ enrollmentUSD }}</td>
         <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
@@ -68,9 +69,11 @@
     <table class="table">
       <tr>
         <td *ngIf="pockets" class="title">{{ pockets[positionPocketSelected].currency.shortName }}</td>
-        <td class="text padding-text">{{ currencyGain }}</td>
+        <td *ngIf="!loadingValuesFee" class="text padding-text">{{ currencyGain }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
         <td class="title">{{ USD }}</td>
-        <td class="text">{{ USDGain }}</td>
+        <td *ngIf="!loadingValuesFee" class="text">{{ USDGain }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
       </tr>
     </table>
   </div>
