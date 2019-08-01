@@ -11,7 +11,7 @@
       [okText]="dataPockets.buttonOkSelect"
       [cancelText]="dataPockets.buttonCancelSelect"
     >
-      <ion-select-option *ngFor="let dataPocket of pockets" [value]="dataPocket.label">{{ dataPocket.label }} ({{ dataPocket.currency.shortName }})</ion-select-option>
+      <ion-select-option class="content-selected-options" *ngFor="let dataPocket of pockets" [value]="dataPocket.label">{{ dataPocket.label }} ({{ dataPocket.currency.shortName }})</ion-select-option>
     </ion-select>
   </div>
 
@@ -34,45 +34,54 @@
             placeholder="0.000"
           ></ion-input>
         </td>
-        <td class="title">USD</td>
+        <td class="title">{{ USD }}</td>
         <td class="text">{{ productCurrencyUsd }}</td>
       </tr>
 
       <tr>
-        <td class="title">Matrícula</td>
+        <td text-capitalize class="title">{{ 'VAULT.tuitiosText' | translate }}</td>
         <td class="text padding-text">{{ enrollmentCurrency }}</td>
-        <td class="title">USD</td>
+        <td class="title">{{ USD }}</td>
         <td class="text">{{ enrollmentUSD }}</td>
       </tr>
     </table>
   </div>
 
   <div class="content-balance-duration">
-    <span class="title">Duración</span>
+    <span class="title">{{ 'VAULT.durationText' | translate }}</span>
 
-    <span class="text-duration">3 meses - 3%</span>
+    <ion-select
+      class="selected-investment-porcentage" 
+      mode="md"
+      [(ngModel)]="investmentPorcentage"
+      (ionChange)="handlerinvestmentPorcentageSelected()"
+      [okText]="dataPockets.buttonOkSelect"
+      [cancelText]="dataPockets.buttonCancelSelect"
+    >
+      <ion-select-option class="content-selected-options" *ngFor="let data of investmentPorcentageData" [value]="data">{{ data }} {{ 'VAULT.monthsText' | translate }} - {{ data }}%</ion-select-option>
+    </ion-select>
 
-    <span class="text-other">Total ganancias</span>
+    <span class="text-other">{{ 'VAULT.totalEarningsText' | translate }}</span>
 
     <table class="table">
       <tr>
-        <td class="title">BTC</td>
-        <td class="text padding-text">0.000</td>
-        <td class="title">USD</td>
-        <td class="text">0.000</td>
+        <td *ngIf="pockets" class="title">{{ pockets[positionPocketSelected].currency.shortName }}</td>
+        <td class="text padding-text">{{ currencyGain }}</td>
+        <td class="title">{{ USD }}</td>
+        <td class="text">{{ USDGain }}</td>
       </tr>
     </table>
   </div>
 
   <div class="content-button">
     <ion-button
-      [disabled]="!buttonDisabled"
-      (click)="continueCreateVault()"
+      [disabled]="buttonDisabled"
+      (click)="createVault()"
       class="button"
       text-capitalize
       shape="round"
     >
-      Próximamente
+      {{ 'VAULT.buttonNextText' | translate }}
     </ion-button>
   </div>
 </ion-content>

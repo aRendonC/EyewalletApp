@@ -34,6 +34,10 @@ const routes: Routes = [
       {
         path: 'vault',
         loadChildren: '../vault/vault.module#VaultPageModule'
+      },
+      {
+        path: 'vault-created',
+        loadChildren: '../vault-created/vault-created.module#VaultCreatedPageModule'
       }
     ]
   },

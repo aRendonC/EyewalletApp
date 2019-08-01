@@ -1,3 +1,8 @@
+export const KEYS_DATA_LOCAL: any = {
+   PROFILE: 'profile',
+   POCKETS: 'pockets'
+}
+
 export const REGISTRY = {
    TITLE: 'Crear una nueva Billetera',
    LABEL_USER: 'Usuario',
@@ -45,9 +50,7 @@ export const REQUEST_CARD = {
 };
 
 export const VAULT = {
-   TITLE_BALANCE: 'saldo disponible',
-   TITLE_DURATION: 'duración',
-   TEXT_EARNING: 'total ganancias'
+   USD: 'USD'
 };
 
 export const MESSAGE_ERROR = {

@@ -23,7 +23,7 @@ export class ModalResponseStatusPage implements OnInit {
   ) { }
 
   public ngOnInit() {
-    this.iconStatus = `../../assets/images/${this.typeIcon === 1 ? 'icon-status-ok' : 'icon-status-error'}.svg`;
+    this.iconStatus = `../../assets/images/icon-status-${this.typeIcon === 1 ? 'ok' : 'error'}.svg`;
 
     setTimeout(() => {
       this.closeModal();

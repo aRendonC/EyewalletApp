@@ -35,6 +35,19 @@
     "textAvailableBalance": "available balance",
     "messageErrorLoadPage": "Temporary errors, try later.",
     "loading": "Loading.",
-    "messageWithoutFunds": "The pocket has no funds, reload it or select another."
+    "messageWithoutFunds": "The pocket has no funds, reload it or select another.",
+    "tuitiosText": "fee",
+    "durationText": "duration",
+    "monthsText": "months",
+    "totalEarningsText": "total earnings",
+    "buttonNextText": "next",
+    "higherValueErrorMessage": "The value entered cannot exceed the balance of the pocket."
+  },
+  "VAULT_CREATED": {
+    "quantityText": "quantity",
+    "buttonAccept": "accept",
+    "termsConditionsTextOne": "When you click on \"Next\", you accept",
+    "termsConditionsTextTwo": "Terms of service - policies and privacy",
+    "modalMessageSuccessText": "Your new vault was added successfully."
   }
 }
