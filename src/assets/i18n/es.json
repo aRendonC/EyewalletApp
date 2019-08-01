@@ -48,6 +48,8 @@
     "buttonAccept": "aceptar",
     "termsConditionsTextOne": "Cuando haces clic en \"Siguiente\", aceptas",
     "termsConditionsTextTwo": "Términos de servicio - políticas y privacidad",
-    "modalMessageSuccessText": "Tu nueva bóveda fue añadida con éxito."
+    "modalMessageSuccessText": "Tu nueva bóveda fue añadida con éxito.",
+    "modalMessageErrorText": "Error durante la creación de la bóveda. Intente nuevamente.",
+    "messageCreatinVault": "Creando bóveda"
   }
 }

@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ModalResponseStatusPage } from '../modal-response-status/modal-response-status.page';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as CONSTANTS from '../constanst';
 import { TranslateService } from '@ngx-translate/core';
-import { AnyARecord } from 'dns';
+import { LoadingService } from '../services/loading/loading.service';
+import { AxiosService } from '../services/axios/axios.service';
+import { AuthService } from '../services/auth/auth.service';
+import { ToastService } from '../services/toast/toast.service';
+import { AesJsService } from '../services/aesjs/aes-js.service';
+import { DataLocalService } from '../services/data-local/data-local.service';
 
 @Component({
   selector: 'app-vault-created',
@@ -20,12 +25,19 @@ export class VaultCreatedPage implements OnInit {
   public nameCurrency: string;
   public amountCurrency: number;
   public amountUSD: number;
-  public dataBody: AnyARecord;
+  public dataBody: any;
 
   constructor(
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private loadingService: LoadingService,
+    private axiosService: AxiosService,
+    private authService: AuthService,
+    private router: Router,
+    private toastService: ToastService,
+    private aesJsService: AesJsService,
+    private dataLocalService: DataLocalService
   ) {
     this.buttonDisabled = false;
     this.USDtext = CONSTANTS.VAULT.USD;
@@ -54,33 +66,54 @@ export class VaultCreatedPage implements OnInit {
 
   public async acceptCreationVault(): Promise<any> {
     await this.runVaultCreation();
-    this.showModalResponseStatus();
   }
 
   private async runVaultCreation(): Promise<any> {
     console.log('This is query...');
-    const url: string = 'vault/create';
 
-    // await this.loadingService.present({text: this.translateService.instant('VAULT.loading'), classColorText: 'loadingTextBlack'});
-    // this.axiosService.post(url, body, this.authService)
-    // .then(async response => {
-    //   console.log(response);
-    //   this.validateRunVaultCreation(response);
-    //   await this.loadingService.dismiss();
-    // })
-    // .catch(async error => {
-    //   console.log(error);
-    //   this.errorResponseQueries();
-    //   await this.loadingService.dismiss();
-    // });
+    const url: string = 'vault/create';
+    await this.loadingService.present({text: this.translateService.instant('VAULT_CREATED.messageCreatinVault'), classColorText: 'loadingTextBlack'});
+    this.axiosService.post(url, this.dataBody, this.authService)
+    .then(async response => {
+      console.log(response);
+      this.validateRunVaultCreation(response);
+    })
+    .catch(async error => {
+      console.log(error);
+      this.errorResponseQueries();
+      await this.loadingService.dismiss();
+    });
   }
 
-  private async showModalResponseStatus(): Promise<any> {
+  private async validateRunVaultCreation(dataResponse: any): Promise<any> {
+    if (dataResponse.status === 200) {
+      this.setDataLocalPockets(dataResponse.wallets);
+      await this.loadingService.dismiss();
+      this.showModalResponseStatus(0, this.translateService.instant('VAULT_CREATED.modalMessageSuccessText'));
+    } else {
+      await this.loadingService.dismiss();
+      this.showModalResponseStatus(1, this.translateService.instant('VAULT_CREATED.modalMessageErrorText'));
+    }
+  }
+
+  private async setDataLocalPockets(pockets: any[]): Promise<any> {
+    console.log('SET_POCKETS: ', pockets);
+    const pocketsEncrypt: any = this.aesJsService.encrypt(pockets);
+    console.log('SET_POCKETS_ENCRYPT: ', pocketsEncrypt);
+    this.dataLocalService.setDataLocal(CONSTANTS.KEYS_DATA_LOCAL.POCKETS, pocketsEncrypt);
+  }
+
+  private errorResponseQueries(): void {
+    this.toastService.presentToast({text: this.translateService.instant('VAULT.messageErrorLoadPage')});
+    this.router.navigate(['/app/tabs/vault']);
+  }
+
+  private async showModalResponseStatus(typeIcon: number, message: string): Promise<any> {
     const modalResponseStatus = await this.modalController.create({
       component: ModalResponseStatusPage,
       componentProps: {
-        typeIcon: 1,
-        message: this.translateService.instant('VAULT_CREATED.modalMessageSuccessText'),
+        typeIcon,
+        message,
         path: '/app/tabs/vault'
       }
     });

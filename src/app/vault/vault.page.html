@@ -35,14 +35,16 @@
           ></ion-input>
         </td>
         <td class="title">{{ USD }}</td>
-        <td class="text">{{ productCurrencyUsd }}</td>
+        <td *ngIf="!loadingValuesFee" class="text">{{ productCurrencyUsd }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
       </tr>
 
       <tr>
         <td text-capitalize class="title">{{ 'VAULT.tuitiosText' | translate }}</td>
         <td class="text padding-text">{{ enrollmentCurrency }}</td>
         <td class="title">{{ USD }}</td>
-        <td class="text">{{ enrollmentUSD }}</td>
+        <td *ngIf="!loadingValuesFee" class="text">{{ enrollmentUSD }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
       </tr>
     </table>
   </div>

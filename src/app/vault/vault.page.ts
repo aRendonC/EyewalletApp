@@ -16,6 +16,7 @@ import * as CONSTANTS from '../constanst';
 })
 
 export class VaultPage implements OnInit {
+  public loadingValuesFee: boolean;
   public dataSelected: any;
   public buttonDisabled: boolean;
   public ctrlNavigation: number = 5;
@@ -47,6 +48,7 @@ export class VaultPage implements OnInit {
     private toastService: ToastService,
     private loadingService: LoadingService
   ) {
+    this.loadingValuesFee = false;
     this.buttonDisabled = true;
     this.setDataSelectPockets();
     this.valueInvestment = 0;
@@ -71,13 +73,15 @@ export class VaultPage implements OnInit {
     this.validateInputAmountDisabled();
     this.dataProfile = await this.getDataProfile();
     console.log('PROFILE: ', this.dataProfile);
-    console.log('POCKETS: ', this.pockets);
+    console.log('POCKETS-NGONINIT: ', this.pockets);
   }
 
   public async ionViewDidEnter(): Promise<any> {
+    this.pockets = await this.getPockets();
     const elementDashboard: any = document.getElementsByTagName('app-vault');
     elementDashboard[0].classList.add("margins-dashboard");
     await this.getCurrentCurrency(this.pocketDefaultSelected.currency.shortName);
+    console.log('POCKETS-IOVIEWDIDENTER: ', this.pockets);
   }
 
   private setDataSelectPockets(): void {
@@ -165,11 +169,14 @@ export class VaultPage implements OnInit {
   }
 
   private async runQueryFeeInvestment(url: string, body: any): Promise<any> {
+    this.loadingValuesFee = true;
     this.axiosService.post(url, body, this.authService)
     .then(async response => {
       this.validateQueryFeeInvestment(response);
+      this.loadingValuesFee = false;
     })
     .catch(async error => {
+      this.loadingValuesFee = false;
       console.error(error);
       this.errorResponseQueries();
     });
@@ -229,43 +236,9 @@ export class VaultPage implements OnInit {
         nameCurrency: this.pockets[this.positionPocketSelected].currency.name,
         amountUSD: this.USDGain
       };
-      // this.runVaultCreation(url, dataBody);
       this.router.navigate(['/app/tabs/vault-created', {dataVaultCreated: JSON.stringify(dataBody)}]);
       this.resetAssingnValues();
     }
-  }
-
-  private async runVaultCreation(url: string, body: any): Promise<any> {
-    await this.loadingService.present({text: this.translateService.instant('VAULT.loading'), classColorText: 'loadingTextBlack'});
-    this.axiosService.post(url, body, this.authService)
-    .then(async response => {
-      console.log(response);
-      this.validateRunVaultCreation(response);
-      await this.loadingService.dismiss();
-    })
-    .catch(async error => {
-      console.log(error);
-      this.errorResponseQueries();
-      await this.loadingService.dismiss();
-    });
-  }
-
-  private async validateRunVaultCreation(dataResponse: any): Promise<any> {
-    if (dataResponse.status === 200) {
-      this.setDataLocalPockets(dataResponse.wallets);
-      this.router.navigate(['/app/tabs/dashboard']);
-    } else {
-      this.errorResponseQueries();
-    }
-  }
-
-  private async setDataLocalPockets(pockets: any[]): Promise<any> {
-    console.log('SET_POCKETS: ', pockets);
-    const pocketsEncrypt: any = this.aesjs.encrypt(pockets);
-    console.log('SET_POCKETS_ENCRYPT: ', pocketsEncrypt);
-    this.dataLocal.setDataLocal(CONSTANTS.KEYS_DATA_LOCAL.POCKETS, pocketsEncrypt);
-    this.resetAssingnValues();
-    this.pockets = await this.getPockets();
   }
 
   private async getDataProfile(): Promise<any> {

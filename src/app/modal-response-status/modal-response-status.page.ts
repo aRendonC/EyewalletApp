@@ -22,16 +22,19 @@ export class ModalResponseStatusPage implements OnInit {
     private router: Router
   ) { }
 
-  public ngOnInit() {
-    this.iconStatus = `../../assets/images/icon-status-${this.typeIcon === 1 ? 'ok' : 'error'}.svg`;
-
-    setTimeout(() => {
-      this.closeModal();
-    }, 3000);
+  public ngOnInit(): void {
+    this.validateShowTypeIcon()
+    this.closeModal();
   }
 
-  private async closeModal(): Promise<any> {
-    this.modalController.dismiss();
-    await this.router.navigate([this.path]);
+  private validateShowTypeIcon(): void {
+    this.iconStatus = `../../assets/images/icon-status-${this.typeIcon === 0 ? 'ok' : 'error'}.svg`;
+  }
+
+  private  closeModal(): void {
+    setTimeout(async() => {
+      this.modalController.dismiss();
+      this.router.navigate([this.path]);
+    }, 2000);
   }
 }

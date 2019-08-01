@@ -48,6 +48,8 @@
     "buttonAccept": "accept",
     "termsConditionsTextOne": "When you click on \"Next\", you accept",
     "termsConditionsTextTwo": "Terms of service - policies and privacy",
-    "modalMessageSuccessText": "Your new vault was added successfully."
+    "modalMessageSuccessText": "Your new vault was added successfully.",
+    "modalMessageErrorText": "Error during vault creation. Try again.",
+    "messageCreatinVault": "Creating Vault"
   }
 }
