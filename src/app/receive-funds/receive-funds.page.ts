@@ -31,6 +31,7 @@ export class ReceiveFundsPage {
 
   ionViewDidEnter() {
     const data = JSON.parse(this.activateRouter.snapshot.queryParamMap.get('pocket'));
+    console.log(data)
     this.amount = data.balance;
     this.codeQr = data.address;
   }

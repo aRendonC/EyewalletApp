@@ -64,6 +64,7 @@ export class DashboardPage implements OnInit {
     async ngOnInit() {
         this.touchCtrl.isLocked = true;
         this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
+        console.log(this.pockets)
         await this.getUserProfile();
         await this.getListTransactions();
     }
@@ -145,6 +146,7 @@ export class DashboardPage implements OnInit {
             this.pockets = await this.store.get('pockets');
             if (this.pockets) {
                 this.pockets = this.aesjs.decrypt(this.pockets)
+                console.log(this.pockets)
             }
         }
     }
