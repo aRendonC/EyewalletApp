@@ -43,22 +43,24 @@ export class PocketComponent implements OnInit {
   }
 
    async ngOnInit() {
-     // await this.getPocketStore()
+     await this.getPocketStore()
    }
-  // async getPocketStore() {
-  //   this.pockets = await this.store.get('pockets');
-  //   if(!this.pockets){
-  //     let response  = await this.http.get('user-wallet/index', this.auth, null);
-  //     this.pockets = response;
-  //     response = this.aesjs.encrypt(response);
-  //     await this.store.set('pocket', response)
-  //   } else {
-  //     this.pockets = this.aesjs.decrypt(this.pockets);
-  //     console.log(this.pockets)
-  //     this.pocket = this.pockets;
-  //     console.log(this.pocket)
-  //   }
-  // }
+  async getPocketStore() {
+    console.log(await this.store.get('pockets'))
+    this.pocket = this.aesjs.decrypt(await this.store.get('pockets'))
+    console.log(this.pockets)
+    if(!this.pockets[0]){
+      let response  = await this.http.get('user-wallet/index', this.auth, null);
+      this.pockets = response;
+      response = this.aesjs.encrypt(response);
+      await this.store.set('pocket', response)
+    } else {
+      this.pockets = this.aesjs.decrypt(this.pockets);
+      // console.log(this.pockets)
+      // this.pocket = this.pockets;
+      // console.log(this.pocket)
+    }
+  }
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
     this.pockets = await this.http.get('user-wallet/index', this.auth, null);
