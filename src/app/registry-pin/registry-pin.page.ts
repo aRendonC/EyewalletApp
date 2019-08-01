@@ -57,12 +57,14 @@ export class RegistryPinPage implements OnInit {
     this.ctrlCssBlur = true;
 
     this.devic = await this.device.getDataDevice();
-    if(!this.devic.uuid) this.devic.uuid = 'edwigrendon';
+    if(!this.devic.uuid) this.devic.uuid = 'adstgr654';
     this.bodyForm.value.device = this.devic;
     this.bodyForm.value.userId = this.user.data.id;
     const response = await this.axios.put(`profile/${this.user.data.id}/pin`, this.bodyForm.value, this.auth);
+    console.log('crear pin', response)
     if (response.status === 200) {
       let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password);
+      console.log('login de usuario', loginUser)
       if(loginUser.status === 200){
         this.pockets = await this.getPocketsList();
         await this.router.navigate(['/app/tabs/dashboard']);

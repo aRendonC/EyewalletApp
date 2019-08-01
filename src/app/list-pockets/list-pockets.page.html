@@ -34,7 +34,7 @@
         <ion-input  class="white move-input" type="email" name="label" (input)="getData($event.target.value)"  placeholder="Descripción"></ion-input>
       </ion-item>
 
-        <ion-select style="color:white;" placeholder="Seleccione Criptomonera" (ionChange)="getIdCurrency($event.target.value)" (change)="getIdCurrency($event.target.value)">
+        <ion-select style="color:white;" placeholder="Seleccione Criptomoneda" (ionChange)="getIdCurrency($event.target.value)" (change)="getIdCurrency($event.target.value)">
           <ion-select-option [value]="currency.id" (select)="getIdCurrency($event.target.value)" *ngFor="let currency of currencies">{{currency.name}}</ion-select-option>
         </ion-select>
 
