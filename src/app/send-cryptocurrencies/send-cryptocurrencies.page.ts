@@ -157,6 +157,8 @@ export class SendCryptocurrenciesPage implements OnInit {
       } else {
         await this.toastCtrl.presentToast({text: 'faltan datos'})
       }
+    } else {
+      await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes para hacer la transacción'})
     }
   }
 
