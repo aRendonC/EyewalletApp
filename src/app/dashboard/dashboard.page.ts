@@ -163,6 +163,7 @@ export class DashboardPage implements OnInit {
         this.crypto = [];
         await this.loadingController.present({text: 'Recopilando información', cssClass: 'textLoadingBlack'});
         this.ctrlCssBlur = true;
+        console.log( this.pockets)
         let params = {
             userId: this.profile.userId,
             type: 0,
