@@ -36,8 +36,9 @@ export class ListPocketsPage implements OnInit {
     private loadingCtrl: LoadingService
       ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.pockets = this.navParams.data.pockets;
+    await this.store.set('pocket', this.aesjs.encrypt(this.pockets))
   }
 
   async getCriptoCurrencies() {

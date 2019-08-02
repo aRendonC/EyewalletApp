@@ -75,6 +75,7 @@ export class PocketComponent implements OnInit {
       }
     });
 
+
     modalPocket.onDidDismiss().then(async (pocket:any)=> {
       if(pocket.data) {
         this.pocket = pocket.data;
