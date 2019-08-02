@@ -12,6 +12,7 @@
       height: 247px;
       position: fixed;
       width: 100%;
+      z-index: 3;
 
       .content-add {
          margin: 20px 0 10px 0;
@@ -49,68 +50,75 @@
    .content-vaults-created {
       padding: 260px 0 140px 0;
 
-      .info-vault {
+      .info-vault-sliding {
          border-radius: 50px;
-         padding: 20px;
          width: 90%;
          margin: 20px auto;
-         @extend .center-space-between;
          -webkit-box-shadow: 0px 0px 40px -10px rgba(51,51,203,0.3);
          -moz-box-shadow: 0px 0px 40px -10px rgba(51,51,203,0.3);
          box-shadow: 0px 0px 40px -10px rgba(51,51,203,0.3);
 
-         .content-component-info-coin {
-            width: 25%;
-            @extend .all-center-colum;
+         .info-vault-sliding-item {
+            --border-style: none;
 
-            .icon-coin {
-               width: 40px;
-            }
+            .content-info-vault-sliding {
+               @extend .center-space-between;
+               padding: 20px;
+               width: 100%;
 
-            .text-type-coin {
-               font-family: $font-openSans-bold;
-               font-size: 12px;
-               color: #272759;
-               margin: 0 0 8px 0;
-            }
-
-            .text-investment-usd {
-               font-family: $font-roboto-bold;
-               font-size: 9px;
-               color: #93B5E5;
-            }
-
-            .content-icon-value-investment-usd {
-               @extend .all-center;
-               margin: 0 0 8px 0;
-
-               .icon-add-little {
-                  width: 6px;
-                  margin: 0 4px 0 0;
-               }
-
-               .value-investment-usd {
-                  font-family: $font-openSans-bold;
-                  font-size: 12px;
-                  color: #272759;
-               }
-            }
-
-            .content-performance-percentage {
-               @extend .all-center;
-
-               .performance-percentage-text {
-                  font-family: $font-openSans-bold;
-                  font-size: 9px;
-                  color: #5496FF;
-               }
-
-               .performance-percentage-icon {
-                  margin: 0 0 0 4px;
+               .content-component-info-coin {
+                  width: 25%;
+                  @extend .all-center-colum;
+      
+                  .icon-coin {
+                     width: 40px;
+                  }
+      
+                  .text-type-coin {
+                     font-family: $font-openSans-bold;
+                     font-size: 12px;
+                     color: #272759;
+                     margin: 0 0 8px 0;
+                  }
+      
+                  .text-investment-usd {
+                     font-family: $font-roboto-bold;
+                     font-size: 9px;
+                     color: #93B5E5;
+                  }
+      
+                  .content-icon-value-investment-usd {
+                     @extend .all-center;
+                     margin: 0 0 8px 0;
+      
+                     .icon-add-little {
+                        width: 6px;
+                        margin: 0 4px 0 0;
+                     }
+      
+                     .value-investment-usd {
+                        font-family: $font-openSans-bold;
+                        font-size: 12px;
+                        color: #272759;
+                     }
+                  }
+      
+                  .content-performance-percentage {
+                     @extend .all-center;
+      
+                     .performance-percentage-text {
+                        font-family: $font-openSans-bold;
+                        font-size: 9px;
+                        color: #5496FF;
+                     }
+      
+                     .performance-percentage-icon {
+                        margin: 0 0 0 4px;
+                     }
+                  }
                }
             }
          }
-         
       }
    }
 }

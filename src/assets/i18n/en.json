@@ -30,7 +30,10 @@
   },
   "VAULT_LIST": {
     "loadingText": "Loagind vaults",
-    "toastErrorText": "Error loading vaults. Try again"
+    "toastErrorText": "Error loading vaults. Try again",
+    "titleSheetText": "Delete Vault",
+    "deleteText": "Remove",
+    "cancelText": "Cancel"
   },
   "VAULT": {
     "placeholderPockets": "select a pocket",

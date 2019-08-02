@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { VaultListPage } from './vault-list.page';
 import { ComponentsModule } from '../components/components.module';
 import { PipeModule } from '../pipes/pipe.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -15,13 +16,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
     ComponentsModule,
-    PipeModule
+    PipeModule,
+    TranslateModule
   ],
   declarations: [VaultListPage]
 })

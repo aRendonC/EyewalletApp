@@ -30,7 +30,10 @@
   },
   "VAULT_LIST": {
     "loadingText": "Cargando bóvedas",
-    "toastErrorText": "Error al cargar las bóvedas. Intente nuevamente"
+    "toastErrorText": "Error al cargar las bóvedas. Intente nuevamente",
+    "titleSheetText": "Eliminar Bóveda",
+    "deleteText": "Eliminar",
+    "cancelText": "Cancelar"
   },
   "VAULT": {
     "placeholderPockets": "selecciona un bolsillo",
