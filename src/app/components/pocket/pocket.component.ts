@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
-import {AlertController, ModalController} from "@ionic/angular";
+import {AlertController, ModalController, Platform} from "@ionic/angular";
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
 import {enterAnimation} from "../../animations/enter";
 import {leaveAnimation} from "../../animations/leave";
@@ -12,147 +12,164 @@ import {LoadingService} from "../../services/loading/loading.service";
 import {ToastService} from "../../services/toast/toast.service";
 
 @Component({
-  selector: 'app-pocket',
-  templateUrl: './pocket.component.html',
-  styleUrls: ['./pocket.component.scss'],
+    selector: 'app-pocket',
+    templateUrl: './pocket.component.html',
+    styleUrls: ['./pocket.component.scss'],
 })
 export class PocketComponent implements OnInit {
-  @Input() pockets: any = [];
-  @Input() urlPresent: any = '';
-  @Input() ctrlNavigation: number = 0;
-  @Output() dataBalance = new EventEmitter<[]>();
-  public pocket: any = '';
-  imgLeft:string=null;
-  imgRight:string=null;
-  classLeft:string=null;
-  constructor(
-      private http: AxiosService,
-      public modalCtrl: ModalController,
-      protected auth: AuthService,
-      private router: Router,
-      private store: Storage,
-      private aesjs: AesJsService,
-      private toastCtrl: ToastService,
-      private loadingCtrl: LoadingService,
-      private alertCtrl: AlertController
-  ) {
-    this.classLeft="resize-logo-left1";
-    this.imgLeft = "../../assets/img/btn-left-s.svg";
-    this.imgRight="../../assets/img/btn-right.svg";
+    @Input() pockets: any = [];
+    @Input() urlPresent: any = '';
+    @Input() ctrlNavigation: number = 0;
+    @Output() dataBalance = new EventEmitter<[]>();
+    public pocket: any = '';
+    imgLeft: string = null;
+    imgRight: string = null;
+    classLeft: string = null;
 
-  }
+    constructor(
+        private http: AxiosService,
+        public modalCtrl: ModalController,
+        protected auth: AuthService,
+        private router: Router,
+        private store: Storage,
+        private aesjs: AesJsService,
+        private toastCtrl: ToastService,
+        private loadingCtrl: LoadingService,
+        private alertCtrl: AlertController,
+        private platform: Platform
+    ) {
+        this.classLeft = "resize-logo-left1";
+        this.imgLeft = "../../assets/img/btn-left-s.svg";
+        this.imgRight = "../../assets/img/btn-right.svg";
 
-   async ngOnInit() {
-     await this.getPocketStore()
-   }
-  async getPocketStore() {
-    console.log(await this.store.get('pockets'))
-    this.pocket = await this.store.get('pockets')
-    if(this.pocket) this.pocket = this.aesjs.decrypt(this.pocket)
-    console.log(this.pockets)
-    // if(!this.pockets){
-    //   let response  = await this.http.get('user-wallet/index', this.auth, null);
-    //   this.pockets = response;
-    //   response = this.aesjs.encrypt(response);
-    //   await this.store.set('pocket', response)
-    // } else {
-    //   this.pockets = this.aesjs.decrypt(this.pockets);
-    //   // console.log(this.pockets)
-    //   // this.pocket = this.pockets;
-    //   // console.log(this.pocket)
-    // }
-  }
-  async openPocketsModal() {
-    await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
-    this.pockets = await this.http.get('user-wallet/index', this.auth, null);
-    const modalPocket = await this.modalCtrl.create({
-      component: ListPocketsPage,
-      animated: true,
-      enterAnimation: enterAnimation,
-      leaveAnimation: leaveAnimation,
-      componentProps: {
-        pockets: this.pockets
-      }
-    });
-
-
-    modalPocket.onDidDismiss().then(async (pocket:any)=> {
-      if(pocket.data) {
-        this.pocket = pocket.data;
-        let body = {
-          userId: this.pocket.userId,
-          type: 0,
-          address: this.pocket.address
-        };
-        await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
-        let dataResponse = await this.http.post('transaction/index', body, this.auth);
-        console.log(dataResponse)
-        if(dataResponse.status === 200) {
-          await this.loadingCtrl.dismiss();
-          dataResponse.pocket = this.pocket;
-          this.dataBalance.emit(dataResponse)
-        } else {
-          await this.toastCtrl.presentToast({text: dataResponse.error.msg})
-        }
-      }
-    });
-    await this.loadingCtrl.dismiss();
-    return await modalPocket.present();
-  }
-
-  async receiveCash() {
-    console.log(this.pocket)
-    await this.router.navigate([
-        '/receive-funds'],{
-      queryParams: {
-        pocket: JSON.stringify(this.pocket)
-      }, queryParamsHandling: 'merge'
-    });
-  }
-
-  async sendCash() {
-    let profile = await this.store.get('profile');
-    profile = this.aesjs.decrypt(profile);
-    if(profile.level === 0) {
-      await this.toastCtrl.presentToast({text: 'Lo sentimos, sus documentos no han sido verificados'})
-    } else {
-      await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
     }
-  }
 
-  async goToHome() {
-    await this.router.navigate(['/app/tabs/dashboard']);
-  }
+    async ngOnInit() {
+        await this.getPocketStore()
+    }
 
-  async presentAlert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Cerrar Sesión',
-      message: '¿Desea cerrar su sesión?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: async () => {
-            await this.logOut();
-            await this.toastCtrl.presentToast({text: 'Su sesión ha sido cerrada correctamente'})
-          }
+    async getPocketStore() {
+        console.log(await this.store.get('pockets'))
+        this.pocket = await this.store.get('pockets')
+        if (this.pocket) this.pocket = this.aesjs.decrypt(this.pocket)
+        console.log(this.pockets)
+        // if(!this.pockets){
+        //   let response  = await this.http.get('user-wallet/index', this.auth, null);
+        //   this.pockets = response;
+        //   response = this.aesjs.encrypt(response);
+        //   await this.store.set('pocket', response)
+        // } else {
+        //   this.pockets = this.aesjs.decrypt(this.pockets);
+        //   // console.log(this.pockets)
+        //   // this.pocket = this.pockets;
+        //   // console.log(this.pocket)
+        // }
+    }
+
+    async openPocketsModal() {
+        await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
+        this.pockets = await this.http.get('user-wallet/index', this.auth, null);
+        const modalPocket = await this.modalCtrl.create({
+            component: ListPocketsPage,
+            animated: true,
+            enterAnimation: enterAnimation,
+            leaveAnimation: leaveAnimation,
+            componentProps: {
+                pockets: this.pockets
+            }
+        });
+
+
+        modalPocket.onDidDismiss().then(async (pocket: any) => {
+            if (pocket.data) {
+                this.pocket = pocket.data;
+                let body = {
+                    userId: this.pocket.userId,
+                    type: 0,
+                    address: this.pocket.address
+                };
+                await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
+                let dataResponse = await this.http.post('transaction/index', body, this.auth);
+                console.log(dataResponse)
+                if (dataResponse.status === 200) {
+                    await this.loadingCtrl.dismiss();
+                    dataResponse.pocket = this.pocket;
+                    this.dataBalance.emit(dataResponse)
+                } else {
+                    await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+                }
+            }
+        });
+        await this.loadingCtrl.dismiss();
+        return await modalPocket.present();
+    }
+
+    async receiveCash() {
+        console.log(this.pocket)
+        await this.router.navigate([
+            '/receive-funds'], {
+            queryParams: {
+                pocket: JSON.stringify(this.pocket)
+            }, queryParamsHandling: 'merge'
+        });
+    }
+
+    async sendCash() {
+        let profile = await this.store.get('profile');
+        profile = this.aesjs.decrypt(profile);
+        if (profile.level === 0) {
+            await this.toastCtrl.presentToast({text: 'Lo sentimos, sus documentos no han sido verificados'})
+        } else {
+            await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
         }
-      ]
-    });
-    await alert.present();
-  }
-  async logOut() {
-    await this.loadingCtrl.present({});
-    await this.auth.logout()
-  }
+    }
 
-  openUrl(url) {
-    window.open(url, '_blank')
-  }
+    async goToHome() {
+        await this.router.navigate(['/app/tabs/dashboard']);
+    }
+
+    async presentAlert() {
+        const alert = await this.alertCtrl.create({
+            header: 'Cerrar Sesión',
+            message: '¿Desea cerrar su sesión?',
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Confirm Cancel');
+                    }
+                },
+                {
+                    text: 'Confirmar',
+                    handler: async () => {
+                        await this.logOut();
+                        await this.toastCtrl.presentToast({text: 'Su sesión ha sido cerrada correctamente'})
+                    }
+                }
+            ]
+        });
+        await alert.present();
+    }
+
+    async logOut() {
+        await this.loadingCtrl.present({});
+        await this.auth.logout()
+    }
+
+    openUrl() {
+        // window.open(url, '_blank')
+        this.platform.ready().then(() => {
+            if (this.platform.is('cordova')) {
+                console.log('is cordova')
+                window.open('https://play.google.com/store/apps/details?id=com.eyewallet.io', '_blank')
+                // make your native API calls
+            } else {
+                window.open('https://apps.apple.com/us/app/eyewallet/id1338756423?l=es&ls=1', '_blank')
+                console.log('is not cordova')
+                // fallback to browser APIs
+            }
+        });
+    }
+
 }
