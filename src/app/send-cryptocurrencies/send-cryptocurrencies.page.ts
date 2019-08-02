@@ -138,7 +138,7 @@ export class SendCryptocurrenciesPage implements OnInit {
     {
       const data = await this.http.post('currency/price-cripto', {shortName: "BTC"}, this.auth);
       this.totalApplied.priceCriptoUsd = data.data.USD;
-      this.totalApplied.address = data.address;
+      this.totalApplied.address = this.pockets.address;
       this.bodyForm.get('to_address').setValue(this.totalApplied.address);
       this.bodyForm.get('amount').setValue(this.pockets.balance);
       await this.getFeeTransaction(true);
