@@ -75,7 +75,7 @@
             display: block;
             text-transform: capitalize;
             color: white;
-            
+
             .text-terms-conditions {
                text-decoration: none;
                color: #28255C;
@@ -88,4 +88,12 @@
       margin: 30px 0;
       @extend .all-center;
    }
+}
+
+.button-return {
+   top: 20px;
+   height: 2em;
+   width: 2em;
+   position: absolute;
+   left: 10px;
 }
