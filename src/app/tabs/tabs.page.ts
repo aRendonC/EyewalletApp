@@ -18,7 +18,7 @@ export class TabsPage {
   ctrlCssBlur: boolean = false;
   public tabs = {
     'prices': 'prices',
-    'vault': 'vault',
+    'vault': 'vault-list',
     'dashboard': 'dashboard',
     'card-invoice': 'card-invoice',
     'profile': 'profile',

@@ -28,6 +28,10 @@
     "TermsOfService": "Términos De Servicios",
     "PrivacyPolicy": "Política De Privacidad"
   },
+  "VAULT_LIST": {
+    "loadingText": "Cargando bóvedas",
+    "toastErrorText": "Error al cargar las bóvedas. Intente nuevamente"
+  },
   "VAULT": {
     "placeholderPockets": "selecciona un bolsillo",
     "buttonOkSelect": "Seleccionar",

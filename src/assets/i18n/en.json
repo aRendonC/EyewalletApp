@@ -28,6 +28,10 @@
     "TermsOfService": "Términos De Servicios",
     "PrivacyPolicy": "Política De Privacidad"
   },
+  "VAULT_LIST": {
+    "loadingText": "Loagind vaults",
+    "toastErrorText": "Error loading vaults. Try again"
+  },
   "VAULT": {
     "placeholderPockets": "select a pocket",
     "buttonOkSelect": "Select",

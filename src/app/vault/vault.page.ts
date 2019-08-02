@@ -16,10 +16,10 @@ import * as CONSTANTS from '../constanst';
 })
 
 export class VaultPage implements OnInit {
+  public ctrlNavigation: number;
   public loadingValuesFee: boolean;
   public dataSelected: any;
   public buttonDisabled: boolean;
-  public ctrlNavigation: number = 5;
   public pockets: any;
   public dataPockets: any;
   public positionPocketSelected: number;
@@ -48,6 +48,7 @@ export class VaultPage implements OnInit {
     private toastService: ToastService,
     private loadingService: LoadingService
   ) {
+    this.ctrlNavigation = 6;
     this.loadingValuesFee = false;
     this.buttonDisabled = true;
     this.setDataSelectPockets();

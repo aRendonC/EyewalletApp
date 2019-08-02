@@ -16,6 +16,7 @@ import {ToastService} from "../../services/toast/toast.service";
   templateUrl: './pocket.component.html',
   styleUrls: ['./pocket.component.scss'],
 })
+
 export class PocketComponent implements OnInit {
   pockets: any = null;
   @Input() urlPresent: any = '';
@@ -139,5 +140,17 @@ export class PocketComponent implements OnInit {
 
   openUrl(url) {
     window.open(url, '_blank')
+  }
+
+  public clickButtonLeftCinco(): void {
+    this.router.navigate(['/app/tabs/vault']);
+  }
+
+  public clickButtonRightCinco(): void {
+    this.router.navigate(['/app/tabs/vault']);
+  }
+
+  public clickButtonLeftSeis(): void {
+    this.router.navigate(['/app/tabs/vault-list']);
   }
 }

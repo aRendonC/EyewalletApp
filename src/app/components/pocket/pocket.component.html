@@ -69,12 +69,11 @@
       </div>
     </ion-col>
   </ion-row>
+<!-- -------------------------------------------------------------------------------------------------------- -->
   <ion-row style="padding: 0" *ngIf="ctrlNavigation === 4" class="z-pocket">
     <ion-col style="padding: 0" size="3">
       <div class="active-card-button center-horizontal center-vertical center bounceInRight">
-        <ion-label class="text-activate-card">
-          Activar
-        </ion-label>
+        <ion-label class="text-activate-card" text-capitalize>activar</ion-label>
         <img class="image-activate-card" src="../../assets/img/pocketsComponent/calificate.svg"/>
       </div>
     </ion-col>
@@ -89,30 +88,54 @@
     <ion-col  size="3" class="bounceInRight" style="color: white; padding: 0">
       <div class="add-card-button center-horizontal center-vertical center bounceInRight">
         <img class="image-add-card" src="../../assets/img/tabs/add-card.svg"/>
-        <ion-label class="text-add-card">
-          Agregar
-        </ion-label>
+        <ion-label class="text-add-card" text-capitalize>agregar</ion-label>
       </div>
     </ion-col>
   </ion-row>
-  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 5" class="z-pocket">
-    <ion-col style="padding: 0" size="3" (click)="goToHome()">
-      <div class="active-card-button center-horizontal center-vertical center bounceInRight">
-        <ion-label class="text-activate-card">
-          Atrás
-        </ion-label>
-        <img  class="image-qualify " src="../../assets/img/tabs/back-icon-2.svg"/>
+<!-- -------------------------------------------------------------------------------------------------------- -->
+  <ion-row *ngIf="ctrlNavigation === 5" class="content-pocket-component">
+    <ion-col size="4" class="content-icon-text-dad">
+      <div class="button-left-right button-left" (click)="clickButtonLeftCinco()">
+        <ion-label class="text-button-left-right" text-capitalize>información</ion-label>
+        <img class="image-icon" src="../../assets/img/pocketsComponent/information-icon.svg"/>
       </div>
-      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
     </ion-col>
-    <ion-col style="padding: 0" size="6" class="center-vertical center center-horizontal" >
-      <div style="margin-top: 0 !important;" class="center-vertical center center-horizontal">
-        <img  src="../../../assets/img/tabs/tab-vault.svg"/>
-        &nbsp;
-        <ion-label style="color: white">Nueva Bóveda</ion-label>
+
+    <ion-col size="4" class="content-icon-text-dad">
+      <div class="content-icon-text">
+        <img src="../../../assets/img/tabs/tab-vault.svg" class="title-icon-text"/>
+        <ion-label class="title-text-icon text-color-white" text-capitalize>Bóveda</ion-label>
+      </div>
+    </ion-col>
+
+    <ion-col  size="4" class="content-icon-text-dad">
+      <div class="button-left-right button-right" (click)="clickButtonRightCinco()">
+        <img class="image-icon" src="../../assets/img/pocketsComponent/vault-navigate-icon.svg"/>
+        <ion-label class="text-button-left-right" text-capitalize>nueva bóveda</ion-label>
       </div>
     </ion-col>
   </ion-row>
+<!-- -------------------------------------------------------------------------------------------------------- -->
+  <ion-row *ngIf="ctrlNavigation === 6" class="content-pocket-component">
+    <ion-col size="4" class="content-icon-text-dad">
+      <div class="button-left-right button-left" (click)="clickButtonLeftSeis()">
+        <ion-label class="text-button-left-right" text-capitalize>bóvedas</ion-label>
+        <img class="image-icon-big" src="../../assets/img/pocketsComponent/return-vaults-icon.svg"/>
+      </div>
+    </ion-col>
+
+    <ion-col size="4" class="content-icon-text-dad">
+      <div class="content-icon-text">
+        <img src="../../../assets/img/tabs/tab-vault.svg" class="title-icon-text"/>
+        <ion-label class="title-text-icon text-color-white" text-capitalize>nueva bóveda</ion-label>
+      </div>
+    </ion-col>
+
+    <ion-col  size="4" class="content-icon-text-dad">
+      
+    </ion-col>
+  </ion-row>
+<!-- -------------------------------------------------------------------------------------------------------- -->
 </ion-grid>
   <div *ngIf="ctrlNavigation === 1" class="margin-pocket-component" >
     <ion-grid style="padding: 0 0 0 0">

@@ -18,6 +18,7 @@ import { DataLocalService } from '../services/data-local/data-local.service';
 })
 
 export class VaultCreatedPage implements OnInit {
+  public ctrlNavigation: number;
   public buttonDisabled: boolean;
   public dataVaultCreated: any;
   public USDtext: string;
@@ -39,6 +40,7 @@ export class VaultCreatedPage implements OnInit {
     private aesJsService: AesJsService,
     private dataLocalService: DataLocalService
   ) {
+    this.ctrlNavigation = 6;
     this.buttonDisabled = false;
     this.USDtext = CONSTANTS.VAULT.USD;
   }
@@ -114,7 +116,7 @@ export class VaultCreatedPage implements OnInit {
       componentProps: {
         typeIcon,
         message,
-        path: '/app/tabs/vault'
+        path: '/app/tabs/vault-list'
       }
     });
 
