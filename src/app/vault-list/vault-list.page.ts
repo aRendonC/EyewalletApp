@@ -30,7 +30,6 @@ export class VaultListPage implements OnInit {
 
   async ngOnInit(): Promise<any> {
     this.dataVaults = await this.getListVaults();
-    console.log(this.dataVaults);
   }
 
   private async getListVaults(): Promise<any> {

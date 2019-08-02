@@ -30,12 +30,12 @@
             <ion-img class="icon-add-little" src="../../assets/icon/icon-add-little.svg"></ion-img>
             <span class="value-investment-usd">$ 245</span>
           </span>
-          <span class="text-investment-usd">0.123 coin</span>
+          <span class="text-investment-usd">{{ data.profit | roundNumber }} coin</span>
         </div>
 
         <div class="content-component-info-coin">
           <span class="content-performance-percentage">
-            <span class="performance-percentage-text">+ 8.57%</span>
+            <span class="performance-percentage-text">+ {{ data.percent }}%</span>
             <ion-img class="performance-percentage-icon" src="../../assets/icon/icon-up-little.svg"></ion-img>
           </span>
         </div>

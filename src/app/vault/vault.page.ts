@@ -73,8 +73,6 @@ export class VaultPage implements OnInit {
     this.getPositionPocketSelected(this.pockets, this.dataSelected);
     this.validateInputAmountDisabled();
     this.dataProfile = await this.getDataProfile();
-    console.log('PROFILE: ', this.dataProfile);
-    console.log('POCKETS-NGONINIT: ', this.pockets);
   }
 
   public async ionViewDidEnter(): Promise<any> {
@@ -82,7 +80,7 @@ export class VaultPage implements OnInit {
     const elementDashboard: any = document.getElementsByTagName('app-vault');
     elementDashboard[0].classList.add("margins-dashboard");
     await this.getCurrentCurrency(this.pocketDefaultSelected.currency.shortName);
-    console.log('POCKETS-IOVIEWDIDENTER: ', this.pockets);
+    this.resetAssingnValues();
   }
 
   private setDataSelectPockets(): void {
@@ -113,7 +111,11 @@ export class VaultPage implements OnInit {
   }
 
   public handlerValueInvestment(): void {
-    this.validateAssignValues();
+    if (this.valueInvestment !== 0) {
+      this.validateAssignValues();
+    } else {
+      this.resetAssingnValues();
+    }
   }
 
   private validateAssignValues(): void {
@@ -166,7 +168,7 @@ export class VaultPage implements OnInit {
       shortName: this.pockets[this.positionPocketSelected].currency.shortName,
       plan: this.investmentPorcentage
     };
-    await this.runQueryFeeInvestment(url, dataBody);
+    if (this.valueInvestment !== 0) await this.runQueryFeeInvestment(url, dataBody);
   }
 
   private async runQueryFeeInvestment(url: string, body: any): Promise<any> {

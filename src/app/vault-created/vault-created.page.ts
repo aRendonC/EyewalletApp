@@ -52,7 +52,6 @@ export class VaultCreatedPage implements OnInit {
     this.amountCurrency = this.dataVaultCreated.amount;
     this.amountUSD = this.dataVaultCreated.amountUSD;
     this.dataBody = this.getDataCreateVault(this.dataVaultCreated);
-    console.log('UNO: ', this.dataVaultCreated);
   }
 
   private getDataCreateVault(dataVault: any): any {
@@ -71,17 +70,14 @@ export class VaultCreatedPage implements OnInit {
   }
 
   private async runVaultCreation(): Promise<any> {
-    console.log('This is query...');
-
     const url: string = 'vault/create';
     await this.loadingService.present({text: this.translateService.instant('VAULT_CREATED.messageCreatinVault'), classColorText: 'loadingTextBlack'});
     this.axiosService.post(url, this.dataBody, this.authService)
     .then(async response => {
-      console.log(response);
       this.validateRunVaultCreation(response);
     })
     .catch(async error => {
-      console.log(error);
+      console.error(error);
       this.errorResponseQueries();
       await this.loadingService.dismiss();
     });
@@ -99,9 +95,7 @@ export class VaultCreatedPage implements OnInit {
   }
 
   private async setDataLocalPockets(pockets: any[]): Promise<any> {
-    console.log('SET_POCKETS: ', pockets);
     const pocketsEncrypt: any = this.aesJsService.encrypt(pockets);
-    console.log('SET_POCKETS_ENCRYPT: ', pocketsEncrypt);
     this.dataLocalService.setDataLocal(CONSTANTS.KEYS_DATA_LOCAL.POCKETS, pocketsEncrypt);
   }
 
