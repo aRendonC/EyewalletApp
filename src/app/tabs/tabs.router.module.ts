@@ -41,7 +41,7 @@ const routes: Routes = [
             },
             {
                 path: 'history-exchange',
-                loadChildren: './history-exchange/history-exchange.module#HistoryExchangePageModule'
+                loadChildren: '../history-exchange/history-exchange.module#HistoryExchangePageModule'
             }
         ]
     },

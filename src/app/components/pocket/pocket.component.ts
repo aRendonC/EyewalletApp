@@ -6,10 +6,9 @@ import {enterAnimation} from "../../animations/enter";
 import {leaveAnimation} from "../../animations/leave";
 import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
-import {Storage} from "@ionic/storage";
-import {AesJsService} from "../../services/aesjs/aes-js.service";
 import {LoadingService} from "../../services/loading/loading.service";
 import {ToastService} from "../../services/toast/toast.service";
+import {DataLocalService} from "../../services/data-local/data-local.service";
 
 @Component({
   selector: 'app-pocket',
@@ -31,8 +30,7 @@ export class PocketComponent implements OnInit {
       public modalCtrl: ModalController,
       protected auth: AuthService,
       private router: Router,
-      private store: Storage,
-      private aesjs: AesJsService,
+      private store: DataLocalService,
       private toastCtrl: ToastService,
       private loadingCtrl: LoadingService,
       private alertCtrl: AlertController
@@ -47,7 +45,7 @@ export class PocketComponent implements OnInit {
      await this.getPocketStore()
    }
   async getPocketStore() {
-    if(!this.pocket )this.aesjs.decrypt(await this.store.get('selected-pocket'));
+    if(!this.pocket ) this.pocket = await this.store.getDataLocal('selected-pocket');
   }
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
@@ -96,8 +94,7 @@ export class PocketComponent implements OnInit {
   }
 
   async sendCash() {
-    let profile = await this.store.get('profile');
-    profile = this.aesjs.decrypt(profile);
+    let profile = await this.store.getDataLocal('profile');
     if(profile.level === 0) {
       await this.toastCtrl.presentToast({text: 'Lo sentimos, sus documentos no han sido verificados'})
     } else {
