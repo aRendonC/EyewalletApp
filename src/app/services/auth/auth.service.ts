@@ -42,6 +42,7 @@ export class AuthService {
       // device.uuid = '37cd19cb5739fb4';
     //  device.uuid = '928e019bd3cdb0fa';
     }
+    console.log( device.uuid)
     return new Promise((resolve) => {
       this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
         .then(async (data: any) => {
