@@ -30,10 +30,15 @@
   },
   "VAULT_LIST": {
     "loadingText": "Loagind vaults",
-    "toastErrorText": "Error loading vaults. Try again",
+    "toastErrorText": "Processing errors. Try again",
     "titleSheetText": "Delete Vault",
-    "deleteText": "Remove",
-    "cancelText": "Cancel"
+    "removeText": "Remove",
+    "removedText": "Removed",
+    "processingText": "Processing",
+    "finalizedText": "Finalized",
+    "cancelText": "Cancel",
+    "descriptionRequestDeleteVault": "Vault cancellation request.",
+    "responseRequestVaultDelete": "Your request is being processed."
   },
   "VAULT": {
     "placeholderPockets": "select a pocket",

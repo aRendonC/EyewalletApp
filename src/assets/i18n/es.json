@@ -30,10 +30,15 @@
   },
   "VAULT_LIST": {
     "loadingText": "Cargando bóvedas",
-    "toastErrorText": "Error al cargar las bóvedas. Intente nuevamente",
+    "toastErrorText": "Errores de procesamiento. Intente nuevamente",
     "titleSheetText": "Eliminar Bóveda",
-    "deleteText": "Eliminar",
-    "cancelText": "Cancelar"
+    "removeText": "Eliminar",
+    "removedText": "Eliminado",
+    "processingText": "Procesando",
+    "finalizedText": "Finalizado",
+    "cancelText": "Cancelar",
+    "descriptionRequestDeleteVault": "Solicitud de cancelación de bóveda.",
+    "responseRequestVaultDelete": "Su solicitud está siendo procesada."
   },
   "VAULT": {
     "placeholderPockets": "selecciona un bolsillo",

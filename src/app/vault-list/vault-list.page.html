@@ -3,29 +3,29 @@
       <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
 
       <ion-select
-      class="select-pocket" 
-      mode="md"
-      [(ngModel)]="dataSelected"
-      (ionChange)="handlerCurrencySelected()"
-      okText="ok"
-      cancelText="cancel"
-    >
-      <ion-select-option class="content-selected-options" *ngFor="let data of dataVaults.data" [value]="data.shortName">{{ data.shortName }}</ion-select-option>
-    </ion-select>
+        class="select-currency"
+        mode="md"
+        [(ngModel)]="dataSelected"
+        (ionChange)="handlerCurrencySelected()"
+        okText="ok"
+        cancelText="cancel"
+      >
+        <ion-select-option class="content-selected-options" *ngFor="let data of dataVaults.data" [value]="data.shortName">{{ data.shortName }}</ion-select-option>
+      </ion-select>
 
       <div class="content-add">
         <ion-img class="icon-add" src="../../assets/icon/icon-add.svg"></ion-img>
-        <span *ngIf="dataVaults.data" class="add-local-text">{{ dataVaults.data[0].amountCriptoTotal | roundNumber }}</span>
+        <span *ngIf="dataVaults.data" class="add-local-text">{{ dataVaults.data[positionDataSelected].amountCriptoTotal | roundNumber }}</span>
       </div>
 
       <div class="content-add-usd">
-        <span *ngIf="dataVaults.data" class="add-text-usd">{{ dataVaults.data[0].amountCriptoUsdTotal | roundNumber }}</span>
+        <span *ngIf="dataVaults.data" class="add-text-usd">{{ dataVaults.data[positionDataSelected].amountCriptoUsdTotal | roundNumber }}</span>
         <span class="add-text-usdollar">USDollar</span>
       </div>
     </div>
 
     <div *ngIf="dataVaults.vault" class="content-vaults-created">
-      <ion-item-sliding class="info-vault-sliding" *ngFor="let data of dataVaults.vault">
+      <ion-item-sliding class="info-vault-sliding" #slidingItem *ngFor="let data of dataVaults.vault">
         <ion-item class="info-vault-sliding-item">
           <div class="content-info-vault-sliding">
             <div class="content-component-info-coin">
@@ -54,9 +54,13 @@
           </div>
         </ion-item>
   
-        <ion-item-options side="end">
-          <ion-item-option text-capitalize color="danger" (click)="deleteVault(data)">
-            {{ 'VAULT_LIST.deleteText' | translate}}
+        <ion-item-options class="content-button-delete-vault" side="end">
+          <ion-item-option
+            [disabled]="data.status === 1 ? false : true"
+            class="button-delete-vault {{ data.status | statusVaultText }}"
+            (click)="deleteVault(data, slidingItem)"
+          >
+            {{ data.status | statusVaultText }}
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>

@@ -14,8 +14,18 @@
       width: 100%;
       z-index: 3;
 
+      .select-currency {
+         font-family: $font-roboto-regular;
+         font-size: 31px;
+         color: white;
+         width: 100px;
+         margin: 10px auto 0 auto;
+         padding: 0;
+         @extend .all-center;
+      }
+
       .content-add {
-         margin: 20px 0 10px 0;
+         margin: 10px 0;
          @extend .all-center;
 
          .icon-add {
@@ -117,6 +127,31 @@
                      }
                   }
                }
+            }
+         }
+
+         .content-button-delete-vault {
+            .button-delete-vault {
+               width: 80px;
+               color: white;
+               font-size: 12px;
+               text-transform: capitalize;
+            }
+
+            .Eliminado, .Removed {
+               background: #f39c12;
+            }
+
+            .Procesando, .Processing {
+               background: #8e44ad;
+            }
+
+            .Finalizado, .Finalized {
+               background: #2980b9;
+            }
+
+            .Eliminar, .Remove {
+               background: #c0392b;
             }
          }
       }
