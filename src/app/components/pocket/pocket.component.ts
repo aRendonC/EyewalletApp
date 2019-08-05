@@ -161,7 +161,7 @@ export class PocketComponent implements OnInit {
 
   public async validateVaultsCreated(): Promise<any> {
     this.axiosService.get('vault/index', this.authService)
-    .then(async response => {
+    .then(async (response: any) => {
       if (response.vault.length > 0) {
         this.showVaultList = true;
       } else {

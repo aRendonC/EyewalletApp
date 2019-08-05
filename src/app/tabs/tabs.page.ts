@@ -87,7 +87,7 @@ export class TabsPage {
 
   public async navigateVault(): Promise <any> {
     this.axiosService.get('vault/index', this.authService)
-    .then(async response => {
+    .then(async (response: any) => {
       if (response.vault.length > 0) {
         this.router.navigate(['/app/tabs/vault-list']);
       } else {
