@@ -84,9 +84,18 @@ export class SlidersComponent implements OnInit {
 
     public async grafica() {
         this.labelGrapich = [];
-        for (let i = 0; i <= this.dataGraphic.graphic.length - 1; i++) {
-            this.labelGrapich.push('')
+
+        if(this.dataGraphic.graphic.length === 1){
+            for (let i = 0; i <= 11; i++) {
+                this.dataGraphic.graphic.push(0)
+                this.labelGrapich.push('')
+            }
+        }else {
+            for (let i = 0; i <= this.dataGraphic.graphic.length - 1; i++) {
+                this.labelGrapich.push('')
+            }
         }
+        console.log(this.dataGraphic.graphic )
         const ctx = this.lineCanvas.nativeElement.getContext('2d');
         const gradientStroke = ctx.createLinearGradient(154.000, 0.000, 146.000, 300.000);
         gradientStroke.addColorStop(0.006, 'rgba(21, 233, 233, 1.000)');
