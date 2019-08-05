@@ -3,6 +3,8 @@ import {AxiosService} from "../services/axios/axios.service";
 import {AuthService} from "../services/auth/auth.service";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {Storage} from "@ionic/storage";
+import {filter} from "rxjs/operators";
+import {NavigationStart, Router} from "@angular/router";
 
 @Component({
     selector: 'app-history-exchange',
@@ -11,7 +13,7 @@ import {Storage} from "@ionic/storage";
 })
 export class HistoryExchangePage implements OnInit {
     ctrlNavigation: any = 6;
-    public detailHistory: any
+    public detailHistory: any;
     public ctrlAccessDetailHistory = 0;
     public ctrlTagsHtml = false;
     public ctrlCssCard: any = '';
@@ -31,65 +33,75 @@ export class HistoryExchangePage implements OnInit {
         private http: AxiosService,
         protected auth: AuthService,
         protected aesjs: AesJsService,
-        protected store: Storage
+        protected store: Storage,
+        private router: Router
     ) {
+        this.router.events.pipe(
+            filter(event => event instanceof NavigationStart)
+        ).subscribe((route: NavigationStart) => {
+            console.log(route);
+            if(route.url === '/app/tabs/history-exchange') this.getHistoryExChange()
+        });
 
     }
 
     async ngOnInit() {
-        await this.getHistoryExChange();
         await this.createSelectCrypto();
+        // await this.getHistoryExChange();
         // this.statusSelected = this.statusExchange[2].text;
-        this.historyExChange = [
-            {
-                pocket: 'Pocket 1',
-                exchange: 'Exchange',
-                FROM: 'BTC',
-                fromValue: 0.115,
-                TO: 'ETH',
-                toValue: 3.258,
-                status: 0
-            },
-            {
-                pocket: 'Pocket 2',
-                exchange: 'Exchange',
-                FROM: 'BTC',
-                fromValue: 0.235,
-                TO: 'ETH',
-                toValue: 58.258,
-                status: 1
-            },
-            {
-                pocket: 'Pocket 3',
-                exchange: 'Exchange',
-                FROM: 'ETH',
-                fromValue: 1.15,
-                TO: 'BTC',
-                toValue: 14.258,
-                status: 2
-            },
-            {
-                pocket: 'Pocket 4',
-                exchange: 'Exchange',
-                FROM: 'LTC',
-                fromValue: 1442.15,
-                TO: 'BTC',
-                toValue: 14.258,
-                status: 2
-            }
-        ];
+        // this.historyExChange = [
+        //     {
+        //         pocket: 'Pocket 1',
+        //         exchange: 'Exchange',
+        //         FROM: 'BTC',
+        //         fromValue: 0.115,
+        //         TO: 'ETH',
+        //         toValue: 3.258,
+        //         status: 0
+        //     },
+        //     {
+        //         pocket: 'Pocket 2',
+        //         exchange: 'Exchange',
+        //         FROM: 'BTC',
+        //         fromValue: 0.235,
+        //         TO: 'ETH',
+        //         toValue: 58.258,
+        //         status: 1
+        //     },
+        //     {
+        //         pocket: 'Pocket 3',
+        //         exchange: 'Exchange',
+        //         FROM: 'ETH',
+        //         fromValue: 1.15,
+        //         TO: 'BTC',
+        //         toValue: 14.258,
+        //         status: 2
+        //     },
+        //     {
+        //         pocket: 'Pocket 4',
+        //         exchange: 'Exchange',
+        //         FROM: 'LTC',
+        //         fromValue: 1442.15,
+        //         TO: 'BTC',
+        //         toValue: 14.258,
+        //         status: 2
+        //     }
+        // ];
         console.log(this.historyExChange);
-        this.historyExChange.forEach(histry => {
-            histry.status === 1 ? histry.state = 'En proceso' : histry.status === 2 ? histry.state = 'Aprobado' : histry.state = 'Rechazado'
-        });
-        this.auxHisotires = this.historyExChange
     }
 
     async getHistoryExChange() {
         let profile = this.aesjs.decrypt(await this.store.get('profile'));
         let response = await this.http.post('exchange/index', {userId: profile.userId}, this.auth);
         console.log(response);
-        if (response.status === 200) this.historyExChange = response.data
+        if (response.status === 200) {
+            this.historyExChange = response.data;
+            console.log(this.historyExChange);
+            this.historyExChange.forEach(histry => {
+                histry.status === 1 ? histry.state = 'En proceso' : histry.status === 2 ? histry.state = 'Aprobado' : histry.state = 'Rechazado'
+            });
+            this.auxHisotires = this.historyExChange
+        }
     }
 
     async createSelectCrypto() {
@@ -143,7 +155,7 @@ export class HistoryExchangePage implements OnInit {
             if(this.ctrlCssCard === index){
             console.log('mostrar el datalle de la historia');
             this.ctrlTagsHtml = true;
-            this.ctrlAccessDetailHistory = 0
+            this.ctrlAccessDetailHistory = 0;
             this.detailHistory = history
             }
         } else {

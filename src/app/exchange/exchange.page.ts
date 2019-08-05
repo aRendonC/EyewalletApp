@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {Storage} from "@ionic/storage";
-import {AesJsService} from "../services/aesjs/aes-js.service";
+
 import {AlertController, IonSelect} from "@ionic/angular";
 import {AxiosService} from "../services/axios/axios.service";
 import {AuthService} from "../services/auth/auth.service";
 import {ToastService} from "../services/toast/toast.service";
 import {LoadingService} from "../services/loading/loading.service";
+import {DataLocalService} from "../services/data-local/data-local.service";
 
 @Component({
     selector: 'app-exchange',
@@ -52,8 +52,8 @@ export class ExchangePage implements OnInit {
     };
 
     constructor(
-        private store: Storage,
-        private aesjs: AesJsService,
+        private store: DataLocalService,
+        // private aesjs: AesJsService,
         public cdr: ChangeDetectorRef,
         public alertCtrl: AlertController,
         public http: AxiosService,
@@ -68,7 +68,7 @@ export class ExchangePage implements OnInit {
     }
 
     async fillCryptoSelect() {
-        this.pockets = this.aesjs.decrypt(await this.store.get('pockets'));
+        this.pockets = await this.store.getDataLocal('pockets');
         console.log(this.pockets);
         this.pockets.forEach(pocket => {
             const resultFrom = this.selectCryptoFrom.find(data => data.currencyId === pocket.currencyId);
@@ -163,26 +163,13 @@ export class ExchangePage implements OnInit {
                         if (data) {
                             this.cryptoFrom = data;
                             this.selectedPocketFrom = data;
-                            // this.selectedPocketTo = {
-                            //     label: '',
-                            //     currency: {
-                            //         shortName: ''
-                            //     }
-                            // };
                             this.pocketsFrom = this.filterPockets(data);
                             await this.filterCurrencyTo(this.selectCryptoTo);
-                            // this.cryptoTo = {
-                            //     currency: {
-                            //         shortName: ''
-                            //     }
-                            // }
-                            // this.filterCryptoSelectTo(data);
                             console.log('criptos a cambiar', this.selectCryptoTo);
                             console.log(this.cryptoTo);
 
                         }
                         console.log(this.cryptoTo);
-                        // console.log('Confirm Ok');
                     }
                 }
             ]
@@ -304,7 +291,7 @@ export class ExchangePage implements OnInit {
 
     async createExchange() {
         await this.loadingCtrl.present({text: 'Enviando solicitud', cssClass: 'textLoadingBlack'});
-        let profile = this.aesjs.decrypt(await this.store.get('profile'));
+        let profile = await this.store.getDataLocal('profile');
         console.log(profile);
         let body = {
             addressFrom: this.selectedPocketFrom.address,
@@ -317,14 +304,22 @@ export class ExchangePage implements OnInit {
             userId: profile.userId,
             priority: "low"
         };
+        console.log(this.selectedPocketFrom)
         if (this.selectedPocketFrom.balance >= 0.0001) {
             let responseExchange = await this.http.post('exchange/create', body, this.auth);
             console.log(responseExchange);
-            if (responseExchange.statuss === 200) {
+            if (responseExchange.status === 200) {
                 await this.loadingCtrl.dismiss();
                 await this.toastCtrl.presentToast({
                     text: 'Solicitud enviada correctamente'
                 })
+                let dataResponse = await this.getPocketTransaction();
+                if (dataResponse.status === 200) {
+                    dataResponse.pocket = this.selectedPocketFrom;
+                    await this.store.setDataLocal('transaction', dataResponse)
+                } else {
+                    await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+                }
             } else {
                 await this.loadingCtrl.dismiss();
                 await this.toastCtrl.presentToast({
@@ -341,6 +336,8 @@ export class ExchangePage implements OnInit {
     }
 
     changeCryptoData() {
+        console.log(this.selectedPocketFrom)
+        console.log(this.selectedPocketTo)
         let selectedPocketFrom = this.selectedPocketFrom;
         let selectedPocketTo = this.selectedPocketTo;
         let selectCryptoTo = this.selectCryptoTo;
@@ -367,5 +364,15 @@ export class ExchangePage implements OnInit {
         this.inputTo = response.amountCriptoTo;
         this.valueUsdFrom = response.priceUsdFrom;
         this.valueCryptoTo = (response.priceUsdFrom / response.priceUsdTo).toFixed(8)
+    }
+
+    async getPocketTransaction() {
+        let body = {
+            userId: this.selectedPocketFrom.userId,
+            type: 0,
+            address: this.selectedPocketFrom.address
+        };
+        console.log(body)
+        return await this.http.post('transaction/index', body, this.auth);
     }
 }

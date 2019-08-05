@@ -85,8 +85,6 @@ export class SendCryptocurrenciesPage implements OnInit {
   }
 
   async ionViewDidEnter() {
-    this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pocket'));
-    console.log('pocket seleccionad', this.pockets);
     await this.getPriceCripto();
   }
 
@@ -140,17 +138,25 @@ export class SendCryptocurrenciesPage implements OnInit {
     {
       const data = await this.http.post('currency/price-cripto', {shortName: "BTC"}, this.auth);
       this.totalApplied.priceCriptoUsd = data.data.USD;
-      this.totalApplied.address = data.address;
-      this.bodyForm.get('to_address').setValue(this.totalApplied.address);
+      this.totalApplied.address = this.pockets.address;
+      this.bodyForm.get('priority').setValue('high');
       this.bodyForm.get('amount').setValue(this.pockets.balance);
       await this.getFeeTransaction(true);
+    } else {
+      await this.toastCtrl.presentToast({text: 'No tiene fondos suficientes para hacer una transacción'})
     }
   }
 
   async getFeeTransaction(isTransaccion) {
+    console.log(this.bodyForm)
     if(this.pockets.balance > 0) {
-      const dataFee = await this.http.post('transaction/feeNetworkBTC', this.bodyForm.value, this.auth);
-      console.log("=============> los datos del fee ", dataFee.data);
+      const dataFee = await this.http.post('transaction/feeNetworkBTC', {
+          amount: this.bodyForm.value.amount,
+          to_address:this.pockets.address,
+          priority: this.bodyForm.value.priority,
+          currencyId: this.pockets.currencyId
+      }, this.auth);
+      console.log("=============> los datos del fee ", dataFee);
       if (dataFee.status === 200) {
         this.totalApplied.fee = dataFee.data;
         this.bodyForm.get('fee').setValue(this.totalApplied.fee);
@@ -235,7 +241,6 @@ export class SendCryptocurrenciesPage implements OnInit {
               this.bodyForm.value.pin = security;
               this.bodyForm.value.from_address = this.pockets.address;
               this.bodyForm.value.fee = this.totalApplied.fee;
-              console.log(this.bodyForm)
               let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
               if (response.status === 200) {
                 await this.loadingCtrl.dismiss();

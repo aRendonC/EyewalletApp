@@ -1,12 +1,11 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
-import {Storage} from '@ionic/storage';
-import {AesJsService} from '../services/aesjs/aes-js.service';
 import {Chart} from 'chart.js';
 import {LoadingService} from '../services/loading/loading.service';
 import {ToastService} from '../services/toast/toast.service';
 import {environment} from '../../environments/environment';
+import {DataLocalService} from "../services/data-local/data-local.service";
 
 @Component({
     selector: 'app-prices',
@@ -34,8 +33,7 @@ export class PricesPage implements OnInit {
     constructor(
         private axios: AxiosService,
         private auth: AuthService,
-        private store: Storage,
-        protected aesjs: AesJsService,
+        private store: DataLocalService,
         private loading: LoadingService,
         private toastCtrl: ToastService
     ) {
@@ -53,8 +51,7 @@ export class PricesPage implements OnInit {
     }
 
     async getProfile() {
-        this.user = await this.store.get('profile');
-        this.user = this.aesjs.decrypt(this.user);
+        this.user = await this.store.getDataLocal('profile');
         this.bodyForm = {
             userId: this.user.userId,
         };

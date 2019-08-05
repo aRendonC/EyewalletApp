@@ -36,6 +36,7 @@ export class AddressPage implements OnInit {
     state: null,
     city: null,
     zipcode: null,
+    iso: null
   };
 
 
@@ -71,6 +72,7 @@ export class AddressPage implements OnInit {
             this.bodyForm.state = data.address.state;
             this.bodyForm.city = data.address.city;
             this.bodyForm.zipcode = data.address.postcode;
+            this.bodyForm.iso = data.address.country_code;
             await this.loadingCtrl.dismiss();
             this.ctrlCssBlur = false;
           },

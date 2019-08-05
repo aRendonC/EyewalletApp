@@ -9,6 +9,7 @@ import {Storage} from '@ionic/storage';
 import {LoadingService} from '../services/loading/loading.service';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
+import {DataLocalService} from "../services/data-local/data-local.service";
 
 @Component({
   selector: 'app-registry-pin',
@@ -30,9 +31,9 @@ export class RegistryPinPage implements OnInit {
       private activatedRoute: ActivatedRoute,
       private router: Router,
       private auth: AuthService,
-      private store: Storage,
+      private store: DataLocalService,
       private loadingCtrl: LoadingService,
-      private aesjs: AesJsService,
+      // private aesjs: AesJsService,
       private touchCtrl: TouchLoginService,
   ) { }
 
@@ -65,10 +66,8 @@ export class RegistryPinPage implements OnInit {
       let loginUser: any = await this.auth.login(this.user.data.email, this.user.data.password);
       if(loginUser.status === 200){
         this.pockets = await this.getPocketsList();
+        await this.store.setDataLocal('pockets', this.pockets[0]);
         await this.router.navigate(['/app/tabs/dashboard']);
-        this.pockets = this.aesjs.encrypt(this.pockets[0]);
-        await this.store.set('pockets', this.pockets);
-
         await this.loadingCtrl.dismiss();
         this.ctrlCssBlur = false;
       }

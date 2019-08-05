@@ -4,8 +4,6 @@ import {ModalController} from '@ionic/angular';
 import {DataLocalService} from '../services/data-local/data-local.service';
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
-import {Storage} from '@ionic/storage';
-import {AesJsService} from '../services/aesjs/aes-js.service';
 import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
 import {filter} from 'rxjs/operators';
@@ -47,8 +45,6 @@ export class DashboardPage implements OnInit {
         private storage: DataLocalService,
         private http: AxiosService,
         private auth: AuthService,
-        private store: Storage,
-        protected aesjs: AesJsService,
         public loadingController: LoadingService,
         private router: Router,
         private toastCtrl: ToastService,
@@ -64,7 +60,7 @@ export class DashboardPage implements OnInit {
     async ngOnInit() {
         await this.socket.initSocketConnection();
         // await this.socket.disconnectSocket();
-        this.pocket = this.aesjs.decrypt(await this.store.get('selected-pocket'));
+        this.pocket = await this.storage.getDataLocal('selected-pocket');
         await this.getUserProfile();
         await this.getListTransactions();
     }
@@ -75,10 +71,10 @@ export class DashboardPage implements OnInit {
     }
 
     async getTransactionsSend() {
-        let transaction = await this.store.get('transaction');
+        let transaction = await this.storage.getDataLocal('transaction');
         if (transaction) {
             await this.getDataPocket(transaction);
-            await this.store.remove('transaction')
+            await this.storage.removeKey('transaction')
         }
     }
 
@@ -137,16 +133,12 @@ export class DashboardPage implements OnInit {
     }
 
     async getUserProfile() {
-        let profile = await this.store.get('profile');
-        profile = await this.aesjs.decrypt(profile);
+        let profile = await this.storage.getDataLocal('profile');
         this.profile = profile;
         this.params.userId = profile.userId;
         this.params.type = 4;
         if (!this.pockets) {
-            this.pockets = await this.store.get('pockets');
-            if (this.pockets) {
-                this.pockets = this.aesjs.decrypt(this.pockets)
-            }
+            this.pockets = await this.storage.getDataLocal('pockets');
         }
     }
 
@@ -219,8 +211,6 @@ export class DashboardPage implements OnInit {
             this.crypto.shortName = this.pockets[0].currency.shortName;
             this.crypto.shortName = this.pockets[0].currency.shortName;
             this.crypto.amountPending = response.amountPending;
-            // this.crypto[0].graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            // this.crypto[0].valueUsd = response.btc.toFixed(8)
         }
         await this.loadingController.dismiss();
         this.ctrlCssBlur = false;

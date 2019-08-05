@@ -20,11 +20,19 @@ export class DataLocalService {
 
     public async getDataLocal(key: string) {
         let dataLocal = await this.storage.get(key);
-        dataLocal ? dataLocal = this.aesjs.decrypt(dataLocal) : dataLocal = null
+        dataLocal ? dataLocal = this.aesjs.decrypt(dataLocal) : dataLocal = null;
         return dataLocal
     }
 
     public async clearStore() {
         return await this.storage.clear()
+    }
+
+    public async removeKey(key: string) {
+        return await this.storage.remove(key)
+    }
+
+    public async getKeys(){
+        return await this.storage.keys()
     }
 }
