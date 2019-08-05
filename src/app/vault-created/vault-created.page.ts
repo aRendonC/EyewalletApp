@@ -84,6 +84,7 @@ export class VaultCreatedPage implements OnInit {
   }
 
   private async validateRunVaultCreation(dataResponse: any): Promise<any> {
+    console.log('RESPONSE: ', dataResponse);
     if (dataResponse.status === 200) {
       this.setDataLocalPockets(dataResponse.wallets);
       await this.loadingService.dismiss();

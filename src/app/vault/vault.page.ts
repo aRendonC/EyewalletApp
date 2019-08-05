@@ -63,7 +63,7 @@ export class VaultPage implements OnInit {
     this.currencyGain = 0;
     this.USDGain = 0;
     this.USD = CONSTANTS.VAULT.USD;
-    this.priority = 'low'
+    this.priority = 'low';
   }
 
   public async ngOnInit(): Promise<any> {
@@ -100,7 +100,7 @@ export class VaultPage implements OnInit {
   }
 
   private async getPockets(): Promise<any> {
-    const pocketsEncrypt = await this.dataLocal.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.POCKETS);
+    const pocketsEncrypt = await this.dataLocal.getDataLocal('pockets');
     return await this.aesjs.decrypt(pocketsEncrypt);
   }
 
@@ -245,7 +245,7 @@ export class VaultPage implements OnInit {
   }
 
   private async getDataProfile(): Promise<any> {
-    const dataProfile = await this.dataLocal.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);
+    const dataProfile = await this.dataLocal.getDataLocal('profile');
     return await this.aesjs.decrypt(dataProfile);
   }
 
