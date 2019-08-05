@@ -10,17 +10,22 @@
                         src="../../assets/img/tabs/tab-prices.svg"/>
             </div>
         </ion-tab-button>
+
         <ion-tab-button
-                mode="ios"
-                class="tab-btn"
-                [tab]="tabs.vault">
+            mode="ios"
+            class="tab-btn"
+            [tab]="tabs.vault"
+            (click)="navigateVault()"
+        >
             <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs.vault">
                 <img
-                        [class.img-icon-tabs-selected]="currentRoute === tabs.vault"
-                        class="img-icon-tabs"
-                        src="../../assets/img/tabs/tab-vault.svg"/>
+                    [class.img-icon-tabs-selected]="currentRoute === tabs.vault"
+                    class="img-icon-tabs"
+                    src="../../assets/img/tabs/tab-vault.svg"
+                />
             </div>
         </ion-tab-button>
+
         <ion-tab-button
                 mode="ios"
                 class="tab-btn"
@@ -32,18 +37,22 @@
                         src="../../assets/img/tabs/tab-wallet.svg"/>
             </div>
         </ion-tab-button>
+
         <ion-tab-button
-                mode="ios"
-                class="tab-btn"
-                (click)="requestCreditCard()">
+            mode="ios"
+            class="tab-btn"
+            (click)="requestCreditCard()"
+        >
             <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs['card-invoice'] ||
                 currentRoute === tabs['request-credit-card']">
                 <img
-                        [class.img-icon-tabs-selected]="currentRoute === tabs['card-invoice'] || currentRoute === tabs['request-credit-card']"
-                        class="img-icon-tabs"
-                        src="../../assets/img/tabs/tab-card.svg"/>
+                    [class.img-icon-tabs-selected]="currentRoute === tabs['card-invoice'] || currentRoute === tabs['request-credit-card']"
+                    class="img-icon-tabs"
+                    src="../../assets/img/tabs/tab-card.svg"
+                />
             </div>
         </ion-tab-button>
+
         <ion-tab-button
                 mode="ios"
                 class="tab-btn"

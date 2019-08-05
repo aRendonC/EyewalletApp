@@ -27,6 +27,8 @@ export class PocketComponent implements OnInit {
   imgRight:string=null;
   classLeft:string=null;
   currencyId: any  = null;
+  public showVaultList: boolean;
+
   constructor(
       private http: AxiosService,
       public modalCtrl: ModalController,
@@ -36,16 +38,19 @@ export class PocketComponent implements OnInit {
       private aesjs: AesJsService,
       private toastCtrl: ToastService,
       private loadingCtrl: LoadingService,
-      private alertCtrl: AlertController
+      private alertCtrl: AlertController,
+      private axiosService: AxiosService,
+      private authService: AuthService
   ) {
     this.classLeft="resize-logo-left1";
     this.imgLeft = "../../assets/img/btn-left-s.svg";
     this.imgRight="../../assets/img/btn-right.svg";
-
+    this.showVaultList = false;
   }
 
    async ngOnInit() {
-     await this.getPocketStore()
+    await this.getPocketStore();
+    await this.validateVaultsCreated();
    }
   async getPocketStore() {
     if(!this.pocket )this.aesjs.decrypt(await this.store.get('selected-pocket'));
@@ -152,5 +157,19 @@ export class PocketComponent implements OnInit {
 
   public clickButtonLeftSeis(): void {
     this.router.navigate(['/app/tabs/vault-list']);
+  }
+
+  public async validateVaultsCreated(): Promise<any> {
+    this.axiosService.get('vault/index', this.authService)
+    .then(async response => {
+      if (response.vault.length > 0) {
+        this.showVaultList = true;
+      } else {
+        this.showVaultList = false;
+      }
+    })
+    .catch(async error => {
+      console.error(error);
+    });
   }
 }
