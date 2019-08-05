@@ -18,7 +18,7 @@
          font-family: $font-roboto-regular;
          font-size: 31px;
          color: white;
-         width: 100px;
+         width: 80px;
          margin: 10px auto 0 auto;
          padding: 0;
          @extend .all-center;
@@ -70,6 +70,7 @@
 
          .info-vault-sliding-item {
             --border-style: none;
+            --background: white;
 
             .content-info-vault-sliding {
                @extend .center-space-between;
