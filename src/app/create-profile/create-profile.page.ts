@@ -4,9 +4,8 @@ import {Router} from '@angular/router';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import {AxiosService } from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
-import {Storage} from '@ionic/storage';
-import { AesJsService } from '../services/aesjs/aes-js.service';
 import {LoadingService} from '../services/loading/loading.service';
+import {DataLocalService} from "../services/data-local/data-local.service";
 
 
 @Component({
@@ -29,8 +28,7 @@ export class CreateProfilePage implements OnInit {
     private touchCtrl: TouchLoginService,
     private aut: AuthService,
     private axios: AxiosService,
-    private store: Storage,
-    private aes: AesJsService,
+    private store: DataLocalService,
     private loadingCtrl: LoadingService
   ) { }
 
@@ -42,8 +40,7 @@ export class CreateProfilePage implements OnInit {
 
   async address() {
     if(this.birthdate) {
-      this.user = await this.store.get('profile');
-      this.user = this.aes.decrypt(this.user);
+      this.user = await this.store.getDataLocal('profile');
       this.bodyForm = {
         userId: this.user.userId,
         firstName: this.firstname,

@@ -1,28 +1,31 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {RouterModule, Routes} from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { RegistryPage } from './registry.page';
-import { ComponentsModule } from '../components/components.module';
+import {RegistryPage} from './registry.page';
+import {ComponentsModule} from '../components/components.module';
+import {TranslateModule} from "@ngx-translate/core";
 
 const routes: Routes = [
-  {
-    path: '',
-    component: RegistryPage
-  }
+    {
+        path: '',
+        component: RegistryPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes),
-    ComponentsModule
-  ],
-  declarations: [RegistryPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes),
+        ComponentsModule,
+        TranslateModule
+    ],
+    declarations: [RegistryPage]
 })
-export class RegistryPageModule {}
+export class RegistryPageModule {
+}

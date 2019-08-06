@@ -25,8 +25,6 @@ export class RequestCreditCardPage implements OnInit {
   // Text html.
   public title: string = CONSTANTS.REQUEST_CARD.REQUEST_CARD;
   public termsConditions: string = CONSTANTS.REQUEST_CARD.TERMS_CONDITIONS;
-  public buttonCancel: string = CONSTANTS.REQUEST_CARD.BUTTON_CANCEL;
-  public buttonAccept: string = CONSTANTS.REQUEST_CARD.BUTTON_ACCEPT;
 
   public dataProfile: any = {};
   public showContentLogo: boolean = true;
@@ -46,17 +44,16 @@ export class RequestCreditCardPage implements OnInit {
 
   constructor(
     private dataLocalService: DataLocalService,
-    private aesJsService: AesJsService,
     private router: Router,
     private modalController: ModalController,
-    private storage: Storage,
+    private storage: DataLocalService,
   ) { }
 
   public async ngOnInit() {
     this.dataProfile = await this.getDataProfile();
     this.setDataProfile(this.dataProfile);
     this.pockets = await this.getDataListPockets();
-    console.log(this.pockets)
+    console.log(this.pockets);
     this.pocketSelected = this.pockets[0];
   }
 
@@ -73,9 +70,9 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   private async getDataListPockets(): Promise<any[]> {
-    const dataPockets = await this.storage.get('pockets');
-    console.log(await this.storage.keys())
-    return this.aesJsService.decrypt(dataPockets)
+    console.log(await this.storage.getKeys());
+    return await this.storage.getDataLocal('pockets');
+
   }
 
   private setDataProfile(dataProfile: any): void {
@@ -93,8 +90,7 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   private async getDataProfile(): Promise<any> {
-    const dataProfileEncrypt = await this.dataLocalService.getDataLocal('profile');
-    return this.aesJsService.decrypt(dataProfileEncrypt);
+    return await this.dataLocalService.getDataLocal('profile');
   }
 
   public showForm(): void {

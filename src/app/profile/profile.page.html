@@ -2,7 +2,7 @@
     <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
     <img class="bg-profile" src="../../assets/images/bg-profile.png">
     <img class="move-profile" src="../../assets/images/profilePage/backProfile.svg"/>
-     <img class="move-profilePic" src="{{avatar}}"/>
+    <img class="move-profilePic" [src]="avatar"/>
     <p class="move-name">{{profileShow.fullName}}</p>
     <!-- <img class="move-engine" src="../../assets/images/profilePage/engine.svg"> -->
     <img type="submit" class="move-add" (click)="photo()" src="../../assets/images/profilePage/add-profile-img.svg"/>
@@ -11,39 +11,42 @@
 <ion-content class="move-profileInfo" [fullscreen]="true">
     <ion-item>
         <ion-label class="labels">ID</ion-label>
-            <p class="text">{{profileShow.id}}</p>
+        <p class="text">{{profileShow.id}}</p>
     </ion-item>
     <ion-item>
         <ion-label class="labels">{{'PROFILE.Phone' | translate}}</ion-label>
-            <p class="text">{{profileShow.phone}}</p>
+        <p class="text">{{profileShow.phone}}</p>
     </ion-item>
     <ion-item>
-        <ion-label class="labels">Registro</ion-label>
-            <p class="text">{{profileShow.date}}</p>
+        <ion-label class="labels">{{'PROFILE.Register' | translate}}</ion-label>
+        <p class="text">{{profileShow.date}}</p>
     </ion-item>
     <ion-item>
-        <ion-label class="labels">País</ion-label>
-            <p class="text">{{profileShow.country}}</p>
+        <ion-label class="labels">{{'GENERAL.Country' | translate}}</ion-label>
+        <p class="text">{{profileShow.country}}</p>
     </ion-item>
     <ion-item>
         <ion-label class="labels">Email</ion-label>
-            <p class="text">{{profileShow.mail}}</p>
+        <p class="text">{{profileShow.mail}}</p>
     </ion-item>
     <ion-item>
-        <ion-label class="labels">Lenguaje</ion-label>
+        <ion-label class="labels">{{'GENERAL.Language' | translate}}</ion-label>
         <ion-select (ionChange)="selectLanguage()" [value]="selectedLanguage" [(ngModel)]="selectedLanguage">
-            <ion-select-option [value]="language.value" *ngFor="let language of languages">{{language.text}}</ion-select-option>
+            <ion-select-option [value]="language.value"
+                               *ngFor="let language of languages">{{language.text}}</ion-select-option>
         </ion-select>
     </ion-item>
     <ion-item>
-        <ion-label class="labels">Versión</ion-label>
-            <p class="text-blue">3.0.0</p>
+        <ion-label class="labels">{{'GENERAL.Version' | translate}}</ion-label>
+        <p class="text-blue">0.0.6</p>
     </ion-item>
     <ion-item class="item-second">
-        <p (click)= "secondFactor()" class="text-second"> <img src="../../assets/images/profilePage/secondFactor.svg">&nbsp; Segundo Factor</p>
+        <p (click)="secondFactor()" class="text-second"><img src="../../assets/images/profilePage/secondFactor.svg">&nbsp; {{'PROFILE.SecondFactor' | translate}}
+        </p>
     </ion-item>
     <ion-item class="item-second">
-        <p  (click)= "secondFactor()" class="text-second"><img src="../../assets/images/profilePage/EyeWeb.svg"> &nbsp; Eyewallet Web</p>
+        <p (click)="secondFactor()" class="text-second"><img src="../../assets/images/profilePage/EyeWeb.svg"> &nbsp;
+            Eyewallet Web</p>
     </ion-item>
     <ion-item class="item-images">
         <img (click)="notifications()" src="../../assets/images/profilePage/notifications.svg" class="pad-lr">
@@ -52,13 +55,13 @@
         <img (click)="invite()" src="../../assets/images/profilePage/friends.svg" class="pad-lr">
     </ion-item>
     <ion-item class="item-notifications" *ngIf="userVerifications.email === 0">
-        <p class="mail-verify">¡Tu correo no está verificado!</p>
-        <p (click)="sendMail()" class="mail-sendMail">Reenviar correo</p>
+        <p class="mail-verify">{{'PROFILE.unverifiedMail' | translate}}</p>
+        <p (click)="sendMail()" class="mail-sendMail">{{'PROFILE.ReSendMail' | translate}}</p>
     </ion-item>
     <ion-item class="item-notifications" *ngIf="userVerifications.email === 1">
-        <p class="mail-verify-success">¡Tu email está verificado!</p>
+        <p class="mail-verify-success">{{'PROFILE.VerifiedMail' | translate}}</p>
     </ion-item>
     <ion-item class="item-delete">
-        <p  (click)="deleteAccount()" class="delete-account">Eliminar Cuenta</p>
+        <p (click)="deleteAccount()" class="delete-account">{{'PROFILE.DeleteAccount' | translate}}</p>
     </ion-item>
 </ion-content>

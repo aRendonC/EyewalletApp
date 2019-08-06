@@ -22,9 +22,12 @@ export class LanguageService {
     this.translate.setDefaultLang(language);
 
     this.storage.get(LNG_KEY).then(async val => {
+      console.log('no sé que es esto', val)
       if (val) {
         await this.setLanguage(val);
         this.selected = val;
+      } else {
+        await this.setLanguage(language)
       }
     });
   }

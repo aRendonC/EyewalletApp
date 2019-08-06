@@ -4,7 +4,9 @@
         <app-pocket [pocket]="pocket"  (dataBalance)="getDataPocket($event)" [ctrlNavigation]="ctrlNavigation"></app-pocket>
     </div>
   <!--<app-chart name="transaction" limit="10"></app-chart>-->
-    <app-sliders (changeCryptoPocket)="changeDataPocketSlider($event)" [transactions]="transactionComponent"  [name]="crypto" *ngIf="crypto.length > 0"></app-sliders>
+    <app-sliders (emitterTransactionRefresh)="refreshTransactions($event)"  (changeCryptoPocket)="changeDataPocketSlider($event)" [transactions]="transactionComponent"  [name]="crypto" *ngIf="crypto.length > 0"></app-sliders>
     <!--<app-balance [transactions]="transactionComponent"></app-balance>-->
     <!-- <ion-button (click)="Modal()"></ion-button> -->
 </ion-content>
+
+

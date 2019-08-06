@@ -328,3 +328,7 @@ $font-openSans-bold: OpenSans-Bold;
 .margins-dashboard{
    padding: 0 0 100px 0;
 }
+
+.loading-translucent.sc-ion-loading-ios-h .loading-wrapper.sc-ion-loading-ios {
+   backdrop-filter: none;
+}

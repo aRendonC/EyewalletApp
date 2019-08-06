@@ -34,6 +34,10 @@ export class LoadingService {
       .then(() => {
         if (!this.isLoading) {
           a.dismiss().then(() => {
+            let cssBlur = document.getElementsByClassName('blur')
+            console.log(cssBlur)
+            console.log(this.labelContent)
+            if(cssBlur[0]) cssBlur[0].classList.remove("blur");
             if(this.labelContent[0]) this.labelContent[0].classList.remove("blur");
           });
         }
@@ -43,6 +47,9 @@ export class LoadingService {
 
   async dismiss() {
     this.isLoading = false;
+    let cssBlur = document.getElementsByClassName('blur')
+    console.log(cssBlur)
+    console.log(this.labelContent)
     if(this.labelContent[0]) this.labelContent[0].classList.remove("blur");
     return await this.loadingCtrl.dismiss().then(() => console.log('dismissed'));
   }

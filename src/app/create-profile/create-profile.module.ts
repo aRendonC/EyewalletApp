@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 import {CreateProfilePage} from './create-profile.page';
 import {ComponentsModule} from "../components/components.module";
+import {TranslateModule} from "@ngx-translate/core";
 
 const routes: Routes = [
     {
@@ -19,7 +20,8 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         ComponentsModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        TranslateModule
     ],
     declarations: [CreateProfilePage]
 })

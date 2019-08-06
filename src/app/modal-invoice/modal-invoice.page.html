@@ -1,5 +1,5 @@
 <ion-content class="modal-invoice">
-  <ion-img 
+  <ion-img
     src="../../../assets/img/sendCripto/backTop.png"
     (click)="closeModalInvoice()"
     class="icon-close"
@@ -13,7 +13,7 @@
     <div class="content-icon-value-usd">
       <span class="content-icon-text">
         <ion-img src="../../../assets/icon/icon-bitcoin.svg" class="image"></ion-img>
-        <span class="text-icon">Valor</span>
+        <span class="text-icon">{{'GENERAL.Value'| translate}}</span>
       </span>
 
       <span class="text-two">${{ dataBill.card.priceUSD }} ({{ dataBill.card?.currency }})</span>
@@ -21,14 +21,14 @@
 
     <div class="content-icon-value-usd">
       <span class="text-two">eyewallet.com</span>
-      
+
       <span class="text-two">{{ priceCardCoin }} {{ dataBill.cripto.currency }}</span>
     </div>
   </div>
 
   <div class="content-button">
     <ion-button (click)="payRequestCard()" shape="round" text-capitalize class="button">
-      Pagar con eywallet
+      {{'INVOICE_MODAL.PayEyeWallet'| translate}}
     </ion-button>
   </div>
 </ion-content>

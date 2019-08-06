@@ -1,12 +1,11 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
-import {Storage} from '@ionic/storage';
-import {AesJsService} from '../services/aesjs/aes-js.service';
 import {Chart} from 'chart.js';
 import {LoadingService} from '../services/loading/loading.service';
 import {ToastService} from '../services/toast/toast.service';
 import {environment} from '../../environments/environment';
+import {DataLocalService} from "../services/data-local/data-local.service";
 
 @Component({
     selector: 'app-prices',
@@ -34,32 +33,16 @@ export class PricesPage implements OnInit {
     constructor(
         private axios: AxiosService,
         private auth: AuthService,
-        private store: Storage,
-        protected aesjs: AesJsService,
+        private store: DataLocalService,
         private loading: LoadingService,
         private toastCtrl: ToastService
     ) {
     }
 
-    // Funcion de ciclo de vida (al cargar)
     async ngOnInit() {
-        // Activa el Loader
         await this.loading.present({cssClass: 'textLoadingBlack'});
-        // Obtiene el perfil desde el storage
         await this.getProfile();
-        // Crea el body para hacer el request al Backend
-        await this.buildBodyForm();
-        // Se crea el request al backend para obtener las cryptos
         await this.getCryptoPrices24h();
-        // Se obtiene el objeto que se va a renderizar en el Front
-        await this.cardPricesBuilder();
-        // Se inicializa en BTC
-        this.cryptoCodes = this.cardPrices[0].cryptoCodes;
-        // Se inicializa en  el precio actual del BTC
-        this.cryptoValue = this.cardPrices[0].cryptoValue[this.cardPrices[0].cryptoValue.length - 1];
-        // Se inicializa la grafica del Bitcoin
-        this.prices24h = this.cardPrices[0].cryptoValue;
-        await this.graph();
     }
 
     ionViewDidEnter(){
@@ -67,20 +50,13 @@ export class PricesPage implements OnInit {
         elementDashboard[0].classList.add("margins-dashboard")
     }
 
-    // Saca el profile del storage de Ionic
     async getProfile() {
-        this.user = await this.store.get('profile');
-        this.user = this.aesjs.decrypt(this.user);
-    }
-
-    // Crea un objeto con el userID para que el Backend me entregue los precios de las criptos
-    buildBodyForm() {
+        this.user = await this.store.getDataLocal('profile');
         this.bodyForm = {
             userId: this.user.userId,
         };
     }
 
-    // Obtiene los precios del Bitcoin de las ultimas 24 Horas
     async getCryptoPrices24h() {
         this.cryptoPrices24h = await this.axios.post('transaction/historyBTC', this.bodyForm, this.auth);
         if (this.cryptoPrices24h.status === 200) {
@@ -88,26 +64,25 @@ export class PricesPage implements OnInit {
         } else {
             await this.toastCtrl.presentToast({text: 'Hubo un error interno, por favor reinicie la aplicación e intentalo de nuevo. Si el problema persiste contactese con nuestro equipo de soporte.'});
         }
-    }
-
-    // Esta funcion crea un array iterable con las 6 criptomonedas principales
-    async cardPricesBuilder() {
-        let criptos = [];
+        let cryptos = [];
         this.cardPrices = this.cryptoPrices24h;
-        this.cardPrices.forEach(cripto => {
-            if (cripto.cryptoCodes === 'BTC' || cripto.cryptoCodes === 'ETH' ||
-                cripto.cryptoCodes === 'BCH' || cripto.cryptoCodes === 'LTC' ||
-                cripto.cryptoCodes === 'XMR' || cripto.cryptoCodes === 'ZEC') {
-                criptos.push(cripto)
+        this.cardPrices.forEach(crypto => {
+            if (crypto.cryptoCodes === 'BTC' || crypto.cryptoCodes === 'ETH' ||
+                crypto.cryptoCodes === 'BCH' || crypto.cryptoCodes === 'LTC' ||
+                crypto.cryptoCodes === 'XMR' || crypto.cryptoCodes === 'ZEC') {
+                cryptos.push(crypto)
             }
         });
-        this.cardPrices = criptos;
+        this.cardPrices = cryptos;
         this.cardPrices[0].cryptoClass = 'crypto-card BTC';
         this.cardPrices[0].fontClass = 'white';
         await this.loading.dismiss();
+        this.cryptoCodes = this.cardPrices[0].cryptoCodes;
+        this.cryptoValue = this.cardPrices[0].cryptoValue[this.cardPrices[0].cryptoValue.length - 1];
+        this.prices24h = this.cardPrices[0].cryptoValue;
+        await this.graph();
     }
 
-// Se activa cuando le doy click a la criptomoneda que necesita el precio
     async selectCrypto(cryptoClass, index) {
         this.prices24h = [];
         this.ctrlCssColor = cryptoClass;
@@ -119,7 +94,6 @@ export class PricesPage implements OnInit {
         await this.classSelector();
     }
 
-// Crea una Grafica de criptos;
     async graph() {
         const ctx = this.lineCanvas.nativeElement.getContext('2d');
         const gradientFill = ctx.createLinearGradient(262.48, 233, 316.52, 0);

@@ -1,17 +1,16 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
-import {IonSlides, ModalController} from '@ionic/angular';
+import {IonInfiniteScroll, IonSlides, ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
-import {Storage} from '@ionic/storage';
 import {enterAnimation} from '../../animations/enter';
 import {leaveAnimation} from '../../animations/leave';
 import {Chart} from 'chart.js';
-import {AesJsService} from '../../services/aesjs/aes-js.service';
 import {AxiosService} from "../../services/axios/axios.service";
 import {AuthService} from "../../services/auth/auth.service";
 import {filter} from "rxjs/operators";
-import {LoadingService} from "../../services/loading/loading.service";
 import {ToastService} from "../../services/toast/toast.service";
+import {DataLocalService} from "../../services/data-local/data-local.service";
+import {LoadingService} from "../../services/loading/loading.service";
 
 
 @Component({
@@ -21,36 +20,26 @@ import {ToastService} from "../../services/toast/toast.service";
 })
 
 export class SlidersComponent implements OnInit {
-    progress: number
     @Input() name: any;
     public lineChart: any;
     public dataGraphic: any;
-    public contentDataGrapic: any;
     public profile: any = null;
     @Input() transactions: any;
     @Output() changeCryptoPocket = new EventEmitter<[]>();
+    @Output() emitterTransactionRefresh = new EventEmitter<[]>();
     @ViewChild('sliderHeader') sliderHeader: IonSlides;
     @ViewChild('sliderContent') sliderContent: IonSlides;
-    ctrlSliderHeader: boolean = true;
-    ctrlSliderContent: boolean = true;
-    public pager: boolean = false;
+    @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
     slideOptsName = {
         spaceBetween: 1,
         initialSlide: 0,
         centeredSlides: true,
         slidesPerView: 3,
-        // speed: 1000,
-
     };
     slideOpts = {
         initialSlide: 0,
         slidesPerView: 1,
         loopedSlides: 5,
-        // speed: 1000,
-
-        // thumbs: {
-        //     swiper: this.slideOptsName,
-        // }
     };
     labelGrapich = [];
 
@@ -62,12 +51,12 @@ export class SlidersComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private modalCtrl: ModalController,
-        private store: Storage,
-        private aesjs: AesJsService,
+        private store: DataLocalService,
         private router: Router,
         private http: AxiosService,
         private auth: AuthService,
-        private toastCtrl: ToastService
+        private toastCtrl: ToastService,
+        private loadingCtrl: LoadingService
     ) {
         this.router.events.pipe(
             filter(event => event instanceof NavigationStart)
@@ -80,42 +69,38 @@ export class SlidersComponent implements OnInit {
     async ngOnInit() {
         let userVerifications: any = await this.http.get('user-verification/status', this.auth, null);
         userVerifications = userVerifications.data;
-        const dataEncrypt = this.aesjs.encrypt(userVerifications);
-        await this.store.set('userVerification', dataEncrypt);
-        this.profile = await this.store.get('profile');
-        this.profile = this.aesjs.decrypt(this.profile);
+        await this.store.setDataLocal('userVerification', userVerifications);
+        this.profile = await this.store.getDataLocal('profile');
         this.profile.completed = userVerifications.completed;
         await this.setProfileStore();
         this.nameSlider = this.name;
         this.dataGraphic = this.name[0];
-        console.log(this.name)
         await this.grafica();
-
     }
 
-    // async ionViewDidLoad(){
-    //     await this.getDataChangeSliders()
-    // }
-
     async getProfileStore() {
-        this.profile = await this.store.get('profile');
-        this.profile = this.aesjs.decrypt(this.profile);
+        this.profile = await this.store.getDataLocal('profile');
     }
 
     async setProfileStore() {
-        let profile = this.aesjs.encrypt(this.profile);
-        await this.store.set('profile', profile)
+        await this.store.setDataLocal('profile', this.profile)
     }
 
     public async grafica() {
+        console.log(this.name);
         this.labelGrapich = [];
-        for (let i = 0; i <= this.dataGraphic.graphic.length - 1; i++) {
-            this.labelGrapich.push('')
+
+        if (this.dataGraphic.graphic.length === 1) {
+            for (let i = 0; i <= 1; i++) {
+                this.dataGraphic.graphic.unshift(0);
+                this.labelGrapich.push('')
+            }
+        } else {
+            for (let i = 0; i <= this.dataGraphic.graphic.length - 1; i++) {
+                this.labelGrapich.push('')
+            }
         }
-        // if (this.name.length > 1) {
-        //     this.pager = true;
-        //     this.slideOpts.loop = true
-        // }
+        console.log(this.dataGraphic.graphic);
         const ctx = this.lineCanvas.nativeElement.getContext('2d');
         const gradientStroke = ctx.createLinearGradient(154.000, 0.000, 146.000, 300.000);
         gradientStroke.addColorStop(0.006, 'rgba(21, 233, 233, 1.000)');
@@ -164,11 +149,15 @@ export class SlidersComponent implements OnInit {
                             minRotation: 90
                         }
                     }]
-                }, animation: {
+                },
+
+                animation: {
                     duration: 800,
                 },
                 hover: {
-                    animationDuration: 1000
+                    animationDuration: 1000,
+                    mode: 'index',
+                    intersect: false
                 },
                 responsiveAnimationDuration: 1000
             }
@@ -190,9 +179,8 @@ export class SlidersComponent implements OnInit {
         return await modalVerification.present()
     }
 
-    // Esta función envia a la verificación de documentos
     async verificationPage() {
-       await this.router.navigate(['/upload-verification-files']);
+        await this.router.navigate(['/upload-verification-files']);
     }
 
     async changeSliderHeader(sliderContent) {
@@ -203,7 +191,41 @@ export class SlidersComponent implements OnInit {
     async changeSliderContent(sliderHeader) {
         let activeIndexHeader = await sliderHeader.getActiveIndex();
         await this.sliderContent.slideTo(activeIndexHeader, 200);
-        await this.toastCtrl.presentToast({text: 'Sus datos se están cargando, por favor espere', duration: 1000})
+        await this.sliderContent.lockSwipes(true);
+        await this.sliderHeader.lockSwipes( true);
+        await this.toastCtrl.presentToast({text: 'Sus datos se están cargando, por favor espere', duration: 1000});
         this.changeCryptoPocket.emit(this.name[activeIndexHeader]);
+        setTimeout(async () => {
+            await this.sliderContent.lockSwipes(false);
+            await this.sliderHeader.lockSwipes(false);
+        }, 1000)
+    }
+
+
+    loadData(event) {
+        event.target.complete();
+    }
+
+    async refreshTransactions(pocketSelected): Promise<any> {
+        console.log(pocketSelected);
+        await this.loadingCtrl.present({text: 'Cargando datos', cssClass: 'textLoadingBlack'});
+        let pocket = await this.store.getDataLocal('selected-pocket');
+        console.log(pocket);
+        let body = {
+            userId: pocket.userId,
+            type: 0,
+            address: pocket.address,
+            currencyShortName: pocket.currency.shortName
+        };
+        let dataResponse = await this.http.post('transaction/index', body, this.auth);
+        if(dataResponse.status === 200) {
+            dataResponse.pocket = pocket;
+            this.emitterTransactionRefresh.emit(dataResponse)
+        } else {
+            await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+        }
+        // let selectedPocket = pockets.find(pocket => pocket.label === pocketSelected.pocketName);
+        // console.log(selectedPocket)
+        // console.log(await this.store.getDataLocal('selected-pocket'))
     }
 }

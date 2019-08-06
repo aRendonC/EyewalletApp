@@ -23,7 +23,9 @@ export class TabsPage {
     'dashboard': 'dashboard',
     'card-invoice': 'card-invoice',
     'profile': 'profile',
-    'request-credit-card': 'request-credit-card'
+    'request-credit-card': 'request-credit-card',
+    'exchange': 'exchange',
+    'history-exchange': 'history-exchange'
   };
   
   constructor(

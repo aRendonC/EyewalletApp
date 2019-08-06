@@ -6,6 +6,7 @@ import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
+import {DataLocalService} from "../services/data-local/data-local.service";
 
 @Component({
   selector: 'app-list-pockets',
@@ -30,8 +31,7 @@ export class ListPocketsPage implements OnInit {
     public navParams: NavParams,
     private http: AxiosService,
     private auth: AuthService,
-    private store: Storage,
-    protected aesjs: AesJsService,
+    private store: DataLocalService,
     private toastCtrl: ToastService,
     private loadingCtrl: LoadingService
       ) { }
@@ -54,10 +54,10 @@ export class ListPocketsPage implements OnInit {
         await this.loadingCtrl.present({text: 'Creando Pocket', cssClass: 'textLoadingBlack'});
         this.ctrlCssBlur = true;
         this.ctrlButtonCreate = true;
-        let profile = await this.store.get('profile');
-        profile = this.aesjs.decrypt(profile);
+        let profile = await this.store.getDataLocal('profile');
         this.params.userId = profile.id;
         let response = await this.http.post('user-wallet/create', this.params, this.auth);
+        console.log(response)
         if(response.status === 200) {
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();

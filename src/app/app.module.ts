@@ -25,18 +25,21 @@ import {FingerprintAIO} from '@ionic-native/fingerprint-aio/ngx';
 import {PinModalPage} from './pin-modal/pin-modal.page';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxQRCodeModule} from 'ngx-qrcode2';
-// Geolocation Plugins
+
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {AndroidPermissions} from '@ionic-native/android-permissions/ngx';
 import {LocationAccuracy} from '@ionic-native/location-accuracy/ngx';
-// Services
+
 import {LoadingService} from "./services/loading/loading.service";
-// LocalStorage.
+
 import {IonicStorageModule} from '@ionic/storage';
 import {ComponentsModule} from './components/components.module';
-// Plugins cordova.
+
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {VerificationModalPage} from './verification-modal/verification-modal.page';
+
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -67,7 +70,8 @@ export function createTranslateLoader(http: HttpClient) {
         AppRoutingModule,
         HttpClientModule,
         IonicStorageModule.forRoot(),
-        NgxQRCodeModule
+        NgxQRCodeModule,
+        SocketIoModule.forRoot(config)
     ],
     providers: [
         StatusBar,

@@ -3,7 +3,7 @@
     <ion-col style="padding: 0" size="3" (click)="receiveCash()">
       <div  class="button-receive center-horizontal center-vertical center bounceInRight">
         <ion-label style="margin-right: 5%; color: white; font-family: 'Poppins Regular'">
-          Recibir
+          {{'GENERAL.Receive'| translate}}
         </ion-label>
         <img  class="resize-logo-right " src="../../assets/img/pocketsComponent/receive-icon.svg"/>
       </div>
@@ -20,7 +20,7 @@
       <div class="button-send center-horizontal center-vertical center">
           <img  class="resize-logo-right " src="../../assets/img/pocketsComponent/send-icon.svg"/>
           <ion-label style="margin-left: 5%">
-            Enviar
+            {{'GENERAL.Send'| translate}}
           </ion-label>
       </div>
     </ion-col>
@@ -29,7 +29,7 @@
     <ion-col style="padding: 0" size="3" (click)="openUrl('https://play.google.com/store/apps/details?id=com.eyewallet&hl=es')">
       <div class="qualify-button center-horizontal center-vertical center bounceInRight">
         <ion-label class="text-qualify">
-          Calificar
+          {{'GENERAL.Qualify'| translate}}
         </ion-label>
         <img  class="image-qualify " src="../../assets/img/pocketsComponent/calificate.svg"/>
       </div>
@@ -39,14 +39,14 @@
       <div style="margin-top: 0 !important;"  class="center-vertical center center-horizontal">
         <img  src="../../../assets/img/tabs/tab-profile.svg"/>
         &nbsp;
-        <ion-label style="color: white">Usuario</ion-label>
+        <ion-label style="color: white">  {{'GENERAL.User'| translate}}</ion-label>
       </div>
     </ion-col>
     <ion-col (click)="presentAlert()" size="3" class="bounceInRight" style="color: white; padding: 0">
       <div class="logOut-button center-horizontal center-vertical center bounceInRight">
         <img  class="image-logout " src="../../assets/img/pocketsComponent/logout.svg"/>
         <ion-label style="margin-right: -10%; margin-left: 5%; color: black;">
-          Cerrar Sesión
+          {{'GENERAL.LogOut'| translate}}
         </ion-label>
       </div>
     </ion-col>
@@ -55,7 +55,7 @@
     <ion-col style="padding: 0" size="3" (click)="openUrl('https://www.criptonoticias.com')">
       <div class="qualify-button center-horizontal center-vertical center bounceInRight">
         <ion-label class="text-qualify">
-          Noticias
+          {{'GENERAL.News'| translate}}
         </ion-label>
         <img  class="image-qualify " src="../../assets/img/tabs/news.svg"/>
       </div>
@@ -65,7 +65,7 @@
       <div  class="center-vertical center center-horizontal">
         <img  src="../../../assets/img/tabs/prices.svg"/>
         &nbsp;
-        <ion-label style="color: white">Precios</ion-label>
+        <ion-label style="color: white"> {{'GENERAL.Prices'| translate}}</ion-label>
       </div>
     </ion-col>
   </ion-row>
@@ -73,7 +73,9 @@
   <ion-row style="padding: 0" *ngIf="ctrlNavigation === 4" class="z-pocket">
     <ion-col style="padding: 0" size="3">
       <div class="active-card-button center-horizontal center-vertical center bounceInRight">
-        <ion-label class="text-activate-card" text-capitalize>activar</ion-label>
+        <ion-label class="text-activate-card" text-capitalize>
+          {{'GENERAL.Activate'| translate}}
+        </ion-label>
         <img class="image-activate-card" src="../../assets/img/pocketsComponent/calificate.svg"/>
       </div>
     </ion-col>
@@ -84,7 +86,7 @@
         <ion-label class="title-text-icon" text-capitalize>crédito</ion-label>
       </div>
     </ion-col>
-    
+
     <ion-col  size="3" class="bounceInRight" style="color: white; padding: 0">
       <div class="add-card-button center-horizontal center-vertical center bounceInRight">
         <img class="image-add-card" src="../../assets/img/tabs/add-card.svg"/>
@@ -163,7 +165,7 @@
         <ion-col style="padding: 0" size="3" (click)="goToHome()" >
           <div class="button-back center-horizontal center-vertical center bounceInRight">
             <ion-label style="margin-right: 5%; color: black;">
-              Volver
+              {{'GENERAL.GoBack'| translate}}
             </ion-label>
             <img  class="resize-logo-right " src="../../assets/img/tabs/back-icon.svg"/>
           </div>

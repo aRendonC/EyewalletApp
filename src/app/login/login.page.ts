@@ -4,10 +4,10 @@ import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {AxiosService} from '../services/axios/axios.service';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
-import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
+import {DataLocalService} from "../services/data-local/data-local.service";
 
 @Component({
   selector: 'app-login',
@@ -29,8 +29,7 @@ export class LoginPage implements OnInit {
     private http: AxiosService,
     public modalCtrl: ModalController,
     private touchCtrl: TouchLoginService,
-    private store: Storage,
-    private aesjs: AesJsService,
+    private store: DataLocalService,
     private loadingCtrl: LoadingService
   ) { }
 
@@ -41,7 +40,7 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    await this.store.clear();
+    await this.store.clearStore();
     await this.loadingCtrl.present({text: 'Cargando'});
     this.ctrlCssBlur = true;
     this.auth.login(this.username, this.password)
@@ -53,12 +52,11 @@ export class LoginPage implements OnInit {
           this.touchCtrl.isLocked = true;
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
-          let pocket = this.aesjs.encrypt(this.pockets[0]);
-          await this.store.set('selected-pocket', pocket);
+          let pocket =this.pockets[0];
+          this.store.setDataLocal('selected-pocket', pocket);
           await this.router.navigate([
               '/app/tabs/dashboard']);
-          this.pockets = this.aesjs.encrypt(this.pockets);
-          await this.store.set('pockets',  this.pockets)
+          await this.store.setDataLocal('pockets',  this.pockets)
         } else await this.clearData(data);
       } else await this.clearData(data)
     })
