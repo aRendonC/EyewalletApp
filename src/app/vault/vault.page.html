@@ -3,7 +3,7 @@
     <app-pocket [ctrlNavigation]="ctrlNavigation" [listVaultLength]="listVaultLength"></app-pocket>
 
     <ion-select
-      class="select-pocket" 
+      class="select-pocket"
       mode="md"
       [placeholder]="dataPockets.placeholderSelectPocket"
       [(ngModel)]="dataSelected"
@@ -29,7 +29,7 @@
             class="input-amount-currency"
             type="number"
             [(ngModel)]="valueInvestment"
-            (ionChange)="handlerValueInvestment($event)"
+            (ionChange)="handlerValueInvestment()"
             (click)="messageWithoutFunds()"
             placeholder="0.000"
           ></ion-input>
@@ -54,7 +54,7 @@
     <span class="title">{{ 'VAULT.durationText' | translate }}</span>
 
     <ion-select
-      class="selected-investment-porcentage" 
+      class="selected-investment-porcentage"
       mode="md"
       [(ngModel)]="investmentPorcentage"
       (ionChange)="handlerinvestmentPorcentageSelected()"
