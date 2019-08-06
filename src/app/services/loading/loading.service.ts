@@ -11,10 +11,10 @@ export class LoadingService {
     private loadingCtrl: LoadingController
   ) { }
 
-  async present({text = 'Por favor no cierre su sesión', cssClass = 'textLoading', duration = false}) {
+  async present({text = 'Por favor no cierre su sesión', cssClass = 'textLoading', classColorText = 'loadingText', duration = false}) {
     this.isLoading = true;
     const options: any = {
-      message: `<p class="loadingText">${text}</p><img class="spinner" src="../../assets/img/spinner.svg">`,
+      message: `<p class="${classColorText}">${text}</p><img class="spinner" src="../../assets/img/spinner.svg">`,
       translucent: true,
       animated: true,
       backdropDismiss: false,

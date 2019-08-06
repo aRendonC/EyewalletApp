@@ -27,5 +27,41 @@
     "ConfirmTerms": "Al crear tu billetera, aceptas los siguientes términos",
     "TermsOfService": "Términos De Servicios",
     "PrivacyPolicy": "Política De Privacidad"
+  },
+  "VAULT_LIST": {
+    "loadingText": "Loagind vaults",
+    "toastErrorText": "Processing errors. Try again",
+    "titleSheetText": "Delete Vault",
+    "removeText": "Remove",
+    "removedText": "Removed",
+    "processingText": "Processing",
+    "finalizedText": "Finalized",
+    "cancelText": "Cancel",
+    "descriptionRequestDeleteVault": "Vault cancellation request.",
+    "responseRequestVaultDelete": "Your request is being processed."
+  },
+  "VAULT": {
+    "placeholderPockets": "select a pocket",
+    "buttonOkSelect": "Select",
+    "buttonCancelSelect": "Cancel",
+    "textAvailableBalance": "available balance",
+    "messageErrorLoadPage": "Temporary errors, try later.",
+    "loading": "Loading.",
+    "messageWithoutFunds": "The pocket has no funds, reload it or select another.",
+    "tuitiosText": "fee",
+    "durationText": "duration",
+    "monthsText": "months",
+    "totalEarningsText": "total earnings",
+    "buttonNextText": "next",
+    "higherValueErrorMessage": "The value entered cannot exceed the balance of the pocket."
+  },
+  "VAULT_CREATED": {
+    "quantityText": "quantity",
+    "buttonAccept": "accept",
+    "termsConditionsTextOne": "When you click on \"Next\", you accept",
+    "termsConditionsTextTwo": "Terms of service - policies and privacy",
+    "modalMessageSuccessText": "Your new vault was added successfully.",
+    "modalMessageErrorText": "Error during vault creation. Try again.",
+    "messageCreatinVault": "Creating Vault"
   }
 }

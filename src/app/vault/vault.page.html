@@ -1,61 +1,92 @@
-<ion-content class="vault" [fullscreen]="true">
+<ion-content class="vault">
   <div class="header">
-    <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
+    <app-pocket [ctrlNavigation]="ctrlNavigation" [listVaultLength]="listVaultLength"></app-pocket>
 
-    <div class="content-text-icon-coin">
-      <span class="text-coin">Bitcoin (BTC)</span>
-      <ion-img src="../../assets/icon/icon-coin-btc.svg" class="icon-coin"></ion-img>
-    </div>
+    <ion-select
+      class="select-pocket" 
+      mode="md"
+      [placeholder]="dataPockets.placeholderSelectPocket"
+      [(ngModel)]="dataSelected"
+      (ionChange)="handlerPocketSelected()"
+      [okText]="dataPockets.buttonOkSelect"
+      [cancelText]="dataPockets.buttonCancelSelect"
+    >
+      <ion-select-option class="content-selected-options" *ngFor="let dataPocket of pockets" [value]="dataPocket.label">{{ dataPocket.label }} ({{ dataPocket.currency.shortName }})</ion-select-option>
+    </ion-select>
   </div>
 
   <div class="content-balance-duration content-balance">
-    <span class="title">Saldo disponible</span>
+    <span text-capitalize class="title">{{ 'VAULT.textAvailableBalance' | translate }}</span>
 
-    <span class="balance">0.00000000 BTC</span>
+    <span *ngIf="pockets" class="balance">{{ pockets[positionPocketSelected].balance }} {{ pockets[positionPocketSelected].currency.shortName }}</span>
 
     <table class="table">
       <tr class="row-border">
-        <td class="title">BTC</td>
-        <td class="text padding-text">0.000</td>
-        <td class="title">USD</td>
-        <td class="text">0.000</td>
+        <td *ngIf="pockets" class="title">{{ pockets[positionPocketSelected].currency.shortName }}</td>
+        <td class="text padding-text">
+          <ion-input
+            [disabled]="inputAmountDisabled"
+            class="input-amount-currency"
+            type="number"
+            [(ngModel)]="valueInvestment"
+            (ionChange)="handlerValueInvestment($event)"
+            (click)="messageWithoutFunds()"
+            placeholder="0.000"
+          ></ion-input>
+        </td>
+        <td class="title">{{ USD }}</td>
+        <td *ngIf="!loadingValuesFee" class="text">{{ productCurrencyUsd }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
       </tr>
 
       <tr>
-        <td class="title">Matrícula</td>
-        <td class="text padding-text">0.000</td>
-        <td class="title">USD</td>
-        <td class="text">0.000</td>
+        <td text-capitalize class="title">{{ 'VAULT.tuitiosText' | translate }}</td>
+        <td *ngIf="!loadingValuesFee" class="text padding-text">{{ enrollmentCurrency }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
+        <td class="title">{{ USD }}</td>
+        <td *ngIf="!loadingValuesFee" class="text">{{ enrollmentUSD }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
       </tr>
     </table>
   </div>
 
   <div class="content-balance-duration">
-    <span class="title">Duración</span>
+    <span class="title">{{ 'VAULT.durationText' | translate }}</span>
 
-    <span class="text-duration">3 meses - 3%</span>
+    <ion-select
+      class="selected-investment-porcentage" 
+      mode="md"
+      [(ngModel)]="investmentPorcentage"
+      (ionChange)="handlerinvestmentPorcentageSelected()"
+      [okText]="dataPockets.buttonOkSelect"
+      [cancelText]="dataPockets.buttonCancelSelect"
+    >
+      <ion-select-option class="content-selected-options" *ngFor="let data of investmentPorcentageData" [value]="data">{{ data }} {{ 'VAULT.monthsText' | translate }} - {{ data }}%</ion-select-option>
+    </ion-select>
 
-    <span class="text-other">Total ganancias</span>
+    <span class="text-other">{{ 'VAULT.totalEarningsText' | translate }}</span>
 
     <table class="table">
       <tr>
-        <td class="title">BTC</td>
-        <td class="text padding-text">0.000</td>
-        <td class="title">USD</td>
-        <td class="text">0.000</td>
+        <td *ngIf="pockets" class="title">{{ pockets[positionPocketSelected].currency.shortName }}</td>
+        <td *ngIf="!loadingValuesFee" class="text padding-text">{{ currencyGain }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
+        <td class="title">{{ USD }}</td>
+        <td *ngIf="!loadingValuesFee" class="text">{{ USDGain }}</td>
+        <td *ngIf="loadingValuesFee" class="text"> <img class="image-loaging-values" src="../../assets/icon/loading-values.svg"> </td>
       </tr>
     </table>
   </div>
 
   <div class="content-button">
     <ion-button
-      [disabled]="!buttonDisabled"
-      (click)="continueCreateVault()"
+      [disabled]="buttonDisabled"
+      (click)="createVault()"
       class="button"
       text-capitalize
       shape="round"
     >
-      Próximamente
+      {{ 'VAULT.buttonNextText' | translate }}
     </ion-button>
   </div>
 </ion-content>

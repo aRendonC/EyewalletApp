@@ -16,16 +16,19 @@ import {ToastService} from "../../services/toast/toast.service";
   templateUrl: './pocket.component.html',
   styleUrls: ['./pocket.component.scss'],
 })
+
 export class PocketComponent implements OnInit {
   pockets: any = null;
   @Input() urlPresent: any = '';
   @Input() ctrlNavigation: number = 0;
   @Output() dataBalance = new EventEmitter<[]>();
   @Input() pocket: any = '';
+  @Input() listVaultLength: boolean = false;
   imgLeft:string=null;
   imgRight:string=null;
   classLeft:string=null;
   currencyId: any  = null;
+
   constructor(
       private http: AxiosService,
       public modalCtrl: ModalController,
@@ -35,20 +38,23 @@ export class PocketComponent implements OnInit {
       private aesjs: AesJsService,
       private toastCtrl: ToastService,
       private loadingCtrl: LoadingService,
-      private alertCtrl: AlertController
+      private alertCtrl: AlertController,
+      private axiosService: AxiosService,
+      private authService: AuthService,
   ) {
     this.classLeft="resize-logo-left1";
     this.imgLeft = "../../assets/img/btn-left-s.svg";
     this.imgRight="../../assets/img/btn-right.svg";
-
   }
 
-   async ngOnInit() {
-     await this.getPocketStore()
-   }
+  async ngOnInit() {
+    await this.getPocketStore();
+  }
+
   async getPocketStore() {
     if(!this.pocket )this.aesjs.decrypt(await this.store.get('selected-pocket'));
   }
+
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
     this.pockets = await this.http.post('user-wallet/index', {currencyId: this.pocket.currencyId}, this.auth);
@@ -139,5 +145,21 @@ export class PocketComponent implements OnInit {
 
   openUrl(url) {
     window.open(url, '_blank')
+  }
+
+  public clickButtonLeftCinco(): void {
+    this.router.navigate(['/app/tabs/vault']);
+  }
+
+  public clickButtonRightCinco(): void {
+    this.router.navigate(['/app/tabs/vault']);
+  }
+
+  public clickButtonLeftSeis(): void {
+    this.router.navigate(['/app/tabs/vault-list']);
+  }
+
+  public clickButtonLeftSeven(): void {
+    this.router.navigate(['/app/tabs/vault'])
   }
 }

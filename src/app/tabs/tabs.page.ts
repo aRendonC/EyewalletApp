@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AuthService} from '../services/auth/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 import {LoadingService} from "../services/loading/loading.service";
 import {Router} from "@angular/router";
 import {Storage} from "@ionic/storage";
@@ -13,17 +13,19 @@ import {TouchLoginService} from "../services/fingerprint/touch-login.service";
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
+
 export class TabsPage {
   public currentRoute: any = 'dashboard';
   ctrlCssBlur: boolean = false;
   public tabs = {
     'prices': 'prices',
-    'vault': 'vault',
+    'vault': 'vault-list',
     'dashboard': 'dashboard',
     'card-invoice': 'card-invoice',
     'profile': 'profile',
     'request-credit-card': 'request-credit-card'
   };
+  
   constructor(
     private auth: AuthService,
     private loadControl: LoadingService,
@@ -32,6 +34,7 @@ export class TabsPage {
     private aesjs: AesJsService,
     private toastCtrl: ToastService,
     private axiosService: AxiosService,
+    private authService: AuthService,
     private fingerCtrl: TouchLoginService
   ) {
     this.getActiveRoute()
@@ -84,4 +87,17 @@ export class TabsPage {
     this.ctrlCssBlur = data
   }
 
+  public async navigateVault(): Promise <any> {
+    this.axiosService.get('vault/index', this.authService)
+    .then(async (response: any) => {
+      if (response.vault.length > 0) {
+        this.router.navigate(['/app/tabs/vault-list']);
+      } else {
+        this.router.navigate(['/app/tabs/vault']);
+      }
+    })
+    .catch(async error => {
+      console.error(error);
+    });
+  }
 }

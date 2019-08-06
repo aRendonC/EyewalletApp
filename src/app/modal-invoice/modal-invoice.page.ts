@@ -61,6 +61,7 @@ export class ModalInvoicePage implements OnInit {
       return response;
     })
     .catch(async error => {
+      console.error(error);
       await this.loadingServices.dismiss();
     });
   }

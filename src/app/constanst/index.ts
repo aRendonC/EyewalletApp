@@ -1,3 +1,17 @@
+export const KEYS_DATA_LOCAL: any = {
+   PROFILE: 'profile',
+   POCKETS: 'pockets'
+}
+
+export const VAULT: any = {
+   USD: 'USD'
+};
+
+export const MODAL_RESPONSE_STATUS: any = {
+   SUCCESS: 0,
+   ERROR: 1
+}
+
 export const REGISTRY = {
    TITLE: 'Crear una nueva Billetera',
    LABEL_USER: 'Usuario',
@@ -42,12 +56,6 @@ export const REQUEST_CARD = {
    RESIDENCE: 'Residencia',
    MESSAGE_NO_CARD: 'El usuario no puede solicitar tarjetas.',
    INCOMPLETE_PROFILE: 'Perfil incompleto'
-};
-
-export const VAULT = {
-   TITLE_BALANCE: 'saldo disponible',
-   TITLE_DURATION: 'duración',
-   TEXT_EARNING: 'total ganancias'
 };
 
 export const MESSAGE_ERROR = {

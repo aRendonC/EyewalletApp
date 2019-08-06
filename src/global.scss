@@ -18,7 +18,9 @@ $font-bold: Poppins-Bold;
 $font-roboto-regular: Roboto-Regular;
 $font-roboto-medium: Roboto-Medium;
 $font-roboto-bold: Roboto-Bold;
-$font-open-sans-bold: Open-Sans-Bold;
+$font-openSans-regular: OpenSans-Regular;
+$font-openSans-SemiBold: OpenSans-SemiBold;
+$font-openSans-bold: OpenSans-Bold;
 
 .button-enable {
    --background: #4C6AC0;
@@ -236,6 +238,14 @@ $font-open-sans-bold: Open-Sans-Bold;
    text-align: center;
 }
 
+.loadingTextBlack{
+   color: Black;
+   font-family: 'Poppins', sans-serif;
+   font-size: 5vw;
+   font-weight: 500;
+   text-align: center;
+}
+
 @keyframes rotation {
    from {
          -webkit-transform: rotate(0deg);
@@ -314,7 +324,6 @@ $font-open-sans-bold: Open-Sans-Bold;
 .swiper-pagination {
    text-align: left;
 }
-
 
 .margins-dashboard{
    padding: 0 0 100px 0;

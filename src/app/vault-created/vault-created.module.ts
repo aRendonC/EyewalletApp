@@ -11,6 +11,7 @@ import { ComponentsModule } from '../components/components.module';
 // Modal.
 import { ModalResponseStatusPage } from '../modal-response-status/modal-response-status.page';
 import { ModalResponseStatusPageModule } from '../modal-response-status/modal-response-status.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -29,7 +30,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ComponentsModule,
-    ModalResponseStatusPageModule
+    ModalResponseStatusPageModule,
+    TranslateModule
   ],
   declarations: [VaultCreatedPage]
 })

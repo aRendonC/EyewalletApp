@@ -3,6 +3,7 @@
 .vault-created {
    display: flex;
    justify-content: center;
+   --padding-bottom: 130px;
 
    .header {
       height: 247px;
@@ -68,11 +69,49 @@
 
    .content-icon-coin-background {
       height: 200px;
-      background-image: url('../../assets/images/coin-bitcoin-background.svg');
+      margin: 0 0 30px 0;
+   }
+
+   .cicb-BCH {
+      background-image: url('../../assets/images/coin-background-BCH.svg');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      margin: 0 0 30px 0;
+   }
+
+   .cicb-BTC {
+      background-image: url('../../assets/images/coin-background-BTC.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+   }
+
+   .cicb-ETH {
+      background-image: url('../../assets/images/coin-background-ETH.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+   }
+
+   .cicb-LTC {
+      background-image: url('../../assets/images/coin-background-LTC.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+   }
+
+   .cicb-XMR {
+      background-image: url('../../assets/images/coin-background-XMR.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+   }
+
+   .cicb-ZEC {
+      background-image: url('../../assets/images/coin-background-ZEC.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
    }
 
    .content-button {

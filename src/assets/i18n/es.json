@@ -27,5 +27,41 @@
     "ConfirmTerms": "Al crear tu billetera, aceptas los siguientes términos",
     "TermsOfService": "Términos De Servicios",
     "PrivacyPolicy": "Política De Privacidad"
+  },
+  "VAULT_LIST": {
+    "loadingText": "Cargando bóvedas",
+    "toastErrorText": "Errores de procesamiento. Intente nuevamente",
+    "titleSheetText": "Eliminar Bóveda",
+    "removeText": "Eliminar",
+    "removedText": "Eliminado",
+    "processingText": "Procesando",
+    "finalizedText": "Finalizado",
+    "cancelText": "Cancelar",
+    "descriptionRequestDeleteVault": "Solicitud de cancelación de bóveda.",
+    "responseRequestVaultDelete": "Su solicitud está siendo procesada."
+  },
+  "VAULT": {
+    "placeholderPockets": "selecciona un bolsillo",
+    "buttonOkSelect": "Seleccionar",
+    "buttonCancelSelect": "Cancelar",
+    "textAvailableBalance": "saldo disponible",
+    "messageErrorLoadPage": "Errores temporales, intente mas tarde.",
+    "loading": "Cargando.",
+    "messageWithoutFunds": "El bolsillo no tiene fondos, recargalo o selecciona otro.",
+    "tuitiosText": "matrícula",
+    "durationText": "duración",
+    "monthsText": "meses",
+    "totalEarningsText": "total ganancias",
+    "buttonNextText": "siguiente",
+    "higherValueErrorMessage": "El valor ingresado no puede ser superior al balance del bolsillo."
+  },
+  "VAULT_CREATED": {
+    "quantityText": "cantidad",
+    "buttonAccept": "aceptar",
+    "termsConditionsTextOne": "Cuando haces clic en \"Siguiente\", aceptas",
+    "termsConditionsTextTwo": "Términos de servicio - políticas y privacidad",
+    "modalMessageSuccessText": "Tu nueva bóveda fue añadida con éxito.",
+    "modalMessageErrorText": "Error durante la creación de la bóveda. Intente nuevamente.",
+    "messageCreatinVault": "Creando bóveda"
   }
 }

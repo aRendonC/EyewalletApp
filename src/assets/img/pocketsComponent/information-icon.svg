@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24.265" height="24.265" viewBox="0 0 24.265 24.265">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="24.265" height="24.265" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4daaff"/>
+      <stop offset="0.217" stop-color="#5584ff"/>
+      <stop offset="1" stop-color="#7300ff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" y1="0" x2="0.5" y2="1" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="0.5" y1="0" x2="0.5" y2="1" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Grupo_2139" data-name="Grupo 2139" transform="translate(0.056 0.049)">
+    <g id="Símbolo_26_5" data-name="Símbolo 26 – 5" transform="translate(-0.056 -0.049)" clip-path="url(#clip-path)">
+      <g id="Grupo_158" data-name="Grupo 158">
+        <path id="Trazado_102" data-name="Trazado 102" d="M30.059,102.3A12.133,12.133,0,1,1,42.191,90.163,12.147,12.147,0,0,1,30.059,102.3Zm0-22.818A10.686,10.686,0,1,0,40.744,90.163,10.7,10.7,0,0,0,30.059,79.477Z" transform="translate(-17.926 -78.03)" fill="url(#linear-gradient)"/>
+      </g>
+      <g id="Grupo_161" data-name="Grupo 161" transform="translate(11.157 5.637)">
+        <g id="Grupo_159" data-name="Grupo 159" transform="translate(0.253 3.466)">
+          <path id="Trazado_103" data-name="Trazado 103" d="M50.185,112.717a.724.724,0,0,1-.724-.724v-8.077a.724.724,0,1,1,1.447,0v8.077A.724.724,0,0,1,50.185,112.717Z" transform="translate(-49.461 -103.192)" fill="url(#linear-gradient-2)"/>
+        </g>
+        <g id="Grupo_160" data-name="Grupo 160">
+          <path id="Trazado_104" data-name="Trazado 104" d="M49.739,95.563a.976.976,0,1,1,.976-.976A.977.977,0,0,1,49.739,95.563Zm0-1.447a.471.471,0,1,0,.471.471A.472.472,0,0,0,49.739,94.116Z" transform="translate(-48.763 -93.611)" fill="url(#linear-gradient-3)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
