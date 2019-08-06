@@ -13,6 +13,7 @@ import {TouchLoginService} from "../services/fingerprint/touch-login.service";
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
+
 export class TabsPage {
   public currentRoute: any = 'dashboard';
   ctrlCssBlur: boolean = false;
@@ -24,6 +25,7 @@ export class TabsPage {
     'profile': 'profile',
     'request-credit-card': 'request-credit-card'
   };
+  
   constructor(
     private auth: AuthService,
     private loadControl: LoadingService,

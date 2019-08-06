@@ -158,4 +158,8 @@ export class PocketComponent implements OnInit {
   public clickButtonLeftSeis(): void {
     this.router.navigate(['/app/tabs/vault-list']);
   }
+
+  public clickButtonLeftSeven(): void {
+    this.router.navigate(['/app/tabs/vault'])
+  }
 }

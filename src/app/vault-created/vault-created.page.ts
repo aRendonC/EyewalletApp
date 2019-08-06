@@ -40,7 +40,7 @@ export class VaultCreatedPage implements OnInit {
     private aesJsService: AesJsService,
     private dataLocalService: DataLocalService
   ) {
-    this.ctrlNavigation = 6;
+    this.ctrlNavigation = 7;
     this.buttonDisabled = false;
     this.USDtext = CONSTANTS.VAULT.USD;
   }

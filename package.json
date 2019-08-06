@@ -28,6 +28,7 @@
     "@ionic-native/device": "^5.8.0",
     "@ionic-native/fingerprint-aio": "^5.8.0",
     "@ionic-native/geolocation": "^5.10.0",
+    "@ionic-native/keyboard": "^5.11.0",
     "@ionic-native/location-accuracy": "^5.10.0",
     "@ionic-native/native-page-transitions": "^5.8.0",
     "@ionic-native/qr-scanner": "^5.9.0",

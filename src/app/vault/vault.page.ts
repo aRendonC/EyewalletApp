@@ -79,8 +79,6 @@ export class VaultPage implements OnInit {
 
   public async ionViewDidEnter(): Promise<any> {
     this.pockets = await this.getPockets();
-    const elementDashboard: any = document.getElementsByTagName('app-vault');
-    elementDashboard[0].classList.add("margins-dashboard");
     await this.getCurrentCurrency(this.pocketDefaultSelected.currency.shortName);
     this.resetAssingnValues();
     this.validateVaultsCreated();

@@ -135,6 +135,26 @@
       
     </ion-col>
   </ion-row>
+
+  <ion-row *ngIf="ctrlNavigation === 7" class="content-pocket-component">
+    <ion-col size="4" class="content-icon-text-dad">
+      <div class="button-left-right button-left" (click)="clickButtonLeftSeven()">
+        <ion-label class="text-button-left-right" text-capitalize>bóvedas</ion-label>
+        <img class="image-icon-big" src="../../assets/img/pocketsComponent/return-vaults-icon.svg"/>
+      </div>
+    </ion-col>
+
+    <ion-col size="4" class="content-icon-text-dad">
+      <div class="content-icon-text">
+        <img src="../../../assets/img/tabs/tab-vault.svg" class="title-icon-text"/>
+        <ion-label class="title-text-icon text-color-white" text-capitalize>nueva bóveda</ion-label>
+      </div>
+    </ion-col>
+
+    <ion-col  size="4" class="content-icon-text-dad">
+      
+    </ion-col>
+  </ion-row>
   
 </ion-grid>
   <div *ngIf="ctrlNavigation === 1" class="margin-pocket-component" >
