@@ -1,86 +1,87 @@
-<ion-tabs [class.blur]="ctrlCssBlur"   (ionTabsWillChange)="getActiveRoute()" class="background bgdashboard1">
-  <div class="tabs">
-    <ion-tab-button
-        class="tab-btn"
-        [tab]="tabs.prices"
-    >
-        <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs.prices">
-            <img
-                [class.img-icon-tabs-selected]="currentRoute === tabs.prices"
-                class="img-icon-tabs"
-                src="../../assets/img/tabs/tab-prices.svg"
-            />
-        </div>
-    </ion-tab-button>
-	<ion-tab-button
-	mode="ios"
-	class="tab-btn"
-	[tab]="tabs.exchange">
-<div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs['exchange']|| currentRoute === tabs['history-exchange']">
-	<img
-			[class.img-icon-tabs-selected]="currentRoute === tabs['exchange'] || currentRoute === tabs['history-exchange']"
-			class="img-icon-tabs"
-			src="../../assets/img/tabs/exchange-icon.svg"/>
-</div>
-</ion-tab-button>
-    <ion-tab-button
-        mode="ios"
-        class="tab-btn"
-        [tab]="tabs.vault"
-        (click)="navigateVault()"
-    >
-        <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs.vault">
-            <img
-                [class.img-icon-tabs-selected]="currentRoute === tabs.vault"
-                class="img-icon-tabs"
-                src="../../assets/img/tabs/tab-vault.svg"
-            />
-        </div>
-    </ion-tab-button>
-
-    <ion-tab-button
-        mode="ios"
-        class="tab-btn"
-        [tab]="tabs.dashboard"
-    >
-        <div class="tab center-horizontal" [class.selected-tab]="currentRoute === tabs.dashboard">
-            <img
-                [class.img-icon-tabs-selected]="currentRoute === tabs.dashboard"
-                class="img-icon-tabs"
-                src="../../assets/img/tabs/tab-wallet.svg"
-            />
-        </div>
-    </ion-tab-button>
-
-    <ion-tab-button
-        mode="ios"
-        class="tab-btn"
-        (click)="requestCreditCard()"
-    >
-        <div
-            class="tab center-horizontal" 
-            [class.selected-tab]="currentRoute === tabs['card-invoice'] || currentRoute === tabs['request-credit-card']"
+<ion-tabs [class.blur]="ctrlCssBlur" (ionTabsWillChange)="getActiveRoute()" class="background bgdashboard1">
+    <div class="tabs">
+        <ion-tab-button
+                class="tab-btn"
+                [tab]="tabs.prices"
         >
-            <img
-                [class.img-icon-tabs-selected]="currentRoute === tabs['card-invoice'] || currentRoute === tabs['request-credit-card']"
-                class="img-icon-tabs"
-                src="../../assets/img/tabs/tab-card.svg"
-            />
-        </div>
-    </ion-tab-button>
+            <div class="tab center-horizontal" [class.selected-tab]="currentRoute === tabs.prices">
+                <img
+                        [class.img-icon-tabs-selected]="currentRoute === tabs.prices"
+                        class="img-icon-tabs"
+                        src="../../assets/img/tabs/tab-prices.svg"
+                />
+            </div>
+        </ion-tab-button>
+        <ion-tab-button
+                mode="ios"
+                class="tab-btn"
+                (click)="goToExchange()">
+            <div class="tab center-horizontal"
+                 [class.selected-tab]="currentRoute === tabs['exchange']|| currentRoute === tabs['history-exchange']">
+                <img
+                        [class.img-icon-tabs-selected]="currentRoute === tabs['exchange'] || currentRoute === tabs['history-exchange']"
+                        class="img-icon-tabs"
+                        src="../../assets/img/tabs/exchange-icon.svg"/>
+            </div>
+        </ion-tab-button>
+        <ion-tab-button
+                mode="ios"
+                class="tab-btn"
+                [tab]="tabs.vault"
+                (click)="navigateVault()"
+        >
+            <div class="tab center-horizontal" [class.selected-tab]="currentRoute === tabs.vault">
+                <img
+                        [class.img-icon-tabs-selected]="currentRoute === tabs.vault"
+                        class="img-icon-tabs"
+                        src="../../assets/img/tabs/tab-vault.svg"
+                />
+            </div>
+        </ion-tab-button>
 
-    <ion-tab-button
-        mode="ios"
-        class="tab-btn"
-        (click)="goToProfile()"
-    >
-        <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs.profile">
-            <img
-                [class.img-icon-tabs-selected]="currentRoute === tabs.profile"
-                class="img-icon-tabs"
-                src="../../assets/img/tabs/tab-profile.svg"
-            />
-        </div>
-    </ion-tab-button>
-  </div>
+        <ion-tab-button
+                mode="ios"
+                class="tab-btn"
+                [tab]="tabs.dashboard"
+        >
+            <div class="tab center-horizontal" [class.selected-tab]="currentRoute === tabs.dashboard">
+                <img
+                        [class.img-icon-tabs-selected]="currentRoute === tabs.dashboard"
+                        class="img-icon-tabs"
+                        src="../../assets/img/tabs/tab-wallet.svg"
+                />
+            </div>
+        </ion-tab-button>
+
+        <ion-tab-button
+                mode="ios"
+                class="tab-btn"
+                (click)="requestCreditCard()"
+        >
+            <div
+                    class="tab center-horizontal"
+                    [class.selected-tab]="currentRoute === tabs['card-invoice'] || currentRoute === tabs['request-credit-card']"
+            >
+                <img
+                        [class.img-icon-tabs-selected]="currentRoute === tabs['card-invoice'] || currentRoute === tabs['request-credit-card']"
+                        class="img-icon-tabs"
+                        src="../../assets/img/tabs/tab-card.svg"
+                />
+            </div>
+        </ion-tab-button>
+
+        <ion-tab-button
+                mode="ios"
+                class="tab-btn"
+                (click)="goToProfile()"
+        >
+            <div class="tab center-horizontal" [class.selected-tab]="currentRoute === tabs.profile">
+                <img
+                        [class.img-icon-tabs-selected]="currentRoute === tabs.profile"
+                        class="img-icon-tabs"
+                        src="../../assets/img/tabs/tab-profile.svg"
+                />
+            </div>
+        </ion-tab-button>
+    </div>
 </ion-tabs>

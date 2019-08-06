@@ -57,7 +57,7 @@ export class ListPocketsPage implements OnInit {
         let profile = await this.store.getDataLocal('profile');
         this.params.userId = profile.id;
         let response = await this.http.post('user-wallet/create', this.params, this.auth);
-        console.log(response)
+        console.log('los poackets cuando creo uno nuevo',response)
         if(response.status === 200) {
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
