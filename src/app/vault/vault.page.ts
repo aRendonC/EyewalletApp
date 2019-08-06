@@ -37,6 +37,7 @@ export class VaultPage implements OnInit {
   public USD: any;
   public dataProfile: any;
   public priority: string;
+  public listVaultLength: boolean;
 
   public constructor(
     private dataLocal: DataLocalService,
@@ -64,6 +65,7 @@ export class VaultPage implements OnInit {
     this.USDGain = 0;
     this.USD = CONSTANTS.VAULT.USD;
     this.priority = 'low';
+    this.listVaultLength = false;
   }
 
   public async ngOnInit(): Promise<any> {
@@ -81,6 +83,7 @@ export class VaultPage implements OnInit {
     elementDashboard[0].classList.add("margins-dashboard");
     await this.getCurrentCurrency(this.pocketDefaultSelected.currency.shortName);
     this.resetAssingnValues();
+    this.validateVaultsCreated();
   }
 
   private setDataSelectPockets(): void {
@@ -257,5 +260,19 @@ export class VaultPage implements OnInit {
     this.currencyGain = 0;
     this.USDGain = 0;
     this.buttonDisabled = true;
+  }
+
+  private async validateVaultsCreated(): Promise<any> {
+    this.axiosService.get('vault/index', this.authService)
+    .then(async (response: any) => {
+      if (response.vault.length > 0) {
+        this.listVaultLength = true;
+      } else {
+        this.listVaultLength = false;
+      }
+    })
+    .catch(async error => {
+      console.error(error);
+    });
   }
 }
