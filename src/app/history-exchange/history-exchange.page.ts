@@ -17,7 +17,7 @@ interface onEnter {
     styleUrls: ['./history-exchange.page.scss'],
 })
 export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
-    ctrlNavigation: any = 6;
+    ctrlNavigation: any = 8;
     public detailHistory: any;
     public ctrlAccessDetailHistory = 0;
     public ctrlTagsHtml = false;
@@ -43,58 +43,15 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
         private router: Router,
         private loadingCtrl: LoadingService
     ) {
-        this.router.events.pipe(
-            filter(event => event instanceof NavigationStart)
-        ).subscribe(async (route: NavigationStart) => {
-            console.log(route);
-            if (route.url === '/app/tabs/history-exchange') await this.getHistoryExChange()
-        });
+
 
     }
 
+    public async ionViewDidEnter(): Promise<any> {
+        await this.getHistoryExChange()
+    }
     async ngOnInit() {
         await this.createSelectCrypto();
-        await this.getHistoryExChange()
-        // await this.getHistoryExChange();
-        // this.statusSelected = this.statusExchange[2].text;
-        // this.historyExChange = [
-        //     {
-        //         pocket: 'Pocket 1',
-        //         exchange: 'Exchange',
-        //         FROM: 'BTC',
-        //         fromValue: 0.115,
-        //         TO: 'ETH',
-        //         toValue: 3.258,
-        //         status: 0
-        //     },
-        //     {
-        //         pocket: 'Pocket 2',
-        //         exchange: 'Exchange',
-        //         FROM: 'BTC',
-        //         fromValue: 0.235,
-        //         TO: 'ETH',
-        //         toValue: 58.258,
-        //         status: 1
-        //     },
-        //     {
-        //         pocket: 'Pocket 3',
-        //         exchange: 'Exchange',
-        //         FROM: 'ETH',
-        //         fromValue: 1.15,
-        //         TO: 'BTC',
-        //         toValue: 14.258,
-        //         status: 2
-        //     },
-        //     {
-        //         pocket: 'Pocket 4',
-        //         exchange: 'Exchange',
-        //         FROM: 'LTC',
-        //         fromValue: 1442.15,
-        //         TO: 'BTC',
-        //         toValue: 14.258,
-        //         status: 2
-        //     }
-        // ];
     }
 
     async getHistoryExChange() {

@@ -23,7 +23,6 @@
     <preference name="orientation" value="portrait" />
     <preference name="Fullscreen" value="false" />
     <preference name="android-windowSoftInputMode" value="adjustResize|adjustPan" />
-    <preference name="KeyboardResizeMode" value="native" />
     <platform name="android">
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />

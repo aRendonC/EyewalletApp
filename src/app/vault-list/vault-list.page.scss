@@ -16,7 +16,7 @@
 
       .select-currency {
          font-family: $font-roboto-regular;
-         font-size: 31px;
+         font-size: 26px;
          color: white;
          width: 80px;
          margin: 10px auto 0 auto;
@@ -74,55 +74,55 @@
 
             .content-info-vault-sliding {
                @extend .center-space-between;
-               padding: 20px;
+               padding: 20px 0;
                width: 100%;
 
                .content-component-info-coin {
                   width: 25%;
                   @extend .all-center-colum;
-      
+
                   .icon-coin {
                      width: 40px;
                   }
-      
+
                   .text-type-coin {
                      font-family: $font-openSans-bold;
                      font-size: 12px;
                      color: #272759;
                      margin: 0 0 8px 0;
                   }
-      
+
                   .text-investment-usd {
                      font-family: $font-roboto-bold;
                      font-size: 9px;
                      color: #93B5E5;
                   }
-      
+
                   .content-icon-value-investment-usd {
                      @extend .all-center;
                      margin: 0 0 8px 0;
-      
+
                      .icon-add-little {
                         width: 6px;
                         margin: 0 4px 0 0;
                      }
-      
+
                      .value-investment-usd {
                         font-family: $font-openSans-bold;
                         font-size: 12px;
                         color: #272759;
                      }
                   }
-      
+
                   .content-performance-percentage {
                      @extend .all-center;
-      
+
                      .performance-percentage-text {
                         font-family: $font-openSans-bold;
                         font-size: 9px;
                         color: #5496FF;
                      }
-      
+
                      .performance-percentage-icon {
                         margin: 0 0 0 4px;
                      }

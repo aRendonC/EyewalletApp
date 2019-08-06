@@ -66,7 +66,8 @@ export class DashboardPage implements OnInit {
         await this.getListTransactions();
     }
 
-    ionViewDidEnter() {
+    public ionViewDidEnter() {
+        console.log('siempre entra al ionViewDidEnter')
         let elementDashboard: any = document.getElementsByTagName('app-dashboard');
         elementDashboard[0].classList.add("margins-dashboard")
     }

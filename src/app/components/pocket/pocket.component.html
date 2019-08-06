@@ -134,7 +134,7 @@
     </ion-col>
 
     <ion-col  size="4" class="content-icon-text-dad">
-      
+
     </ion-col>
   </ion-row>
 
@@ -154,10 +154,27 @@
     </ion-col>
 
     <ion-col  size="4" class="content-icon-text-dad">
-      
+
     </ion-col>
   </ion-row>
-  
+  <ion-row style="padding: 0" *ngIf="ctrlNavigation === 8" class="z-pocket">
+    <ion-col style="padding: 0" size="3" (click)="goHistoryExchange()">
+      <div class="qualify-button center-horizontal center-vertical center bounceInRight">
+        <ion-label class="text-qualify">
+          {{'POCKET_COMPONENT.History'| translate}}
+        </ion-label>
+        <img  class="image-qualify " src="../../../assets/img/tabs/history-icon.svg"/>
+      </div>
+      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
+    </ion-col>
+    <ion-col style="margin-top: 0 !important; padding: 0" size="6" class="center-vertical center center-horizontal" >
+      <div  class="center-vertical center center-horizontal">
+        <img  src="../../../assets/img/tabs/exchange-icon.svg"/>
+        &nbsp;
+        <ion-label style="color: white"> Exchange</ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
 </ion-grid>
   <div *ngIf="ctrlNavigation === 1" class="margin-pocket-component" >
     <ion-grid style="padding: 0 0 0 0">

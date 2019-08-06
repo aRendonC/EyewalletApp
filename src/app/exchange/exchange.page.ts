@@ -18,7 +18,7 @@ export class ExchangePage implements OnInit {
     public inputFrom: any = '';
     public inputTo: any = '';
     public pockets: any = '';
-    public ctrlNavigation = 6;
+    public ctrlNavigation = 8;
     public selectCryptoFrom = [];
     public selectCryptoTo: any = [];
     public usdAmount = 0.00;

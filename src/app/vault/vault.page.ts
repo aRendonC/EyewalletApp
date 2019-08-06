@@ -41,7 +41,6 @@ export class VaultPage implements OnInit {
 
   public constructor(
     private dataLocal: DataLocalService,
-    private aesjs: AesJsService,
     private translateService: TranslateService,
     private axiosService: AxiosService,
     private authService: AuthService,
@@ -101,8 +100,7 @@ export class VaultPage implements OnInit {
   }
 
   private async getPockets(): Promise<any> {
-    const pocketsEncrypt = await this.dataLocal.getDataLocal('pockets');
-    return await this.aesjs.decrypt(pocketsEncrypt);
+    return await this.dataLocal.getDataLocal('pockets');
   }
 
   public handlerPocketSelected() {
@@ -246,8 +244,7 @@ export class VaultPage implements OnInit {
   }
 
   private async getDataProfile(): Promise<any> {
-    const dataProfile = await this.dataLocal.getDataLocal('profile');
-    return await this.aesjs.decrypt(dataProfile);
+    return await this.dataLocal.getDataLocal('profile');
   }
 
   private resetAssingnValues(): void {

@@ -37,7 +37,6 @@ export class VaultCreatedPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private toastService: ToastService,
-    private aesJsService: AesJsService,
     private dataLocalService: DataLocalService
   ) {
     this.ctrlNavigation = 7;
@@ -95,8 +94,7 @@ export class VaultCreatedPage implements OnInit {
   }
 
   private async setDataLocalPockets(pockets: any[]): Promise<any> {
-    const pocketsEncrypt: any = this.aesJsService.encrypt(pockets);
-    this.dataLocalService.setDataLocal(CONSTANTS.KEYS_DATA_LOCAL.POCKETS, pocketsEncrypt);
+    this.dataLocalService.setDataLocal(CONSTANTS.KEYS_DATA_LOCAL.POCKETS, pockets);
   }
 
   private errorResponseQueries(): void {

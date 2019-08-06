@@ -28,7 +28,7 @@ export class CameraProvider {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.PNG,
       mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation: true,
+      correctOrientation: false,
       allowEdit: false,
       targetWidth: 250,
       targetHeight: 250,
