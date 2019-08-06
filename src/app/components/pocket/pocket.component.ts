@@ -48,13 +48,17 @@ export class PocketComponent implements OnInit {
     this.showVaultList = false;
   }
 
-   async ngOnInit() {
+  async ngOnInit() { }
+
+  public async ionViewDidEnter(): Promise<any> {
     await this.getPocketStore();
     await this.validateVaultsCreated();
-   }
+  }
+
   async getPocketStore() {
     if(!this.pocket )this.aesjs.decrypt(await this.store.get('selected-pocket'));
   }
+
   async openPocketsModal() {
     await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
     this.pockets = await this.http.post('user-wallet/index', {currencyId: this.pocket.currencyId}, this.auth);
