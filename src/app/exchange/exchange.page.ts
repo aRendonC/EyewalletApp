@@ -370,7 +370,8 @@ export class ExchangePage implements OnInit {
         let body = {
             userId: this.selectedPocketFrom.userId,
             type: 0,
-            address: this.selectedPocketFrom.address
+            address: this.selectedPocketFrom.address,
+            currencyShortName: this.selectedPocketFrom.currency.shortName
         };
         console.log(body)
         return await this.http.post('transaction/index', body, this.auth);

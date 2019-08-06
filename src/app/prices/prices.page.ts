@@ -67,7 +67,6 @@ export class PricesPage implements OnInit {
         let cryptos = [];
         this.cardPrices = this.cryptoPrices24h;
         this.cardPrices.forEach(crypto => {
-            console.log(crypto)
             if (crypto.cryptoCodes === 'BTC' || crypto.cryptoCodes === 'ETH' ||
                 crypto.cryptoCodes === 'BCH' || crypto.cryptoCodes === 'LTC' ||
                 crypto.cryptoCodes === 'XMR' || crypto.cryptoCodes === 'ZEC') {

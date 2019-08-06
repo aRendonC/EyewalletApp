@@ -36,7 +36,8 @@ export class DashboardPage implements OnInit {
         limit: null
     };
     public crypto: any = [{
-        graphic: ''
+        graphic: '',
+        pocket: ''
     }];
 
     constructor(
@@ -83,17 +84,20 @@ export class DashboardPage implements OnInit {
         this.crypto.forEach(crypto => {
             crypto.graphic = [];
             crypto.value = data.pocket.balance;
+
             crypto.valueUsd = data.btc.toFixed(8);
             if (data.data[0]) {
                 data.data.forEach(elementGraphic => {
-                    crypto.graphic.push(parseFloat(elementGraphic.balance_after));
+                    crypto.graphic.unshift(parseFloat(elementGraphic.balance_after));
                 });
             } else {
                 crypto.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             }
         });
-        this.crypto.value = data.pocket.balance
-        this.crypto.valueUsd = data.btc
+        console.log('sacar la adres de aca', data.pocket);
+        this.crypto.value = data.pocket.balance;
+        this.crypto.valueUsd = data.btc;
+        this.crypto.pocketName = data.pocket.label;
         this.crypto.shortName = data.pocket.currency.shortName;
         this.crypto.amountPending = data.amountPending;
         await this.getTransactionHistory(data);
@@ -146,7 +150,7 @@ export class DashboardPage implements OnInit {
         this.crypto = [];
         await this.loadingController.present({text: 'Recopilando información', cssClass: 'textLoadingBlack'});
         this.ctrlCssBlur = true;
-        console.log(this.pockets)
+        console.log(this.pockets);
         let params = {
             userId: this.profile.userId,
             type: 0,
@@ -186,10 +190,11 @@ export class DashboardPage implements OnInit {
                 }
             });
             dataTransaction.forEach(transactions => {
-                this.crypto[0].graphic.push(transactions.balance_after)
+                this.crypto[0].graphic.unshift(transactions.balance_after)
             });
-            this.crypto.value = this.pockets[0].balance
-            this.crypto.valueUsd = this.pockets[0].valueUsd
+            console.log('sacar la adres de aca', this.pockets[0]);
+            this.crypto.value = this.pockets[0].balance;
+            this.crypto.valueUsd = this.pockets[0].valueUsd;
             this.crypto.shortName = this.pockets[0].currency.shortName;
             this.crypto.amountPending = response.amountPending;
 
@@ -203,12 +208,13 @@ export class DashboardPage implements OnInit {
                     pocketName: pocket.label,
                     currencyId: pocket.currencyId,
                     shortName: pocket.currency.shortName,
+
                     graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 });
             });
-            this.crypto.value = this.pockets[0].balance
-            this.crypto.valueUsd = this.pockets[0].valueUsd
-            this.crypto.shortName = this.pockets[0].currency.shortName;
+            console.log('sacar la adres de aca', this.pockets[0]);
+            this.crypto.value = this.pockets[0].balance;
+            this.crypto.valueUsd = this.pockets[0].valueUsd;
             this.crypto.shortName = this.pockets[0].currency.shortName;
             this.crypto.amountPending = response.amountPending;
         }
@@ -232,6 +238,7 @@ export class DashboardPage implements OnInit {
         };
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         console.log('pocket cuando cambio el slider', this.pocket);
+        this.storage.setDataLocal('selected-pocket', this.pocket);
         if (dataResponse.status === 200) {
             dataResponse.pocket = this.pocket;
             await this.getDataPocket(dataResponse)
@@ -242,5 +249,12 @@ export class DashboardPage implements OnInit {
 
     private getUserId(): any {
         return this.storage.getDataLocal('profile');
+    }
+
+    async refreshTransactions(dataTransaction): Promise<any> {
+        console.log(dataTransaction);
+        await this.loadingController.dismiss();
+        await this.getDataPocket(dataTransaction)
+
     }
 }

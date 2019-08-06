@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {ListPocketsPage} from './list-pockets.page';
 import {TranslateModule} from "@ngx-translate/core";
+import {ComponentsModule} from "../components/components.module";
 
 const routes: Routes = [
     {
@@ -22,7 +23,8 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
-        TranslateModule
+        TranslateModule,
+        ComponentsModule
     ],
 
 })

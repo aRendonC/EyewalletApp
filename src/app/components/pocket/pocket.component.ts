@@ -69,6 +69,8 @@ export class PocketComponent implements OnInit {
           address: this.pocket.address,
           currencyShortName: this.pocket.currency.shortName
         };
+        console.log(pocket)
+        this.store.setDataLocal('selected-pocket', this.pocket)
         await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         if(dataResponse.status === 200) {

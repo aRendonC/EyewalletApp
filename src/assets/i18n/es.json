@@ -73,7 +73,42 @@
     "Medium": "Media",
     "Low": "Baja"
   },
+  "VERIFICATION_MODAL_PAGE": {
+    "VerifySecondFactor": "Verifica tu segundo factor para poder",
+    "CompleteProfile": "completra tu perfil y lograr utilizar la wallet en todas sus aplicaciones.",
+    "StartNow": "Comenzar ahora",
+    "StartLatter": "Chequear Luego",
+    "VerifyTwoSteps": "Verificar en 2 pasos",
+    "GrantAccessYourWallet": "Habilita el acceso autorizado a tu billetera.",
+    "UpgradeSecurity": "Con solo 2 pasos puede aumentar la seguridad de tu billetera.",
+    "Enable": "Habilitar",
+    "AvoidUnauthorizedAccess": "Evite el acceso no autorizado a su billetera.",
+    "EnableStepsVerify": "Habilite la verificación de dos pasos para acutalizar la seguridad en su billetera",
+    "EnableAuthorizationRequest": "Puede usar su teléfono móvil para habilitar la autenticación de dos pasos o para recibir alertas",
+    "InputVerificationCode": "Ingresa su código de verificación"
+  },
+  "UPLOAD_VERIFICATION_FILES": {
+    "LetsVerify": "¡Vamos a verificar!"
+  },
+  "UPLOAD_FILES_MODAL": {
+    "CreatePhoto": "Haz un retrato",
+    "MakeSureYourFacePhoto": "Asegúrate de que tu cara sea claramente visible.",
+    "TakePhotoYourPassport": "Tomar una foto de tu Pasaporte, con bordes y sin reflejo/brillo.",
+    "MakeSureYourDocumentVisible": "Asegúrese de que su documento sea legible.",
+    "DocumentWhitPhoto": "Documento de identidad con retrato",
+    "MakeSureYourFaceAndDocumentVisible": "Asegúrate de que tu cara y documento sea claramente visible.",
+    "DocumentHome": "Tarjeta de residencia",
+    "DriverLicense": "Permiso de conducir",
+    "TakePhotoBackDocument": "Toma una foto de la parta trasera de tu documento",
+    "PublicServicesDocuments": "Documento de servicios públicos",
+    "MakeSureYouDirection": "Asegura que tu dirección sea legible"
+  },
   "GENERAL": {
+    "Continue": "Continuar",
+    "ResendCode": "Reenviar Código",
+    "Verify": "Verificar",
+    "SendSMS": "Enviar SMS",
+    "PhoneNumber": "Número Celular",
     "Country": "País",
     "City": "Ciudad",
     "PostalCode": "Código postal",

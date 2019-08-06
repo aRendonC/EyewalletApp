@@ -2,7 +2,7 @@
   <app-return-page [path]="'/app/tabs/dashboard'"></app-return-page>
   <div class="grid">
     <!-- Titulo de la sección -->
-  <p class="lets">¡Vamos a verificar!</p>
+  <p class="lets">{{'UPLOAD_VERIFICATION_FILES.LetsVerify'| translate}}</p>
 
   <!-- Validaciones -->
   <div class="box">
@@ -14,12 +14,12 @@
   </div>
 
   <!-- Términos y Condiciones -->
-  <div class="terms-bg">Al crear tu billetera, aceptas los siguientes terminos
+  <div class="terms-bg">{{'GENERAL.ConfirmTerms'| translate}}
     <span>
-      <a  class="anchor-terms" href="https://eyewallet.com/">Términos de servicio</a>
+      <a  class="anchor-terms" href="https://eyewallet.com/">{{'GENERAL.TermsOfService'| translate}}</a>
     </span>
     & <span>
-        <a  class="anchor-terms" href="https://eyewallet.com/">Política y privacidad</a>
+        <a  class="anchor-terms" href="https://eyewallet.com/">{{'GENERAL.PrivacyPolicy'| translate}}</a>
     </span>
   </div>
 

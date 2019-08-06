@@ -1,5 +1,15 @@
 <ion-content class="backGroundGradient ion-text-center" *ngIf="ctrlCreatePocket">
-  <h5>Pockets</h5>
+  <ion-grid style="margin-top: 20px;">
+    <ion-row>
+      <ion-col class="center center-vertical center-horizontal" size="2">
+        <img src="../../assets/icon/icon-return-page.svg" alt="Regresar" (click)="closeModal(null)"
+             class="button-return"/>
+      </ion-col>
+      <ion-col class="center center-vertical center-horizontal" size="8">
+        <h5>Pockets</h5>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
     <ion-grid class="ion-text-center">
       <ion-row justify-content-center>
         <ion-col (click)="closeModal(pocket)" style="--border-bottom-color: white" size="10" *ngFor="let pocket of pockets">
@@ -18,6 +28,9 @@
     </ion-grid>
 </ion-content>
 <ion-content class="backGroundGradient"  *ngIf="!ctrlCreatePocket" [class.blur]="ctrlCssBlur">
+
+  <img style="top: 30px; position: absolute; left: 20px" src="../../assets/icon/icon-return-page.svg" alt="Regresar" (click)="closeModal(null)"
+       class="button-return"/>
   <div class="move-logo" style="margin-left: 0">
     <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
     <div class="center">

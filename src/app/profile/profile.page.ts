@@ -27,7 +27,7 @@ export class ProfilePage implements OnInit {
     selectedLanguage = '';
     public type: string = 'avatar';
     urlAvatar = environment.urlAvatar;
-    avatar: any = '';
+    avatar: any = '../../assets/images/profilePage/nophoto.png';
     profileShow: any = {
         fullName: '',
         id: '',
@@ -66,6 +66,7 @@ export class ProfilePage implements OnInit {
     async ngOnInit() {
         this.languages = this.languageService.getLanguages();
         console.log(this.languages)
+        console.log(this.languageService.selected)
         this.selectedLanguage = this.languageService.selected;
         console.log('lenguage seleccionado', this.selectedLanguage)
         this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));

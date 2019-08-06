@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
-import {IonSlides, ModalController} from '@ionic/angular';
+import {IonInfiniteScroll, IonSlides, ModalController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
 import {enterAnimation} from '../../animations/enter';
 import {leaveAnimation} from '../../animations/leave';
@@ -10,6 +10,7 @@ import {AuthService} from "../../services/auth/auth.service";
 import {filter} from "rxjs/operators";
 import {ToastService} from "../../services/toast/toast.service";
 import {DataLocalService} from "../../services/data-local/data-local.service";
+import {LoadingService} from "../../services/loading/loading.service";
 
 
 @Component({
@@ -25,8 +26,10 @@ export class SlidersComponent implements OnInit {
     public profile: any = null;
     @Input() transactions: any;
     @Output() changeCryptoPocket = new EventEmitter<[]>();
+    @Output() emitterTransactionRefresh = new EventEmitter<[]>();
     @ViewChild('sliderHeader') sliderHeader: IonSlides;
     @ViewChild('sliderContent') sliderContent: IonSlides;
+    @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
     slideOptsName = {
         spaceBetween: 1,
         initialSlide: 0,
@@ -52,7 +55,8 @@ export class SlidersComponent implements OnInit {
         private router: Router,
         private http: AxiosService,
         private auth: AuthService,
-        private toastCtrl: ToastService
+        private toastCtrl: ToastService,
+        private loadingCtrl: LoadingService
     ) {
         this.router.events.pipe(
             filter(event => event instanceof NavigationStart)
@@ -83,19 +87,20 @@ export class SlidersComponent implements OnInit {
     }
 
     public async grafica() {
+        console.log(this.name);
         this.labelGrapich = [];
 
-        if(this.dataGraphic.graphic.length === 1){
-            for (let i = 0; i <= 11; i++) {
-                this.dataGraphic.graphic.push(0)
+        if (this.dataGraphic.graphic.length === 1) {
+            for (let i = 0; i <= 1; i++) {
+                this.dataGraphic.graphic.unshift(0);
                 this.labelGrapich.push('')
             }
-        }else {
+        } else {
             for (let i = 0; i <= this.dataGraphic.graphic.length - 1; i++) {
                 this.labelGrapich.push('')
             }
         }
-        console.log(this.dataGraphic.graphic )
+        console.log(this.dataGraphic.graphic);
         const ctx = this.lineCanvas.nativeElement.getContext('2d');
         const gradientStroke = ctx.createLinearGradient(154.000, 0.000, 146.000, 300.000);
         gradientStroke.addColorStop(0.006, 'rgba(21, 233, 233, 1.000)');
@@ -144,11 +149,15 @@ export class SlidersComponent implements OnInit {
                             minRotation: 90
                         }
                     }]
-                }, animation: {
+                },
+
+                animation: {
                     duration: 800,
                 },
                 hover: {
-                    animationDuration: 1000
+                    animationDuration: 1000,
+                    mode: 'index',
+                    intersect: false
                 },
                 responsiveAnimationDuration: 1000
             }
@@ -182,7 +191,41 @@ export class SlidersComponent implements OnInit {
     async changeSliderContent(sliderHeader) {
         let activeIndexHeader = await sliderHeader.getActiveIndex();
         await this.sliderContent.slideTo(activeIndexHeader, 200);
+        await this.sliderContent.lockSwipes(true);
+        await this.sliderHeader.lockSwipes( true);
         await this.toastCtrl.presentToast({text: 'Sus datos se están cargando, por favor espere', duration: 1000});
         this.changeCryptoPocket.emit(this.name[activeIndexHeader]);
+        setTimeout(async () => {
+            await this.sliderContent.lockSwipes(false);
+            await this.sliderHeader.lockSwipes(false);
+        }, 1000)
+    }
+
+
+    loadData(event) {
+        event.target.complete();
+    }
+
+    async refreshTransactions(pocketSelected): Promise<any> {
+        console.log(pocketSelected);
+        await this.loadingCtrl.present({text: 'Cargando datos', cssClass: 'textLoadingBlack'});
+        let pocket = await this.store.getDataLocal('selected-pocket');
+        console.log(pocket);
+        let body = {
+            userId: pocket.userId,
+            type: 0,
+            address: pocket.address,
+            currencyShortName: pocket.currency.shortName
+        };
+        let dataResponse = await this.http.post('transaction/index', body, this.auth);
+        if(dataResponse.status === 200) {
+            dataResponse.pocket = pocket;
+            this.emitterTransactionRefresh.emit(dataResponse)
+        } else {
+            await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+        }
+        // let selectedPocket = pockets.find(pocket => pocket.label === pocketSelected.pocketName);
+        // console.log(selectedPocket)
+        // console.log(await this.store.getDataLocal('selected-pocket'))
     }
 }

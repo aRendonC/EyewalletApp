@@ -1,5 +1,15 @@
 <ion-tabs [class.blur]="ctrlCssBlur"   (ionTabsWillChange)="getActiveRoute()" class="background bgdashboard1">
   <div class="tabs">
+        <ion-tab-button
+                class="tab-btn"
+                [tab]="tabs.prices">
+            <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs.prices">
+                <img
+                        [class.img-icon-tabs-selected]="currentRoute === tabs.prices"
+                        class="img-icon-tabs"
+                        src="../../assets/img/tabs/tab-prices.svg"/>
+            </div>
+        </ion-tab-button>
       <ion-tab-button
               mode="ios"
               class="tab-btn"
@@ -11,16 +21,6 @@
                       src="../../assets/img/tabs/exchange-icon.svg"/>
           </div>
       </ion-tab-button>
-        <ion-tab-button
-                class="tab-btn"
-                [tab]="tabs.prices">
-            <div class="tab center-horizontal"  [class.selected-tab]="currentRoute === tabs.prices">
-                <img
-                        [class.img-icon-tabs-selected]="currentRoute === tabs.prices"
-                        class="img-icon-tabs"
-                        src="../../assets/img/tabs/tab-prices.svg"/>
-            </div>
-        </ion-tab-button>
         <ion-tab-button
                 mode="ios"
                 class="tab-btn"
