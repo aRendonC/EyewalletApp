@@ -4,7 +4,7 @@
 
     <div class="content-text-icon-coin">
       <span class="text-coin">{{ nameCurrency }} ({{ shortNameCurrency }})</span>
-      <ion-img src="../../assets/icon/icon-coin-{{ shortNameCurrency }}.svg" class="icon-coin"></ion-img>
+      <ion-img src="../../assets/icon/icon-coin-{{ shortNameCurrency === 'BTC' ? 'BCH' : shortNameCurrency }}.svg" class="icon-coin"></ion-img>
     </div>
   </div>
 
