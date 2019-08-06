@@ -38,8 +38,8 @@ export class AuthService {
     const device: any = await this.device.getDataDevice();
     if (!device.uuid) {
     //   device.uuid = 'd03ed04e9ecb6d8b';
-      device.uuid = '7219d0c4ee046311';
-      // device.uuid = 'edwigrendon';
+    //   device.uuid = '7219d0c4ee046311';
+      device.uuid = 'asd6544asd';
       // device.uuid = '37cd19cb5739fb4';
     //  device.uuid = '928e019bd3cdb0fa';
     }
