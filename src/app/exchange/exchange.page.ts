@@ -139,6 +139,7 @@ export class ExchangePage implements OnInit {
                 }
             );
         });
+        console.log(theNewInputs)
         return theNewInputs;
     }
 
@@ -180,6 +181,14 @@ export class ExchangePage implements OnInit {
     async filterCurrencyTo(cryptoTo) {
         console.log(cryptoTo);
         let dataCurrencyTo = this.createInputsDataCurrencyFrom(cryptoTo);
+        console.log(dataCurrencyTo)
+        for( let i = 0; i < dataCurrencyTo.length; i++){
+            if ( dataCurrencyTo[i].label === this.selectedPocketFrom.currency.shortName) {
+                dataCurrencyTo.splice(i, 1);
+                i--;
+            }
+        }
+        console.log(dataCurrencyTo)
         const alert = await this.alertCtrl.create({
             header: 'Seleccione moneda 2',
             inputs: dataCurrencyTo,

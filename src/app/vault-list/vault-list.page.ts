@@ -42,7 +42,7 @@ export class VaultListPage implements OnInit {
   }
 
   private async getListVaults(): Promise<any> {
-    await this.loadingService.present({text: this.translateService.instant('VAULT_LIST.loadingText'), classColorText: 'loadingTextBlack'});
+    await this.loadingService.present({text: this.translateService.instant('VAULT_LIST.loadingText'), cssClass: 'textLoadingBlack'});
     return this.axiosService.get('vault/index', this.authService)
     .then(async response => {
       await this.loadingService.dismiss();
@@ -97,7 +97,7 @@ export class VaultListPage implements OnInit {
   }
 
   private async runQueryDeleteVault(dataVault: any): Promise<any> {
-    await this.loadingService.present({text: this.translateService.instant('VAULT_LIST.loadingText'), classColorText: 'loadingTextBlack'});
+    await this.loadingService.present({text: this.translateService.instant('VAULT_LIST.loadingText'), cssClass: 'textLoadingBlack'});
     const url: string = 'vault/cancel';
     const dataBody: any = {
       userId: dataVault.user_id,
