@@ -15,11 +15,11 @@
 
       <div class="content-add">
         <ion-img class="icon-add" src="../../assets/icon/icon-add.svg"></ion-img>
-        <span *ngIf="dataVaults.data" class="add-local-text">{{ dataVaults.data[positionDataSelected].amountCriptoTotal | roundNumber }}</span>
+        <span *ngIf="dataVaults.data" class="add-local-text">{{ criptoTotal | roundNumber }}</span>
       </div>
 
       <div class="content-add-usd">
-        <span *ngIf="dataVaults.data" class="add-text-usd">{{ dataVaults.data[positionDataSelected].amountCriptoUsdTotal | roundNumber }}</span>
+        <span *ngIf="dataVaults.data" class="add-text-usd">{{ criptoUSDTotal | roundNumber }}</span>
         <span class="add-text-usdollar">USDollar</span>
       </div>
     </div>

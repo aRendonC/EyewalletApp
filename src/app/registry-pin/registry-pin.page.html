@@ -7,24 +7,39 @@
             <ion-label class="text-crypto">CRYPTOBANK</ion-label>
         </div>
     </div>
-    <form #formulario="ngForm" (ngSubmit)="registerPin(bodyForm.value)" [formGroup]="bodyForm"
-          class="transparent move-form">
+
+    <form
+        #formulario="ngForm"
+        [formGroup]="bodyForm"
+        (ngSubmit)="registerPin(bodyForm.value)"
+        class="transparent move-form"
+    >
         <ion-list class="transparent">
             <ion-item class="transparent white-line">
                 <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
-                <ion-input class="white move-input" type="number" name="username" formControlName="pin"
-                           placeholder="{{'REGISTRY_PIN.PutPin' | translate}}"></ion-input>
+
+                <ion-input
+                    class="white move-input"
+                    type="number"
+                    name="username"
+                    formControlName="pin"
+                    (ngModelChange)="validatePin($event)"
+                    placeholder="{{'REGISTRY_PIN.PutPin' | translate}}"
+                ></ion-input>
             </ion-item>
         </ion-list>
+
         <div class="move-btn">
             <ion-button
-                    [disabled]="!bodyForm.valid"
-                    type="submit"
-                    [ngClass]="classButton"
-                    mode="ios"
-                    expand="full"
-                    text-capitalize
-                    shape="round">{{'REGISTRY_PIN.CreatePin' | translate}}
+                [disabled]="buttonDisabled"
+                type="submit"
+                [ngClass]="classButton"
+                mode="ios"
+                expand="full"
+                text-capitalize
+                shape="round"
+            >
+                {{'REGISTRY_PIN.CreatePin' | translate}}
             </ion-button>
         </div>
     </form>

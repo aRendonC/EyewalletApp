@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
+import { VaultList } from '../interfaces/index';
 
 @Component({
   selector: 'app-vault-list',
@@ -15,9 +16,11 @@ import { ActionSheetController } from '@ionic/angular';
 
 export class VaultListPage implements OnInit {
   public ctrlNavigation: number;
-  public dataVaults: any;
+  public dataVaults: VaultList;
   public dataSelected: string;
   public positionDataSelected: number;
+  public criptoTotal: number;
+  public criptoUSDTotal: number;
 
   public constructor(
     private authService: AuthService,
@@ -32,13 +35,37 @@ export class VaultListPage implements OnInit {
     this.dataVaults = {};
     this.dataSelected = '';
     this.positionDataSelected = 0;
+    this.criptoTotal = 0;
+    this.criptoUSDTotal = 0;
   }
 
   public async ngOnInit(): Promise<any> { }
 
   public async ionViewDidEnter(): Promise<any> {
     this.dataVaults = await this.getListVaults();
-    this.dataSelected = this.dataVaults.data[this.positionDataSelected].shortName;
+    this.validateValueCriptos(this.dataVaults, this.positionDataSelected);
+    // this.dataSelected = this.dataVaults.data[this.positionDataSelected].shortName;
+    this.validateDataVaults(this.dataVaults.data);
+  }
+
+  private validateValueCriptos(dataInfo: VaultList, position: number): void {
+    if (dataInfo.data.length > 0) {
+      this.criptoTotal = dataInfo.data[position].amountCriptoTotal;
+      this.criptoUSDTotal = dataInfo.data[position].amountCriptoUsdTotal;
+    } else {
+      this.criptoTotal = 0;
+      this.criptoUSDTotal = 0;
+    }
+  }
+
+  private validateDataVaults(dataArray: any[]): void {
+    if (dataArray.length > 0) {
+      this.dataSelected = dataArray[this.positionDataSelected].shortName;
+      console.log('UNO: ', this.dataSelected);
+    } else {
+      this.dataSelected = '';
+      console.log('DOS: ', this.dataSelected);
+    }
   }
 
   private async getListVaults(): Promise<any> {
@@ -57,6 +84,7 @@ export class VaultListPage implements OnInit {
 
   public handlerCurrencySelected(): void {
     this.getPositionDataSelected(this.dataSelected);
+    this.validateValueCriptos(this.dataVaults, this.positionDataSelected);
   }
 
   private getPositionDataSelected(dataSelected: string): void {

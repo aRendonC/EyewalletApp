@@ -4,7 +4,6 @@ import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {AxiosService} from '../services/axios/axios.service';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
-import {AesJsService} from "../services/aesjs/aes-js.service";
 import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
@@ -14,6 +13,7 @@ import {DataLocalService} from "../services/data-local/data-local.service";
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
   public ctrlCssBlur: boolean = false;
   public username: string = null;
@@ -61,8 +61,10 @@ export class LoginPage implements OnInit {
               } else await this.clearData(data);
             } else await this.clearData(data)
           })
-          .catch((error) => {
+          .catch(async (error) => {
             this.ctrlCssBlur = false;
+            console.error('ERROR: ', error);
+            await this.loadingCtrl.dismiss();
           });
     } else {
       if(!this.password && !this.username) {

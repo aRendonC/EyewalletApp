@@ -33,5 +33,14 @@ export const validatePin = (data: string): boolean => {
 
    return !!(!validator.isEmpty(data) &&
        validator.isNumeric(data) &&
-       validator.isLength(data, pinLength));
+       validator.isLength(JSON.stringify(data), pinLength));
 };
+
+export const validatePinRegistry = (data: string): boolean => {
+   const pinLength: object = {
+      min: 6,
+      max: 6
+   };
+
+   return validator.isLength(JSON.stringify(data), pinLength);
+}
