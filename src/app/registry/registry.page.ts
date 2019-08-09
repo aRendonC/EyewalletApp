@@ -1,17 +1,12 @@
 
 import { Component, OnInit } from '@angular/core';
-
-import { Router} from '@angular/router';
-import {Storage} from '@ionic/storage';
-
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 import { AxiosService } from '../services/axios/axios.service';
-import {DeviceService} from "../services/device/device.service";
-import {LoadingService} from "../services/loading/loading.service";
-import {ToastService} from "../services/toast/toast.service";
+import { DeviceService } from "../services/device/device.service";
+import { LoadingService } from "../services/loading/loading.service";
+import { ToastService } from "../services/toast/toast.service";
 import { TouchLoginService } from '../services/fingerprint/touch-login.service';
-
-
-
 import * as utils from '../../assets/utils';
 
 @Component({
@@ -147,6 +142,7 @@ export class RegistryPage implements OnInit {
       this.ctrlCssBlur = false;
     })
     .catch(async error => {
+      console.error('ERROR: ', error);
       await this.loadingCtrl.dismiss();
       this.ctrlCssBlur = false;
       await this.toastCtrl.presentToast({text: 'Errorres de conexión'});

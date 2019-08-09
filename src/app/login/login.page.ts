@@ -4,7 +4,6 @@ import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {AxiosService} from '../services/axios/axios.service';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
-import {AesJsService} from "../services/aesjs/aes-js.service";
 import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
@@ -14,6 +13,7 @@ import {DataLocalService} from "../services/data-local/data-local.service";
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
   public ctrlCssBlur: boolean = false;
   public username: string;
@@ -54,14 +54,19 @@ export class LoginPage implements OnInit {
           await this.loadingCtrl.dismiss();
           let pocket =this.pockets[0];
           this.store.setDataLocal('selected-pocket', pocket);
-          await this.router.navigate([
-              '/app/tabs/dashboard']);
+          await this.router.navigate(['/app/tabs/dashboard']);
           await this.store.setDataLocal('pockets',  this.pockets)
         } else await this.clearData(data);
-      } else await this.clearData(data)
+      } else {
+        await this.clearData(data)
+        this.ctrlCssBlur = false;
+        await this.loadingCtrl.dismiss();
+      }
     })
-    .catch((error) => {
+    .catch(async error => {
+      console.error('ERROR: ', error);
       this.ctrlCssBlur = false;
+      await this.loadingCtrl.dismiss();
     });
   }
 

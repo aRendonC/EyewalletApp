@@ -32,7 +32,6 @@ export class TabsPage {
         private loadControl: LoadingService,
         private router: Router,
         private store: DataLocalService,
-        // private aesjs: AesJsService,
         private toastCtrl: ToastService,
         private axiosService: AxiosService,
         private authService: AuthService,

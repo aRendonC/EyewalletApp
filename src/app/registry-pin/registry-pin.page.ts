@@ -5,17 +5,17 @@ import * as CONSTANTS from '../constanst';
 import {Validators, FormGroup, FormControl} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from '../services/auth/auth.service';
-import {Storage} from '@ionic/storage';
 import {LoadingService} from '../services/loading/loading.service';
-import {AesJsService} from '../services/aesjs/aes-js.service';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
+import * as utils from '../../assets/utils';
 
 @Component({
   selector: 'app-registry-pin',
   templateUrl: './registry-pin.page.html',
   styleUrls: ['./registry-pin.page.scss'],
 })
+
 export class RegistryPinPage implements OnInit {
   public ctrlCssBlur = false;
   public constants: any = CONSTANTS;
@@ -24,18 +24,20 @@ export class RegistryPinPage implements OnInit {
   private user: any = null;
   public classButton: string = 'button-disable';
   pockets: any = [];
+  public buttonDisabled: boolean;
 
   constructor(
-      private axios: AxiosService,
-      private device: DeviceService,
-      private activatedRoute: ActivatedRoute,
-      private router: Router,
-      private auth: AuthService,
-      private store: DataLocalService,
-      private loadingCtrl: LoadingService,
-      // private aesjs: AesJsService,
-      private touchCtrl: TouchLoginService,
-  ) { }
+    private axios: AxiosService,
+    private device: DeviceService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private auth: AuthService,
+    private store: DataLocalService,
+    private loadingCtrl: LoadingService,
+    private touchCtrl: TouchLoginService,
+  ) {
+    this.buttonDisabled = true;
+  }
 
   async ngOnInit() {
     this.touchCtrl.isTouch = false;
@@ -43,11 +45,13 @@ export class RegistryPinPage implements OnInit {
     this.user.data.password = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('password'));
     this.auth.usuario.accessToken = this.user.accessToken;
     this.bodyForm = new FormGroup({
-      pin: new FormControl('', Validators.compose([
-        Validators.minLength(6),
-        Validators.required,
-        Validators.maxLength(6)
-      ])),
+      pin: new FormControl('', Validators.compose(
+        [
+          Validators.minLength(6),
+          Validators.required,
+          Validators.maxLength(6)
+        ]
+      )),
       device: new FormControl(''),
       userId: new FormControl('')
     });
@@ -77,6 +81,10 @@ export class RegistryPinPage implements OnInit {
       await this.loadingCtrl.dismiss();
       this.ctrlCssBlur = false;
     }
+  }
+
+  public validatePin(pinNumber): void {
+    this.buttonDisabled = !utils.validatePinRegistry(pinNumber);
   }
 
   async getPocketsList() {
