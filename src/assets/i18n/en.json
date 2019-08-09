@@ -52,6 +52,7 @@
     "NewWallet": "Crear una nueva Billetera",
     "PhoneExample": "Ejm.: +5712345678",
     "Password": "Contraseña",
+    "MessagePassword": "Length of 6. Minimum one letter, number and special character",
     "ConfirmPassword": "Confirmar contraseña",
     "ButtonCreate": "Crear billetera"
   },
