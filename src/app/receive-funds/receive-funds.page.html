@@ -4,7 +4,7 @@
   <ion-card class="content-code-qr">
 
     <div class="code-qr-header">
-      <span class="title">{{'PROFILE.Country' | translate}}</span>
+      <span class="title">{{'GENERAL.Amount' | translate}}</span>
 
       <div class="content-icon-amount">
           <ion-img src="../../assets/icon/icon-bitcoin.svg" class="icon"></ion-img>
@@ -30,7 +30,7 @@
           (click)="copyCode()"
           class="button"
         >
-          {{buttonCopy}}
+          {{'GENERAL.Copy' | translate}}
         </ion-button>
         <span style="font-size: 10px" class="input">{{codeQr}}</span>
         <!--<input type="text" [value]="codeQr" class="input">-->

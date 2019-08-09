@@ -64,7 +64,7 @@ export class ProfilePage implements OnInit {
     }
 
     async ngOnInit() {
-        this.languages = this.languageService.getLanguages();
+        this.languages = LanguageService.getLanguages();
         console.log(this.languages)
         console.log(this.languageService.selected)
         this.selectedLanguage = this.languageService.selected;
@@ -133,13 +133,13 @@ export class ProfilePage implements OnInit {
                     text: 'Tomar foto',
                     handler: async () => {
                         this.touchCtrl.isTouch = false;
-                        await this.loadingCtrl.present({});
                         let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
                         console.log('foto seleccionada', takePhoto);
                         this.avatar = '';
                         this.avatar = await this.setPhoto(takePhoto);
                         console.log('this.avar-------->', this.avatar);
                         if (takePhoto) {
+                            await this.loadingCtrl.present({text:'Cargando su foto', cssClass: 'textLoadingBlack'});
                             let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type, false);
                             if (responsePhoto.status === 200) {
                                 this.touchCtrl.isTouch = true;
@@ -162,10 +162,10 @@ export class ProfilePage implements OnInit {
                     text: 'Seleccione foto',
                     handler: async () => {
                         this.touchCtrl.isTouch = false;
-                        await this.loadingCtrl.present({});
                         let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
                         console.log('foto seleccionada', selectPhoto);
                         if (selectPhoto) {
+                            await this.loadingCtrl.present({text:'Cargando su foto', cssClass: 'textLoadingBlack'});
                             this.avatar = '';
                             this.avatar = await this.setPhoto(selectPhoto);
                             console.log('this.avatar--------->', this.avatar);

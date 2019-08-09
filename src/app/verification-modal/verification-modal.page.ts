@@ -7,6 +7,7 @@ import {AxiosService} from "../services/axios/axios.service";
 import {ModalController} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {ToastService} from "../services/toast/toast.service";
+import {DataLocalService} from "../services/data-local/data-local.service";
 
 @Component({
     selector: 'app-verification-modal',
@@ -22,8 +23,8 @@ export class VerificationModalPage implements OnInit {
     public code: any = '';
 
     constructor(
-        private store: Storage,
-        protected aesjs: AesJsService,
+        private store: DataLocalService,
+        // protected aesjs: AesJsService,
         protected auth: AuthService,
         private http: AxiosService,
         private modalCtrl: ModalController,
@@ -32,7 +33,9 @@ export class VerificationModalPage implements OnInit {
     ) {
     }
 
-    ngOnInit() {
+    async ngOnInit() {
+        this.profile = await this.store.getDataLocal('profile');
+        console.log(this.profile)
     }
 
     async closeModal(data) {
@@ -46,8 +49,6 @@ export class VerificationModalPage implements OnInit {
 
     async startVerification() {
         if (!this.ctrlInput) {
-            this.profile = await this.store.get('profile');
-            this.profile = this.aesjs.decrypt(this.profile);
             this.ctrlInput = true;
         } else {
 
@@ -68,12 +69,10 @@ export class VerificationModalPage implements OnInit {
             };
             let response = await this.http.post('user/validateCodePhone', body, this.auth);
             if (response.status === 200) {
-                let profile = await this.store.get('profile');
-                profile = this.aesjs.decrypt(profile);
+                let profile = await this.store.getDataLocal('profile');
                 profile.level = response.level;
                 await this.closeModal(profile);
-                profile = this.aesjs.encrypt(profile);
-                await this.store.set('profile', profile);
+                await this.store.setDataLocal('profile', profile);
                 await this.toastCtrl.presentToast({text: 'Teléfono ha sido verificado correctamente'})
             } else {
                 await this.toastCtrl.presentToast({text: 'Error de código'})

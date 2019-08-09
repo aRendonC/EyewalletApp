@@ -175,6 +175,8 @@
     "Language": "Lenguaje",
     "Version": "Versión",
     "Cancel": "Cancelar",
-    "Accept": "Aceptar"
+    "Accept": "Aceptar",
+    "Amount": "Monto",
+    "Copy": "Copiar"
   }
 }

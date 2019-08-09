@@ -24,14 +24,13 @@ export class CameraProvider {
 
   async getPhoto(sourceType) {
     let options = {
-      quality: 100,
+      quality: 75,
+      targetWidth:720,
       destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.PNG,
+      encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation: false,
+      correctOrientation: true,
       allowEdit: false,
-      targetWidth: 250,
-      targetHeight: 250,
       sourceType: sourceType,
     };
 

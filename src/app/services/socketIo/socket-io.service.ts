@@ -15,9 +15,9 @@ export class SocketIoService {
   async initSocketConnection() {
     let device = await this.device.getDataDevice();
     if (!device.uuid) device.uuid = 'asdadsrfgdf';
-    this.socket.on(device.uuid, data => {
-      console.log('esto es lo que me recibe en el socket', data)
-    });
+    // this.socket.on(device.uuid, data => {
+    //   console.log('esto es lo que me recibe en el socket', data)
+    // });
 
   }
 

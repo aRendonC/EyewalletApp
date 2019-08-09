@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
@@ -39,6 +39,7 @@ import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {VerificationModalPage} from './verification-modal/verification-modal.page';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import {HammerService} from "./services/hammer/hammer.service";
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 
 export function createTranslateLoader(http: HttpClient) {
@@ -81,6 +82,10 @@ export function createTranslateLoader(http: HttpClient) {
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: InterceptadorService, multi: true},
+        {
+          provide: HAMMER_GESTURE_CONFIG,
+          useClass: HammerService
+        },
         AxiosService,
         Camera,
         CameraProvider,

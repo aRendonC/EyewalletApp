@@ -16,8 +16,8 @@ import {DataLocalService} from "../services/data-local/data-local.service";
 })
 export class LoginPage implements OnInit {
   public ctrlCssBlur: boolean = false;
-  public username: string;
-  public password: string;
+  public username: string = null;
+  public password: string = null;
   public pockets: any = [];
   public path: string = '';
 
@@ -40,29 +40,39 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    await this.store.clearStore();
-    await this.loadingCtrl.present({text: 'Cargando'});
-    this.ctrlCssBlur = true;
-    this.auth.login(this.username, this.password)
-    .then(async (data: any) => {
-      if (data) {
-        if (data.status == 200) {
-          this.pockets = await this.getPocketsList();
-          console.info('mis pockets', this.pockets);
-          this.touchCtrl.isLocked = true;
-          this.ctrlCssBlur = false;
-          await this.loadingCtrl.dismiss();
-          let pocket =this.pockets[0];
-          this.store.setDataLocal('selected-pocket', pocket);
-          await this.router.navigate([
-              '/app/tabs/dashboard']);
-          await this.store.setDataLocal('pockets',  this.pockets)
-        } else await this.clearData(data);
-      } else await this.clearData(data)
-    })
-    .catch((error) => {
-      this.ctrlCssBlur = false;
-    });
+    if(this.password && this.username) {
+      await this.store.clearStore();
+      await this.loadingCtrl.present({text: 'Cargando'});
+      this.ctrlCssBlur = true;
+      this.auth.login(this.username, this.password)
+          .then(async (data: any) => {
+            if (data) {
+              if (data.status == 200) {
+                this.pockets = await this.getPocketsList();
+                console.info('mis pockets', this.pockets);
+                this.touchCtrl.isLocked = true;
+                this.ctrlCssBlur = false;
+                await this.loadingCtrl.dismiss();
+                let pocket =this.pockets[0];
+                this.store.setDataLocal('selected-pocket', pocket);
+                await this.router.navigate([
+                  '/app/tabs/dashboard']);
+                await this.store.setDataLocal('pockets',  this.pockets)
+              } else await this.clearData(data);
+            } else await this.clearData(data)
+          })
+          .catch((error) => {
+            this.ctrlCssBlur = false;
+          });
+    } else {
+      if(!this.password && !this.username) {
+        await this.toastController.presentToast({text: 'Todos los campos son obligatorios', duration: 1000});
+      } else if(!this.username) {
+        await this.toastController.presentToast({text: 'El campo correo electrónico es obligatorio', duration: 1000});
+      } else if(!this.password){
+        await this.toastController.presentToast({text: 'El campo correo contraseña es obligatorio', duration: 1000});
+      }
+    }
   }
 
   public async getPocketsList() {

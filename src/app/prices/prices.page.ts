@@ -40,7 +40,7 @@ export class PricesPage implements OnInit {
     }
 
     async ngOnInit() {
-        await this.loading.present({cssClass: 'textLoadingBlack'});
+        await this.loading.present({text:'Cargando datos de monedas', cssClass: 'textLoadingBlack'});
         await this.getProfile();
         await this.getCryptoPrices24h();
     }

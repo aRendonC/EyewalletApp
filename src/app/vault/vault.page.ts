@@ -137,7 +137,7 @@ export class VaultPage implements OnInit {
   }
 
   private async runQueryCurrency(url: string, body: any): Promise<any> {
-    await this.loadingService.present({text: this.translateService.instant('VAULT.loading'), classColorText: 'loadingTextBlack'});
+    await this.loadingService.present({text: this.translateService.instant('VAULT.loading'), cssClass: 'textLoadingBlack'});
 
     this.axiosService.post(url, body, this.authService)
     .then(async response => {

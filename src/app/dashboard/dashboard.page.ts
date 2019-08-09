@@ -1,12 +1,11 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {DataLocalService} from '../services/data-local/data-local.service';
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {SlidersComponent} from '../components/sliders/sliders.component';
 import {LoadingService} from '../services/loading/loading.service';
-import {filter} from 'rxjs/operators';
 import {ToastService} from "../services/toast/toast.service";
 import {SocketIoService} from "../services/socketIo/socket-io.service";
 import {ChartComponent} from "../components/chart/chart.component";
@@ -51,23 +50,24 @@ export class DashboardPage implements OnInit {
         private toastCtrl: ToastService,
         private socket: SocketIoService
     ) {
-        this.router.events.pipe(
-            filter(event => event instanceof NavigationStart)
-        ).subscribe((route: NavigationStart) => {
-            this.getTransactionsSend();
-        });
+        // this.router.events.pipe(
+        //     filter(event => event instanceof NavigationStart)
+        // ).subscribe((route: NavigationStart) => {
+        //     this.getTransactionsSend();
+        // });
     }
 
     async ngOnInit() {
-        await this.socket.initSocketConnection();
+        await this.loadingController.present({text: 'Recopilando información', cssClass: 'textLoadingBlack'});
+        // await this.socket.initSocketConnection();
         // await this.socket.disconnectSocket();
         this.pocket = await this.storage.getDataLocal('selected-pocket');
         await this.getUserProfile();
         await this.getListTransactions();
     }
 
-    public ionViewDidEnter() {
-        console.log('siempre entra al ionViewDidEnter')
+    public async ionViewDidEnter() {
+        await this.getTransactionsSend();
         let elementDashboard: any = document.getElementsByTagName('app-dashboard');
         elementDashboard[0].classList.add("margins-dashboard")
     }
@@ -80,22 +80,71 @@ export class DashboardPage implements OnInit {
         }
     }
 
-    public async getDataPocket(data: any) {
-        console.log(data);
-        this.crypto.forEach(crypto => {
-            crypto.graphic = [];
-            crypto.value = data.pocket.balance;
+    public async getDataPocket(data?: any) {
+        let bool = await this.storage.getDataLocal('pocket-created');
+        if (bool) {
+            let pockets = await this.getPocketsList();
+            await this.storage.setDataLocal('pockets', pockets);
+            pockets.forEach(pocket => {
+                if (!this.crypto[0]) {
+                    this.crypto.push({
+                        value: pocket.balance,
+                        valueUsd: data.btc.toFixed(8),
+                        background: pocket.currency.name,
+                        name: pocket.currency.name,
+                        pocketName: pocket.label,
+                        currencyId: pocket.currencyId,
+                        shortName: pocket.currency.shortName,
+                        graphic: []
+                    });
+                } else {
+                    const result = this.crypto.find(data => data.currencyId === pocket.currencyId);
+                    if (result == undefined) {
+                        this.crypto.push({
+                            value: pocket.balance,
+                            valueUsd: data.btc.toFixed(8),
+                            background: pocket.currency.name,
+                            name: pocket.currency.name,
+                            pocketName: pocket.label,
+                            currencyId: pocket.currencyId,
+                            shortName: pocket.currency.shortName,
+                            graphic: []
+                        });
+                    }
+                }
+            });
+            this.crypto.forEach(crypto => {
+                crypto.graphic = [];
+                crypto.value = data.pocket.balance;
 
-            crypto.valueUsd = data.btc.toFixed(8);
-            if (data.data[0]) {
-                data.data.forEach(elementGraphic => {
-                    crypto.graphic.unshift(parseFloat(elementGraphic.balance_after));
-                });
-            } else {
-                crypto.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            }
-        });
-        console.log('sacar la adres de aca', data.pocket);
+                crypto.valueUsd = data.btc.toFixed(8);
+                if (data.data[0]) {
+                    data.data.forEach(elementGraphic => {
+                        crypto.graphic.unshift(parseFloat(elementGraphic.balance_after));
+                    });
+                } else {
+                    crypto.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                }
+            });
+            setTimeout(async () => {
+                await this.sliderComponent.changeSlides(this.crypto.length + 1)
+            }, 1000)
+
+        } else {
+            this.crypto.forEach(crypto => {
+                crypto.graphic = [];
+                crypto.value = data.pocket.balance;
+
+                crypto.valueUsd = data.btc.toFixed(8);
+                if (data.data[0]) {
+                    data.data.forEach(elementGraphic => {
+                        crypto.graphic.unshift(parseFloat(elementGraphic.balance_after));
+                    });
+                } else {
+                    crypto.graphic = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                }
+            });
+        }
         this.crypto.value = data.pocket.balance;
         this.crypto.valueUsd = data.btc;
         this.crypto.pocketName = data.pocket.label;
@@ -149,9 +198,7 @@ export class DashboardPage implements OnInit {
 
     async getListTransactions() {
         this.crypto = [];
-        await this.loadingController.present({text: 'Recopilando información', cssClass: 'textLoadingBlack'});
         this.ctrlCssBlur = true;
-        console.log(this.pockets);
         let params = {
             userId: this.profile.userId,
             type: 0,
@@ -193,7 +240,6 @@ export class DashboardPage implements OnInit {
             dataTransaction.forEach(transactions => {
                 this.crypto[0].graphic.unshift(transactions.balance_after)
             });
-            console.log('sacar la adres de aca', this.pockets[0]);
             this.crypto.value = this.pockets[0].balance;
             this.crypto.valueUsd = this.pockets[0].valueUsd;
             this.crypto.shortName = this.pockets[0].currency.shortName;
@@ -213,7 +259,6 @@ export class DashboardPage implements OnInit {
                     graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 });
             });
-            console.log('sacar la adres de aca', this.pockets[0]);
             this.crypto.value = this.pockets[0].balance;
             this.crypto.valueUsd = this.pockets[0].valueUsd;
             this.crypto.shortName = this.pockets[0].currency.shortName;
@@ -238,7 +283,6 @@ export class DashboardPage implements OnInit {
             currencyShortName: this.pocket.currency.shortName
         };
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
-        console.log('pocket cuando cambio el slider', this.pocket);
         this.storage.setDataLocal('selected-pocket', this.pocket);
         if (dataResponse.status === 200) {
             dataResponse.pocket = this.pocket;
@@ -248,14 +292,17 @@ export class DashboardPage implements OnInit {
         }
     }
 
-    private getUserId(): any {
-        return this.storage.getDataLocal('profile');
-    }
-
     async refreshTransactions(dataTransaction): Promise<any> {
-        console.log(dataTransaction);
         await this.loadingController.dismiss();
         await this.getDataPocket(dataTransaction)
 
+    }
+
+    public async getPocketsList() {
+        return await this.http.post('user-wallet/index', {currencyId: ''}, this.auth);
+    }
+
+    private getUserId(): any {
+        return this.storage.getDataLocal('profile');
     }
 }

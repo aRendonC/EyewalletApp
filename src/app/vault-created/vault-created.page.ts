@@ -70,7 +70,7 @@ export class VaultCreatedPage implements OnInit {
 
   private async runVaultCreation(): Promise<any> {
     const url: string = 'vault/create';
-    await this.loadingService.present({text: this.translateService.instant('VAULT_CREATED.messageCreatinVault'), classColorText: 'loadingTextBlack'});
+    await this.loadingService.present({text: this.translateService.instant('VAULT_CREATED.messageCreatinVault'), cssClass: 'textLoadingBlack'});
     this.axiosService.post(url, this.dataBody, this.authService)
     .then(async response => {
       this.validateRunVaultCreation(response);

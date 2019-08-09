@@ -1,47 +1,45 @@
-import { Platform } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
-import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import {TranslateService} from '@ngx-translate/core';
+import {Injectable} from '@angular/core';
+import {Storage} from '@ionic/storage';
 
 const LNG_KEY = 'SELECTED_LANGUAGE';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LanguageService {
-  selected = '';
+    selected = '';
 
-  constructor(
-      private translate: TranslateService,
-      private storage: Storage,
-      private plt: Platform) { }
+    constructor(
+        private translate: TranslateService,
+        private storage: Storage,
+        ) {
+    }
 
-  setInitialAppLanguage() {
-    let language = this.translate.getBrowserLang();
-    console.log(language)
-    this.translate.setDefaultLang(language);
+    static getLanguages() {
+        return [
+            {text: 'Inglés', value: 'en'},
+            {text: 'Español', value: 'es'},
+        ];
+    }
 
-    this.storage.get(LNG_KEY).then(async val => {
-      console.log('no sé que es esto', val)
-      if (val) {
-        await this.setLanguage(val);
-        this.selected = val;
-      } else {
-        await this.setLanguage(language)
-      }
-    });
-  }
+    setInitialAppLanguage() {
+        let language = this.translate.getBrowserLang();
+        this.translate.setDefaultLang(language);
 
-  getLanguages() {
-    return [
-      { text: 'Inglés', value: 'en'},
-      { text: 'Español', value: 'es'},
-    ];
-  }
+        this.storage.get(LNG_KEY).then(async val => {
+            if (val) {
+                await this.setLanguage(val);
+                this.selected = val;
+            } else {
+                await this.setLanguage(language)
+            }
+        });
+    }
 
-  async setLanguage(lng) {
-    this.translate.use(lng);
-    this.selected = lng;
-    await this.storage.set(LNG_KEY, lng);
-  }
+    async setLanguage(lng) {
+        this.translate.use(lng);
+        this.selected = lng;
+        await this.storage.set(LNG_KEY, lng);
+    }
 }

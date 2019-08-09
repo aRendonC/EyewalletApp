@@ -50,19 +50,28 @@ export class ListPocketsPage implements OnInit {
       this.ctrlCreatePocket = false;
       await this.getCriptoCurrencies()
     } else {
+      let endPoint = '';
       if( this.params.label) {
+        if(this.params.currencyId == 3 ){
+          endPoint = 'ethereum/create'
+        } else {
+          endPoint = 'user-wallet/create'
+        }
         await this.loadingCtrl.present({text: 'Creando Pocket', cssClass: 'textLoadingBlack'});
         this.ctrlCssBlur = true;
         this.ctrlButtonCreate = true;
         let profile = await this.store.getDataLocal('profile');
         this.params.userId = profile.id;
-        let response = await this.http.post('user-wallet/create', this.params, this.auth);
-        console.log('los poackets cuando creo uno nuevo',response)
+        console.log(this.params);
+        console.log(endPoint);
+        let response = await this.http.post(endPoint, this.params, this.auth);
+        console.log('los poackets cuando creo uno nuevo',response);
         if(response.status === 200) {
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
           await this.toastCtrl.presentToast({text: 'Pocket creado correctamente'});
-          await this.closeModal(null)
+          await this.store.setDataLocal('pocket-created', true);
+          await this.closeModal(response.data, 'new-pocket')
         } else {
           this.ctrlCssBlur = false;
           await this.toastCtrl.presentToast({text: response.error.msg});
@@ -73,8 +82,8 @@ export class ListPocketsPage implements OnInit {
     }
   }
 
-  async closeModal(pocket: object) {
-    await this.modalCtrl.dismiss(pocket);
+  async closeModal(pocket: object, role: string = null ) {
+    await this.modalCtrl.dismiss(pocket, role);
   }
   getIdCurrency(id:any) {
     this.params.currencyId = id

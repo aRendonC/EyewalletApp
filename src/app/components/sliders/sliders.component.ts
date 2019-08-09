@@ -72,6 +72,7 @@ export class SlidersComponent implements OnInit {
         await this.store.setDataLocal('userVerification', userVerifications);
         this.profile = await this.store.getDataLocal('profile');
         this.profile.completed = userVerifications.completed;
+        console.log('prefil de usuario----->', this.profile)
         await this.setProfileStore();
         this.nameSlider = this.name;
         this.dataGraphic = this.name[0];
@@ -87,7 +88,6 @@ export class SlidersComponent implements OnInit {
     }
 
     public async grafica() {
-        console.log(this.name);
         this.labelGrapich = [];
 
         if (this.dataGraphic.graphic.length === 1) {
@@ -100,7 +100,6 @@ export class SlidersComponent implements OnInit {
                 this.labelGrapich.push('')
             }
         }
-        console.log(this.dataGraphic.graphic);
         const ctx = this.lineCanvas.nativeElement.getContext('2d');
         const gradientStroke = ctx.createLinearGradient(154.000, 0.000, 146.000, 300.000);
         gradientStroke.addColorStop(0.006, 'rgba(21, 233, 233, 1.000)');
@@ -198,7 +197,7 @@ export class SlidersComponent implements OnInit {
         setTimeout(async () => {
             await this.sliderContent.lockSwipes(false);
             await this.sliderHeader.lockSwipes(false);
-        }, 1000)
+        }, 2000)
     }
 
 
@@ -227,5 +226,10 @@ export class SlidersComponent implements OnInit {
         // let selectedPocket = pockets.find(pocket => pocket.label === pocketSelected.pocketName);
         // console.log(selectedPocket)
         // console.log(await this.store.getDataLocal('selected-pocket'))
+    }
+
+    async changeSlides(id: number) {
+        await this.sliderContent.slideTo(id, 200);
+        await this.sliderHeader.slideTo(id, 200);
     }
 }
