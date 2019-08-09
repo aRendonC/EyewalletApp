@@ -35,7 +35,7 @@ export class TabsPage {
         private toastCtrl: ToastService,
         private axiosService: AxiosService,
         private authService: AuthService,
-        private fingerCtrl: TouchLoginService
+        private fingerCtrl: TouchLoginService,
     ) {
         this.getActiveRoute()
     }
@@ -49,6 +49,7 @@ export class TabsPage {
             await this.router.navigate(['/create-profile'])
         }
     }
+
 
     getActiveRoute() {
         this.fingerCtrl.isTouch = true;
@@ -86,12 +87,12 @@ export class TabsPage {
                 pockets.push(pocketOfList)
             } else {
                 let responsePocket = pockets.find(pocket => pocketOfList === pocket);
-                console.log(responsePocket)
+                console.log(responsePocket);
                 if (responsePocket === undefined) pockets.push(pocketOfList)
             }
         });
-        console.log(pockets)
-        console.log(listPockets)
+        console.log(pockets);
+        console.log(listPockets);
         if (pockets.length <= 1) {
             await this.toastCtrl.presentToast({text: 'Por favor, cree un pocket de diferente criptomoneda'})
         } else {

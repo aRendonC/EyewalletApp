@@ -13,7 +13,7 @@ import {AxiosService} from './services/axios/axios.service';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import { TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {InterceptadorService} from './services/axios/interceptador.service';
 import {Camera} from '@ionic-native/camera/ngx';
@@ -38,9 +38,10 @@ import {ComponentsModule} from './components/components.module';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {VerificationModalPage} from './verification-modal/verification-modal.page';
 
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {HammerService} from "./services/hammer/hammer.service";
-const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
+
+const config: SocketIoConfig = {url: 'http://localhost:3001', options: {}};
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -83,8 +84,8 @@ export function createTranslateLoader(http: HttpClient) {
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: InterceptadorService, multi: true},
         {
-          provide: HAMMER_GESTURE_CONFIG,
-          useClass: HammerService
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: HammerService
         },
         AxiosService,
         Camera,

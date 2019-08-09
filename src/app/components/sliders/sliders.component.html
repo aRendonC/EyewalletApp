@@ -45,15 +45,19 @@
     </ion-slide>
 </ion-slides>
 <div style="position: absolute;
-    bottom: 30vh;">
+    bottom: 40vh;">
     <canvas style="width:100%" #lineCanvas></canvas>
     <!--<app-chart [name]="name"  *ngIf="name.length > 0"></app-chart>-->
 </div>
 <!-- Card de completar Perfil -->
 <ion-card class="cardwith" style="height: auto" *ngIf="profile?.level === 0">
     <ion-card-header class="header">
-        <ion-card-title class="card-title" *ngIf="!profile.user.firstName">Completa tu Perfil</ion-card-title>
-        <ion-card-title class="card-title" *ngIf="profile.user.firstName">Verifica tu teléfono</ion-card-title>
+        <ion-card-title class="card-title" *ngIf="!profile.user.firstName">
+            {{'SLIDER_COMPONENT.CompleteProfile'| translate}}
+        </ion-card-title>
+        <ion-card-title class="card-title" *ngIf="profile.user.firstName">
+            {{'SLIDER_COMPONENT.VerifyPhone'| translate}}
+        </ion-card-title>
     </ion-card-header>
     <ion-card-content>
         <ion-grid>
@@ -62,14 +66,15 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col size="12">
-                                <p class="card-titlesub" *ngIf="!profile.user.firstName">Completa tu perfil hoy para empezar a
-                                    usarla exitosamente.
-                                </p><p class="card-titlesub" *ngIf="profile.user.firstName">Verifica tu teléfono
+                                <p class="card-titlesub" *ngIf="!profile.user.firstName">
+                                    {{'SLIDER_COMPONENT.CompleteProfileToDay'| translate}}
+                                </p><p class="card-titlesub" *ngIf="profile.user.firstName">
+                                {{'SLIDER_COMPONENT.VerifyPhone'| translate}}
                                 </p>
                             </ion-col>
                             <ion-col size="12">
                                 <button class="btn-continuar" (click)="openModalVerification()">
-                                    Continuar
+                                    {{'GENERAL.Continue'| translate}}
                                 </button>
                             </ion-col>
                         </ion-row>
@@ -85,18 +90,23 @@
 <!-- Card de verificación de documentos -->
 <ion-card class="card-ver-width" *ngIf="profile?.level === 1 && profile?.completed === 0">
     <ion-card-header>
-        <ion-card-title class="card-ver-title">Documentos necesarios</ion-card-title>
+        <ion-card-title class="card-ver-title">
+            {{'SLIDER_COMPONENT.DocumentsNecessaries'| translate}}
+        </ion-card-title>
 
     </ion-card-header>
     <ion-card-content style="height: 26vh;">
         <ion-grid>
             <ion-row>
                 <ion-col size="12">
-                    <p class="card-ver-titlesub">Tenemos algunos problemas con los documentos
-                        que nos ha proporcionado.Por favor, intente de nuevo para continuar</p>
+                    <p class="card-ver-titlesub">
+                        {{'SLIDER_COMPONENT.HaveProblemsDocuments'| translate}}
+                    </p>
                 </ion-col>
                 <ion-col size="12">
-                    <button class="btn-aceptar" (click)="verificationPage()">Aceptar</button>
+                    <button class="btn-aceptar" (click)="verificationPage()">
+                        {{'GENERAL.Accept'| translate}}
+                    </button>
                 </ion-col>
             </ion-row>
         </ion-grid>

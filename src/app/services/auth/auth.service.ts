@@ -11,115 +11,114 @@ import {LoadingService} from '../loading/loading.service';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-  usuario: any = {
-    id: null,
-    rolId: null,
-    segundoFactor: null,
-    accessToken: null,
-  };
+    usuario: any = {
+        id: null,
+        rolId: null,
+        segundoFactor: null,
+        accessToken: null,
+    };
 
-  constructor(
-    private  api: AxiosService,
-    private timer: TimerService,
-    private router: Router,
-    private menu: MenuController,
-    private store: Storage,
-    private device: DeviceService,
-    private modalCtrl: ModalController,
-    private aesjs: AesJsService,
-    private loadingCtrl: LoadingService
-  ) {
-  }
-
-  async login(user, password) {
-    const device: any = await this.device.getDataDevice();
-    if (!device.uuid) {
-      // device.uuid = '9A8C1EF2-8354-4EFB-ACD7-DB8A543CFD1D';
-      device.uuid = 'd03ed04e9ecb6d8b';
-      // device.uuid = '7219d0c4ee046311';
-
-      // device.uuid = 'asd6544asd';
-      // device.uuid = '37cd19cb5739fb4';
-      //  device.uuid = '928e019bd3cdb0fa';
+    constructor(
+        private  api: AxiosService,
+        private timer: TimerService,
+        private router: Router,
+        private menu: MenuController,
+        private store: Storage,
+        private device: DeviceService,
+        private modalCtrl: ModalController,
+        private aesjs: AesJsService,
+        private loadingCtrl: LoadingService
+    ) {
     }
-    console.log( device.uuid)
-    return new Promise((resolve) => {
-      this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
-        .then(async (data: any) => {
-          if (data.status === 200) {
-            this.usuario = data.data;
-            await this.store.set('user', this.usuario);
-            await this.setUserProfile(data.data.profile);
 
-            resolve(data);
-          } else if (data.status === 404) {
+    async login(user, password) {
+        const device: any = await this.device.getDataDevice();
+        if (!device.uuid) {
+            // device.uuid = '9A8C1EF2-8354-4EFB-ACD7-DB8A543CFD1D';
+            // device.uuid = 'd03ed04e9ecb6d8b';
+            device.uuid = '7219d0c4ee046311';
+            // device.uuid = 'asd6544asd';
+            // device.uuid = '37cd19cb5739fb4';
+            //  device.uuid = '928e019bd3cdb0fa';
+        }
+        console.log(device.uuid)
+        return new Promise((resolve) => {
+            this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
+                .then(async (data: any) => {
+                    if (data.status === 200) {
+                        this.usuario = data.data;
+                        await this.store.set('user', this.usuario);
+                        await this.setUserProfile(data.data.profile);
 
-            resolve(data.error.msg)
-          } else if (data.status === 401) {
-            resolve(data.error.msg)
+                        resolve(data);
+                    } else if (data.status === 404) {
 
-          } else if (data.status === 500) {
-            resolve(data.error.msg)
-          } else {
-            resolve(null);
-          }
-        })
-        .catch(err => console.log('error data response', err));
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+                        resolve(data.error.msg)
+                    } else if (data.status === 401) {
+                        resolve(data.error.msg)
 
-  async setUserProfile(profile) {
-    profile = this.aesjs.encrypt(profile);
-    await this.store.set('profile', profile);
-  }
-
-  async accessParam() {
-    this.usuario = await this.store.get('user');
-    if (this.usuario != null) {
-      return this.usuario.accessToken;
+                    } else if (data.status === 500) {
+                        resolve(data.error.msg)
+                    } else {
+                        resolve(null);
+                    }
+                })
+                .catch(err => console.log('error data response', err));
+        }).catch((error) => {
+            console.log(error);
+        });
     }
-    return null;
-  }
 
-  async persistenceLogin() {
-    this.usuario = await this.store.get('user');
-    if (this.usuario.pin) {
-      await this.openModal();
+    async setUserProfile(profile) {
+        profile = this.aesjs.encrypt(profile);
+        await this.store.set('profile', profile);
     }
-  }
 
-  async openModal() {
-    const modal = await this.modalCtrl.create({
-      component: PinModalPage,
-      componentProps: {
-        paramID: 123,
-        paramTitle: 'Test title'
-      }
-    });
+    async accessParam() {
+        this.usuario = await this.store.get('user');
+        if (this.usuario != null) {
+            return this.usuario.accessToken;
+        }
+        return null;
+    }
 
-    return await modal.present();
-  }
+    async persistenceLogin() {
+        this.usuario = await this.store.get('user');
+        if (this.usuario.pin) {
+            await this.openModal();
+        }
+    }
 
-  setUserId(userId) {
-    this.usuario.id = userId;
-    localStorage.setItem('user', JSON.stringify(this.usuario));
-  }
+    async openModal() {
+        const modal = await this.modalCtrl.create({
+            component: PinModalPage,
+            componentProps: {
+                paramID: 123,
+                paramTitle: 'Test title'
+            }
+        });
 
-  async isLogin() {
-    const user = await this.store.get('user');
-    return !!user;
-  }
+        return await modal.present();
+    }
 
-  async logout() {
-    await this.store.clear();
-    await this.menu.enable(false);
-    await this.router.navigate(['']);
-    await this.loadingCtrl.dismiss();
-  }
+    setUserId(userId) {
+        this.usuario.id = userId;
+        localStorage.setItem('user', JSON.stringify(this.usuario));
+    }
+
+    async isLogin() {
+        const user = await this.store.get('user');
+        return !!user;
+    }
+
+    async logout() {
+        await this.store.clear();
+        await this.menu.enable(false);
+        await this.router.navigate(['']);
+        await this.loadingCtrl.dismiss();
+    }
 
 }

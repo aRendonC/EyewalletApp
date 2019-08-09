@@ -193,7 +193,7 @@ export class PocketComponent implements OnInit {
             console.log('ejecutar accion')
         } else {
 
-            this.marginsRight = this.marginsRight - ($event.deltaX / 25)
+            this.marginsRight = this.marginsRight - $event.deltaX
 
         }
     }
@@ -201,7 +201,7 @@ export class PocketComponent implements OnInit {
     async onPanEnd($event) {
         console.log('pan rigth', $event)
         if (this.marginsRight >= -75) {
-            this.marginsRight = this.marginsRight - ($event.deltaX / 25)
+            this.marginsRight = this.marginsRight - $event.deltaX
             // await this.onPanEnd(null);
 
         } else {
@@ -232,3 +232,4 @@ export class PocketComponent implements OnInit {
         }
     }
 }
+

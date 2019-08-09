@@ -1,9 +1,9 @@
 .grid{
   display: grid;
   height: 45%;
-  position: relative;
+  position: fixed;
   z-index: 4;
-  grid-template: 25% 15% 15% 30%/10% auto 10%;
+  grid-template: 22vw 11vw 11vw 25vw/10vw auto 10vw;
 }
 .pockets{
   grid-area: 1/1/1/4;
@@ -24,15 +24,12 @@
   grid-area: 1/1/5/5;
 }
 .move-profileInfo{
-  top: -10%;
-  --offset-top: 15vh !important;
-  --offset-bottom: 15vh !important;
-  height: 53vh;
+  height: 53vw;
   --background: linear-gradient(to bottom, rgba(255,255,255,1) 90%, rgba(223,226,238,1) 100%, rgba(202,206,227,1) 100%);
 }
 .move-name{
   grid-area: 2/1/3/4;
-  margin-top: 1.5vh;
+  margin-top: 1.5vw;
   font-size: 4vw;
   justify-self: center;
   position: relative;
@@ -65,7 +62,7 @@ ion-label{
     font-weight: 500;
     font-size: 14px !important;
     color: #93B5E5 !important;
-    margin-left: 2vh;
+    margin-left: 2vw;
 }
 
 p{

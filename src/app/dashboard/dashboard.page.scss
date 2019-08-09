@@ -63,4 +63,6 @@ position: absolute;
     width: 50%;
 }
 
-
+ion-content{
+    --offset-bottom: 15vh !important;
+}

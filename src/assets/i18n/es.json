@@ -5,6 +5,13 @@
     "CreateWallet": "Crear Billetera",
     "RecoveryPassword": "Recuperar Contraseña"
   },
+  "SLIDER_COMPONENT": {
+    "CompleteProfile": "Completa tu Perfil",
+    "VerifyPhone": "Verifica tu teléfono",
+    "CompleteProfileToDay": "Completa tu perfil hoy para empezar a usarla exitosamente.",
+    "DocumentsNecessaries": "Documentos necesarios",
+    "HaveProblemsDocuments": "Tenemos algunos problemas con los documentos que nos ha proporcionado.Por favor, intente de nuevo para continuar"
+  },
   "PROFILE": {
     "Email": "Email",
     "Phone": "Teléfono",

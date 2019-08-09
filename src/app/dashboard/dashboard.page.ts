@@ -154,7 +154,7 @@ export class DashboardPage implements OnInit {
         await this.sliderComponent.grafica();
     }
 
-    async getTransactionHistory(data: any) {
+    async getTransactionHistory(data?: any): Promise<any> {
         this.transactionComponent = data.data;
         const btc = data.btc;
         this.transactionComponent.forEach(element => {
@@ -306,3 +306,4 @@ export class DashboardPage implements OnInit {
         return this.storage.getDataLocal('profile');
     }
 }
+
