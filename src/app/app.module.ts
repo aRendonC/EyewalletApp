@@ -41,10 +41,13 @@ import {VerificationModalPage} from './verification-modal/verification-modal.pag
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {HammerService} from "./services/hammer/hammer.service";
 
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+
 const config: SocketIoConfig = {url: 'http://localhost:3001', options: {}};
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+    
 }
 
 @NgModule({
@@ -91,6 +94,7 @@ export function createTranslateLoader(http: HttpClient) {
         Camera,
         CameraProvider,
         Device,
+        UniqueDeviceID,
         NativePageTransitions,
         FingerprintAIO,
         TouchLoginService,
