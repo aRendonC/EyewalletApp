@@ -275,6 +275,9 @@ export class DashboardPage implements OnInit {
                 selected_pocket.push(pocket)
             }
         });
+        console.log(selected_pocket)
+        console.log(cryptoData)
+        console.log(this.pockets)
         this.pocket = selected_pocket[0];
         let body = {
             userId: this.pocket.userId,

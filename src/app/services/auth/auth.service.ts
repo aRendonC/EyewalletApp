@@ -41,12 +41,12 @@ export class AuthService {
         if (!device.uuid) {
             // device.uuid = '9A8C1EF2-8354-4EFB-ACD7-DB8A543CFD1D';
             // device.uuid = 'd03ed04e9ecb6d8b';
-            device.uuid = '7219d0c4ee046311';
+            device.uuid = '7219d0c4-ee04-6311-3520-050907084658';
             // device.uuid = 'asd6544asd';
             // device.uuid = '37cd19cb5739fb4';
             //  device.uuid = '928e019bd3cdb0fa';
         }
-        
+
         return new Promise((resolve) => {
             this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
                 .then(async (data: any) => {

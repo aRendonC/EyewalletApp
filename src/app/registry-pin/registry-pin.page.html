@@ -9,9 +9,7 @@
     </div>
 
     <form
-        #formulario="ngForm"
-        [formGroup]="bodyForm"
-        (ngSubmit)="registerPin(bodyForm.value)"
+        (ngSubmit)="registerPin()"
         class="transparent move-form"
     >
         <ion-list class="transparent">
@@ -22,7 +20,8 @@
                     class="white move-input"
                     type="number"
                     name="username"
-                    formControlName="pin"
+
+                    [(ngModel)]="bodyForm.pin"
                     (ngModelChange)="validatePin($event)"
                     placeholder="{{'REGISTRY_PIN.PutPin' | translate}}"
                 ></ion-input>

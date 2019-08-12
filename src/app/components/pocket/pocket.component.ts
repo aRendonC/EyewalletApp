@@ -54,14 +54,15 @@ export class PocketComponent implements OnInit {
     }
 
     async ngOnInit() {
-        await this.getPocketStore();
+
     }
 
     async getPocketStore() {
-        if (!this.pocket) this.pocket = await this.store.getDataLocal('selected-pocket');
+       return this.pocket = await this.store.getDataLocal('selected-pocket');
     }
 
     async openPocketsModal() {
+        if (!this.pocket) this.pocket = await this.getPocketStore()
         await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
         this.pockets = await this.http.post('user-wallet/index', {currencyId: this.pocket.currencyId}, this.auth);
         console.log(this.pockets);
