@@ -5,6 +5,16 @@
     "CreateWallet": "Crear Billetera",
     "RecoveryPassword": "Recuperar Contraseña"
   },
+  "DASHBOARD_PAGE": {
+    "LoadingInformation": "Recopilando información"
+  },
+  "SLIDER_COMPONENT": {
+    "CompleteProfile": "Completa tu Perfil",
+    "VerifyPhone": "Verifica tu teléfono",
+    "CompleteProfileToDay": "Completa tu perfil hoy para empezar a usarla exitosamente.",
+    "DocumentsNecessaries": "Documentos necesarios",
+    "HaveProblemsDocuments": "Tenemos algunos problemas con los documentos que nos ha proporcionado.Por favor, intente de nuevo para continuar"
+  },
   "PROFILE": {
     "Email": "Email",
     "Phone": "Teléfono",
@@ -13,7 +23,13 @@
     "VerifiedMail": "¡Tu email está verificado!",
     "DeleteAccount": "Eliminar Cuenta",
     "ReSendMail": "Reenviar correo",
-    "SecondFactor": "Segundo Factor"
+    "SecondFactor": "Segundo Factor",
+    "SendingEmail": "Correo enviado",
+    "PhotoUploadOk": "Foto cargada correctamente",
+    "LoadingPhoto": "Cargando su foto",
+    "ComingSoon": "Próximamente",
+    "SelectPhoto": "Seleccione foto",
+    "TakePhoto": "Tomar foto'"
   },
   "ALERT": {
     "header": "Error",
@@ -24,7 +40,10 @@
     "VerifyIdentity": "Esta información es utilizada solo para verificar tu identidad.",
     "Address1": "Dirección Linea 1",
     "Address2": "Dirección Linea 2",
-    "Region": "Estado / Region / Provincia / Departamento"
+    "Region": "Estado / Region / Provincia / Departamento",
+    "GetGeoData": "Obteniendo datos de localización",
+    "DateUpdateOk": "Sus datos han sido actualizados",
+    "SavingData": "Almacenando datos"
   },
   "CARD_INVOICE": {
     "CardRequest": "Solicitud de tarjeta",
@@ -38,12 +57,18 @@
     "NewVault": "Nueva Bóveda",
     "History": "Historial"
   },
+  "PRICES_PAGE": {
+    "LoadingCrypto": "Cargando datos de monedas"
+  },
   "LIST_POCKETS": {
     "AddNewPocket": "Agregar un nuevo pocket",
-    "CreatePocket": "Crear pocket"
+    "CreatePocket": "Crear pocket",
+    "PocketCreatedOk": "Pocket creado correctamente",
+    "CreatingPocket": "Creando Pocket"
   },
   "INVOICE_MODAL": {
-    "PayEyeWallet": "Pagar con eywallet"
+    "PayEyeWallet": "Pagar con eywallet",
+    "NoFoundsPocket": "Este pocket no tiene saldo suficiente. Pot favor seleccione otro pocket"
   },
   "PIN_MODAL": {
     "Pin": "Introduce tu pin de seguridad"
@@ -52,13 +77,16 @@
     "NewWallet": "Crear una nueva Billetera",
     "PhoneExample": "Ejm.: +5712345678",
     "Password": "Contraseña",
-    "MessagePassword": "Length of 6. Minimum one letter, number and special character",
+    "MessagePassword": "Longitud de 6. Mínimo una letra, número y carácter especial",
     "ConfirmPassword": "Confirmar contraseña",
     "ButtonCreate": "Crear billetera"
   },
   "REGISTRY_PIN": {
     "PutPin": "Ingresar PIN",
-    "CreatePin": "Crear pin"
+    "CreatePin": "Crear pin",
+    "CreateWallet": "Creando billetera",
+    "CreatePinMsg": "Por favor cree un pin de 6 dígitos",
+    "ValidWallet": "Validando creación de billetera"
   },
   "REQUEST_CREDIT_CAR_PAGE": {
     "SelectWallet": "Selecione billetera"
@@ -67,23 +95,13 @@
     "NewPassword": "Nueva contraseña",
     "RepeatPassword": "Repita nueva contraseña",
     "UpdatePassword": "Actualizar contraseña",
-    "TextDeviceId": "Your device id is: ",
-    "ChangingPassword": "Cambio de contraseña en proceso",
-    "UpdatePasswordOk": "Cambio de contraseña exitoso",
-    "DataInputError": "Los datos ingresados estan errados"
+    "TextDeviceId": "La identificación de su dispositivo es: "
   },
   "SEND_CRYPTO_CURRENCY": {
     "ScanQR": "Escanea aquí tu código QR o copia la dirección de tu wallet",
     "High": "Alta",
     "Medium": "Media",
-    "Low": "Baja",
-    "QrOk": "Código escaneado correctamente, por favor, presione la pantalla para continuar",
-    "NotFoundToTransaction": "No tiene fondos suficientes para hacer una transacción",
-    "NotFounds": "No tiene fondos suficientes",
-    "FillFields": "Por favor llene todos los campos",
-    "FillPin": "Ingrese su pin",
-    "TransactionOK": "Transacción realizada con éxito",
-    "IncorrectPin": "Pin incorrecto"
+    "Low": "Baja"
   },
   "VERIFICATION_MODAL_PAGE": {
     "VerifySecondFactor": "Verifica tu segundo factor para poder",
@@ -127,40 +145,48 @@
     "DriverPass": "Permiso de conducir"
   },
   "VAULT_LIST": {
-    "loadingText": "Loagind vaults",
-    "toastErrorText": "Processing errors. Try again",
-    "titleSheetText": "Delete Vault",
-    "removeText": "Remove",
-    "removedText": "Removed",
-    "processingText": "Processing",
-    "finalizedText": "Finalized",
-    "cancelText": "Cancel",
-    "descriptionRequestDeleteVault": "Vault cancellation request.",
-    "responseRequestVaultDelete": "Your request is being processed."
+    "loadingText": "Cargando bóvedas",
+    "toastErrorText": "Errores de procesamiento. Intente nuevamente",
+    "titleSheetText": "Eliminar Bóveda",
+    "removeText": "Eliminar",
+    "removedText": "Eliminado",
+    "processingText": "Procesando",
+    "finalizedText": "Finalizado",
+    "cancelText": "Cancelar",
+    "descriptionRequestDeleteVault": "Solicitud de cancelación de bóveda.",
+    "responseRequestVaultDelete": "Su solicitud está siendo procesada."
   },
   "VAULT": {
-    "placeholderPockets": "select a pocket",
-    "buttonOkSelect": "Select",
-    "buttonCancelSelect": "Cancel",
-    "textAvailableBalance": "available balance",
-    "messageErrorLoadPage": "Temporary errors, try later.",
-    "loading": "Loading.",
-    "messageWithoutFunds": "The pocket has no funds, reload it or select another.",
-    "tuitiosText": "fee",
-    "durationText": "duration",
-    "monthsText": "months",
-    "totalEarningsText": "total earnings",
-    "buttonNextText": "next",
-    "higherValueErrorMessage": "The value entered cannot exceed the balance of the pocket."
+    "placeholderPockets": "selecciona un bolsillo",
+    "buttonOkSelect": "Seleccionar",
+    "buttonCancelSelect": "Cancelar",
+    "textAvailableBalance": "saldo disponible",
+    "messageErrorLoadPage": "Errores temporales, intente mas tarde.",
+    "loading": "Cargando.",
+    "messageWithoutFunds": "El bolsillo no tiene fondos, recargalo o selecciona otro.",
+    "tuitiosText": "matrícula",
+    "durationText": "duración",
+    "monthsText": "meses",
+    "totalEarningsText": "total ganancias",
+    "buttonNextText": "siguiente",
+    "higherValueErrorMessage": "El valor ingresado no puede ser superior al balance del bolsillo."
   },
   "VAULT_CREATED": {
-    "quantityText": "quantity",
-    "buttonAccept": "accept",
-    "termsConditionsTextOne": "When you click on \"Next\", you accept",
-    "termsConditionsTextTwo": "Terms of service - policies and privacy",
-    "modalMessageSuccessText": "Your new vault was added successfully.",
-    "modalMessageErrorText": "Error during vault creation. Try again.",
-    "messageCreatinVault": "Creating Vault"
+    "quantityText": "cantidad",
+    "buttonAccept": "aceptar",
+    "termsConditionsTextOne": "Cuando haces clic en \"Siguiente\", aceptas",
+    "termsConditionsTextTwo": "Términos de servicio - políticas y privacidad",
+    "modalMessageSuccessText": "Tu nueva bóveda fue añadida con éxito.",
+    "modalMessageErrorText": "Error durante la creación de la bóveda. Intente nuevamente.",
+	"messageCreatinVault": "Creando bóveda"
+  },
+  "TOAST_MSG": {
+    "DocumentsNoVerified": "Lo sentimos, sus documentos no han sido verificados"
+  },
+  "LOGIN_PAGE": {
+    "AllFieldsIsRequired": "Todos los campos son obligatorios",
+    "FieldEmail": "El campo correo electrónico es obligatorio",
+    "FiledPassword": "El campo correo contraseña es obligatorio"
   },
   "GENERAL": {
     "Continue": "Continuar",
@@ -200,6 +226,8 @@
     "Cancel": "Cancelar",
     "Accept": "Aceptar",
     "Amount": "Monto",
-    "Copy": "Copiar"
+    "Copy": "Copiar",
+    "LogOutOk": "Su sesión ha sido cerrada correctamente",
+    "LoadingData": "Sus datos se están cargando, por favor espere"
   }
 }
