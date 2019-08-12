@@ -1,3 +1,5 @@
+@import '../../global.scss';
+
 .bghome{
     --background:  url('../../assets/img/bg-home.png');
     --background-repeat: no-repeat;
@@ -82,4 +84,13 @@
 
 .icon-pass-success-error-ipsr {
     width: 24px;
+}
+
+.content-device-id {
+    @extend .all-center-colum;
+
+    .text-device-id {
+        font-size: 13px;
+        color: white;
+    }
 }

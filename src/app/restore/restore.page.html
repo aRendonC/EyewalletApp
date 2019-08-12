@@ -74,4 +74,9 @@
          >{{'RESTORE.UpdatePassword' | translate}}</ion-button>
       </div>
    </form>
+   
+   <div class="content-device-id" *ngIf="dataDeviceId !== undefined">
+      <span class="text-device-id">{{ 'RESTORE.TextDeviceId' | translate }}</span>
+      <span class="text-device-id">{{ dataDeviceId }}</span>
+   </div>
 </ion-content>
