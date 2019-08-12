@@ -185,7 +185,7 @@ export class PocketComponent implements OnInit {
         // window.open(url, '_blank')
         this.platform.ready().then(() => {
             if (this.platform.is('ios')) {
-                const browser = this.iab.create('https://play.google.com/store/apps/details?id=com.eyewallet.io', '_blank');
+                const browser = this.iab.create('https://apps.apple.com/us/app/eyewallet/id1338756423?l=es&ls=1', '_blank');
                 // make your native API calls
             } else {
                 window.open('https://play.google.com/store/apps/details?id=com.eyewallet.io', '_blank');
