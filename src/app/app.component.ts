@@ -19,6 +19,7 @@ import {Router} from "@angular/router";
 import {ToastService} from "./services/toast/toast.service";
 import {text} from "@angular/core/src/render3";
 import {LanguageService} from "./services/language/language.service";
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 @Component({
     selector: 'app-root',
@@ -46,7 +47,8 @@ export class AppComponent {
         private router: Router,
         private toast: ToastService,
         private aletrCtrl: AlertController,
-        private languageService: LanguageService
+        private languageService: LanguageService,
+        private uniqueDeviceID: UniqueDeviceID
     ) {
         this.initializeApp();
 
