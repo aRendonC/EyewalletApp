@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
-import {AlertController, ModalController} from "@ionic/angular";
+import { AlertController, ModalController, Platform} from "@ionic/angular";
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
 import {enterAnimation} from "../../animations/enter";
 import {leaveAnimation} from "../../animations/leave";
@@ -10,6 +10,8 @@ import {LoadingService} from "../../services/loading/loading.service";
 import {ToastService} from "../../services/toast/toast.service";
 import {DataLocalService} from "../../services/data-local/data-local.service";
 import {OverlayEventDetail} from '@ionic/core';
+
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
     selector: 'app-pocket',
@@ -45,6 +47,10 @@ export class PocketComponent implements OnInit {
         private toastCtrl: ToastService,
         private loadingCtrl: LoadingService,
         private alertCtrl: AlertController,
+        private axiosService: AxiosService,
+        private authService: AuthService,
+        private platform: Platform,
+        private iab: InAppBrowser
     ) {
         this.classLeft = "resize-logo-left1";
         this.imgLeft = "../../assets/img/btn-left-s.svg";
@@ -176,7 +182,17 @@ export class PocketComponent implements OnInit {
     }
 
     openUrl(url) {
-        window.open(url, '_blank')
+        // window.open(url, '_blank')
+        this.platform.ready().then(() => {
+            if (this.platform.is('ios')) {
+                const browser = this.iab.create('https://play.google.com/store/apps/details?id=com.eyewallet.io', '_blank');
+                // make your native API calls
+            } else {
+                window.open('https://play.google.com/store/apps/details?id=com.eyewallet.io', '_blank');
+                console.log('is android')
+                // fallback to browser APIs
+            }
+        });
     }
 
     public clickButtonLeftCinco(): void {

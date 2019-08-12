@@ -28,6 +28,7 @@
     "@ionic-native/device": "^5.8.0",
     "@ionic-native/fingerprint-aio": "^5.8.0",
     "@ionic-native/geolocation": "^5.10.0",
+    "@ionic-native/in-app-browser": "^5.12.0",
     "@ionic-native/keyboard": "^5.11.0",
     "@ionic-native/location-accuracy": "^5.10.0",
     "@ionic-native/native-page-transitions": "^5.8.0",
@@ -57,6 +58,7 @@
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-fingerprint-aio": "1.7.0",
     "cordova-plugin-geolocation": "^4.0.2",
+    "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^4.0.0",
     "cordova-plugin-qrscanner": "3.0.1",
@@ -142,7 +144,8 @@
       "cordova-plugin-geolocation": {},
       "cordova-plugin-x-toast": {},
       "cordova-plugin-add-swift-support": {},
-      "cordova-plugin-uniquedeviceid": {}
+      "cordova-plugin-uniquedeviceid": {},
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "android",

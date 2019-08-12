@@ -43,6 +43,8 @@ import {HammerService} from "./services/hammer/hammer.service";
 
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 const config: SocketIoConfig = {url: 'http://localhost:3001', options: {}};
 
 export function createTranslateLoader(http: HttpClient) {
@@ -99,6 +101,7 @@ export function createTranslateLoader(http: HttpClient) {
         FingerprintAIO,
         TouchLoginService,
         Clipboard,
+        InAppBrowser,
         LoadingService
     ],
     bootstrap: [
