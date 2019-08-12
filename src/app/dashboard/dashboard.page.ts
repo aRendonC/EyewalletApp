@@ -129,6 +129,7 @@ export class DashboardPage implements OnInit {
             setTimeout(async () => {
                 await this.sliderComponent.changeSlides(this.crypto.length + 1)
             }, 1000)
+            await this.storage.removeKey('pocket-created')
 
         } else {
             this.crypto.forEach(crypto => {
@@ -275,10 +276,23 @@ export class DashboardPage implements OnInit {
                 selected_pocket.push(pocket)
             }
         });
-        console.log(selected_pocket)
-        console.log(cryptoData)
-        console.log(this.pockets)
-        this.pocket = selected_pocket[0];
+        console.log(selected_pocket);
+        console.log(cryptoData);
+        console.log(this.pockets);
+        console.log(this.pocket);
+        console.log(this.pockets.length);
+        console.log(this.pockets[this.pockets.length])
+        if (!selected_pocket[0]) {
+            this.pockets = await  this.getPocketsList()
+            console.log(this.pockets)
+            this.storage.setDataLocal('pockets', this.pockets.data)
+            let pocketsNews = await this.http.post('user-wallet/index', {currencyId: cryptoData.currencyId}, this.auth);
+            console.log(pocketsNews)
+            this.pocket = pocketsNews[0]
+        } else {
+            this.pocket = selected_pocket[0];
+        }
+        console.log(this.pocket);
         let body = {
             userId: this.pocket.userId,
             type: 0,
