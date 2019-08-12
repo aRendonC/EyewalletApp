@@ -14,6 +14,7 @@ import {ToastService} from "../services/toast/toast.service";
 
 
 import * as utils from '../../assets/utils';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-restore',
@@ -47,7 +48,8 @@ export class RestorePage implements OnInit {
     private router: Router,
     private toastController: ToastService,
     private dataLocal: DataLocalService,
-    private loadingCtrl: LoadingService
+    private loadingCtrl: LoadingService,
+    private translateService: TranslateService,
   ) { }
 
   public async ngOnInit(): Promise<any> {
@@ -101,7 +103,7 @@ export class RestorePage implements OnInit {
   }
 
   public async restorePassword(): Promise<any> {
-    await this.loadingCtrl.present({text: 'Cambio de contraseña en proceso'});
+    await this.loadingCtrl.present({text: this.translateService.instant('RESTORE.ChangingPassword')});
     this.ctrlCssBlur = true;
     const path: string = 'auth/recovery';
 
@@ -128,14 +130,14 @@ export class RestorePage implements OnInit {
     if (data.status === 200) {
       this.blockingCounter = 0;
       this.dataRestorePassword.blocked = false;
-      this.toastController.presentToast({text: 'Cambio de contraseña exitoso'});
+      this.toastController.presentToast({text: this.translateService.instant('RESTORE.UpdatePasswordOk')});
       await this.router.navigate(['']);
     } else if (data.status === 500) {
       this.blockingCounter++;
       await this.blockWallet(this.blockingCounter);
-      this.toastController.presentToast({text: 'Los datos ingresados estan errados'});
+      this.toastController.presentToast({text: this.translateService.instant('RESTORE.DataInputError')});
     } else {
-      this.toastController.presentToast({text: 'Los datos ingresados estan errados'});
+      this.toastController.presentToast({text: this.translateService.instant('RESTORE.DataInputError')});
     }
   }
 

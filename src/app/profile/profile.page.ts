@@ -12,6 +12,7 @@ import {ToastService} from "../services/toast/toast.service";
 import {environment} from "../../environments/environment";
 import {LanguageService} from "../services/language/language.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -58,22 +59,19 @@ export class ProfilePage implements OnInit {
         private cameraProvider: CameraProvider,
         private toastCtrl: ToastService,
         private touchCtrl: TouchLoginService,
-        private languageService: LanguageService
+        private languageService: LanguageService,
+        private translateService: TranslateService,
     ) {
         this.temporizador = this.timer.temporizador;
     }
 
     async ngOnInit() {
         this.languages = LanguageService.getLanguages();
-        console.log(this.languages)
-        console.log(this.languageService.selected)
         this.selectedLanguage = this.languageService.selected;
-        console.log('lenguage seleccionado', this.selectedLanguage)
         this.pockets = JSON.parse(this.route.snapshot.paramMap.get('pockets'));
         this.profile = await this.store.getDataLocal('profile');
         await this.getPic();
         await this.getProfile();
-        console.log('avatar: ', this.urlAvatar + this.profile.avatar);
     }
 
     ionViewDidEnter() {
@@ -89,7 +87,6 @@ export class ProfilePage implements OnInit {
     async getProfile() {
         this.userVerifications = await this.axios.get('user-verification/status', this.auth, null);
         this.userVerifications = this.userVerifications.data;
-        console.log(this.userVerifications);
         this.setStorageVerification(this.userVerifications.data);
         this.profile = await this.store.getDataLocal('profile');
         this.avatar = this.urlAvatar + this.profile.avatar;
@@ -130,22 +127,20 @@ export class ProfilePage implements OnInit {
         const alert = await this.alertCtrl.create({
             buttons: [
                 {
-                    text: 'Tomar foto',
+                    text: this.translateService.instant('PROFILE.TakePhoto'),
                     handler: async () => {
                         this.touchCtrl.isTouch = false;
                         let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
-                        console.log('foto seleccionada', takePhoto);
                         this.avatar = '';
                         this.avatar = await this.setPhoto(takePhoto);
-                        console.log('this.avar-------->', this.avatar);
                         if (takePhoto) {
-                            await this.loadingCtrl.present({text:'Cargando su foto', cssClass: 'textLoadingBlack'});
+                            await this.loadingCtrl.present({text: this.translateService.instant('PROFILE.LoadingPhoto'), cssClass: 'textLoadingBlack'});
                             let responsePhoto: any = await this.cameraProvider.sendPhoto(takePhoto, this.type, false);
                             if (responsePhoto.status === 200) {
                                 this.touchCtrl.isTouch = true;
                                 this.avatar = this.urlAvatar + responsePhoto.data;
                                 await this.loadingCtrl.dismiss();
-                                await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
+                                await this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.PhotoUploadOk')});
                                 this.profile.avatar = responsePhoto.data;
                                 await this.store.setDataLocal('profile', this.profile);
 
@@ -159,22 +154,20 @@ export class ProfilePage implements OnInit {
                     }
                 },
                 {
-                    text: 'Seleccione foto',
+                    text: this.translateService.instant('PROFILE.SelectPhoto'),
                     handler: async () => {
                         this.touchCtrl.isTouch = false;
                         let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
-                        console.log('foto seleccionada', selectPhoto);
                         if (selectPhoto) {
-                            await this.loadingCtrl.present({text:'Cargando su foto', cssClass: 'textLoadingBlack'});
+                            await this.loadingCtrl.present({text: this.translateService.instant('PROFILE.LoadingPhoto'), cssClass: 'textLoadingBlack'});
                             this.avatar = '';
                             this.avatar = await this.setPhoto(selectPhoto);
-                            console.log('this.avatar--------->', this.avatar);
                             let responsePhoto: any = await this.cameraProvider.sendPhoto(selectPhoto, this.type, false);
                             if (responsePhoto.status === 200) {
                                 this.touchCtrl.isTouch = true;
                                 this.avatar = this.urlAvatar + responsePhoto.data;
                                 await this.loadingCtrl.dismiss();
-                                await this.toastCtrl.presentToast({text: 'Foto cargada correctamente'});
+                                await this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.PhotoUploadOk')});
                                 this.profile.avatar = responsePhoto.data;
                                 await this.store.setDataLocal('profile', this.profile);
                                 await this.ngOnInit()
@@ -187,7 +180,7 @@ export class ProfilePage implements OnInit {
                     }
                 },
                 {
-                    text: 'cancelar',
+                    text: this.translateService.instant('VAULT_LIST.Cancel'),
                     role: 'cancel',
                 }
             ]
@@ -199,38 +192,38 @@ export class ProfilePage implements OnInit {
         const bodyMail: any = {type: 'email'};
         this.verify = await this.axios.post('user/sendCodeVerification', bodyMail, this.auth);
         if (this.verify.status === 200) {
-            this.toastCtrl.presentToast({text: 'Correo enviado'});
+            this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.SendingEmail')});
         } else {
             this.toastCtrl.presentToast({text: 'Tenemos problemas con reenviar el correo, por favor reinicie la aplicación o espere'});
         }
     }
 
     notifications() {
-        this.toastCtrl.presentToast({text: 'Próximamente'});
+        this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
     }
 
     safety() {
-        this.toastCtrl.presentToast({text: 'Próximamente'});
+        this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
     }
 
     terms() {
-        this.toastCtrl.presentToast({text: 'Próximamente'});
+        this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
     }
 
     invite() {
-        this.toastCtrl.presentToast({text: 'Próximamente'});
+        this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
     }
 
     deleteAccount() {
-        this.toastCtrl.presentToast({text: 'Próximamente'});
+        this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
     }
 
     secondFactor() {
-        this.toastCtrl.presentToast({text: 'Próximamente'});
+        this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
     }
 
     eyewalletWeb() {
-        this.toastCtrl.presentToast({text: 'Próximamente'});
+        this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
     }
 
     async setStorageVerification(userVerification) {

@@ -8,6 +8,7 @@ import {ToastService} from "../services/toast/toast.service";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import { AuthService } from "../services/auth/auth.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-upload-files-modal',
@@ -22,7 +23,6 @@ export class UploadFilesModalPage implements OnInit {
     ctrlDocumentAddress: boolean = false;
     userVerification = {};
     @Input() documentList = 0;
-    // type address, identification, identification2, photo
     public type: string = 'photo';
 
     constructor(
@@ -35,7 +35,8 @@ export class UploadFilesModalPage implements OnInit {
         private loadingCtrl: LoadingService,
         protected store: Storage,
         protected aesjs: AesJsService,
-        private auth: AuthService
+        private auth: AuthService,
+        private translateService: TranslateService,
     ) {
     }
 
@@ -48,7 +49,7 @@ export class UploadFilesModalPage implements OnInit {
         const alert = await this.alertCtrl.create({
             buttons: [
                 {
-                    text: 'Tomar foto',
+                    text: this.translateService.instant('UPLOAD_FILES_MODAL.TakePhoto'),
                     handler: async () => {
                         let takePhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.CAMERA);
                         if (takePhoto) {
@@ -72,7 +73,7 @@ export class UploadFilesModalPage implements OnInit {
                     }
                 },
                 {
-                    text: 'Seleccione foto',
+                    text: this.translateService.instant('UPLOAD_FILES_MODAL.SelectPhoto'),
                     handler: async () => {
                         let selectPhoto: any = await this.cameraProvider.getPhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
                         if (selectPhoto) {
@@ -96,7 +97,7 @@ export class UploadFilesModalPage implements OnInit {
                     }
                 },
                 {
-                    text: 'cancelar',
+                    text: this.translateService.instant('GENERAL.Cancel'),
                     role: 'cancel',
                 }
             ]
@@ -106,7 +107,6 @@ export class UploadFilesModalPage implements OnInit {
 
     async opdateSelfie(photo) {
         let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
-        console.log('respuesta de las fotos', responsePhoto);
         if (responsePhoto.status === 200) {
             this.profile.completed = responsePhoto.verification.completed;
             let profileVerification = this.aesjs.encrypt(this.profile);
@@ -115,7 +115,7 @@ export class UploadFilesModalPage implements OnInit {
             await this.loadingCtrl.dismiss();
             this.ctrlSelfie = false;
             this.ctrlDocument = true;
-            await this.toastCtrl.presentToast({text: 'Documento cargado correctamente, por favor toque la pantalla para continuar'});
+            await this.toastCtrl.presentToast({text: this.translateService.instant('UPLOAD_FILES_MODAL.UploadDocumentOk')});
         } else {
             await this.loadingCtrl.dismiss();
             await this.toastCtrl.presentToast({text: responsePhoto.error.msg})
@@ -125,7 +125,6 @@ export class UploadFilesModalPage implements OnInit {
     async opdateDocument(photo) {
         this.type = 'identification';
         let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
-        console.log('respuesta de las fotos', responsePhoto);
         if (responsePhoto.status === 200) {
             this.profile.completed = responsePhoto.verification.completed;
             let profileVerification = this.aesjs.encrypt(this.profile);
@@ -134,7 +133,7 @@ export class UploadFilesModalPage implements OnInit {
             await this.loadingCtrl.dismiss();
             this.ctrlDocument = false;
             this.ctrlDocumentBack = true;
-            await this.toastCtrl.presentToast({text: 'Documento cargado correctamente, por favor toque la pantalla para continuar'});
+            await this.toastCtrl.presentToast({text: this.translateService.instant('UPLOAD_FILES_MODAL.UploadDocumentOk')});
         } else {
             await this.loadingCtrl.dismiss();
             await this.toastCtrl.presentToast({text: responsePhoto.error.msg})
@@ -144,7 +143,6 @@ export class UploadFilesModalPage implements OnInit {
     async opdateDocumentBack(photo) {
         this.type = 'identification2';
         let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
-        console.log('respuesta de las fotos', responsePhoto);
         if (responsePhoto.status === 200) {
             this.profile.completed = responsePhoto.verification.completed;
             let profileVerification = this.aesjs.encrypt(this.profile);
@@ -153,7 +151,7 @@ export class UploadFilesModalPage implements OnInit {
             await this.loadingCtrl.dismiss();
             this.ctrlDocumentBack = false;
             this.ctrlDocumentAddress = true;
-            await this.toastCtrl.presentToast({text: 'Documento cargado correctamente, por favor toque la pantalla para continuar'});
+            await this.toastCtrl.presentToast({text: this.translateService.instant('UPLOAD_FILES_MODAL.UploadDocumentOk')});
         } else {
             await this.loadingCtrl.dismiss();
             await this.toastCtrl.presentToast({text: responsePhoto.error.msg})
@@ -163,17 +161,16 @@ export class UploadFilesModalPage implements OnInit {
     async updateAddress(photo) {
         this.type = 'address';
         let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
-        console.log('respuesta de las fotos', responsePhoto);
         if (responsePhoto.status === 200) {
+            await this.toastCtrl.presentToast({text: this.translateService.instant('UPLOAD_FILES_MODAL.AllDocumentsUploadOk')});
             this.profile.completed = responsePhoto.verification.completed;
             let profileVerification = this.aesjs.encrypt(this.profile);
             await this.store.set('profile', profileVerification);
             await this.setStorageVerification(responsePhoto.verification);
             await this.loadingCtrl.dismiss();
             this.ctrlDocumentAddress = false;
-            await this.toastCtrl.presentToast({text: 'Todos sus documentos han sido cargados correctamente'});
             await this.closeModal();
-            await this.toastCtrl.presentToast({ text: 'Se cerrara su sesión para validar los documentos' });
+            await this.toastCtrl.presentToast({ text: this.translateService.instant('UPLOAD_FILES_MODAL.SessionClose')});
             await this.auth.logout();
             // await this.router.navigate(['/app/tabs/dashboard'])
 

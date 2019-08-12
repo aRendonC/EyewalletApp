@@ -8,6 +8,7 @@ import {LoadingService} from '../services/loading/loading.service';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
 import * as utils from '../../assets/utils';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-registry-pin',
@@ -38,6 +39,7 @@ export class RegistryPinPage implements OnInit {
         private store: DataLocalService,
         private loadingCtrl: LoadingService,
         private touchCtrl: TouchLoginService,
+        private translateService: TranslateService,
     ) {
         this.buttonDisabled = true;
     }
@@ -61,7 +63,7 @@ export class RegistryPinPage implements OnInit {
     }
 
     public async registerPin() {
-        await this.loadingCtrl.present({text: 'Validando creación de billetera'});
+        await this.loadingCtrl.present({text: this.translateService.instant('REGISTRY_PIN.ValidWallet')});
         this.ctrlCssBlur = true;
 
         this.devic = await this.device.getDataDevice();

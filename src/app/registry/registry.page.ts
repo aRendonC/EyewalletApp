@@ -8,6 +8,7 @@ import { LoadingService } from "../services/loading/loading.service";
 import { ToastService } from "../services/toast/toast.service";
 import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 import * as utils from '../../assets/utils';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-registry',
@@ -41,7 +42,8 @@ export class RegistryPage implements OnInit {
     private device: DeviceService,
     private loadingCtrl: LoadingService,
     private toastCtrl: ToastService,
-    private touchCtrl: TouchLoginService
+    private touchCtrl: TouchLoginService,
+    private translateService: TranslateService,
   ) { }
 
   ngOnInit() {
@@ -123,7 +125,7 @@ export class RegistryPage implements OnInit {
   }
 
   public async sendDataRegistry(): Promise<any> {
-    await this.loadingCtrl.present({text: 'Creando billetera'});
+    await this.loadingCtrl.present({text: this.translateService.instant('REGISTRY_PIN.CreateWallet')});
     this.ctrlCssBlur = true;
     let device = await this.device.getDataDevice();
     if(!device.uuid) device.uuid = 'asd6544asd';
@@ -160,7 +162,7 @@ export class RegistryPage implements OnInit {
         },
         queryParamsHandling: 'merge'
       });
-      await this.toastCtrl.presentToast({text: 'Por favor cree un pin de 6 dígitos'});
+      await this.toastCtrl.presentToast({text: this.translateService.instant('REGISTRY_PIN.CreatePinMsg')});
     } else {
       await this.toastCtrl.presentToast({text: response.error.msg});
     }

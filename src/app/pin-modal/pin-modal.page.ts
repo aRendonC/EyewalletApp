@@ -24,7 +24,7 @@ export class PinModalPage implements OnInit {
       private store: Storage,
       private router: Router,
       private platform: Platform,
-      private aesjs: AesJsService
+      private aesjs: AesJsService,
   ) { }
 
   ngOnInit() {

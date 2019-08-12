@@ -3,7 +3,7 @@ import {ModalController} from "@ionic/angular";
 import {UploadFilesModalPage} from "../upload-files-modal/upload-files-modal.page";
 
 import * as constants from '../constanst/index'
-import { Router } from '@angular/router';
+import {TranslateService} from "@ngx-translate/core";
 @Component({
   selector: 'app-upload-verification-files',
   templateUrl: './upload-verification-files.page.html',
@@ -11,18 +11,19 @@ import { Router } from '@angular/router';
 })
 export class UploadVerificationFilesPage implements OnInit {
   constants = constants;
-  public validations = [
-    {value: 0, text: 'Pasaporte'},
-    {value: 1, text: 'Identificación Nacional'},
-    {value: 2, text: 'Tarjeta de residencia'},
-    {value: 3, text: 'Permiso de conducir'},
-];
+  public validations = [];
   constructor(
       private ctrlModal: ModalController,
-      private router: Router
+      private translateService: TranslateService,
   ) { }
 
   ngOnInit() {
+    this.validations = [
+      {value: 0, text: this.translateService.instant('UPLOAD_FILES_MODAL.Passport')},
+      {value: 1, text: this.translateService.instant('UPLOAD_FILES_MODAL.IdentificationNational')},
+      {value: 2, text: this.translateService.instant('UPLOAD_FILES_MODAL.ResidentTarget')},
+      {value: 3, text: this.translateService.instant('UPLOAD_FILES_MODAL.DriverPass')},
+    ];
   }
 
   async openModal(value) {

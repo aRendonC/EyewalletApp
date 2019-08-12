@@ -8,6 +8,7 @@ import {AuthService} from '../services/auth/auth.service';
 import {LoadingService} from '../services/loading/loading.service';
 import {ToastService} from "../services/toast/toast.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-modal-invoice',
@@ -37,6 +38,7 @@ export class ModalInvoicePage implements OnInit {
         private loadingServices: LoadingService,
         private toastController: ToastService,
         private storage: DataLocalService,
+        private translateService: TranslateService,
     ) {
     }
 
@@ -65,7 +67,7 @@ export class ModalInvoicePage implements OnInit {
                 await this.toastController.presentToast({text: 'Error de conexión'});
             }
         } else {
-            await this.toastController.presentToast({text: 'Este pocket no tiene saldo suficiente. Pot favor seleccione otro pocket'});
+            await this.toastController.presentToast({text: this.translateService.instant('INVOICE_MODAL.NoFoundsPocket')});
         }
     }
 

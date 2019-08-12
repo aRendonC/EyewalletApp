@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Storage} from "@ionic/storage";
 import * as CONSTANTS from '../constanst';
-import {AesJsService} from "../services/aesjs/aes-js.service";
 import {AuthService} from "../services/auth/auth.service";
 import {AxiosService} from "../services/axios/axios.service";
 import {ModalController} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {ToastService} from "../services/toast/toast.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-verification-modal',
@@ -24,12 +23,12 @@ export class VerificationModalPage implements OnInit {
 
     constructor(
         private store: DataLocalService,
-        // protected aesjs: AesJsService,
         protected auth: AuthService,
         private http: AxiosService,
         private modalCtrl: ModalController,
         private router: Router,
-        private toastCtrl: ToastService
+        private toastCtrl: ToastService,
+        private translateService: TranslateService,
     ) {
     }
 
@@ -73,9 +72,9 @@ export class VerificationModalPage implements OnInit {
                 profile.level = response.level;
                 await this.closeModal(profile);
                 await this.store.setDataLocal('profile', profile);
-                await this.toastCtrl.presentToast({text: 'Teléfono ha sido verificado correctamente'})
+                await this.toastCtrl.presentToast({text: this.translateService.instant('VERIFICATION_MODAL_PAGE.PhoneVerified')})
             } else {
-                await this.toastCtrl.presentToast({text: 'Error de código'})
+                await this.toastCtrl.presentToast({text: this.translateService.instant('VERIFICATION_MODAL_PAGE.CodeError')})
             }
         }
     }

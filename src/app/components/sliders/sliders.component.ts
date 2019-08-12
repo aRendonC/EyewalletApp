@@ -11,6 +11,7 @@ import {filter} from "rxjs/operators";
 import {ToastService} from "../../services/toast/toast.service";
 import {DataLocalService} from "../../services/data-local/data-local.service";
 import {LoadingService} from "../../services/loading/loading.service";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -56,7 +57,8 @@ export class SlidersComponent implements OnInit {
         private http: AxiosService,
         private auth: AuthService,
         private toastCtrl: ToastService,
-        private loadingCtrl: LoadingService
+        private loadingCtrl: LoadingService,
+        private translateService: TranslateService,
     ) {
         this.router.events.pipe(
             filter(event => event instanceof NavigationStart)
@@ -72,7 +74,6 @@ export class SlidersComponent implements OnInit {
         await this.store.setDataLocal('userVerification', userVerifications);
         this.profile = await this.store.getDataLocal('profile');
         this.profile.completed = userVerifications.completed;
-        console.log('prefil de usuario----->', this.profile)
         await this.setProfileStore();
         this.nameSlider = this.name;
         this.dataGraphic = this.name[0];
@@ -192,7 +193,7 @@ export class SlidersComponent implements OnInit {
         await this.sliderContent.slideTo(activeIndexHeader, 200);
         await this.sliderContent.lockSwipes(true);
         await this.sliderHeader.lockSwipes( true);
-        await this.toastCtrl.presentToast({text: 'Sus datos se están cargando, por favor espere', duration: 1000});
+        await this.toastCtrl.presentToast({text: this.translateService.instant('GENERAL.LoadingData'), duration: 1000});
         this.changeCryptoPocket.emit(this.name[activeIndexHeader]);
         setTimeout(async () => {
             await this.sliderContent.lockSwipes(false);
@@ -207,7 +208,7 @@ export class SlidersComponent implements OnInit {
 
     async refreshTransactions(pocketSelected): Promise<any> {
         console.log(pocketSelected);
-        await this.loadingCtrl.present({text: 'Cargando datos', cssClass: 'textLoadingBlack'});
+        await this.loadingCtrl.present({text: this.translateService.instant('VAULT.loading'), cssClass: 'textLoadingBlack'});
         let pocket = await this.store.getDataLocal('selected-pocket');
         console.log(pocket);
         let body = {

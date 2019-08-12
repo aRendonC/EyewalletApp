@@ -7,6 +7,7 @@ import {AesJsService} from '../services/aesjs/aes-js.service';
 import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-list-pockets',
@@ -33,7 +34,8 @@ export class ListPocketsPage implements OnInit {
     private auth: AuthService,
     private store: DataLocalService,
     private toastCtrl: ToastService,
-    private loadingCtrl: LoadingService
+    private loadingCtrl: LoadingService,
+    private translateService: TranslateService,
       ) { }
 
   ngOnInit() {
@@ -57,7 +59,7 @@ export class ListPocketsPage implements OnInit {
         } else {
           endPoint = 'user-wallet/create'
         }
-        await this.loadingCtrl.present({text: 'Creando Pocket', cssClass: 'textLoadingBlack'});
+        await this.loadingCtrl.present({text: this.translateService.instant('LIST_POCKETS.CreatingPocket'), cssClass: 'textLoadingBlack'});
         this.ctrlCssBlur = true;
         this.ctrlButtonCreate = true;
         let profile = await this.store.getDataLocal('profile');
@@ -69,7 +71,7 @@ export class ListPocketsPage implements OnInit {
         if(response.status === 200) {
           this.ctrlCssBlur = false;
           await this.loadingCtrl.dismiss();
-          await this.toastCtrl.presentToast({text: 'Pocket creado correctamente'});
+          await this.toastCtrl.presentToast({text: this.translateService.instant('LIST_POCKETS.PocketCreatedOk')});
           await this.store.setDataLocal('pocket-created', true);
           await this.closeModal(response.data, 'new-pocket')
         } else {

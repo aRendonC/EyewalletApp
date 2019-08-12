@@ -67,13 +67,23 @@
     "NewPassword": "Nueva contraseña",
     "RepeatPassword": "Repita nueva contraseña",
     "UpdatePassword": "Actualizar contraseña",
-    "TextDeviceId": "Your device id is: "
+    "TextDeviceId": "Your device id is: ",
+    "ChangingPassword": "Cambio de contraseña en proceso",
+    "UpdatePasswordOk": "Cambio de contraseña exitoso",
+    "DataInputError": "Los datos ingresados estan errados"
   },
   "SEND_CRYPTO_CURRENCY": {
     "ScanQR": "Escanea aquí tu código QR o copia la dirección de tu wallet",
     "High": "Alta",
     "Medium": "Media",
-    "Low": "Baja"
+    "Low": "Baja",
+    "QrOk": "Código escaneado correctamente, por favor, presione la pantalla para continuar",
+    "NotFoundToTransaction": "No tiene fondos suficientes para hacer una transacción",
+    "NotFounds": "No tiene fondos suficientes",
+    "FillFields": "Por favor llene todos los campos",
+    "FillPin": "Ingrese su pin",
+    "TransactionOK": "Transacción realizada con éxito",
+    "IncorrectPin": "Pin incorrecto"
   },
   "VERIFICATION_MODAL_PAGE": {
     "VerifySecondFactor": "Verifica tu segundo factor para poder",
@@ -87,7 +97,9 @@
     "AvoidUnauthorizedAccess": "Evite el acceso no autorizado a su billetera.",
     "EnableStepsVerify": "Habilite la verificación de dos pasos para acutalizar la seguridad en su billetera",
     "EnableAuthorizationRequest": "Puede usar su teléfono móvil para habilitar la autenticación de dos pasos o para recibir alertas",
-    "InputVerificationCode": "Ingresa su código de verificación"
+    "InputVerificationCode": "Ingresa su código de verificación",
+    "PhoneVerified": "Tu teléfono ha sido verificado correctamente",
+    "CodeError": "Error de código"
   },
   "UPLOAD_VERIFICATION_FILES": {
     "LetsVerify": "¡Vamos a verificar!"
@@ -103,7 +115,16 @@
     "DriverLicense": "Permiso de conducir",
     "TakePhotoBackDocument": "Toma una foto de la parta trasera de tu documento",
     "PublicServicesDocuments": "Documento de servicios públicos",
-    "MakeSureYouDirection": "Asegura que tu dirección sea legible"
+    "MakeSureYouDirection": "Asegura que tu dirección sea legible",
+    "TakePhoto": "Tomar foto",
+    "SelectPhoto": "Seleccione foto",
+    "UploadDocumentOk": "Documento cargado correctamente",
+    "AllDocumentsUploadOk": "Todos sus documentos han sido cargados correctamente",
+    "SessionClose": "Se cerrara su sesión para validar los documentos",
+    "Passport": "Pasaporte",
+    "IdentificationNational": "Identificación Nacional",
+    "ResidentTarget": "Tarjeta de residencia",
+    "DriverPass": "Permiso de conducir"
   },
   "VAULT_LIST": {
     "loadingText": "Loagind vaults",

@@ -9,6 +9,7 @@ import {LoadingService} from '../services/loading/loading.service';
 import {ToastService} from "../services/toast/toast.service";
 import {SocketIoService} from "../services/socketIo/socket-io.service";
 import {ChartComponent} from "../components/chart/chart.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-dashboard',
@@ -48,12 +49,13 @@ export class DashboardPage implements OnInit {
         public loadingController: LoadingService,
         private router: Router,
         private toastCtrl: ToastService,
-        private socket: SocketIoService
+        private socket: SocketIoService,
+        private translateService: TranslateService,
     ) {
     }
 
     async ngOnInit() {
-        await this.loadingController.present({text: 'Recopilando información', cssClass: 'textLoadingBlack'});
+        await this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
         // await this.socket.initSocketConnection();
         // await this.socket.disconnectSocket();
         this.pocket = await this.storage.getDataLocal('selected-pocket');

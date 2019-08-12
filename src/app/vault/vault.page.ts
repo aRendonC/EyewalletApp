@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataLocalService } from '../services/data-local/data-local.service';
-import { AesJsService } from '../services/aesjs/aes-js.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AxiosService } from '../services/axios/axios.service';
 import { AuthService } from '../services/auth/auth.service';

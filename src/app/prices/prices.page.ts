@@ -6,6 +6,7 @@ import {LoadingService} from '../services/loading/loading.service';
 import {ToastService} from '../services/toast/toast.service';
 import {environment} from '../../environments/environment';
 import {DataLocalService} from "../services/data-local/data-local.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-prices',
@@ -35,12 +36,13 @@ export class PricesPage implements OnInit {
         private auth: AuthService,
         private store: DataLocalService,
         private loading: LoadingService,
-        private toastCtrl: ToastService
+        private toastCtrl: ToastService,
+        private translateService: TranslateService,
     ) {
     }
 
     async ngOnInit() {
-        await this.loading.present({text:'Cargando datos de monedas', cssClass: 'textLoadingBlack'});
+        await this.loading.present({text: this.translateService.instant('PRICES_PAGE.LoadingCrypto'), cssClass: 'textLoadingBlack'});
         await this.getProfile();
         await this.getCryptoPrices24h();
     }

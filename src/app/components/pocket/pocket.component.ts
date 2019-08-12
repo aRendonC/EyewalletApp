@@ -12,6 +12,7 @@ import {DataLocalService} from "../../services/data-local/data-local.service";
 import {OverlayEventDetail} from '@ionic/core';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-pocket',
@@ -50,7 +51,8 @@ export class PocketComponent implements OnInit {
         private axiosService: AxiosService,
         private authService: AuthService,
         private platform: Platform,
-        private iab: InAppBrowser
+        private iab: InAppBrowser,
+        private translateService: TranslateService,
     ) {
         this.classLeft = "resize-logo-left1";
         this.imgLeft = "../../assets/img/btn-left-s.svg";
@@ -123,7 +125,7 @@ export class PocketComponent implements OnInit {
         if (this.counters.sendCash == 1) {
             let profile = await this.store.getDataLocal('profile');
             if (profile.level === 0) {
-                await this.toastCtrl.presentToast({text: 'Lo sentimos, sus documentos no han sido verificados'})
+                await this.toastCtrl.presentToast({text: this.translateService.instant('TOAST_MSG.DocumentsNoVerified')})
             } else {
                 await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
             }
@@ -168,7 +170,7 @@ export class PocketComponent implements OnInit {
                     text: 'Confirmar',
                     handler: async () => {
                         await this.logOut();
-                        await this.toastCtrl.presentToast({text: 'Su sesión ha sido cerrada correctamente'})
+                        await this.toastCtrl.presentToast({text: this.translateService.instant('GENERAL.LogOutOk')})
                     }
                 }
             ]
@@ -181,11 +183,10 @@ export class PocketComponent implements OnInit {
         await this.auth.logout()
     }
 
-    openUrl(url) {
-        // window.open(url, '_blank')
+    openUrl() {
         this.platform.ready().then(() => {
             if (this.platform.is('ios')) {
-                const browser = this.iab.create('https://play.google.com/store/apps/details?id=com.eyewallet.io', '_blank');
+                const browser = this.iab.create('https://apps.apple.com/us/app/eyewallet/id1338756423?l=es&ls=1', '_blank');
                 // make your native API calls
             } else {
                 window.open('https://play.google.com/store/apps/details?id=com.eyewallet.io', '_blank');

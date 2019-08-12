@@ -12,6 +12,7 @@ import {AndroidPermissions} from '@ionic-native/android-permissions/ngx';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {LocationAccuracy} from '@ionic-native/location-accuracy/ngx';
 import {ToastService} from "../services/toast/toast.service";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -53,7 +54,8 @@ export class AddressPage implements OnInit {
     private geolocation: Geolocation,
     private androidPermissions: AndroidPermissions,
     private locationAccuracy: LocationAccuracy,
-    private toastCtrl: ToastService
+    private toastCtrl: ToastService,
+    private translateService: TranslateService,
   ) {
   }
 
@@ -129,7 +131,7 @@ export class AddressPage implements OnInit {
 
 
   async askToTurnOnGPS() {
-    await this.loadingCtrl.present({text: 'Obteniendo datos de localización...', cssClass: 'textLoadingBlack'});
+    await this.loadingCtrl.present({text: this.translateService.instant('ADDRESS_PAGE.GetGeoData'), cssClass: 'textLoadingBlack'});
     this.ctrlCssBlur = true;
     await this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
       async () => {
@@ -144,7 +146,7 @@ export class AddressPage implements OnInit {
 
   async createProfile() {
     await this.loadingCtrl.present({
-      text: 'Almacenando datos',
+      text: this.translateService.instant('ADDRESS_PAGE.SavingData'),
       cssClass: 'textLoadingBlack'
     });
     this.ctrlCssBlur = true;
@@ -159,7 +161,7 @@ export class AddressPage implements OnInit {
       this.ctrlCssBlur = false;
       await this.store.set('profile', profile);
       this.touchCtrl.isTouch = true;
-      await this.toastCtrl.presentToast({text: 'Sus datos han sido actualizados'});
+      await this.toastCtrl.presentToast({text: this.translateService.instant('ADDRESS_PAGE.DateUpdateOk')});
       await this.router.navigate(['app/tabs']);
     } else {
       await this.toastCtrl.presentToast({text: response.error.msg});
