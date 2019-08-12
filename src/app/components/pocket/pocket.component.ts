@@ -18,6 +18,9 @@ import {OverlayEventDetail} from '@ionic/core';
 })
 
 export class PocketComponent implements OnInit {
+    public counters = {
+        sendCash: 0,
+    };
     pockets: any = null;
     @Input() urlPresent: any = '';
     @Input() ctrlNavigation: number = 0;
@@ -61,7 +64,7 @@ export class PocketComponent implements OnInit {
     async openPocketsModal() {
         await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
         this.pockets = await this.http.post('user-wallet/index', {currencyId: this.pocket.currencyId}, this.auth);
-        console.log(this.pockets)
+        console.log(this.pockets);
         const modalPocket: HTMLIonModalElement = await this.modalCtrl.create({
             component: ListPocketsPage,
             animated: true,
@@ -73,7 +76,7 @@ export class PocketComponent implements OnInit {
         });
 
         modalPocket.onDidDismiss().then(async (pocket: OverlayEventDetail) => {
-            console.log(pocket)
+            console.log(pocket);
             if (pocket.role == 'new-pocket') {
                 this.store.setDataLocal('selected-pocket', this.pocket);
             }
@@ -112,12 +115,32 @@ export class PocketComponent implements OnInit {
     }
 
     async sendCash() {
-        let profile = await this.store.getDataLocal('profile');
-        if (profile.level === 0) {
-            await this.toastCtrl.presentToast({text: 'Lo sentimos, sus documentos no han sido verificados'})
+        if (this.counters.sendCash == 1) {
+            let profile = await this.store.getDataLocal('profile');
+            if (profile.level === 0) {
+                await this.toastCtrl.presentToast({text: 'Lo sentimos, sus documentos no han sido verificados'})
+            } else {
+                await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
+            }
         } else {
-            await this.router.navigate(['/send-currency', {pocket: JSON.stringify(this.pocket)}]);
+            this.counters.sendCash = 1;
+            let interval = setInterval(() => {
+                this.marginsRight = this.marginsRight + 1;
+                if (this.marginsRight == 0) {
+                    setTimeout(() => {
+                        let intervalClose = setInterval(() => {
+                            this.marginsRight = this.marginsRight - 1;
+                            if(this.marginsRight == -65) {
+                                this.counters.sendCash = 0
+                                clearInterval(intervalClose)
+                            }
+                        }, 3);
+                    }, 1000);
+                    clearInterval(interval)
+                }
+            }, 3)
         }
+
     }
 
     async goToHome() {
@@ -177,59 +200,59 @@ export class PocketComponent implements OnInit {
         await this.router.navigate(['/app/tabs/history-exchange']);
     }
 
-    async onPanLeft($event) {
-        console.log('panlefff', $event)
-        console.log('panlefff this.marginsRight', this.marginsRight)
-        if (this.marginsRight >= -1) {
-            // await this.onPanEnd(null);
-            await this.sendCash();
-            setTimeout(() => {
-                this.marginsRight = 0;
-                for (let i = 0; i <= 65; i++) {
-                    this.marginsRight = this.marginsRight - 1;
+    // async onPanLeft($event) {
+    //     console.log('panlefff', $event)
+    //     console.log('panlefff this.marginsRight', this.marginsRight)
+    //     if (this.marginsRight >= -1) {
+    //         // await this.onPanEnd(null);
+    //         await this.sendCash();
+    //         setTimeout(() => {
+    //             this.marginsRight = 0;
+    //             for (let i = 0; i <= 65; i++) {
+    //                 this.marginsRight = this.marginsRight - 1;
+    //
+    //             }
+    //         }, 1000)
+    //         console.log('ejecutar accion')
+    //     } else {
+    //
+    //         this.marginsRight = this.marginsRight - $event.deltaX
+    //
+    //     }
+    // }
 
-                }
-            }, 1000)
-            console.log('ejecutar accion')
-        } else {
-
-            this.marginsRight = this.marginsRight - $event.deltaX
-
-        }
-    }
-
-    async onPanEnd($event) {
-        console.log('pan rigth', $event)
-        if (this.marginsRight >= -75) {
-            this.marginsRight = this.marginsRight - $event.deltaX
-            // await this.onPanEnd(null);
-
-        } else {
-
-            console.log('ejecutar accion')
-
-        }
-        // console.log(this.marginsRight)
-        // if(this.marginsRight <= 2 && this.marginsRight >= -1) {
-        //     await this.sendCash();
-        // }
-        // this.marginsRight = 0;
-        // for (let i = 0; i <= 65; i++) {
-        //     this.marginsRight = this.marginsRight - 1;
-        //
-        // }
-        // (click)="sendCash()"
-        // (click)="receiveCash()"
-
-    }
-
-    finishPaned($event) {
-        console.log($event)
-        this.marginsRight = 0;
-        for (let i = 0; i <= 65; i++) {
-            this.marginsRight = this.marginsRight - 1;
-
-        }
-    }
+    // async onPanEnd($event) {
+    //     console.log('pan rigth', $event)
+    //     if (this.marginsRight >= -75) {
+    //         this.marginsRight = this.marginsRight - $event.deltaX
+    //         // await this.onPanEnd(null);
+    //
+    //     } else {
+    //
+    //         console.log('ejecutar accion')
+    //
+    //     }
+    //     // console.log(this.marginsRight)
+    //     // if(this.marginsRight <= 2 && this.marginsRight >= -1) {
+    //     //     await this.sendCash();
+    //     // }
+    //     // this.marginsRight = 0;
+    //     // for (let i = 0; i <= 65; i++) {
+    //     //     this.marginsRight = this.marginsRight - 1;
+    //     //
+    //     // }
+    //     // (click)="sendCash()"
+    //     // (click)="receiveCash()"
+    //
+    // }
+    //
+    // finishPaned($event) {
+    //     console.log($event)
+    //     this.marginsRight = 0;
+    //     for (let i = 0; i <= 65; i++) {
+    //         this.marginsRight = this.marginsRight - 1;
+    //
+    //     }
+    // }
 }
 
