@@ -50,11 +50,8 @@ export class RestorePage implements OnInit {
     private loadingCtrl: LoadingService
   ) { }
 
-  ngOnInit() {
-    this.deviceService.getDataDevice()
-    .then(response => {
-      this.dataDeviceId = response.uuid;
-    });
+  public async ngOnInit(): Promise<any> {
+    this.dataDeviceId = await this.getDataDeviceId();
   }
 
   public validatePin(event: any): void {
@@ -161,5 +158,12 @@ export class RestorePage implements OnInit {
       await this.toastController.presentToast({text: CONSTANTS.RESTORE_PASSWORDO.WALLET_BLOCKED});
       this.router.navigate(['']);
     }
+  }
+
+  private async getDataDeviceId(): Promise<any> {
+    return this.deviceService.getDataDevice()
+    .then(async (response: any) => {
+      return await response.uuid;
+    });
   }
 }

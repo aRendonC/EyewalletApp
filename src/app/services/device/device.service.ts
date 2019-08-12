@@ -31,7 +31,7 @@ export class DeviceService {
       return await uuid;
     })
     .catch((error: any) => {
-      console.log(error);
+      console.error('ERROR: ', error);
     });
   }
 }
