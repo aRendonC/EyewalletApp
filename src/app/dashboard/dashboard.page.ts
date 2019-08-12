@@ -50,11 +50,6 @@ export class DashboardPage implements OnInit {
         private toastCtrl: ToastService,
         private socket: SocketIoService
     ) {
-        // this.router.events.pipe(
-        //     filter(event => event instanceof NavigationStart)
-        // ).subscribe((route: NavigationStart) => {
-        //     this.getTransactionsSend();
-        // });
     }
 
     async ngOnInit() {
@@ -248,17 +243,34 @@ export class DashboardPage implements OnInit {
 
         } else {
             this.pockets.forEach(pocket => {
-                this.crypto.push({
-                    value: pocket.balance,
-                    valueUsd: response.btc.toFixed(8),
-                    background: pocket.currency.name,
-                    name: pocket.currency.name,
-                    pocketName: pocket.label,
-                    currencyId: pocket.currencyId,
-                    shortName: pocket.currency.shortName,
+                if (!this.crypto[0]) {
+                    this.crypto.push({
+                        value: pocket.balance,
+                        valueUsd: response.btc.toFixed(8),
+                        background: pocket.currency.name,
+                        name: pocket.currency.name,
+                        pocketName: pocket.label,
+                        currencyId: pocket.currencyId,
+                        shortName: pocket.currency.shortName,
 
-                    graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                });
+                        graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    });
+                } else {
+                    const result = this.crypto.find(data => data.currencyId === pocket.currencyId);
+                    if (result == undefined) {
+                        this.crypto.push({
+                            value: pocket.balance,
+                            valueUsd: response.btc.toFixed(8),
+                            background: pocket.currency.name,
+                            name: pocket.currency.name,
+                            pocketName: pocket.label,
+                            currencyId: pocket.currencyId,
+                            shortName: pocket.currency.shortName,
+
+                            graphic: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        });
+                    }
+                }
             });
             this.crypto.value = this.pockets[0].balance;
             this.crypto.valueUsd = this.pockets[0].valueUsd;
@@ -276,23 +288,14 @@ export class DashboardPage implements OnInit {
                 selected_pocket.push(pocket)
             }
         });
-        console.log(selected_pocket);
-        console.log(cryptoData);
-        console.log(this.pockets);
-        console.log(this.pocket);
-        console.log(this.pockets.length);
-        console.log(this.pockets[this.pockets.length])
         if (!selected_pocket[0]) {
             this.pockets = await  this.getPocketsList()
-            console.log(this.pockets)
             this.storage.setDataLocal('pockets', this.pockets.data)
             let pocketsNews = await this.http.post('user-wallet/index', {currencyId: cryptoData.currencyId}, this.auth);
-            console.log(pocketsNews)
             this.pocket = pocketsNews[0]
         } else {
             this.pocket = selected_pocket[0];
         }
-        console.log(this.pocket);
         let body = {
             userId: this.pocket.userId,
             type: 0,
@@ -319,8 +322,5 @@ export class DashboardPage implements OnInit {
         return await this.http.post('user-wallet/index', {currencyId: ''}, this.auth);
     }
 
-    private getUserId(): any {
-        return this.storage.getDataLocal('profile');
-    }
 }
 

@@ -45,8 +45,6 @@ export class PocketComponent implements OnInit {
         private toastCtrl: ToastService,
         private loadingCtrl: LoadingService,
         private alertCtrl: AlertController,
-        private axiosService: AxiosService,
-        private authService: AuthService,
     ) {
         this.classLeft = "resize-logo-left1";
         this.imgLeft = "../../assets/img/btn-left-s.svg";
