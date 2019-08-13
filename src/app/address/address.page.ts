@@ -66,6 +66,8 @@ export class AddressPage implements OnInit {
 
   async getLocation() {
     this.geolocation.getCurrentPosition().then(async (resp) => {
+
+      console.log('DataGeo: ', resp.coords.latitude);
       await this.http
         .get(`https://us1.locationiq.com/v1/reverse.php?key=pk.cce23ccc0da9140d669b1913c63e90cb&lat=${resp.coords.latitude}&lon=${resp.coords.longitude}&format=json`)
         .subscribe(
