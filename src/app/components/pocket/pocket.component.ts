@@ -141,11 +141,11 @@ export class PocketComponent implements OnInit {
                                 this.counters.sendCash = 0
                                 clearInterval(intervalClose)
                             }
-                        }, 3);
+                        }, 2);
                     }, 1000);
                     clearInterval(interval)
                 }
-            }, 3)
+            }, 2)
         }
 
     }
