@@ -148,21 +148,6 @@ export class PocketComponent implements OnInit {
         } else {
             this.counters.sendCash = 1;
             this.animationTabs('sendCash')
-            // let interval = setInterval(() => {
-            //     this.margins.marginsRight = this.margins.marginsRight + 1;
-            //     if (this.margins.marginsRight == 0) {
-            //         setTimeout(() => {
-            //             let intervalClose = setInterval(() => {
-            //                 this.marginsRight = this.marginsRight - 1;
-            //                 if(this.marginsRight == -65) {
-            //                     this.counters.sendCash = 0
-            //                     clearInterval(intervalClose)
-            //                 }
-            //             }, 2);
-            //         }, 1000);
-            //         clearInterval(interval)
-            //     }
-            // }, 2)
         }
 
     }
