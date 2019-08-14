@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {AuthService} from '../services/auth/auth.service';
-import {LoadingService} from "../services/loading/loading.service";
 import {Router} from "@angular/router";
 import {AxiosService} from '../services/axios/axios.service';
 import {ToastService} from "../services/toast/toast.service";
@@ -14,11 +13,13 @@ import {DataLocalService} from "../services/data-local/data-local.service";
 })
 
 export class TabsPage {
+    public routerVault: string;
     public currentRoute: any = 'dashboard';
     ctrlCssBlur: boolean = false;
     public tabs = {
         'prices': 'prices',
-        'vault': 'vault-list',
+        'vault': 'vault',
+        'vaultList': 'vault-list',
         'dashboard': 'dashboard',
         'card-invoice': 'card-invoice',
         'profile': 'profile',
@@ -28,8 +29,6 @@ export class TabsPage {
     };
 
     constructor(
-        private auth: AuthService,
-        private loadControl: LoadingService,
         private router: Router,
         private store: DataLocalService,
         private toastCtrl: ToastService,
@@ -37,7 +36,8 @@ export class TabsPage {
         private authService: AuthService,
         private fingerCtrl: TouchLoginService,
     ) {
-        this.getActiveRoute()
+        this.getActiveRoute();
+        this.routerVault = this.tabs.vault;
     }
 
     async goToProfile() {
@@ -49,7 +49,6 @@ export class TabsPage {
             await this.router.navigate(['/create-profile'])
         }
     }
-
 
     getActiveRoute() {
         this.fingerCtrl.isTouch = true;
@@ -69,8 +68,10 @@ export class TabsPage {
         this.axiosService.get('vault/index', this.authService)
             .then(async (response: any) => {
                 if (response.vault.length > 0) {
+                    this.routerVault = this.tabs.vaultList;
                     this.router.navigate(['/app/tabs/vault-list']);
                 } else {
+                    this.routerVault = this.tabs.vault;
                     this.router.navigate(['/app/tabs/vault']);
                 }
             })
@@ -87,12 +88,9 @@ export class TabsPage {
                 pockets.push(pocketOfList)
             } else {
                 let responsePocket = pockets.find(pocket => pocketOfList === pocket);
-                console.log(responsePocket);
                 if (responsePocket === undefined) pockets.push(pocketOfList)
             }
         });
-        console.log(pockets);
-        console.log(listPockets);
         if (pockets.length <= 1) {
             await this.toastCtrl.presentToast({text: 'Por favor, cree un pocket de diferente criptomoneda'})
         } else {
