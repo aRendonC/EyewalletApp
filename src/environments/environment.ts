@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   // urlBase: 'http://localhost:3000/api/v1/',
-  urlBase: 'https://2c698fef.ngrok.io/api/v1/',
-  urlAvatar: 'https://2c698fef.ngrok.io/web/',
-  flag: 'https://2c698fef.ngrok.io/web/uploads/flags/'
+  urlBase: 'https://710b53c3.ngrok.io/api/v1/',
+  urlAvatar: 'https://710b53c3.ngrok.io/web/',
+  flag: 'https://710b53c3.ngrok.io/web/uploads/flags/'
 //   urlBase: 'https:/eyewalletpro.com:3001/api/v1/',
 //   urlAvatar: 'https://0fa1e61c.ngrok.io/web/',
 //   flag: 'https://0fa1e61c.ngrok.io/web/uploads/flags/'

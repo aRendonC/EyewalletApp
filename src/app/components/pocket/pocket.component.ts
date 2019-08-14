@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
-import {AlertController, ModalController, Platform} from "@ionic/angular";
+import { AlertController, ModalController, Platform} from "@ionic/angular";
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
 import {enterAnimation} from "../../animations/enter";
 import {leaveAnimation} from "../../animations/leave";
@@ -11,7 +11,7 @@ import {ToastService} from "../../services/toast/toast.service";
 import {DataLocalService} from "../../services/data-local/data-local.service";
 import {OverlayEventDetail} from '@ionic/core';
 
-import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
@@ -23,17 +23,6 @@ import {TranslateService} from "@ngx-translate/core";
 export class PocketComponent implements OnInit {
     public counters = {
         sendCash: 0,
-        receiveCash: 0,
-        qualify: 0,
-        logOut: 0,
-        history: 0
-    };
-    public margins = {
-        sendCash: -65,
-        receiveCash: -65,
-        qualify: -65,
-        logOut: -65,
-        history: -65
     };
     pockets: any = null;
     @Input() urlPresent: any = '';
@@ -45,6 +34,9 @@ export class PocketComponent implements OnInit {
     imgRight: string = null;
     classLeft: string = null;
     currencyId: any = null;
+    public marginsRight = -65;
+
+    // public marginsRight = -50;
 
 
     constructor(
@@ -72,11 +64,11 @@ export class PocketComponent implements OnInit {
     }
 
     async getPocketStore() {
-        return this.pocket = await this.store.getDataLocal('selected-pocket');
+       return this.pocket = await this.store.getDataLocal('selected-pocket');
     }
 
     async openPocketsModal() {
-        if (!this.pocket) this.pocket = await this.getPocketStore();
+        if (!this.pocket) this.pocket = await this.getPocketStore()
         await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
         this.pockets = await this.http.post('user-wallet/index', {currencyId: this.pocket.currencyId}, this.auth);
         console.log(this.pockets);
@@ -121,18 +113,12 @@ export class PocketComponent implements OnInit {
     }
 
     async receiveCash() {
-        if (this.counters.receiveCash == 1) {
-            await this.router.navigate([
-                '/receive-funds'], {
-                queryParams: {
-                    pocket: JSON.stringify(this.pocket)
-                }, queryParamsHandling: 'merge'
-            });
-        } else {
-            this.counters.receiveCash = 1;
-            this.animationsTabs('receiveCash')
-        }
-
+        await this.router.navigate([
+            '/receive-funds'], {
+            queryParams: {
+                pocket: JSON.stringify(this.pocket)
+            }, queryParamsHandling: 'merge'
+        });
     }
 
     async sendCash() {
@@ -145,77 +131,51 @@ export class PocketComponent implements OnInit {
             }
         } else {
             this.counters.sendCash = 1;
-            this.animationsTabs('sendCash')
-        }
-
-    }
-
-    openUrl(url) {
-        if (this.counters.qualify == 1) {
-            this.platform.ready().then(() => {
-                if (!url) {
-                    (this.platform.is('ios')) ? url = 'https://apps.apple.com/us/app/eyewallet/id1338756423?l=es&ls=1' : url = 'https://play.google.com/store/apps/details?id=com.eyewallet.io'
+            let interval = setInterval(() => {
+                this.marginsRight = this.marginsRight + 1;
+                if (this.marginsRight == 0) {
+                    setTimeout(() => {
+                        let intervalClose = setInterval(() => {
+                            this.marginsRight = this.marginsRight - 1;
+                            if(this.marginsRight == -65) {
+                                this.counters.sendCash = 0
+                                clearInterval(intervalClose)
+                            }
+                        }, 2);
+                    }, 1000);
+                    clearInterval(interval)
                 }
-                const browser = this.iab.create(url, '_blank');
-            });
-        } else {
-            this.counters.qualify = 1;
-            this.animationsTabs('qualify')
+            }, 2)
         }
 
-    }
-
-    animationsTabs(identifier) {
-        console.log(this.margins[identifier])
-        let interval = setInterval(() => {
-            this.margins[identifier] = this.margins[identifier] + 1;
-            if (this.margins[identifier] == 0) {
-                setTimeout(() => {
-                    let intervalClose = setInterval(() => {
-                        this.margins[identifier] = this.margins[identifier] - 1;
-                        if (this.margins[identifier] == -65) {
-                            this.counters[identifier] = 0;
-                            clearInterval(intervalClose)
-                        }
-                    }, 2)
-                }, 1000)
-                clearInterval(interval)
-            }
-        }, 2)
     }
 
     async goToHome() {
         await this.router.navigate(['/app/tabs/dashboard']);
     }
 
-    async confirmLogOut() {
-        if (this.counters.logOut == 1) {
-            const alert = await this.alertCtrl.create({
-                header: this.translateService.instant('GENERAL.LogOut'),
-                message: this.translateService.instant('GENERAL.CanLogOut'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GENERAL.Cancel'),
-                        role: 'cancel',
-                        handler: () => {
-                            console.log('Confirm Cancel');
-                        }
-                    },
-                    {
-                        text: this.translateService.instant('GENERAL.Confirm'),
-                        handler: async () => {
-                            await this.logOut();
-                            await this.toastCtrl.presentToast({text: this.translateService.instant('GENERAL.LogOutOk')})
-                        }
+    async presentAlert() {
+        const alert = await this.alertCtrl.create({
+            header: 'Cerrar Sesión',
+            message: '¿Desea cerrar su sesión?',
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Confirm Cancel');
                     }
-                ]
-            });
-            await alert.present();
-        } else {
-            this.counters.logOut = 1;
-            this.animationsTabs('logOut')
-        }
-
+                },
+                {
+                    text: 'Confirmar',
+                    handler: async () => {
+                        await this.logOut();
+                        await this.toastCtrl.presentToast({text: this.translateService.instant('GENERAL.LogOutOk')})
+                    }
+                }
+            ]
+        });
+        await alert.present();
     }
 
     async logOut() {
@@ -223,6 +183,18 @@ export class PocketComponent implements OnInit {
         await this.auth.logout()
     }
 
+    openUrl() {
+        this.platform.ready().then(() => {
+            if (this.platform.is('ios')) {
+                const browser = this.iab.create('https://apps.apple.com/us/app/eyewallet/id1338756423?l=es&ls=1', '_blank');
+                // make your native API calls
+            } else {
+                window.open('https://play.google.com/store/apps/details?id=com.eyewallet.io', '_blank');
+                console.log('is android')
+                // fallback to browser APIs
+            }
+        });
+    }
 
     public clickButtonLeftCinco(): void {
         this.router.navigate(['/app/tabs/vault']);
@@ -241,13 +213,7 @@ export class PocketComponent implements OnInit {
     }
 
     async goHistoryExchange() {
-        if (this.counters.history == 1) {
-            await this.router.navigate(['/app/tabs/history-exchange']);
-         } else {
-            this.counters.history = 1;
-            this.animationsTabs('history')
-        }
-
+        await this.router.navigate(['/app/tabs/history-exchange']);
     }
 
     // async onPanLeft($event) {

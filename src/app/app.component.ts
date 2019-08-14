@@ -20,7 +20,6 @@ import {ToastService} from "./services/toast/toast.service";
 import {text} from "@angular/core/src/render3";
 import {LanguageService} from "./services/language/language.service";
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-root',
@@ -49,8 +48,7 @@ export class AppComponent {
         private toast: ToastService,
         private aletrCtrl: AlertController,
         private languageService: LanguageService,
-        private uniqueDeviceID: UniqueDeviceID,
-        private translateService: TranslateService,
+        private uniqueDeviceID: UniqueDeviceID
     ) {
         this.initializeApp();
 
@@ -78,17 +76,17 @@ export class AppComponent {
     async presentAlert() {
         const alert = await this.aletrCtrl.create({
             backdropDismiss: false,
-            header: this.translateService.instant('GENERAL.Close'),
-            message: this.translateService.instant('GENERAL.CanCloseApp'),
+            header: 'Cerrar',
+            message: '¿Desea cerrar la aplicación?',
             mode: 'ios',
             keyboardClose: false,
             buttons: [
                 {
-                    text: this.translateService.instant('GENERAL.Cancel'),
+                    text: 'Cancelar',
                     role: 'cancel'
                 },
                 {
-                    text: this.translateService.instant('GENERAL.Accept'),
+                    text: 'Aceptar',
                     handler: async () => {
                         navigator['app'].exitApp(); // work in ionic 4
                     }

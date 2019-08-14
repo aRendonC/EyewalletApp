@@ -228,10 +228,6 @@
     "Amount": "Monto",
     "Copy": "Copiar",
     "LogOutOk": "Su sesión ha sido cerrada correctamente",
-    "LoadingData": "Sus datos se están cargando, por favor espere",
-    "CanLogOut": "¿Desea cerrar su sesión?",
-    "Confirm": "Confirmar",
-    "Close": "Cerrar",
-    "CanCloseApp": "¿Desea cerrar la aplicación?"
+    "LoadingData": "Sus datos se están cargando, por favor espere"
   }
 }
