@@ -45,11 +45,11 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
-const config: SocketIoConfig = {url: 'http://localhost:3001', options: {}};
+const config: SocketIoConfig = {url: 'http://0c2a6d5b.ngrok.io', options: {}};
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-    
+
 }
 
 @NgModule({

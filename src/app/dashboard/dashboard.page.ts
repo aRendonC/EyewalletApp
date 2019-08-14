@@ -56,7 +56,7 @@ export class DashboardPage implements OnInit {
 
     async ngOnInit() {
         await this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
-        // await this.socket.initSocketConnection();
+        await this.socket.initSocketConnection();
         // await this.socket.disconnectSocket();
         this.pocket = await this.storage.getDataLocal('selected-pocket');
         await this.getUserProfile();

@@ -233,4 +233,8 @@ export class SlidersComponent implements OnInit {
         await this.sliderContent.slideTo(id, 200);
         await this.sliderHeader.slideTo(id, 200);
     }
+
+    static connectionDataSocket(data){
+        console.log(data)
+    }
 }

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
-import { AlertController, ModalController, Platform} from "@ionic/angular";
+import {AlertController, ModalController, Platform} from "@ionic/angular";
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
 import {enterAnimation} from "../../animations/enter";
 import {leaveAnimation} from "../../animations/leave";
@@ -11,7 +11,7 @@ import {ToastService} from "../../services/toast/toast.service";
 import {DataLocalService} from "../../services/data-local/data-local.service";
 import {OverlayEventDetail} from '@ionic/core';
 
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
@@ -23,6 +23,15 @@ import {TranslateService} from "@ngx-translate/core";
 export class PocketComponent implements OnInit {
     public counters = {
         sendCash: 0,
+        receiveCash: 0,
+        qualify: 0,
+        logOut: 0
+    };
+    public margins = {
+        sendCash: -65,
+        receiveCash: -65,
+        qualify: -65,
+        logOut: -65
     };
     pockets: any = null;
     @Input() urlPresent: any = '';
@@ -34,7 +43,8 @@ export class PocketComponent implements OnInit {
     imgRight: string = null;
     classLeft: string = null;
     currencyId: any = null;
-    public marginsRight = -65;
+
+    // public marginsRight = -65;
 
     // public marginsRight = -50;
 
@@ -64,11 +74,11 @@ export class PocketComponent implements OnInit {
     }
 
     async getPocketStore() {
-       return this.pocket = await this.store.getDataLocal('selected-pocket');
+        return this.pocket = await this.store.getDataLocal('selected-pocket');
     }
 
     async openPocketsModal() {
-        if (!this.pocket) this.pocket = await this.getPocketStore()
+        if (!this.pocket) this.pocket = await this.getPocketStore();
         await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
         this.pockets = await this.http.post('user-wallet/index', {currencyId: this.pocket.currencyId}, this.auth);
         console.log(this.pockets);
@@ -113,12 +123,18 @@ export class PocketComponent implements OnInit {
     }
 
     async receiveCash() {
-        await this.router.navigate([
-            '/receive-funds'], {
-            queryParams: {
-                pocket: JSON.stringify(this.pocket)
-            }, queryParamsHandling: 'merge'
-        });
+        if (this.counters.receiveCash == 1) {
+            await this.router.navigate([
+                '/receive-funds'], {
+                queryParams: {
+                    pocket: JSON.stringify(this.pocket)
+                }, queryParamsHandling: 'merge'
+            });
+        } else {
+            this.counters.receiveCash = 1;
+            this.animationTabs('receiveCash')
+        }
+
     }
 
     async sendCash() {
@@ -131,23 +147,42 @@ export class PocketComponent implements OnInit {
             }
         } else {
             this.counters.sendCash = 1;
-            let interval = setInterval(() => {
-                this.marginsRight = this.marginsRight + 1;
-                if (this.marginsRight == 0) {
-                    setTimeout(() => {
-                        let intervalClose = setInterval(() => {
-                            this.marginsRight = this.marginsRight - 1;
-                            if(this.marginsRight == -65) {
-                                this.counters.sendCash = 0
-                                clearInterval(intervalClose)
-                            }
-                        }, 2);
-                    }, 1000);
-                    clearInterval(interval)
-                }
-            }, 2)
+            this.animationTabs('sendCash')
+            // let interval = setInterval(() => {
+            //     this.margins.marginsRight = this.margins.marginsRight + 1;
+            //     if (this.margins.marginsRight == 0) {
+            //         setTimeout(() => {
+            //             let intervalClose = setInterval(() => {
+            //                 this.marginsRight = this.marginsRight - 1;
+            //                 if(this.marginsRight == -65) {
+            //                     this.counters.sendCash = 0
+            //                     clearInterval(intervalClose)
+            //                 }
+            //             }, 2);
+            //         }, 1000);
+            //         clearInterval(interval)
+            //     }
+            // }, 2)
         }
 
+    }
+
+    animationTabs(idTab) {
+        let interval = setInterval(() => {
+            this.margins[idTab] = this.margins[idTab] + 1;
+            if (this.margins[idTab] == 0) {
+                setTimeout(() => {
+                    let intervalClose = setInterval(() => {
+                        this.margins[idTab] = this.margins[idTab] - 1;
+                        if (this.margins[idTab] == -65) {
+                            this.counters[idTab] = 0;
+                            clearInterval(intervalClose)
+                        }
+                    }, 2);
+                }, 1000);
+                clearInterval(interval)
+            }
+        }, 2)
     }
 
     async goToHome() {
@@ -155,27 +190,32 @@ export class PocketComponent implements OnInit {
     }
 
     async presentAlert() {
-        const alert = await this.alertCtrl.create({
-            header: 'Cerrar Sesión',
-            message: '¿Desea cerrar su sesión?',
-            buttons: [
-                {
-                    text: 'Cancelar',
-                    role: 'cancel',
-                    handler: () => {
-                        console.log('Confirm Cancel');
+        if (this.counters.logOut == 1) {
+            const alert = await this.alertCtrl.create({
+                header: 'Cerrar Sesión',
+                message: '¿Desea cerrar su sesión?',
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        role: 'cancel',
+                        handler: () => {
+                            console.log('Confirm Cancel');
+                        }
+                    },
+                    {
+                        text: 'Confirmar',
+                        handler: async () => {
+                            await this.logOut();
+                            await this.toastCtrl.presentToast({text: this.translateService.instant('GENERAL.LogOutOk')})
+                        }
                     }
-                },
-                {
-                    text: 'Confirmar',
-                    handler: async () => {
-                        await this.logOut();
-                        await this.toastCtrl.presentToast({text: this.translateService.instant('GENERAL.LogOutOk')})
-                    }
-                }
-            ]
-        });
-        await alert.present();
+                ]
+            });
+            await alert.present();
+        } else {
+            this.counters.logOut = 1;
+            this.animationTabs('logOut')
+        }
     }
 
     async logOut() {
@@ -183,17 +223,20 @@ export class PocketComponent implements OnInit {
         await this.auth.logout()
     }
 
-    openUrl() {
-        this.platform.ready().then(() => {
-            if (this.platform.is('ios')) {
-                const browser = this.iab.create('https://apps.apple.com/us/app/eyewallet/id1338756423?l=es&ls=1', '_blank');
-                // make your native API calls
+    openUrl(data?: string) {
+        if (this.counters.qualify == 1) {
+            let url: string;
+            if (data) {
+                url = data
             } else {
-                window.open('https://play.google.com/store/apps/details?id=com.eyewallet.io', '_blank');
-                console.log('is android')
-                // fallback to browser APIs
+                let platform: any = this.platform.ready();
+                platform == 'ios' ? url = 'https://apps.apple.com/us/app/eyewallet/id1338756423?l=es&ls=1' : url = 'https://play.google.com/store/apps/details?id=com.eyewallet.io'
             }
-        });
+            const browser = this.iab.create(url, '_blank');
+        } else {
+            this.counters.qualify = 1;
+            this.animationTabs('qualify')
+        }
     }
 
     public clickButtonLeftCinco(): void {
