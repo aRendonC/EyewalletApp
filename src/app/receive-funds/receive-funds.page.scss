@@ -7,7 +7,7 @@
       box-shadow: none;
       border-radius: 16px;
       width: 80%;
-      margin: auto;
+      margin: 20px auto;
       overflow: auto;
 
       .code-qr-header {
@@ -55,24 +55,35 @@
          .content-buttons-qr {
             width: 100%;
 
-            .button {
+            .button-copy-text {
                --background: #7DDC97 !important;
                --background: -webkit-linear-gradient(to right, #7DDC97, #84EAE8) !important;
                --background: linear-gradient(to right, #7DDC97, #84EAE8) !important;
+
+               --background-activated: #7DDC97 !important;
+               --background-activated: -webkit-linear-gradient(to right, #7DDC97, #84EAE8) !important;
+               --background-activated: linear-gradient(to right, #7DDC97, #84EAE8) !important;
+
+
                font-family: $font-semibold;
                font-size: 16px;
                margin-bottom: 24px;
             }
 
             .input {
+               display: block;
+               width: 100%;
+               padding: 10px;
+               box-sizing: border-box;
                background: white;
                color: #97B4E7;
-               width: 100%;
                font-family: $font-regular;
-               font-size: 16px;
-               padding: 6px 10px;
-               border-radius: 20px;
+               font-size: 12px;
+               white-space: nowrap;
+               text-overflow: ellipsis;
+               overflow: hidden;
                border: solid 1px #3D95FF !important;
+               border-radius: 20px;
                margin-bottom: 16px;
             }
          }

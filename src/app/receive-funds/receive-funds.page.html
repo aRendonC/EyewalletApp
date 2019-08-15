@@ -28,12 +28,12 @@
           shape="round"
           text-capitalize
           (click)="copyCode()"
-          class="button"
+          class="button-copy-text"
         >
+        <ion-ripple-effect></ion-ripple-effect>
           {{'GENERAL.Copy' | translate}}
         </ion-button>
-        <span style="font-size: 10px" class="input">{{codeQr}}</span>
-        <!--<input type="text" [value]="codeQr" class="input">-->
+        <span class="input">{{codeQr}}</span>
 
       </div>
 
