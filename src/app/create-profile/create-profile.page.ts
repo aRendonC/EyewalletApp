@@ -22,6 +22,7 @@ export class CreateProfilePage implements OnInit {
   public bodyForm: any = {};
   public identification: 0;
   public urlProfileUpdate = '/profile/1/update';
+  public datemax: any;
   constructor(
     private router: Router,
     private menu: MenuController,
@@ -36,6 +37,7 @@ export class CreateProfilePage implements OnInit {
   ngOnInit() {
     this.menu.enable(false);
     this.touchCtrl.isLocked = false;
+    this.calculateDate();
   }
 
   async address() {
@@ -61,5 +63,10 @@ export class CreateProfilePage implements OnInit {
         this.ctrlCssBlur = false
       }
     }
+  }
+
+  calculateDate(){
+    const dates = new Date();
+    this.datemax = (dates.getFullYear() - 18), '-', (dates.getMonth()), '-', (dates.getDay());
   }
 }
