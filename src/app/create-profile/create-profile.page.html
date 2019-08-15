@@ -18,7 +18,7 @@
     </ion-item>
     <!-- Fecha de Nacimiento -->
     <ion-item>
-      <ion-datetime class="white" done-text="Aceptar" cancel-text="Cancelar" placeholder="{{'GENERAL.Birthdate'| translate}}"  display-format="YYYY-MM-DD" [(ngModel)]="birthdate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      <ion-datetime class="white" done-text="Aceptar" cancel-text="Cancelar" placeholder="{{'GENERAL.Birthdate'| translate}}"  display-format="YYYY-MM-DD" [(ngModel)]="birthdate" [ngModelOptions]="{standalone: true}" min="1960" [max]="datemax"></ion-datetime>
     </ion-item>
     <ion-item class="white-line">
         <ion-input class="white move-input" type="number" name="identification" [(ngModel)]="identification" placeholder="{{'GENERAL.Identification'| translate}}"></ion-input>
