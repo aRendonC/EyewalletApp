@@ -93,10 +93,10 @@ export class PocketComponent implements OnInit {
         });
 
         modalPocket.onDidDismiss().then(async (pocket: OverlayEventDetail) => {
-            console.log(pocket);
             if (pocket.role == 'new-pocket') {
                 this.store.setDataLocal('selected-pocket', this.pocket);
             }
+
             if (pocket.data) {
                 this.pocket = pocket.data;
                 let body = {
@@ -106,6 +106,7 @@ export class PocketComponent implements OnInit {
                     currencyShortName: this.pocket.currency.shortName
                 };
                 console.log(this.pocket);
+                this.store.setDataLocal('selected-pocket', this.pocket);
                 await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
                 let dataResponse = await this.http.post('transaction/index', body, this.auth);
                 if (dataResponse.status === 200) {

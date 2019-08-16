@@ -73,6 +73,7 @@ export class SlidersComponent implements OnInit {
         userVerifications = userVerifications.data;
         await this.store.setDataLocal('userVerification', userVerifications);
         this.profile = await this.store.getDataLocal('profile');
+        
         this.profile.completed = userVerifications.completed;
         await this.setProfileStore();
         this.nameSlider = this.name;
@@ -207,7 +208,6 @@ export class SlidersComponent implements OnInit {
     }
 
     async refreshTransactions(pocketSelected): Promise<any> {
-        console.log(pocketSelected);
         await this.loadingCtrl.present({text: this.translateService.instant('VAULT.loading'), cssClass: 'textLoadingBlack'});
         let pocket = await this.store.getDataLocal('selected-pocket');
         console.log(pocket);
