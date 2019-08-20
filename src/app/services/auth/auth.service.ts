@@ -38,7 +38,7 @@ export class AuthService {
         const device: any = await this.device.getDataDevice();
         console.log('UUID: ', device.uuid);
         if (!device.uuid) {
-            device.uuid = '08F16673-E998-4BAA-BEA8-659EB105D740';
+            device.uuid = '66eb1cf4-8c16-f923-3520-050907084658';
         }
 
         return new Promise((resolve) => {
