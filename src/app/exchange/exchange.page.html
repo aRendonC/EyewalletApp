@@ -4,7 +4,7 @@
     <div class="div-inputs center-vertical">
         <ion-input
                 type="number"
-                (ionBlur)="getFeeTransactionFrom()"
+                (keyup)="getFeeTransactionFrom($event)"
                 [(ngModel)]="inputFrom"
                 placeholder="0.0"
                 [value]="inputFrom">
@@ -40,10 +40,11 @@
 </div>
 
 <ion-content class="move-profileInfo" [fullscreen]="true">
-    <div style="padding: 260px 0 140px 0;">
-        <ion-note style="background: #D1C9FF; height: 60px; color: #375196"
-                  class="center center-horizontal center-vertical">
-            ${{usdAmount}}
+    <div style="padding: 270px 0 140px 0;">
+        <ion-note style="background: #D1C9FF; height: 50px; color: #375196;"
+                  class="center center-horizontal center-vertical"><h1 class="simbolpe">$</h1>
+                  <input class="usdAmounts" type="number" [value]="usdAmount" (keyup)="onInput($event)" [(ngModel)]="usdAmount"><h4 class="pesos"></h4>
+             
         </ion-note>
         <ion-list>
             <ion-item>

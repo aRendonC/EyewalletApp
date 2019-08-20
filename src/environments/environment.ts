@@ -5,9 +5,8 @@
 export const environment = {
   production: false,
   urlBase: 'https://a5623d5a.ngrok.io/api/v1/',
-  urlAvatar: 'https://a1bc8ef8.ngrok.io/web/',
-  flag: 'https://a1bc8ef8.ngrok.io/web/uploads/flags/',
-  apiKeyLocation: '2b154f971e3ab7'
+  urlAvatar: 'https://a5623d5a.ngrok.io/web/',
+  flag: 'https://a5623d5a.ngrok.io/web/uploads/flags/'
 };
 
 /*

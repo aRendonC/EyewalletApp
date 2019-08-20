@@ -8,6 +8,8 @@ import {IonicModule} from '@ionic/angular';
 import {ExchangePage} from './exchange.page';
 import {ComponentsModule} from "../components/components.module";
 
+import { RoundNumberPipe } from "../../app/pipes/round-number/round-number.pipe"
+
 const routes: Routes = [
     {
         path: '',

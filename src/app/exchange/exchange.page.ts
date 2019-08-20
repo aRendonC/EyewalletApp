@@ -22,6 +22,10 @@ export class ExchangePage implements OnInit {
     public selectCryptoFrom = [];
     public selectCryptoTo: any = [];
     public usdAmount = 0.00;
+    public priceBtc;
+    public tipoCurre;
+    public event1 = false;
+    public event2 = false;
     public valueCryptoTo: any = 0.0;
     public valueUsdFrom = 0.0;
     public cryptoFrom = {
@@ -64,7 +68,8 @@ export class ExchangePage implements OnInit {
     }
 
     async ngOnInit() {
-        await this.fillCryptoSelect()
+        await this.fillCryptoSelect();
+        await this.getPriceCriptoUsd();
     }
 
     async fillCryptoSelect() {
@@ -144,7 +149,7 @@ export class ExchangePage implements OnInit {
     }
 
     async filterCurrencyFrom(cryptoFrom) {
-        console.log(cryptoFrom);
+        console.log("Crypto: ",cryptoFrom);
         let dataCurrencyFrom = this.createInputsDataCurrencyFrom(cryptoFrom);
         const alert = await this.alertCtrl.create({
             header: 'Seleccione moneda 1',
@@ -167,10 +172,9 @@ export class ExchangePage implements OnInit {
                             this.pocketsFrom = this.filterPockets(data);
                             await this.filterCurrencyTo(this.selectCryptoTo);
                             console.log('criptos a cambiar', this.selectCryptoTo);
-                            console.log(this.cryptoTo);
-
+                            this.tipoCurre = this.cryptoFrom.currency.shortName;
+                            await this.getPriceCriptoUsd();
                         }
-                        console.log(this.cryptoTo);
                     }
                 }
             ]
@@ -271,23 +275,7 @@ export class ExchangePage implements OnInit {
         await alert.present();
     }
 
-    async getFeeTransactionFrom() {
-        if (this.inputFrom >= 0.0001) {
-            let body = {
-                amount: this.inputFrom,
-                currencyShortNameFrom: this.cryptoFrom.currency.shortName,
-                currencyIdFrom: this.cryptoFrom.currencyId
-            };
-            let responseFee = await this.http.post('exchange/fee', body, this.auth);
-            console.log(responseFee);
-            if (responseFee.status === 200) {
-                this.usdAmount = responseFee.data.priceCriptoUsd * this.inputFrom
-            }
-        await this.getPricesExchange()
-
-        }
-    }
-
+    
     filterPockets(currency) {
         let pockets = [];
         this.pockets.forEach(pocket => {
@@ -385,4 +373,59 @@ export class ExchangePage implements OnInit {
         console.log(body)
         return await this.http.post('transaction/index', body, this.auth);
     }
+
+    async getFeeTransactionFrom(event) {
+
+        // if (this.inputFrom >= 0.0001) {
+        //     let body = {
+        //         amount: this.inputFrom,
+        //         currencyShortNameFrom: this.cryptoFrom.currency.shortName,
+        //         currencyIdFrom: this.cryptoFrom.currencyId
+        //     };
+        //     let responseFee = await this.http.post('exchange/fee', body, this.auth);
+        //     console.log(responseFee);
+        //     if (responseFee.status === 200) {
+        //         this.usdAmount = responseFee.data.priceCriptoUsd * this.inputFrom;
+        //     }
+        // await this.getPricesExchange()
+
+        //}
+
+            this.event2 = false;
+            console.log("evento1: ", this.event1);
+            console.log("evento2: ", this.event2);
+            this.usdAmount = this.priceBtc * this.inputFrom;
+            await this.getPricesExchange();
+        
+    }
+
+
+    async onInput() {
+            this.event1 = false;
+            console.log("evento1: ", this.event1);
+            console.log("evento2: ", this.event2);
+            this.inputFrom = this.priceBtc / this.usdAmount;
+            await this.getPricesExchange();
+    }
+
+    async getPriceCriptoUsd(){
+        let curre = "";
+        if (this.tipoCurre == null){
+            curre = "BTC";
+        }else{
+            curre = this.tipoCurre;
+        }
+        let body = {
+            amount: 0.0001,
+            currencyShortNameFrom: curre,
+            currencyIdFrom: this.cryptoFrom.currencyId
+        };
+        let responseFee = await this.http.post('exchange/fee', body, this.auth);
+        console.log(responseFee);
+        if (responseFee.status === 200) {
+            this.priceBtc = responseFee.data.priceCriptoUsd;
+            console.log("Price: ",this.priceBtc);
+        }
+    }
+
 }
