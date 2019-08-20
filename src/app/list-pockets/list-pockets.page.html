@@ -12,10 +12,18 @@
   </ion-grid>
     <ion-grid class="ion-text-center">
       <ion-row justify-content-center>
-        <ion-col (click)="closeModal(pocket)" style="--border-bottom-color: white" size="10" *ngFor="let pocket of pockets">
+        <ion-col
+          *ngFor="let pocket of pockets"
+          (click)="closeModal(pocket)"
+          style="--border-bottom-color: white"
+          size="10"
+        >
           <ion-item text-center>
             <ion-label>{{pocket.label}}</ion-label>
-            <ion-img src="../assets/icon/icon-bitcoin.png"></ion-img>
+            <ion-img
+              src="../assets/icon/icon-coin-solid-{{ pocket.currency.shortName }}.svg"
+              class="icon-coin-pocket"
+            ></ion-img>
           </ion-item>
         </ion-col>
         <ion-col (click)="createPocket()" size="9" justify-content-center class="centerContent">

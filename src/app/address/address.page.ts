@@ -12,6 +12,7 @@ import {LocationAccuracy} from '@ionic-native/location-accuracy/ngx';
 import {ToastService} from "../services/toast/toast.service";
 import {TranslateService} from "@ngx-translate/core";
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-address',
@@ -94,8 +95,7 @@ export class AddressPage implements OnInit {
   }
 
   private async getDataCurrentLocation(latitude, longitude): Promise<any> {
-    const apiKey: string = '2b154f971e3ab7'
-    const url: string = `https://us1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`
+    const url: string = `https://us1.locationiq.com/v1/reverse.php?key=${environment.apiKeyLocation}&lat=${latitude}&lon=${longitude}&format=json`
     await this.http.get(url)
     .subscribe((response: any) => {
       this.setDataCurrentLocation(response);

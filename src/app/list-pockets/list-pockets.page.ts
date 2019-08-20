@@ -40,6 +40,7 @@ export class ListPocketsPage implements OnInit {
 
   ngOnInit() {
     this.pockets = this.navParams.data.pockets;
+    console.log('UNO: ', this.pockets);
   }
 
   async getCriptoCurrencies() {
