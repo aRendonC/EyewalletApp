@@ -171,7 +171,7 @@
     "tuitiosText": "matrícula",
     "durationText": "duración",
     "monthsText": "meses",
-    "totalEarningsText": "total ganancias",
+    "totalEarningsText": "Ganancias totales",
     "buttonNextText": "siguiente",
     "higherValueErrorMessage": "El valor ingresado no puede ser superior al balance del bolsillo."
   },
@@ -223,7 +223,7 @@
     "Prices": "Precios",
     "User": "Usuario",
     "Description": "Descripción",
-    "SelectCryptoCurrency": "Seleccione Criptomonera",
+    "SelectCryptoCurrency": "Seleccione Criptomoneda",
     "Value": "Valor",
     "Language": "Lenguaje",
     "Version": "Versión",
