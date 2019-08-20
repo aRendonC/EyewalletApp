@@ -1,25 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {MenuController} from '@ionic/angular';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import {AuthService} from '../services/auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {AesJsService} from '../services/aesjs/aes-js.service';
 import {AxiosService} from '../services/axios/axios.service';
 import {LoadingService} from '../services/loading/loading.service';
-import {AndroidPermissions} from '@ionic-native/android-permissions/ngx';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {LocationAccuracy} from '@ionic-native/location-accuracy/ngx';
 import {ToastService} from "../services/toast/toast.service";
 import {TranslateService} from "@ngx-translate/core";
-
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 
 @Component({
   selector: 'app-address',
   templateUrl: './address.page.html',
   styleUrls: ['./address.page.scss'],
 })
+
 export class AddressPage implements OnInit {
   public ctrlCssBlur = false;
   public states = Array();
@@ -40,10 +39,8 @@ export class AddressPage implements OnInit {
     iso: null
   };
 
-
   constructor(
     private http: HttpClient,
-    private menu: MenuController,
     private router: Router,
     private touchCtrl: TouchLoginService,
     private aut: AuthService,
@@ -52,105 +49,100 @@ export class AddressPage implements OnInit {
     private axios: AxiosService,
     private loadingCtrl: LoadingService,
     private geolocation: Geolocation,
-    private androidPermissions: AndroidPermissions,
     private locationAccuracy: LocationAccuracy,
     private toastCtrl: ToastService,
     private translateService: TranslateService,
-  ) {
-  }
+    private diagnostic: Diagnostic
+  ) {}
 
-  async ngOnInit() {
+  public async ngOnInit(): Promise<any> {
     this.touchCtrl.isTouch = false;
-    await this.checkGPSPermission();
+    setTimeout(async () => {
+      await this.getDataLocation();
+    }, 500);
   }
 
-  async getLocation() {
-    this.geolocation.getCurrentPosition().then(async (resp) => {
+  private async getDataLocation(): Promise<any> {
+    await this.loadingCtrl.present({ text: this.translateService.instant('ADDRESS_PAGE.GetLocation'), cssClass: 'textLoadingBlack' });
+    this.diagnostic.isLocationEnabled()
+    .then(async (status: boolean) => {
+      await this.validateLocationEnabled(status);
+    })
+    .catch(async (error) => {
+      alert('Permission Error: ' + await error);
+      this.loadingCtrl.dismiss();
+    })
+  }
 
-      console.log('DataGeo: ', resp.coords.latitude);
-      await this.http
-        .get(`https://us1.locationiq.com/v1/reverse.php?key=pk.cce23ccc0da9140d669b1913c63e90cb&lat=${resp.coords.latitude}&lon=${resp.coords.longitude}&format=json`)
-        .subscribe(
-          async (data: any) => {
-            this.bodyForm.country = data.address.country;
-            this.bodyForm.state = data.address.state;
-            this.bodyForm.city = data.address.city;
-            this.bodyForm.zipcode = data.address.postcode;
-            this.bodyForm.iso = data.address.country_code;
-            await this.loadingCtrl.dismiss();
-            this.ctrlCssBlur = false;
-          },
-          async () => {
-            await this.loadingCtrl.dismiss();
-            this.ctrlCssBlur = false;
-          }
-        );
-    }).catch(async () => {
-      await this.loadingCtrl.dismiss();
-      this.ctrlCssBlur = false;
+  private async validateLocationEnabled(statusResponse: boolean): Promise<any> {
+    if (statusResponse) {
+      await this.getCurrentLocation();
+    } else {
+      this.locationEnabledGPS();
+    }
+  }
+
+  private async getCurrentLocation(): Promise<any> {
+    await this.geolocation.getCurrentPosition()
+    .then(async (currentLocation) => {
+      this.getDataCurrentLocation(currentLocation.coords.latitude, currentLocation.coords.longitude);
+    })
+    .catch(async (error) => {
+      alert('Location Error: ' + error);
+      this.loadingCtrl.dismiss();
     });
   }
 
-  async checkGPSPermission() {
-    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
-      async result => {
-        if (result.hasPermission) {
-          await this.askToTurnOnGPS();
+  private async getDataCurrentLocation(latitude, longitude): Promise<any> {
+    const apiKey: string = '2b154f971e3ab7'
+    const url: string = `https://us1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`
+    await this.http.get(url)
+    .subscribe((response: any) => {
+      this.setDataCurrentLocation(response);
+      this.loadingCtrl.dismiss();
+    });
+  }
+
+  private setDataCurrentLocation(dataResponse: any): void {
+    this.bodyForm.country = dataResponse.address.country;
+    this.bodyForm.state = dataResponse.address.state;
+    this.bodyForm.city = dataResponse.address.city;
+    this.bodyForm.zipcode = dataResponse.address.postcode;
+    this.bodyForm.iso = dataResponse.address.country_code;
+  }
+
+  private async locationEnabledGPS(): Promise<any> {
+    this.locationAccuracy.canRequest()
+    .then((canRequest: any) => {
+      this.validateEnabledGPS(canRequest);
+    })
+    .catch(async (error) => {
+      alert('GPS Error: ' + await error);
+      this.loadingCtrl.dismiss();
+    });
+  }
+
+  private validateEnabledGPS(dataResponse: any): void {
+    if (dataResponse || dataResponse === 1 || dataResponse === 0) {
+      this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY)
+      .then(async () => {
+        if (dataResponse || dataResponse === 0) {
+          setTimeout(async () => {
+            await this.getCurrentLocation();
+          }, 7000);
         } else {
-          this.requestGPSPermission();
-          this.ctrlCssBlur = false;
-          await this.loadingCtrl.dismiss();
+          await this.getCurrentLocation();
         }
-      },
-      async err => {
-        alert(err);
-        this.ctrlCssBlur = false;
-        await this.loadingCtrl.dismiss();
-      }
-    );
-  }
-
-  requestGPSPermission() {
-    this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-      if (canRequest) {
-
-      } else {
-        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
-          .then(
-            async () => {
-              await this.askToTurnOnGPS();
-            },
-            error => {
-              this.ctrlCssBlur = false;
-            }
-          );
-      }
-    }).catch(async er => {
-      this.ctrlCssBlur = false;
-      await this.loadingCtrl.dismiss();
-    });
-  }
-
-
-  async askToTurnOnGPS() {
-    await this.loadingCtrl.present({text: this.translateService.instant('ADDRESS_PAGE.GetGeoData'), cssClass: 'textLoadingBlack'});
-    this.ctrlCssBlur = true;
-    await this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
-      async () => {
-        await this.getLocation();
-      },
-      error => {
-        this.ctrlCssBlur = false;
+      })
+      .catch(async error => {
+        alert('Error requesting location permissions' + await error);
         this.loadingCtrl.dismiss();
-      }
-    );
+      });
+    }
   }
 
   async createProfile() {
-    await this.loadingCtrl.present({
-      text: this.translateService.instant('ADDRESS_PAGE.SavingData'),
-      cssClass: 'textLoadingBlack'
-    });
+    await this.loadingCtrl.present({ text: this.translateService.instant('ADDRESS_PAGE.SavingData'), cssClass: 'textLoadingBlack' });
     this.ctrlCssBlur = true;
     this.user = await this.store.get('profile');
     this.user = this.aes.decrypt(this.user);

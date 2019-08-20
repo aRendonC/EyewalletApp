@@ -43,7 +43,8 @@
     "Region": "Estado / Region / Provincia / Departamento",
     "GetGeoData": "Obteniendo datos de localización",
     "DateUpdateOk": "Sus datos han sido actualizados",
-    "SavingData": "Almacenando datos"
+    "SavingData": "Almacenando datos",
+    "GetLocation": "Getting location data"
   },
   "CARD_INVOICE": {
     "CardRequest": "Solicitud de tarjeta",
