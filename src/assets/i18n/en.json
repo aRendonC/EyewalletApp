@@ -102,7 +102,10 @@
     "ScanQR": "Escanea aquí tu código QR o copia la dirección de tu wallet",
     "High": "Alta",
     "Medium": "Media",
-    "Low": "Baja"
+    "Low": "Baja",
+    "FillPin": "Ingrese el PIN",
+    "QrOk": "Lectura Qr",
+    "FillFields": "Llenar el Campo"
   },
   "VERIFICATION_MODAL_PAGE": {
     "VerifySecondFactor": "Verifica tu segundo factor para poder",
@@ -168,7 +171,7 @@
     "tuitiosText": "matrícula",
     "durationText": "duración",
     "monthsText": "meses",
-    "totalEarningsText": "total ganancias",
+    "totalEarningsText": "Ganancias totales",
     "buttonNextText": "siguiente",
     "higherValueErrorMessage": "El valor ingresado no puede ser superior al balance del bolsillo."
   },
@@ -220,7 +223,7 @@
     "Prices": "Precios",
     "User": "Usuario",
     "Description": "Descripción",
-    "SelectCryptoCurrency": "Seleccione Criptomonera",
+    "SelectCryptoCurrency": "Seleccione Criptomoneda",
     "Value": "Valor",
     "Language": "Lenguaje",
     "Version": "Versión",
