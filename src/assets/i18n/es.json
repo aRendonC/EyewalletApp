@@ -159,7 +159,8 @@
     "finalizedText": "Finalizado",
     "cancelText": "Cancelar",
     "descriptionRequestDeleteVault": "Solicitud de cancelación de bóveda.",
-    "responseRequestVaultDelete": "Su solicitud está siendo procesada."
+    "responseRequestVaultDelete": "Su solicitud está siendo procesada.",
+    "cancel": "Cancelar"
   },
   "VAULT": {
     "placeholderPockets": "selecciona un bolsillo",
