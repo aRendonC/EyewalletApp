@@ -32,17 +32,19 @@ export class AuthService {
         private modalCtrl: ModalController,
         private aesjs: AesJsService,
         private loadingCtrl: LoadingService
-    ) {}
+    ) {
+        this.persistenceLogin();
+    }
 
     async login(user, password) {
-        const device: any = await this.device.getDataDevice();
-        console.log('UUID: ', device.uuid);
-        if (!device.uuid) {
-            device.uuid = '66eb1cf4-8c16-f923-3520-050907084658';
-        }
+        //const device: any = await this.device.getDataDevice();
+        // console.log('UUID: ', device.uuid);
+        // if (!device.uuid) {
+        //     device.uuid = '66eb1cf4-8c16-f923-3520-050907084658';
+        // }
 
         return new Promise((resolve) => {
-            this.api.post('auth/login', {email: user, password, deviceId: device.uuid})
+            this.api.post('auth/login', {email: user, password})
                 .then(async (data: any) => {
                     if (data.status === 200) {
                         this.usuario = data.data;
