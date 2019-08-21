@@ -41,11 +41,9 @@
 
 <ion-content class="move-profileInfo" [fullscreen]="true">
     <div style="padding: 270px 0 140px 0;">
-        <ion-note style="background: #D1C9FF; height: 50px; color: #375196;"
-                  class="center center-horizontal center-vertical"><h1 class="simbolpe">$</h1>
-                  <input class="usdAmounts" type="number" [value]="usdAmount" (keyup)="onInput($event)" [(ngModel)]="usdAmount"><h4 class="pesos"></h4>
-             
-        </ion-note>
+        <input class="usdAmounts" type="number" (keyup)="onInput($event)" [(ngModel)]="usdAmount" mode="md">
+        <h4 class="pesos" ></h4>
+        
         <ion-list>
             <ion-item>
                 <ion-label>{{selectedPocketFrom?.currency?.shortName}} Precio</ion-label>
