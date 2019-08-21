@@ -158,7 +158,8 @@
     "finalizedText": "Finalizado",
     "cancelText": "Cancelar",
     "descriptionRequestDeleteVault": "Solicitud de cancelación de bóveda.",
-    "responseRequestVaultDelete": "Su solicitud está siendo procesada."
+    "responseRequestVaultDelete": "Su solicitud está siendo procesada.",
+    "cancel": "Cancelar"
   },
   "VAULT": {
     "placeholderPockets": "selecciona un bolsillo",
@@ -169,11 +170,12 @@
     "loading": "Cargando.",
     "messageWithoutFunds": "El bolsillo no tiene fondos, recargalo o selecciona otro.",
     "tuitiosText": "matrícula",
-    "durationText": "duración",
+    "durationText": "Duración",
     "monthsText": "meses",
     "totalEarningsText": "Ganancias totales",
     "buttonNextText": "siguiente",
     "higherValueErrorMessage": "El valor ingresado no puede ser superior al balance del bolsillo."
+    
   },
   "VAULT_CREATED": {
     "quantityText": "cantidad",
