@@ -235,5 +235,8 @@
     "Copy": "Copiar",
     "LogOutOk": "Su sesión ha sido cerrada correctamente",
     "LoadingData": "Sus datos se están cargando, por favor espere"
+  },
+  "EXCHANGE": {
+    "DescriptionText": "How much do you want to change?"
   }
 }
