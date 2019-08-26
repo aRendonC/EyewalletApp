@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
-import {IonInfiniteScroll, IonSlides, ModalController} from '@ionic/angular';
+import { IonInfiniteScroll, IonSlides, ModalController, AlertController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
 import {enterAnimation} from '../../animations/enter';
 import {leaveAnimation} from '../../animations/leave';
@@ -12,6 +12,8 @@ import {ToastService} from "../../services/toast/toast.service";
 import {DataLocalService} from "../../services/data-local/data-local.service";
 import {LoadingService} from "../../services/loading/loading.service";
 import {TranslateService} from "@ngx-translate/core";
+import { ModalDetailsPage } from "../../modal-details/modal-details.page";
+
 
 
 @Component({
@@ -59,6 +61,7 @@ export class SlidersComponent implements OnInit {
         private toastCtrl: ToastService,
         private loadingCtrl: LoadingService,
         private translateService: TranslateService,
+        public alertController: AlertController,
     ) {
         this.router.events.pipe(
             filter(event => event instanceof NavigationStart)
@@ -79,6 +82,7 @@ export class SlidersComponent implements OnInit {
         this.nameSlider = this.name;
         this.dataGraphic = this.name[0];
         await this.grafica();
+
     }
 
     async getProfileStore() {
@@ -208,9 +212,17 @@ export class SlidersComponent implements OnInit {
     }
 
     async refreshTransactions(pocketSelected): Promise<any> {
+        
+        let Id= pocketSelected.id;
+        console.log("ID: ",Id);
+        
         await this.loadingCtrl.present({text: this.translateService.instant('VAULT.loading'), cssClass: 'textLoadingBlack'});
+        let pock = await this.getPocketsList(Id);
+        //let pocket = await this.store.getDataLocal('selected-pocket');
+        this.store.setDataLocal('selected-pocket', pock.data);
+        console.log("TALES: ",pock.data);
+
         let pocket = await this.store.getDataLocal('selected-pocket');
-        console.log(pocket);
         let body = {
             userId: pocket.userId,
             type: 0,
@@ -218,15 +230,16 @@ export class SlidersComponent implements OnInit {
             currencyShortName: pocket.currency.shortName
         };
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
-        if(dataResponse.status === 200) {
+        if (dataResponse.status === 200) {
             dataResponse.pocket = pocket;
-            this.emitterTransactionRefresh.emit(dataResponse)
+            this.emitterTransactionRefresh.emit(dataResponse);
         } else {
-            await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+            await this.toastCtrl.presentToast({text: dataResponse.error.msg});
         }
         // let selectedPocket = pockets.find(pocket => pocket.label === pocketSelected.pocketName);
         // console.log(selectedPocket)
         // console.log(await this.store.getDataLocal('selected-pocket'))
+        await this.loadingCtrl.dismiss();
     }
 
     async changeSlides(id: number) {
@@ -236,5 +249,16 @@ export class SlidersComponent implements OnInit {
 
     static connectionDataSocket(data){
         console.log(data)
+    }
+
+    public async getPocketsList(id) {
+        return await this.http.post('user-wallet/view', { id: id }, this.auth);
+    }
+
+    public async details(){
+         const modal = await this.modalCtrl.create({
+             component: ModalDetailsPage
+         });
+         return await modal.present();
     }
 }

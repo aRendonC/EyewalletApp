@@ -26,7 +26,7 @@
 
     <div *ngIf="dataVaults.vault" class="content-vaults-created">
       <ion-item-sliding class="info-vault-sliding" #slidingItem *ngFor="let data of dataVaults.vault">
-        <ion-item class="info-vault-sliding-item">
+        <ion-item class="info-vault-sliding-item" mode="md">
           <div class="content-info-vault-sliding">
             <div class="content-component-info-coin">
               <ion-img class="icon-coin" src="../../assets/icon/icon-coin-solid-{{ data.short_name }}.svg"></ion-img>

@@ -68,7 +68,7 @@
     "CreatingPocket": "Creando Pocket"
   },
   "INVOICE_MODAL": {
-    "PayEyeWallet": "Pagar con eywallet",
+    "PayEyeWallet": "Pagar con eyewallet",
     "NoFoundsPocket": "Este pocket no tiene saldo suficiente. Pot favor seleccione otro pocket"
   },
   "PIN_MODAL": {
@@ -105,8 +105,9 @@
     "Low": "Baja",
     "FillPin": "Ingrese el PIN",
     "QrOk": "Lectura Qr",
-    "FillFields": "Llenar el Campo"
-
+    "FillFields": "Llenar el Campo",
+    "NotFoundToTransaction": "No posee fondos para una transacción",
+    "TransactionOK": "Transacción realizada"
   },
   "VERIFICATION_MODAL_PAGE": {
     "VerifySecondFactor": "Verifica tu segundo factor para poder",

@@ -56,7 +56,7 @@ export class DashboardPage implements OnInit {
 
     async ngOnInit() {
         await this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
-        await this.socket.initSocketConnection();
+        //await this.socket.initSocketConnection();
         // await this.socket.disconnectSocket();
         this.pocket = await this.storage.getDataLocal('selected-pocket');
         await this.getUserProfile();
@@ -159,7 +159,7 @@ export class DashboardPage implements OnInit {
         this.transactionComponent.forEach(element => {
             const amountFinal = element.amount_finally;
             const amountDollar = (amountFinal * btc).toFixed(2);
-            const time = element.date_transaction.slice(11, 16);
+            const time = element.createdAt.slice(11, 16);
             const dateFormat = `${element.date_transaction.slice(8, 10)}.${element.date_transaction.slice(5, 7)}.${element.date_transaction.slice(2, 4)}`;
             if (element.confirmation >= 0 && element.confirmation <= 2) {
                 const confirmationText = 'Confirmando';
@@ -212,6 +212,7 @@ export class DashboardPage implements OnInit {
                 if (!this.crypto[0]) {
                     this.crypto.push({
                         value: pocket.balance,
+                        id: pocket.id,
                         valueUsd: response.btc.toFixed(8),
                         background: pocket.currency.name,
                         name: pocket.currency.name,
@@ -225,6 +226,7 @@ export class DashboardPage implements OnInit {
                     if (result == undefined) {
                         this.crypto.push({
                             value: pocket.balance,
+                            id: pocket.id,
                             valueUsd: response.btc.toFixed(8),
                             background: pocket.currency.name,
                             name: pocket.currency.name,
@@ -249,6 +251,7 @@ export class DashboardPage implements OnInit {
                 if (!this.crypto[0]) {
                     this.crypto.push({
                         value: pocket.balance,
+                        id: pocket.id,
                         valueUsd: response.btc.toFixed(8),
                         background: pocket.currency.name,
                         name: pocket.currency.name,
@@ -263,6 +266,7 @@ export class DashboardPage implements OnInit {
                     if (result == undefined) {
                         this.crypto.push({
                             value: pocket.balance,
+                            id: pocket.id,
                             valueUsd: response.btc.toFixed(8),
                             background: pocket.currency.name,
                             name: pocket.currency.name,
@@ -305,6 +309,7 @@ export class DashboardPage implements OnInit {
             address: this.pocket.address,
             currencyShortName: this.pocket.currency.shortName
         };
+        
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         this.storage.setDataLocal('selected-pocket', this.pocket);
         if (dataResponse.status === 200) {
