@@ -6,6 +6,7 @@ import {IonicModule} from '@ionic/angular';
 import {ExchangePage} from './exchange.page';
 import {ComponentsModule} from "../components/components.module";
 import { PipeModule } from '../pipes/pipe.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
     {
@@ -21,7 +22,8 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes),
         ComponentsModule,
-        PipeModule
+        PipeModule,
+        TranslateModule
     ],
     declarations: [ExchangePage]
 })

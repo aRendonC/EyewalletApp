@@ -3,8 +3,7 @@ import {AxiosService} from "../services/axios/axios.service";
 import {AuthService} from "../services/auth/auth.service";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {Storage} from "@ionic/storage";
-import {filter} from "rxjs/operators";
-import {NavigationStart, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {LoadingService} from "../services/loading/loading.service";
 
 interface onEnter {
@@ -16,6 +15,7 @@ interface onEnter {
     templateUrl: './history-exchange.page.html',
     styleUrls: ['./history-exchange.page.scss'],
 })
+
 export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
     ctrlNavigation: any = 8;
     public detailHistory: any;
@@ -40,18 +40,15 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
         protected auth: AuthService,
         protected aesjs: AesJsService,
         protected store: Storage,
-        private router: Router,
         private loadingCtrl: LoadingService
-    ) {
+    ) {}
 
-
+    async ngOnInit() {
+        await this.createSelectCrypto();
     }
 
     public async ionViewDidEnter(): Promise<any> {
         await this.getHistoryExChange()
-    }
-    async ngOnInit() {
-        await this.createSelectCrypto();
     }
 
     async getHistoryExChange() {
@@ -65,7 +62,6 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
             this.historyExChange.forEach(history => {
                 history.date =   new Date(history.createdAt).getMonth()  + "-" + new Date(history.createdAt).getDate()
                 history.day = new Date(history.createdAt)
-                // history.createdAt = history.createdAt.toISOString()
                 history.hour = new Date(history.createdAt).getHours()  + "-" +  new Date(history.createdAt).getMinutes()
                 history.amount = parseFloat(history.amount).toFixed(4)
                 history.amountReceived = parseFloat(history.amountReceived).toFixed(4)
@@ -144,7 +140,6 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
         } else {
             this.ctrlCssCard = index
         }
-
     }
 
     public async onEnter(): Promise<void> {
@@ -154,6 +149,4 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
     public ngOnDestroy(): void {
         console.log('se cierra siempre')
     }
-
-
 }

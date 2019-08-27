@@ -1,6 +1,7 @@
 export const KEYS_DATA_LOCAL: any = {
    PROFILE: 'profile',
-   POCKETS: 'pockets'
+   POCKETS: 'pockets',
+   TRANSACTION: 'transaction'
 }
 
 export const VAULT: any = {

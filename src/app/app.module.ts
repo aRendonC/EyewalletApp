@@ -37,7 +37,6 @@ const config: SocketIoConfig = {url: 'http://0c2a6d5b.ngrok.io', options: {}};
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-
 }
 
 @NgModule({

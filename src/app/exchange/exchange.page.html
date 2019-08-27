@@ -1,90 +1,115 @@
-<div class="grid">
-    <app-pocket [ctrlNavigation]="ctrlNavigation" class="pockets"></app-pocket>
-    <p class="move-name" style="width: 50%">¿Cuánto quieres cambiar?</p>
-    <div class="div-inputs center-vertical">
-        <ion-input
-            type="number"
-            [(ngModel)]="inputFrom"
-            (keyup)="getFeeTransactionFrom($event)"
-        >
-            <div class="div-p-currencies" (click)="filterCurrencyFrom(selectCryptoFrom)">
-                <p style="color: white">{{cryptoFrom.currency.shortName}}</p>
-                <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
-            </div>
-        </ion-input>
+<ion-content class="move-profileInfo exchange" [fullscreen]="true">
+	<div class="exchange-header">
+		<app-pocket [ctrlNavigation]="ctrlNavigation" class="pockets"></app-pocket>
 
-        <ion-icon
-            (click)="changeCryptoData()"
-            class="icon-change-currencies"
-            ios="ios-repeat"
-            md="md-repeat"
-        ></ion-icon>
+		<span class="exchange-text">{{ 'EXCHANGE.DescriptionText' | translate }}</span>
 
-        <ion-input
-            type="number"
-            [(ngModel)]="inputTo"
-        >
-            <div class="div-p-currencies" (click)="filterCurrencyTo(selectCryptoTo)">
-                <p style="color: white">{{cryptoTo?.currency.shortName}}</p>
-                <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
-            </div>
-        </ion-input>
-    </div>
+		<div class="exchange-content-inputs">
+			<div class="input-crypto-general">
+				<span class="crypto-name">{{ selectedCryptoName }}</span>
+				<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-crypto" (click)="showListNamesCryptos(selectedCryptoName, inputOrigin)"></ion-icon>
+				<ion-input *ngIf="!showLoaderInputValueCrypto" [disabled]="inputCryptoSelected" type="number" placeholder="0" [(ngModel)]="valueSelectedCrypto" (ngModelChange)="getExchangeValuesInputOrigin($event, inputOrigin)" (click)="messageBalancePocketCurrent()" class="input-value-crypto"></ion-input>
+				<div *ngIf="showLoaderInputValueCrypto" class="content-image-loaging-values">
+					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
+				</div>
+			</div>
 
-    <div class="div-pockets">
-        <div class="div-p-pocket" (click)="selectPocketFrom(pocketsFrom)">
-            <p style="color: white">{{selectedPocketFrom.label}}</p>
-            <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
-        </div>
+			<ion-button
+				(click)="changeCryptoSelected(selectedCryptoName, changeCryptoName, nameSelectedPocket, nameExchangePocket)"
+				class="button-exchange"
+			>
+				<ion-icon
+					ios="ios-repeat"
+					md="md-repeat"
+					class="button-change-crypto"
+				></ion-icon>
+			</ion-button>
 
-        <div class="div-p-pocket" (click)="selectPocketTo(pocketsTo)">
-            <p style="color: white">{{selectedPocketTo.label}}</p>
-            <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
-        </div>
-    </div>
+			<div class="input-crypto-general">
+				<span class="crypto-name">{{ changeCryptoName }}</span>
+				<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-crypto" (click)="showListNamesCryptos(changeCryptoName, inputDestination)"></ion-icon>
+				<ion-input *ngIf="!showLoadingValues" [disabled]="inputCryptoExchange" type="number" placeholder="0" [(ngModel)]="valueExchangeCrypto" class="input-value-crypto"></ion-input>
+				<div *ngIf="showLoadingValues" class="content-image-loaging-values">
+					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
+				</div>
+			</div>
+		</div>
 
-    <img class="bg-profile" src="../../assets/images/bg-profile.png"/>
-</div>
+		<div class="exchange-content-pockets">
+			<div class="content-pocket">
+				<span class="name-pocket">{{ nameSelectedPocket }}</span>
+				<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-pocket" (click)="showListNamesPockets(selectedPocketCrypto, nameSelectedPocket, inputOrigin)"></ion-icon>
+			</div>
 
-<ion-content class="move-profileInfo" [fullscreen]="true">
-    <div class="content-input-list-exchange">
+			<div class="content-pocket">
+				<span class="name-pocket">{{ nameExchangePocket }}</span>
+				<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-pocket" (click)="showListNamesPockets(exchangePocketCrypto, nameExchangePocket, inputDestination)"></ion-icon>
+			</div>
+		</div>
+	</div>
 
-        <span class="dollar-symbol">$</span>
-        <input type="number" [(ngModel)]="usdAmount" (keyup)="onInput($event)" class="usdAmounts">
-        
-        <ion-list>
-            <ion-item>
-                <ion-label>{{selectedPocketFrom?.currency?.shortName}} Precio</ion-label>
-                <p>{{inputFrom ? (valueCryptoTo | roundNumber) : 0}} {{selectedPocketTo.currency?.shortName}}</p>
-            </ion-item>
-            <ion-item>
-                <ion-label>{{selectedPocketFrom?.currency?.shortName}} Precio Dólar</ion-label>
-                <p>{{inputFrom ? (valueUsdFrom | roundNumber) : 0}} USD</p>
-            </ion-item>
-            <ion-item>
-                <ion-label>Tarifas de Red</ion-label>
-                <p>1 {{selectedPocketFrom?.currency.shortName}} - 1 {{selectedPocketTo?.currency.shortName}}</p>
-            </ion-item>
-            <ion-item>
-                <ion-label>Límites Comerciales</ion-label>
-                <p>100.00 - 1,00,000 $</p>
-            </ion-item>
-            <ion-item>
-                <ion-label></ion-label>
-                <p></p>
-            </ion-item>
-            <ion-item>
-                <ion-label>Enviar</ion-label>
-                <p>{{inputFrom ? (inputFrom | roundNumber) : 0}} {{selectedPocketFrom?.currency.shortName}}</p>
-            </ion-item>
-            <ion-item>
-                <ion-label>Recibir</ion-label>
-                <p>{{inputFrom ? (inputTo | roundNumber) : 0}} {{selectedPocketTo?.currency.shortName}}</p>
-            </ion-item>
-        </ion-list>
-        <ion-list class="center-vertical center center-horizontal">
-            <ion-button shape="round" style="width: 70%" class=" button-exchange" (click)="createExchange()">Intercambiar
-            </ion-button>
-        </ion-list>
-    </div>
+	<div class="input-dollar-crypto">
+		<span class="dollar-symbol">$</span>
+		<ion-input *ngIf="!showLoaderInputValueDollar" type="number" placeholder="0" [disabled]="inputCryptoSelected" (click)="messageBalancePocketCurrent()" [(ngModel)]="valueDollarCrypto" (ngModelChange)="getExchangeValuesInputOrigin($event, inputDestination)" class="dollar-input"></ion-input>
+		<div *ngIf="showLoaderInputValueDollar" class="content-image-loaging-values">
+			<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
+		</div>
+	</div>
+
+	<div class="content-input-list-exchange">
+		<ion-list class="list-content-info">
+			<ion-item class="list-item">
+				<ion-label class="list-item-title" class="list-item-title">{{selectedCryptoName}} Precio Dólar</ion-label>
+				<p *ngIf="!showLoadingValues" class="list-item-content" class="list-item-content">{{ valueCryptoOrigin | roundNumber }} USD</p>
+				<div *ngIf="showLoadingValues" class="content-gif-loaging-values">
+					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
+				</div>
+			</ion-item>
+
+			<ion-item class="list-item">
+				<ion-label class="list-item-title">{{changeCryptoName}} Precio Dólar</ion-label>
+				<p *ngIf="!showLoadingValues" class="list-item-content">{{ valueCryptoDestination | roundNumber }} USD</p>
+				<div *ngIf="showLoadingValues" class="content-gif-loaging-values">
+					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
+				</div>
+			</ion-item>
+
+			<ion-item class="list-item">
+				<ion-label class="list-item-title">Tarifas de Red</ion-label>
+				<p class="list-item-content">1 {{selectedCryptoName}} - 1 {{changeCryptoName}}</p>
+			</ion-item>
+
+			<ion-item class="list-item">
+				<ion-label class="list-item-title">Límites Comerciales</ion-label>
+				<p class="list-item-content">$ 100.00 - $ 100,000.00</p>
+			</ion-item>
+
+			<ion-item class="list-item">
+				<ion-label class="list-item-title"></ion-label>
+				<p class="list-item-content"></p>
+			</ion-item>
+
+			<ion-item class="list-item">
+				<ion-label class="list-item-title">Enviar</ion-label>
+				<p *ngIf="!showLoadingValues" class="list-item-content">{{ valueSelectedCrypto | roundNumber }} {{ selectedCryptoName }}</p>
+				<div *ngIf="showLoadingValues" class="content-gif-loaging-values">
+					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
+				</div>
+			</ion-item>
+
+			<ion-item class="list-item">
+				<ion-label class="list-item-title">Recibir</ion-label>
+				<p *ngIf="!showLoadingValues" class="list-item-content">{{ valueExchangeCrypto | roundNumber }} {{ changeCryptoName }}</p>
+				<div *ngIf="showLoadingValues" class="content-gif-loaging-values">
+					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
+				</div>
+			</ion-item>
+		</ion-list>
+
+		<div class="content-button-send-exchange">
+			<ion-button shape="round" [disabled]="buttonSendExchange" (click)="sendExchange()" class="button-send-exchange">
+				Intercambiar
+			</ion-button>
+		</div>
+	</div>
 </ion-content>
