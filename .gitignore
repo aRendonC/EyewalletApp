@@ -14,5 +14,5 @@ plugins
 /plugins
 /src/environments
 .DS_Store
-.config.xml
-/config.xml
+/.DS_Store
+*.DS_Store
