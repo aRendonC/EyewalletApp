@@ -32,6 +32,8 @@ import {HammerService} from "./services/hammer/hammer.service";
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { ModalDetailsPageModule } from './modal-details/modal-details.module';
+import { ModalDetailsPage } from './modal-details/modal-details.page';
 
 const config: SocketIoConfig = {url: 'http://0c2a6d5b.ngrok.io', options: {}};
 
@@ -42,12 +44,13 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
 
     declarations: [AppComponent, PinModalPage, VerificationModalPage],
-    entryComponents: [PinModalPage, VerificationModalPage],
+    entryComponents: [PinModalPage, VerificationModalPage,ModalDetailsPage],
     imports: [
         ComponentsModule,
         ReactiveFormsModule,
         FormsModule,
         BrowserModule,
+        ModalDetailsPageModule,
         IonicModule.forRoot({
             hardwareBackButton: false,
             mode: "ios",

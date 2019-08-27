@@ -85,8 +85,8 @@ export class PocketComponent implements OnInit {
         const modalPocket: HTMLIonModalElement = await this.modalCtrl.create({
             component: ListPocketsPage,
             animated: true,
-            enterAnimation: enterAnimation,
-            leaveAnimation: leaveAnimation,
+            // enterAnimation: enterAnimation,
+            // leaveAnimation: leaveAnimation,
             componentProps: {
                 pockets: this.pockets
             }

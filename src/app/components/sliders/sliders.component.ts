@@ -12,7 +12,7 @@ import {ToastService} from "../../services/toast/toast.service";
 import {DataLocalService} from "../../services/data-local/data-local.service";
 import {LoadingService} from "../../services/loading/loading.service";
 import {TranslateService} from "@ngx-translate/core";
-import { ModalDetailsPage } from "../../modal-details/modal-details.page";
+import { ModalDetailsPage } from 'src/app/modal-details/modal-details.page';
 
 
 
@@ -255,10 +255,12 @@ export class SlidersComponent implements OnInit {
         return await this.http.post('user-wallet/view', { id: id }, this.auth);
     }
 
-    public async details(){
+    public async details(datos){
          const modal = await this.modalCtrl.create({
-             component: ModalDetailsPage
+             component: ModalDetailsPage,
+             componentProps: { datos }
          });
          return await modal.present();
     }
+
 }
