@@ -140,7 +140,6 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
         } else {
             this.ctrlCssCard = index
         }
-
     }
 
     public async onEnter(): Promise<void> {
