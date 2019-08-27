@@ -241,11 +241,13 @@ export class SendCryptocurrenciesPage implements OnInit {
                             this.bodyForm.value.from_address = this.pockets.address;
                             this.bodyForm.value.fee = this.totalApplied.fee;
                             let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
+                            console.log("REspuesta:", response)
                             if (response.status === 200) {
                                 await this.loadingCtrl.dismiss();
                                 await this.toastCtrl.presentToast({text: this.translateService.instant('SEND_CRYPTO_CURRENCY.TransactionOK')});
                                 let dataResponse = await this.getPocketTransaction();
                                 await this.store.set('pockets', this.pockets);
+                                
                                 if (dataResponse.status === 200) {
                                     dataResponse.pocket = this.pockets;
                                     await this.store.set('transaction', dataResponse)
@@ -273,8 +275,10 @@ export class SendCryptocurrenciesPage implements OnInit {
         let body = {
             userId: this.pockets.userId,
             type: 0,
-            address: this.pockets.address
+            address: this.pockets.address,
+            currencyShortName: this.pockets.currency.shortName
         };
+        console.log("loquesea", body);
         return await this.http.post('transaction/index', body, this.auth);
     }
 }

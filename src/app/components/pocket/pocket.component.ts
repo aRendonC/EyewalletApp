@@ -85,8 +85,8 @@ export class PocketComponent implements OnInit {
         const modalPocket: HTMLIonModalElement = await this.modalCtrl.create({
             component: ListPocketsPage,
             animated: true,
-            enterAnimation: enterAnimation,
-            leaveAnimation: leaveAnimation,
+            // enterAnimation: enterAnimation,
+            // leaveAnimation: leaveAnimation,
             componentProps: {
                 pockets: this.pockets
             }
@@ -105,7 +105,7 @@ export class PocketComponent implements OnInit {
                     address: this.pocket.address,
                     currencyShortName: this.pocket.currency.shortName
                 };
-                console.log(this.pocket);
+                console.log("POKER TRIN :",this.pocket);
                 this.store.setDataLocal('selected-pocket', this.pocket);
                 await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
                 let dataResponse = await this.http.post('transaction/index', body, this.auth);
@@ -164,8 +164,8 @@ export class PocketComponent implements OnInit {
                             this.counters[idTab] = 0;
                             clearInterval(intervalClose)
                         }
-                    }, 2);
-                }, 1000);
+                    },30);
+                }, 2000);
                 clearInterval(interval)
             }
         }, 2)

@@ -119,7 +119,7 @@
     <ion-infinite-scroll (ionInfinite)="loadData($event)">
         <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more data...">
             <ion-card *ngFor="let transaction of transactions" class="sc-ion-card-ios-h-transactions">
-                <ion-card-content style="padding: 0">
+                <ion-card-content style="padding: 0" (click)="details(transaction)">
                     <ion-grid>
                         <ion-row>
                             <ion-col size="2" class="center-vertical center-horizontal ">
