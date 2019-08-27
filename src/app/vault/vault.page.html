@@ -1,20 +1,20 @@
+<div class="header">
+  <app-pocket [ctrlNavigation]="ctrlNavigation" [listVaultLength]="listVaultLength"></app-pocket>
+
+  <ion-select
+    class="select-pocket"
+    mode="md"
+    [placeholder]="dataPockets.placeholderSelectPocket"
+    [(ngModel)]="dataSelected"
+    (ionChange)="handlerPocketSelected()"
+    [okText]="dataPockets.buttonOkSelect"
+    [cancelText]="dataPockets.buttonCancelSelect"
+  >
+    <ion-select-option class="content-selected-options" *ngFor="let dataPocket of pockets" [value]="dataPocket.label">{{ dataPocket.label }} ({{ dataPocket.currency.shortName }})</ion-select-option>
+  </ion-select>
+</div>
+
 <ion-content class="vault">
-  <div class="header">
-    <app-pocket [ctrlNavigation]="ctrlNavigation" [listVaultLength]="listVaultLength"></app-pocket>
-
-    <ion-select
-      class="select-pocket"
-      mode="md"
-      [placeholder]="dataPockets.placeholderSelectPocket"
-      [(ngModel)]="dataSelected"
-      (ionChange)="handlerPocketSelected()"
-      [okText]="dataPockets.buttonOkSelect"
-      [cancelText]="dataPockets.buttonCancelSelect"
-    >
-      <ion-select-option class="content-selected-options" *ngFor="let dataPocket of pockets" [value]="dataPocket.label">{{ dataPocket.label }} ({{ dataPocket.currency.shortName }})</ion-select-option>
-    </ion-select>
-  </div>
-
   <div class="content-balance-duration content-balance">
     <span text-capitalize class="title">{{ 'VAULT.textAvailableBalance' | translate }}</span>
 

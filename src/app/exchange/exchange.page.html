@@ -1,53 +1,53 @@
-<ion-content class="move-profileInfo exchange" [fullscreen]="true">
-	<div class="exchange-header">
-		<app-pocket [ctrlNavigation]="ctrlNavigation" class="pockets"></app-pocket>
+<div class="exchange-header">
+	<app-pocket [ctrlNavigation]="ctrlNavigation" class="pockets"></app-pocket>
 
-		<span class="exchange-text">{{ 'EXCHANGE.DescriptionText' | translate }}</span>
+	<span class="exchange-text">{{ 'EXCHANGE.DescriptionText' | translate }}</span>
 
-		<div class="exchange-content-inputs">
-			<div class="input-crypto-general">
-				<span class="crypto-name">{{ selectedCryptoName }}</span>
-				<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-crypto" (click)="showListNamesCryptos(selectedCryptoName, inputOrigin)"></ion-icon>
-				<ion-input *ngIf="!showLoaderInputValueCrypto" [disabled]="inputCryptoSelected" type="number" placeholder="0" [(ngModel)]="valueSelectedCrypto" (ngModelChange)="getExchangeValuesInputOrigin($event, inputOrigin)" (click)="messageBalancePocketCurrent()" class="input-value-crypto"></ion-input>
-				<div *ngIf="showLoaderInputValueCrypto" class="content-image-loaging-values">
-					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
-				</div>
-			</div>
-
-			<ion-button
-				(click)="changeCryptoSelected(selectedCryptoName, changeCryptoName, nameSelectedPocket, nameExchangePocket)"
-				class="button-exchange"
-			>
-				<ion-icon
-					ios="ios-repeat"
-					md="md-repeat"
-					class="button-change-crypto"
-				></ion-icon>
-			</ion-button>
-
-			<div class="input-crypto-general">
-				<span class="crypto-name">{{ changeCryptoName }}</span>
-				<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-crypto" (click)="showListNamesCryptos(changeCryptoName, inputDestination)"></ion-icon>
-				<ion-input *ngIf="!showLoadingValues" [disabled]="inputCryptoExchange" type="number" placeholder="0" [(ngModel)]="valueExchangeCrypto" class="input-value-crypto"></ion-input>
-				<div *ngIf="showLoadingValues" class="content-image-loaging-values">
-					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
-				</div>
+	<div class="exchange-content-inputs">
+		<div class="input-crypto-general">
+			<span class="crypto-name">{{ selectedCryptoName }}</span>
+			<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-crypto" (click)="showListNamesCryptos(selectedCryptoName, inputOrigin)"></ion-icon>
+			<ion-input *ngIf="!showLoaderInputValueCrypto" [disabled]="inputCryptoSelected" type="number" placeholder="0" [(ngModel)]="valueSelectedCrypto" (ngModelChange)="getExchangeValuesInputOrigin($event, inputOrigin)" (click)="messageBalancePocketCurrent()" class="input-value-crypto"></ion-input>
+			<div *ngIf="showLoaderInputValueCrypto" class="content-image-loaging-values">
+				<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
 			</div>
 		</div>
 
-		<div class="exchange-content-pockets">
-			<div class="content-pocket">
-				<span class="name-pocket">{{ nameSelectedPocket }}</span>
-				<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-pocket" (click)="showListNamesPockets(selectedPocketCrypto, nameSelectedPocket, inputOrigin)"></ion-icon>
-			</div>
+		<ion-button
+			(click)="changeCryptoSelected(selectedCryptoName, changeCryptoName, nameSelectedPocket, nameExchangePocket)"
+			class="button-exchange"
+		>
+			<ion-icon
+				ios="ios-repeat"
+				md="md-repeat"
+				class="button-change-crypto"
+			></ion-icon>
+		</ion-button>
 
-			<div class="content-pocket">
-				<span class="name-pocket">{{ nameExchangePocket }}</span>
-				<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-pocket" (click)="showListNamesPockets(exchangePocketCrypto, nameExchangePocket, inputDestination)"></ion-icon>
+		<div class="input-crypto-general">
+			<span class="crypto-name">{{ changeCryptoName }}</span>
+			<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-crypto" (click)="showListNamesCryptos(changeCryptoName, inputDestination)"></ion-icon>
+			<ion-input *ngIf="!showLoadingValues" [disabled]="inputCryptoExchange" type="number" placeholder="0" [(ngModel)]="valueExchangeCrypto" class="input-value-crypto"></ion-input>
+			<div *ngIf="showLoadingValues" class="content-image-loaging-values">
+				<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
 			</div>
 		</div>
 	</div>
 
+	<div class="exchange-content-pockets">
+		<div class="content-pocket">
+			<span class="name-pocket">{{ nameSelectedPocket }}</span>
+			<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-pocket" (click)="showListNamesPockets(selectedPocketCrypto, nameSelectedPocket, inputOrigin)"></ion-icon>
+		</div>
+
+		<div class="content-pocket">
+			<span class="name-pocket">{{ nameExchangePocket }}</span>
+			<ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" class="icon-select-pocket" (click)="showListNamesPockets(exchangePocketCrypto, nameExchangePocket, inputDestination)"></ion-icon>
+		</div>
+	</div>
+</div>
+
+<ion-content class="move-profileInfo exchange" [fullscreen]="true">
 	<div class="input-dollar-crypto">
 		<span class="dollar-symbol">$</span>
 		<ion-input *ngIf="!showLoaderInputValueDollar" type="number" placeholder="0" [disabled]="inputCryptoSelected" (click)="messageBalancePocketCurrent()" [(ngModel)]="valueDollarCrypto" (ngModelChange)="getExchangeValuesInputOrigin($event, inputDestination)" class="dollar-input"></ion-input>

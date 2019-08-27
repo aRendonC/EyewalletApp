@@ -1,28 +1,28 @@
 @import '../../global.scss';
 
+.header {
+   background-image: url('../../assets/images/vault-header-background.svg');
+   background-size: cover;
+   background-repeat: no-repeat;
+   height: 247px;
+   position: fixed;
+   width: 100%;
+   z-index: 3;
+
+   .select-pocket {
+      width: 60%;
+      font-family: $font-openSans-bold;
+      font-size: 16px;
+      color: #CCC4FC;
+      text-transform: capitalize;
+      margin: 40px auto 0 auto;
+      border-bottom: solid 1px #CCC4FC;
+      padding: 10px 0;
+   }
+}
+
 .vault {
    --background: linear-gradient(to bottom, rgba(255,255,255,1) 90%, rgba(223,226,238,1) 100%, rgba(202,206,227,1) 100%);
-
-   .header {
-      background-image: url('../../assets/images/vault-header-background.svg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      height: 247px;
-      position: fixed;
-      width: 100%;
-      z-index: 3;
-
-      .select-pocket {
-         width: 60%;
-         font-family: $font-openSans-bold;
-         font-size: 16px;
-         color: #CCC4FC;
-         text-transform: capitalize;
-         margin: 40px auto 0 auto;
-         border-bottom: solid 1px #CCC4FC;
-         padding: 10px 0;
-      }
-   }
 
    .content-balance-duration {
       background: white;
