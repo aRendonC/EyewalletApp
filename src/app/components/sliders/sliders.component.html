@@ -50,7 +50,11 @@
     <!--<app-chart [name]="name"  *ngIf="name.length > 0"></app-chart>-->
 </div>
 <!-- Card de completar Perfil -->
+<<<<<<< HEAD
 <ion-card class="cardwith" style="height: auto" *ngIf="profile?.level === 0 && profile?.completed === 0">
+=======
+<ion-card class="cardwith" style="height: auto" *ngIf="profile?.level === 1 ">
+>>>>>>> cambios de remeve storage
     <ion-card-header class="header">
         <ion-card-title class="card-title" *ngIf="!profile.user.firstName">
             {{'SLIDER_COMPONENT.CompleteProfile'| translate}}
