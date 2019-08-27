@@ -1,17 +1,8 @@
-// Dependencies.
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, IonContent } from '@ionic/angular';
 import { Router } from '@angular/router';
-import {Storage} from "@ionic/storage";
-
-// Services.
 import { DataLocalService } from '../services/data-local/data-local.service';
-import { AesJsService } from '../services/aesjs/aes-js.service';
-
-// Constants.
 import * as CONSTANTS from '../constanst';
-
-// Pages.
 import { ModalInvoicePage } from '../modal-invoice/modal-invoice.page';
 
 @Component({

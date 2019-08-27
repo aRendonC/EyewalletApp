@@ -64,9 +64,21 @@
         }
       }
 
-      .button-change-crypto {
-        color: white;
-        font-size: 35px;
+      .button-exchange {
+        --background: none;
+        --background-hover: none;
+        --background-focused: none;
+        --background-activated: rgba(0, 0, 0, 0.2);
+        --border-radius: 30px;
+        --padding-start: 10px;
+        --padding-top: 0;
+        --padding-end: 10px;
+        --padding-bottom: 0;
+
+        .button-change-crypto {
+          color: white;
+          font-size: 35px;
+        }
       }
     }
 
@@ -119,6 +131,52 @@
       }
     }
   }
+
+  .content-input-list-exchange {
+    padding: 0 0 80px 0;
+
+    .list-content-info {
+      .list-item {
+        --padding-start: 0;
+        height: 54px;
+
+        .list-item-title {
+          width: 50%;
+        }
+
+        .list-item-content {
+          width: 50%;
+          padding: 0 0 0 10px;
+        }
+
+        .content-gif-loaging-values {
+          width: 26%;
+
+          .image-loaging-values {
+            width: 20px;
+          }
+        }
+      }
+    }
+
+    .content-button-send-exchange {
+      @extend .all-center;
+      margin: 40px 0;
+
+      .button-send-exchange{
+        color: white;
+        font-weight:bold;
+        --background: rgba(125,220,151,1);
+        --background: -moz-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        --background: -webkit-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        --background: -o-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        --background: -ms-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        --background: linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ddc97', endColorstr='#84eae8', GradientType=1 );
+        width: 80%;
+      }
+    }
+  }  
 }
 
 .grid{
@@ -162,18 +220,6 @@
   color: white;
   font-family: 'Open-Sans', sans-serif;
   font-weight: 400;
-}
-
-.button-exchange{
-  color: white;
-  font-weight:bold;
-  --background: rgba(125,220,151,1);
-  --background: -moz-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
-  --background: -webkit-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
-  --background: -o-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
-  --background: -ms-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
-  --background: linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ddc97', endColorstr='#84eae8', GradientType=1 );
 }
 
 ion-item{
@@ -230,13 +276,6 @@ ion-input{
   display: contents;
 }
 
-// .dollar-symbol {
-//   font-size: 40px;
-//   color: white;
-//   position: absolute;
-//   left: 25px;
-// }
-
 .usdAmounts{
   width: 100%;
   background: #D1C9FF;
@@ -251,8 +290,4 @@ ion-input{
   color: #ffffff;
   margin-top: 10px;
   margin-left: 20px
-}
-
-.content-input-list-exchange {
-  padding: 0 0 80px 0; // 280px 0 80px 0;
 }
