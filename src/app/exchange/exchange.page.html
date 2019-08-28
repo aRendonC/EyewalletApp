@@ -59,7 +59,7 @@
 	<div class="content-input-list-exchange">
 		<ion-list class="list-content-info">
 			<ion-item class="list-item">
-				<ion-label class="list-item-title" class="list-item-title">{{selectedCryptoName}} Precio Dólar</ion-label>
+				<ion-label class="list-item-title" class="list-item-title">{{selectedCryptoName}} {{ 'EXCHANGE.DollarPriceText' | translate }}</ion-label>
 				<p *ngIf="!showLoadingValues" class="list-item-content" class="list-item-content">{{ valueCryptoOrigin | roundNumber }} USD</p>
 				<div *ngIf="showLoadingValues" class="content-gif-loaging-values">
 					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
@@ -67,7 +67,7 @@
 			</ion-item>
 
 			<ion-item class="list-item">
-				<ion-label class="list-item-title">{{changeCryptoName}} Precio Dólar</ion-label>
+				<ion-label class="list-item-title">{{changeCryptoName}} {{ 'EXCHANGE.DollarPriceText' | translate }}</ion-label>
 				<p *ngIf="!showLoadingValues" class="list-item-content">{{ valueCryptoDestination | roundNumber }} USD</p>
 				<div *ngIf="showLoadingValues" class="content-gif-loaging-values">
 					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
@@ -75,12 +75,12 @@
 			</ion-item>
 
 			<ion-item class="list-item">
-				<ion-label class="list-item-title">Tarifas de Red</ion-label>
+				<ion-label class="list-item-title">{{ 'EXCHANGE.NetworkRates' | translate }}</ion-label>
 				<p class="list-item-content">1 {{selectedCryptoName}} - 1 {{changeCryptoName}}</p>
 			</ion-item>
 
 			<ion-item class="list-item">
-				<ion-label class="list-item-title">Límites Comerciales</ion-label>
+				<ion-label class="list-item-title">{{ 'EXCHANGE.TradeLimits' | translate }}</ion-label>
 				<p class="list-item-content">$ 100.00 - $ 100,000.00</p>
 			</ion-item>
 
@@ -90,7 +90,7 @@
 			</ion-item>
 
 			<ion-item class="list-item">
-				<ion-label class="list-item-title">Enviar</ion-label>
+				<ion-label class="list-item-title">{{ 'EXCHANGE.Send' | translate }}</ion-label>
 				<p *ngIf="!showLoadingValues" class="list-item-content">{{ valueSelectedCrypto | roundNumber }} {{ selectedCryptoName }}</p>
 				<div *ngIf="showLoadingValues" class="content-gif-loaging-values">
 					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
@@ -98,7 +98,7 @@
 			</ion-item>
 
 			<ion-item class="list-item">
-				<ion-label class="list-item-title">Recibir</ion-label>
+				<ion-label class="list-item-title">{{ 'EXCHANGE.Receive' | translate }}</ion-label>
 				<p *ngIf="!showLoadingValues" class="list-item-content">{{ valueExchangeCrypto | roundNumber }} {{ changeCryptoName }}</p>
 				<div *ngIf="showLoadingValues" class="content-gif-loaging-values">
 					<img class="image-loaging-values" src="../../assets/icon/loading-values.svg">
@@ -108,7 +108,7 @@
 
 		<div class="content-button-send-exchange">
 			<ion-button shape="round" [disabled]="buttonSendExchange" (click)="sendExchange()" class="button-send-exchange">
-				Intercambiar
+					{{ 'EXCHANGE.Exchange' | translate }}
 			</ion-button>
 		</div>
 	</div>

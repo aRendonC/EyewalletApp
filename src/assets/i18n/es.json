@@ -239,6 +239,37 @@
     "LoadingData": "Sus datos se están cargando, por favor espere"
   },
   "EXCHANGE": {
-    "DescriptionText": "¿Cuanto quieres cambiar?"
+    "DescriptionText": "¿Cuanto quieres cambiar?",
+    "DollarPriceText": "Precio dólar",
+    "NetworkRates": "Tarifas de red",
+    "TradeLimits": "Límites comerciales",
+    "Send": "Enviar",
+    "Receive": "Recibir",
+    "Exchange": "Intercambiar",
+    "alertTypeCrypto": "Seleccione una moneda",
+    "alertTypeCryptoCancel": "Cancelar",
+    "alertTypeCryptoSelect": "Seleccionar",
+    "alertPocketSelected": "Seleccione un bolsillo",
+    "InternalErrors": "Errores internos. Intente nuevamente.",
+    "PocketWithoutBalance": "Bolsillo sin saldo. Seleccione otro.",
+    "IncorrectData": "Datos incorrectos.",
+    "Success": "Cambio exitoso.",
+    "ErrorToChange": "Error al intentar realizar el cambio.",
+    "LoadingData": "Cargando información",
+    "SendRequest": "Enviando solicitud"
+  },
+  "EXCHANGE_HISTORY": {
+    "Title": "Historial",
+    "PlaceholderSearchBar": "Buscar",
+    "PlaceholderSelectTransactionStatus": "Estado de transacción",
+    "ExchangeText": "Intercambio",
+    "Rejected": "Rechazado",
+    "InProcess": "En proceso",
+    "Approved": "Aprovado",
+    "Success": "Realizado",
+    "Data": "Fecha",
+    "Hour": "Hora",
+    "AmountChange": "Cantidad a cambiar",
+    "Fee": "Cuota"
   }
 }
