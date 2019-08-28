@@ -240,7 +240,17 @@
     "Amount": "Monto",
     "Copy": "Copiar",
     "LogOutOk": "Su sesión ha sido cerrada correctamente",
-    "LoadingData": "Sus datos se están cargando, por favor espere"
+    "LoadingData": "Sus datos se están cargando, por favor espere",
+    "Details": "Detalles",
+    "From": "Desde",
+    "To": "A",
+    "Confirmation": "Confirmación",
+    "Usd": "Dólar estado unidense",
+    "Fee": "Cuota",
+    "Priority": "Prioridad",
+    "Date": "Fecha"
+
+
   },
   "EXCHANGE": {
     "DescriptionText": "¿Cuanto quieres cambiar?",

@@ -240,7 +240,15 @@
     "Amount": "Amount",
     "Copy": "Copy",
     "LogOutOk": "Your sessions has been closed correctly",
-    "LoadingData": "Your data is loading, please wait"
+    "LoadingData": "Your data is loading, please wait",
+    "Details": "Details",
+    "From": "From",
+    "To": "To",
+    "Confirmation": "Confirmation",
+    "Usd": "Usd",
+    "Fee": "Fee",
+    "Priority": "Priority",
+    "Date": "Date"
   },
   "EXCHANGE": {
     "DescriptionText": "How much do you want to change?",
