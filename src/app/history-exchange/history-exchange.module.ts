@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 import {HistoryExchangePage} from './history-exchange.page';
 import {ComponentsModule} from "../components/components.module";
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
     {
@@ -19,7 +20,8 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
-        ComponentsModule
+        ComponentsModule,
+        TranslateModule
     ],
     declarations: [HistoryExchangePage]
 })

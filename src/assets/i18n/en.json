@@ -57,7 +57,7 @@
   "POCKET_COMPONENT": {
     "NewVault": "New Vault",
     "History": "History",
-    "Exchange": "Return"
+    "Exchange": "Back"
   },
   "PRICES_PAGE": {
     "LoadingCrypto": "Loading crypto data."
@@ -237,5 +237,39 @@
     "Copy": "Copy",
     "LogOutOk": "Your sessions has been closed correctly",
     "LoadingData": "Your data is loading, please wait"
+  },
+  "EXCHANGE": {
+    "DescriptionText": "How much do you want to change?",
+    "DollarPriceText": "Dollar price",
+    "NetworkRates": "Network rates",
+    "TradeLimits": "Trade limits",
+    "Send": "Send",
+    "Receive": "Receive",
+    "Exchange": "To Exchange",
+    "alertTypeCrypto": "Select a currency",
+    "alertTypeCryptoCancel": "Cancel",
+    "alertTypeCryptoSelect": "Select",
+    "alertPocketSelected": "Select a pocket",
+    "InternalErrors": "Internal errors Try again.",
+    "PocketWithoutBalance": "Pocket without balance. Select another.",
+    "IncorrectData": "Incorrect data.",
+    "Success": "Success.",
+    "ErrorToChange": "Error while trying to make the change.",
+    "LoadingData": "Loading information",
+    "SendRequest": "Sending request"
+  },
+  "EXCHANGE_HISTORY": {
+    "Title": "History",
+    "PlaceholderSearchBar": "Search",
+    "PlaceholderSelectTransactionStatus": "Transaction status",
+    "ExchangeText": "Exchange",
+    "Rejected": "Rejected",
+    "InProcess": "In process",
+    "Approved": "Approved",
+    "Success": "Success",
+    "Data": "Data",
+    "Hour": "Hour",
+    "AmountChange": "Amount to change",
+    "Fee": "Fee"
   }
 }

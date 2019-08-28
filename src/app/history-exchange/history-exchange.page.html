@@ -1,18 +1,40 @@
 <div class="grid">
     <app-pocket (click)="clearData()" [ctrlNavigation]="ctrlNavigation" [navigationHistory]="false" [navigationExchange]="true" class="pockets"></app-pocket>
-    <p class="move-name">Historial</p>
-    <ion-searchbar [disabled]="ctrlTagsHtml" type="number" spellcheck="true" showCancelButton="never" animated="true"
-                   (ionInput)="filterSearch($event.target.value)" class="search-input">
-        <ion-select [disabled]="ctrlTagsHtml" (ionChange)="clearData()" class="select-searchable" [(ngModel)]="cryptoSelected">
-            <ion-select-option [value]="crypto.currency.shortName"
-                               *ngFor="let crypto of cryptoCurrency">{{crypto.currency.shortName}}</ion-select-option>
+    <p class="move-name">{{ 'EXCHANGE_HISTORY.Title' | translate }}</p>
+    <ion-searchbar
+        [disabled]="ctrlTagsHtml"
+        type="number"
+        placeholder="{{ 'EXCHANGE_HISTORY.PlaceholderSearchBar' | translate }}"
+        spellcheck="true"
+        showCancelButton="never"
+        animated="true"
+        (ionInput)="filterSearch($event.target.value)"
+        class="search-input"
+    >
+        <ion-select
+            [disabled]="ctrlTagsHtml"
+            (ionChange)="clearData()"
+            class="select-searchable"
+            [(ngModel)]="cryptoSelected"
+        >
+            <ion-select-option [value]="crypto.currency.shortName" *ngFor="let crypto of cryptoCurrency">
+                {{crypto.currency.shortName}}
+            </ion-select-option>
         </ion-select>
     </ion-searchbar>
+
     <div class="center-horizontal grd-div-select">
-        <ion-select [disabled]="ctrlTagsHtml" placeholder="Todo" (ionCancel)="clearData()" (ionChange)="filterWhitStatus()"
-                    class="select-filter-exchange" [(ngModel)]="statusSelected">
-            <ion-select-option [value]="status.value"
-                               *ngFor="let status of statusExchange">{{status.text}}</ion-select-option>
+        <ion-select
+            [disabled]="ctrlTagsHtml"
+            placeholder="{{ 'EXCHANGE_HISTORY.PlaceholderSelectTransactionStatus' | translate }}"
+            (ionCancel)="clearData()"
+            (ionChange)="filterWhitStatus()"
+            class="select-filter-exchange"
+            [(ngModel)]="statusSelected"
+        >
+            <ion-select-option [value]="status.value" *ngFor="let status of statusExchange">
+                {{status.text}}
+            </ion-select-option>
         </ion-select>
     </div>
     <img class="bg-profile" src="../../assets/images/bg-profile.png"/>
@@ -31,22 +53,21 @@
                 <ion-grid>
                     <ion-row>
                         <ion-col size="4">
-                            <ion-col size="12" class="col-p">{{history.walletFromData?.label}}</ion-col>
-                            <ion-col size="12" class="col-p2"> Exchange</ion-col>
+                            <span class="col-p">{{history.walletFromData?.label}}</span>
+                            <span class="col-p2">{{ 'EXCHANGE_HISTORY.ExchangeText' | translate }}</span>
                         </ion-col>
                         <ion-col size="4">
-                            <ion-col size="12" class="col-p"> {{history.amount}} {{history.currencyShortNameFrom}} </ion-col>
-                            <ion-col size="12" class="col-p2"> {{history.amountReceived}} {{history.currencyShortNameTo}}</ion-col>
+                            <span class="col-p"> {{history.amount}} {{history.currencyShortNameFrom}} </span>
+                            <span class="col-p2"> {{history.amountReceived}} {{history.currencyShortNameTo}}</span>
                         </ion-col>
                         <ion-col size="4" class="center-vertical">
                             <div [class]="'status'+ history.status + ' center-vertical center center-horizontal'">
-                                <p style="color: white; font-size: 11px">{{history.state}}</p>
+                                <p style="color: white; font-size: 11px">{{ exchangeStatus[history.status] }}</p>
                             </div>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
                 
-
                 <ion-list *ngIf="history.classShowDetails">
                     <ion-item>
                         <ion-grid>
@@ -56,7 +77,7 @@
                                         <ion-label style="font-size: 12px">{{history.walletFromData?.label}}</ion-label>
                                     </ion-col>
                                     <ion-col size="12">
-                                        <ion-label class="labels">Exchange</ion-label>
+                                        <ion-label class="labels">{{ 'EXCHANGE_HISTORY.ExchangeText' | translate }}</ion-label>
                                     </ion-col>
                                 </ion-col>
                                 <ion-col size="4">
@@ -68,77 +89,29 @@
                                     </ion-col>
                                 </ion-col>
                                 <ion-col size="4" class="center-horizontal center-vertical">
-                                    <ion-label [class]="'s'+ history.status" style="text-align: center">{{history.state}}</ion-label>
+                                    <ion-label [class]="'s'+ history.status" style="text-align: center">{{ exchangeStatus[history.status] }}</ion-label>
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
                     </ion-item>
                     <ion-item style="padding: 10px;">
-                        <ion-label class="labels">Fecha:</ion-label>
+                        <ion-label class="labels">{{ 'EXCHANGE_HISTORY.Data' | translate }}:</ion-label>
                         <p class="text">{{history.date}}</p>
                     </ion-item>
                     <ion-item style="padding: 10px;">
-                        <ion-label class="labels">Hora:</ion-label>
+                        <ion-label class="labels">{{ 'EXCHANGE_HISTORY.Hour' | translate }}:</ion-label>
                         <p class="text">{{history.hour}} </p>
                     </ion-item>
                     <ion-item style="padding: 10px;">
-                        <ion-label class="labels">Cantidad a cambiar</ion-label>
+                        <ion-label class="labels">{{ 'EXCHANGE_HISTORY.AmountChange' | translate }}:</ion-label>
                         <p class="text">{{history.amount}}</p>
                     </ion-item>
                     <ion-item style="padding: 10px;">
-                        <ion-label class="labels">Fee</ion-label>
+                        <ion-label class="labels">{{ 'EXCHANGE_HISTORY.Fee' | translate }}:</ion-label>
                         <p class="text">{{history.fee}}</p>
                     </ion-item>
                 </ion-list>
-
-
             </ion-card-content>
         </ion-card>
     </ion-list>
 </ion-content>
-
-<!-- <ion-content *ngIf="ctrlTagsHtml" (click)="ctrlTagsHtml = false;" [fullscreen]="true" class="move-cryptoInfo">
-    <ion-list>
-        <ion-item>
-            <ion-grid>
-                <ion-row>
-                    <ion-col size="4">
-                        <ion-col size="12">
-                            <ion-label style="font-size: 12px">{{detailHistory.walletFromData.label}}</ion-label>
-                        </ion-col>
-                        <ion-col size="12">
-                            <ion-label class="labels">Exchange</ion-label>
-                        </ion-col>
-                    </ion-col>
-                    <ion-col size="4">
-                        <ion-col size="12">
-                            <ion-label style="font-size: 12px">{{detailHistory.amount}} {{detailHistory.currencyShortNameFrom}}</ion-label>
-                        </ion-col>
-                        <ion-col size="12">
-                            <ion-label class="labels">{{detailHistory.amountReceived}} {{detailHistory.currencyShortNameTo}}</ion-label>
-                        </ion-col>
-                    </ion-col>
-                    <ion-col size="4" class="center-horizontal center-vertical">
-                        <ion-label [class]="'s'+ detailHistory.status" style="text-align: center">{{detailHistory.state}}</ion-label>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-item>
-        <ion-item style="padding: 10px;">
-            <ion-label class="labels">Fecha:</ion-label>
-            <p class="text">{{detailHistory.date}}</p>
-        </ion-item>
-        <ion-item style="padding: 10px;">
-            <ion-label class="labels">Hora:</ion-label>
-            <p class="text">{{detailHistory.hour}} </p>
-        </ion-item>
-        <ion-item style="padding: 10px;">
-            <ion-label class="labels">Cantidad a cambiar</ion-label>
-            <p class="text">{{detailHistory.amount}}</p>
-        </ion-item>
-        <ion-item style="padding: 10px;">
-            <ion-label class="labels">Fee</ion-label>
-            <p class="text">{{detailHistory.fee}}</p>
-        </ion-item>
-    </ion-list>
-</ion-content> -->

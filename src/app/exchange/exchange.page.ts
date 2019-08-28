@@ -7,6 +7,7 @@ import { LoadingService } from "../services/loading/loading.service";
 import { DataLocalService } from "../services/data-local/data-local.service";
 import * as CONSTANTS from '../constanst';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'app-exchange',
@@ -50,7 +51,8 @@ export class ExchangePage implements OnInit {
 		protected auth: AuthService,
 		private toastCtrl: ToastService,
 		private loadingCtrl: LoadingService,
-		private router: Router
+		private router: Router,
+		private translateService: TranslateService
 	) {
 		this.ctrlNavigation = 8;
 		this.navigationHistory = false;
@@ -77,7 +79,7 @@ export class ExchangePage implements OnInit {
 	public async ngOnInit(): Promise<any> {}
 
 	public async ionViewDidEnter(): Promise<any> {
-		await this.loadingCtrl.present({ text: 'Cargando información', cssClass: 'textLoadingBlack' });
+		await this.loadingCtrl.present({ text: this.translateService.instant('EXCHANGE.LoadingData'), cssClass: 'textLoadingBlack' });
 		this.navigationHistory = await this.validateTransactionsExchage();
 		this.pockets = await this.store.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.POCKETS);
 		this.cryptosShortNames = this.setCryptosShortNames(this.pockets);
@@ -137,16 +139,16 @@ export class ExchangePage implements OnInit {
 
 	public async showListNamesCryptos(cryptoNameSelected: string, typeInput: string): Promise<any> {
 		const alert = await this.alertCtrl.create({
-      header: 'Seleccione un tipo de moneda',
+      header: this.translateService.instant('EXCHANGE.alertTypeCrypto'),
       inputs: this.setCryptoNamesAlert(cryptoNameSelected),
       buttons: [
         {
-          text: 'Cancelar',
+          text: this.translateService.instant('EXCHANGE.alertTypeCryptoCancel'),
           role: 'cancel',
           cssClass: 'secondary',
 				},
 				{
-          text: 'Seleccionar',
+          text: this.translateService.instant('EXCHANGE.alertTypeCryptoSelect'),
           handler: (cryptoNameSelected) => {
             this.validateAsingCryptoName(cryptoNameSelected, typeInput);
           }
@@ -218,16 +220,16 @@ export class ExchangePage implements OnInit {
 
 	public async showListNamesPockets(pocketsList: any[], pocketSelected: string, currentPocket: string): Promise<any> {
 		const alert = await this.alertCtrl.create({
-      header: 'Seleccione un bolsillo',
+      header: this.translateService.instant('EXCHANGE.alertPocketSelected'),
       inputs: this.setPocketsNamesAlert(pocketsList, pocketSelected),
       buttons: [
 			{
-				text: 'Cancelar',
+				text: this.translateService.instant('EXCHANGE.alertTypeCryptoCancel'),
 				role: 'cancel',
 				cssClass: 'secondary',
 			},
 			{
-				text: 'Seleccionar',
+				text: this.translateService.instant('EXCHANGE.alertTypeCryptoSelect'),
 				handler: (pocketNameSelected) => {
 					this.validateAsingPocketName(pocketNameSelected, currentPocket);
 				}
@@ -292,7 +294,7 @@ export class ExchangePage implements OnInit {
 		.catch(error => {
 			console.error('ERROR', error);
 			this.resetStatusBooleanInputs();
-			this.toastCtrl.presentToast({text: 'Errores internos. Intente nuevamente.'});
+			this.toastCtrl.presentToast({text: this.translateService.instant('EXCHANGE.InternalErrors')});
 		});
 	}
 
@@ -323,7 +325,7 @@ export class ExchangePage implements OnInit {
 	}
 
 	public messageBalancePocketCurrent(): void {
-		if (this.inputCryptoSelected) this.toastCtrl.presentToast({text: 'El bosillo seleccionado no tiene saldo. Seleccione otro bolsillo.'});
+		if (this.inputCryptoSelected) this.toastCtrl.presentToast({text: this.translateService.instant('EXCHANGE.PocketWithoutBalance')});
 	}
 
 	private resetValuesInputs(): void {
@@ -341,7 +343,7 @@ export class ExchangePage implements OnInit {
 	}
 
 	public async sendExchange(): Promise<any> {
-		await this.loadingCtrl.present({ text: 'Enviando solicitud', cssClass: 'textLoadingBlack' });
+		await this.loadingCtrl.present({ text: this.translateService.instant('EXCHANGE.SendRequest'), cssClass: 'textLoadingBlack' });
 		const profile: any = await this.store.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);
 		const dataBody: any = {
 			addressFrom: this.selectedPocket.address,
@@ -362,7 +364,7 @@ export class ExchangePage implements OnInit {
 		.catch(async error => {
 			console.error('ERROR: ', error);
 			this.loadingCtrl.dismiss();
-			await this.toastCtrl.presentToast({text: 'Errores temporales. Intente nuevamente.'});
+			await this.toastCtrl.presentToast({text: this.translateService.instant('EXCHANGE.InternalErrors')});
 		})
 	}
 
@@ -371,7 +373,7 @@ export class ExchangePage implements OnInit {
 			this.getAndSetExchangeStorage(dataPocketSelected);
 		} else {
 			this.loadingCtrl.dismiss();
-			await this.toastCtrl.presentToast({text: 'Ocurrio un error. Revice bien todos sus datos.'});
+			await this.toastCtrl.presentToast({text: this.translateService.instant('EXCHANGE.IncorrectData')});
 		}
 	}
 
@@ -389,7 +391,7 @@ export class ExchangePage implements OnInit {
 		.catch(async error => {
 			console.error('ERROR: ', error);
 			this.loadingCtrl.dismiss();
-			await this.toastCtrl.presentToast({text: 'Errores temporales. Intente nuevamente.'});
+			await this.toastCtrl.presentToast({text: this.translateService.instant('EXCHANGE.InternalErrors')});
 		});
 	}
 
@@ -400,10 +402,10 @@ export class ExchangePage implements OnInit {
 			this.resetValuesInputs();
 			this.loadingCtrl.dismiss();
 			this.router.navigate(['/app/tabs/history-exchange']);
-			await this.toastCtrl.presentToast({text: 'Cambio exitoso.'});
+			await this.toastCtrl.presentToast({text: this.translateService.instant('EXCHANGE.Success')});
 		} else {
 			this.loadingCtrl.dismiss();
-			await this.toastCtrl.presentToast({text: response.error.msg});
+			await this.toastCtrl.presentToast({text: this.translateService.instant('EXCHANGE.ErrorToChange')});
 		}
 	}
 }

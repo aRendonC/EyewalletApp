@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AxiosService} from "../services/axios/axios.service";
-import {AuthService} from "../services/auth/auth.service";
-import {AesJsService} from "../services/aesjs/aes-js.service";
-import {Storage} from "@ionic/storage";
-import {LoadingService} from "../services/loading/loading.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AxiosService } from "../services/axios/axios.service";
+import { AuthService } from "../services/auth/auth.service";
+import { AesJsService } from "../services/aesjs/aes-js.service";
+import { Storage } from "@ionic/storage";
+import { LoadingService } from "../services/loading/loading.service";
+import { TranslateService } from '@ngx-translate/core';
 
 interface onEnter {
     onEnter(): Promise<void>;
@@ -33,14 +34,27 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
     ];
     public statusSelected: any;
     public cryptoSelected: any;
+    public exchangeStatus: any[];
 
     constructor(
         private http: AxiosService,
         protected auth: AuthService,
         protected aesjs: AesJsService,
         protected store: Storage,
-        private loadingCtrl: LoadingService
-    ) {}
+        private loadingCtrl: LoadingService,
+        private translateService: TranslateService
+    ) {
+        this.exchangeStatus = this.setExchangeStatus();
+    }
+
+    private setExchangeStatus(): any[] {
+        return [
+            this.translateService.instant('EXCHANGE_HISTORY.Rejected'),
+            this.translateService.instant('EXCHANGE_HISTORY.InProcess'),
+            this.translateService.instant('EXCHANGE_HISTORY.Approved'),
+            this.translateService.instant('EXCHANGE_HISTORY.Success'),
+        ]
+    }
 
     async ngOnInit() {
         await this.createSelectCrypto();
@@ -54,11 +68,9 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
         await this.loadingCtrl.present({text: 'Cargando historial', cssClass: 'textLoadingBlack'})
         let profile = this.aesjs.decrypt(await this.store.get('profile'));
         let response = await this.http.post('exchange/index', {userId: profile.userId}, this.auth);
-
         if (response.status === 200) {
             this.historyExChange = response.data;
             this.setClassShowDetails(this.historyExChange);
-            console.log(this.historyExChange);
             this.historyExChange.forEach(history => {
                 history.date =   new Date(history.createdAt).getMonth()  + "-" + new Date(history.createdAt).getDate()
                 history.day = new Date(history.createdAt)
@@ -68,7 +80,6 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
                 history.data = JSON.parse(history.data)
                 history.status === 1 ? history.state = 'En proceso' : history.status === 2 ? history.state = 'Aprobado' : history.status === 3 ? history.state = 'Realizado' : history.state = 'Rechazado'
             });
-            console.log(this.historyExChange);
             this.auxHisotires = this.historyExChange
             await this.loadingCtrl.dismiss()
         } else {
@@ -92,23 +103,17 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
     }
 
     filterSearch(value) {
-        console.log(this.cryptoSelected);
-        console.log(value);
-        console.log(this.auxHisotires);
-        console.log(this.historyExChange);
         if (value === "") {
             this.historyExChange = this.auxHisotires
         } else {
             let histories = [];
             this.auxHisotires.forEach(history => {
-                console.log(history.amount);
                 if (history.currencyShortNameFrom === this.cryptoSelected) {
                     if (history.amount >= parseFloat(value)) histories.push(history)
                 }
             });
             this.historyExChange = histories
         }
-        console.log(this.historyExChange)
     }
 
     clearData() {
@@ -118,7 +123,6 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
     filterWhitStatus() {
         this.historyExChange = this.auxHisotires;
         let histories = [];
-        console.log(this.statusSelected);
         this.historyExChange.forEach(history => {
             if (history.status === this.statusSelected) {
                 histories.push(history)
