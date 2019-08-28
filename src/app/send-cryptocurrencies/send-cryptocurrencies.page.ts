@@ -246,7 +246,7 @@ export class SendCryptocurrenciesPage implements OnInit {
                                 await this.loadingCtrl.dismiss();
                                 await this.toastCtrl.presentToast({text: this.translateService.instant('SEND_CRYPTO_CURRENCY.TransactionOK')});
                                 let dataResponse = await this.getPocketTransaction();
-                                await this.store.set('pockets', this.pockets);
+                                //await this.store.set('pockets', this.pockets);
                                 
                                 if (dataResponse.status === 200) {
                                     dataResponse.pocket = this.pockets;
@@ -278,7 +278,6 @@ export class SendCryptocurrenciesPage implements OnInit {
             address: this.pockets.address,
             currencyShortName: this.pockets.currency.shortName
         };
-        console.log("loquesea", body);
         return await this.http.post('transaction/index', body, this.auth);
     }
 }
