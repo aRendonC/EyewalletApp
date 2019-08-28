@@ -70,7 +70,8 @@
   },
   "INVOICE_MODAL": {
     "PayEyeWallet": "Pagar con eyewallet",
-    "NoFoundsPocket": "Este pocket no tiene saldo suficiente. Pot favor seleccione otro pocket"
+    "NoFoundsPocket": "Este pocket no tiene saldo suficiente. Pot favor seleccione otro pocket",
+    "ConnectionError": "Error de conexión."
   },
   "PIN_MODAL": {
     "Pin": "Introduce tu pin de seguridad"
@@ -91,7 +92,8 @@
     "ValidWallet": "Validando creación de billetera"
   },
   "REQUEST_CREDIT_CAR_PAGE": {
-    "SelectWallet": "Selecione billetera"
+    "SelectWallet": "Selecione billetera",
+    "MessageNoBalance": "Bolsillo sin saldo. Selecciones otro."
   },
   "RESTORE": {
     "NewPassword": "Nueva contraseña",
