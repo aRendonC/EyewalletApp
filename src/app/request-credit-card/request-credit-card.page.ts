@@ -6,6 +6,8 @@ import * as CONSTANTS from '../constanst';
 import { ModalInvoicePage } from '../modal-invoice/modal-invoice.page';
 import { ToastService } from '../services/toast/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AxiosService } from '../services/axios/axios.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-request-credit-card',
@@ -40,9 +42,10 @@ export class RequestCreditCardPage implements OnInit {
     private dataLocalService: DataLocalService,
     private router: Router,
     private modalController: ModalController,
-    private storage: DataLocalService,
     private toastService: ToastService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private axiosService: AxiosService,
+    private authService: AuthService
   ) { }
 
   public async ngOnInit() {
@@ -64,9 +67,8 @@ export class RequestCreditCardPage implements OnInit {
     }
   }
 
-  private async getDataListPockets(): Promise<any[]> {
-    return await this.storage.getDataLocal('pockets');
-
+  private async getDataListPockets(): Promise<any> {
+    return await this.axiosService.post('user-wallet/index', {currencyId: ''}, this.authService);
   }
 
   private setDataProfile(dataProfile: any): void {

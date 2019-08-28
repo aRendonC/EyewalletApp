@@ -8,10 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class CardInvoicePage implements OnInit {
     ctrlNavigation: number = 4;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ionViewDidEnter(){
     let elementDashboard: any = document.getElementsByTagName('app-card-invoice');
