@@ -64,7 +64,7 @@ export class ModalInvoicePage implements OnInit {
             } else if (responsePay.status === 401) {
                 await this.toastController.presentToast({text: responsePay.error.msg});
             } else {
-                await this.toastController.presentToast({text: 'Error de conexión'});
+                await this.toastController.presentToast({text: this.translateService.instant('INVOICE_MODAL.ConnectionError')});
             }
         } else {
             await this.toastController.presentToast({text: this.translateService.instant('INVOICE_MODAL.NoFoundsPocket')});
@@ -93,7 +93,8 @@ export class ModalInvoicePage implements OnInit {
         const path: string = 'card-request/request';
         const dataBody: any = {
             address: this.dataPocket.address,
-            currencyId: this.dataPocket.currencyId
+            currencyId: this.dataPocket.currencyId,
+            currencyShortName: this.dataPocket.currency.shortName,
         };
 
         return this.axiosService.post(path, dataBody, this.authService)

@@ -9,7 +9,6 @@ import {PinModalPage} from '../../pin-modal/pin-modal.page';
 import {AesJsService} from '../aesjs/aes-js.service';
 import {LoadingService} from '../loading/loading.service';
 
-
 @Injectable({
     providedIn: 'root'
 })

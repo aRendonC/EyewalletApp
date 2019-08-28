@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { DataLocalService } from '../services/data-local/data-local.service';
 import * as CONSTANTS from '../constanst';
 import { ModalInvoicePage } from '../modal-invoice/modal-invoice.page';
+import { ToastService } from '../services/toast/toast.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-request-credit-card',
@@ -16,13 +18,14 @@ export class RequestCreditCardPage implements OnInit {
   // Text html.
   public title: string = CONSTANTS.REQUEST_CARD.REQUEST_CARD;
   public termsConditions: string = CONSTANTS.REQUEST_CARD.TERMS_CONDITIONS;
-
   public dataProfile: any = {};
   public showContentLogo: boolean = true;
   public valuesDataProfile: any[] = [];
   public stateTermsConditions: boolean = true;
   public pockets: any[] = [];
   public pocketSelected: any;
+  public statePocketBalance: boolean = false;
+  public stateButtonToggle: boolean = false;
 
   public keysDataProfile: any[] = [
     CONSTANTS.REQUEST_CARD.NAME,
@@ -38,13 +41,14 @@ export class RequestCreditCardPage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private storage: DataLocalService,
+    private toastService: ToastService,
+    private translateService: TranslateService
   ) { }
 
   public async ngOnInit() {
     this.dataProfile = await this.getDataProfile();
     this.setDataProfile(this.dataProfile);
     this.pockets = await this.getDataListPockets();
-    console.log(this.pockets);
     this.pocketSelected = this.pockets[0];
   }
 
@@ -61,7 +65,6 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   private async getDataListPockets(): Promise<any[]> {
-    console.log(await this.storage.getKeys());
     return await this.storage.getDataLocal('pockets');
 
   }
@@ -85,6 +88,7 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   public showForm(): void {
+    this.listenerPocketSelected();
     this.showContentLogo = !this.showContentLogo;
   }
 
@@ -97,10 +101,6 @@ export class RequestCreditCardPage implements OnInit {
   }
 
   public async buttonAcept(): Promise<any> {
-    await this.showModalInvoice();
-  }
-
-  public async showModalInvoice(): Promise<any> {
     const modalInvoice = await this.modalController.create({
       component: ModalInvoicePage,
       componentProps: {
@@ -111,7 +111,22 @@ export class RequestCreditCardPage implements OnInit {
     return await modalInvoice.present();
   }
 
+  public async listenerPocketSelected(): Promise<any> {
+    if (this.pocketSelected.balance > 0) {
+      this.statePocketBalance = true;
+      this.stateTermsConditions = !(this.stateButtonToggle && this.statePocketBalance);
+    } else {
+      this.statePocketBalance = false;
+      this.toastService.presentToast({text: this.translateService.instant('REQUEST_CREDIT_CAR_PAGE.MessageNoBalance')});
+    }
+  }
+
   public handlerToggle(event) {
-    this.stateTermsConditions = !event.detail.checked;
+    this.stateButtonToggle = event.detail.checked;
+    if (this.statePocketBalance && this.stateButtonToggle) {
+      this.stateTermsConditions = !(this.stateButtonToggle && this.statePocketBalance);
+    } else {
+      this.toastService.presentToast({text: this.translateService.instant('REQUEST_CREDIT_CAR_PAGE.MessageNoBalance')});
+    }
   }
 }

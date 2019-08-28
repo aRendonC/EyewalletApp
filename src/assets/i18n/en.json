@@ -70,7 +70,8 @@
   },
   "INVOICE_MODAL": {
     "PayEyeWallet": "Pay with EyeWallet",
-    "NoFoundsPocket": "This pocket has no funds. Please, select another pocket"
+    "NoFoundsPocket": "This pocket has no funds. Please, select another pocket",
+    "ConnectionError": "Connection error."
   },
   "PIN_MODAL": {
     "Pin": "Introduce your security Pin"
@@ -91,7 +92,8 @@
     "ValidWallet": "Validating wallet"
   },
   "REQUEST_CREDIT_CAR_PAGE": {
-    "SelectWallet": "Select Wallet"
+    "SelectWallet": "Select Wallet",
+    "MessageNoBalance": "Pocket without balance. Select another."
   },
   "RESTORE": {
     "NewPassword": "New Password",
