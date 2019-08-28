@@ -56,7 +56,8 @@
   },
   "POCKET_COMPONENT": {
     "NewVault": "Nueva Bóveda",
-    "History": "Historial"
+    "History": "Historial",
+    "Exchange": "Volver"
   },
   "PRICES_PAGE": {
     "LoadingCrypto": "Cargando datos de monedas"

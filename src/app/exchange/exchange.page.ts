@@ -6,6 +6,7 @@ import { ToastService } from "../services/toast/toast.service";
 import { LoadingService } from "../services/loading/loading.service";
 import { DataLocalService } from "../services/data-local/data-local.service";
 import * as CONSTANTS from '../constanst';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-exchange',
@@ -15,6 +16,7 @@ import * as CONSTANTS from '../constanst';
 
 export class ExchangePage implements OnInit {
 	public ctrlNavigation: number;
+	public navigationHistory: boolean;
 	public pockets: any;
 	public inputOrigin: string;
 	public inputDestination: string;
@@ -47,9 +49,11 @@ export class ExchangePage implements OnInit {
 		public http: AxiosService,
 		protected auth: AuthService,
 		private toastCtrl: ToastService,
-		private loadingCtrl: LoadingService
+		private loadingCtrl: LoadingService,
+		private router: Router
 	) {
 		this.ctrlNavigation = 8;
+		this.navigationHistory = false;
 		this.pockets = {};
 		this.inputOrigin = 'origin';
 		this.inputDestination = 'destination';
@@ -73,7 +77,9 @@ export class ExchangePage implements OnInit {
 	public async ngOnInit(): Promise<any> {}
 
 	public async ionViewDidEnter(): Promise<any> {
-		this.pockets = await this.store.getDataLocal('pockets');
+		await this.loadingCtrl.present({ text: 'Cargando información', cssClass: 'textLoadingBlack' });
+		this.navigationHistory = await this.validateTransactionsExchage();
+		this.pockets = await this.store.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.POCKETS);
 		this.cryptosShortNames = this.setCryptosShortNames(this.pockets);
 		this.selectedCryptoName = this.cryptosShortNames[0];
 		this.changeCryptoName = this.cryptosShortNames[1];
@@ -84,6 +90,17 @@ export class ExchangePage implements OnInit {
 		this.selectedPocket = this.selectedPockets(this.pockets, this.nameSelectedPocket);
 		this.exchangePocket = this.selectedPockets(this.pockets, this.nameExchangePocket);
 		this.inputCryptoSelected = this.validateBalancePocket(this.pockets, this.nameSelectedPocket);
+		this.loadingCtrl.dismiss();
+	}
+
+	private async validateTransactionsExchage() {
+		let statusTransactionsExchange: boolean = false;
+		const profile = await this.store.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);
+		const dataTransactionExchangeStorage: any = await this.http.post('exchange/index', {userId: profile.userId}, this.auth);
+		if ((dataTransactionExchangeStorage.data).length > 0) {
+			statusTransactionsExchange = true;
+		}
+		return statusTransactionsExchange;
 	}
 
 	private selectedPockets(pockets: any, pocketName: string): any {
@@ -382,6 +399,7 @@ export class ExchangePage implements OnInit {
 			this.store.setDataLocal(CONSTANTS.KEYS_DATA_LOCAL.TRANSACTION, response);
 			this.resetValuesInputs();
 			this.loadingCtrl.dismiss();
+			this.router.navigate(['/app/tabs/history-exchange']);
 			await this.toastCtrl.presentToast({text: 'Cambio exitoso.'});
 		} else {
 			this.loadingCtrl.dismiss();

@@ -14,12 +14,12 @@ import {LanguageService} from "../services/language/language.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
 import {TranslateService} from "@ngx-translate/core";
 
-
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.page.html',
     styleUrls: ['./profile.page.scss'],
 })
+
 export class ProfilePage implements OnInit {
     public userVerifications: any = {
         email: ''

@@ -117,6 +117,24 @@
   width: 125%;
   height: 50px;
   background: white;
+
+  .icon-history {
+    width: 26px;
+    // margin: 0 0 0 6px;
+  }
+}
+
+.qualify-button-2{
+  float: right;
+  border-radius: 30px 0 0 30px;
+  width: 125%;
+  height: 50px;
+  background: white;
+
+  .icon-exchange {
+    width: 26px;
+    margin: 0 6px 0 0;
+  }
 }
 
 .image-logout{
@@ -129,7 +147,7 @@
 }
 
 .image-qualify{
-  width: 30%;
+  width: 26px;
 }
 .button-send{
    float: right;

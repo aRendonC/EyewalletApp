@@ -28,7 +28,7 @@
             <ion-button class="btn-start" (click)="ctrlContent = false"
                         mode="ios">{{'VERIFICATION_MODAL_PAGE.StartNow'| translate}}</ion-button>
             <br>
-            <ion-button *ngIf="!profile.user.firstName" class="btn-create" mode="ios"
+            <ion-button *ngIf="!profile?.user?.firstName" class="btn-create" mode="ios"
                         (click)="goToCreateProfile()">{{'VERIFICATION_MODAL_PAGE.StartLatter'| translate}}</ion-button>
         </div>
     </div>

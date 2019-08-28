@@ -2,8 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import { IonInfiniteScroll, IonSlides, ModalController, AlertController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
-import {enterAnimation} from '../../animations/enter';
-import {leaveAnimation} from '../../animations/leave';
 import {Chart} from 'chart.js';
 import {AxiosService} from "../../services/axios/axios.service";
 import {AuthService} from "../../services/auth/auth.service";
@@ -172,8 +170,6 @@ export class SlidersComponent implements OnInit {
     async openModalVerification() {
         const modalVerification = await this.modalCtrl.create({
             component: VerificationModalPage,
-            enterAnimation,
-            leaveAnimation
         });
         modalVerification.onDidDismiss().then(async (profile: any) => {
             if (profile.data != undefined) {
@@ -218,7 +214,6 @@ export class SlidersComponent implements OnInit {
         
         await this.loadingCtrl.present({text: this.translateService.instant('VAULT.loading'), cssClass: 'textLoadingBlack'});
         let pock = await this.getPocketsList(Id);
-        //let pocket = await this.store.getDataLocal('selected-pocket');
         this.store.setDataLocal('selected-pocket', pock.data);
         console.log("TALES: ",pock.data);
 
@@ -236,9 +231,6 @@ export class SlidersComponent implements OnInit {
         } else {
             await this.toastCtrl.presentToast({text: dataResponse.error.msg});
         }
-        // let selectedPocket = pockets.find(pocket => pocket.label === pocketSelected.pocketName);
-        // console.log(selectedPocket)
-        // console.log(await this.store.getDataLocal('selected-pocket'))
         await this.loadingCtrl.dismiss();
     }
 

@@ -107,6 +107,7 @@ export class UploadFilesModalPage implements OnInit {
 
     async opdateSelfie(photo) {
         let responsePhoto: any = await this.cameraProvider.sendPhoto(photo, this.type, true);
+        console.log('RESPONSE: ', responsePhoto);
         if (responsePhoto.status === 200) {
             this.profile.completed = responsePhoto.verification.completed;
             let profileVerification = this.aesjs.encrypt(this.profile);

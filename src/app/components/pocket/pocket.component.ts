@@ -2,15 +2,12 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
 import {AlertController, ModalController, Platform} from "@ionic/angular";
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
-import {enterAnimation} from "../../animations/enter";
-import {leaveAnimation} from "../../animations/leave";
 import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
 import {LoadingService} from "../../services/loading/loading.service";
 import {ToastService} from "../../services/toast/toast.service";
 import {DataLocalService} from "../../services/data-local/data-local.service";
 import {OverlayEventDetail} from '@ionic/core';
-
 import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {TranslateService} from "@ngx-translate/core";
 
@@ -39,15 +36,12 @@ export class PocketComponent implements OnInit {
     @Output() dataBalance = new EventEmitter<[]>();
     @Input() pocket: any = '';
     @Input() listVaultLength: boolean = false;
+    @Input() navigationHistory: boolean;
+    @Input() navigationExchange: boolean;
     imgLeft: string = null;
     imgRight: string = null;
     classLeft: string = null;
     currencyId: any = null;
-
-    // public marginsRight = -65;
-
-    // public marginsRight = -50;
-
 
     constructor(
         private http: AxiosService,
@@ -58,8 +52,6 @@ export class PocketComponent implements OnInit {
         private toastCtrl: ToastService,
         private loadingCtrl: LoadingService,
         private alertCtrl: AlertController,
-        private axiosService: AxiosService,
-        private authService: AuthService,
         private platform: Platform,
         private iab: InAppBrowser,
         private translateService: TranslateService,
@@ -69,9 +61,7 @@ export class PocketComponent implements OnInit {
         this.imgRight = "../../assets/img/btn-right.svg";
     }
 
-    async ngOnInit() {
-
-    }
+    async ngOnInit() {}
 
     async getPocketStore() {
         return this.pocket = await this.store.getDataLocal('selected-pocket');
@@ -85,8 +75,6 @@ export class PocketComponent implements OnInit {
         const modalPocket: HTMLIonModalElement = await this.modalCtrl.create({
             component: ListPocketsPage,
             animated: true,
-            // enterAnimation: enterAnimation,
-            // leaveAnimation: leaveAnimation,
             componentProps: {
                 pockets: this.pockets
             }
@@ -241,63 +229,12 @@ export class PocketComponent implements OnInit {
         this.router.navigate(['/app/tabs/vault'])
     }
 
-    async goHistoryExchange() {
-        await this.router.navigate(['/app/tabs/history-exchange']);
+    public goHistoryExchange(): void {
+        this.router.navigate(['/app/tabs/history-exchange']);
     }
 
-    // async onPanLeft($event) {
-    //     console.log('panlefff', $event)
-    //     console.log('panlefff this.marginsRight', this.marginsRight)
-    //     if (this.marginsRight >= -1) {
-    //         // await this.onPanEnd(null);
-    //         await this.sendCash();
-    //         setTimeout(() => {
-    //             this.marginsRight = 0;
-    //             for (let i = 0; i <= 65; i++) {
-    //                 this.marginsRight = this.marginsRight - 1;
-    //
-    //             }
-    //         }, 1000)
-    //         console.log('ejecutar accion')
-    //     } else {
-    //
-    //         this.marginsRight = this.marginsRight - $event.deltaX
-    //
-    //     }
-    // }
-
-    // async onPanEnd($event) {
-    //     console.log('pan rigth', $event)
-    //     if (this.marginsRight >= -75) {
-    //         this.marginsRight = this.marginsRight - $event.deltaX
-    //         // await this.onPanEnd(null);
-    //
-    //     } else {
-    //
-    //         console.log('ejecutar accion')
-    //
-    //     }
-    //     // console.log(this.marginsRight)
-    //     // if(this.marginsRight <= 2 && this.marginsRight >= -1) {
-    //     //     await this.sendCash();
-    //     // }
-    //     // this.marginsRight = 0;
-    //     // for (let i = 0; i <= 65; i++) {
-    //     //     this.marginsRight = this.marginsRight - 1;
-    //     //
-    //     // }
-    //     // (click)="sendCash()"
-    //     // (click)="receiveCash()"
-    //
-    // }
-    //
-    // finishPaned($event) {
-    //     console.log($event)
-    //     this.marginsRight = 0;
-    //     for (let i = 0; i <= 65; i++) {
-    //         this.marginsRight = this.marginsRight - 1;
-    //
-    //     }
-    // }
+    public goCreateExchange(): void {
+        this.router.navigate(['/app/tabs/exchange']);
+    }
 }
 

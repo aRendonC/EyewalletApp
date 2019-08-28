@@ -157,16 +157,17 @@
 
     </ion-col>
   </ion-row>
+
   <ion-row style="padding: 0" *ngIf="ctrlNavigation === 8" class="z-pocket">
-    <ion-col style="padding: 0" size="3" (click)="goHistoryExchange()">
-      <div class="qualify-button center-horizontal center-vertical center bounceInRight">
+    <ion-col style="padding: 0" size="3">
+      <div *ngIf="navigationHistory" (click)="goHistoryExchange()" class="qualify-button center-horizontal center-vertical center bounceInRight">
         <ion-label class="text-qualify">
           {{'POCKET_COMPONENT.History'| translate}}
         </ion-label>
-        <img  class="image-qualify " src="../../../assets/img/tabs/history-icon.svg"/>
+        <img class="icon-history" src="../../../assets/img/tabs/history-icon.svg"/>
       </div>
-      <!--<img  class="resize-logo-left1" [class]="classLeft" src="../../assets/img/btn-left-s.svg"/>-->
     </ion-col>
+
     <ion-col style="margin-top: 0 !important; padding: 0" size="6" class="center-vertical center center-horizontal" >
       <div  class="center-vertical center center-horizontal">
         <img  src="../../../assets/img/tabs/exchange-icon.svg"/>
@@ -174,6 +175,15 @@
         <ion-label style="color: white"> Exchange</ion-label>
       </div>
     </ion-col>
+
+    <ion-col style="padding: 0" size="3">
+        <div *ngIf="navigationExchange" (click)="goCreateExchange()" class="qualify-button-2 center-horizontal center-vertical center bounceInLeft">
+          <img class="icon-exchange" src="../../../assets/img/tabs/icon-exchange.svg"/>
+          <ion-label class="text-qualify">
+            {{ 'POCKET_COMPONENT.Exchange'| translate }}
+          </ion-label>
+        </div>
+      </ion-col>
   </ion-row>
 </ion-grid>
   <div *ngIf="ctrlNavigation === 1" class="margin-pocket-component" >
