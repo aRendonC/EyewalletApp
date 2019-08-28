@@ -25,6 +25,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class RestorePage implements OnInit {
   public dataRestorePassword = {
     pin: '',
+    email: '',
     newPassword: '',
     repeatNewPassword: '',
     blocked: false
@@ -35,6 +36,7 @@ export class RestorePage implements OnInit {
   public newPasswordOk: boolean = false;
   public newPasswordError: boolean;
   public repeatNewPasswordOk: boolean = false;
+  public emailOk: boolean = false;
   public repeatNewPasswordError: boolean;
   public dataDeviceId: any;
   private blockingCounter: number = 0;
@@ -68,6 +70,18 @@ export class RestorePage implements OnInit {
     }
   }
 
+  public validateEmail(event): void {
+    if (utils.validateEmail(event)) {
+      this.dataRestorePassword.email = event;
+      this.emailOk = true;
+      this.enableButton();
+    } else {
+      this.dataRestorePassword.email = event;
+      this.emailOk = false;
+      this.enableButton();
+    }
+  }
+
   public validateNewPassword(event: string): void {
     if (utils.validatePassword(event)) {
       this.dataRestorePassword.newPassword = event;
@@ -95,7 +109,7 @@ export class RestorePage implements OnInit {
   }
 
   private enableButton(): void {
-    this.buttonDisabled = !(this.pinOk && this.newPasswordOk && this.repeatNewPasswordOk);
+    this.buttonDisabled = !(this.newPasswordOk && this.repeatNewPasswordOk);
   }
 
   private encryptPin(pin): any {
@@ -108,11 +122,13 @@ export class RestorePage implements OnInit {
     const path: string = 'auth/recovery';
 
     const dataBody: object = {
-      deviceId: this.dataDeviceId,
+      email: this.dataRestorePassword.email,
       pin: this.encryptPin(this.dataRestorePassword.pin),
       password: this.dataRestorePassword.newPassword,
       blocked: this.dataRestorePassword.blocked
     };
+
+    console.log(dataBody);
     this.axiosServices.post(path, dataBody)
     .then(async response => {
       await this.validateResponseChangePassword(response);

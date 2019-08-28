@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NavParams, NavController, ModalController } from '@ionic/angular';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { TranslateService } from "@ngx-translate/core";
+import { LanguageService } from '../services/language/language.service';
 
 @Component({
   selector: 'app-modal-details',
@@ -9,13 +11,19 @@ import { Router } from '@angular/router'
 })
 export class ModalDetailsPage implements OnInit {
   @Input() datos;
+  languages = [];
+  selectedLanguage = '';
   constructor(
     private modalCtrl: ModalController,
     public navCtrl: NavController,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService,
+    private languageService: LanguageService,
   ) { }
 
   ngOnInit() {
+    this.languages = LanguageService.getLanguages();
+    this.selectedLanguage = this.languageService.selected;
     this.loadData();
   }
 
@@ -25,6 +33,11 @@ export class ModalDetailsPage implements OnInit {
 
   loadData(){
     console.log(this.datos);
+  }
+
+  async selectLanguage() {
+    console.log(this.selectedLanguage)
+    await this.languageService.setLanguage(this.selectedLanguage)
   }
 
 

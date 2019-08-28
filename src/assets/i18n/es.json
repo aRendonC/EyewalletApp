@@ -99,7 +99,9 @@
     "NewPassword": "Nueva contraseña",
     "RepeatPassword": "Repita nueva contraseña",
     "UpdatePassword": "Actualizar contraseña",
-    "TextDeviceId": "La identificación de su dispositivo es: "
+    "TextDeviceId": "La identificación de su dispositivo es: ",
+    "ChangingPassword": "Cambiando Password",
+    "UpdatePasswordOk": "Password Actualizado"
   },
   "SEND_CRYPTO_CURRENCY": {
     "ScanQR": "Escanea aquí tu código QR o copia la dirección de tu wallet",
@@ -238,7 +240,17 @@
     "Amount": "Monto",
     "Copy": "Copiar",
     "LogOutOk": "Su sesión ha sido cerrada correctamente",
-    "LoadingData": "Sus datos se están cargando, por favor espere"
+    "LoadingData": "Sus datos se están cargando, por favor espere",
+    "Details": "Detalles",
+    "From": "Desde",
+    "To": "A",
+    "Confirmation": "Confirmación",
+    "Usd": "Dólar estado unidense",
+    "Fee": "Cuota",
+    "Priority": "Prioridad",
+    "Date": "Fecha"
+
+
   },
   "EXCHANGE": {
     "DescriptionText": "¿Cuanto quieres cambiar?",

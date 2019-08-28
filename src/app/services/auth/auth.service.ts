@@ -107,6 +107,12 @@ export class AuthService {
 
     async logout() {
         await this.store.clear();
+        await this.store.remove('pockets');
+        await this.store.remove('profile');
+        await this.store.remove('selected-pocket');
+        await this.store.remove('user');
+        await this.store.remove('userVerification');
+        
         await this.menu.enable(false);
         await this.router.navigate(['']);
         await this.loadingCtrl.dismiss();

@@ -2,7 +2,7 @@
 
 .grid{
   display: grid;
-  height: 45%;
+  height: 40%;
   position: relative;
   grid-template: 25% 15% 15% 30%/10% auto 10%;
 }
@@ -140,6 +140,7 @@
   color: white;
   @extend .all-center;
   padding: 0 20px 0 20px;
+  top:15px;
 }
 
 .select-searchable{
@@ -173,4 +174,8 @@
   font-weight: 700;
   font-size: 15px;
   color: #272759;
+}
+
+.list-ios{
+  margin-top:60px !important;
 }
