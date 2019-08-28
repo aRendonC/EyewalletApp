@@ -127,7 +127,7 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
         this.historyExChange = histories
     }
 
-    seeDetailHistory(index: any) {
+    public seeDetailHistory(index: any): void {
         for (let i=0; i<this.historyExChange.length; i++) {
             if (i === index) {
                 this.historyExChange[i].classShowDetails = !this.historyExChange[i].classShowDetails;
