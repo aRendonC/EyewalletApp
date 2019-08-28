@@ -21,10 +21,12 @@
         </ion-card>
         <div class="move-btn">
             <ion-button class="btn-start" mode="ios"
-                        (click)="takePhoto()"> {{'VERIFICATION_MODAL_PAGE.StartNow'| translate}}</ion-button>
+                (click)="takePhoto()"> {{'VERIFICATION_MODAL_PAGE.StartNow'| translate}}
+            </ion-button>
             <br>
             <ion-button class="btn-start" mode="ios"
-                        (click)="closeModal()">{{'VERIFICATION_MODAL_PAGE.StartLatter'| translate}}</ion-button>
+                (click)="closeModal()">{{'VERIFICATION_MODAL_PAGE.StartLatter'| translate}}
+            </ion-button>
         </div>
     </div>
     <div *ngIf="ctrlDocument" style="margin-top: 10%">

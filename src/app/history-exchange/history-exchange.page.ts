@@ -3,7 +3,6 @@ import {AxiosService} from "../services/axios/axios.service";
 import {AuthService} from "../services/auth/auth.service";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {Storage} from "@ionic/storage";
-import {Router} from "@angular/router";
 import {LoadingService} from "../services/loading/loading.service";
 
 interface onEnter {
@@ -58,6 +57,7 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
 
         if (response.status === 200) {
             this.historyExChange = response.data;
+            this.setClassShowDetails(this.historyExChange);
             console.log(this.historyExChange);
             this.historyExChange.forEach(history => {
                 history.date =   new Date(history.createdAt).getMonth()  + "-" + new Date(history.createdAt).getDate()
@@ -74,6 +74,12 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
         } else {
             await this.loadingCtrl.dismiss()
         }
+    }
+
+    private setClassShowDetails(historyExchange: any): void {
+        historyExchange.forEach(exchange => {
+            exchange.classShowDetails = false;
+        });
     }
 
     async createSelectCrypto() {
@@ -121,24 +127,13 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
         this.historyExChange = histories
     }
 
-    seeDetailHistory(history: object, index) {
-        console.log(history);
-        console.log(index);
-        if (this.ctrlAccessDetailHistory === 1) {
-            if (this.ctrlCssCard === index) {
-                console.log('mostrar el datalle de la historia');
-                this.ctrlTagsHtml = true;
-                this.ctrlAccessDetailHistory = 0;
-                this.detailHistory = history
+    public seeDetailHistory(index: any): void {
+        for (let i=0; i<this.historyExChange.length; i++) {
+            if (i === index) {
+                this.historyExChange[i].classShowDetails = !this.historyExChange[i].classShowDetails;
+            } else {
+                this.historyExChange[i].classShowDetails = false;
             }
-        } else {
-            this.ctrlAccessDetailHistory = 1
-        }
-
-        if (this.ctrlCssCard === index) {
-            this.ctrlCssCard = ''
-        } else {
-            this.ctrlCssCard = index
         }
     }
 

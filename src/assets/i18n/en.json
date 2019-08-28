@@ -56,7 +56,8 @@
   },
   "POCKET_COMPONENT": {
     "NewVault": "New Vault",
-    "History": "History"
+    "History": "History",
+    "Exchange": "Return"
   },
   "PRICES_PAGE": {
     "LoadingCrypto": "Loading crypto data."
