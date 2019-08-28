@@ -12,6 +12,15 @@
 
    <form #form="ngForm" (ngSubmit)="restorePassword()" class="transparent move-form">
       <ion-list class="transparent">
+
+         <!-- Email -->
+         <ion-item class="transparent white-line">
+            <ion-img src="../../assets/icon/icon-email.svg" class="resize-icon"></ion-img>
+         
+            <ion-input name="email" placeholder="Email" [(ngModel)]="dataRestorePassword.email"
+               (ngModelChange)="validateEmail($event)" clearInput type="email" class="white move-input"></ion-input>
+         </ion-item>
+
          <!-- Usuario -->
          <ion-item class="transparent white-line">
             <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>

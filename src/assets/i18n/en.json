@@ -99,7 +99,9 @@
     "NewPassword": "New Password",
     "RepeatPassword": "Repeat New Password",
     "UpdatePassword": "Update Password",
-    "TextDeviceId": "Your device ID is: "
+    "TextDeviceId": "Your device ID is: ",
+    "ChangingPassword": "Changing password",
+    "UpdatePasswordOk": "Password Update"
   },
   "SEND_CRYPTO_CURRENCY": {
     "ScanQR": "Scan your QR Code o copy your wallet address",

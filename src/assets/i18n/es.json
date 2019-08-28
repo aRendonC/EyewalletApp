@@ -99,7 +99,9 @@
     "NewPassword": "Nueva contraseña",
     "RepeatPassword": "Repita nueva contraseña",
     "UpdatePassword": "Actualizar contraseña",
-    "TextDeviceId": "La identificación de su dispositivo es: "
+    "TextDeviceId": "La identificación de su dispositivo es: ",
+    "ChangingPassword": "Cambiando Password",
+    "UpdatePasswordOk": "Password Actualizado"
   },
   "SEND_CRYPTO_CURRENCY": {
     "ScanQR": "Escanea aquí tu código QR o copia la dirección de tu wallet",
