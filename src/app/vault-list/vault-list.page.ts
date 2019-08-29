@@ -44,7 +44,6 @@ export class VaultListPage implements OnInit {
   public async ionViewDidEnter(): Promise<any> {
     this.dataVaults = await this.getListVaults();
     this.validateValueCriptos(this.dataVaults, this.positionDataSelected);
-    // this.dataSelected = this.dataVaults.data[this.positionDataSelected].shortName;
     this.validateDataVaults(this.dataVaults.data);
   }
 
@@ -61,10 +60,8 @@ export class VaultListPage implements OnInit {
   private validateDataVaults(dataArray: any[]): void {
     if (dataArray.length > 0) {
       this.dataSelected = dataArray[this.positionDataSelected].shortName;
-      console.log('UNO: ', this.dataSelected);
     } else {
       this.dataSelected = '';
-      console.log('DOS: ', this.dataSelected);
     }
   }
 
