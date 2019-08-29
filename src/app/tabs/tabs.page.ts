@@ -65,19 +65,7 @@ export class TabsPage {
     }
 
     public async navigateVault(): Promise<any> {
-        this.axiosService.get('vault/index', this.authService)
-            .then(async (response: any) => {
-                if (response.vault.length > 0) {
-                    this.routerVault = this.tabs.vaultList;
-                    this.router.navigate(['/app/tabs/vault-list']);
-                } else {
-                    this.routerVault = this.tabs.vault;
-                    this.router.navigate(['/app/tabs/vault']);
-                }
-            })
-            .catch(async error => {
-                console.error(error);
-            });
+        this.router.navigate(['/app/tabs/vault']);
     }
 
     async goToExchange(): Promise<any> {
