@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner/ngx";
 import {AxiosService} from "../services/axios/axios.service";
 import {AuthService} from "../services/auth/auth.service";
-import {AlertController} from "@ionic/angular";
+import { AlertController, ModalController} from "@ionic/angular";
 import {Storage} from "@ionic/storage";
 import {AesJsService} from "../services/aesjs/aes-js.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -11,6 +11,7 @@ import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {TranslateService} from "@ngx-translate/core";
+import { PinModalPage } from "../pin-modal/pin-modal.page";
 
 @Component({
     selector: 'app-send-cryptocurrencies',
@@ -28,6 +29,7 @@ export class SendCryptocurrenciesPage implements OnInit {
     ctrlButtonSend: boolean = true;
     bodyForm: FormGroup;
     placeHolder: any = '';
+    sendCrypto: boolean = true;
     body = {
         amount: '',
         to_address: '',
@@ -61,6 +63,7 @@ export class SendCryptocurrenciesPage implements OnInit {
         private router: Router,
         private touchCtrl: TouchLoginService,
         private translateService: TranslateService,
+        public modalController: ModalController
     ) {
     }
 
@@ -209,67 +212,107 @@ export class SendCryptocurrenciesPage implements OnInit {
     }
 
     async presentAlertSend() {
-        const alert = await this.alerrtCtrl.create({
-            backdropDismiss: false,
-            header: this.translateService.instant('SEND_CRYPTO_CURRENCY.FillPin'),
-            keyboardClose: false,
-            inputs: [
-                {
-                    name: 'pin',
-                    type: 'text',
-                    placeholder: this.translateService.instant('SEND_CRYPTO_CURRENCY.FillPin'),
-                },
-            ],
-            buttons: [
-                {
-                    text: this.translateService.instant('GENERAL.Cancel'),
-                    role: 'cancel',
-                    cssClass: 'secondary',
-                    handler: () => {
-                        this.ctrlButtonSend = true;
-                    }
-                }, {
-                    text: this.translateService.instant('GENERAL.Accept'),
-                    handler: async (alertData) => {
-                        let security = await this.store.get('user');
-                        security = this.aesjs.decryptNoJson(security.pin);
-                        if (security === alertData.pin) {
-                            await this.loadingCtrl.present({});
-                            security = this.aesjs.encryptNoJson(security);
-                            this.bodyForm.value.currencyId = this.pockets.currencyId;
-                            this.bodyForm.value.pin = security;
-                            this.bodyForm.value.from_address = this.pockets.address;
-                            this.bodyForm.value.fee = this.totalApplied.fee;
-                            let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
-                            console.log("REspuesta:", response)
-                            if (response.status === 200) {
-                                await this.loadingCtrl.dismiss();
-                                await this.toastCtrl.presentToast({text: this.translateService.instant('SEND_CRYPTO_CURRENCY.TransactionOK')});
-                                let dataResponse = await this.getPocketTransaction();
-                                //await this.store.set('pockets', this.pockets);
-                                
-                                if (dataResponse.status === 200) {
-                                    dataResponse.pocket = this.pockets;
-                                    await this.store.set('transaction', dataResponse)
-                                } else {
-                                    await this.toastCtrl.presentToast({text: dataResponse.error.msg})
-                                }
-                                await this.router.navigate(['app/tabs/dashboard'])
-                            } else {
-                                await this.loadingCtrl.dismiss();
-                                await this.toastCtrl.presentToast({text: response.error.msg})
-                            }
-                        } else {
-                            await this.toastCtrl.presentToast({text: this.translateService.instant('SEND_CRYPTO_CURRENCY.IncorrectPin')})
-                        }
-                        this.ctrlButtonSend = true;
-                    }
-                }
-            ]
+        const modal = await this.modalController.create({
+            component: PinModalPage,
+            componentProps: { 'sendCrypto': this.sendCrypto}
         });
 
-        await alert.present();
+        modal.onDidDismiss()
+            .then(async (data) => {
+                const pin = data; // Here's your selected user!
+                console.log("TALES: ", pin.data);
+                let security = await this.store.get('user');
+                await this.loadingCtrl.present({});
+                security = this.aesjs.encryptNoJson(pin.data);
+                this.bodyForm.value.currencyId = this.pockets.currencyId;
+                this.bodyForm.value.pin = security;
+                this.bodyForm.value.from_address = this.pockets.address;
+                this.bodyForm.value.fee = this.totalApplied.fee;
+                let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
+                console.log("REspuesta:", response)
+                if (response.status === 200) {
+                    await this.loadingCtrl.dismiss();
+                    await this.toastCtrl.presentToast({text: this.translateService.instant('SEND_CRYPTO_CURRENCY.TransactionOK')});
+                    let dataResponse = await this.getPocketTransaction();
+                    //await this.store.set('pockets', this.pockets);
+
+                    if (dataResponse.status === 200) {
+                        dataResponse.pocket = this.pockets;
+                        await this.store.set('transaction', dataResponse)
+                    } else {
+                        await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+                    }
+                    await this.router.navigate(['app/tabs/dashboard'])
+                } else {
+                    await this.loadingCtrl.dismiss();
+                    await this.toastCtrl.presentToast({text: response.error.msg})
+                }
+            });
+        return await modal.present();
     }
+
+    // async presentAlertSend() {
+    //     const alert = await this.alerrtCtrl.create({
+    //         backdropDismiss: false,
+    //         header: this.translateService.instant('SEND_CRYPTO_CURRENCY.FillPin'),
+    //         keyboardClose: false,
+    //         inputs: [
+    //             {
+    //                 name: 'pin',
+    //                 type: 'text',
+    //                 placeholder: this.translateService.instant('SEND_CRYPTO_CURRENCY.FillPin'),
+    //             },
+    //         ],
+    //         buttons: [
+    //             {
+    //                 text: this.translateService.instant('GENERAL.Cancel'),
+    //                 role: 'cancel',
+    //                 cssClass: 'secondary',
+    //                 handler: () => {
+    //                     this.ctrlButtonSend = true;
+    //                 }
+    //             }, {
+    //                 text: this.translateService.instant('GENERAL.Accept'),
+    //                 handler: async (alertData) => {
+    //                     let security = await this.store.get('user');
+    //                     security = this.aesjs.decryptNoJson(security.pin);
+    //                     if (security === alertData.pin) {
+    //                         await this.loadingCtrl.present({});
+    //                         security = this.aesjs.encryptNoJson(security);
+    //                         this.bodyForm.value.currencyId = this.pockets.currencyId;
+    //                         this.bodyForm.value.pin = security;
+    //                         this.bodyForm.value.from_address = this.pockets.address;
+    //                         this.bodyForm.value.fee = this.totalApplied.fee;
+    //                         let response = await this.http.post('transaction/sendBTC', this.bodyForm.value, this.auth);
+    //                         console.log("REspuesta:", response)
+    //                         if (response.status === 200) {
+    //                             await this.loadingCtrl.dismiss();
+    //                             await this.toastCtrl.presentToast({text: this.translateService.instant('SEND_CRYPTO_CURRENCY.TransactionOK')});
+    //                             let dataResponse = await this.getPocketTransaction();
+    //                             //await this.store.set('pockets', this.pockets);
+                                
+    //                             if (dataResponse.status === 200) {
+    //                                 dataResponse.pocket = this.pockets;
+    //                                 await this.store.set('transaction', dataResponse)
+    //                             } else {
+    //                                 await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+    //                             }
+    //                             await this.router.navigate(['app/tabs/dashboard'])
+    //                         } else {
+    //                             await this.loadingCtrl.dismiss();
+    //                             await this.toastCtrl.presentToast({text: response.error.msg})
+    //                         }
+    //                     } else {
+    //                         await this.toastCtrl.presentToast({text: this.translateService.instant('SEND_CRYPTO_CURRENCY.IncorrectPin')})
+    //                     }
+    //                     this.ctrlButtonSend = true;
+    //                 }
+    //             }
+    //         ]
+    //     });
+
+    //     await alert.present();
+    // }
 
     async getPocketTransaction() {
         let body = {

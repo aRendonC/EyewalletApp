@@ -15,12 +15,15 @@ export class DataLocalService {
     }
 
     public setDataLocal(key: string, value: any): void {
+        console.log("1SET:", key);
         this.storage.set(key, this.aesjs.encrypt(value));
+        console.log("SET_KEY: ",key, "SET_VALUE: ",value);
     }
 
     public async getDataLocal(key: string) {
         let dataLocal = await this.storage.get(key);
         dataLocal ? dataLocal = this.aesjs.decrypt(dataLocal) : dataLocal = null;
+        console.log("GET_KEY: ", key, "GET_VALUE: ", dataLocal);
         return dataLocal
     }
 
