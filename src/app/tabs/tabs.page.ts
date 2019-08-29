@@ -63,8 +63,8 @@ export class TabsPage {
     verifiLoading(data: boolean) {
         this.ctrlCssBlur = data
     }
-
-    public async navigateVault(): Promise<any> {
+    
+    public navigateVault(): void {
         this.router.navigate(['/app/tabs/vault']);
     }
 
