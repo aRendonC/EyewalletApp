@@ -29,7 +29,7 @@ export class VaultListPage implements OnInit {
     private translateService: TranslateService,
     private toastService: ToastService,
     private router: Router,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
   ) {
     this.ctrlNavigation = 5;
     this.dataVaults = {};
@@ -39,7 +39,7 @@ export class VaultListPage implements OnInit {
     this.criptoUSDTotal = 0;
   }
 
-  public async ngOnInit(): Promise<any> { }
+  public async ngOnInit(): Promise<any> {}
 
   public async ionViewDidEnter(): Promise<any> {
     this.dataVaults = await this.getListVaults();
