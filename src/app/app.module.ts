@@ -34,6 +34,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { ModalDetailsPageModule } from './modal-details/modal-details.module';
 import { ModalDetailsPage } from './modal-details/modal-details.page';
+import { PinModalRegistryPage } from './pin-modal-registry/pin-modal-registry.page';
 
 const config: SocketIoConfig = {url: 'http://0c2a6d5b.ngrok.io', options: {}};
 
@@ -43,8 +44,8 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
 
-    declarations: [AppComponent, PinModalPage, VerificationModalPage],
-    entryComponents: [PinModalPage, VerificationModalPage,ModalDetailsPage],
+    declarations: [AppComponent, PinModalPage, VerificationModalPage, PinModalRegistryPage],
+    entryComponents: [PinModalPage, VerificationModalPage, ModalDetailsPage, PinModalRegistryPage],
     imports: [
         ComponentsModule,
         ReactiveFormsModule,
