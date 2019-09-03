@@ -5,7 +5,7 @@ const routes: Routes = [
   {path: '', loadChildren: './home/home.module#HomePageModule'},
   {path: 'login', loadChildren: './login/login.module#LoginPageModule'},
   {path: 'app', loadChildren: './tabs/tabs.module#TabsPageModule'},
-  {path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule'},
+  { path: 'registry', loadChildren: './registry/registry.module#RegistryPageModule'},
   {path: 'registry-pin', loadChildren: './registry-pin/registry-pin.module#RegistryPinPageModule'},
   {path: 'restore', loadChildren: './restore/restore.module#RestorePageModule'},
   {path: 'pin', loadChildren: './pin/pin.module#PinPageModule'},
@@ -16,6 +16,7 @@ const routes: Routes = [
   {path: 'send-currency', loadChildren: './send-cryptocurrencies/send-cryptocurrencies.module#SendCryptocurrenciesPageModule'},
   {path: 'upload-verification-files', loadChildren: './upload-verification-files/upload-verification-files.module#UploadVerificationFilesPageModule'},
   {path: 'upload-files-modal', loadChildren: './upload-files-modal/upload-files-modal.module#UploadFilesModalPageModule'},
+  { path: 'pin-modal-registry', loadChildren: './pin-modal-registry/pin-modal-registry.module#PinModalRegistryPageModule' },
 ];
 
 @NgModule({

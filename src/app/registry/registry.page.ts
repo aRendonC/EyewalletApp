@@ -9,6 +9,8 @@ import { ToastService } from "../services/toast/toast.service";
 import { TouchLoginService } from '../services/fingerprint/touch-login.service';
 import * as utils from '../../assets/utils';
 import {TranslateService} from "@ngx-translate/core";
+import { ModalController } from '@ionic/angular';
+import { PinModalRegistryPage } from '../pin-modal-registry/pin-modal-registry.page'
 
 @Component({
   selector: 'app-registry',
@@ -44,6 +46,7 @@ export class RegistryPage implements OnInit {
     private toastCtrl: ToastService,
     private touchCtrl: TouchLoginService,
     private translateService: TranslateService,
+    public modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -154,14 +157,25 @@ export class RegistryPage implements OnInit {
   private async validateRegistry(response: any): Promise<any> {
     if (response.status === 200) {
       await this.store.set('user', response.data);
+      console.log("Resultado: ",response.data);
       this.touchCtrl.isTouch = true;
-      await this.router.navigate(['/registry-pin'], {
-        queryParams: {
-          user: JSON.stringify(response.data),
-          password: JSON.stringify(this.dataRegistry.password)
-        },
-        queryParamsHandling: 'merge'
+      const modal = await this.modalController.create({
+        component: PinModalRegistryPage,
+        componentProps: { 'userPin': response.data, 'passwordPin': JSON.stringify(this.dataRegistry.password) }
       });
+
+      modal.onDidDismiss()
+        .then(async (data) => {
+          
+        });
+      return await modal.present();
+      // await this.router.navigate(['/registry-pin'], {
+      //   queryParams: {
+      //     user: JSON.stringify(response.data),
+      //     password: JSON.stringify(this.dataRegistry.password)
+      //   },
+      //   queryParamsHandling: 'merge'
+      // });
       await this.toastCtrl.presentToast({text: this.translateService.instant('REGISTRY_PIN.CreatePinMsg')});
     } else {
       await this.toastCtrl.presentToast({text: response.error.msg});
