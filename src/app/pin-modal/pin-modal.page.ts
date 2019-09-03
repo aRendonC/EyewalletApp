@@ -4,7 +4,6 @@ import {FingerprintAIO} from "@ionic-native/fingerprint-aio/ngx";
 import {Storage} from "@ionic/storage";
 import {Router} from "@angular/router";
 import {AesJsService} from "../services/aesjs/aes-js.service";
-
 @Component({
   selector: 'app-pin-modal',
   templateUrl: './pin-modal.page.html',
@@ -13,6 +12,8 @@ import {AesJsService} from "../services/aesjs/aes-js.service";
 export class PinModalPage implements OnInit {
   @Input() modalTitle: string;
   @Input() modelID: number;
+  @Input() sendCrypto;
+
   public pin: any = [];
   public ctrlPin: boolean = true;
   private currentRoute: string = null;
@@ -28,6 +29,7 @@ export class PinModalPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("enviado desde send: ", this.sendCrypto);
     // console.table(this.modalTitle);
     this.currentRoute = this.router.url;
     this.modelID = this.navParams.data.paramID;
@@ -46,6 +48,11 @@ export class PinModalPage implements OnInit {
     await this.modalCtrl.dismiss(onCloseData);
   }
 
+  async closeModal1(val) {
+    const onCloseData = val;
+    await this.modalCtrl.dismiss(onCloseData);
+  }
+
   async savePinData(number: number) {
     this.ctrlPin = true;
     if (this.pin.length < 6) {
@@ -60,10 +67,16 @@ export class PinModalPage implements OnInit {
       if(user) {
         user.pin = this.aesjs.decrypt(user.pin);
         if(pinData === user.pin.toString()) {
-          user.pin = this.aesjs.encrypt(user.pin);
-          this.store.set('user', user);
-          await this.router.navigate(['/app/tabs/dashboard']);
-          await this.closeModal()
+          if(this.sendCrypto === true){
+            console.log("DATOS_PIN: ",user.pin);
+            await this.closeModal1(user.pin)
+          }else{
+            user.pin = this.aesjs.encrypt(user.pin);
+            this.store.set('user', user);
+            await this.router.navigate(['/app/tabs/dashboard']);
+            await this.closeModal()
+          }
+          
         } else {
           this.ctrlPin = false;
           setTimeout(() => {
