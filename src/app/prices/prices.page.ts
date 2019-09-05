@@ -7,12 +7,14 @@ import {ToastService} from '../services/toast/toast.service';
 import {environment} from '../../environments/environment';
 import {DataLocalService} from "../services/data-local/data-local.service";
 import {TranslateService} from "@ngx-translate/core";
+import * as CONSTANTS from '../constanst';
 
 @Component({
     selector: 'app-prices',
     templateUrl: './prices.page.html',
     styleUrls: ['./prices.page.scss'],
 })
+
 export class PricesPage implements OnInit {
     @Input() name: any;
     @ViewChild('lineCanvas') lineCanvas;
@@ -21,8 +23,8 @@ export class PricesPage implements OnInit {
     public cryptoPrices24h: any;
     public ctrlNavigation = 3;
     public prices24h = [];
-    ctrlCssColor = '';
-    private user: any;
+    public ctrlCssColor = '';
+    private dataUser: any;
     public bodyForm: any;
     public cardPrices = [];
     public urlFlags = environment.flag;
@@ -31,35 +33,25 @@ export class PricesPage implements OnInit {
     public cryptoCodes: any;
     public cryptoValue: any;
 
-    constructor(
+    public constructor(
         private axios: AxiosService,
         private auth: AuthService,
         private store: DataLocalService,
         private loading: LoadingService,
         private toastCtrl: ToastService,
         private translateService: TranslateService,
-    ) {
-    }
+    ) {}
 
-    async ngOnInit() {
-        await this.loading.present({text: this.translateService.instant('PRICES_PAGE.LoadingCrypto'), cssClass: 'textLoadingBlack'});
-        await this.getProfile();
+    public async ngOnInit(): Promise<any> {
+        this.dataUser = await this.store.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);
         await this.getCryptoPrices24h();
     }
 
-    ionViewDidEnter(){
-        let elementDashboard: any = document.getElementsByTagName('app-prices');
-        elementDashboard[0].classList.add("margins-dashboard")
-    }
-
-    async getProfile() {
-        this.user = await this.store.getDataLocal('profile');
+    private async getCryptoPrices24h(): Promise<any> {
+        await this.loading.present({text: this.translateService.instant('PRICES_PAGE.LoadingCrypto'), cssClass: 'textLoadingBlack'});
         this.bodyForm = {
-            userId: this.user.userId,
+            userId: this.dataUser.userId,
         };
-    }
-
-    async getCryptoPrices24h() {
         this.cryptoPrices24h = await this.axios.post('transaction/historyBTC', this.bodyForm, this.auth);
         if (this.cryptoPrices24h.status === 200) {
             this.cryptoPrices24h = this.cryptoPrices24h.data;
@@ -106,9 +98,7 @@ export class PricesPage implements OnInit {
         this.lineChart = new Chart(this.lineCanvas.nativeElement, {
             type: 'line',
             data: {
-                labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-                    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-                    '', '', '', '', '', '', '', '', '', '', '', ''],
+                labels: new Array(this.prices24h.length),
                 datasets: [
                     {
                         label: '',

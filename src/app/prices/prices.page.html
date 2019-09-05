@@ -1,32 +1,33 @@
-<div class="grid-graphic">
+<ion-header class="prices-header">
   <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
-  <img class="bg-profile" src="../../assets/images/bg-profile.png">
-  <p class="move-cryptoPrice">{{cryptoCodes}} &nbsp; <span class="mainPrice">{{cryptoValue}}</span><span class="mainCurrency"> &nbsp; USDollar</span></p>
-  <div class="move-graphic">
-      <canvas class="move-graphic" #lineCanvas></canvas>
+
+  <div class="content-text">
+    <span class="data-price-text-header short-name-text">{{ cryptoCodes }}</span>
+    <span class="data-price-text-header price-text">{{ cryptoValue }}</span>
+    <span class="data-price-text-header usd-text">USDollar</span>
   </div>
-</div>
-<ion-content class="move-cryptoInfo" [class.blur]="ctrlCssBlur" [fullscreen]="true">
-<ion-grid fixed class="padding-prices">
-  <ion-row>
-    <!-- Put ngFor here *ngFor="let cryptoPrice of cryptoPrices" -->
-    <ion-col size="6" class="card-padding"  *ngFor="let cardPrice of cardPrices; index as index">
-        <div
-                class = {{cardPrice.cryptoClass}}
-                (click)="selectCrypto(cardPrice.cryptoClass, index)"
-        >
-          <img class="move-cryptoLogo {{cardPrice.fontClass}}" src="{{urlFlags}}{{cardPrice.cryptoImage}}">
-          <img class="LogoBG" src="{{urlFlags}}{{cardPrice.cryptoImage}}">
-          <!-- <img class="move-bgLogo" src={{cardPrice.cryptoImage}}> -->
-          <div class= "priceDetails {{cardPrice.fontClass}}">
+
+  <canvas class="content-graph" #lineCanvas></canvas>
+</ion-header>
+
+<ion-content class="content-crypto-info" [class.blur]="ctrlCssBlur" [fullscreen]="true">
+  <ion-grid fixed class="padding-prices">
+    <ion-row class="row-data-cryptos">
+      <ion-col size="6" class="card-padding"  *ngFor="let cardPrice of cardPrices; index as index">
+          <div
+            class = {{cardPrice.cryptoClass}}
+            (click)="selectCrypto(cardPrice.cryptoClass, index)"
+          >
+            <img class="move-cryptoLogo {{cardPrice.fontClass}}" src="{{urlFlags}}{{cardPrice.cryptoImage}}">
+            <img class="LogoBG" src="{{urlFlags}}{{cardPrice.cryptoImage}}">
+            <div class= "priceDetails {{cardPrice.fontClass}}">
               <p class="cryptoName" >{{cardPrice.cryptoName}}</p>
               <p class="cryptoCode">{{cardPrice.cryptoCodes}}</p>
               <p class="cryptoPriceName">  {{'GENERAL.Prices'| translate}}</p>
               <p class="cryptoPrice">{{cardPrice.cryptoValue[cardPrice.cryptoValue.length - 1]}}</p>
+            </div>
           </div>
-        </div>
-    </ion-col>
-    <ion-col size="6"></ion-col>
-  </ion-row>
-</ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
