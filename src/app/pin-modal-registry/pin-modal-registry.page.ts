@@ -8,6 +8,7 @@ import { AxiosService } from '../services/axios/axios.service';
 import { AuthService } from '../services/auth/auth.service';
 import { DataLocalService } from '../services/data-local/data-local.service';
 import * as utils from '../../assets/utils';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 
 @Component({
   selector: 'app-pin-modal-registry',
@@ -47,6 +48,7 @@ export class PinModalRegistryPage implements OnInit {
     private store1: DataLocalService,
     private auth: AuthService,
     private device: DeviceService,
+    private faio: FingerprintAIO,
     ) { }
 
   ngOnInit() {
@@ -147,5 +149,29 @@ export class PinModalRegistryPage implements OnInit {
 
   async deletePinData() {
     this.pin.splice(this.pin.length - 1, 1);
+  }
+
+  showFingerPrint() {
+    this.faio.isAvailable()
+      .then(result => {
+        this.faio.show({
+          clientId: 'Identificar de huella',
+          clientSecret: 'password',   //Only necessary for Android
+          disableBackup: false,  //Only for Android(optional)
+          localizedFallbackTitle: 'Use Pin',      //Only for iOS
+          localizedReason: 'Please authenticate', //Only for iOS
+
+        })
+          .then((result: any) => {
+            this.router.navigate(['/app/tabs/dashboard']);
+            this.closeModal()
+            // this.login();
+            // this.isLocked = false;
+
+          }).catch((error: any) => {
+            // this.openModal()
+            // this.exitApp();
+          });
+      }).catch((error: any) => console.log('entro al carch sin cancelar', error));
   }
 }

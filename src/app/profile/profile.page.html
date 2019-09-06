@@ -8,7 +8,7 @@
     <img type="submit" class="move-add" (click)="photo()" src="../../assets/images/profilePage/add-profile-img.svg"/>
 </div>
 
-<ion-content class="move-profileInfo" [fullscreen]="true">
+<ion-content class="move-profileInfo" [fullscreen]="true" style="background: none transparent;">
     <ion-item>
         <ion-label class="labels">ID</ion-label>
         <p class="text">{{profileShow.id}}</p>
@@ -45,7 +45,7 @@
         </p>
     </ion-item>
     <ion-item class="item-second">
-        <p (click)="secondFactor()" class="text-second"><img src="../../assets/images/profilePage/EyeWeb.svg"> &nbsp;
+        <p (click)="eyewalletWeb()" class="text-second"><img src="../../assets/images/profilePage/EyeWeb.svg"> &nbsp;
             Eyewallet Web</p>
     </ion-item>
     <ion-item class="item-images">

@@ -3,7 +3,7 @@ import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {TimerService} from '../services/timer/timer.service';
 import {AlertController,} from '@ionic/angular';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CameraProvider} from '../services/camera/camera';
 import {Camera} from '@ionic-native/camera/ngx';
 import {LoadingService} from "../services/loading/loading.service";
@@ -13,6 +13,7 @@ import {environment} from "../../environments/environment";
 import {LanguageService} from "../services/language/language.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
 import {TranslateService} from "@ngx-translate/core";
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 @Component({
     selector: 'app-profile',
@@ -24,6 +25,9 @@ export class ProfilePage implements OnInit {
     public userVerifications: any = {
         email: ''
     };
+    isOn = false;
+    public cssCtrlContents = true;
+    public cssGradient = 'backGroundGradient';
     languages = [];
     selectedLanguage = '';
     public type: string = 'avatar';
@@ -37,6 +41,7 @@ export class ProfilePage implements OnInit {
         country: '',
         mail: '',
     };
+    scanSub: any;
     public profile: any;
     public temporizador: any;
     public pockets: any = [];
@@ -46,6 +51,7 @@ export class ProfilePage implements OnInit {
     public word: any;
     public profilePic: any;
     public verify: any;
+    placeHolder: any = '';
 
     constructor(
         private store: DataLocalService,
@@ -61,6 +67,8 @@ export class ProfilePage implements OnInit {
         private touchCtrl: TouchLoginService,
         private languageService: LanguageService,
         private translateService: TranslateService,
+        private qrScanner: QRScanner,
+        private router: Router,
     ) {
         this.temporizador = this.timer.temporizador;
     }
@@ -223,7 +231,46 @@ export class ProfilePage implements OnInit {
     }
 
     eyewalletWeb() {
-        this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
+        this.toastCtrl.presentToast({ text: this.translateService.instant('PROFILE.ComingSoon') });
+        //this.router.navigate(['/app/tabs/qrscann-sesion']);
+        //this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
+        // //this.bodyForm.get('to_address').setValue('');
+        // this.qrScanner.prepare()
+        //     .then(async (status: QRScannerStatus) => {
+        //         this.touchCtrl.isTouch = false;
+        //         if (status.authorized) {
+        //             let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+        //                 console.log('Scanned something', text);
+        //                 alert(status.authorized);
+        //                 this.qrScanner.hide(); // hide camera preview
+        //                 scanSub.unsubscribe(); // stop scanning
+        //             });
+
+
+        //             await this.qrScanner.show();
+
+
+        //         } else if (status.denied) {
+
+        //         }
+        //     })
+        //     .catch((e: any) => console.log('Error is', e));
+
+    }
+
+    async removeCamera() {
+        this.isOn = false;
+        this.cssGradient = 'backGroundGradient';
+        this.cssCtrlContents = true;
+        let element = document.getElementById('QRScaner');
+        element.classList.remove('show-qr-scanner');
+        await this.toastCtrl.presentToast({
+            text: this.translateService.instant('SEND_CRYPTO_CURRENCY.QrOk'),
+            duration: 3000
+        });
+        await this.qrScanner.destroy();
+        this.scanSub.unsubscribe();
+        this.touchCtrl.isTouch = true;
     }
 
     async setStorageVerification(userVerification) {

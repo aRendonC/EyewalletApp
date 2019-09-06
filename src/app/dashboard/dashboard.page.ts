@@ -72,7 +72,6 @@ export class DashboardPage implements OnInit {
     async getTransactionsSend() {
         let transaction = await this.storage.getDataLocal('transaction');
         if (transaction) {
-            console.log('BOOL: ', transaction);
             await this.getDataPocket(transaction);
             await this.storage.removeKey('transaction')
         }
