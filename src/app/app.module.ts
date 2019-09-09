@@ -35,8 +35,13 @@ import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { ModalDetailsPageModule } from './modal-details/modal-details.module';
 import { ModalDetailsPage } from './modal-details/modal-details.page';
 import { PinModalRegistryPage } from './pin-modal-registry/pin-modal-registry.page';
+<<<<<<< HEAD
 import { SesionModalPage } from './sesion-modal/sesion-modal.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+=======
+import { PinModalRegistryPageModule } from './pin-modal-registry/pin-modal-registry.module';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+>>>>>>> Scanner for login web is configurated.
 
 const config: SocketIoConfig = { url: 'https://83a4f4e9.ngrok.io', options: {}};
 
@@ -96,7 +101,8 @@ export function createTranslateLoader(http: HttpClient) {
         Clipboard,
         InAppBrowser,
         LoadingService,
-        Diagnostic
+        Diagnostic,
+        QRScanner
     ],
     bootstrap: [
         AppComponent

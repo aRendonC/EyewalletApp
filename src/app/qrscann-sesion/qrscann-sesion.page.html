@@ -1,9 +1,10 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Escanea el código</ion-title>
+<ion-header class="header-qrscann-sesion" [class.blur]="classBlur">
+  <ion-toolbar class="header-toolbar">
+    <ion-icon slot="start" name="arrow-round-back" (click)="returnPage()" class="icon-return"></ion-icon>
+    <ion-title class="header-title">eyewallet web</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content  [class.display-none]="cssCtrlContents" style="--background: none transparent;">
-
+<ion-content id="qrLogin" [class.show-scanner]="showScanner" [class.blur]="classBlur" class="qrscann-sesion">
+  aaa
 </ion-content>

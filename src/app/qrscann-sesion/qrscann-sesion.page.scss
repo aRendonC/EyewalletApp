@@ -1,3 +1,29 @@
-.display-none{
+.header-qrscann-sesion {
+  .header-toolbar {
+    .icon-return {
+      position: absolute;
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .header-title {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.qrscann-sesion {
+
+}
+
+.show-scanner {
   display: none;
+}
+
+.no-show-scanner {
+  display: block;
+}
+
+ion-content {
+  background: transparent !important;
 }

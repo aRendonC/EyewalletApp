@@ -283,5 +283,12 @@
     "Hour": "Hour",
     "AmountChange": "Amount to change",
     "Fee": "Fee"
+  },
+  "CONNECTION_ERRORS": {
+    "Error": "Connection errors Try again later."
+  },
+  "QRSCANN_SESION": {
+    "VerifyingMessage": "Verifying",
+    "QrError": "Scanner not available." 
   }
 }
