@@ -230,11 +230,12 @@ export class SendCryptocurrenciesPage implements OnInit {
                     await this.toastCtrl.presentToast({text: this.translateService.instant('SEND_CRYPTO_CURRENCY.TransactionOK')});
                     let dataResponse = await this.getPocketTransaction();
                     let pocketss = await this.getPocketsList();
-                    await this.store1.setDataLocal('pockets', pocketss);
+                    //await this.store1.setDataLocal('pockets', pocketss);
+                    //await this.store.set('pockets', this.pockets);
 
                     if (dataResponse.status === 200) {
                         dataResponse.pocket = this.pockets;
-                        await this.store.set('transaction', dataResponse)
+                        //await this.store.set('transaction', dataResponse)
                     } else {
                         await this.toastCtrl.presentToast({text: dataResponse.error.msg})
                     }
