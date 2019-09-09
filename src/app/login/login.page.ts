@@ -58,11 +58,9 @@ export class LoginPage implements OnInit {
                             await this.loadingCtrl.dismiss();
                             let pocket = this.pockets[0];
                             this.store.setDataLocal('selected-pocket', pocket);
-                            console.log("selected-pocket",pocket);
                             await this.router.navigate([
                                 '/app/tabs/dashboard']);
                             await this.store.setDataLocal('pockets', this.pockets);
-                            console.log("pokets:", this.pockets);
                         } else await this.clearData(data);
                     } else await this.clearData(data)
                 })
