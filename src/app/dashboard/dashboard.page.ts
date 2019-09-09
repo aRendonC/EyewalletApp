@@ -73,7 +73,7 @@ export class DashboardPage implements OnInit {
         let transaction = await this.storage.getDataLocal('transaction');
         if (transaction) {
             await this.getDataPocket(transaction);
-            await this.storage.removeKey('transaction')
+            await this.storage.removeKey('transaction');
         }
     }
 
@@ -189,6 +189,7 @@ export class DashboardPage implements OnInit {
         this.profile = profile;
         this.params.userId = profile.userId;
         this.params.type = 4;
+        console.log("sera que por aqui");
         if (!this.pockets) {
             this.pockets = await this.storage.getDataLocal('pockets');
         }
