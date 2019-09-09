@@ -13,7 +13,6 @@ import {environment} from "../../environments/environment";
 import {LanguageService} from "../services/language/language.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
 import {TranslateService} from "@ngx-translate/core";
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 @Component({
     selector: 'app-profile',
@@ -67,7 +66,6 @@ export class ProfilePage implements OnInit {
         private touchCtrl: TouchLoginService,
         private languageService: LanguageService,
         private translateService: TranslateService,
-        private qrScanner: QRScanner,
         private router: Router,
     ) {
         this.temporizador = this.timer.temporizador;
@@ -84,7 +82,6 @@ export class ProfilePage implements OnInit {
 
     ionViewDidEnter() {
         let elementDashboard: any = document.getElementsByTagName('app-profile');
-        console.log(elementDashboard);
         elementDashboard[0].classList.add("margins-dashboard")
     }
 
@@ -232,45 +229,6 @@ export class ProfilePage implements OnInit {
 
     eyewalletWeb() {
         this.toastCtrl.presentToast({ text: this.translateService.instant('PROFILE.ComingSoon') });
-        //this.router.navigate(['/app/tabs/qrscann-sesion']);
-        //this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
-        // //this.bodyForm.get('to_address').setValue('');
-        // this.qrScanner.prepare()
-        //     .then(async (status: QRScannerStatus) => {
-        //         this.touchCtrl.isTouch = false;
-        //         if (status.authorized) {
-        //             let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-        //                 console.log('Scanned something', text);
-        //                 alert(status.authorized);
-        //                 this.qrScanner.hide(); // hide camera preview
-        //                 scanSub.unsubscribe(); // stop scanning
-        //             });
-
-
-        //             await this.qrScanner.show();
-
-
-        //         } else if (status.denied) {
-
-        //         }
-        //     })
-        //     .catch((e: any) => console.log('Error is', e));
-
-    }
-
-    async removeCamera() {
-        this.isOn = false;
-        this.cssGradient = 'backGroundGradient';
-        this.cssCtrlContents = true;
-        let element = document.getElementById('QRScaner');
-        element.classList.remove('show-qr-scanner');
-        await this.toastCtrl.presentToast({
-            text: this.translateService.instant('SEND_CRYPTO_CURRENCY.QrOk'),
-            duration: 3000
-        });
-        await this.qrScanner.destroy();
-        this.scanSub.unsubscribe();
-        this.touchCtrl.isTouch = true;
     }
 
     async setStorageVerification(userVerification) {
@@ -284,7 +242,6 @@ export class ProfilePage implements OnInit {
     }
 
     async selectLanguage() {
-        console.log(this.selectedLanguage)
         await this.languageService.setLanguage(this.selectedLanguage);
     }
 }
