@@ -8,13 +8,15 @@ import {PocketComponent} from "./pocket/pocket.component";
 import {ListPocketsPage} from "../list-pockets/list-pockets.page";
 import {ReturnPageComponent} from './return-page/return-page.component';
 import {TranslateModule} from "@ngx-translate/core";
+import { PinComponent } from "./pin/pin.component"
 
 //constants components export
 const COMPONENTS = [
     ChartComponent,
     PocketComponent,
     SlidersComponent,
-    ReturnPageComponent
+    ReturnPageComponent,
+    PinComponent
 ];
 
 @NgModule({

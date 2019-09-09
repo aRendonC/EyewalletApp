@@ -12,42 +12,59 @@
     <ion-card-content class="conten-detalis">
         <ion-list>
             <ion-item>
-                <ion-label position="floating" class="label-datails">{{'GENERAL.From' | translate}}:</ion-label>
-                <ion-input value="{{datos?.address_from}}"></ion-input>
+                <ion-label class="label-datails">{{'GENERAL.From' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.address_from}}</span>
+                </ion-label>
             </ion-item>
             <ion-item>
-                <ion-label position="floating" class="label-datails">{{'GENERAL.To' | translate}}:</ion-label>
-                <ion-input value="{{datos?.address_to}}"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label position="floating" class="label-datails">{{'GENERAL.Confirmation' | translate}}:</ion-label>
-                <ion-input value="{{datos?.confirmationText}}"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label position="floating" class="label-datails">{{'GENERAL.Amount' | translate}}:</ion-label>
-                <ion-input value="{{datos?.amount}}"></ion-input>
+                <ion-label class="label-datails">{{'GENERAL.To' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.address_to}}</span>
+                </ion-label>
             </ion-item>
 
             <ion-item>
-                <ion-label position="floating" class="label-datails">{{'GENERAL.Usd' | translate}}:</ion-label>
-                <ion-input value="{{datos?.amountDollar}}"></ion-input>
+                <ion-label class="label-datails">{{'GENERAL.Confirmation' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.confirmationText}}</span>
+                </ion-label>
             </ion-item>
 
             <ion-item>
-                <ion-label position="floating" class="label-datails">{{'GENERAL.Fee' | translate}}:</ion-label>
-                <ion-input value="{{datos?.fee}}"></ion-input>
+                <ion-label class="label-datails">{{'GENERAL.Amount' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.amount}}</span>
+                </ion-label>
             </ion-item>
 
             <ion-item>
-                <ion-label position="floating" class="label-datails">{{'GENERAL.Priority' | translate}}:</ion-label>
-                <ion-input value="{{datos?.priority}}"></ion-input>
+                <ion-label class="label-datails">{{'GENERAL.Usd' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.amountDollar}}</span>
+                </ion-label>
             </ion-item>
 
             <ion-item>
-                <ion-label position="floating" class="label-datails">{{'GENERAL.Date' | translate}}:</ion-label>
-                <ion-input value="{{datos?.createdAt}}"></ion-input>
+                <ion-label class="label-datails">{{'GENERAL.Fee' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.fee}}</span>
+                </ion-label>
+            </ion-item>
+
+            <ion-item text-wrap>
+                <ion-label  class="label-datails" >{{'GENERAL.Priority' | translate}} :
+                    <br>
+                    <span class="value-label">{{datos?.priority}}</span>
+                </ion-label>
+                
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="label-datails">{{'GENERAL.Date' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.createdAt}}</span>
+                </ion-label>
             </ion-item>
             
             

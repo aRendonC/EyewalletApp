@@ -51,7 +51,7 @@
 </div>
 <!-- Card de completar Perfil -->
 
-<ion-card class="cardwith" style="height: auto" *ngIf="profile?.level === 0 && profile?.completed === 0">
+<ion-card class="cardwith" style="height: auto" *ngIf="profile?.level === 0">
     <ion-card-header class="header">
         <ion-card-title class="card-title" *ngIf="!profile.user.firstName">
             {{'SLIDER_COMPONENT.CompleteProfile'| translate}}
@@ -89,7 +89,7 @@
     </ion-card-content>
 </ion-card>
 <!-- Card de verificación de documentos -->
-<ion-card class="card-ver-width" *ngIf="profile?.completed === 0">
+<ion-card class="card-ver-width" *ngIf="profile?.level === 1 && profile?.completed === 0">
     <ion-card-header>
         <ion-card-title class="card-ver-title">
             {{'SLIDER_COMPONENT.DocumentsNecessaries'| translate}}

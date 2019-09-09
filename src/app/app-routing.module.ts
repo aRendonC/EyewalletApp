@@ -17,6 +17,7 @@ const routes: Routes = [
   {path: 'upload-verification-files', loadChildren: './upload-verification-files/upload-verification-files.module#UploadVerificationFilesPageModule'},
   {path: 'upload-files-modal', loadChildren: './upload-files-modal/upload-files-modal.module#UploadFilesModalPageModule'},
   { path: 'pin-modal-registry', loadChildren: './pin-modal-registry/pin-modal-registry.module#PinModalRegistryPageModule' },
+  { path: 'qrscann-sesion', loadChildren: './qrscann-sesion/qrscann-sesion.module#QrscannSesionPageModule' },
 ];
 
 @NgModule({

@@ -215,8 +215,11 @@ export class SlidersComponent implements OnInit {
         
         await this.loadingCtrl.present({text: this.translateService.instant('VAULT.loading'), cssClass: 'textLoadingBlack'});
         let pock = await this.getPocketsList(Id);
+        let pocket1 = await this.getPocketsList1();
         this.store.setDataLocal('selected-pocket', pock.data);
+        await this.store.setDataLocal('pockets', pocket1);
         console.log("TALES: ",pock.data);
+        console.log("TALES2", pocket1);
 
         let pocket = await this.store.getDataLocal('selected-pocket');
         let body = {
@@ -244,6 +247,9 @@ export class SlidersComponent implements OnInit {
         console.log(data)
     }
 
+    public async getPocketsList1() {
+        return await this.http.post('user-wallet/index', { currencyId: ''}, this.auth);
+    }
     public async getPocketsList(id) {
         return await this.http.post('user-wallet/view', { id: id }, this.auth);
     }
@@ -256,4 +262,5 @@ export class SlidersComponent implements OnInit {
          return await modal.present();
     }
 
+    
 }

@@ -12,6 +12,7 @@ import {ToastService} from "../services/toast/toast.service";
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {TranslateService} from "@ngx-translate/core";
 import { PinModalPage } from "../pin-modal/pin-modal.page";
+import { DataLocalService } from '../services/data-local/data-local.service';
 
 @Component({
     selector: 'app-send-cryptocurrencies',
@@ -56,6 +57,7 @@ export class SendCryptocurrenciesPage implements OnInit {
         private http: AxiosService,
         protected auth: AuthService,
         private alerrtCtrl: AlertController,
+        private store1: DataLocalService,
         protected store: Storage,
         private aesjs: AesJsService,
         private toastCtrl: ToastService,
@@ -102,11 +104,6 @@ export class SendCryptocurrenciesPage implements OnInit {
                     this.isOn = true;
                     this.cssGradient = 'backGroundGradientQr';
                     this.cssCtrlContents = false;
-                    this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
-                        this.placeHolder = text;
-                        this.bodyForm.get('to_address').setValue(text);
-                        await this.removeCamera()
-                    });
                     this.scanSub = this.qrScanner.scan().subscribe(async (text: string) => {
                         this.placeHolder = text;
                         this.bodyForm.get('to_address').setValue(text);
@@ -234,6 +231,8 @@ export class SendCryptocurrenciesPage implements OnInit {
                     await this.loadingCtrl.dismiss();
                     await this.toastCtrl.presentToast({text: this.translateService.instant('SEND_CRYPTO_CURRENCY.TransactionOK')});
                     let dataResponse = await this.getPocketTransaction();
+                    let pocketss = await this.getPocketsList();
+                    await this.store1.setDataLocal('pockets', pocketss);
                     //await this.store.set('pockets', this.pockets);
 
                     if (dataResponse.status === 200) {
@@ -249,6 +248,10 @@ export class SendCryptocurrenciesPage implements OnInit {
                 }
             });
         return await modal.present();
+    }
+
+    public async getPocketsList() {
+        return await this.http.post('user-wallet/index', { currencyId: '' }, this.auth);
     }
 
     // async presentAlertSend() {
