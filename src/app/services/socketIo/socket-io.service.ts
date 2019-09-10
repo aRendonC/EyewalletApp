@@ -8,6 +8,7 @@ import { ModalController } from '@ionic/angular';
 import { SesionModalPage } from '../../sesion-modal/sesion-modal.page';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastService } from '../toast/toast.service';
+import { LocalNotifications, ELocalNotificationTriggerUnit, ILocalNotificationActionType, ILocalNotification } from '@ionic-native/local-notifications/ngx';
 
 
 @Injectable({
@@ -23,7 +24,8 @@ export class SocketIoService {
       public modalController: ModalController,
       private aesJ: AesJsService,
       private auth: AuthService,
-    private toastController: ToastService,
+      private toastController: ToastService,
+      private localNotifications: LocalNotifications
   ) { }
 
   async verifyEmail(data) {
@@ -49,6 +51,15 @@ export class SocketIoService {
         await this.toastController.presentToast({
           text: valor,
           duration: 1000
+        });
+      }
+
+      if(data.status === 102){
+        this.localNotifications.schedule({
+          id: 22,
+          title: 'Recurring',
+          text: 'Simons Recurring Notification',
+          trigger: { every: ELocalNotificationTriggerUnit.MINUTE }
         });
       }
     });

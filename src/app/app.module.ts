@@ -36,6 +36,7 @@ import { ModalDetailsPageModule } from './modal-details/modal-details.module';
 import { ModalDetailsPage } from './modal-details/modal-details.page';
 import { PinModalRegistryPage } from './pin-modal-registry/pin-modal-registry.page';
 import { SesionModalPage } from './sesion-modal/sesion-modal.page';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 const config: SocketIoConfig = { url: 'https://83a4f4e9.ngrok.io', options: {}};
 
@@ -76,6 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
         StatusBar,
         Geolocation,
         LocationAccuracy,
+        LocalNotifications,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: InterceptadorService, multi: true},
