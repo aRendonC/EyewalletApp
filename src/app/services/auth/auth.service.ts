@@ -32,7 +32,7 @@ export class AuthService {
         private aesjs: AesJsService,
         private loadingCtrl: LoadingService
     ) {
-        this.persistenceLogin();
+        // this.persistenceLogin();
     }
 
     async login(user, password, plattform, channel) {

@@ -7,11 +7,11 @@ import { StatusVaultTextPipe } from './status-vault-text/status-vault-text.pipe'
 @NgModule({
   declarations: [
     RoundNumberPipe,
-    StatusVaultTextPipe
+    StatusVaultTextPipe,
   ],
   exports: [
     RoundNumberPipe,
-    StatusVaultTextPipe
+    StatusVaultTextPipe,
   ],
   imports: [
     CommonModule

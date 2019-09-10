@@ -36,7 +36,7 @@ export class QrscannSesionPage implements OnInit {
 
   public async ionViewDidEnter(): Promise<any> {
     this.classBlur = true;
-    this.loadingService.present({text: this.translateService.instant('QRSCANN_SESION.VerifyingMessage')});
+    this.loadingService.present({text: this.translateService.instant('QRSCANN_SESION.VerifyingMessage'), cssClass: 'textLoadingBlack'});
     await this.getSessionsStarted();
   }
 
@@ -61,7 +61,8 @@ export class QrscannSesionPage implements OnInit {
 
   private validateSessionsStarted(dataResponse: any): void {
     if (dataResponse.data.length > 0) {
-      this.sessionsList = dataResponse.data;
+      this.sessionsList = this.parseDataSessions(dataResponse.data);
+      console.log('DATA: ', dataResponse.data);
       this.classBlur = false;
       this.loadingService.dismiss();
     } else {
@@ -69,6 +70,13 @@ export class QrscannSesionPage implements OnInit {
       this.loadingService.dismiss();
       this.showQrScanner();
     }
+  }
+
+  private parseDataSessions(data: any): any {
+    data.forEach(infoSession => {
+      infoSession.agent = JSON.parse(infoSession.agent);
+    });
+    return data
   }
 
   private showQrScanner(): void {
@@ -86,9 +94,10 @@ export class QrscannSesionPage implements OnInit {
   }
 
   private getQrData(): void {
+    const sessionsContent: any = document.getElementById('sessions');
     let scanSub = this.qrScanner.scan()
     .subscribe((text: string) => {
-      console.log('Scanned something', text);
+      console.info('Scanned something', text);
       this.closeScanner();
       scanSub.unsubscribe();
       this.router.navigate(['/app/tabs/profile']);
@@ -96,11 +105,29 @@ export class QrscannSesionPage implements OnInit {
 
     this.qrScanner.show();
     this.showScanner = true;
+    sessionsContent.classList.remove('display-block');
   }
 
   private closeScanner(): void {
+    const scannerContent: any = document.getElementById('scanner');
     this.showScanner = false;
+    scannerContent.classList.remove('display-block');
     this.qrScanner.hide();
     this.qrScanner.destroy();
+  }
+
+  public async closeSession(channel: string, platform: number): Promise<any> {
+    const dataBody: any = {
+      plattform: platform,
+	    channel: channel
+    }
+    
+    this.axiosService.post('logoutRemote', dataBody, this.authService)
+    .then((response: any) => {
+      console.log(response);
+    })
+    .catch((error: any) => {
+      console.error('ERROR: ', error);
+    })
   }
 }
