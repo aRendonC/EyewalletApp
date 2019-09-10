@@ -9,6 +9,8 @@ import { AuthService } from '../services/auth/auth.service';
 import { DataLocalService } from '../services/data-local/data-local.service';
 import * as utils from '../../assets/utils';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+import { AesJsService } from '../services/aesjs/aes-js.service';
+import { SocketIoService } from '../services/socketIo/socket-io.service';
 
 @Component({
   selector: 'app-pin-modal-registry',
@@ -49,6 +51,8 @@ export class PinModalRegistryPage implements OnInit {
     private auth: AuthService,
     private device: DeviceService,
     private faio: FingerprintAIO,
+    private aesJ: AesJsService,
+    private socket: SocketIoService,
     ) { }
 
   ngOnInit() {
@@ -113,13 +117,15 @@ export class PinModalRegistryPage implements OnInit {
     this.bodyForm.device = this.devic;
     this.bodyForm.userId = this.userPin.data.id;
     this.bodyForm.pin = pinData;
-
+    const plattform = 1;
+    let channel = await this.createChannel();
     
     const response = await this.axios.put(`profile/${this.userPin.data.id}/pin`, this.bodyForm, this.auth);
     if (response.status === 200) {
       let pass = this.passwordPin.replace(/['"]+/g,'');
-      let loginUser: any = await this.auth.login(this.userPin.data.email, pass);
+      let loginUser: any = await this.auth.login(this.userPin.data.email, pass, plattform, channel);
       if (loginUser.status === 200) {
+        await this.socket.initSocket(channel);
         this.pockets = await this.getPocketsList();
         await this.store1.setDataLocal('pockets', this.pockets);
         let pocket = this.pockets[0];
@@ -173,5 +179,12 @@ export class PinModalRegistryPage implements OnInit {
             // this.exitApp();
           });
       }).catch((error: any) => console.log('entro al carch sin cancelar', error));
+  }
+
+  async createChannel() {
+    const dates = new Date().toString();
+    const rando = Math.random();
+    const valor = this.aesJ.encrypt(rando + dates);
+    return valor;
   }
 }

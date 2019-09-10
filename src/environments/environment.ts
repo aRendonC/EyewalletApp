@@ -4,10 +4,11 @@
 
 export const environment = {
   production: false,
-  urlBase: 'https://dev.eyewalletpro.com/api/v1/',
-  urlAvatar: 'https://dev.eyewalletpro.com/api/web/',
-  flag: 'https://dev.eyewalletpro.com/api/web/uploads/flags/',
-  apiKeyLocation: '2b154f971e3ab7'
+  urlBase: 'https://d98975d2.ngrok.io/api/v1/',
+  urlAvatar: 'https://d98975d2.ngrok.io/api/web/',
+  flag: 'https://d98975d2.ngrok.io/api/web/uploads/flags/',
+  apiKeyLocation: '2b154f971e3ab7',
+  urlSocket: 'https://4c6a8fe4.ngrok.io'
 };
 
 /*

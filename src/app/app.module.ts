@@ -35,9 +35,9 @@ import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { ModalDetailsPageModule } from './modal-details/modal-details.module';
 import { ModalDetailsPage } from './modal-details/modal-details.page';
 import { PinModalRegistryPage } from './pin-modal-registry/pin-modal-registry.page';
-import { PinModalRegistryPageModule } from './pin-modal-registry/pin-modal-registry.module';
+import { SesionModalPage } from './sesion-modal/sesion-modal.page';
 
-const config: SocketIoConfig = {url: 'http://0c2a6d5b.ngrok.io', options: {}};
+const config: SocketIoConfig = { url: 'https://83a4f4e9.ngrok.io', options: {}};
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -45,8 +45,8 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
 
-    declarations: [AppComponent, PinModalPage, VerificationModalPage, PinModalRegistryPage],
-    entryComponents: [PinModalPage, VerificationModalPage, ModalDetailsPage],
+    declarations: [AppComponent, PinModalPage, VerificationModalPage, PinModalRegistryPage, SesionModalPage],
+    entryComponents: [PinModalPage, VerificationModalPage, ModalDetailsPage, SesionModalPage],
     imports: [
         ComponentsModule,
         ReactiveFormsModule,
