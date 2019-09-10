@@ -35,9 +35,9 @@ export class AuthService {
         this.persistenceLogin();
     }
 
-    async login(user, password) {
+    async login(user, password, plattform, channel) {
         return new Promise((resolve) => {
-            this.api.post('auth/login', {email: user, password})
+            this.api.post('auth/login', {email: user, password,plattform,channel})
                 .then(async (data: any) => {
                     if (data.status === 200) {
                         this.usuario = data.data;

@@ -8,6 +8,9 @@ import {LoadingService} from "../services/loading/loading.service";
 import {ToastService} from "../services/toast/toast.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
 import {TranslateService} from "@ngx-translate/core";
+import { AesJsService } from '../services/aesjs/aes-js.service';
+import { SocketIoService } from '../services/socketIo/socket-io.service';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
     selector: 'app-login',
@@ -33,6 +36,9 @@ export class LoginPage implements OnInit {
         private store: DataLocalService,
         private loadingCtrl: LoadingService,
         private translateService: TranslateService,
+        private aesJ: AesJsService,
+        private socket: SocketIoService,
+        //private socket: Socket,
     ) {
     }
 
@@ -45,10 +51,14 @@ export class LoginPage implements OnInit {
 
     async login() {
         if (this.password && this.username) {
+            let channel = await this.createChannel();
+            let platform = 1;
             await this.store.clearStore();
             await this.loadingCtrl.present({text: this.translateService.instant('VAULT.loading')});
             this.ctrlCssBlur = true;
-            this.auth.login(this.username, this.password)
+            const resultado = this.socket.initSocket(channel);
+            console.log("Resultado socket: ", resultado);
+            this.auth.login(this.username, this.password, platform, channel)
                 .then(async (data: any) => {
                     if (data) {
                         if (data.status == 200) {
@@ -102,4 +112,12 @@ export class LoginPage implements OnInit {
         this.ctrlCssBlur = false;
         await this.toastController.presentToast({text: error, duration: 1000});
     }
+
+    async createChannel(){
+        const dates = new Date().getTime();
+        const rando = Math.random().toString(36).substring(7);
+        const valor = this.aesJ.encrypt(rando+dates);
+        return valor;
+    }
+    
 }

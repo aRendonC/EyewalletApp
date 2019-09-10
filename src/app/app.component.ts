@@ -20,6 +20,8 @@ import {ToastService} from "./services/toast/toast.service";
 import {text} from "@angular/core/src/render3";
 import {LanguageService} from "./services/language/language.service";
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { Socket } from 'ngx-socket-io';
+import { AesJsService } from './services/aesjs/aes-js.service';
 
 @Component({
     selector: 'app-root',
@@ -48,7 +50,9 @@ export class AppComponent {
         private toast: ToastService,
         private aletrCtrl: AlertController,
         private languageService: LanguageService,
-        private uniqueDeviceID: UniqueDeviceID
+        private uniqueDeviceID: UniqueDeviceID,
+        private socket: Socket,
+        private aesJ: AesJsService,
     ) {
         this.initializeApp();
 
@@ -56,6 +60,10 @@ export class AppComponent {
     }
 
     initializeApp() {
+        //const des = this.createChannel();
+        //const valor = this.aesJ.decrypt(des);
+        this.socket.on('connection', data => console.log("==================", data));
+        
         this.platform.ready().then(() => {
             document.addEventListener("backbutton", async (element) => {
                 // code that is executed when the user pressed the back button
@@ -94,6 +102,13 @@ export class AppComponent {
             ]
         });
         await alert.present();
+    }
+
+    async createChannel() {
+        const dates = new Date().getTime();
+        const rando = Math.random().toString(36).substring(7);
+        const valor = this.aesJ.encrypt(rando + dates);
+        return valor;
     }
 
 }
