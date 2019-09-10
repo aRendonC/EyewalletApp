@@ -37,6 +37,7 @@ import { ModalDetailsPage } from './modal-details/modal-details.page';
 import { PinModalRegistryPage } from './pin-modal-registry/pin-modal-registry.page';
 import { SesionModalPage } from './sesion-modal/sesion-modal.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
 const config: SocketIoConfig = { url: 'https://83a4f4e9.ngrok.io', options: {}};
 
@@ -96,7 +97,8 @@ export function createTranslateLoader(http: HttpClient) {
         Clipboard,
         InAppBrowser,
         LoadingService,
-        Diagnostic
+        Diagnostic,
+        QRScanner
     ],
     bootstrap: [
         AppComponent

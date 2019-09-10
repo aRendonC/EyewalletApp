@@ -50,11 +50,6 @@ const routes: Routes = [
             {
                 path: 'history-exchange',
                 loadChildren: '../history-exchange/history-exchange.module#HistoryExchangePageModule'
-            },
-
-            {
-                path: 'qrscann-sesion',
-                loadChildren: '../qrscann-sesion/qrscann-sesion.module#QrscannSesionPageModule'
             }
         ]
     },

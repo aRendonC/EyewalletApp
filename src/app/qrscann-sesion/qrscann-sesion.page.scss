@@ -1,3 +1,82 @@
-.display-none{
+@import '../../global.scss';
+
+.header-qrscann-sesion {
+  .header-toolbar {
+    --background: linear-gradient(#14a9ff -21%, #2b84ff -18.74%, #8000ff 210%);
+    color: white;
+
+    .icon-return {
+      position: absolute;
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .header-title {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.content-scanner {
+  .image-scanner {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.qrscann-sesion {
+  .card-content {
+    .subtitle-content {
+      padding: 20px;
+      border-bottom: solid 1px #2b84ff;
+      color: #2b84ff;
+    }
+
+    .content-content {
+      .item-content {
+        --border-style: none !important;
+
+        .image-content {
+          height: 30px;
+          width: 30px;
+        }
+      }
+
+      .machine-client {
+        .machine {
+          color: #2f3640;
+          font-size: 16px
+        }
+
+        .separator {
+          font-size: 20px;
+          color: #2b84ff;
+        }
+
+        .client {
+          color: #718093;
+          font-size: 13px;
+        }
+      }
+
+      .icon-button-log-out {
+        font-size: 30px;
+        color: red;
+        padding: 10px;
+        border-radius: 30px;
+      }
+
+      .icon-button-log-out:active {
+        background: rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+.display-none {
   display: none;
+}
+
+.display-block {
+  display: block;
 }

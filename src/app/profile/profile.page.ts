@@ -227,8 +227,8 @@ export class ProfilePage implements OnInit {
         this.toastCtrl.presentToast({text: this.translateService.instant('PROFILE.ComingSoon')});
     }
 
-    eyewalletWeb() {
-        this.toastCtrl.presentToast({ text: this.translateService.instant('PROFILE.ComingSoon') });
+    public eyewalletWeb(): void {
+        this.router.navigate(['/qrscann-sesion']);
     }
 
     async setStorageVerification(userVerification) {
