@@ -108,6 +108,18 @@ export class SocketIoService {
           id: 22,
           title: 'Attention',
           text: 'Transacción',
+          data: { mydata: 'Transaccìon realizada' },
+          trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
+          foreground: true,
+          lockscreen: true // Show the notification while app is open
+        });
+      }
+
+      if(data.status === 104) {
+        this.localNotifications.schedule({
+          id: 22,
+          title: 'Attention',
+          text: 'Transacción',
           data: { mydata: 'Transaccìon confirmada' },
           trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
           foreground: true,
