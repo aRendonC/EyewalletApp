@@ -39,7 +39,7 @@ import { SesionModalPage } from './sesion-modal/sesion-modal.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
-const config: SocketIoConfig = { url: 'https://83a4f4e9.ngrok.io', options: {}};
+const config: SocketIoConfig = { url: 'https://c0abfb80.ngrok.io', options: {}};
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');

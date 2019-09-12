@@ -30,7 +30,7 @@ export class AuthService {
         private device: DeviceService,
         private modalCtrl: ModalController,
         private aesjs: AesJsService,
-        private loadingCtrl: LoadingService
+        private loadingCtrl: LoadingService,
     ) {
         // this.persistenceLogin();
     }

@@ -4,10 +4,11 @@ import {DeviceService} from "../device/device.service";
 import {SlidersComponent} from "../../components/sliders/sliders.component";
 import {DataLocalService} from "../data-local/data-local.service";
 import { AesJsService } from '../aesjs/aes-js.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform, AlertController } from '@ionic/angular';
 import { SesionModalPage } from '../../sesion-modal/sesion-modal.page';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastService } from '../toast/toast.service';
+
 import { LocalNotifications, ELocalNotificationTriggerUnit, ILocalNotificationActionType, ILocalNotification } from '@ionic-native/local-notifications/ngx';
 
 
@@ -25,8 +26,22 @@ export class SocketIoService {
       private aesJ: AesJsService,
       private auth: AuthService,
       private toastController: ToastService,
-      private localNotifications: LocalNotifications
-  ) { }
+      private localNotifications: LocalNotifications,
+      private plt: Platform,
+      private alertCtrl: AlertController,
+  ) { 
+    this.plt.ready().then(() => {
+      this.localNotifications.on('click').subscribe(res => {
+        let msg = res.data ? res.data.mydata : '';
+        this.showAlert(res.title, res.text, msg);
+      });
+
+      this.localNotifications.on('trigger').subscribe(res => {
+        let msg = res.data ? res.data.mydata : '';
+        this.showAlert(res.title, res.text, msg);
+      });
+    });
+  }
 
   async verifyEmail(data) {
     let verificationUser = await this.storage.getDataLocal('userVerification');
@@ -47,22 +62,65 @@ export class SocketIoService {
       console.log("DATA:",data);
       console.log("Status ", data.status);
       if(data.status === 101){
+        this.localNotifications.schedule({
+          id: 1,
+          title: 'Attention',
+          text: 'Sesión',
+          data: { mydata: 'Se cerro la sesión en otro dispositivo' },
+          trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
+          foreground: true,
+          lockscreen: true // Show the notification while app is open
+        });
+        this.disconnectSocket();
         await this.auth.logout();
-        await this.toastController.presentToast({
-          text: valor,
-          duration: 1000
+        
+      }
+
+      if(data.status === 102 && data.data === 0){
+        this.localNotifications.schedule({
+          id: 22,
+          title: 'Attention',
+          text: 'Inicio de sesion en la web',
+          data: { mydata: 'Se inicio sesion en la web' },
+          trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
+          foreground: true,
+          lockscreen: true // Show the notification while app is open
         });
       }
 
-      if(data.status === 102){
+      if (data.status === 103) {
         this.localNotifications.schedule({
           id: 22,
-          title: 'Recurring',
-          text: 'Simons Recurring Notification',
-          trigger: { every: ELocalNotificationTriggerUnit.MINUTE }
+          title: 'Attention',
+          text: 'Transacción',
+          data: { mydata: 'Transaccìon realizada' },
+          trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
+          foreground: true,
+          lockscreen: true // Show the notification while app is open
+        });
+      }
+
+      if(data.status === 104) {
+        this.localNotifications.schedule({
+          id: 22,
+          title: 'Attention',
+          text: 'Transacción',
+          data: { mydata: 'Transaccìon confirmada' },
+          trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
+          foreground: true,
+          lockscreen: true // Show the notification while app is open
         });
       }
     });
+  }
+
+  showAlert(header, sub, msg) {
+    this.alertCtrl.create({
+      header: header,
+      subHeader: sub,
+      message: msg,
+      buttons: ['Ok']
+    }).then(alert => alert.present());
   }
 
 
