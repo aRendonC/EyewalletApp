@@ -1,0 +1,39 @@
+@import '../../global.scss';
+
+.button-return {
+   height: 2em;
+   width: 2em;
+   position: absolute;
+   top: 30px;
+   left: 10px;
+}
+
+.back-modal{
+    @extend .backGroundGradient;
+}
+.card-detalis{
+    margin-top: 10%;
+}
+
+.conten-detalis{
+    background:#FFFFFF;
+}
+.icon-detalies{
+    width: 24px;
+    height: 24px;
+}
+
+.label-datails{
+    display: block;
+    color:#5496FF;
+    width: 100%;
+}
+
+.title-details{
+    font-size: 28px;
+}
+
+.value-label{
+    color:#000000;
+}
+

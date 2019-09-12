@@ -1,7 +1,7 @@
-<ion-content padding class="bghome" >
+<ion-content padding class="bghome" [class.blur]="ctrlCssBlur">
    <app-return-page [path]="path"></app-return-page>
 
-   <div class="move-logo">
+   <div>
       <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
       <div class="center">
          <ion-label class="text-eyewallet">EYEWALLET</ion-label>
@@ -12,16 +12,26 @@
 
    <form #form="ngForm" (ngSubmit)="restorePassword()" class="transparent move-form">
       <ion-list class="transparent">
+
+         <!-- Email -->
+         <ion-item class="transparent white-line">
+            <ion-img src="../../assets/icon/icon-email.svg" class="resize-icon"></ion-img>
+         
+            <ion-input name="email" placeholder="Email" [(ngModel)]="dataRestorePassword.email"
+               (ngModelChange)="validateEmail($event)" clearInput type="email" class="white move-input"></ion-input>
+         </ion-item>
+
          <!-- Usuario -->
-         <ion-item class="transparent white-line"> 
+         <ion-item class="transparent white-line">
             <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
+
             <ion-input
-               type="password"
                name="pin"
                placeholder="Pin"
                [(ngModel)]="dataRestorePassword.pin"
                (ngModelChange)="validatePin($event)"
-					clear-input
+               clearInput
+               type="password"
                class="white move-input"
             ></ion-input>
          </ion-item>
@@ -29,29 +39,37 @@
          <!-- Contraseña -->
          <ion-item class="transparent white-line">
             <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
+
             <ion-input
-               type="password"
-               name="password"
-               placeholder="Nueva Contraseña"
-               [(ngModel)]="dataRestorePassword.newPassword"
+                  type="password"
+                name="password"
+                placeholder="{{'RESTORE.NewPassword' | translate}}"
+                [(ngModel)]="dataRestorePassword.newPassword"
                (ngModelChange)="validateNewPassword($event)"
-					clear-input
+                clear-input
                class="white move-input"
             ></ion-input>
+
+            <ion-img *ngIf="newPasswordOk" slot="end" class="icon-pass-success-error-ipsr" src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
+				<ion-img *ngIf="newPasswordError" slot="end" class="icon-pass-success-error-ipsr" src="../../assets/icon/icon-data-form-invalid.svg"></ion-img>
          </ion-item>
 
          <!-- Repita Contraseña -->
          <ion-item class="transparent white-line">
             <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
+
             <ion-input
                type="password"
                name="rewrite password"
-               placeholder="Repita Nueva Contraseña"
+               placeholder="{{'RESTORE.RepeatPassword' | translate}}"
                [(ngModel)]="dataRestorePassword.repeatNewPassword"
                (ngModelChange)="validateRepeatNewPassword($event)"
 					clear-input
                class="white move-input"
             ></ion-input>
+
+            <ion-img *ngIf="repeatNewPasswordOk" slot="end" class="icon-pass-success-error-ipsr" src="../../assets/icon/icon-data-form-valid.svg"></ion-img>
+				<ion-img *ngIf="repeatNewPasswordError" slot="end" class="icon-pass-success-error-ipsr" src="../../assets/icon/icon-data-form-invalid.svg"></ion-img>
          </ion-item>
       </ion-list>
 
@@ -60,8 +78,14 @@
             type="submit"
             [disabled]="buttonDisabled"
             mode="ios"
-            class="btn-start"
-         >Actualizar Contraseña</ion-button>
+            shape="round"
+            [ngClass]="buttonDisabled ? 'button-disable' : 'button-enable'"
+         >{{'RESTORE.UpdatePassword' | translate}}</ion-button>
       </div>
    </form>
+   
+   <div class="content-device-id" *ngIf="dataDeviceId !== undefined">
+      <span class="text-device-id">{{ 'RESTORE.TextDeviceId' | translate }}</span>
+      <span class="text-device-id">{{ dataDeviceId }}</span>
+   </div>
 </ion-content>

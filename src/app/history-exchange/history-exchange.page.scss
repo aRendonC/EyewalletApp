@@ -1,0 +1,181 @@
+@import '../../global.scss';
+
+.grid{
+  display: grid;
+  height: 40%;
+  position: relative;
+  grid-template: 25% 15% 15% 30%/10% auto 10%;
+}
+
+.pockets{
+  grid-area: 1/1/1/4;
+}
+
+.s0 {
+  color: #FA5877;
+}
+
+.s1 {
+  color: #3D95FF;
+}
+
+.s2 {
+  color: #7FE1B0;
+}
+
+.s3 {
+  color: #5758BB;
+}
+
+.status0 {
+  color: white;
+  height: 35px;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ddc97', endColorstr='#84eae8', GradientType=0 );
+  border-radius: 50px;
+  width: 100%;
+  background: linear-gradient(#ff7c6e 0%, #f4317f 100%);
+}
+
+.status1 {
+  color: white;
+  height: 35px;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ddc97', endColorstr='#84eae8', GradientType=0 );
+  border-radius: 50px;
+  width: 100%;
+  background: linear-gradient(#4daaff 0%, #5584ff 21.72%, #7300ff 100%);
+}
+
+.status2 {
+  color: white;
+  height: 35px;
+  background: linear-gradient(#7ddc97 0%, #84eae8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ddc97', endColorstr='#84eae8', GradientType=0 );
+  border-radius: 50px;
+  width: 100%;
+}
+
+.status3 {
+  color: white;
+  height: 35px;
+  background: linear-gradient(#9980FA 0%, #5758BB 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ddc97', endColorstr='#84eae8', GradientType=0 );
+  border-radius: 50px;
+  width: 100%;
+}
+
+.selected-exchange-card{
+  background: linear-gradient(#4daaff 0%, #5584ff 21.7%, #7300ff 100%);
+  box-shadow: 0px 5px 15px rgba(51, 51, 203, 0.41);
+  ion-card-content{
+    ion-grid{
+      ion-row{
+        ion-col{
+          color: white !important;
+        }
+      }
+    }
+  }
+
+}
+
+.col-p{
+  color: black;
+  font-size: 14px;
+  display: block;
+  width: 100%;
+}
+
+.col-p2{
+  color: #354E91;
+  font-size: 12px;
+  display: block;
+  width: 100%;
+}
+.move-name{
+  grid-area: 2/1/3/4;
+  margin-top: 1.5vh;
+  font-size: 4vw;
+  justify-self: center;
+  position: relative;
+  z-index: 5;
+  color: white;
+  font-family: 'Open-Sans', sans-serif;
+  font-weight: 400;
+}
+
+.bg-profile{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 3;
+  grid-area: 1/1/5/4;
+}
+
+.search-input{
+  grid-area: 3/2/3/3;
+  z-index: 5;
+  border-radius: 30px !important;
+  height: 45px !important;
+}
+
+.grd-div-select{
+  grid-area: 4/2/4/3;
+}
+
+.move-cryptoInfo{
+  top: -50px;
+  --offset-top: 15vh !important;
+  --offset-bottom: 15vh !important;
+  height: auto;
+  --background: linear-gradient(to bottom, rgba(255,255,255,1) 90%, rgba(223,226,238,1) 100%, rgba(202,206,227,1) 100%);
+}
+
+.select-filter-exchange{
+  text-align: center;
+  border: 1px solid white;
+  z-index: 5;
+  border-radius: 30px;
+  height: 45px;
+  width: 90%;
+  color: white;
+  @extend .all-center;
+  padding: 0 20px 0 20px;
+  top:15px;
+}
+
+.select-searchable{
+  float: right;
+  position: absolute;
+  right: 10%;
+  @extend .all-center;
+}
+
+.sc-ion-searchbar-ios-h {
+  border-radius: 16px;
+  border: 1px solid white;
+  --clear-button-color: white;
+  --cancel-button-color: white;
+  --color: white;
+  --icon-color: white;
+  --background: transparent;
+  padding: 12px;
+  height: 40px;
+  contain: strict;
+}
+
+.labels{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  --color: #93B5E5;
+}
+.text{
+  font-family: 'Open-Sans', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #272759;
+}
+
+.list-ios{
+  margin-top:60px !important;
+}

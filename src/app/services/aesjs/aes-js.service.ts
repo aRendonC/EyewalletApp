@@ -1,4 +1,4 @@
-// Dependencies.
+
 import {Injectable} from '@angular/core';
 import * as aesjs from 'aes-js';
 
@@ -43,7 +43,7 @@ export class AesJsService {
   ];
 
   public encrypt(text): any {
-    text = JSON.stringify(text)
+    text = JSON.stringify(text);
     const textBytes = aesjs.utils.utf8.toBytes(text);
     const aesCtr = new aesjs.ModeOfOperation.ctr(this.key, new aesjs.Counter(5));
     const encryptedBytes = aesCtr.encrypt(textBytes);
@@ -54,7 +54,6 @@ export class AesJsService {
     const encryptedBytes = aesjs.utils.hex.toBytes(text);
     const aesCtr = new aesjs.ModeOfOperation.ctr(this.key, new aesjs.Counter(5));
     const decryptedBytes = aesCtr.decrypt(encryptedBytes);
-    console.log('------------>', JSON.parse(aesjs.utils.utf8.fromBytes(decryptedBytes)))
     return JSON.parse(aesjs.utils.utf8.fromBytes(decryptedBytes));
   }
   public encryptNoJson(text): any {
@@ -67,7 +66,6 @@ export class AesJsService {
     const encryptedBytes = aesjs.utils.hex.toBytes(text);
     const aesCtr = new aesjs.ModeOfOperation.ctr(this.key, new aesjs.Counter(5));
     const decryptedBytes = aesCtr.decrypt(encryptedBytes);
-    console.log('------------>', aesjs.utils.utf8.fromBytes(decryptedBytes))
     return aesjs.utils.utf8.fromBytes(decryptedBytes);
   }
 }

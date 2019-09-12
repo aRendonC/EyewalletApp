@@ -1,0 +1,164 @@
+@import '../../global.scss';
+
+.vault-list {
+   display: flex;
+   justify-content: center;
+   --background: linear-gradient(to bottom, rgba(255,255,255,1) 90%, rgba(223,226,238,1) 100%, rgba(202,206,227,1) 100%);
+
+   .header {
+      background-image: url('../../assets/images/vault-header-background.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 247px;
+      position: fixed;
+      width: 100%;
+      z-index: 3;
+
+      .select-currency {
+         font-family: $font-roboto-regular;
+         font-size: 26px;
+         color: white;
+         width: 80px;
+         margin: 10px auto 0 auto;
+         padding: 0;
+         @extend .all-center;
+      }
+
+      .content-add {
+         margin: 10px 0;
+         @extend .all-center;
+
+         .icon-add {
+            margin: 0 10px 0 0;
+         }
+
+         .add-local-text {
+            font-family: $font-roboto-regular;
+            font-size: 31px;
+            color: white;
+         }
+      }
+
+      .content-add-usd {
+         @extend .all-center;
+
+         .add-text-usd {
+            font-family: $font-roboto-regular;
+            font-size: 17px;
+            color: #D1C9FF;
+            margin: 0 10px 0 0;
+         }
+
+         .add-text-usdollar {
+            font-family: $font-roboto-regular;
+            font-size: 13px;
+            color: #D1C9FF;
+         }
+      }
+   }
+
+   .content-vaults-created {
+      padding: 260px 0 140px 0;
+
+      .info-vault-sliding {
+         border-radius: 50px;
+         width: 90%;
+         margin: 20px auto;
+         -webkit-box-shadow: 0px 0px 40px -10px rgba(51,51,203,0.3);
+         -moz-box-shadow: 0px 0px 40px -10px rgba(51,51,203,0.3);
+         box-shadow: 0px 0px 40px -10px rgba(51,51,203,0.3);
+         z-index: 0;
+
+         .info-vault-sliding-item {
+            --border-style: none;
+            --background: white;
+            z-index: -2;
+
+            .content-info-vault-sliding {
+               @extend .center-space-between;
+               padding: 20px 0;
+               width: 100%;
+
+               .content-component-info-coin {
+                  width: 25%;
+                  @extend .all-center-colum;
+
+                  .icon-coin {
+                     width: 40px;
+                  }
+
+                  .text-type-coin {
+                     font-family: $font-openSans-bold;
+                     font-size: 12px;
+                     color: #272759;
+                     margin: 0 0 8px 0;
+                  }
+
+                  .text-investment-usd {
+                     font-family: $font-roboto-bold;
+                     font-size: 9px;
+                     color: #93B5E5;
+                  }
+
+                  .content-icon-value-investment-usd {
+                     @extend .all-center;
+                     margin: 0 0 8px 0;
+
+                     .icon-add-little {
+                        width: 6px;
+                        margin: 0 4px 0 0;
+                     }
+
+                     .value-investment-usd {
+                        font-family: $font-openSans-bold;
+                        font-size: 12px;
+                        color: #272759;
+                     }
+                  }
+
+                  .content-performance-percentage {
+                     @extend .all-center;
+
+                     .performance-percentage-text {
+                        font-family: $font-openSans-bold;
+                        font-size: 9px;
+                        color: #5496FF;
+                     }
+
+                     .performance-percentage-icon {
+                        margin: 0 0 0 4px;
+                     }
+                  }
+               }
+            }
+         }
+         
+         .content-button-delete-vault {
+            z-index: -3;
+
+            .button-delete-vault {
+               width: 80px;
+               color: white;
+               font-size: 12px;
+               text-transform: capitalize;
+            }
+
+            .Eliminado, .Removed {
+               background: #f39c12;
+            }
+
+            .Procesando, .Processing {
+               background: #8e44ad;
+            }
+
+            .Finalizado, .Finalized {
+               background: #2980b9;
+            }
+
+            .Eliminar, .Remove {
+               background: #c0392b;
+            }
+         }
+      }
+   }
+}

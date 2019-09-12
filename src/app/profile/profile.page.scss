@@ -1,0 +1,213 @@
+.grid{
+    display: grid;
+    height: 39%;
+    position: relative;
+    z-index: 4;
+    grid-template: 34% 36% 12% 14%/ auto 25% auto;
+}
+
+.bg-profile{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 3;
+    grid-area: 1/1/5/4;
+}
+
+.pockets{
+    grid-area: 1/1/1/4;
+}
+
+.move-profile {
+    grid-area: 2/2/2/2;
+    position: relative;
+    width: 100%;
+    height: auto;
+    z-index: 5;
+    align-self: center;
+}
+
+.no-padding{
+    padding: 0px;
+}
+
+.move-name{
+    grid-area: 4/1/3/4;
+    margin: 0px;
+    margin-top: 1.5vh;
+    font-size: 4vw;
+    justify-self: center;
+    position: relative;
+    z-index: 5;
+    color: white;
+    font-family: 'Open-Sans', sans-serif;
+    font-weight: 400;
+}
+
+.move-engine{
+    margin-left: 14vw;
+    margin-top: -3vh;
+}
+
+.move-add{
+    position: absolute;
+    grid-area: 2/2/2/2;
+    align-self: end;
+    justify-self: end;
+    z-index: 7;
+}
+
+.absolute{
+    position: absolute;
+}
+
+.move-profilePic{
+    border-radius: 80px;
+    position: relative;
+    justify-self: center;
+    align-self: center;
+    z-index: 5;
+    grid-area: 2/2/2/2;
+    width: 20vw;
+    height: 20vw;
+}
+
+.labels{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    --color: #93B5E5;
+    margin-left: 4vh;
+}
+
+.text{
+    font-family: 'Open-Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #272759;
+    width: 60%;
+}
+
+.move-profileInfo{
+    --offset-top: 15vh !important;
+    --offset-bottom: 15vh !important;
+    height: 53vh;
+    --background: linear-gradient(to bottom, rgba(255,255,255,1) 90%, rgba(223,226,238,1) 100%, rgba(202,206,227,1) 100%);
+}
+
+ion-item{
+    --border-color: #D1C9FF;
+}
+
+.text-blue{
+    font-family: 'Open-Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #5496FF;
+    width: 60%;
+}
+
+.text-second{
+    font-family: 'Open-Sans', sans-serif;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    color: #272759;
+    width: 100%;
+}
+
+.item-second{
+    --border-color: transparent;
+    padding: 6px 0px;
+}
+
+.item-images{
+    padding: 26px 0px;
+    --border-color: transparent;
+}
+
+.pad-lr{
+    padding: 0 1em;
+    width: 23vw;
+}
+.pad-lrs{
+    padding: 0 1em;
+    width: 19vw;
+}
+
+.delete-account{
+    font-family: 'Open-Sans', sans-serif;
+    text-align: center;
+    font-weight: 700;
+    color: #F4317F;
+    width: 100%;
+    padding: 26px 0px;
+}
+
+.item-delete{
+    --border-color: transparent;
+}
+
+
+.mail-verify{
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Open-Sans', sans-serif;
+    color: white;
+    padding-top: 0.8vw;
+    padding-bottom: 0.8vw;
+    margin: 0px 0px 0px 0px;
+    width: 80%;
+    text-align: center;
+    height: 40%;
+    border-radius: 0px 0px 22.34px 0px;
+    background: linear-gradient(45deg, #ff7c6e 0%, #f4317f 100%);
+    border-color: transparent;
+    position: relative;
+    z-index: 3;
+}
+.mail-verify-success{
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Open-Sans', sans-serif;
+    color: white;
+    padding-top: 0.8vw;
+    padding-bottom: 0.8vw;
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    text-align: center;
+    height: 40%;
+    background: #0ec254;
+    border-color: transparent;
+    position: relative;
+    z-index: 3;
+}
+
+.mail-sendMail{
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Open-Sans', sans-serif;
+    color: white;
+    padding-top: 0.8vw;
+    padding-bottom: 0.8vw;
+    margin: 0px 0px 0px -4vw;
+    width: 80%;
+    text-align: center;
+    height: 40%;
+    background: linear-gradient(45deg, #4daaff 0%, #5584ff 21.72%, #7300ff 100%);
+    border-color: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.item-notifications{
+    --border-color: transparent;
+    padding: 0px;
+    margin-left: -5vw;
+    border: 0px;
+    width: 110vw;
+}
+
+
+
+

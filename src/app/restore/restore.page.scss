@@ -1,3 +1,5 @@
+@import '../../global.scss';
+
 .bghome{
     --background:  url('../../assets/img/bg-home.png');
     --background-repeat: no-repeat;
@@ -28,33 +30,17 @@
     color: white;
 }
 
-.center{
-    margin-top: 6vh;
-    text-align: center;
-    width: 100%;
-    margin-left: -7vh
-}
-
-.move-info{
+.move-info {
     margin-top: 10vh;
     text-align: center
 }
 
-
-.center{
-    margin-top: 6vh;
-    text-align: center;
-    width: 100%;
-    margin-left: -7vh
-}
-
-
-.move-btn{
+.move-btn {
     margin-top: 5vh;
     text-align: center
 }
 
-.btn-start{
+.btn-start {
     --background: #4C6AC0;
     --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
     --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
@@ -96,3 +82,15 @@
     --highlight-height: 0
 }
 
+.icon-pass-success-error-ipsr {
+    width: 24px;
+}
+
+.content-device-id {
+    @extend .all-center-colum;
+
+    .text-device-id {
+        font-size: 13px;
+        color: white;
+    }
+}

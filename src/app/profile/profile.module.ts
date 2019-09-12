@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
-
+import { QRScanner } from "@ionic-native/qr-scanner/ngx";
 import {IonicModule} from '@ionic/angular';
-
 import {ProfilePage} from './profile.page';
 import {ComponentsModule} from "../components/components.module";
+import {TranslateModule} from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -21,10 +21,12 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    TranslateModule
   ],
   declarations: [
-    ProfilePage
+    ProfilePage,
   ]
 })
+
 export class ProfilePageModule {}

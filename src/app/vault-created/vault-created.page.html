@@ -1,0 +1,48 @@
+<ion-content class="vault-created">
+  <div class="header">
+    <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
+
+    <div class="content-text-icon-coin">
+      <span class="text-coin">{{ nameCurrency }} ({{ shortNameCurrency }})</span>
+      <ion-img src="../../assets/icon/icon-coin-{{ shortNameCurrency === 'BTC' ? 'BCH' : shortNameCurrency }}.svg" class="icon-coin"></ion-img>
+    </div>
+  </div>
+
+  <div class="earning-information">
+    <table class="table">
+      <tr class="row-border">
+        <td text-capitalize class="title">{{ 'VAULT_CREATED.quantityText' | translate }}</td>
+        <td class="text">{{ amountCurrency }} {{ shortNameCurrency }}</td>
+      </tr>
+
+      <tr>
+        <td text-capitalize class="title">{{ 'VAULT_CREATED.quantityText' | translate }}</td>
+        <td class="text">{{ amountUSD }} {{ USDtext }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="content-icon-coin-background cicb-{{ shortNameCurrency }}"></div>
+
+  <div class="content-button">
+    <ion-button
+      [disabled]="buttonDisabled"
+      (click)="acceptCreationVault()"
+      class="button"
+      text-capitalize
+      shape="round"
+    >
+      {{ 'VAULT_CREATED.buttonAccept' | translate }}
+    </ion-button>
+  </div>
+
+  <div class="content-terms-conditions">
+    <span class="text-one">
+      {{ 'VAULT_CREATED.termsConditionsTextOne' | translate }}
+    </span>
+
+    <span class="text-two">
+      {{ 'VAULT_CREATED.termsConditionsTextTwo' | translate }}
+    </span>
+  </div>
+</ion-content>

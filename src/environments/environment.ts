@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  urlBase: 'https://7df3ea27.ngrok.io/api/v1/'
+  urlBase: 'https://fd3d3794.ngrok.io/api/v1/',
+  urlAvatar: 'https://fd3d3794.ngrok.io/api/web/',
+  flag: 'https://fd3d3794.ngrok.io/api/web/uploads/flags/',
+  apiKeyLocation: '2b154f971e3ab7',
+  urlSocket: 'https://c0abfb80.ngrok.io'
 };
 
 /*

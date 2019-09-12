@@ -1,0 +1,151 @@
+<ion-content padding class="bghome">
+
+    <div *ngIf="ctrlSelfie" style="margin-top: 10%">
+        <ion-card class="center" color="Light">
+            <ion-card-header>
+                <ion-card-title type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 20px;">
+                        {{'UPLOAD_FILES_MODAL.CreatePhoto'| translate}}
+                    </ion-label>
+                </ion-card-title>
+                <ion-card-subtitle type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label style="color:#3D95FF;padding: 0 20px 10px 20px;">
+                        {{'UPLOAD_FILES_MODAL.MakeSureYourFacePhoto'| translate}}
+                    </ion-label>
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content class="center center-vertical center-horizontal">
+                <ion-img style="width: 80%;" src="../../assets/img/upload/takephoto.svg"></ion-img>
+            </ion-card-content>
+        </ion-card>
+        <div class="move-btn">
+            <ion-button class="btn-start" mode="ios"
+                (click)="takePhoto()"> {{'VERIFICATION_MODAL_PAGE.StartNow'| translate}}
+            </ion-button>
+            <br>
+            <ion-button class="btn-start" mode="ios"
+                (click)="closeModal()">{{'VERIFICATION_MODAL_PAGE.StartLatter'| translate}}
+            </ion-button>
+        </div>
+    </div>
+    <div *ngIf="ctrlDocument" style="margin-top: 10%">
+        <ion-card *ngIf="documentList === 0" class="center" color="Light">
+            <ion-card-header>
+                <ion-card-title type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.TakePhotoYourPassport'| translate}}
+                    </ion-label>
+                </ion-card-title>
+                <ion-card-subtitle type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.MakeSureYourDocumentVisible'| translate}}
+                    </ion-label>
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-img src="../../assets/img/upload/passport.svg"></ion-img>
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="documentList === 1" class="center" color="Light">
+            <ion-card-header>
+                <ion-card-title type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.DocumentWhitPhoto'| translate}}
+                    </ion-label>
+                </ion-card-title>
+                <ion-card-subtitle type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.MakeSureYourFaceAndDocumentVisible'| translate}}
+                    </ion-label>
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-img src="../../assets/img/upload/documento.svg"></ion-img>
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="documentList === 2" class="center" color="Light">
+            <ion-card-header>
+                <ion-card-title type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.DocumentHome'| translate}}</ion-label>
+                </ion-card-title>
+                <ion-card-subtitle type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.MakeSureYourDocumentVisible'| translate}}
+                    </ion-label>
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-img src="../../assets/img/upload/tarjeta.svg"></ion-img>
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="documentList === 3" class="center" color="Light">
+            <ion-card-header>
+                <ion-card-title type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.DriverLicense'| translate}}</ion-label>
+                </ion-card-title>
+                <ion-card-subtitle type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.MakeSureYourDocumentVisible'| translate}}
+                    </ion-label>
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-img src="../../assets/img/upload/tarjeta.svg"></ion-img>
+            </ion-card-content>
+        </ion-card>
+        <div class="move-btn">
+            <ion-button class="btn-start" mode="ios"
+                        (click)="takePhoto()">{{'GENERAL.Continue'| translate}}</ion-button>
+        </div>
+    </div>
+    <div *ngIf="ctrlDocumentBack" style="margin-top: 10%">
+        <ion-card class="center" color="Light">
+            <ion-card-header>
+                <ion-card-title type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.TakePhotoBackDocument'| translate}}
+                    </ion-label>
+                </ion-card-title>
+                <ion-card-subtitle type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.MakeSureYourDocumentVisible'| translate}}
+                    </ion-label>
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-img src="../../assets/img/upload/takephoto.svg"></ion-img>
+            </ion-card-content>
+        </ion-card>
+        <div class="move-btn">
+            <ion-button class="btn-start" mode="ios"
+                        (click)="takePhoto()">{{'GENERAL.Continue'| translate}}</ion-button>
+        </div>
+    </div>
+    <div *ngIf="ctrlDocumentAddress" style="margin-top: 10%">
+        <ion-card class="center" color="Light">
+            <ion-card-header>
+                <ion-card-title type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 20px;">{{'UPLOAD_FILES_MODAL.PublicServicesDocuments'| translate}}</ion-label>
+                </ion-card-title>
+                <ion-card-subtitle type="ios" color="Light" class="center center-vertical center-horizontal">
+                    <ion-label
+                            style="color:#3D95FF;padding: 0 20px 10px 20px;">{{'UPLOAD_FILES_MODAL.MakeSureYouDirection'| translate}}
+                    </ion-label>
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-img src="../../assets/img/upload/tarjeta.svg"></ion-img>
+            </ion-card-content>
+        </ion-card>
+        <div class="move-btn">
+            <ion-button class="btn-start" mode="ios"
+                        (click)="takePhoto()">{{'GENERAL.Continue'| translate}}</ion-button>
+        </div>
+    </div>
+</ion-content>
+
+

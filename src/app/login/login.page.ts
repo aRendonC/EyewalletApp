@@ -1,103 +1,123 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, MenuController, ToastController} from '@ionic/angular';
+import {MenuController, ModalController} from '@ionic/angular';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
-import { AxiosService } from '../services/axios/axios.service';
-import {ModalController} from '@ionic/angular';
-import {PinModalPage} from '../pin-modal/pin-modal.page';
+import {AxiosService} from '../services/axios/axios.service';
 import {TouchLoginService} from "../services/fingerprint/touch-login.service";
-import {Storage} from "@ionic/storage";
-import {AesJsService} from "../services/aesjs/aes-js.service";
+import {LoadingService} from "../services/loading/loading.service";
+import {ToastService} from "../services/toast/toast.service";
+import {DataLocalService} from "../services/data-local/data-local.service";
+import {TranslateService} from "@ngx-translate/core";
+import { AesJsService } from '../services/aesjs/aes-js.service';
+import { SocketIoService } from '../services/socketIo/socket-io.service';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+    selector: 'app-login',
+    templateUrl: './login.page.html',
+    styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
-  username: string;
-  password: string;
-  dataReturned: any;
-  pockets: any = [];
-  public path: string = '';
+    public ctrlCssBlur: boolean = false;
+    public username: string = null;
+    public password: string = null;
+    public pockets: any = [];
+    public path: string = '';
 
-  constructor(
-    private loadingController: LoadingController,
-    private toastController: ToastController,
-    private auth: AuthService,
-    private menu: MenuController,
-    private router: Router,
-    private http: AxiosService,
-    public modalCtrl: ModalController,
-    private touchCtrl: TouchLoginService,
-    private store: Storage,
-    private aesjs: AesJsService
-  ) {
-  }
+    constructor(
+        private toastController: ToastService,
+        private auth: AuthService,
+        private menu: MenuController,
+        private router: Router,
+        private http: AxiosService,
+        public modalCtrl: ModalController,
+        private touchCtrl: TouchLoginService,
+        private store: DataLocalService,
+        private loadingCtrl: LoadingService,
+        private translateService: TranslateService,
+        private aesJ: AesJsService,
+        private socket: SocketIoService,
+        //private socket: Socket,
+    ) {
+    }
 
-  ngOnInit() {
-    this.menu.enable(false);
-    this.touchCtrl.isLocked = true
-  }
+    ngOnInit() {
+    }
 
-  ionViewDidLeave() {
-    this.menu.enable(true);
-  }
+    ionViewDidLeave() {
+        this.menu.enable(true);
+    }
 
-  async login() {
-    this.auth.login(this.username, this.password).then(async (data) => {
-      console.info('datos de inicio de sesión', data)
-      if (data) {
-        // @ts-ignore
-        // this.router.navigateByUrl(`/perfil/${data.serializeToken}`);
-        // this.router.navigate(['/perfil',data.id]);
-        await this.getUserProfile();
-        await this.getPocketsList()
-        // this.pockets = JSON.stringify(this.pockets)
-        console.info('mis pockets', this.pockets)
-       await this.router.navigate(['/app/tabs', {pockets: JSON.stringify(this.pockets)}]);
-        this.pockets = this.aesjs.encrypt(this.pockets)
-        await this.store.set('pockets', this.pockets)
-      } else {
-        await this.presentToast();
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+    async login() {
+        if (this.password && this.username) {
+            let channel = await this.createChannel();
+            let platform = 1;
+            await this.store.clearStore();
+            await this.loadingCtrl.present({text: this.translateService.instant('VAULT.loading')});
+            this.ctrlCssBlur = true;
+            const resultado = this.socket.initSocket(channel);
+            console.log("Resultado socket: ", resultado);
+            this.auth.login(this.username, this.password, platform, channel)
+                .then(async (data: any) => {
+                    if (data) {
+                        if (data.status == 200) {
+                            this.pockets = await this.getPocketsList();
+                            this.touchCtrl.isLocked = true;
+                            this.ctrlCssBlur = false;
+                            await this.loadingCtrl.dismiss();
+                            let pocket = this.pockets[0];
+                            this.store.setDataLocal('selected-pocket', pocket);
+                            await this.router.navigate([
+                                '/app/tabs/dashboard']);
+                            await this.store.setDataLocal('pockets', this.pockets);
+                        } else await this.clearData(data);
+                    } else await this.clearData(data)
+                })
+                .catch(async (error) => {
+                    this.ctrlCssBlur = false;
+                    console.error('ERROR: ', error);
+                    await this.loadingCtrl.dismiss();
+                });
+        } else {
+            if (!this.password && !this.username) {
+                await this.toastController.presentToast({
+                    text: this.translateService.instant('LOGIN_PAGE.AllFieldsIsRequired'),
+                    duration: 1000
+                });
+            } else if (!this.username) {
+                await this.toastController.presentToast({
+                    text: this.translateService.instant('LOGIN_PAGE.FieldEmail'),
+                    duration: 1000
+                });
+            } else if (!this.password) {
+                await this.toastController.presentToast({
+                    text: this.translateService.instant('LOGIN_PAGE.FiledPassword'),
+                    duration: 1000
+                });
+            }
+        }
+    }
 
-  async getUserProfile() {
-    let profile = await this.http.get('profile/1/view', this.auth, null )
-    console.info(profile)
-    profile = this.aesjs.encrypt(profile)
-    await this.store.set('profile', profile)
-  }
-  async openModal() {
-    const moda = await this.modalCtrl.getTop()
-    const modal = await this.modalCtrl.create({
-      component: PinModalPage,
-      componentProps: {
-        paramID: 123,
-        paramTitle : 'Test title'
-      }
-    });
+    public async getPocketsList() {
+        return await this.http.post('user-wallet/index', {currencyId: ''}, this.auth);
+    }
 
-    return await modal.present();
-  }
+    public async restore() {
+        await this.router.navigate(['restore']);
+    }
 
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'Usuario o contraseña incorrecta.',
-      duration: 2000
-    });
-    toast.present();
-  }
+    public async clearData(error) {
+        await this.loadingCtrl.dismiss();
+        this.ctrlCssBlur = false;
+        await this.toastController.presentToast({text: error, duration: 1000});
+    }
 
-  async getPocketsList() {
-    this.pockets = await this.http.get('user-wallet/index', this.auth, null);
-  }
-
-  public async restore() {
-    await this.router.navigate(['restore']);
-  }
+    async createChannel(){
+        const dates = new Date().getTime();
+        const rando = Math.random().toString(36).substring(7);
+        const valor = this.aesJ.encrypt(rando+dates);
+        return valor;
+    }
+    
 }

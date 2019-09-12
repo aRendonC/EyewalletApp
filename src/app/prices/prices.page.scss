@@ -1,0 +1,258 @@
+@import '../../global.scss';
+
+// --------------------------------
+// --------------------------------
+.prices-header {
+    position: fixed;
+    height: 34%;
+    width: 100%;
+    background-image: url('../../assets/images/bg-profile.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .content-text {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        margin: 10px 0 0 0;
+
+        .data-price-text-header {
+            display: block;
+            margin: 0 6px;
+        }
+
+        .short-name-text {
+            color: #93b5e5;
+            font-size: 20px;
+        }
+
+        .usd-text {
+            color: #93b5e5;
+            font-size: 16px;
+        }
+
+        .price-text {
+            font-size: 30px;
+            color: white;
+        }
+    }
+
+    .content-graph {
+        height: 52% !important;
+        width: 104% !important;
+        border-radius: 0 0 0 150px;
+        position: absolute;
+        left: -1.345%;
+        bottom: 2%;
+    }
+}
+
+.content-crypto-info{
+    z-index: -1;
+    --padding-top: 70%;
+    --padding-bottom: 110px;
+    --background: linear-gradient(to bottom, rgba(255,255,255,1) 90%, rgba(223,226,238,1) 100%, rgba(202,206,227,1) 100%);
+
+    .padding-prices{
+        padding: 0 30px 0 30px;
+
+        .row-data-cryptos {
+            .card-padding {
+                @extend .all-center;
+            }
+        }
+    }
+}
+// --------------------------------
+// --------------------------------
+.no-padding{
+    padding: 0;
+}
+
+.crypto-card{
+    margin-top: 8%;
+    width: 36vw;
+    height: 62vw;
+    background: white;
+    border-radius: 9.33px;
+    box-shadow: 0 32px 20px rgba(51, 51, 203, 0.05);
+}
+
+.BTC{
+    background: linear-gradient(#fac579 0%, #ea5933 100%);
+    box-shadow: 0 7px 1px rgba(234, 89, 51, 0.5), 0 13px 0 rgba(234, 89, 51, 0.3), 0 18px 1px rgba(234, 89, 51, 0.2)
+}
+
+.ETH{
+    background: linear-gradient(#4daaff 0%, #5584ff 21.7%, #7300ff 100%);
+    box-shadow: 0 7px 1px rgba(115, 0, 255, 0.5), 0 13px 0 rgba(115, 0, 255, 0.3), 0 18px 1px rgba(115, 0, 255, 0.2);
+}
+
+.BCH{
+    background: linear-gradient(#8dc351 0%, #199168 100%);
+    box-shadow: 0 7px 1px rgba(25, 145, 104, 0.5), 0 13px 0 rgba(25, 145, 104, 0.3), 0 18px 1px rgba(25, 145, 104, 0.2);
+}
+
+.LTC{
+    background: linear-gradient(#29abe2 0%, #345d9d 100%);
+    box-shadow: 0 7px 1px rgba(52, 93, 157, 0.5), 0 13px 0 rgba(105, 138, 190, 0.3), 0 18px 1px rgba(52, 93, 157, 0.2);
+}
+
+.XMR{
+    background: linear-gradient(#ff7c6e 0%, #f4317f 100%);
+    box-shadow: 0 7px 1px rgba(244, 49, 127, 0.5), 0 13px 0 rgba(244, 49, 127, 0.3), 0 18px 1px rgba(244, 49, 127, 0.2);
+}
+
+.ZEC{
+    background: linear-gradient(#FFE900 0%, #FAAD17 100%);
+    box-shadow: 0 7px 1px rgba(250, 173, 23, 0.5), 0 13px 0 rgba(250, 173, 23, 0.3), 0 18px 1px rgba(250, 173, 23, 0.2);
+}
+
+.bg-profile{
+    width: 100%;
+    height: 98.7%;
+    position: relative;
+    z-index: 3;
+    grid-area: 1/1/4/4;
+}
+
+.move-cryptoLogo{
+    padding-left: 14vw;
+    padding-right: 13vw;
+    padding-top: 6vw;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+}
+
+.cryptoName{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 3.5vw;
+    letter-spacing: 0;
+    line-height: 10px;
+    text-align: left;
+    color: #272759;
+}
+
+.cryptoCode{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 3.5vw;
+    letter-spacing: 0;
+    line-height: 10px;
+    text-align: left;
+    color: #93b5e5;
+
+}
+
+.cryptoPriceName{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 3.5vw;
+    letter-spacing: 0;
+    line-height: 10px;
+    text-align: left;
+    color: #272759;
+}
+.cryptoPrice{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 3.5vw;
+    letter-spacing: 0;
+    line-height: 10px;
+    text-align: left;
+    color: #93b5e5;
+}
+
+.priceDetails{
+    margin-left: 21px;
+    top: 13vh;
+    position: absolute;
+}
+
+.move-cryptoPrice{
+    z-index: 6;
+    font-weight: normal;
+    font-size: 5vw;
+    letter-spacing: 0;
+    line-height: 21px;
+    color: #93b5e5;
+    text-align: center;
+    width: 100%;
+    margin:  13px 0 0;
+    grid-area: 2/2/3/3;
+}
+
+.move-itemCryptoPrice{
+    top: -46vw;
+}
+
+.mainPrice{
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 8vw;
+    line-height: 38px;
+    text-align: center;
+    color: #fff;
+
+}
+
+.mainCurrency{
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 4vw;
+    line-height: 16px;
+    text-align: center;
+    color: #d1c9ff;
+
+}
+
+.white{
+    color: white !important;
+    filter: brightness(0) invert(1);
+}
+
+.LogoBG{
+    z-index: 1;
+    width: 26vw;
+    height: 18vh;
+    margin-top: 25vw;
+    margin-left: 9vw;
+    opacity: 0.2;
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
+}
+
+.moveGraph{
+    position: relative;
+    top: -36vw;
+    z-index: 3;
+}
+
+.pockets{
+    grid-area: 1/1/1/4;
+}
+
+.move-graphic{
+    grid-area: 3/1/4/4;
+    z-index: 5;
+    width: 104% !important;
+    height: 104.8% !important;
+    margin-left: -1.5vw;
+    margin-top: -2.4vw;
+    border-bottom-left-radius: 35vw;
+    border-top-left-radius: 0;
+}
+
+.grid-graphic {
+    display: grid;
+    grid-template: 25% 17% 60% / auto 74% auto;
+    height: 39%;
+}
+
+.move-profileInfo{
+    --offset-top: 6vh !important;
+    --offset-bottom: 0px !important;
+    height: 53vh;
+}

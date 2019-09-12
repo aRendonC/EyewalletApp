@@ -1,13 +1,13 @@
 <ion-content class="ReceiveFundsPage backGroundGradient">
-  <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+  <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
 
   <ion-card class="content-code-qr">
 
     <div class="code-qr-header">
-      <span class="title">{{textAmount}}</span>
+      <span class="title">{{'GENERAL.Amount' | translate}}</span>
 
       <div class="content-icon-amount">
-          <ion-img src="../../assets/icon/icon-bitcoin.png" class="icon"></ion-img>
+          <ion-img src="../../assets/icon/icon-bitcoin.svg" class="icon"></ion-img>
           <span class="amount">{{amount}}</span>
       </div>
     </div>
@@ -22,18 +22,18 @@
 
       </div>
 
-      <div class="content-buttons-qr">
+      <div class="content-buttons-qr center">
         <ion-button
           expand="full"
           shape="round"
           text-capitalize
           (click)="copyCode()"
-          class="button"
+          class="button-copy-text"
         >
-          {{buttonCopy}}
+        <ion-ripple-effect></ion-ripple-effect>
+          {{'GENERAL.Copy' | translate}}
         </ion-button>
-
-        <input type="text" [value]="codeQr" class="input">
+        <span class="input">{{codeQr}}</span>
 
       </div>
 

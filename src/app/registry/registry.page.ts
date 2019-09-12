@@ -1,17 +1,16 @@
-// Dependencies.
+
 import { Component, OnInit } from '@angular/core';
-import validator from 'validator';
-import { ToastController } from '@ionic/angular';
-
-// Constants.
-import * as CONSTANTS from '../constanst';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 import { AxiosService } from '../services/axios/axios.service';
-
-// Navigations.
-import {NavigationExtras, Router} from '@angular/router';
-
-// Storage
-import {Storage} from '@ionic/storage';
+import { DeviceService } from "../services/device/device.service";
+import { LoadingService } from "../services/loading/loading.service";
+import { ToastService } from "../services/toast/toast.service";
+import { TouchLoginService } from '../services/fingerprint/touch-login.service';
+import * as utils from '../../assets/utils';
+import {TranslateService} from "@ngx-translate/core";
+import { ModalController } from '@ionic/angular';
+import { PinModalRegistryPage } from '../pin-modal-registry/pin-modal-registry.page'
 
 @Component({
   selector: 'app-registry',
@@ -20,13 +19,16 @@ import {Storage} from '@ionic/storage';
 })
 
 export class RegistryPage implements OnInit {
-  public constants: any = CONSTANTS;
+  ctrlCssBlur: boolean = false;
   public dataRegistry = {
     email: '',
     phone: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   };
 
+  public confirmPasswordOk: boolean = false;
+  public confirmPasswordError: boolean = false;
   public passwordOk: boolean = false;
   public passwordError: boolean = false;
   public phoneOk: boolean = false;
@@ -38,15 +40,21 @@ export class RegistryPage implements OnInit {
   constructor(
     private register: AxiosService,
     private router: Router,
-    private store: Storage
+    private store: Storage,
+    private device: DeviceService,
+    private loadingCtrl: LoadingService,
+    private toastCtrl: ToastService,
+    private touchCtrl: TouchLoginService,
+    private translateService: TranslateService,
+    public modalController: ModalController
   ) { }
 
   ngOnInit() {
-    
+    this.touchCtrl.isTouch = false
   }
 
   public validateEmail(event): void {
-    if (!validator.isEmpty(event) && validator.isEmail(event)) {
+    if (utils.validateEmail(event)) {
       this.dataRegistry.email = event;
       this.emailOk = true;
       this.enableButton();
@@ -58,22 +66,7 @@ export class RegistryPage implements OnInit {
   }
 
   public validatePhone(event): void {
-    const locale = [
-      'ar-AE', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW',
-      'ar-SA', 'ar-SY', 'ar-TN', 'be-BY', 'bg-BG', 'bn-BD',
-      'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-CA',
-      'en-GB', 'en-GH', 'en-HK', 'en-IE', 'en-IN', 'en-KE',
-      'en-MU', 'en-NG', 'en-NZ', 'en-RW', 'en-SG', 'en-UG',
-      'en-US', 'en-TZ', 'en-ZA', 'en-ZM', 'en-PK', 'es-ES',
-      'es-MX', 'es-PY', 'es-UY', 'et-EE', 'fa-IR', 'fi-FI',
-      'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT', 'ja-JP',
-      'kk-KZ', 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO',
-      'pl-PL', 'pt-PT', 'pt-BR', 'ro-RO', 'ru-RU', 'sl-SI',
-      'sk-SK', 'sr-RS', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA',
-      'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW'
-    ];
-
-    if (!validator.isEmpty(event) && validator.isMobilePhone(event, locale)) {
+    if (utils.validatePhone(event)) {
       this.dataRegistry.phone = event;
       this.phoneOk = true;
       this.enableButton();
@@ -85,17 +78,7 @@ export class RegistryPage implements OnInit {
   }
 
   public validatePassword(event): void {
-    const passwordLength = {
-      min: 6,
-      max: undefined
-    }
-
-    if (!validator.isEmpty(event) &&
-      validator.isLength(event, passwordLength) &&
-      validator.isAlphanumeric(event) &&
-      !validator.isNumeric(event) &&
-      !validator.isAlpha(event)
-    ) {
+    if (utils.validatePassword(event)) {
       this.dataRegistry.password = event;
       this.passwordOk = true;
       this.enableButton();
@@ -108,8 +91,34 @@ export class RegistryPage implements OnInit {
     }
   }
 
+  public validateConfirmPassword(event): void {
+    if (utils.validatePassword(event)) {
+      this.dataRegistry.confirmPassword = event;
+
+      if (this.dataRegistry.password === event) {
+        this.confirmPasswordOk = true;
+        this.confirmPasswordError = false;
+      } else {
+        this.confirmPasswordOk = false;
+        this.confirmPasswordError = true;
+      }
+      this.enableButton();
+    } else {
+      this.dataRegistry.confirmPassword = event;
+      this.confirmPasswordOk = false;
+      this.enableButton();
+      this.confirmPasswordError = true;
+    }
+  }
+
   public enableButton(): void {
-    if (this.emailOk && this.phoneOk && this.passwordOk) {
+    if (
+      this.emailOk &&
+      this.phoneOk &&
+      this.passwordOk &&
+      this.confirmPasswordOk &&
+      (this.dataRegistry.password === this.dataRegistry.confirmPassword)
+    ) {
       this.disableButton = false;
     } else {
       this.disableButton = true;
@@ -118,26 +127,58 @@ export class RegistryPage implements OnInit {
     this.classButton = this.disableButton ? 'button-disable' : 'button-enable';
   }
 
-  public sendDataRegistry() {
+  public async sendDataRegistry(): Promise<any> {
+    await this.loadingCtrl.present({text: this.translateService.instant('REGISTRY_PIN.CreateWallet')});
+    this.ctrlCssBlur = true;
+    let device = await this.device.getDataDevice();
+    if(!device.uuid) device.uuid = 'asd6544asd';
     const urlRegistry: string = 'auth/register';
     const dataBody: object = {
       email: this.dataRegistry.email,
-	    phone: this.dataRegistry.phone,
-	    password: this.dataRegistry.password
+      phone: this.dataRegistry.phone,
+      password: this.dataRegistry.password,
+      deviceId: device.uuid
     };
 
     this.register.post(urlRegistry, dataBody)
-    .then(response => {
-      if (response.status === 200) {
-        console.log(response.data);
-        this.store.set('user', response.data)
-        let navigationExtras: NavigationExtras = {
-          queryParams: {
-            user: JSON.stringify(response.data),
-          }
-        }
-        this.router.navigate(['/registry-pin'], navigationExtras);
-      }
+    .then(async response => {
+      await this.validateRegistry(response);
+      await this.loadingCtrl.dismiss();
+      this.ctrlCssBlur = false;
+    })
+    .catch(async error => {
+      console.error('ERROR: ', error);
+      await this.loadingCtrl.dismiss();
+      this.ctrlCssBlur = false;
+      await this.toastCtrl.presentToast({text: 'Errorres de conexión'});
     });
+  }
+
+  private async validateRegistry(response: any): Promise<any> {
+    if (response.status === 200) {
+      await this.store.set('user', response.data);
+      console.log("Resultado: ",response.data);
+      this.touchCtrl.isTouch = true;
+      const modal = await this.modalController.create({
+        component: PinModalRegistryPage,
+        componentProps: { 'userPin': response.data, 'passwordPin': JSON.stringify(this.dataRegistry.password) }
+      });
+
+      modal.onDidDismiss()
+        .then(async (data) => {
+          
+        });
+      return await modal.present();
+      // await this.router.navigate(['/registry-pin'], {
+      //   queryParams: {
+      //     user: JSON.stringify(response.data),
+      //     password: JSON.stringify(this.dataRegistry.password)
+      //   },
+      //   queryParamsHandling: 'merge'
+      // });
+      await this.toastCtrl.presentToast({text: this.translateService.instant('REGISTRY_PIN.CreatePinMsg')});
+    } else {
+      await this.toastCtrl.presentToast({text: response.error.msg});
+    }
   }
 }

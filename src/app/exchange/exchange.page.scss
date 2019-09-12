@@ -1,0 +1,297 @@
+@import '../../global.scss';
+
+.exchange-header {
+  width: 100%;
+  background-image: url('../../assets/images/vault-header-background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 270px;
+  position: fixed;
+  z-index: 3;
+
+  .exchange-text {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: $font-openSans-SemiBold;
+    font-size: 16px;
+    color: white;
+    margin: 20px 0 0 0;
+  }
+
+  .exchange-content-inputs {
+    @extend .center-space-around;
+    margin: 20px 0 0 0;
+    padding: 0 10px;
+    box-sizing: border-box;
+
+    .input-crypto-general {
+      width: 42%;
+      height: 40px;
+      @extend .all-center;
+      border: solid 2px white;
+      border-radius: 24px;
+      padding: 0 6px;
+
+      .crypto-name {
+        font-family: $font-openSans-SemiBold;
+        font-size: 14px;
+        color: white;
+        margin: 0 6px 0 0;
+      }
+
+      .icon-select-crypto {
+        color: white;
+        margin: 0 4px 0 0;
+        font-size: 19px;
+      }
+
+      .input-value-crypto {
+        border-radius: 0;
+        border: none;
+        font-family: $font-openSans-SemiBold;
+        font-size: 14px;
+      }
+
+      .content-image-loaging-values {
+        width: 100%;
+        @extend .all-center;
+
+        .image-loaging-values {
+          width: 20px;
+        }
+      }
+    }
+
+    .button-exchange {
+      --background: none;
+      --background-hover: none;
+      --background-focused: none;
+      --background-activated: rgba(0, 0, 0, 0.2);
+      --border-radius: 30px;
+      --padding-start: 10px;
+      --padding-top: 0;
+      --padding-end: 10px;
+      --padding-bottom: 0;
+
+      .button-change-crypto {
+        color: white;
+        font-size: 35px;
+      }
+    }
+  }
+
+  .exchange-content-pockets {
+    @extend .center-space-around;
+    margin: 20px 0 0 0;
+
+    .content-pocket {
+      @extend .all-center;
+
+      .name-pocket {
+        margin: 0 10px 0 0;
+        font-family: $font-openSans-SemiBold;
+        font-size: 16px;
+        color: white;
+      }
+
+      .icon-select-pocket {
+        font-size: 19px;
+        color: white;
+      }
+    }
+  }
+}
+
+.exchange {
+  .input-dollar-crypto {
+    background: #D1C9FF;
+    margin: 280px 0 0 0;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    @extend .all-center;
+
+    .dollar-symbol {
+      font-size: 30px;
+      color: white;
+      margin: 0 8px 0 0
+    }
+
+    .dollar-input {
+      border: none;
+      font-size: 30px;
+      --padding-start: 0;
+      --padding-top: 0;
+      --padding-end: 0;
+      --padding-bottom: 0;
+    }
+
+    .content-image-loaging-values {
+      width: 100%;
+      @extend .all-center;
+      
+      .image-loaging-values {
+        width: 40px;
+      }
+    }
+  }
+
+  .content-input-list-exchange {
+    padding: 0 0 80px 0;
+
+    .list-content-info {
+      .list-item {
+        --padding-start: 0;
+        height: 54px;
+
+        .list-item-title {
+          width: 50%;
+        }
+
+        .list-item-content {
+          width: 50%;
+          padding: 0 0 0 10px;
+        }
+
+        .content-gif-loaging-values {
+          width: 26%;
+
+          .image-loaging-values {
+            width: 20px;
+          }
+        }
+      }
+    }
+
+    .content-button-send-exchange {
+      @extend .all-center;
+      margin: 40px 0;
+
+      .button-send-exchange{
+        color: white;
+        font-weight:bold;
+        --background: rgba(125,220,151,1);
+        --background: -moz-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        --background: -webkit-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        --background: -o-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        --background: -ms-linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        --background: linear-gradient(45deg, rgba(125,220,151,1) 0%, rgba(132,234,232,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ddc97', endColorstr='#84eae8', GradientType=1 );
+        width: 80%;
+      }
+    }
+  }  
+}
+
+.grid{
+  display: grid;
+  position: fixed;
+  z-index: 4;
+  grid-template: 22vw 11vw 11vw 25vw/10vw auto 10vw;
+}
+
+.pockets{
+  grid-area: 1/1/1/4;
+}
+
+.div-inputs{
+  grid-area: 3/3/3/2;
+  display: flex;
+  z-index: 5;
+  justify-self: center;
+  position: relative;
+}
+
+.bg-profile{
+  width: 100%;
+  height: 98.7%;
+  position: relative;
+  z-index: 3;
+  grid-area: 1/1/5/5;
+}
+.move-profileInfo{
+  height: 53vw;
+  --background: linear-gradient(to bottom, rgba(255,255,255,1) 90%, rgba(223,226,238,1) 100%, rgba(202,206,227,1) 100%);
+}
+.move-name{
+  width: 100% !important;
+  text-align: center;
+  grid-area: 2/1/3/4;
+  margin-top: 1.5vw;
+  font-size: 4vw;
+  position: relative;
+  z-index: 5;
+  color: white;
+  font-family: 'Open-Sans', sans-serif;
+  font-weight: 400;
+}
+
+ion-item{
+  --border-color: #D1C9FF;
+}
+.icon-change-currencies{
+  font-size: 35px; margin-right: 2%; margin-left: 2%; filter: invert(1)
+}
+ion-label{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 14px !important;
+    color: #93B5E5 !important;
+    margin-left: 2vw;
+}
+
+p{
+    font-family: 'Open-Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #272759;
+    width: 40%;
+}
+ion-input{
+  height: 35px;
+  border: solid 2px white;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+}
+
+.div-pockets{
+  grid-area: 4/2/5/3;
+  z-index: 5;
+  width: 100%;
+  display: inline-flex;
+  height: 60%;
+  color: white;
+}
+
+.div-p-pocket{
+  display: inline-flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 80%;
+  color: white;
+  align-self: center;
+}
+
+.div-p-currencies{
+  display: contents;
+}
+
+.usdAmounts{
+  width: 100%;
+  background: #D1C9FF;
+  color: white;
+  font-size: 40px;
+  text-align: center;
+  border: 0;
+  padding: 0 60px;
+}
+
+.simbolpe{
+  color: #ffffff;
+  margin-top: 10px;
+  margin-left: 20px
+}

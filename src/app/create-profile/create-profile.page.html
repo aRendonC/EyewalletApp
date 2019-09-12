@@ -1,45 +1,44 @@
-<ion-content padding class="bghome" >
+<ion-content padding class="bghome" [class.blur]="ctrlCssBlur">
+<app-return-page [path]="'/app/tabs/dashboard'"></app-return-page>
 
-  
 <div class="move-text">
-  <p class="profile">Perfil</p>
-  <p class="we-need">Necesitamos esta información para verificar tu identidad,
-   para el uso de nuestro producto, Solo tomara unos minutos.</p>
+  <p class="profile">{{'GENERAL.Profile'| translate}}</p>
+  <p class="we-need">{{'CREATE_PROFILE.Verification_Information'| translate}}</p>
 </div>
 
 <form #formulario (ngSubmit)="address()" class="transparent move-form">
 <ion-list class="transparent">
     <!-- Nombre -->
     <ion-item class="white-line">
-        <ion-input  class="white move-input" type="text" name="firstname" [(ngModel)]="firstname"  placeholder="Nombre" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-input  class="white move-input" type="text" name="firstname" [(ngModel)]="firstname" placeholder="{{'GENERAL.Name'| translate}}" [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
     <!-- Apellido -->
     <ion-item class="white-line">
-        <ion-input class="white move-input" type="text" name="lastname" [(ngModel)]="lastname" placeholder="Apellido" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-input class="white move-input" type="text" name="lastname" [(ngModel)]="lastname"  placeholder="{{'GENERAL.Last_Name'| translate}}" [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
     <!-- Fecha de Nacimiento -->
     <ion-item>
-      <ion-datetime class="white" done-text="Aceptar" cancel-text="Cancelar" placeholder="Fecha de Nacimiento" display-format="YYYY-MM-DD" [(ngModel)]="birthdate" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      <ion-datetime class="white" done-text="Aceptar" cancel-text="Cancelar" placeholder="{{'GENERAL.Birthdate'| translate}}"  display-format="YYYY-MM-DD" [(ngModel)]="birthdate" [ngModelOptions]="{standalone: true}" min="1960" [max]="datemax"></ion-datetime>
     </ion-item>
     <ion-item class="white-line">
-        <ion-input class="white move-input" type="number" name="identification" [(ngModel)]="identification" placeholder="Numero de Identificación"></ion-input>
+        <ion-input class="white move-input" type="number" name="identification" [(ngModel)]="identification" placeholder="{{'GENERAL.Identification'| translate}}"></ion-input>
     </ion-item>
 </ion-list>
 
 <div class="content-terms-conditions">
     <span>
-        Al crear tu billetera, aceptas los siguientes términos
+       {{'CREATE_PROFILE.Accept_T&P'| translate}}
       <span class="terms-conditions">
-        <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">Términos De Servicios </a>
+        <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">{{'GENERAL.TermsOfService'| translate}} </a>
         &
-        <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">Política De Privacidad </a>
+        <a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">{{'GENERAL.PrivacyPolicy'| translate}} </a>
       </span>
     </span>
   </div>
 
 
 <div class="transparent move-btn">
-    <ion-button type="submit" class="btn-start" mode="ios" >Siguiente</ion-button>
+    <ion-button type="submit" class="btn-start" mode="ios" >{{'GENERAL.Next'| translate}}</ion-button>
 </div>
 </form>
 

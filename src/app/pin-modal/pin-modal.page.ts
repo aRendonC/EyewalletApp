@@ -1,10 +1,9 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ModalController, NavParams, Platform,} from '@ionic/angular';
 import {FingerprintAIO} from "@ionic-native/fingerprint-aio/ngx";
 import {Storage} from "@ionic/storage";
 import {Router} from "@angular/router";
 import {AesJsService} from "../services/aesjs/aes-js.service";
-
 @Component({
   selector: 'app-pin-modal',
   templateUrl: './pin-modal.page.html',
@@ -13,8 +12,11 @@ import {AesJsService} from "../services/aesjs/aes-js.service";
 export class PinModalPage implements OnInit {
   @Input() modalTitle: string;
   @Input() modelID: number;
-  private pin: any = []
-  public ctrlPin: boolean = true
+  @Input() sendCrypto;
+
+  public pin: any = [];
+  public ctrlPin: boolean = true;
+  private currentRoute: string = null;
 
   constructor(
       private modalCtrl: ModalController,
@@ -23,13 +25,13 @@ export class PinModalPage implements OnInit {
       private store: Storage,
       private router: Router,
       private platform: Platform,
-      private aesjs: AesJsService
+      private aesjs: AesJsService,
   ) { }
 
   ngOnInit() {
-    console.info(this.pin)
-    console.table(this.navParams.data.paramTitle);
+    console.log("enviado desde send: ", this.sendCrypto);
     // console.table(this.modalTitle);
+    this.currentRoute = this.router.url;
     this.modelID = this.navParams.data.paramID;
     this.modalTitle = this.navParams.data.paramTitle;
     this.platform.backButton.subscribeWithPriority(9999,() => {
@@ -46,49 +48,52 @@ export class PinModalPage implements OnInit {
     await this.modalCtrl.dismiss(onCloseData);
   }
 
+  async closeModal1(val) {
+    const onCloseData = val;
+    await this.modalCtrl.dismiss(onCloseData);
+  }
+
   async savePinData(number: number) {
-    this.ctrlPin = true
+    this.ctrlPin = true;
     if (this.pin.length < 6) {
-      this.pin.push(number)
-      console.warn(this.pin)
+      this.pin.push(number);
     }
     if (this.pin.length === 6) {
-      let pinData: string = ''
+      let pinData: string = '';
       this.pin.forEach(data => {
         pinData += data.toString()
-      })
-      console.log(pinData)
-      let user = await this.store.get('user')
-      console.log('usuario', user)
+      });
+      let user = await this.store.get('user');
       if(user) {
-        user.pin = this.aesjs.decrypt(user.pin)
-        if(pinData === user.pin) {
-          await this.closeModal()
-          user.pin = this.aesjs.encrypt(user.pin)
-          console.info('user encriptado', user)
-          this.store.set('user', user)
-          console.table('todo el store', this.store)
-          await this.router.navigate(['/app/tabs']);
+        user.pin = this.aesjs.decrypt(user.pin);
+        if(pinData === user.pin.toString()) {
+          if(this.sendCrypto === true){
+            console.log("DATOS_PIN: ",user.pin);
+            await this.closeModal1(user.pin)
+          }else{
+            user.pin = this.aesjs.encrypt(user.pin);
+            this.store.set('user', user);
+            await this.router.navigate(['/app/tabs/dashboard']);
+            await this.closeModal()
+          }
+          
         } else {
-          this.ctrlPin = false
+          this.ctrlPin = false;
           setTimeout(() => {
             this.pin = []
           }, 500)
         }
       }
     }
-    console.warn(this.pin.length)
   }
 
   async deletePinData() {
     this.pin.splice(this.pin.length - 1, 1);
-    console.info(this.pin)
   }
 
   showFingerPrint() {
     this.faio.isAvailable()
         .then(result => {
-          console.log('huella avaliable', result)
           this.faio.show({
             clientId: 'Identificar de huella',
             clientSecret: 'password',   //Only necessary for Android
@@ -98,14 +103,12 @@ export class PinModalPage implements OnInit {
 
           })
               .then((result: any) => {
-                console.log('huella verificada correctamente', result)
-                this.router.navigate(['/app/tabs']);
+                this.router.navigate(['/app/tabs/dashboard']);
                 this.closeModal()
                 // this.login();
                 // this.isLocked = false;
 
               }).catch((error: any) => {
-            console.log('entro al catch, cuando canelo', error)
             // this.openModal()
             // this.exitApp();
           });

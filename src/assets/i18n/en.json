@@ -1,0 +1,294 @@
+{
+  "HOMEPAGE": {
+    "EyeWallet": "EYEWALLET",
+    "LogIn": "Log In",
+    "CreateWallet": "Create Wallet",
+    "RecoveryPassword": "Password Recovery"
+  },
+  "DASHBOARD_PAGE": {
+    "LoadingInformation": "Compiling Information"
+  },
+  "SLIDER_COMPONENT": {
+    "CompleteProfile": "Complete Your Profile",
+    "VerifyPhone": "Verify your Cellphone",
+    "CompleteProfileToDay": "Complete your profile to start using it successfully.",
+    "DocumentsNecessaries": "Needed Documentation",
+    "HaveProblemsDocuments": "We have some problems with the documents provided. Please, try again to continue."
+  },
+  "PROFILE": {
+    "Email": "Email",
+    "Phone": "Phone Number",
+    "Register": "Register",
+    "unverifiedMail": "Your email is not verified!",
+    "VerifiedMail": "Your email is verified!",
+    "DeleteAccount": "Delete Account",
+    "ReSendMail": "Resend email",
+    "SecondFactor": "Second factor",
+    "SendingEmail": "Sent email",
+    "PhotoUploadOk": "Photo uploaded correctly",
+    "LoadingPhoto": "Loading Photo",
+    "ComingSoon": "Coming Soon",
+    "SelectPhoto": "Select Photo",
+    "TakePhoto": "Take a Photo"
+  },
+  "ALERT": {
+    "header": "Error",
+    "msg": "There was a problem with your operation"
+  },
+  "ADDRESS_PAGE": {
+    "Address": "Address",
+    "VerifyIdentity": "This information is used only to verify your identity.",
+    "Address1": "Address 1",
+    "Address2": "Address 2",
+    "Region": "State / Region / Province / Department",
+    "GetGeoData": "Receiving location data",
+    "DateUpdateOk": "Your data has been updated",
+    "SavingData": "Saving Data",
+    "GetLocation": "Receiving location data"
+  },
+  "CARD_INVOICE": {
+    "CardRequest": "Card Request",
+    "Review": "Review"
+  },
+  "CREATE_PROFILE": {
+    "Verification_Information": "We need this information to verify your identity to use our product. It will only take a few minutes.",
+    "Accept_T&P": "By the moment you create your wallet, accept the following terms. "
+  },
+  "POCKET_COMPONENT": {
+    "NewVault": "New Vault",
+    "History": "History",
+    "Exchange": "Back"
+  },
+  "PRICES_PAGE": {
+    "LoadingCrypto": "Loading crypto data."
+  },
+  "LIST_POCKETS": {
+    "AddNewPocket": "Add new pocket",
+    "CreatePocket": "Create pocket",
+    "PocketCreatedOk": "Pocket created correctly",
+    "CreatingPocket": "Creating Pocket"
+  },
+  "INVOICE_MODAL": {
+    "PayEyeWallet": "Pay with EyeWallet",
+    "NoFoundsPocket": "This pocket has no funds. Please, select another pocket",
+    "ConnectionError": "Connection error."
+  },
+  "PIN_MODAL": {
+    "Pin": "Introduce your security Pin"
+  },
+  "REGISTRY_PAGE": {
+    "NewWallet": "Create a new Wallet",
+    "PhoneExample": "E.g.: +5712345678",
+    "Password": "Password",
+    "MessagePassword": "Minimum one letter, number and special character, 6 length",
+    "ConfirmPassword": "Confirm Password",
+    "ButtonCreate": "Create Wallet"
+  },
+  "REGISTRY_PIN": {
+    "PutPin": "Introduce PIN",
+    "CreatePin": "Create PIN",
+    "CreateWallet": "Creating wallet ",
+    "CreatePinMsg": "Please, create 6 digits pin",
+    "ValidWallet": "Validating wallet"
+  },
+  "REQUEST_CREDIT_CAR_PAGE": {
+    "SelectWallet": "Select Wallet",
+    "MessageNoBalance": "Pocket without balance. Select another."
+  },
+  "RESTORE": {
+    "NewPassword": "New Password",
+    "RepeatPassword": "Repeat New Password",
+    "UpdatePassword": "Update Password",
+    "TextDeviceId": "Your device ID is: ",
+    "ChangingPassword": "Changing password",
+    "UpdatePasswordOk": "Password Update"
+  },
+  "SEND_CRYPTO_CURRENCY": {
+    "ScanQR": "Scan your QR Code o copy your wallet address",
+    "High": "High",
+    "Medium": "Medium",
+    "Low": "Low",
+    "FillPin": "Introduce PIN",
+    "QrOk": "Read QR",
+    "FillFields": "Fill this field",
+    "NotFoundToTransaction": "You don’t have funds for transactions",
+    "TransactionOK": "Transaction completed"
+  },
+  "VERIFICATION_MODAL_PAGE": {
+    "VerifySecondFactor": "Verify your second factor",
+    "CompleteProfile": "Complete your profile to use the wallet and its features.",
+    "StartNow": "Start Now",
+    "StartLatter": "Check later",
+    "VerifyTwoSteps": "Verify in 2 Steps",
+    "GrantAccessYourWallet": "Grant the access to your wallet.",
+    "UpgradeSecurity": "With only 2 steps you can increase your wallet security.",
+    "Enable": "Enable",
+    "AvoidUnauthorizedAccess": "Avoid unauthorized access to your wallet.",
+    "EnableStepsVerify": "Grant the 2 steps verification to upgrade the security on your wallet.",
+    "EnableAuthorizationRequest": "You can use your cellphone to grant the 2 steps verification o receive alerts.",
+    "InputVerificationCode": "Increase your verification code",
+    "PhoneVerified": "Your cellphone number has been verified correctly",
+    "CodeError": "Code Error"
+  },
+  "UPLOAD_VERIFICATION_FILES": {
+    "LetsVerify": "Let’s verify!"
+  },
+  "UPLOAD_FILES_MODAL": {
+    "CreatePhoto": "Create a Photo",
+    "MakeSureYourFacePhoto": "Make sure your face is clearly visible",
+    "TakePhotoYourPassport": "Take a photo of your Password, with its boards and without reflection/brightness.",
+    "MakeSureYourDocumentVisible": "Make sure your document is visible.",
+    "DocumentWhitPhoto": "Identification document with portrait",
+    "MakeSureYourFaceAndDocumentVisible": "Make sure your face and document are clearly visible.",
+    "DocumentHome": "Residence document",
+    "DriverLicense": "Driver license",
+    "TakePhotoBackDocument": "Take a photo of the back of your document",
+    "PublicServicesDocuments": "Public services document",
+    "MakeSureYouDirection": "Make sure your address is visible",
+    "TakePhoto": "Take a Photo",
+    "SelectPhoto": "Select Photo",
+    "UploadDocumentOk": "Document uploaded correctly",
+    "AllDocumentsUploadOk": "All your documents has been uploaded correctly",
+    "SessionClose": "Your session is going to get closed to validate your documents",
+    "Passport": "Password",
+    "IdentificationNational": "National Identification",
+    "ResidentTarget": "Residence document",
+    "DriverPass": "Driver license"
+  },
+  "VAULT_LIST": {
+    "loadingText": "Loading vaults",
+    "toastErrorText": "Processing Errors. Try again",
+    "titleSheetText": "Delete Vault",
+    "removeText": "Remove",
+    "removedText": "Removed",
+    "processingText": "Processing",
+    "finalizedText": "Completed",
+    "cancelText": "Cancel",
+    "descriptionRequestDeleteVault": "Delete Vault request",
+    "responseRequestVaultDelete": "We are processing your request.",
+    "Cancel": "Cancel"
+  },
+  "VAULT": {
+    "placeholderPockets": "Select a Pocket",
+    "buttonOkSelect": "Select",
+    "buttonCancelSelect": "Cancel",
+    "textAvailableBalance": "Available Balance",
+    "messageErrorLoadPage": "Temporal errors, try again later.",
+    "loading": "Loading.",
+    "messageWithoutFunds": "This pocket doesn’t have funds, charge or select another.",
+    "tuitiosText": "Tuition",
+    "durationText": "Duration",
+    "monthsText": "Months",
+    "totalEarningsText": "Total earnings",
+    "buttonNextText": "Next",
+    "higherValueErrorMessage": "The value entered can’t be superior to the pocket balance."
+  },
+  "VAULT_CREATED": {
+    "quantityText": "Amount",
+    "buttonAccept": "Accept",
+    "termsConditionsTextOne": "When your click \"Next\", you accept",
+    "termsConditionsTextTwo": "Terms conditions – privacy and politics",
+    "modalMessageSuccessText": "Your new vault was added successfully.",
+    "modalMessageErrorText": "There was an error during the creation of the vault. Try again later.",
+    "messageCreatinVault": "Create Vault"
+  },
+  "TOAST_MSG": {
+    "DocumentsNoVerified": "We are sorry, your documents are not verified"
+  },
+  "LOGIN_PAGE": {
+    "AllFieldsIsRequired": "All the fields are required",
+    "FieldEmail": "The field email is required",
+    "FiledPassword": "The field password is required"
+  },
+  "GENERAL": {
+    "Continue": "Continue",
+    "ResendCode": "Resend Code",
+    "Verify": "Verify",
+    "SendSMS": "Send SMS",
+    "PhoneNumber": "Cellphone Number",
+    "Country": "Country",
+    "City": "City",
+    "PostalCode": "Postal code",
+    "Finalize": "Finalize",
+    "ConfirmTerms": "Confirm terms and conditions when you complete creating your wallet",
+    "TermsOfService": "Terms of Service",
+    "PrivacyPolicy": "Privacy Policy",
+    "Profile": "Profile",
+    "Name": "Name",
+    "Last_Name": "Last Name",
+    "Birthdate": "Birthdate",
+    "Identification": "Identification Number",
+    "Next": "Next",
+    "Receive": "Receive",
+    "Send": "Send",
+    "Qualify": "Qualify",
+    "LogOut": "Log Out",
+    "News": "News",
+    "Activate": "Activate",
+    "Add": "Add",
+    "Back": "Back",
+    "GoBack": "Go back",
+    "Prices": "Prices",
+    "User": "User",
+    "Description": "Description",
+    "SelectCryptoCurrency": "Select cryptocurrency",
+    "Value": "Value",
+    "Language": "Language",
+    "Version": "Version",
+    "Cancel": "Cancel",
+    "Accept": "Accept",
+    "Amount": "Amount",
+    "Copy": "Copy",
+    "LogOutOk": "Your sessions has been closed correctly",
+    "LoadingData": "Your data is loading, please wait",
+    "Details": "Details",
+    "From": "From",
+    "To": "To",
+    "Confirmation": "Confirmation",
+    "Usd": "Usd",
+    "Fee": "Fee",
+    "Priority": "Priority",
+    "Date": "Date"
+  },
+  "EXCHANGE": {
+    "DescriptionText": "How much do you want to change?",
+    "DollarPriceText": "Dollar price",
+    "NetworkRates": "Network rates",
+    "TradeLimits": "Trade limits",
+    "Send": "Send",
+    "Receive": "Receive",
+    "Exchange": "To Exchange",
+    "alertTypeCrypto": "Select a currency",
+    "alertTypeCryptoCancel": "Cancel",
+    "alertTypeCryptoSelect": "Select",
+    "alertPocketSelected": "Select a pocket",
+    "InternalErrors": "Internal errors Try again.",
+    "PocketWithoutBalance": "Pocket without balance. Select another.",
+    "IncorrectData": "Incorrect data.",
+    "Success": "Success.",
+    "ErrorToChange": "Error while trying to make the change.",
+    "LoadingData": "Loading information",
+    "SendRequest": "Sending request"
+  },
+  "EXCHANGE_HISTORY": {
+    "Title": "History",
+    "PlaceholderSearchBar": "Search",
+    "PlaceholderSelectTransactionStatus": "Transaction status",
+    "ExchangeText": "Exchange",
+    "Rejected": "Rejected",
+    "InProcess": "In process",
+    "Approved": "Approved",
+    "Success": "Success",
+    "Data": "Data",
+    "Hour": "Hour",
+    "AmountChange": "Amount to change",
+    "Fee": "Fee"
+  },
+  "CONNECTION_ERRORS": {
+    "Error": "Connection errors Try again later."
+  },
+  "QRSCANN_SESION": {
+    "VerifyingMessage": "Verifying",
+    "QrError": "Scanner not available." 
+  }
+}

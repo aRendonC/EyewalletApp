@@ -1,58 +1,101 @@
-<ion-content id="QRScaner" class="ReceiveFundsPage backGroundGradient" [class.show-qr-scanner]="isOn">
-  <div class="contentdash">
-    <app-pocket [pockets]="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
-  </div>
-  <form #formulario="ngForm" [formGroup]="bodyForm">
-  <ion-card class="content-code-qr" >
+<ion-content (click)="removeCamera()" [class.display-none]="cssCtrlContents" style="--background: none transparent;" mode="md">
+    <ion-header translucent>
+        <ion-toolbar class="bacground-header">
+            <ion-buttons slot="start">
+                <ion-button style="color: white" color="white">
+                    <ion-icon slot="icon-only" name="md-arrow-round-back"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
 
-    <div class="code-qr-header" (click)="presentQRScanner()">
-      <span class="title"></span>
+    <ion-nav>
 
-      <div class="content-icon-amount">
-        <ion-label>Escanea aquí tu código QR o copia la dirección de tu wallet</ion-label>
-        <span class="amount"></span>
-      </div>
+    </ion-nav>
+    <div style="margin-top: 41%" class="center-horizontal center center-vertical" mode="md">
+        <div style="width: 45%" [ngClass]="cssGradient">
+
+            <img style="width: 60%; filter: opacity(0.3)" src="../../assets/img/sendCripto/targetQr.png"/>
+        </div>
     </div>
 
-    <div class="content-qr-body">
+</ion-content>
 
-      <div class="content-code-qr-chil" (click)="presentQRScanner()">
-        <ion-img style="width: 50%" src="../../assets/img/sendCripto/cameraImage.png" ></ion-img>
-      </div>
-
-      <div class="content-buttons-qr">
-        <ion-input [disabled]="!ctrlButtonSend" formControlName="to_address" type="text" placeholder="Ingrese dirección"  class="input"></ion-input>
-      </div>
-
+<ion-content id="QRScaner" class="ReceiveFundsPage" [ngClass]="cssGradient">
+    <div class="contentdash" [class.show-qr-scanner]="isOn">
+        <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
     </div>
+    <form #formulario="ngForm" [formGroup]="bodyForm" class="positionForm">
+        <ion-card class="content-code-qr center" [class.show-qr-scanner]="isOn">
+            <div class="code-qr-header" (click)="presentQRScanner()">
+                <div class="content-icon-amount center">
+                    <ion-label>{{'SEND_CRYPTO_CURRENCY.ScanQR' | translate}}</ion-label>
+                </div>
+            </div>
+            <div class="content-code-qr-chil center-horizontal center-vertical" (click)="presentQRScanner()">
+                <ion-img src="../../assets/img/sendCripto/cameraImage.png"></ion-img>
+            </div>
+            <div class="content-buttons-qr color-input">
+                <ion-input [disabled]="!ctrlButtonSend" (ionBlur)="getFeeTransaction(false)" style="font-size: 11px;"
+                    formControlName="to_address" type="text" [placeholder]="placeHolder" class="input"
+                    clearInput>
+                </ion-input>
+            </div>
+        </ion-card>
 
-  </ion-card>
+        <ion-card>
+            <ion-list justify-content-center>
+                <ion-grid justify-content-center
+                          class="center centerContent ion-text-center ion-justify-content-center ion-align-items-center">
+                    <ion-row align-items-center justify-content-center>
+                        <ion-col size="9" align-self-center>
+                            <ion-input type="number" [disabled]="!ctrlButtonSend" formControlName="amount"
+                                       (ionInput)="calculateBTC($event.target.value)"
+                                       value="{{totalApplied?.amountMaxBtc}}">
+                            </ion-input>
+                        </ion-col>
+                        <ion-col size="3" align-self-center>
+                            <ion-label>{{pockets.currency.shortName}}</ion-label>
+                        </ion-col>
+                        <ion-col size="5" type="number" align-self-center
+                                 class="ion-text-left gradientButton all-center">
+                            <ion-label> {{pockets.currency.shortName}}: Min.{{totalApplied?.amountMin}} </ion-label>
+                        </ion-col>
+                        <ion-col size="1"></ion-col>
+                        <ion-col size="5" align-self-center class="ion-text-right gradientButtonRight all-center">
+                            <ion-input type="number" (ionInput)="calculateUSD($event.target.value)"
+                                       value="{{totalApplied?.amountMaxUsd}}">USD:
+                            </ion-input>
+                        </ion-col>
+                        <ion-col size="6" align-self-center class="ion-text-left">
+                            <ion-label>Cuota: {{totalApplied.fee}}</ion-label>
+                        </ion-col>
+                        <ion-col size="6" align-self-center class="ion-text-right">
 
-  <ion-card>
-    <ion-list justify-content-center>
-      <ion-grid justify-content-center class="center centerContent ion-text-center ion-justify-content-center ion-align-items-center">
-        <ion-row  align-items-center justify-content-center>
-        <ion-col size="12" align-self-center>
-          <ion-input [disabled]="!ctrlButtonSend" formControlName="amount" (ionBlur)="getFeeTransaction()" placeholder="Envío Máximo:   5.00000000 BTC"></ion-input>
-        </ion-col>
-        <ion-col size="5" align-self-center class="ion-text-left gradientButton all-center"> <ion-label>BT: Min. 0.0124</ion-label></ion-col>
-          <ion-col size="1"></ion-col>
-        <ion-col size="5" align-self-center class="ion-text-right gradientButtonRight all-center"><ion-label>USD: Min. 0.0124</ion-label></ion-col>
-        <ion-col size="6" align-self-center class="ion-text-left"><ion-label>Cuota: {{fee.estimated_network_fee}}</ion-label></ion-col>
-        <ion-col size="6" align-self-center class="ion-text-right">
-
-            <ion-select [disabled]="!ctrlButtonSend" formControlName="priority" placeholder="Prioridad">
-              <ion-select-option value="1">Alta</ion-select-option>
-              <ion-select-option value="2">Media</ion-select-option>
-              <ion-select-option value="3">Baja</ion-select-option>
-            </ion-select>
-        </ion-col>
-        <ion-col size="12" align-self-center>
-          <ion-button (click)="sendCoin()" class="buttonSend" [disabled]="!bodyForm.valid">Enviar</ion-button>
-        </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-list>
-  </ion-card>
-  </form>
+                            <ion-select [disabled]="!ctrlButtonSend" formControlName="priority" placeholder="Prioridad"
+                                        (ionBlur)="getFeeTransaction(false)">
+                                <ion-select-option
+                                        value="high">{{'SEND_CRYPTO_CURRENCY.High' | translate}}</ion-select-option>
+                                <ion-select-option
+                                        value="medium">{{'SEND_CRYPTO_CURRENCY.Medium' | translate}}</ion-select-option>
+                                <ion-select-option
+                                        value="low">{{'SEND_CRYPTO_CURRENCY.Low' | translate}}</ion-select-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col size="12">
+                            <ion-input formControlName="description"
+                                       placeholder="{{'GENERAL.Description' | translate}}"></ion-input>
+                        </ion-col>
+                        <ion-col *ngIf="totalSend" size="12" align-self-center>
+                            <ion-input [disabled]="true" [placeholder]="totalSend"></ion-input>
+                        </ion-col>
+                        <ion-col size="12" align-self-center>
+                            <ion-button (click)="sendCoin()"
+                                        class="buttonSend">{{'GENERAL.Send' | translate}}</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-list>
+        </ion-card>
+    </form>
 </ion-content>

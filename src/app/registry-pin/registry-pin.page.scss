@@ -1,0 +1,28 @@
+.btn-start{
+  --background: #4C6AC0;
+  --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+  --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
+  --padding-start: 15vh;
+  --padding-end: 14vh;
+  --padding-top: 0px;
+  --padding-bottom: 0px;
+  --border-radius: 100px;
+  --opacity: 0.86;
+  font-family: 'Poppins', sans-serif;
+}
+.resize-logo {
+  width: 141px;
+  height: 141px;
+  margin: 0 25vw;
+}
+.move-logo {
+  margin-top: 5vh;
+  margin-left: 0vh;
+}
+
+.button-disable {
+  --background: #4C6AC0;
+  font-family: Poppins-Medium;
+  --color: white;
+  width: 100% !important; 
+}

@@ -8,15 +8,15 @@ import {Router} from '@angular/router';
 
 export class TimerService {
 
-  tiempoLimiteSesion = 1; // se coloca el tiempo que se desea que dure la sesión activa
+  tiempoLimiteSesion = 1;
   tiempo: any;
   temporizador = {
     minutos: 0,
     segundos: 0
   };
-  // tslint:disable-next-line:variable-name
+
   contador_s = 0;
-  // tslint:disable-next-line:variable-name
+
   contador_m = 0;
 
   constructor(private alertCtrl: AlertController, private menu: MenuController, private router: Router) {

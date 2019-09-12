@@ -1,0 +1,68 @@
+<ion-content class="vault-list">
+    <div class="header">
+      <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
+
+      <ion-select
+        class="select-currency"
+        mode="md"
+        [(ngModel)]="dataSelected"
+        (ionChange)="handlerCurrencySelected()"
+        okText="ok"
+        cancelText="cancel"
+      >
+        <ion-select-option class="content-selected-options" *ngFor="let data of dataVaults.data" [value]="data.shortName">{{ data.shortName }}</ion-select-option>
+      </ion-select>
+
+      <div class="content-add">
+        <ion-img class="icon-add" src="../../assets/icon/icon-add.svg"></ion-img>
+        <span *ngIf="dataVaults.data" class="add-local-text">{{ criptoTotal | roundNumber }}</span>
+      </div>
+
+      <div class="content-add-usd">
+        <span *ngIf="dataVaults.data" class="add-text-usd">{{ criptoUSDTotal | roundNumber }}</span>
+        <span class="add-text-usdollar">USDollar</span>
+      </div>
+    </div>
+
+    <div *ngIf="dataVaults.vault" class="content-vaults-created">
+      <ion-item-sliding class="info-vault-sliding" #slidingItem *ngFor="let data of dataVaults.vault">
+        <ion-item class="info-vault-sliding-item" mode="md">
+          <div class="content-info-vault-sliding">
+            <div class="content-component-info-coin">
+              <ion-img class="icon-coin" src="../../assets/icon/icon-coin-solid-{{ data.short_name }}.svg"></ion-img>
+            </div>
+    
+            <div class="content-component-info-coin">
+              <span class="text-type-coin">{{ data.short_name }}</span>
+              <span class="text-investment-usd">$ {{ data.priceCriptoUsd }}</span>
+            </div>
+    
+            <div class="content-component-info-coin">
+              <span class="content-icon-value-investment-usd">
+                <ion-img class="icon-add-little" src="../../assets/icon/icon-add-little.svg"></ion-img>
+                <span class="value-investment-usd">$ {{ (data.priceCriptoUsd * data.profit) | roundNumber }}</span>
+              </span>
+              <span class="text-investment-usd">{{ data.profit | roundNumber }} coin</span>
+            </div>
+      
+            <div class="content-component-info-coin">
+              <span class="content-performance-percentage">
+                <span class="performance-percentage-text">+ {{ data.percent }}%</span>
+                <ion-img class="performance-percentage-icon" src="../../assets/icon/icon-up-little.svg"></ion-img>
+              </span>
+            </div>
+          </div>
+        </ion-item>
+  
+        <ion-item-options class="content-button-delete-vault" side="end" mode="md">
+          <ion-item-option
+            [disabled]="data.status === 1 ? false : true"
+            class="button-delete-vault {{ data.status | statusVaultText }}"
+            (click)="deleteVault(data, slidingItem)"
+          >
+            {{ data.status | statusVaultText }}
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+</ion-content>

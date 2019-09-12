@@ -1,104 +1,120 @@
 import {Injectable} from '@angular/core';
 import {AxiosService} from '../axios/axios.service';
-import {MenuController, ToastController} from '@ionic/angular';
+import {MenuController, ModalController} from '@ionic/angular';
 import {TimerService} from '../timer/timer.service';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
-import { DeviceService } from '../device/device.service';
+import {DeviceService} from '../device/device.service';
+import {PinModalPage} from '../../pin-modal/pin-modal.page';
+import {AesJsService} from '../aesjs/aes-js.service';
+import {LoadingService} from '../loading/loading.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
+
 export class AuthService {
-  usuario: any = {
-    id: null,
-    rolId: null,
-    segundoFactor: null,
-    accessToken: null,
-  };
-
-   constructor(private  api: AxiosService,
-                    private toastController: ToastController,
-                    private timer: TimerService,
-                    private router: Router,
-                    private menu: MenuController,
-                    private store: Storage,
-                    private device: DeviceService
-  ) {
-    this.intentarLogin();
-  }
-
-  async login(user, password) {
-    let device: any = await this.device.getDataDevice();
-    console.log('Data of login: ', device);
-    if(!device.uuid) device.uuid = '7219d0c4ee046311'
-    return new Promise((resolve) => {
-      this.api.post('auth/login', {email: user, password: password, deviceId: device.uuid})
-        .then(async (data: any) => {
-          console.log('data response', data.hasOwnProperty(404));
-          if (data.status === 404) {
-            //no existe usuario
-            resolve(null)
-          } if(data.status === 401) {
-            resolve(null)
-            //no está autorizado por credenciales (puede estar registrado)
-          } if(data.status === 500) {
-            resolve(null)
-            //error de la plataforma o datos incorrectos
-          } else {
-            this.usuario = data.data;
-            await this.store.set('user', this.usuario);
-            console.log(this.usuario);
-            // localStorage.setItem('user', JSON.stringify(this.usuario));
-            // this.timer.iniciarTemporizador();
-            console.info('data', data);
-            resolve(data);
-          }
-        })
-        .catch(err => console.log('error data response', err));
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-
-  accessParam() {
-    if (this.usuario != null) {
-      return this.usuario.accessToken;
-    }
-    return null;
-  }
-
-  async intentarLogin() {
-    // this.usuario = JSON.parse(window.localStorage.getItem('user'));
-    this.usuario = await this.store.get('user');
-    if (this.usuario == null) {
-      this.usuario = {
+    usuario: any = {
         id: null,
         rolId: null,
         segundoFactor: null,
-        accessToken: null
-      };
+        accessToken: null,
+    };
+
+    constructor(
+        private  api: AxiosService,
+        private timer: TimerService,
+        private router: Router,
+        private menu: MenuController,
+        private store: Storage,
+        private device: DeviceService,
+        private modalCtrl: ModalController,
+        private aesjs: AesJsService,
+        private loadingCtrl: LoadingService
+    ) {
+        // this.persistenceLogin();
     }
-  }
 
-  setUserId(userId) {
-    this.usuario.id = userId;
-    localStorage.setItem('user', JSON.stringify(this.usuario));
-  }
+    async login(user, password, plattform, channel) {
+        return new Promise((resolve) => {
+            this.api.post('auth/login', {email: user, password,plattform,channel})
+                .then(async (data: any) => {
+                    if (data.status === 200) {
+                        this.usuario = data.data;
+                        await this.store.set('user', this.usuario);
+                        await this.setUserProfile(data.data.profile);
 
-  async isLogin() {
-    let user = await this.store.get('user');
-    console.info(user);
-    return !!user;
-  }
+                        resolve(data);
+                    } else if (data.status === 404) {
 
-  logout() {
-    this.timer.logout(false);
-    // localStorage.removeItem('user');
-    // this.store.remove('user')
-    // this.store.clear();
-    this.menu.enable(false);
-    this.router.navigate(['']);
-  }
+                        resolve(data.error.msg)
+                    } else if (data.status === 401) {
+                        resolve(data.error.msg)
 
+                    } else if (data.status === 500) {
+                        resolve(data.error.msg)
+                    } else {
+                        resolve(null);
+                    }
+                })
+                .catch(err => console.log('error data response', err));
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    async setUserProfile(profile) {
+        profile = this.aesjs.encrypt(profile);
+        await this.store.set('profile', profile);
+    }
+
+    async accessParam() {
+        this.usuario = await this.store.get('user');
+        if (this.usuario != null) {
+            return this.usuario.accessToken;
+        }
+        return null;
+    }
+
+    async persistenceLogin() {
+        this.usuario = await this.store.get('user');
+        if (this.usuario.pin) {
+            await this.openModal();
+        }
+    }
+
+    async openModal() {
+        const modal = await this.modalCtrl.create({
+            component: PinModalPage,
+            componentProps: {
+                paramID: 123,
+                paramTitle: 'Test title'
+            }
+        });
+
+        return await modal.present();
+    }
+
+    setUserId(userId) {
+        this.usuario.id = userId;
+        localStorage.setItem('user', JSON.stringify(this.usuario));
+    }
+
+    async isLogin() {
+        const user = await this.store.get('user');
+        return !!user;
+    }
+
+    async logout() {
+        await this.store.clear();
+        await this.store.remove('pockets');
+        await this.store.remove('profile');
+        await this.store.remove('selected-pocket');
+        await this.store.remove('user');
+        await this.store.remove('userVerification');
+        
+        await this.menu.enable(false);
+        await this.router.navigate(['']);
+        await this.loadingCtrl.dismiss();
+    }
 }

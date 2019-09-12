@@ -1,0 +1,33 @@
+<ion-header class="prices-header">
+  <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+
+  <div class="content-text">
+    <span class="data-price-text-header short-name-text">{{ cryptoCodes }}</span>
+    <span class="data-price-text-header price-text">{{ cryptoValue }}</span>
+    <span class="data-price-text-header usd-text">USDollar</span>
+  </div>
+
+  <canvas class="content-graph" #lineCanvas></canvas>
+</ion-header>
+
+<ion-content class="content-crypto-info" [class.blur]="ctrlCssBlur" [fullscreen]="true">
+  <ion-grid fixed class="padding-prices">
+    <ion-row class="row-data-cryptos">
+      <ion-col size="6" class="card-padding"  *ngFor="let cardPrice of cardPrices; index as index">
+          <div
+            class = {{cardPrice.cryptoClass}}
+            (click)="selectCrypto(cardPrice.cryptoClass, index)"
+          >
+            <img class="move-cryptoLogo {{cardPrice.fontClass}}" src="{{urlFlags}}{{cardPrice.cryptoImage}}">
+            <img class="LogoBG" src="{{urlFlags}}{{cardPrice.cryptoImage}}">
+            <div class= "priceDetails {{cardPrice.fontClass}}">
+              <p class="cryptoName" >{{cardPrice.cryptoName}}</p>
+              <p class="cryptoCode">{{cardPrice.cryptoCodes}}</p>
+              <p class="cryptoPriceName">  {{'GENERAL.Prices'| translate}}</p>
+              <p class="cryptoPrice">{{cardPrice.cryptoValue[cardPrice.cryptoValue.length - 1]}}</p>
+            </div>
+          </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

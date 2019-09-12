@@ -1,78 +1,84 @@
-<ion-content class="backGroundGradient" >
-  <div (click)="closeModal()">
-    <img style="margin-top: 2em"  src="../../assets/icon/icon-close.png" alt="">
-  </div>
-  <div class="move-logo">
-    <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
-  </div>
-  <div *ngIf="ctrlContent">
-  <div style="padding: 45px; color: white">
-    <ion-label>Verifica tu identidad para solicitar tu XLM.</ion-label>
-    <ion-label>Tomaría un par de minutos. Una vez verificado, puedes usar nuestro producto de última generación de exchange</ion-label>
-  </div>
-  <div class="content-terms-conditions">
+<ion-content class="bghome">
+    <div (click)="closeModal(null)">
+        <img style="margin-top: 2em;margin-left: 1em" src="../../assets/icon/icon-return-page.svg" alt="">
+    </div>
+    <div class="move-logo">
+        <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
+    </div>
+    <div *ngIf="ctrlContent">
+        <div style="padding: 10vw 8vw 6vw 8vw;; color: white">
+            <ion-label>{{'VERIFICATION_MODAL_PAGE.VerifySecondFactor'| translate}}</ion-label>
+            <ion-label>{{'VERIFICATION_MODAL_PAGE.CompleteProfile'| translate}}</ion-label>
+        </div>
+        <div class="content-terms-conditions">
 			<span class="text">
-				{{constants.REGISTRY.TERMS_AND_CONDITIONS}}
-              <span class="terms-conditions">
+				{{'GENERAL.ConfirmTerms'| translate}}
+                <span class="terms-conditions">
 					<a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">
-						{{constants.REGISTRY.TERMS_SERVICE}}
+					{{'GENERAL.TermsOfService'| translate}}
 					</a>
 					&
 					<a href="https://eyewallet.com" target="_BLANK" class="text-terms-conditions">
-						{{constants.REGISTRY.PRIVACY_POLICY}}
+					{{'GENERAL.PrivacyPolicy'| translate}}
 					</a>
 				</span>
 			</span>
-  </div>
-  <div class="move-btn">
-    <ion-button  class="btn-start" (click)="ctrlContent = false" mode="ios">Comenzar ahora</ion-button>
-    <br>
-    <ion-button  class="btn-create" mode="ios">Chequear Luego</ion-button>
-  </div>
-  </div>
-  <div *ngIf="!ctrlVerification">
-    <div *ngIf="!ctrlContent">
-    <div *ngIf="!ctrlInput">
-      <div style="padding: 45px; color: white">
-        <h4>Verificar en 2 pasos</h4>
-        <p>Habilita el acceso autorizado a tu billetera.</p>
-        <p>Con solo 2 pasos puede aumentar la seguridad de tu billetera.</p>
-      </div>
-      <div class="move-btn" *ngIf="!ctrlInput">
-        <ion-button  class="btn-start" (click)="startVerification()" mode="ios">Habilitar</ion-button>
-        <br>
-        <ion-button  class="btn-create" mode="ios">Chequear Luego</ion-button>
-      </div>
+        </div>
+        <div class="move-btn">
+            <ion-button class="btn-start" (click)="ctrlContent = false"
+                        mode="ios">{{'VERIFICATION_MODAL_PAGE.StartNow'| translate}}</ion-button>
+            <br>
+            <ion-button *ngIf="!profile?.user?.firstName" class="btn-create" mode="ios"
+                        (click)="goToCreateProfile()">{{'VERIFICATION_MODAL_PAGE.StartLatter'| translate}}</ion-button>
+        </div>
     </div>
-    <div *ngIf="ctrlInput">
-      <div style="padding: 45px; color: white">
-        <p>Evite el acceso no autorizado a su billetera.
-          <br> Habilite la verificación de dos pasos para acutalizar la seguridad en su billetera
-        </p>
-        <p>Número Celular</p>
-        <p>Puede usar su teléfono móvil para habilitar la autenticación de dos pasos o para recibir alertas</p>
-      </div>
-      <ion-item>{{phone}}</ion-item>
-      <div class="move-btn">
-        <ion-button  class="btn-start" (click)="sendCodeVerification()" mode="ios">Enviar SMS</ion-button>
-        <br>
-      </div>
+    <div *ngIf="!ctrlVerification">
+        <div *ngIf="!ctrlContent">
+            <div *ngIf="!ctrlInput">
+                <div style="padding: 45px; color: white">
+                    <h4>{{'VERIFICATION_MODAL_PAGE.VerifyTwoSteps'| translate}}</h4>
+                    <p>{{'VERIFICATION_MODAL_PAGE.GrantAccessYourWallet'| translate}}</p>
+                    <p>{{'VERIFICATION_MODAL_PAGE.UpgradeSecurity'| translate}}</p>
+                </div>
+                <div class="move-btn" *ngIf="!ctrlInput">
+                    <ion-button class="btn-start" (click)="startVerification()"
+                                mode="ios">{{'VERIFICATION_MODAL_PAGE.Enable'| translate}}</ion-button>
+                    <br>
+                    <ion-button *ngIf="profile.name" class="btn-create" mode="ios" (click)="goToCreateProfile()">
+                        {{'VERIFICATION_MODAL_PAGE.StartLatter'| translate}}
+                    </ion-button>
+                </div>
+            </div>
+            <div *ngIf="ctrlInput">
+                <div style="padding: 45px; color: white">
+                    <p>  {{'VERIFICATION_MODAL_PAGE.AvoidUnauthorizedAccess'| translate}}
+                        <br> {{'VERIFICATION_MODAL_PAGE.EnableStepsVerify'| translate}}
+                    </p>
+                    <p>{{'GENERAL.PhoneNumber'| translate}}</p>
+                    <p>{{'VERIFICATION_MODAL_PAGE.EnableAuthorizationRequest'| translate}}</p>
+                </div>
+                <ion-item>{{profile.phone}}</ion-item>
+                <div class="move-btn">
+                    <ion-button class="btn-start" (click)="sendCodeVerification()"
+                                mode="ios">{{'GENERAL.SendSMS'| translate}}</ion-button>
+                    <br>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-  </div>
     <div *ngIf="ctrlVerification">
-      <div style="padding: 45px; color: white">
-        <h4>Verificar con 2 pasos</h4>
-        <p>Ingresa su código de verificación</p>
-        <p>Puede usar su teléfono móvil para habilitar la autenticación de dos pasos para recibir alertas</p>
-      </div>
-      <ion-item>
-        <ion-input [(ngModel)]="code" placeholder="Código" size="full"></ion-input>
-      </ion-item>
-      <div class="move-btn" >
-        <ion-button  class="btn-start" (click)="verifyCode()" mode="ios">Verificar</ion-button>
-        <ion-button  class="btn-create" (click)="sendCodeVerification()" mode="ios">Reenviar código</ion-button>
-        <br>
-      </div>
+        <div style="padding: 45px; color: white">
+            <h4>{{'VERIFICATION_MODAL_PAGE.VerifyTwoSteps'| translate}}</h4>
+            <p>{{'VERIFICATION_MODAL_PAGE.InputVerificationCode'| translate}}</p>
+            <p>{{'VERIFICATION_MODAL_PAGE.EnableAuthorizationRequest'| translate}}</p>
+        </div>
+        <ion-item>
+            <ion-input type="number" [(ngModel)]="code" placeholder="Código" size="full"></ion-input>
+        </ion-item>
+        <div class="move-btn">
+            <ion-button class="btn-start" (click)="verifyCode()" mode="ios">{{'GENERAL.Verify'| translate}}</ion-button>
+            <ion-button class="btn-create" (click)="sendCodeVerification()" mode="ios">{{'GENERAL.ResendCode'| translate}}</ion-button>
+            <br>
+        </div>
     </div>
 </ion-content>

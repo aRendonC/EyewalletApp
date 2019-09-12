@@ -1,0 +1,26 @@
+<ion-content
+        [fullscreen]="true" class="card-invoice" style="--background: linear-gradient(to bottom, rgba(255,255,255,1) 90%, rgba(223,226,238,1) 100%, rgba(202,206,227,1) 100%);">
+  <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
+
+  <div class="content-logo center-vertical center-horizontal">
+    <ion-img style="width: 40%" src="../../assets/img/home-logo.svg" class="image"></ion-img>
+  </div>
+  <ion-row>
+    <ion-col size="9">
+      <div class="content-text-icon center center-horizontal center-vertical" style="display: grid;">
+      <div class="text">{{'CARD_INVOICE.CardRequest'| translate}} </div>
+      <div class="text" style="font-weight: bold">{{'CARD_INVOICE.Review'| translate}}</div>
+      </div>
+    </ion-col>
+    <ion-col size="3">
+      <ion-img style="width: 65%;" src="../../assets/images/process.svg" class="image">
+
+      </ion-img>
+    </ion-col>
+  </ion-row>
+
+
+  <div class="content-image-card" style="margin-top: 5%;">
+    <ion-img src="../../assets/images/card-process.svg" class="image"></ion-img>
+  </div>
+</ion-content>

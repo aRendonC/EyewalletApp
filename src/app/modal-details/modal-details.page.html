@@ -1,0 +1,74 @@
+<ion-content class="back-modal">
+<!-- <img src="../../assets/icon/icon-return-page.svg" alt="Regresar" (click)="close()"  class="button-return" /> -->
+
+
+<ion-card class="card-detalis">
+    <ion-item>
+        <img src="{{datos.typeIcon}}" class="icon-detalies" slot="start"/>
+        <ion-label>{{'GENERAL.Details' | translate}}</ion-label>
+        <ion-button fill="outline" slot="end" (click)="close()">X</ion-button>
+    </ion-item>
+
+    <ion-card-content class="conten-detalis">
+        <ion-list>
+            <ion-item>
+                <ion-label class="label-datails">{{'GENERAL.From' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.address_from}}</span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label class="label-datails">{{'GENERAL.To' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.address_to}}</span>
+                </ion-label>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="label-datails">{{'GENERAL.Confirmation' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.confirmationText}}</span>
+                </ion-label>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="label-datails">{{'GENERAL.Amount' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.amount}}</span>
+                </ion-label>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="label-datails">{{'GENERAL.Usd' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.amountDollar}}</span>
+                </ion-label>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="label-datails">{{'GENERAL.Fee' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.fee}}</span>
+                </ion-label>
+            </ion-item>
+
+            <ion-item text-wrap>
+                <ion-label  class="label-datails" >{{'GENERAL.Priority' | translate}} :
+                    <br>
+                    <span class="value-label">{{datos?.priority}}</span>
+                </ion-label>
+                
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="label-datails">{{'GENERAL.Date' | translate}}:
+                    <br>
+                    <span class="value-label">{{datos?.createdAt}}</span>
+                </ion-label>
+            </ion-item>
+            
+            
+        </ion-list>
+    </ion-card-content>
+</ion-card>
+</ion-content>

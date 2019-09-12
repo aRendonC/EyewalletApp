@@ -1,0 +1,37 @@
+@import '../../global.scss';
+
+.button-return {
+   height: 2em;
+   width: 2em;
+   position: absolute;
+   top: 30px;
+   left: 10px;
+}
+
+.back-modal{
+    @extend .backGroundGradient;
+}
+
+ .icon-close {
+     
+    width: 10vw;
+    margin: 20px 0 0 0;
+  }
+
+  .conten-detalis{
+    background:#FFFFFF;
+}
+
+.label-datails{
+    display: block;
+    color:#5496FF;
+    width: 100%;
+}
+
+.title-details{
+    font-size: 28px;
+}
+
+.value-label{
+    color:#000000;
+}

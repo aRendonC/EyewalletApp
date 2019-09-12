@@ -1,32 +1,47 @@
-<ion-content padding class="bghome">
+<ion-content padding class="bghome" [class.blur]="ctrlCssBlur">
     <app-return-page [path]="path"></app-return-page>
 
-    <div class="move-logo">
+    <div>
         <ion-img class="resize-logo" src="../../assets/img/home-logo.svg"></ion-img>
+
         <div class="center">
             <ion-label class="text-eyewallet">EYEWALLET</ion-label>
             <br>
             <ion-label class="text-crypto">CRYPTO BANK</ion-label>
         </div>
     </div>
+
     <form #formulario (ngSubmit)="login()" class="transparent move-form">
         <ion-list class="transparent">
             <!-- Usuario -->
             <ion-item class="transparent white-line">
                 <ion-img src="../../assets/icon/icon-user.svg" class="resize-icon"></ion-img>
-                <ion-input  class="white move-input" type="email" name="username" [(ngModel)]="username"  placeholder="Correo Electrónico"></ion-input>
+                <ion-input
+                    type="email"
+                    name="username"
+                    [(ngModel)]="username"
+                    placeholder="Correo Electrónico"
+                    class="white move-input"
+                ></ion-input>
             </ion-item>
+
             <!-- Contraseña -->
             <ion-item class="transparent white-line">
-                    <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
-                <ion-input class="white move-input" type="password" name="password" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
+                <ion-img src="../../assets/icon/icon-pass.svg" class="resize-icon"></ion-img>
+                <ion-input
+                    type="password"
+                    name="password"
+                    [(ngModel)]="password"
+                    placeholder="Contraseña"
+                    class="white move-input"
+                ></ion-input>
             </ion-item>
         </ion-list>
+
         <div class="move-btn">
-            <ion-button type="submit" class="btn-start" mode="ios" >Iniciar Sesión</ion-button>
+            <ion-button type="submit" class="btn-start" mode="ios" >{{'HOMEPAGE.LogIn'| translate}}</ion-button>
             <br>
-            <ion-button (click)="restore()" class="btn-create" mode="ios">Recuperar Contraseña</ion-button>
+            <ion-button (click)="restore()" class="btn-create" mode="ios">{{'HOMEPAGE.RecoveryPassword'| translate}}</ion-button>
         </div>
     </form>
 </ion-content>
-

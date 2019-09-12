@@ -18,11 +18,13 @@
   width: 60%;
 }
 
+.card-padding {
+  --padding-bottom: 1.5em !important;
+}
+
 .center{
-  margin-top: 6vh;
   text-align: center;
   width: 100%;
-  margin-left: -7vh
 }
 
 .text-eyewallet{
@@ -54,8 +56,8 @@
   --background: #4C6AC0;
   --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
   --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-  --padding-start: 15vh;
-  --padding-end: 14vh;
+  --padding-start: 27vw;
+  --padding-end: 27vw;
   --padding-top: 0px;
   --padding-bottom: 0px;
   --border-radius: 100px;
@@ -68,8 +70,8 @@
   --background: transparent;
   --background-activated: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
   --background-hover: linear-gradient(45deg, #7300FF -10%, #5584FF 70%, #4DAAFF 120%) !important;
-  --padding-start: 15vh;
-  --padding-end: 14vh;
+  --padding-start: 27vw;
+  --padding-end: 27vw;
   --padding-top: 0px;
   --padding-bottom: 0px;
   --border-radius: 100px;
@@ -78,3 +80,23 @@
   --border-style: solid;
   font-family: 'Poppins', sans-serif;
 }
+
+.recover-wallet{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21.6px;
+  text-align: center;
+  color: #ccd9eb;
+}
+
+
+    // color: transparent;
+    // height: 125px;
+    // width: 125px;
+    // animation-duration: 750ms;
+    // background-image: url(../../../assets/img/spinner.svg);
+    // background-repeat: no-repeat;
+
+    // width: 125px;
+    // height: 125px;

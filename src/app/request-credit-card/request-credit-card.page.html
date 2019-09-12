@@ -1,0 +1,56 @@
+<ion-content
+  [fullscreen]="true"
+  [ngClass]="showContentLogo ? 'request-credit-card' : 'request-credit-card request-credit-card-scroll'"
+>
+  <app-pocket [ctrlNavigation]="ctrlNavigation" class="margin-pocket-component"></app-pocket>
+
+  <div [ngClass]="showContentLogo ? 'content-logo' : 'content-logo transition-logo-card'"></div>
+
+  <div [ngClass]="showContentLogo ? 'content-text-icon' : 'content-text-icon transition-title'">
+    <span class="text">{{title}}</span>
+    <ion-img src="../../assets/icon/icon-request-card.svg" (click)="showForm()" class="icon"></ion-img>
+  </div>
+
+  <div [ngClass]="showContentLogo ? 'content-image-card' : 'content-image-card transition-card'"></div>
+
+  <div [ngClass]="showContentLogo ? 'no-show-form-content' : 'show-form-content transition-form'">
+    <ul class="list">
+      <li *ngFor="let item of keysDataProfile, let i = index" class="item">
+        <label class="key-item" text-capitalize>{{item}}</label>
+        <label class="value-item">{{valuesDataProfile[i] }}</label>
+      </li>
+    </ul>
+
+    <div class="terms-conditions">
+      <span class="text">{{'REQUEST_CREDIT_CAR_PAGE.SelectWallet' | translate}}</span>
+
+      <ion-select
+        class="move-input"
+        done-text="Aceptar"
+        cancel-text="Cancelar"
+        type="number"
+        name="city"
+        [(ngModel)]="pocketSelected"
+        (ngModelChange)="listenerPocketSelected()"
+        placeholder="Pocket"
+      >
+        <ion-select-option *ngFor="let pocket of pockets" [value]="pocket">{{pocket.label}}</ion-select-option>
+      </ion-select>
+
+    </div>
+    <div class="terms-conditions">
+      <span class="text">{{termsConditions}}</span>
+      <ion-toggle (ionChange)="handlerToggle($event)" mode="ios" class="accept-terms-onditions"></ion-toggle>
+    </div>
+
+    <div class="content-buttons">
+      <ion-button mode="md" text-capitalize (click)="buttonCancelNavigate()" class="button-cancel">
+        {{'GENERAL.Cancel' | translate}}
+      </ion-button>
+
+      <ion-button [disabled]="stateTermsConditions" mode="md" text-capitalize (click)="buttonAcept()" class="button-accept">
+        {{'GENERAL.Accept' | translate}}
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
