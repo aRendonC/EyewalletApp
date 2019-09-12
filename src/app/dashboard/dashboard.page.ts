@@ -1,15 +1,12 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ModalController} from '@ionic/angular';
-import {DataLocalService} from '../services/data-local/data-local.service';
-import {AxiosService} from '../services/axios/axios.service';
-import {AuthService} from '../services/auth/auth.service';
-import {SlidersComponent} from '../components/sliders/sliders.component';
-import {LoadingService} from '../services/loading/loading.service';
-import {ToastService} from "../services/toast/toast.service";
-import {SocketIoService} from "../services/socketIo/socket-io.service";
-import {ChartComponent} from "../components/chart/chart.component";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { DataLocalService } from '../services/data-local/data-local.service';
+import { AxiosService } from '../services/axios/axios.service';
+import { AuthService } from '../services/auth/auth.service';
+import { SlidersComponent } from '../components/sliders/sliders.component';
+import { LoadingService } from '../services/loading/loading.service';
+import { ToastService } from "../services/toast/toast.service";
+import { ChartComponent } from "../components/chart/chart.component";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'app-dashboard',
@@ -18,17 +15,17 @@ import {TranslateService} from "@ngx-translate/core";
 })
 
 export class DashboardPage implements OnInit {
-    public ctrlCssBlur: boolean = false;
     @ViewChild(SlidersComponent) sliderComponent: SlidersComponent;
     @ViewChild(ChartComponent) chartComponent: ChartComponent;
     @Input() gra: SlidersComponent;
-    ctrlNavigation = 0;
-    location: any;
-    transactionComponent: any;
-    public pockets: any = null;
+    public ctrlNavigation: number;
+    public ctrlCssBlur: boolean;
+    public pockets: any;
     public pocket: any;
+    public location: any;
+    public transactionComponent: any;
     public profile: any;
-    public params = {
+    public params: any = {
         userId: null,
         type: null,
         wallet_id: null,
@@ -41,47 +38,50 @@ export class DashboardPage implements OnInit {
     }];
 
     constructor(
-        private route: ActivatedRoute,
-        private modalCtrl: ModalController,
-        private storage: DataLocalService,
-        private http: AxiosService,
-        private auth: AuthService,
-        public loadingController: LoadingService,
-        private router: Router,
-        private toastCtrl: ToastService,
-        private socket: SocketIoService,
+        private dataLocalService: DataLocalService,
+        private axiosService: AxiosService,
+        private authService: AuthService,
+        private loadingController: LoadingService,
+        private toastService: ToastService,
         private translateService: TranslateService,
     ) {
+        this.ctrlNavigation = 0;
+        this.ctrlCssBlur = false;
+        this.pockets = null;
     }
 
-    async ngOnInit() {
-        await this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
-        //await this.socket.initSocketConnection();
-        //await this.socket.disconnectSocket();
-        this.pocket = await this.storage.getDataLocal('selected-pocket');
-        await this.getUserProfile();
+    public async ngOnInit(): Promise<any> {}
+
+    public async ionViewDidEnter(): Promise<any> {
+        this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
+        await this.getDataStorage();
         await this.getListTransactions();
-    }
-
-    public async ionViewDidEnter() {
         await this.getTransactionsSend();
         let elementDashboard: any = document.getElementsByTagName('app-dashboard');
         elementDashboard[0].classList.add("margins-dashboard")
     }
 
+    public async getDataStorage(): Promise<any> {
+        this.pocket = await this.dataLocalService.getDataLocal('selected-pocket');
+        this.profile = await this.dataLocalService.getDataLocal('profile');
+        this.pockets = await this.dataLocalService.getDataLocal('pockets');
+        this.params.userId = this.profile.userId;
+        this.params.type = 4;
+    }
+
     async getTransactionsSend() {
-        let transaction = await this.storage.getDataLocal('transaction');
+        let transaction = await this.dataLocalService.getDataLocal('transaction');
         if (transaction) {
             await this.getDataPocket(transaction);
-            await this.storage.removeKey('transaction');
+            await this.dataLocalService.removeKey('transaction');
         }
     }
 
     public async getDataPocket(data?: any) {
-        let bool = await this.storage.getDataLocal('pocket-created');
+        let bool = await this.dataLocalService.getDataLocal('pocket-created');
         if (bool) {
             let pockets = await this.getPocketsList();
-            await this.storage.setDataLocal('pockets', pockets);
+            await this.dataLocalService.setDataLocal('pockets', pockets);
             pockets.forEach(pocket => {
                 if (!this.crypto[0]) {
                     this.crypto.push({
@@ -126,7 +126,7 @@ export class DashboardPage implements OnInit {
             setTimeout(async () => {
                 await this.sliderComponent.changeSlides(this.crypto.length + 1)
             }, 1000)
-            await this.storage.removeKey('pocket-created')
+            await this.dataLocalService.removeKey('pocket-created')
 
         } else {
             this.crypto.forEach(crypto => {
@@ -184,17 +184,6 @@ export class DashboardPage implements OnInit {
         });
     }
 
-    async getUserProfile() {
-        let profile = await this.storage.getDataLocal('profile');
-        this.profile = profile;
-        this.params.userId = profile.userId;
-        this.params.type = 4;
-        console.log("sera que por aqui");
-        if (!this.pockets) {
-            this.pockets = await this.storage.getDataLocal('pockets');
-        }
-    }
-
     async getListTransactions() {
         this.crypto = [];
         this.ctrlCssBlur = true;
@@ -204,7 +193,7 @@ export class DashboardPage implements OnInit {
             address: this.pockets[0].address,
             currencyShortName: this.pockets[0].currency.shortName
         };
-        let response = await this.http.post('transaction/index', params, this.auth);
+        let response = await this.axiosService.post('transaction/index', params, this.authService);
         let dataTransaction = response.data;
         if (dataTransaction[0]) {
             await this.getTransactionHistory(response);
@@ -297,8 +286,8 @@ export class DashboardPage implements OnInit {
         });
         if (!selected_pocket[0]) {
             this.pockets = await  this.getPocketsList()
-            this.storage.setDataLocal('pockets', this.pockets.data)
-            let pocketsNews = await this.http.post('user-wallet/index', {currencyId: cryptoData.currencyId}, this.auth);
+            this.dataLocalService.setDataLocal('pockets', this.pockets.data)
+            let pocketsNews = await this.axiosService.post('user-wallet/index', {currencyId: cryptoData.currencyId}, this.authService);
             this.pocket = pocketsNews[0]
         } else {
             this.pocket = selected_pocket[0];
@@ -310,24 +299,23 @@ export class DashboardPage implements OnInit {
             currencyShortName: this.pocket.currency.shortName
         };
         
-        let dataResponse = await this.http.post('transaction/index', body, this.auth);
-        this.storage.setDataLocal('selected-pocket', this.pocket);
+        let dataResponse = await this.axiosService.post('transaction/index', body, this.authService);
+        this.dataLocalService.setDataLocal('selected-pocket', this.pocket);
         if (dataResponse.status === 200) {
             dataResponse.pocket = this.pocket;
             await this.getDataPocket(dataResponse)
         } else {
-            await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+            await this.toastService.presentToast({text: dataResponse.error.msg})
         }
     }
 
     async refreshTransactions(dataTransaction): Promise<any> {
         await this.loadingController.dismiss();
         await this.getDataPocket(dataTransaction)
-
     }
 
     public async getPocketsList() {
-        return await this.http.post('user-wallet/index', {currencyId: ''}, this.auth);
+        return await this.axiosService.post('user-wallet/index', {currencyId: ''}, this.authService);
     }
 
 }

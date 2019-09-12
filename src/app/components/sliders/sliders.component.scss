@@ -33,10 +33,6 @@
     background-image:  url('../../../assets/img/logoEtherium.png');
 }
 
-ion-content{
---ion-background-color:  #00ABE1 !important;
-}
-
 .card-content-md {
     padding: 0;
 }
@@ -45,25 +41,31 @@ ion-content{
     width: 100%;
     height: 100%;
     background:  url('../../../assets/img/bg-etherium.png') no-repeat center center / cover;
-    //background-position: 0em -2cm;
 }
 
-.text-valance{
-    text-align: left;
-    font-family: $font-roboto-bold;
-    color: #28255C;
-    display: block;
-    padding-left: 6%;
-    font-size: 25px;
-}
+.content-balances {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
 
-.text-usd{
-    font-family: $font-roboto-bold;
-    display: block;
-    color: #5495FF;
-    text-align: left;
-    padding-left: 6%;
-    font-size: 16px;
+    .text-balance {
+        font-family: $font-roboto-bold;
+        font-size: 25px;
+        color: #28255C;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    
+    .text-usd {
+        font-family: $font-roboto-bold;
+        font-size: 16px;
+        color: #5495FF;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
 }
 
 .cardwith{
@@ -113,8 +115,6 @@ ion-content{
 
 .card-ver-width{
     background: linear-gradient(-17deg, rgba(151, 245, 249, 0.4) -30%, rgba(126, 213, 246, 0.4) -45%, rgba(82, 157, 243, 0.4) 44%, rgba(82, 157, 243, 0.4) 118%, rgba(45, 60, 173, 0.4) 131%, rgba(45, 60, 173, 0.6) 106%, rgba(45, 60, 173, 0.4) 188%);
-
-    //background-image: url("../../../assets/img/bg-verify.svg");
     background-repeat: no-repeat;
     background-position: right;
     opacity: 5;
@@ -238,17 +238,7 @@ ion-content{
     position: relative;
     z-index: 3;
 }
-//.swiper-container {
-//    width: 100%;
-//    padding-top: 50px;
-//    padding-bottom: 50px;
-//}
-//.swiper-slide {
-//    background-position: center;
-//    background-size: cover;
-//    width: 300px;
-//    height: 300px;
-//}
+
 .swiper-slide-next{
     font-size: 10px;
 }
@@ -258,6 +248,76 @@ ion-content{
 
 
 .sc-ion-card-ios-h-transactions {
-background: white;
+    background: white;
 }
+
+//==========================================================
+.sliders {
+    .names-sliders {
+        margin: 3vh 0 0 0;
+
+        .name-slider {
+            .cryptos-names {
+
+            }
+        }
+    }
+
+    .sliders-balances-refresh-graphics {
+        .slider-balance-refresh-graphic {
+            @extend .all-center-colum;
+
+            .content-balance-refresh {
+                width: 100%;
+                padding: 70px 0 0 0;
+                @extend .center-space-around;
+
+                .balances {
+                    .text-balance-crypto {
+                        font-family: $font-roboto-bold;
+                        font-size: 25px;
+                        color: #28255C;
+                        display: block;
+                        width: 100%;
+                        text-align: left;
+                        margin: 0 0 7px 0;
+                    }
+
+                    .text-balance-usd {
+                        font-family: $font-roboto-bold;
+                        font-size: 16px;
+                        color: #5495FF;
+                        display: block;
+                        width: 100%;
+                        text-align: left;
+                    }
+                }
+
+                .refresh {
+                    @extend .all-center;
+
+                    .icon-refresh {
+                        border-radius: 40px;
+                    }
+
+                    .icon-refresh:hover {
+                        background: rgba(0, 0, 0, 0.2);
+                    }
+                }
+            }
+        }
+
+        .graphic-transactions {
+
+        }
+    }
+}
+
+.content-graphic {
+    .graphic {
+        width: 104% !important;
+        margin: -50% 0 0 -3%;
+    }
+}
+//==========================================================
 
