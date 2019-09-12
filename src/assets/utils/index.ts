@@ -14,15 +14,8 @@ export const validateEmail = (data: string): boolean => {
 };
 
 export const validatePassword = (data: string): boolean => {
-   const passwordLength = {
-      min: 6,
-      max: undefined
-   };
-
-   return !!(!validator.isEmpty(data) &&
-       validator.isLength(data, passwordLength) &&
-       !validator.isAlphanumeric(data) &&
-       validator.isAscii(data));
+   const regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*.-_])(?=.{6,})/;
+   return regExp.test(data);
 };
 
 export const validatePin = (data: string): boolean => {
