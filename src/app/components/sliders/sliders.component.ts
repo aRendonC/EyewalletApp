@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
+import {NavigationStart, Router} from '@angular/router';
 import { IonInfiniteScroll, IonSlides, ModalController, AlertController} from '@ionic/angular';
 import {VerificationModalPage} from '../../verification-modal/verification-modal.page';
 import {Chart} from 'chart.js';
@@ -11,8 +11,6 @@ import {DataLocalService} from "../../services/data-local/data-local.service";
 import {LoadingService} from "../../services/loading/loading.service";
 import {TranslateService} from "@ngx-translate/core";
 import { ModalDetailsPage } from 'src/app/modal-details/modal-details.page';
-
-
 
 @Component({
     selector: 'app-sliders',
@@ -44,13 +42,11 @@ export class SlidersComponent implements OnInit {
     };
     labelGrapich = [];
 
-
     @ViewChild('lineCanvas') lineCanvas;
 
     nameSlider: string;
 
     constructor(
-        private route: ActivatedRoute,
         private modalCtrl: ModalController,
         private store: DataLocalService,
         private router: Router,
@@ -68,11 +64,9 @@ export class SlidersComponent implements OnInit {
         });
     }
 
-
     async ngOnInit() {
         let userVerifications: any = await this.http.get('user-verification/status', this.auth, null);
         userVerifications = userVerifications.data;
-        console.log("verification: ", userVerifications);
         await this.store.setDataLocal('userVerification', userVerifications);
         this.profile = await this.store.getDataLocal('profile');
         
@@ -81,7 +75,6 @@ export class SlidersComponent implements OnInit {
         this.nameSlider = this.name;
         this.dataGraphic = this.name[0];
         await this.grafica();
-
     }
 
     async getProfileStore() {
@@ -202,24 +195,19 @@ export class SlidersComponent implements OnInit {
             await this.sliderHeader.lockSwipes(false);
         }, 2000)
     }
-
-
+    
     loadData(event) {
         event.target.complete();
     }
 
     async refreshTransactions(pocketSelected): Promise<any> {
-        
         let Id= pocketSelected.id;
-        console.log("ID: ",Id);
         
         await this.loadingCtrl.present({text: this.translateService.instant('VAULT.loading'), cssClass: 'textLoadingBlack'});
         let pock = await this.getPocketsList(Id);
         let pocket1 = await this.getPocketsList1();
         this.store.setDataLocal('selected-pocket', pock.data);
         await this.store.setDataLocal('pockets', pocket1);
-        console.log("TALES: ",pock.data);
-        console.log("TALES2", pocket1);
 
         let pocket = await this.store.getDataLocal('selected-pocket');
         let body = {
@@ -228,6 +216,7 @@ export class SlidersComponent implements OnInit {
             address: pocket.address,
             currencyShortName: pocket.currency.shortName
         };
+
         let dataResponse = await this.http.post('transaction/index', body, this.auth);
         if (dataResponse.status === 200) {
             dataResponse.pocket = pocket;
@@ -243,24 +232,23 @@ export class SlidersComponent implements OnInit {
         await this.sliderHeader.slideTo(id, 200);
     }
 
-    static connectionDataSocket(data){
-        console.log(data)
-    }
-
     public async getPocketsList1() {
         return await this.http.post('user-wallet/index', { currencyId: ''}, this.auth);
     }
+
     public async getPocketsList(id) {
         return await this.http.post('user-wallet/view', { id: id }, this.auth);
     }
 
     public async details(datos){
-         const modal = await this.modalCtrl.create({
-             component: ModalDetailsPage,
-             componentProps: { datos }
-         });
-         return await modal.present();
+        const modal = await this.modalCtrl.create({
+            component: ModalDetailsPage,
+            componentProps: { datos }
+        });
+        return await modal.present();
     }
 
-    
+    static connectionDataSocket(data){
+        console.log(data)
+    }
 }
