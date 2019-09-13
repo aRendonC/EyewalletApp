@@ -37,12 +37,12 @@
         <ion-tab-button
             mode="ios"
             class="tab-btn"
-            [tab]="routerVault"
             (click)="navigateVault()"
         >
-            <div class="tab center-horizontal" [class.selected-tab]="currentRoute === routerVault">
+            <div class="tab center-horizontal" 
+            [class.selected-tab]="currentRoute === tabs['vault'] || currentRoute === tabs['vault-list']">
                 <img
-                    [class.img-icon-tabs-selected]="currentRoute === routerVault"
+                    [class.img-icon-tabs-selected]="currentRoute === tabs['vault'] || currentRoute === tabs['vault-list']"
                     class="img-icon-tabs"
                     src="../../assets/img/tabs/tab-vault.svg"
                 />

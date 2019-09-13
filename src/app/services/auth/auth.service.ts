@@ -8,6 +8,7 @@ import {DeviceService} from '../device/device.service';
 import {PinModalPage} from '../../pin-modal/pin-modal.page';
 import {AesJsService} from '../aesjs/aes-js.service';
 import {LoadingService} from '../loading/loading.service';
+import { Socket } from 'ng-socket-io';
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +31,8 @@ export class AuthService {
         private device: DeviceService,
         private modalCtrl: ModalController,
         private aesjs: AesJsService,
-        private loadingCtrl: LoadingService
+        private loadingCtrl: LoadingService,
+        private socket: Socket,
     ) {
         // this.persistenceLogin();
     }
@@ -116,5 +118,10 @@ export class AuthService {
         await this.menu.enable(false);
         await this.router.navigate(['']);
         await this.loadingCtrl.dismiss();
+        this.socket.on('disconnect',function(){
+            console.log("Disconnet:", this.socket.id);
+        })
+
+
     }
 }

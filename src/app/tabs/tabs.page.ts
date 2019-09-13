@@ -19,7 +19,7 @@ export class TabsPage {
     public tabs = {
         'prices': 'prices',
         'vault': 'vault',
-        'vaultList': 'vault-list',
+        'vault-list': 'vault-list',
         'dashboard': 'dashboard',
         'card-invoice': 'card-invoice',
         'profile': 'profile',

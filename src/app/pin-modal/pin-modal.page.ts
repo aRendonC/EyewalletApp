@@ -4,6 +4,9 @@ import {FingerprintAIO} from "@ionic-native/fingerprint-aio/ngx";
 import {Storage} from "@ionic/storage";
 import {Router} from "@angular/router";
 import {AesJsService} from "../services/aesjs/aes-js.service";
+import { AxiosService } from '../services/axios/axios.service';
+import { DataLocalService } from "../services/data-local/data-local.service";
+
 @Component({
   selector: 'app-pin-modal',
   templateUrl: './pin-modal.page.html',
@@ -26,6 +29,8 @@ export class PinModalPage implements OnInit {
       private router: Router,
       private platform: Platform,
       private aesjs: AesJsService,
+      private api: AxiosService,
+      private store2: DataLocalService,
   ) { }
 
   ngOnInit() {
@@ -67,15 +72,27 @@ export class PinModalPage implements OnInit {
       if(user) {
         user.pin = this.aesjs.decrypt(user.pin);
         if(pinData === user.pin.toString()) {
-          if(this.sendCrypto === true){
-            console.log("DATOS_PIN: ",user.pin);
-            await this.closeModal1(user.pin)
+          if(this.sendCrypto === true){     
+            await this.closeModal1(user.pin);
           }else{
+            console.log("DATOS_PIN: ", user.profile.userId);
+            
+
+            //this.endpoint(valorChannel,1,useruuiid);
+
+            
+
+            //let dataTransaction = response.data;
+            //console.log("response", dataTransaction);
             user.pin = this.aesjs.encrypt(user.pin);
             this.store.set('user', user);
             await this.router.navigate(['/app/tabs/dashboard']);
             await this.closeModal()
           }
+          let useruuiid = user.profile.userId;
+          let valorChannel = await this.store2.getDataLocal('chanelSocket');
+          const result = await this.api.post('auth/logoutRemote', { channel: valorChannel, plattform: 1, userId: useruuiid, });
+          console.log("tales",result);
           
         } else {
           this.ctrlPin = false;
@@ -113,6 +130,12 @@ export class PinModalPage implements OnInit {
             // this.exitApp();
           });
         }).catch((error: any) => console.log('entro al carch sin cancelar', error));
+  }
+
+  async endpoint(channell,valor1, useruuiid){
+    const response = await this.api.post('auth/logoutRemote', { channel: channell, plattform: valor1, userId: useruuiid, });
+    let dataTransaction = response.data;
+    console.log("response", dataTransaction);
   }
 
 }
