@@ -1,31 +1,25 @@
 import {Injectable, ViewChild} from '@angular/core';
 import { Socket } from 'ng-socket-io';
-import {DeviceService} from "../device/device.service";
 import {SlidersComponent} from "../../components/sliders/sliders.component";
 import {DataLocalService} from "../data-local/data-local.service";
 import { AesJsService } from '../aesjs/aes-js.service';
 import { ModalController, Platform, AlertController } from '@ionic/angular';
-import { SesionModalPage } from '../../sesion-modal/sesion-modal.page';
 import { AuthService } from '../../services/auth/auth.service';
-import { ToastService } from '../toast/toast.service';
-
 import { LocalNotifications, ELocalNotificationTriggerUnit, ILocalNotificationActionType, ILocalNotification } from '@ionic-native/local-notifications/ngx';
-
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class SocketIoService {
   @ViewChild(SlidersComponent) sliderComponent: SlidersComponent;
 
   constructor(
       private socket: Socket,
-      private device: DeviceService,
       private storage: DataLocalService,
       public modalController: ModalController,
       private aesJ: AesJsService,
       private auth: AuthService,
-      private toastController: ToastService,
       private localNotifications: LocalNotifications,
       private plt: Platform,
       private alertCtrl: AlertController,
@@ -93,7 +87,7 @@ export class SocketIoService {
 
       if (data.status === 103) {
         this.localNotifications.schedule({
-          id: 22,
+          id: 23,
           title: 'Attention',
           text: 'Transacción',
           data: { mydata: 'Transaccìon realizada' },
@@ -105,7 +99,7 @@ export class SocketIoService {
 
       if(data.status === 104) {
         this.localNotifications.schedule({
-          id: 22,
+          id: 24,
           title: 'Attention',
           text: 'Transacción',
           data: { mydata: 'Transaccìon realizada' },
@@ -117,7 +111,7 @@ export class SocketIoService {
 
       if(data.status === 104) {
         this.localNotifications.schedule({
-          id: 22,
+          id: 25,
           title: 'Attention',
           text: 'Transacción',
           data: { mydata: 'Transaccìon confirmada' },
@@ -137,6 +131,4 @@ export class SocketIoService {
       buttons: ['Ok']
     }).then(alert => alert.present());
   }
-
-
 }
