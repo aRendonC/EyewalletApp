@@ -9,6 +9,7 @@ import { ChartComponent } from "../components/chart/chart.component";
 import { TranslateService } from "@ngx-translate/core";
 
 
+
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.page.html',
@@ -39,11 +40,23 @@ export class DashboardPage implements OnInit {
     }];
 
     constructor(
+<<<<<<< HEAD
         private dataLocalService: DataLocalService,
         private axiosService: AxiosService,
         private authService: AuthService,
         private loadingController: LoadingService,
         private toastService: ToastService,
+=======
+        private route: ActivatedRoute,
+        private modalCtrl: ModalController,
+        private storage: DataLocalService,
+        private http: AxiosService,
+        private auth: AuthService,
+        public loadingController: LoadingService,
+        private router: Router,
+        private toastCtrl: ToastService,
+        //private socket: SocketIoService,
+>>>>>>> ajuste de socket y notification
         private translateService: TranslateService,
     ) {
         this.ctrlNavigation = 0;
@@ -318,4 +331,10 @@ export class DashboardPage implements OnInit {
     public async getPocketsList() {
         return await this.axiosService.post('user-wallet/index', {currencyId: ''}, this.authService);
     }
+<<<<<<< HEAD
+=======
+
+    
+
+>>>>>>> ajuste de socket y notification
 }
