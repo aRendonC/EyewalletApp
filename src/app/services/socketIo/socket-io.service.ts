@@ -1,5 +1,5 @@
 import {Injectable, ViewChild} from '@angular/core';
-import { Socket } from 'ngx-socket-io';
+import { Socket } from 'ng-socket-io';
 import {DeviceService} from "../device/device.service";
 import {SlidersComponent} from "../../components/sliders/sliders.component";
 import {DataLocalService} from "../data-local/data-local.service";
@@ -52,12 +52,15 @@ export class SocketIoService {
 
   disconnectSocket(){
     this.socket.disconnect();
+    this.socket.on('disconnect',function(){
+      console.log("Socket Disconnet", this.socket.id);
+    })
   }
 
   async initSocket(channel){
-    let valor = await this.aesJ.decrypt(channel);
+    let valor = await this.aesJ.decryptNoJson(channel);
     console.log("valor-takes: ",valor);
-
+    
     this.socket.on(valor, async data =>{
       console.log("DATA:",data);
       console.log("Status ", data.status);

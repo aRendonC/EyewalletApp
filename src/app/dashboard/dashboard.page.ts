@@ -317,6 +317,4 @@ export class DashboardPage implements OnInit {
     public async getPocketsList() {
         return await this.axiosService.post('user-wallet/index', {currencyId: ''}, this.authService);
     }
-
 }
-

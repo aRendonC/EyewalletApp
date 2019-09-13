@@ -20,8 +20,10 @@ import {ToastService} from "./services/toast/toast.service";
 import {text} from "@angular/core/src/render3";
 import {LanguageService} from "./services/language/language.service";
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-import { Socket } from 'ngx-socket-io';
+import { Socket } from 'ng-socket-io';
 import { AesJsService } from './services/aesjs/aes-js.service';
+import { DataLocalService } from './services/data-local/data-local.service';
+import { SocketIoService } from './services/socketIo/socket-io.service';
 
 @Component({
     selector: 'app-root',
@@ -53,6 +55,8 @@ export class AppComponent {
         private uniqueDeviceID: UniqueDeviceID,
         private socket: Socket,
         private aesJ: AesJsService,
+        private storage: DataLocalService,
+        private serviceSocket: SocketIoService,
     ) {
         this.initializeApp();
 
@@ -60,10 +64,7 @@ export class AppComponent {
     }
 
     initializeApp() {
-        //const des = this.createChannel();
-        //const valor = this.aesJ.decrypt(des);
-        this.socket.on('connection', data => console.log("==================", data));
-        
+        this.descryp();
         this.platform.ready().then(() => {
             document.addEventListener("backbutton", async (element) => {
                 // code that is executed when the user pressed the back button
@@ -110,5 +111,23 @@ export class AppComponent {
         const valor = this.aesJ.encrypt(rando + dates);
         return valor;
     }
+
+    async descryp(){
+        console.log(Object.keys(this.socket.connect()));
+        const channel = await this.storage.getDataLocal('chanelSocket');
+
+        const deschannel = await this.aesJ.decryptNoJson(channel);
+        console.log('channel1', deschannel);
+
+
+        this.serviceSocket.initSocket(channel);
+
+        // this.socket.on(deschannel, async data => {
+        //     console.log("Socket conectado:", data);
+        // });
+
+
+    }
+   
 
 }

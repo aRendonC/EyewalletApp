@@ -27,7 +27,7 @@ import {IonicStorageModule} from '@ionic/storage';
 import {ComponentsModule} from './components/components.module';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {VerificationModalPage} from './verification-modal/verification-modal.page';
-import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+import {SocketIoConfig, SocketIoModule} from 'ng-socket-io';
 import {HammerService} from "./services/hammer/hammer.service";
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -39,7 +39,7 @@ import { SesionModalPage } from './sesion-modal/sesion-modal.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
-const config: SocketIoConfig = { url: 'https://c0abfb80.ngrok.io', options: {}};
+const config: SocketIoConfig = { url: 'https://c0abfb80.ngrok.io', options: {reconnection: true}};
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
