@@ -12,6 +12,7 @@ export const environment = {
   //flag: 'https://dev.eyewalletpro.com/api/web/uploads/flags/',
   apiKeyLocation: '2b154f971e3ab7',
   urlSocket: 'https://db239ef8.ngrok.io'
+  //https://app.eyewalletpro.com:3001
 };
 
 /*
