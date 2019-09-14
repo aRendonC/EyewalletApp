@@ -4,12 +4,12 @@
 
 export const environment = {
   production: false,
-  //urlBase: 'https://017a23c6.ngrok.io/api/v1/',
-   urlBase: 'https://dev.eyewalletpro.com/api/v1/',
-  //urlAvatar: 'https://017a23c6.ngrok.io/api/web/',
-  urlAvatar: 'https://dev.eyewalletpro.com/api/web/',
-  //flag: 'https://017a23c6.ngrok.io/web/uploads/flags/',
-  flag: 'https://dev.eyewalletpro.com/web/uploads/flags/',
+  urlBase: 'https://017a23c6.ngrok.io/api/v1/',
+  // urlBase: 'https://dev.eyewalletpro.com/api/v1/',
+  urlAvatar: 'https://017a23c6.ngrok.io/api/web/',
+  // urlAvatar: 'https://dev.eyewalletpro.com/api/web/',
+  flag: 'https://017a23c6.ngrok.io/web/uploads/flags/',
+  // flag: 'https://dev.eyewalletpro.com/api/web/uploads/flags/',
   apiKeyLocation: '2b154f971e3ab7',
   urlSocket: 'https://db239ef8.ngrok.io'
 };

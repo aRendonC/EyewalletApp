@@ -87,7 +87,38 @@
   font-size: 14px;
   line-height: 21.6px;
   text-align: center;
+  color:#fff;
+}
+
+.selectLanguage{
+  margin-top: 2vh;
+  background: transparent;
+  padding-left: 31.5vw;
+  padding-right: 31.5vw;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  border-radius: 100px;
+  border-color: white;
+  border-width: 1px;
+  border-style: solid;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+// .list-ios {
+//     margin-left: 0;
+//     margin-right: 0;
+//     margin-top: -50px;
+//     margin-bottom: 32px;
+//     background: var(--ion-item-background,var(--ion-background-color,transparent));
+    
+// }
+.label{
+  font-family: 'Poppins', sans-serif;
   color: #ccd9eb;
+ font-size: 18px;
 }
 
 
