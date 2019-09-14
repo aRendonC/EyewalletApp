@@ -77,10 +77,7 @@ export class PinModalPage implements OnInit {
           }else{
             console.log("DATOS_PIN: ", user.profile.userId);
             
-
-            //this.endpoint(valorChannel,1,useruuiid);
-
-            
+            //this.endpoint(valorChannel,1,useruuiid);            
 
             //let dataTransaction = response.data;
             //console.log("response", dataTransaction);
@@ -91,9 +88,9 @@ export class PinModalPage implements OnInit {
           }
           let useruuiid = user.profile.userId;
           let valorChannel = await this.store2.getDataLocal('chanelSocket');
+          console.log("CHANNEL: ", valorChannel);
           const result = await this.api.post('auth/logoutRemote', { channel: valorChannel, plattform: 1, userId: useruuiid, });
-          console.log("tales",result);
-          
+          // console.log("tales",result);
         } else {
           this.ctrlPin = false;
           setTimeout(() => {

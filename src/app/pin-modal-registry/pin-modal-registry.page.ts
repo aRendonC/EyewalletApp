@@ -170,13 +170,9 @@ export class PinModalRegistryPage implements OnInit {
         })
           .then((result: any) => {
             this.router.navigate(['/app/tabs/dashboard']);
-            this.closeModal()
-            // this.login();
-            // this.isLocked = false;
-
+            this.closeModal();
           }).catch((error: any) => {
-            // this.openModal()
-            // this.exitApp();
+            console.error('ERROR: ', error);
           });
       }).catch((error: any) => console.log('entro al carch sin cancelar', error));
   }
@@ -185,6 +181,7 @@ export class PinModalRegistryPage implements OnInit {
     const dates = new Date().toString();
     const rando = Math.random();
     const valor = this.aesJ.encrypt(rando + dates);
+    this.store1.setDataLocal('chanelSocket', valor);
     return valor;
   }
 }
