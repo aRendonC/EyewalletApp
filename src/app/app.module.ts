@@ -38,8 +38,9 @@ import { PinModalRegistryPage } from './pin-modal-registry/pin-modal-registry.pa
 import { SesionModalPage } from './sesion-modal/sesion-modal.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: 'https://c0abfb80.ngrok.io', options: {reconnection: true}};
+const config: SocketIoConfig = { url: environment.urlSocket, options: {reconnection: true}};
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -48,7 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
 
     declarations: [AppComponent, PinModalPage, VerificationModalPage, PinModalRegistryPage, SesionModalPage],
-    entryComponents: [PinModalPage, VerificationModalPage, ModalDetailsPage, SesionModalPage],
+    entryComponents: [PinModalPage, VerificationModalPage, ModalDetailsPage, SesionModalPage, PinModalRegistryPage],
     imports: [
         ComponentsModule,
         ReactiveFormsModule,
