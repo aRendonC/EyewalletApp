@@ -31,6 +31,8 @@ export class QrscannSesionPage implements OnInit {
     private loadingService: LoadingService,
     private dataLocalService: DataLocalService
   ) {
+    this.classBlur = true;
+    this.loadingService.present({text: this.translateService.instant('QRSCANN_SESION.VerifyingMessage'), cssClass: 'textLoadingBlack'});
     this.sessionsList = [];
     this.showScanner = false;
     this.classBlur = false;
@@ -40,8 +42,6 @@ export class QrscannSesionPage implements OnInit {
   public async ngOnInit(): Promise<any> {}
 
   public async ionViewDidEnter(): Promise<any> {
-    this.classBlur = true;
-    this.loadingService.present({text: this.translateService.instant('QRSCANN_SESION.VerifyingMessage'), cssClass: 'textLoadingBlack'});
     await this.getSessionsStarted();
   }
 
@@ -119,11 +119,11 @@ export class QrscannSesionPage implements OnInit {
     });
   }
 
-  private getQrData(): void {
+  private async getQrData(): Promise<any> {
     const sessionsContent: any = document.getElementById('sessions');
     let scanSub = this.qrScanner.scan()
-    .subscribe((text: string) => {
-      alert('Scanned code: ' + text + ' Login functionality pending in the web');
+    .subscribe(async (dataScanner: any) => {
+      this.loginWebWithQrCode(dataScanner);
       this.closeScanner();
       scanSub.unsubscribe();
       this.router.navigate(['/app/tabs/profile']);
@@ -132,6 +132,11 @@ export class QrscannSesionPage implements OnInit {
     this.qrScanner.show();
     this.showScanner = true;
     sessionsContent.classList.remove('display-block');
+  }
+
+  private loginWebWithQrCode(dataScanner: any): void {
+    console.log('Scanned code: ', dataScanner);
+    this.toastService.presentToast({text: this.translateService.instant('QRSCANN_SESION.DevelopmentMessage')});
   }
 
   private closeScanner(): void {
@@ -143,6 +148,8 @@ export class QrscannSesionPage implements OnInit {
   }
 
   public async closeSession(): Promise<any> {
+    this.classBlur = true;
+    this.loadingService.present({text: this.translateService.instant('QRSCANN_SESION.ClosingSessionMessage'), cssClass: 'textLoadingBlack'});
     const dataUser: any = await this.dataLocalService.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);
     let channel = await this.dataLocalService.getDataLocal('chanelSocket');
     const dataBody: any = {
@@ -154,9 +161,16 @@ export class QrscannSesionPage implements OnInit {
     this.axiosService.post('auth/logoutRemote', dataBody)
     .then((response: any) => {
       console.info(response);
+      this.classBlur = false;
+      this.loadingService.dismiss();
+      this.toastService.presentToast({text: this.translateService.instant('QRSCANN_SESION.SessionWebClose')});
+      this.router.navigate(['/app/tabs/profile']);
     })
     .catch((error: any) => {
       console.error('ERROR: ', error);
+      this.classBlur = false;
+      this.loadingService.dismiss();
+      this.toastService.presentToast({text: this.translateService.instant('CONNECTION_ERRORS.Error')});
     })
   }
 }
