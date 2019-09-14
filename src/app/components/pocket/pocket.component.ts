@@ -26,10 +26,10 @@ export class PocketComponent implements OnInit {
         logOut: 0
     };
     public margins = {
-        sendCash: -65,
-        receiveCash: -65,
-        qualify: -65,
-        logOut: -65
+        sendCash: -68,
+        receiveCash: -68,
+        qualify: -68,
+        logOut: -68
     };
     pockets: any = null;
     @Input() urlPresent: any = '';
@@ -150,7 +150,7 @@ export class PocketComponent implements OnInit {
                 setTimeout(() => {
                     let intervalClose = setInterval(() => {
                         this.margins[idTab] = this.margins[idTab] - 1;
-                        if (this.margins[idTab] == -65) {
+                        if (this.margins[idTab] == -68) {
                             this.counters[idTab] = 0;
                             clearInterval(intervalClose)
                         }

@@ -289,6 +289,9 @@
   },
   "QRSCANN_SESION": {
     "VerifyingMessage": "Verifying",
-    "QrError": "Scanner not available." 
+    "QrError": "Scanner not available.",
+    "SessionWebClose": "The web session ended successfully.",
+    "ClosingSessionMessage": "Verifying the closing session.",
+    "DevelopmentMessage": "Development in progress."
   }
 }
