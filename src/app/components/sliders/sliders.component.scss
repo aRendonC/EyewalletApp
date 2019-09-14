@@ -239,13 +239,22 @@
     z-index: 3;
 }
 
-.swiper-slide-next{
-    font-size: 10px;
-}
-.swiper-slide-prev{
-    font-size: 10px;
+.swiper-slide-active {
+    font-weight: bold;
+    font-size: 24px;
+    color: #28255C;   
 }
 
+.swiper-slide-next, .swiper-slide-prev{
+    font-weight: bold;
+    font-size: 14px;
+    color: #5495FF;
+}
+
+.name-crypto-selected {
+    font-family: $font-roboto-bold;
+    text-transform: capitalize;
+}
 
 .sc-ion-card-ios-h-transactions {
     background: white;

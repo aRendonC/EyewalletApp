@@ -30,11 +30,8 @@
             </div>
             <canvas #lineCanvas class="graphic-transactions"></canvas>
         </ion-slide>
-    </ion-slides>
-
-    
+    </ion-slides>  
 </ion-content> -->
-
 <!-- ============================================================================================== -->
 
 <ion-slides
@@ -45,7 +42,7 @@
 >
     <ion-slide  *ngFor="let names of name; index as index">
         <div class="center">
-            <ion-label>{{names.name}}</ion-label>
+            <ion-label class="name-crypto-selected">{{names.name}}</ion-label>
         </div>
     </ion-slide>
 </ion-slides>
