@@ -8,7 +8,6 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { LoadingService } from '../services/loading/loading.service';
 import * as CONSTANTS from '../constanst';
 import { DataLocalService } from '../services/data-local/data-local.service';
-import { AesJsService } from '../services/aesjs/aes-js.service';
 
 @Component({
   selector: 'app-qrscann-sesion',
@@ -30,8 +29,7 @@ export class QrscannSesionPage implements OnInit {
     private translateService: TranslateService,
     private qrScanner: QRScanner,
     private loadingService: LoadingService,
-    private dataLocalService: DataLocalService,
-    private aesJsService: AesJsService
+    private dataLocalService: DataLocalService
   ) {
     this.sessionsList = [];
     this.showScanner = false;
@@ -94,17 +92,17 @@ export class QrscannSesionPage implements OnInit {
     }
   }
 
-  private funcionalityShowQrScanner(): void {
-    this.classBlur = false;
-    this.loadingService.dismiss();
-    this.showQrScanner();
-  }
-
   private parseDataSessions(data: any): any {
     data.forEach(infoSession => {
       infoSession.agent = JSON.parse(infoSession.agent);
     });
     return data
+  }
+
+  private funcionalityShowQrScanner(): void {
+    this.classBlur = false;
+    this.loadingService.dismiss();
+    this.showQrScanner();
   }
 
   private showQrScanner(): void {
@@ -125,7 +123,7 @@ export class QrscannSesionPage implements OnInit {
     const sessionsContent: any = document.getElementById('sessions');
     let scanSub = this.qrScanner.scan()
     .subscribe((text: string) => {
-      console.info('Scanned something', text);
+      alert('Scanned code: ' + text + ' Login functionality pending in the web');
       this.closeScanner();
       scanSub.unsubscribe();
       this.router.navigate(['/app/tabs/profile']);
@@ -155,7 +153,7 @@ export class QrscannSesionPage implements OnInit {
     
     this.axiosService.post('auth/logoutRemote', dataBody)
     .then((response: any) => {
-      console.log(response);
+      console.info(response);
     })
     .catch((error: any) => {
       console.error('ERROR: ', error);
