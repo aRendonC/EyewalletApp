@@ -67,6 +67,7 @@ export class SlidersComponent implements OnInit {
     async ngOnInit() {
         let userVerifications: any = await this.http.get('user-verification/status', this.auth, null);
         userVerifications = userVerifications.data;
+        console.log("Verfificacion",userVerifications);
         await this.store.setDataLocal('userVerification', userVerifications);
         this.profile = await this.store.getDataLocal('profile');
         

@@ -9,6 +9,7 @@ import { ChartComponent } from "../components/chart/chart.component";
 import { TranslateService } from "@ngx-translate/core";
 
 
+
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.page.html',
