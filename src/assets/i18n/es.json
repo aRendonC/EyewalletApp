@@ -193,12 +193,14 @@
 	"messageCreatinVault": "Creando bóveda"
   },
   "TOAST_MSG": {
-    "DocumentsNoVerified": "Lo sentimos, sus documentos no han sido verificados"
+    "DocumentsNoVerified": "Lo sentimos, su perfil no ha sido verificado."
   },
   "LOGIN_PAGE": {
     "AllFieldsIsRequired": "Todos los campos son obligatorios",
     "FieldEmail": "El campo correo electrónico es obligatorio",
-    "FiledPassword": "El campo correo contraseña es obligatorio"
+    "FiledPassword": "El campo correo contraseña es obligatorio",
+    "Email": "Correo Electrónico",
+    "Password": "Contraseña"
   },
   "GENERAL": {
     "Continue": "Continuar",

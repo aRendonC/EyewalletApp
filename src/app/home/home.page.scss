@@ -91,20 +91,22 @@
 }
 
 .selectLanguage{
-  margin-top: 2vh;
-  background: transparent;
-  padding-left: 31.5vw;
-  padding-right: 31.5vw;
-  padding-top: 2vw;
-  padding-bottom: 2vw;
-  border-radius: 100px;
-  border-color: white;
-  border-width: 1px;
-  border-style: solid;
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  text-align: center;
-  box-sizing: border-box;
+    margin-top: 2vh;
+    background: transparent;
+    padding-left: 30vw;
+    padding-right: 30vw;
+    padding-top: 2.5vw;
+    padding-bottom: 2.5vw;
+    border-radius: 100px;
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    width: 84vw;
+    margin-left: 4vw;
 }
 
 // .list-ios {
