@@ -80,7 +80,7 @@
     "NewWallet": "Create a new Wallet",
     "PhoneExample": "E.g.: +5712345678",
     "Password": "Password",
-    "MessagePassword": "Minimum one letter, number and special character, 6 length",
+    "MessagePassword": "Minimum length of 6. At least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character.",
     "ConfirmPassword": "Confirm Password",
     "ButtonCreate": "Create Wallet"
   },

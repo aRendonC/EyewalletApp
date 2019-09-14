@@ -79,3 +79,8 @@ export const  LOCATION_PHONE_NUMBER: string[] = [
 ];
 
 export const test = {};
+
+export const TYPE_PLATFORM: any = {
+   COMPUTER: 0,
+   MOBILE: 1
+}

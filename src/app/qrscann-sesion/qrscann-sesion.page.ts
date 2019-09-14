@@ -6,6 +6,9 @@ import { ToastService } from '../services/toast/toast.service';
 import { TranslateService } from '@ngx-translate/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { LoadingService } from '../services/loading/loading.service';
+import * as CONSTANTS from '../constanst';
+import { DataLocalService } from '../services/data-local/data-local.service';
+import { AesJsService } from '../services/aesjs/aes-js.service';
 
 @Component({
   selector: 'app-qrscann-sesion',
@@ -17,6 +20,7 @@ export class QrscannSesionPage implements OnInit {
   public sessionsList: any[];
   public showScanner: boolean;
   public classBlur: boolean;
+  public dataUser: any;
 
   public constructor(
     private axiosService: AxiosService,
@@ -25,11 +29,14 @@ export class QrscannSesionPage implements OnInit {
     private toastService: ToastService,
     private translateService: TranslateService,
     private qrScanner: QRScanner,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private dataLocalService: DataLocalService,
+    private aesJsService: AesJsService
   ) {
     this.sessionsList = [];
     this.showScanner = false;
     this.classBlur = false;
+    this.dataUser = {};
   }
 
   public async ngOnInit(): Promise<any> {}
@@ -48,7 +55,7 @@ export class QrscannSesionPage implements OnInit {
   private async getSessionsStarted(): Promise<any> {
     this.axiosService.post('auth/listChannel', {}, this.authService)
     .then((response: any) => {
-      this.validateSessionsStarted(response);
+      this.validateSessionsStarted(response.data);
     })
     .catch((error: any) => {
       console.error('ERROR: ', error);
@@ -60,16 +67,37 @@ export class QrscannSesionPage implements OnInit {
   }
 
   private validateSessionsStarted(dataResponse: any): void {
-    if (dataResponse.data.length > 0) {
-      this.sessionsList = this.parseDataSessions(dataResponse.data);
-      console.log('DATA: ', dataResponse.data);
+    if (dataResponse.length > 0) {
+      this.validateArraySessionsStarted(dataResponse);
       this.classBlur = false;
       this.loadingService.dismiss();
     } else {
-      this.classBlur = false;
-      this.loadingService.dismiss();
-      this.showQrScanner();
+      this.funcionalityShowQrScanner();
     }
+  }
+
+  private validateArraySessionsStarted(dataSessionsSatarted: any): void {
+    let sessionsList: any = [];
+    this.parseDataSessions(dataSessionsSatarted).forEach(session => {
+      if (session.plattform === CONSTANTS.TYPE_PLATFORM.COMPUTER) {
+        sessionsList.push(session);
+      }
+    });
+    this.validateShoqScannerOrSessionsList(sessionsList);
+  }
+
+  private validateShoqScannerOrSessionsList(sessionsList: any): void {
+    if (sessionsList.length > 0) {
+      this.sessionsList = sessionsList;
+    } else {
+      this.funcionalityShowQrScanner();
+    }
+  }
+
+  private funcionalityShowQrScanner(): void {
+    this.classBlur = false;
+    this.loadingService.dismiss();
+    this.showQrScanner();
   }
 
   private parseDataSessions(data: any): any {
@@ -116,13 +144,16 @@ export class QrscannSesionPage implements OnInit {
     this.qrScanner.destroy();
   }
 
-  public async closeSession(channel: string, platform: number): Promise<any> {
+  public async closeSession(): Promise<any> {
+    const dataUser: any = await this.dataLocalService.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);
+    let channel = await this.dataLocalService.getDataLocal('chanelSocket');
     const dataBody: any = {
-      plattform: platform,
-	    channel: channel
+      plattform: 1,
+      channel,
+      userId: dataUser.userId
     }
     
-    this.axiosService.post('logoutRemote', dataBody, this.authService)
+    this.axiosService.post('auth/logoutRemote', dataBody)
     .then((response: any) => {
       console.log(response);
     })
