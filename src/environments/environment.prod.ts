@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  urlBase: 'https://017a23c6.ngrok.io/api/v1/',
-  urlAvatar: 'https://017a23c6.ngrok.io/api/web/',
-  flag: 'https://017a23c6.ngrok.io/web/uploads/flags/',
+  urlBase: 'https://d708de12.ngrok.io/api/v1/',
+  urlAvatar: 'https://d708de12.ngrok.io/api/web/',
+  flag: 'https://d708de12.ngrok.io/web/uploads/flags/',
   apiKeyLocation: '2b154f971e3ab7',
-  urlSocket: 'https://db239ef8.ngrok.io'
+  urlSocket: 'https://ba2d6c29.ngrok.io'
 };

@@ -8,6 +8,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { LoadingService } from '../services/loading/loading.service';
 import * as CONSTANTS from '../constanst';
 import { DataLocalService } from '../services/data-local/data-local.service';
+import { AesJsService } from '../services/aesjs/aes-js.service';
 
 @Component({
   selector: 'app-qrscann-sesion',
@@ -29,7 +30,8 @@ export class QrscannSesionPage implements OnInit {
     private translateService: TranslateService,
     private qrScanner: QRScanner,
     private loadingService: LoadingService,
-    private dataLocalService: DataLocalService
+    private dataLocalService: DataLocalService,
+    private aesJsService: AesJsService
   ) {
     this.classBlur = true;
     this.loadingService.present({text: this.translateService.instant('QRSCANN_SESION.VerifyingMessage'), cssClass: 'textLoadingBlack'});
@@ -53,6 +55,7 @@ export class QrscannSesionPage implements OnInit {
   private async getSessionsStarted(): Promise<any> {
     this.axiosService.post('auth/listChannel', {}, this.authService)
     .then((response: any) => {
+      console.log(response);
       this.validateSessionsStarted(response.data);
     })
     .catch((error: any) => {
@@ -134,9 +137,33 @@ export class QrscannSesionPage implements OnInit {
     sessionsContent.classList.remove('display-block');
   }
 
-  private loginWebWithQrCode(dataScanner: any): void {
-    console.log('Scanned code: ', dataScanner);
-    this.toastService.presentToast({text: this.translateService.instant('QRSCANN_SESION.DevelopmentMessage')});
+  private async loginWebWithQrCode(dataScanner: any): Promise<any> {
+    this.classBlur = true;
+    this.loadingService.present({text: this.translateService.instant('QRSCANN_SESION.StartingSessionMessage'), cssClass: 'textLoadingBlack'});
+    const dataScannerDecrypt: any = this.aesJsService.decryptNoJson(dataScanner);
+    const dataScannerSplit: string = dataScannerDecrypt.split('-');
+    const dataUserStorage: any = await this.dataLocalService.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);
+    const endpoint: string = 'auth/loginQR';
+
+    const dataBody: any = {
+      emit: dataScannerSplit[0],
+      userId: dataUserStorage.userId,
+      plattform: 0,
+      agent: JSON.parse(dataScannerSplit[1])
+    };
+
+    this.axiosService.post(endpoint, dataBody, this.authService)
+    .then(response => {
+      console.info('RESPONSE: ', response);
+      this.classBlur = false;
+      this.loadingService.dismiss();
+      this.toastService.presentToast({text: this.translateService.instant('QRSCANN_SESION.SessionWebStart')});
+    })
+    .catch(error => {
+      console.error('ERROR: ', error);
+      this.classBlur = false;
+      this.loadingService.dismiss();
+    })
   }
 
   private closeScanner(): void {
@@ -147,13 +174,13 @@ export class QrscannSesionPage implements OnInit {
     this.qrScanner.destroy();
   }
 
-  public async closeSession(): Promise<any> {
+  public async closeSession(data: any): Promise<any> {
     this.classBlur = true;
     this.loadingService.present({text: this.translateService.instant('QRSCANN_SESION.ClosingSessionMessage'), cssClass: 'textLoadingBlack'});
     const dataUser: any = await this.dataLocalService.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);
     let channel = await this.dataLocalService.getDataLocal('chanelSocket');
     const dataBody: any = {
-      plattform: 1,
+      plattform: data.plattform,
       channel,
       userId: dataUser.userId
     }
