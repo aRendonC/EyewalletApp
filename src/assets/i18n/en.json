@@ -293,7 +293,8 @@
     "VerifyingMessage": "Verifying",
     "QrError": "Scanner not available.",
     "SessionWebClose": "The web session ended successfully.",
+    "SessionWebStart": "Login successful.",
     "ClosingSessionMessage": "Verifying the closing session.",
-    "DevelopmentMessage": "Development in progress."
+    "StartingSessionMessage": "Verifying the login on the web."
   }
 }

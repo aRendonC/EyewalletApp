@@ -56,12 +56,14 @@ export class AesJsService {
     const decryptedBytes = aesCtr.decrypt(encryptedBytes);
     return JSON.parse(aesjs.utils.utf8.fromBytes(decryptedBytes));
   }
+
   public encryptNoJson(text): any {
     const textBytes = aesjs.utils.utf8.toBytes(text);
     const aesCtr = new aesjs.ModeOfOperation.ctr(this.key, new aesjs.Counter(5));
     const encryptedBytes = aesCtr.encrypt(textBytes);
     return aesjs.utils.hex.fromBytes(encryptedBytes);
   }
+
   public decryptNoJson(text):any {
     const encryptedBytes = aesjs.utils.hex.toBytes(text);
     const aesCtr = new aesjs.ModeOfOperation.ctr(this.key, new aesjs.Counter(5));

@@ -295,7 +295,8 @@
     "VerifyingMessage": "Verificando",
     "QrError": "Scanner no disponible.",
     "SessionWebClose": "La sesión en la web se finalizo correctamente.",
+    "SessionWebStart": "Inicio de sesión exitoso.",
     "ClosingSessionMessage": "Verificando el cierre de sesión.",
-    "DevelopmentMessage": "Desarrollo en proceso."
+    "StartingSessionMessage": "Verificando el inicio de sesión en la web."
   }
 }
