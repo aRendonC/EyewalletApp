@@ -47,7 +47,7 @@ export class SocketIoService {
   disconnectSocket(){
     this.socket.disconnect();
     this.socket.on('disconnect',function(){
-      console.log("Socket Disconnet", this.socket.id);
+      console.log("Socket Disconnet");
     })
   }
 

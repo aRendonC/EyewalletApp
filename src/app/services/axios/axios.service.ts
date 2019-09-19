@@ -31,6 +31,7 @@ export class AxiosService {
           Authorization: 'Bearer ' + await user.accessParam()
         })
       }
+      console.log("params", this.headers);
       if (params) {
         const urlParams = JSON.stringify(params);
         if (user) {

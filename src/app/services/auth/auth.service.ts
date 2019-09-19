@@ -9,6 +9,8 @@ import {PinModalPage} from '../../pin-modal/pin-modal.page';
 import {AesJsService} from '../aesjs/aes-js.service';
 import {LoadingService} from '../loading/loading.service';
 import { Socket } from 'ng-socket-io';
+import { DataLocalService } from '../data-local/data-local.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +23,8 @@ export class AuthService {
         segundoFactor: null,
         accessToken: null,
     };
+    //private url: string = environment.urlBase;
+    private headers: HttpHeaders;
 
     constructor(
         private  api: AxiosService,
@@ -33,6 +37,9 @@ export class AuthService {
         private aesjs: AesJsService,
         private loadingCtrl: LoadingService,
         private socket: Socket,
+        private store2: DataLocalService,
+        private axiosService: AxiosService,
+        private http: HttpClient
     ) {
         this.persistenceLogin();
     }
@@ -114,14 +121,12 @@ export class AuthService {
         await this.store.remove('selected-pocket');
         await this.store.remove('user');
         await this.store.remove('userVerification');
-        
+
         await this.menu.enable(false);
         await this.router.navigate(['']);
         await this.loadingCtrl.dismiss();
         this.socket.on('disconnect',function(){
-            console.log("Disconnet:", this.socket.id);
-        })
-
-
+            console.log("Disconnet:");
+        });
     }
 }

@@ -195,9 +195,11 @@ export class PocketComponent implements OnInit {
     }
 
     async logOut() {
+        this.endlogout(await this.store.getDataLocal('chanelSocket'));
         await this.loadingCtrl.present({});
         this.socket.disconnectSocket();
         await this.auth.logout();
+        //this.clickButtonLeftSeis();
     }
 
     openUrl(data?: string) {
@@ -238,6 +240,13 @@ export class PocketComponent implements OnInit {
 
     public goCreateExchange(): void {
         this.router.navigate(['/app/tabs/exchange']);
+    }
+
+    async endlogout(valorChannel){
+        console.log("firulais", valorChannel);
+       
+        const response = await this.http.post('auth/logout', { channel: valorChannel }, this.auth);
+        console.log('asdfadsfasdf', response);
     }
 }
 
