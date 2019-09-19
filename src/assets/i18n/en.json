@@ -251,7 +251,10 @@
     "Usd": "Usd",
     "Fee": "Fee",
     "Priority": "Priority",
-    "Date": "Date"
+    "Date": "Date",
+    "NewVault": "new vault",
+    "VaultList": "vaults",
+    "VaultCreate": "create"
   },
   "EXCHANGE": {
     "DescriptionText": "How much do you want to change?",

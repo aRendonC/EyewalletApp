@@ -7,6 +7,7 @@ import { ToastService } from '../services/toast/toast.service';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { VaultList } from '../interfaces/index';
+import * as CONSTANTS from '../constanst';
 
 @Component({
   selector: 'app-vault-list',
@@ -15,7 +16,7 @@ import { VaultList } from '../interfaces/index';
 })
 
 export class VaultListPage implements OnInit {
-  public ctrlNavigation: number;
+  public nameTypeSliding: any;
   public dataVaults: VaultList;
   public dataSelected: string;
   public positionDataSelected: number;
@@ -31,7 +32,7 @@ export class VaultListPage implements OnInit {
     private router: Router,
     private actionSheetController: ActionSheetController,
   ) {
-    this.ctrlNavigation = 5;
+    this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.VAULT_LIST_SLIDING;
     this.dataVaults = {};
     this.dataSelected = '';
     this.positionDataSelected = 0;

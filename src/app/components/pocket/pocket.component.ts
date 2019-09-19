@@ -101,6 +101,15 @@ export class PocketComponent implements OnInit {
             case CONSTANTS.NAMES_SLIDING.PRICES_SLIDING.id:
                 this.iab.create('https://www.criptonoticias.com', '_blank');
                 break;
+            case CONSTANTS.NAMES_SLIDING.VAULT_SLIDING.id:
+                this.router.navigate(['/app/tabs/vault-list']);
+                break;
+            case CONSTANTS.NAMES_SLIDING.VAULT_LIST_SLIDING.id:
+                this.router.navigate(['/app/tabs/vault']);
+                break;
+            case CONSTANTS.NAMES_SLIDING.VAULT_CREATE_SLIDING.id:
+                this.router.navigate(['/app/tabs/vault']);
+                break;
             default:
                 console.error('ERROR: ', this.translateService.instant('POCKET_COMPONENT.FunctionErroExecute'));
                 break;
@@ -344,13 +353,13 @@ export class PocketComponent implements OnInit {
         this.router.navigate(['/app/tabs/vault']);
     }
 
-    public clickButtonLeftSeis(): void {
-        this.router.navigate(['/app/tabs/vault-list']);
-    }
+    // public clickButtonLeftSeis(): void {
+    //     this.router.navigate(['/app/tabs/vault-list']);
+    // }
 
-    public clickButtonLeftSeven(): void {
-        this.router.navigate(['/app/tabs/vault'])
-    }
+    // public clickButtonLeftSeven(): void {
+    //     this.router.navigate(['/app/tabs/vault']);
+    // }
 
     public goHistoryExchange(): void {
         this.router.navigate(['/app/tabs/history-exchange']);

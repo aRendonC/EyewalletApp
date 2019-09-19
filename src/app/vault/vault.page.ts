@@ -15,6 +15,8 @@ import * as CONSTANTS from '../constanst';
 })
 
 export class VaultPage implements OnInit {
+  public nameTypeSliding: any;
+  public buttonLeftSliding: boolean;
   public ctrlNavigation: number;
   public loadingValuesFee: boolean;
   public dataSelected: any;
@@ -47,6 +49,8 @@ export class VaultPage implements OnInit {
     private toastService: ToastService,
     private loadingService: LoadingService
   ) {
+    this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.VAULT_SLIDING;
+    this.buttonLeftSliding = false;
     this.ctrlNavigation = 6;
     this.loadingValuesFee = false;
     this.buttonDisabled = true;
@@ -261,8 +265,10 @@ export class VaultPage implements OnInit {
     .then(async (response: any) => {
       if (response.vault.length > 0) {
         this.listVaultLength = true;
+        this.buttonLeftSliding = true;
       } else {
         this.listVaultLength = false;
+        this.buttonLeftSliding = false;
       }
     })
     .catch(async error => {

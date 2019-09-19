@@ -251,9 +251,10 @@
     "Usd": "Dólar estado unidense",
     "Fee": "Cuota",
     "Priority": "Prioridad",
-    "Date": "Fecha"
-
-
+    "Date": "Fecha",
+    "NewVault": "nueva bóveda",
+    "VaultList": "bóvedas",
+    "VaultCreate": "crear"
   },
   "EXCHANGE": {
     "DescriptionText": "¿Cuanto quieres cambiar?",

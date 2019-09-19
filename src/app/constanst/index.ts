@@ -26,6 +26,21 @@ export const NAMES_SLIDING: any = {
       id: 'pricesSliding',
       left: 'noticias',
       right: ''
+   },
+   VAULT_SLIDING: {
+      id: 'vaultSliding',
+      left: 'bóvedas',
+      right: ''
+   },
+   VAULT_LIST_SLIDING: {
+      id: 'vaultListSliding',
+      left: '',
+      right: 'volver'
+   },
+   VAULT_CREATE_SLIDING: {
+      id: 'vaultCreateSliding',
+      left: 'crear',
+      right: ''
    }
 }
 

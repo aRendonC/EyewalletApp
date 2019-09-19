@@ -115,11 +115,15 @@
       .title-text {
         font-family: $font-semibold;
         font-size: 13px;
+        text-transform: capitalize;
         margin: 0 0 0 3px;
       }
 
       .title-text-profileSliding,
-      .title-text-pricesSliding {
+      .title-text-pricesSliding,
+      .title-text-vaultSliding,
+      .title-text-vaultListSliding,
+      .title-text-vaultCreateSliding {
         color: white;
       }
     }
