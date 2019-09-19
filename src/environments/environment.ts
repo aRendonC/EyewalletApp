@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-  //urlBase: 'https://d708de12.ngrok.io/api/v1/',
+  //urlBase: 'https://364a533d.ngrok.io/api/v1/',
   urlBase: 'https://web.eyewallet.com/api/v1/',
-  //urlAvatar: 'https://d708de12.ngrok.io/api/web/',
+  //urlAvatar: 'https://364a533d.ngrok.io/api/web/',
   urlAvatar: 'https://web.eyewallet.com/web/',
-  //flag: 'https://d708de12.ngrok.io/web/uploads/flags/',
+  //flag: 'https://364a533d.ngrok.io/web/uploads/flags/',
   flag: 'https://web.eyewallet.com/web/uploads/flags/',
   apiKeyLocation: '2b154f971e3ab7',
-  //urlSocket: 'https://ba2d6c29.ngrok.io',
+  //urlSocket: 'https://f80edbf5.ngrok.io',
   urlSocket: 'https://web.eyewallet.com:3002'
 };
 

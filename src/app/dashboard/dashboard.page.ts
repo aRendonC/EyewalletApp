@@ -67,8 +67,10 @@ export class DashboardPage implements OnInit {
         this.pocket = await this.dataLocalService.getDataLocal('selected-pocket');
         this.profile = await this.dataLocalService.getDataLocal('profile');
         this.pockets = await this.dataLocalService.getDataLocal('pockets');
+        console.log('dashboard', this.profile);
         this.params.userId = this.profile.userId;
         this.params.type = 4;
+        console.log
     }
 
     async getTransactionsSend() {

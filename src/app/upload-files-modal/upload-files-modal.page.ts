@@ -173,6 +173,7 @@ export class UploadFilesModalPage implements OnInit {
             await this.closeModal();
             await this.toastCtrl.presentToast({ text: this.translateService.instant('UPLOAD_FILES_MODAL.SessionClose')});
             await this.auth.logout();
+            
             // await this.router.navigate(['/app/tabs/dashboard'])
 
         } else {
