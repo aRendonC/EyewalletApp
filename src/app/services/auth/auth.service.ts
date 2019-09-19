@@ -30,7 +30,7 @@ export class AuthService {
         private loadingCtrl: LoadingService,
         private socket: Socket
     ) {
-        this.persistenceLogin();
+        // his.persistenceLogin();
     }
 
     async login(user, password, plattform, channel) {

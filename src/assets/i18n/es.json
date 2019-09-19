@@ -254,7 +254,9 @@
     "Date": "Fecha",
     "NewVault": "nueva bóveda",
     "VaultList": "bóvedas",
-    "VaultCreate": "crear"
+    "VaultCreate": "crear",
+    "Exchange": "intercambiar",
+    "ExchangeHistory": "Historial"
   },
   "EXCHANGE": {
     "DescriptionText": "¿Cuanto quieres cambiar?",

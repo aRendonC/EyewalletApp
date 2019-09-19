@@ -5,6 +5,7 @@ import { AesJsService } from "../services/aesjs/aes-js.service";
 import { Storage } from "@ionic/storage";
 import { LoadingService } from "../services/loading/loading.service";
 import { TranslateService } from '@ngx-translate/core';
+import * as CONSTANTS from '../constanst';
 
 interface onEnter {
     onEnter(): Promise<void>;
@@ -17,7 +18,7 @@ interface onEnter {
 })
 
 export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
-    ctrlNavigation: any = 8;
+    public nameTypeSliding: any;
     public detailHistory: any;
     public ctrlAccessDetailHistory = 0;
     public ctrlTagsHtml = false;
@@ -44,6 +45,7 @@ export class HistoryExchangePage implements OnInit, OnDestroy, onEnter {
         private loadingCtrl: LoadingService,
         private translateService: TranslateService
     ) {
+        this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.EXCHANGE_HISTORY_SLIDING;
         this.exchangeStatus = this.setExchangeStatus();
     }
 

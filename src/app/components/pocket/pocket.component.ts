@@ -110,6 +110,12 @@ export class PocketComponent implements OnInit {
             case CONSTANTS.NAMES_SLIDING.VAULT_CREATE_SLIDING.id:
                 this.router.navigate(['/app/tabs/vault']);
                 break;
+            case CONSTANTS.NAMES_SLIDING.EXCHANGE_CREATE_SLIDING.id:
+                this.router.navigate(['/app/tabs/history-exchange']);
+                break;
+            case CONSTANTS.NAMES_SLIDING.EXCHANGE_HISTORY_SLIDING.id:
+                this.router.navigate(['/app/tabs/exchange']);
+                break;
             default:
                 console.error('ERROR: ', this.translateService.instant('POCKET_COMPONENT.FunctionErroExecute'));
                 break;
@@ -361,12 +367,12 @@ export class PocketComponent implements OnInit {
     //     this.router.navigate(['/app/tabs/vault']);
     // }
 
-    public goHistoryExchange(): void {
-        this.router.navigate(['/app/tabs/history-exchange']);
-    }
+    // public goHistoryExchange(): void {
+    //     this.router.navigate(['/app/tabs/history-exchange']);
+    // }
 
-    public goCreateExchange(): void {
-        this.router.navigate(['/app/tabs/exchange']);
-    }
+    // public goCreateExchange(): void {
+    //     this.router.navigate(['/app/tabs/exchange']);
+    // }
 }
 

@@ -35,12 +35,22 @@ export const NAMES_SLIDING: any = {
    VAULT_LIST_SLIDING: {
       id: 'vaultListSliding',
       left: '',
-      right: 'volver'
+      right: 'crear bóveda'
    },
    VAULT_CREATE_SLIDING: {
       id: 'vaultCreateSliding',
-      left: 'crear',
+      left: 'volver',
       right: ''
+   },
+   EXCHANGE_CREATE_SLIDING: {
+      id: 'exchangeCreateSliding',
+      left: 'historial',
+      right: ''
+   },
+   EXCHANGE_HISTORY_SLIDING: {
+      id: 'exchangeHistorySliding',
+      left: '',
+      right: 'intercambiar'
    }
 }
 

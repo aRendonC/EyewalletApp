@@ -254,7 +254,9 @@
     "Date": "Date",
     "NewVault": "new vault",
     "VaultList": "vaults",
-    "VaultCreate": "create"
+    "VaultCreate": "create",
+    "Exchange": "exchange",
+    "ExchangeHistory": "History"
   },
   "EXCHANGE": {
     "DescriptionText": "How much do you want to change?",

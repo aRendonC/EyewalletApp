@@ -4,6 +4,7 @@
   @extend .all-center;
   padding: 10px 0;
   position: fixed;
+  height: 60px;
   width: 100%;
   z-index: 2;
 
@@ -123,7 +124,9 @@
       .title-text-pricesSliding,
       .title-text-vaultSliding,
       .title-text-vaultListSliding,
-      .title-text-vaultCreateSliding {
+      .title-text-vaultCreateSliding,
+      .title-text-exchangeCreateSliding,
+      .title-text-exchangeHistorySliding {
         color: white;
       }
     }

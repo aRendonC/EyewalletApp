@@ -1,8 +1,6 @@
-// Dependencies.
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {Router} from '@angular/router';
-
 import {AxiosService} from '../services/axios/axios.service';
 import {AuthService} from '../services/auth/auth.service';
 import {LoadingService} from '../services/loading/loading.service';
@@ -39,8 +37,7 @@ export class ModalInvoicePage implements OnInit {
         private toastController: ToastService,
         private storage: DataLocalService,
         private translateService: TranslateService,
-    ) {
-    }
+    ) {}
 
     public async ngOnInit() {
         this.loadingServices.present({cssClass: 'textLoadingBlack'});
@@ -58,7 +55,7 @@ export class ModalInvoicePage implements OnInit {
             const responsePay = await this.requestCard();
             if (responsePay.status === 200) {
                 this.closeModalInvoice();
-                await this.router.navigate(['/app/tabs/card-invoice']);
+                await this.router.navigate(['/app/tabs/dashboard']);
                 profile.solicitud = true;
                 await this.storage.setDataLocal('profile', profile);
             } else if (responsePay.status === 401) {

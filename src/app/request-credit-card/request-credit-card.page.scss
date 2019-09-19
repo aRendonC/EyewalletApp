@@ -2,6 +2,7 @@
 
 .request-credit-card {
    --overflow: hidden;
+   @extend .padding-top-sliding;
    --padding-bottom: 20px;
 
    .content-logo {
@@ -10,7 +11,7 @@
       background-position: center;
       background-size: 136px 122px;
       height: 200px;
-      margin: 80px 0 0 0;
+      margin: 40px 0 0 0;
    }
 
    .content-text-icon {
@@ -19,7 +20,7 @@
       width: 100%;
       position: absolute;
       z-index: 1;
-      top: 320px;
+      top: 280px;
 
       .text {
          font-family: $font-roboto-regular;
@@ -139,12 +140,12 @@
 
 .transition-logo-card {
    -webkit-transition-property: all;
-   -webkit-transition-duration: 0.5s;
+   -webkit-transition-duration: 0.4s;
    -webkit-transition-timing-function: linear;
    -webkit-transition-delay: 0s;
 
    transition-property: all;
-   transition-duration: 0.5s;
+   transition-duration: 0.4s;
    transition-timing-function: linear;
    transition-delay: 0s;
 
@@ -168,12 +169,12 @@
 
 .transition-form {
    -webkit-transition-property: margin;
-   -webkit-transition-duration: 0.5s;
+   -webkit-transition-duration: 0.4s;
    -webkit-transition-timing-function: linear;
    -webkit-transition-delay: 0s;
 
    transition-property: margin;
-   transition-duration: 0.5s;
+   transition-duration: 0.4s;
    transition-timing-function: linear;
    transition-delay: 0s;
 

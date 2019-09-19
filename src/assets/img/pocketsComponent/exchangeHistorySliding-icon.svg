@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="27.008" height="23.065" viewBox="0 0 27.008 23.065">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="27.008" height="23.065" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Símbolo_16_106" data-name="Símbolo 16 – 106" clip-path="url(#clip-path)">
+    <g id="Grupo_29" data-name="Grupo 29" transform="translate(3.481 0.175)">
+      <path id="Trazado_24" data-name="Trazado 24" d="M190,2195l-3.469,5.755-2.335,3.879a1.429,1.429,0,0,1-2.339.153l-5.553-6.959a.388.388,0,0,1-.03-.444l6.564-10.9a.393.393,0,0,1,.641-.045l2.469,3.084,4.021,5.028A.394.394,0,0,1,190,2195Z" transform="translate(-176.214 -2184.187)" fill="none" stroke="#fffcfd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Trazado_25" data-name="Trazado 25" d="M212.564,2189.35l-5.807,9.634a1.422,1.422,0,0,1-2.335.153l-1.537-1.925,3.469-5.755a.393.393,0,0,0-.03-.448l-4.021-5.028,3.1-5.147a.389.389,0,0,1,.638-.041l6.493,8.112A.4.4,0,0,1,212.564,2189.35Z" transform="translate(-192.573 -2180.647)" fill="#fff"/>
+    </g>
+    <g id="Grupo_30" data-name="Grupo 30" transform="translate(1.061 1.061)">
+      <line id="Línea_4" data-name="Línea 4" x1="4.198" y2="4.225" stroke-width="1.5" stroke="#fffcfd" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path id="Trazado_26" data-name="Trazado 26" d="M169.724,2184.125v3.813h3.924" transform="translate(-169.724 -2183.714)" fill="none" stroke="#fffcfd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+    <g id="Grupo_31" data-name="Grupo 31" transform="translate(21.723 17.807)">
+      <line id="Línea_5" data-name="Línea 5" y1="4.198" x2="4.225" stroke-width="1.5" stroke="#fffcfd" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path id="Trazado_27" data-name="Trazado 27" d="M226.227,2227.921h3.813v3.924" transform="translate(-225.815 -2227.921)" fill="none" stroke="#fffcfd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>
