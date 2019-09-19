@@ -48,7 +48,7 @@ export class DashboardPage implements OnInit {
         private authService: AuthService,
         private loadingController: LoadingService,
         private toastService: ToastService,
-        private translateService: TranslateService,
+        private translateService: TranslateService
     ) {
         this.titleTypeSliding = 'name pocket';
         this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.DASHBOARD_SLIDING

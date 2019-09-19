@@ -21,6 +21,11 @@ export const NAMES_SLIDING: any = {
       id: 'profileSliding',
       left: 'calificar',
       right: 'cerrar sesión'
+   },
+   PRICES_SLIDING: {
+      id: 'pricesSliding',
+      left: 'noticias',
+      right: ''
    }
 }
 

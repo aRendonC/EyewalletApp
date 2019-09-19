@@ -299,5 +299,12 @@
     "SessionWebStart": "Inicio de sesión exitoso.",
     "ClosingSessionMessage": "Verificando el cierre de sesión.",
     "StartingSessionMessage": "Verificando el inicio de sesión en la web."
+  },
+  "POCKETS_COMPONENT": {
+    "TitleAlertCloseSession": "Cerrar sesión",
+    "MessageCloseSession": "¿Desea cerrar su sesión?",
+    "ButtonCancelCloseSession": "Cancelar",
+    "ButtonConfirmCloseSession": "Aceptar",
+    "MessageClosingSession": "Cerrando sesión"
   }
 }
