@@ -57,7 +57,8 @@
   "POCKET_COMPONENT": {
     "NewVault": "Nueva Bóveda",
     "History": "Historial",
-    "Exchange": "Volver"
+    "Exchange": "Volver",
+    "FunctionErroExecute": "No hay ninguna función asignada al identificador de la pestaña deslizante."
   },
   "PRICES_PAGE": {
     "LoadingCrypto": "Cargando datos de monedas"

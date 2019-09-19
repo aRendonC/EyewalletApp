@@ -1,14 +1,20 @@
 @import '../../global.scss';
 
 .ReceiveFundsPage {
+   --padding-start: 30px;
+   @extend .padding-top-sliding;
+   --padding-end: 30px;
+   --padding-bottom: 70px;
+   box-sizing: border-box;
+
    .content-code-qr {
       background: white;
       padding: 40px 20px;
       box-shadow: none;
       border-radius: 16px;
-      width: 80%;
-      margin: 20px auto;
-      overflow: auto;
+      height: 100%;
+      width: 100%;
+      margin: 0 auto;
 
       .code-qr-header {
          width: 100%;

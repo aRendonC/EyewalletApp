@@ -1,5 +1,4 @@
-<ion-content [class.blur]="ctrlCssBlur">
-  <app-pocket [ctrlNavigation]="ctrlNavigation" [pocket]="pocket"  (dataBalance)="getDataPocket($event)"></app-pocket>
-
+<app-pocket [typeSliding]="nameTypeSliding" [titleTypeSliding]="pocket?.label" [buttonLeft]="true" [buttonRight]="true"></app-pocket>
+<ion-content [class.blur]="ctrlCssBlur" class="dashboard">
   <app-sliders *ngIf="crypto.length > 0" (emitterTransactionRefresh)="refreshTransactions($event)"  (changeCryptoPocket)="changeDataPocketSlider($event)" [transactions]="transactionComponent"  [name]="crypto"></app-sliders>
 </ion-content>

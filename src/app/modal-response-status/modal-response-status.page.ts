@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./modal-response-status.page.scss'],
 })
 
-// En la variable/propiedad "typeIcon" de tipo numero, se le envia un numero entre 1 y 2, 1 muestra icono de "ok", 2 muestra icono de "error".
+// En la variable/propiedad "typeIcon" de tipo numero, se le envia un numero entre 0 y 1, 0 muestra icono de "ok", 1 muestra icono de "error".
 // En la variable/propiedad "message" de tipo cadena, se le envia el mensaje a mostrar.
 export class ModalResponseStatusPage implements OnInit {
   @Input() typeIcon: number;

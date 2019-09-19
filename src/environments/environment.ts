@@ -4,15 +4,15 @@
 
 export const environment = {
   production: false,
-  //urlBase: 'https://364a533d.ngrok.io/api/v1/',
-  urlBase: 'https://web.eyewallet.com/api/v1/',
-  //urlAvatar: 'https://364a533d.ngrok.io/api/web/',
-  urlAvatar: 'https://web.eyewallet.com/web/',
-  //flag: 'https://364a533d.ngrok.io/web/uploads/flags/',
-  flag: 'https://web.eyewallet.com/web/uploads/flags/',
+  urlBase: 'https://364a533d.ngrok.io/api/v1/',
+  // urlBase: 'https://dev.eyewalletpro.com/api/v1/',
+  urlAvatar: 'https://364a533d.ngrok.io/api/web/',
+  // urlAvatar: 'https://dev.eyewalletpro.com/api/web/',
+  flag: 'https://364a533d.ngrok.io/web/uploads/flags/',
+  // flag: 'https://dev.eyewalletpro.com/api/web/uploads/flags/',
   apiKeyLocation: '2b154f971e3ab7',
-  //urlSocket: 'https://f80edbf5.ngrok.io',
-  urlSocket: 'https://web.eyewallet.com:3002'
+  urlSocket: 'https://f80edbf5.ngrok.io'
+  // urlSocket: 'https://web.eyewallet.com:3002'
 };
 
 /*

@@ -22,6 +22,10 @@ $font-openSans-regular: OpenSans-Regular;
 $font-openSans-SemiBold: OpenSans-SemiBold;
 $font-openSans-bold: OpenSans-Bold;
 
+.padding-top-sliding {
+   --padding-top: 60px;
+}
+
 .button-enable {
    --background: #4C6AC0;
    font-family: $font-medium;

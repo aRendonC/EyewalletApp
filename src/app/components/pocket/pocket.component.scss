@@ -1,5 +1,134 @@
 @import '../../../global.scss';
 
+.sliding-header {
+  @extend .all-center;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+
+  .content-header {
+    width: 100%;
+    @extend .all-center;
+
+    .content-button-sliding {
+      width: 34%;
+
+      .button-sliding {
+        top: 0 !important;
+
+        .item-sliding {
+          --border-style: none;
+          top: 0 !important;
+          width: 300%;
+
+          .content-text-image {
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+
+            .text {
+              font-family: $font-regular;
+              text-transform: capitalize;
+              font-size: 13px;
+            }
+
+            .image {
+              height: 26px;
+              width: 26px;
+            }
+          }
+        }
+
+        .content-text-image-left-dashboardSliding {
+          --background: rgba(255,124,110,1);
+          --background: -moz-linear-gradient(top, rgba(255,124,110,1) 0%, rgba(244,49,127,1) 100%);
+          --background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,124,110,1)), color-stop(100%, rgba(244,49,127,1)));
+          --background: -webkit-linear-gradient(top, rgba(255,124,110,1) 0%, rgba(244,49,127,1) 100%);
+          --background: -o-linear-gradient(top, rgba(255,124,110,1) 0%, rgba(244,49,127,1) 100%);
+          --background: -ms-linear-gradient(top, rgba(255,124,110,1) 0%, rgba(244,49,127,1) 100%);
+          --background: linear-gradient(to bottom, rgba(255,124,110,1) 0%, rgba(244,49,127,1) 100%);
+        }
+
+        .content-text-image-right-dashboardSliding {
+          --background: -moz-linear-gradient(top, rgba(65,218,156,1) 0%, rgba(21,233,233,1) 100%);
+          --background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(65,218,156,1)), color-stop(100%, rgba(21,233,233,1)));
+          --background: -webkit-linear-gradient(top, rgba(65,218,156,1) 0%, rgba(21,233,233,1) 100%);
+          --background: -o-linear-gradient(top, rgba(65,218,156,1) 0%, rgba(21,233,233,1) 100%);
+          --background: -ms-linear-gradient(top, rgba(65,218,156,1) 0%, rgba(21,233,233,1) 100%);
+          --background: linear-gradient(to bottom, rgba(65,218,156,1) 0%, rgba(21,233,233,1) 100%);
+        }
+
+        .item-sliding-left {
+          border-radius: 0 50px 50px 0;
+          margin-left: -262%;
+
+          .content-text-image-left {
+            justify-content: flex-end;
+
+            .text-left {
+              margin: 0 6px 0 0;
+            }
+
+            .text-left-dashboardSliding {
+              color: white;
+            }
+
+            .image-left {
+              margin: 0 0 0 6px;
+            }
+          }
+        }
+
+        .item-sliding-right {
+          border-radius: 50px 0 0 50px;
+          margin-left: 56%;
+
+          .content-text-image-right {
+            justify-content: flex-start;
+
+            .image-right {
+              margin: 0 6px 0 0;
+            }
+
+            .text-right {
+              margin: 0 0 0 6px;
+            }
+
+            .text-right-dashboardSliding {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    .content-center {
+      width: 32%;
+      @extend .all-center;
+
+      .title-icon {
+        margin: 0 3px 0 0;
+      }
+
+      .title-text {
+        font-family: $font-semibold;
+        font-size: 13px;
+        margin: 0 0 0 3px;
+      }
+
+      .title-text-profileSliding {
+        color: white;
+      }
+    }
+  }
+}
+
+.sliding-header-dashboardSliding {
+  background: white;
+}
+
 .resize-logo {
   width: 6%;
   top: 5%;
@@ -39,8 +168,6 @@
 
 .resize-logo-right{
   width: 20%;
-  /* top: 17.5%; */
-  /* position: absolute; */
 }
 
 .text-moneda{

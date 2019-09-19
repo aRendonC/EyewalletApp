@@ -1,10 +1,11 @@
+<app-pocket [typeSliding]="nameTypeSliding" titleTypeSliding="{{'GENERAL.User'| translate}}" [buttonLeft]="true" [buttonRight]="true" class="content-tabs-sliding"></app-pocket>
+
 <div class="grid">
-    <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket>
+    <!-- <app-pocket class="pockets" [ctrlNavigation]="ctrlNavigation"></app-pocket> -->
     <img class="bg-profile" src="../../assets/images/bg-profile.png">
     <img class="move-profile" src="../../assets/images/profilePage/backProfile.svg"/>
     <img class="move-profilePic" [src]="avatar"/>
     <p class="move-name">{{profileShow.fullName}}</p>
-    <!-- <img class="move-engine" src="../../assets/images/profilePage/engine.svg"> -->
     <img type="submit" class="move-add" (click)="photo()" src="../../assets/images/profilePage/add-profile-img.svg"/>
 </div>
 

@@ -7,8 +7,7 @@ import { LoadingService } from '../services/loading/loading.service';
 import { ToastService } from "../services/toast/toast.service";
 import { ChartComponent } from "../components/chart/chart.component";
 import { TranslateService } from "@ngx-translate/core";
-
-
+import * as CONSTANTS from '../constanst';
 
 @Component({
     selector: 'app-dashboard',
@@ -17,6 +16,10 @@ import { TranslateService } from "@ngx-translate/core";
 })
 
 export class DashboardPage implements OnInit {
+//===========================================================================//
+    public nameTypeSliding: string;
+    public titleTypeSliding: string;
+//===========================================================================//
     @ViewChild(SlidersComponent) sliderComponent: SlidersComponent;
     @ViewChild(ChartComponent) chartComponent: ChartComponent;
     @Input() gra: SlidersComponent;
@@ -47,6 +50,8 @@ export class DashboardPage implements OnInit {
         private toastService: ToastService,
         private translateService: TranslateService,
     ) {
+        this.titleTypeSliding = 'name pocket';
+        this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.DASHBOARD_SLIDING
         this.ctrlNavigation = 0;
         this.ctrlCssBlur = false;
         this.pockets = null;

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AxiosService} from "../../services/axios/axios.service";
-import {AlertController, ModalController, Platform} from "@ionic/angular";
+import { AlertController, ModalController, Platform, ActionSheetController } from '@ionic/angular';
 import {ListPocketsPage} from "../../list-pockets/list-pockets.page";
 import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
@@ -11,6 +11,8 @@ import {OverlayEventDetail} from '@ionic/core';
 import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {TranslateService} from "@ngx-translate/core";
 import { SocketIoService } from 'src/app/services/socketIo/socket-io.service';
+import * as CONSTANTS from '../../constanst';
+import { TypeSliding } from '../../interfaces/index';
 
 @Component({
     selector: 'app-pocket',
@@ -19,6 +21,13 @@ import { SocketIoService } from 'src/app/services/socketIo/socket-io.service';
 })
 
 export class PocketComponent implements OnInit {
+//===========================================================================//
+    @Input() typeSliding: TypeSliding;
+    @Input() titleTypeSliding: string;
+    @Input() buttonLeft: boolean;
+    @Input() buttonRight: boolean;
+    public count: number;
+//===========================================================================//
     public counters = {
         sendCash: 0,
         receiveCash: 0,
@@ -57,11 +66,161 @@ export class PocketComponent implements OnInit {
         private iab: InAppBrowser,
         private translateService: TranslateService,
         private socket: SocketIoService,
+        private actionSheetController: ActionSheetController
     ) {
+//===========================================================================//
+        this.count = 0;
+//===========================================================================//
         this.classLeft = "resize-logo-left1";
         this.imgLeft = "../../assets/img/btn-left-s.svg";
         this.imgRight = "../../assets/img/btn-right.svg";
     }
+//===========================================================================//
+    public slidingLeft(event: any): void {
+        if (event.detail.amount < -70) {
+            this.validationFunctionExecute(CONSTANTS.NAMES_SLIDING.LEFT_LOCATION);
+        }
+    }
+
+    public slidingRight(event: any): void {
+        if (event.detail.amount > 70) {
+            this.validationFunctionExecute(CONSTANTS.NAMES_SLIDING.RIGHT_LOCATION);
+        }
+    }
+
+    private validationFunctionExecute(location): void {
+        switch (this.typeSliding.id) {
+            case CONSTANTS.NAMES_SLIDING.DASHBOARD_SLIDING.id:
+                this.validateFunctionExecuteDashboard(location);
+                break;
+            case CONSTANTS.NAMES_SLIDING.RECEIVE_FUNDS_SLIDING.id:
+                this.navigateToDashboard();
+                break;
+            case CONSTANTS.NAMES_SLIDING.PROFILE_SLIDING.id:
+                this.navigateFunctionExecuteProfile(location);
+                break;
+            default:
+                console.error('ERROR: ', this.translateService.instant('POCKET_COMPONENT.FunctionErroExecute'));
+                break;
+        }
+    }
+
+    private validateFunctionExecuteDashboard(location: string): void {
+        if (location === CONSTANTS.NAMES_SLIDING.LEFT_LOCATION) {
+            this.navigateToReceiveFunds();
+        } else if (location === CONSTANTS.NAMES_SLIDING.RIGHT_LOCATION) {
+            this.navigateToSendFunds();
+        }
+    }
+
+    private async navigateToReceiveFunds(): Promise<any> {
+        this.router.navigate(['/receive-funds'], {
+            queryParams: {
+                pocket: JSON.stringify(await this.store.getDataLocal('selected-pocket'))
+            }, queryParamsHandling: 'merge'
+        });
+    }
+
+    private async navigateToSendFunds(): Promise<any> {
+        const profile = await this.store.getDataLocal('profile');
+        if (profile.level === 0) {
+            await this.toastCtrl.presentToast({text: this.translateService.instant('TOAST_MSG.DocumentsNoVerified')})
+        } else {
+            await this.router.navigate(['/send-currency', {pocket: JSON.stringify(await this.store.getDataLocal('selected-pocket'))}]);
+        }
+    }
+
+    private navigateToDashboard(): void {
+        this.router.navigate(['/app/tabs/dashboard']);
+    }
+
+    private navigateFunctionExecuteProfile(location: string): void {
+        if (location === CONSTANTS.NAMES_SLIDING.LEFT_LOCATION) {
+            this.navigateToCalification();
+        } else if (location === CONSTANTS.NAMES_SLIDING.RIGHT_LOCATION) {
+            this.executeCloseSession();
+        }
+    }
+
+    private navigateToCalification(): void {
+        let url: string = '';
+        const urlIos: string = 'https://apps.apple.com/us/app/eyewallet/id1338756423?l=es&ls=1';
+        const urlMd: string = 'https://play.google.com/store/apps/details?id=com.eyewallet.io';
+        const platform: any = this.platform.ready();
+        platform == 'ios' ? url = urlIos : url = urlMd;
+        this.iab.create(url, '_blank');
+    }
+
+    private async executeCloseSession(): Promise<any> {
+        await this.logOut();
+        
+        // this.count++;
+        // console.log('COUNT: ', this.count);
+        // if (this.count === 1) {
+        //     const alert = await this.alertCtrl.create({
+        //         header: 'Cerrar Sesión',
+        //         message: '¿Desea cerrar su sesión?',
+        //         buttons: [
+        //             {
+        //                 text: 'Cancelar',
+        //                 role: 'cancel',
+        //                 handler: () => {
+        //                     console.log('Confirm Cancel');
+        //                 }
+        //             },
+        //             {
+        //                 text: 'Confirmar',
+        //                 handler: async () => {
+        //                     await this.logOut();
+        //                     await this.toastCtrl.presentToast({text: this.translateService.instant('GENERAL.LogOutOk')});
+        //                 }
+        //             }
+        //         ]
+        //     });
+        //     await alert.present();
+        //     this.count = 0;
+        //     return;
+        // }
+
+        // const actionSheet = await this.actionSheetController.create({
+        //     header: 'Albums',
+        //     buttons: [{
+        //       text: 'Delete',
+        //       role: 'destructive',
+        //       icon: 'trash',
+        //       handler: () => {
+        //         console.log('Delete clicked');
+        //       }
+        //     }, {
+        //       text: 'Share',
+        //       icon: 'share',
+        //       handler: () => {
+        //         console.log('Share clicked');
+        //       }
+        //     }, {
+        //       text: 'Play (open modal)',
+        //       icon: 'arrow-dropright-circle',
+        //       handler: () => {
+        //         console.log('Play clicked');
+        //       }
+        //     }, {
+        //       text: 'Favorite',
+        //       icon: 'heart',
+        //       handler: () => {
+        //         console.log('Favorite clicked');
+        //       }
+        //     }, {
+        //       text: 'Cancel',
+        //       icon: 'close',
+        //       role: 'cancel',
+        //       handler: () => {
+        //         console.log('Cancel clicked');
+        //       }
+        //     }]
+        //   });
+        //   await actionSheet.present();
+    }
+//===========================================================================//
 
     async ngOnInit() {}
 
@@ -180,6 +339,7 @@ export class PocketComponent implements OnInit {
                     },
                     {
                         text: 'Confirmar',
+                        role: 'cancel',
                         handler: async () => {
                             await this.logOut();
                             await this.toastCtrl.presentToast({text: this.translateService.instant('GENERAL.LogOutOk')})
@@ -194,9 +354,14 @@ export class PocketComponent implements OnInit {
         }
     }
 
+<<<<<<< HEAD
     async logOut() {
         this.endlogout(await this.store.getDataLocal('chanelSocket'));
         await this.loadingCtrl.present({});
+=======
+    private async logOut(): Promise<any> {
+        await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
+>>>>>>> Refactorin of taba sliding is inited.
         this.socket.disconnectSocket();
         await this.auth.logout();
         //this.clickButtonLeftSeis();

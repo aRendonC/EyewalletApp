@@ -14,19 +14,18 @@ import {ToastService} from "../services/toast/toast.service";
 })
 
 export class ReceiveFundsPage {
-
+  public nameTypeSliding: any;
   public buttonCopy: string = CONSTANTS.RECEIVE_FUNDS.BUTTON_COPY;
   public ctrlNavigation: number = 1;
-
   public amount = null;
   public codeQr = null;
-
 
   constructor(
     private activateRouter: ActivatedRoute,
     private clipboard: Clipboard,
     private toastController: ToastService
   ) {
+    this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.RECEIVE_FUNDS_SLIDING
   }
 
   ionViewDidEnter() {

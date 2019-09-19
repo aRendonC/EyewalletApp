@@ -1,8 +1,7 @@
+<app-pocket [typeSliding]="nameTypeSliding" [buttonLeft]="true" [buttonRight]="false"></app-pocket>
+
 <ion-content class="ReceiveFundsPage backGroundGradient">
-  <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
-
   <ion-card class="content-code-qr">
-
     <div class="code-qr-header">
       <span class="title">{{'GENERAL.Amount' | translate}}</span>
 
@@ -13,13 +12,11 @@
     </div>
 
     <div class="content-qr-body">
-
       <div class="content-code-qr-chil">
         <img
           src="https://chart.googleapis.com/chart?chld=M|0&chs=200x200&cht=qr&chl={{codeQr}}"
           class="sc-ion-card-md-s style-qr"
         />
-
       </div>
 
       <div class="content-buttons-qr center">
@@ -36,9 +33,6 @@
         <span class="input">{{codeQr}}</span>
 
       </div>
-
     </div>
-
   </ion-card>
-
 </ion-content>

@@ -4,6 +4,26 @@ export const KEYS_DATA_LOCAL: any = {
    TRANSACTION: 'transaction'
 }
 
+export const NAMES_SLIDING: any = {
+   LEFT_LOCATION: 'left',
+   RIGHT_LOCATION: 'right',
+   DASHBOARD_SLIDING: {
+      id: 'dashboardSliding',
+      left: 'recibir',
+      right: 'enviar'
+   },
+   RECEIVE_FUNDS_SLIDING: {
+      id: 'receiveFundsSliding',
+      left: '',
+      right: ''
+   },
+   PROFILE_SLIDING: {
+      id: 'profileSliding',
+      left: 'calificar',
+      right: 'cerrar sesión'
+   }
+}
+
 export const VAULT: any = {
    USD: 'USD'
 };
