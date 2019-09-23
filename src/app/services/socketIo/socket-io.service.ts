@@ -6,6 +6,9 @@ import { AesJsService } from '../aesjs/aes-js.service';
 import { ModalController, Platform, AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth/auth.service';
 import { LocalNotifications, ELocalNotificationTriggerUnit, ILocalNotificationActionType, ILocalNotification } from '@ionic-native/local-notifications/ngx';
+import { TranslateService } from "@ngx-translate/core";
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +26,7 @@ export class SocketIoService {
       private localNotifications: LocalNotifications,
       private plt: Platform,
       private alertCtrl: AlertController,
+      private translateService: TranslateService,
   ) { 
     this.plt.ready().then(() => {
       this.localNotifications.on('click').subscribe(res => {
@@ -62,8 +66,8 @@ export class SocketIoService {
         this.localNotifications.schedule({
           id: 1,
           title: 'Attention',
-          text: 'Sesión',
-          data: { mydata: 'Se cerro la sesión en otro dispositivo' },
+          text: this.translateService.instant('PUSH_NOTIFICATION.sesion'),
+          data: { mydata: this.translateService.instant('PUSH_NOTIFICATION.message1') },
           trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
           foreground: true,
           lockscreen: true // Show the notification while app is open
@@ -77,8 +81,8 @@ export class SocketIoService {
         this.localNotifications.schedule({
           id: 22,
           title: 'Attention',
-          text: 'Inicio de sesion en la web',
-          data: { mydata: 'Se inicio sesion en la web' },
+          text: this.translateService.instant('PUSH_NOTIFICATION.title1'),
+          data: { mydata: this.translateService.instant('PUSH_NOTIFICATION.message2') },
           trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
           foreground: true,
           lockscreen: true // Show the notification while app is open
@@ -89,8 +93,8 @@ export class SocketIoService {
         this.localNotifications.schedule({
           id: 23,
           title: 'Attention',
-          text: 'Transacción',
-          data: { mydata: 'Transaccìon realizada' },
+          text: this.translateService.instant('PUSH_NOTIFICATION.title2'),
+          data: { mydata: this.translateService.instant('PUSH_NOTIFICATION.message3') },
           trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
           foreground: true,
           lockscreen: true // Show the notification while app is open
@@ -101,8 +105,8 @@ export class SocketIoService {
         this.localNotifications.schedule({
           id: 24,
           title: 'Attention',
-          text: 'Transacción',
-          data: { mydata: 'Transaccìon confirmada' },
+          text: this.translateService.instant('PUSH_NOTIFICATION.title2'),
+          data: { mydata: this.translateService.instant('PUSH_NOTIFICATION.message4') },
           trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
           foreground: true,
           lockscreen: true // Show the notification while app is open

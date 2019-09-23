@@ -309,5 +309,14 @@
     "ButtonCancelCloseSession": "Cancelar",
     "ButtonConfirmCloseSession": "Aceptar",
     "MessageClosingSession": "Cerrando sesión"
+  },
+  "PUSH_NOTIFICATION":{
+    "sesion": "Sesión",
+    "message1": "Se cerro la sesión en otro dispositivo",
+    "title1": "Inicio de sesion en la web",
+    "message2": "Se inicio sesion en la web",
+    "title2": "Transacción",
+    "message3": "Transacción Realizada",
+    "message4": "Transaccìon confirmada"
   }
 }
