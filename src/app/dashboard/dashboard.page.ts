@@ -16,10 +16,7 @@ import * as CONSTANTS from '../constanst';
 })
 
 export class DashboardPage implements OnInit {
-//===========================================================================//
     public nameTypeSliding: string;
-    public titleTypeSliding: string;
-//===========================================================================//
     @ViewChild(SlidersComponent) sliderComponent: SlidersComponent;
     @ViewChild(ChartComponent) chartComponent: ChartComponent;
     @Input() gra: SlidersComponent;
@@ -50,8 +47,7 @@ export class DashboardPage implements OnInit {
         private toastService: ToastService,
         private translateService: TranslateService
     ) {
-        this.titleTypeSliding = 'name pocket';
-        this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.DASHBOARD_SLIDING
+        this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.DASHBOARD_SLIDING;
         this.ctrlNavigation = 0;
         this.ctrlCssBlur = false;
         this.pockets = null;
@@ -72,10 +68,8 @@ export class DashboardPage implements OnInit {
         this.pocket = await this.dataLocalService.getDataLocal('selected-pocket');
         this.profile = await this.dataLocalService.getDataLocal('profile');
         this.pockets = await this.dataLocalService.getDataLocal('pockets');
-        console.log('dashboard', this.profile);
         this.params.userId = this.profile.userId;
         this.params.type = 4;
-        console.log
     }
 
     async getTransactionsSend() {
