@@ -1,6 +1,6 @@
-<div class="exchange-header">
-	<app-pocket [ctrlNavigation]="ctrlNavigation" [navigationHistory]="navigationHistory" [navigationExchange]="false" class="pockets"></app-pocket>
+<app-pocket [typeSliding]="nameTypeSliding" titleTypeSliding="{{'GENERAL.Exchange'| translate}}" [buttonLeft]="buttonSlidingLeft" [buttonRight]="false" class="content-tabs-sliding"></app-pocket>
 
+<div class="exchange-header">
 	<span class="exchange-text">{{ 'EXCHANGE.DescriptionText' | translate }}</span>
 
 	<div class="exchange-content-inputs">

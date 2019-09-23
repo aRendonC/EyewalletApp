@@ -9,22 +9,18 @@
         </ion-toolbar>
     </ion-header>
 
-    <ion-nav>
+    <ion-nav></ion-nav>
 
-    </ion-nav>
     <div style="margin-top: 41%" class="center-horizontal center center-vertical" mode="md">
         <div style="width: 45%" [ngClass]="cssGradient">
-
             <img style="width: 60%; filter: opacity(0.3)" src="../../assets/img/sendCripto/targetQr.png"/>
         </div>
     </div>
-
 </ion-content>
 
-<ion-content id="QRScaner" class="ReceiveFundsPage" [ngClass]="cssGradient">
-    <div class="contentdash" [class.show-qr-scanner]="isOn">
-        <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket>
-    </div>
+<app-pocket [typeSliding]="nameTypeSliding" [buttonLeft]="true" [buttonRight]="false" [class.show-qr-scanner]="isOn"></app-pocket>
+
+<ion-content id="QRScaner" ngClass="{{ isOn ?  'backGroundGradientQr SendCryptoCurrencies' : 'backGroundGradient SendCryptoCurrencies SendCryptoCurrencies-with-padding'}}">
     <form #formulario="ngForm" [formGroup]="bodyForm" class="positionForm">
         <ion-card class="content-code-qr center" [class.show-qr-scanner]="isOn">
             <div class="code-qr-header" (click)="presentQRScanner()">

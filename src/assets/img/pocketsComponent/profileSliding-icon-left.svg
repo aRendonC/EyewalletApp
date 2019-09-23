@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21.851" height="25.889" viewBox="0 0 21.851 25.889">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="21.851" height="25.889" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" y1="-0.119" x2="0.5" y2="1.414" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4daaff"/>
+      <stop offset="0.217" stop-color="#5584ff"/>
+      <stop offset="1" stop-color="#7300ff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" y1="0.224" x2="0.5" y2="3.025" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Símbolo_27_12" data-name="Símbolo 27 – 12" clip-path="url(#clip-path)">
+    <path id="Trazado_130" data-name="Trazado 130" d="M46.368,93.749,40,92.292l-3.353-5.607a.736.736,0,0,0-1.264,0l-3.353,5.607L25.66,93.749a.736.736,0,0,0-.39,1.2l4.3,4.922-.583,6.507a.736.736,0,0,0,1.022.743l6.009-2.565,6.009,2.565a.736.736,0,0,0,1.022-.743l-.583-6.507,4.3-4.922a.736.736,0,0,0-.39-1.2Zm-5.222,5.392a.736.736,0,0,0-.178.549l.5,5.595L36.3,103.08a.734.734,0,0,0-.578,0l-5.166,2.205.5-5.595a.736.736,0,0,0-.178-.549L27.189,94.91l5.475-1.252a.736.736,0,0,0,.467-.34l2.883-4.82,2.883,4.82a.735.735,0,0,0,.468.34l5.475,1.252Z" transform="translate(-25.089 -81.293)" fill="url(#linear-gradient)"/>
+    <path id="Trazado_131" data-name="Trazado 131" d="M27.4,83.706a.736.736,0,0,0,1.109-.968l-1.317-1.508,5.475-1.252a.737.737,0,0,0,.467-.34l2.883-4.82,2.883,4.82a.737.737,0,0,0,.468.34l5.475,1.252-1.408,1.613a.736.736,0,0,0,1.109.968l2.217-2.54a.736.736,0,0,0-.39-1.2L40,78.612l-3.353-5.607a.736.736,0,0,0-1.264,0l-3.353,5.607L25.66,80.069a.736.736,0,0,0-.39,1.2Z" transform="translate(-25.089 -72.647)" fill="url(#linear-gradient-2)"/>
+  </g>
+</svg>

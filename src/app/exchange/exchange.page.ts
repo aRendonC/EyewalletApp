@@ -16,7 +16,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class ExchangePage implements OnInit {
-	public ctrlNavigation: number;
+	public nameTypeSliding: any;
+	public buttonSlidingLeft: boolean;
 	public navigationHistory: boolean;
 	public pockets: any;
 	public inputOrigin: string;
@@ -54,7 +55,8 @@ export class ExchangePage implements OnInit {
 		private router: Router,
 		private translateService: TranslateService
 	) {
-		this.ctrlNavigation = 8;
+		this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.EXCHANGE_CREATE_SLIDING;
+		this.buttonSlidingLeft = false;
 		this.navigationHistory = false;
 		this.pockets = {};
 		this.inputOrigin = 'origin';
@@ -76,7 +78,9 @@ export class ExchangePage implements OnInit {
 		this.buttonSendExchange = true;
 	}
 
-	public async ngOnInit(): Promise<any> {}
+	public async ngOnInit(): Promise<any> {
+		this.validateButtonActivateDataExchange();
+	}
 
 	public async ionViewDidEnter(): Promise<any> {
 		await this.loadingCtrl.present({ text: this.translateService.instant('EXCHANGE.LoadingData'), cssClass: 'textLoadingBlack' });
@@ -407,5 +411,17 @@ export class ExchangePage implements OnInit {
 			this.loadingCtrl.dismiss();
 			await this.toastCtrl.presentToast({text: this.translateService.instant('EXCHANGE.ErrorToChange')});
 		}
+	}
+
+	private async validateButtonActivateDataExchange(): Promise<any> {
+		const profile = await this.store.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);
+		await this.http.post('exchange/index', {userId: profile.userId}, this.auth)
+		.then((response: any) => {
+			console.log('RESPONSE: ', response);
+			response.data.length > 0 ? this.buttonSlidingLeft = true : this.buttonSlidingLeft = false;
+		})
+		.catch((error: any) => {
+			console.error('ERROR: ', error);
+		})
 	}
 }

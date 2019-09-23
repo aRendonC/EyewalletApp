@@ -38,3 +38,9 @@ export interface DataVaultsList {
   amountUsd?: number;
   priceCriptoUsd?: number;
 }
+
+export interface TypeSliding {
+  id?: string,
+  left?: string,
+  right?: string
+}

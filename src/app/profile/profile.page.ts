@@ -13,6 +13,7 @@ import {environment} from "../../environments/environment";
 import {LanguageService} from "../services/language/language.service";
 import {DataLocalService} from "../services/data-local/data-local.service";
 import {TranslateService} from "@ngx-translate/core";
+import * as CONSTANTS from '../constanst';
 
 @Component({
     selector: 'app-profile',
@@ -21,6 +22,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 
 export class ProfilePage implements OnInit {
+    public nameTypeSliding: any;
     public userVerifications: any = {
         email: ''
     };
@@ -68,6 +70,7 @@ export class ProfilePage implements OnInit {
         private translateService: TranslateService,
         private router: Router,
     ) {
+        this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.PROFILE_SLIDING;
         this.temporizador = this.timer.temporizador;
     }
 

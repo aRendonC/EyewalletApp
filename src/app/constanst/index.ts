@@ -4,6 +4,56 @@ export const KEYS_DATA_LOCAL: any = {
    TRANSACTION: 'transaction'
 }
 
+export const NAMES_SLIDING: any = {
+   LEFT_LOCATION: 'left',
+   RIGHT_LOCATION: 'right',
+   DASHBOARD_SLIDING: {
+      id: 'dashboardSliding',
+      left: 'recibir',
+      right: 'enviar'
+   },
+   RECEIVE_FUNDS_SLIDING: {
+      id: 'receiveFundsSliding',
+      left: '',
+      right: ''
+   },
+   PROFILE_SLIDING: {
+      id: 'profileSliding',
+      left: 'calificar',
+      right: 'cerrar sesión'
+   },
+   PRICES_SLIDING: {
+      id: 'pricesSliding',
+      left: 'noticias',
+      right: ''
+   },
+   VAULT_SLIDING: {
+      id: 'vaultSliding',
+      left: 'bóvedas',
+      right: ''
+   },
+   VAULT_LIST_SLIDING: {
+      id: 'vaultListSliding',
+      left: '',
+      right: 'crear bóveda'
+   },
+   VAULT_CREATE_SLIDING: {
+      id: 'vaultCreateSliding',
+      left: 'volver',
+      right: ''
+   },
+   EXCHANGE_CREATE_SLIDING: {
+      id: 'exchangeCreateSliding',
+      left: 'historial',
+      right: ''
+   },
+   EXCHANGE_HISTORY_SLIDING: {
+      id: 'exchangeHistorySliding',
+      left: '',
+      right: 'intercambiar'
+   }
+}
+
 export const VAULT: any = {
    USD: 'USD'
 };

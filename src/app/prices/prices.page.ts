@@ -18,6 +18,7 @@ import * as CONSTANTS from '../constanst';
 export class PricesPage implements OnInit {
     @Input() name: any;
     @ViewChild('lineCanvas') lineCanvas;
+    public nameTypeSliding: any;
     public ctrlCssBlur = false;
     public lineChart: any;
     public cryptoPrices24h: any;
@@ -40,7 +41,9 @@ export class PricesPage implements OnInit {
         private loading: LoadingService,
         private toastCtrl: ToastService,
         private translateService: TranslateService,
-    ) {}
+    ) {
+        this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.PRICES_SLIDING;
+    }
 
     public async ngOnInit(): Promise<any> {
         this.dataUser = await this.store.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.PROFILE);

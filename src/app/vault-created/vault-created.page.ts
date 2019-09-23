@@ -18,7 +18,7 @@ import { DataLocalService } from '../services/data-local/data-local.service';
 })
 
 export class VaultCreatedPage implements OnInit {
-  public ctrlNavigation: number;
+  public nameTypeSliding: any;
   public buttonDisabled: boolean;
   public dataVaultCreated: any;
   public USDtext: string;
@@ -39,7 +39,7 @@ export class VaultCreatedPage implements OnInit {
     private toastService: ToastService,
     private dataLocalService: DataLocalService
   ) {
-    this.ctrlNavigation = 7;
+    this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.VAULT_CREATE_SLIDING;
     this.buttonDisabled = false;
     this.USDtext = CONSTANTS.VAULT.USD;
   }

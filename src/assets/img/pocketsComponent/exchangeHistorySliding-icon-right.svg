@@ -1,0 +1,14 @@
+<svg id="Grupo_439" data-name="Grupo 439" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.659" height="22.09" viewBox="0 0 25.659 22.09">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="-0.255" x2="0.5" y2="1.483" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4daaff"/>
+      <stop offset="0.217" stop-color="#5584ff"/>
+      <stop offset="1" stop-color="#7300ff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" y1="-1.112" x2="0.5" y2="6.061" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="0.5" y1="-4.268" x2="0.5" y2="2.942" xlink:href="#linear-gradient"/>
+  </defs>
+  <path id="Trazado_282" data-name="Trazado 282" d="M193.965,2188.544l-6.407-8a.384.384,0,0,0-.629.041l-2.553,4.239-2.23-2.788a1.308,1.308,0,0,0-2.132.153l-6.471,10.742a1.305,1.305,0,0,0,.092,1.5l5.479,6.867a2.33,2.33,0,0,0,1.82.875c.05,0,.1,0,.15,0a2.335,2.335,0,0,0,1.845-1.121l2.128-3.533.9,1.131a1.4,1.4,0,0,0,2.3-.151l5.73-9.505A.389.389,0,0,0,193.965,2188.544Zm-12.611,11.546a.481.481,0,0,1-.388.235.473.473,0,0,1-.413-.182l-5.248-6.576,5.89-9.778,5.692,7.115Z" transform="translate(-171.329 -2180.396)" fill="url(#linear-gradient)"/>
+  <path id="Trazado_283" data-name="Trazado 283" d="M168.21,2186.5a.545.545,0,0,0,.2.039h3.872a.552.552,0,0,0,0-1.1h-2.545l3.207-3.228a.552.552,0,1,0-.783-.778l-3.2,3.219v-2.423a.552.552,0,0,0-1.1,0v3.762h0v0a.553.553,0,0,0,.04.2l0,.008a.557.557,0,0,0,.12.179h0l0,0a.552.552,0,0,0,.177.116Z" transform="translate(-167.858 -2180.948)" fill="url(#linear-gradient-2)"/>
+  <path id="Trazado_284" data-name="Trazado 284" d="M228.53,2226.722h0a.548.548,0,0,0-.038-.2l0-.012a.553.553,0,0,0-.117-.177l0,0h0a.554.554,0,0,0-.18-.12l-.007,0a.55.55,0,0,0-.2-.04h-3.765a.552.552,0,0,0,0,1.1h2.424l-3.219,3.2a.552.552,0,0,0,.778.783l3.228-3.207v2.545a.552.552,0,1,0,1.1,0v-3.87Z" transform="translate(-202.871 -2209.325)" fill="url(#linear-gradient-3)"/>
+</svg>

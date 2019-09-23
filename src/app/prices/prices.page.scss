@@ -1,7 +1,9 @@
 @import '../../global.scss';
 
-// --------------------------------
-// --------------------------------
+.header-prices-sliding {
+    z-index: 11;
+}
+
 .prices-header {
     position: fixed;
     height: 34%;
@@ -14,7 +16,7 @@
         display: flex;
         align-items: baseline;
         justify-content: center;
-        margin: 10px 0 0 0;
+        padding: 60px 0 0 0;
 
         .data-price-text-header {
             display: block;

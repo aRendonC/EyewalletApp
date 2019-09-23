@@ -57,7 +57,8 @@
   "POCKET_COMPONENT": {
     "NewVault": "New Vault",
     "History": "History",
-    "Exchange": "Back"
+    "Exchange": "Back",
+    "FunctionErroExecute": "There is no function assigned to the identifier of the sliding tab."
   },
   "PRICES_PAGE": {
     "LoadingCrypto": "Loading crypto data."
@@ -250,7 +251,12 @@
     "Usd": "Usd",
     "Fee": "Fee",
     "Priority": "Priority",
-    "Date": "Date"
+    "Date": "Date",
+    "NewVault": "new vault",
+    "VaultList": "vaults",
+    "VaultCreate": "create",
+    "Exchange": "exchange",
+    "ExchangeHistory": "History"
   },
   "EXCHANGE": {
     "DescriptionText": "How much do you want to change?",
@@ -296,5 +302,12 @@
     "SessionWebStart": "Login successful.",
     "ClosingSessionMessage": "Verifying the closing session.",
     "StartingSessionMessage": "Verifying the login on the web."
+  },
+  "POCKETS_COMPONENT": {
+    "TitleAlertCloseSession": "Sign off",
+    "MessageCloseSession": "Do you want to log out?",
+    "ButtonCancelCloseSession": "Cancel",
+    "ButtonConfirmCloseSession": "Accept",
+    "MessageClosingSession": "Closing session"
   }
 }

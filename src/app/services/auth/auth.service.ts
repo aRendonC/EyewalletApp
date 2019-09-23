@@ -1,16 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AxiosService} from '../axios/axios.service';
 import {MenuController, ModalController} from '@ionic/angular';
-import {TimerService} from '../timer/timer.service';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
-import {DeviceService} from '../device/device.service';
 import {PinModalPage} from '../../pin-modal/pin-modal.page';
 import {AesJsService} from '../aesjs/aes-js.service';
 import {LoadingService} from '../loading/loading.service';
 import { Socket } from 'ng-socket-io';
-import { DataLocalService } from '../data-local/data-local.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -23,23 +19,16 @@ export class AuthService {
         segundoFactor: null,
         accessToken: null,
     };
-    //private url: string = environment.urlBase;
-    private headers: HttpHeaders;
 
     constructor(
         private  api: AxiosService,
-        private timer: TimerService,
         private router: Router,
         private menu: MenuController,
         private store: Storage,
-        private device: DeviceService,
         private modalCtrl: ModalController,
         private aesjs: AesJsService,
         private loadingCtrl: LoadingService,
-        private socket: Socket,
-        private store2: DataLocalService,
-        private axiosService: AxiosService,
-        private http: HttpClient
+        private socket: Socket
     ) {
         this.persistenceLogin();
     }

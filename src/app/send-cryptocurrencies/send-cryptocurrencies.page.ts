@@ -13,6 +13,7 @@ import {TouchLoginService} from "../services/fingerprint/touch-login.service";
 import {TranslateService} from "@ngx-translate/core";
 import { PinModalPage } from "../pin-modal/pin-modal.page";
 import { DataLocalService } from '../services/data-local/data-local.service';
+import * as CONSTANTS from '../constanst';
 
 @Component({
     selector: 'app-send-cryptocurrencies',
@@ -21,6 +22,7 @@ import { DataLocalService } from '../services/data-local/data-local.service';
 })
 export class SendCryptocurrenciesPage implements OnInit {
     @Input() public pockets: any = [];
+    public nameTypeSliding: string;
     public cssGradient = 'backGroundGradient';
     public cssCtrlContents = true;
     totalSend: any = null;
@@ -67,6 +69,7 @@ export class SendCryptocurrenciesPage implements OnInit {
         private translateService: TranslateService,
         public modalController: ModalController
     ) {
+        this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.RECEIVE_FUNDS_SLIDING;
     }
 
 

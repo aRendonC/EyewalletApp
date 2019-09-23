@@ -1,6 +1,11 @@
 @import '../../global.scss';
 
+.content-tabs-sliding {
+  z-index: 4;
+}
+
 .exchange-header {
+  padding: 60px 0 0 0;
   width: 100%;
   background-image: url('../../assets/images/vault-header-background.svg');
   background-size: cover;
