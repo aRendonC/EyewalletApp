@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   urlBase: 'https://364a533d.ngrok.io/api/v1/',
   // urlBase: 'https://dev.eyewalletpro.com/api/v1/',
-  urlAvatar: 'https://364a533d.ngrok.io/api/web/',
+  urlAvatar: 'https://364a533d.ngrok.io/web/',
   // urlAvatar: 'https://dev.eyewalletpro.com/api/web/',
   flag: 'https://364a533d.ngrok.io/web/uploads/flags/',
   // flag: 'https://dev.eyewalletpro.com/api/web/uploads/flags/',
