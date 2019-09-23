@@ -9,8 +9,8 @@ export const NAMES_SLIDING: any = {
    RIGHT_LOCATION: 'right',
    DASHBOARD_SLIDING: {
       id: 'dashboardSliding',
-      left: 'recibir',
-      right: 'enviar'
+      left: 'Receive',
+      right: 'Send'
    },
    RECEIVE_FUNDS_SLIDING: {
       id: 'receiveFundsSliding',
@@ -19,38 +19,38 @@ export const NAMES_SLIDING: any = {
    },
    PROFILE_SLIDING: {
       id: 'profileSliding',
-      left: 'calificar',
-      right: 'cerrar sesión'
+      left: 'Qualify',
+      right: 'SignOff'
    },
    PRICES_SLIDING: {
       id: 'pricesSliding',
-      left: 'noticias',
+      left: 'News',
       right: ''
    },
    VAULT_SLIDING: {
       id: 'vaultSliding',
-      left: 'bóvedas',
+      left: 'Vaults',
       right: ''
    },
    VAULT_LIST_SLIDING: {
       id: 'vaultListSliding',
       left: '',
-      right: 'crear bóveda'
+      right: 'CreateVault'
    },
    VAULT_CREATE_SLIDING: {
       id: 'vaultCreateSliding',
-      left: 'volver',
+      left: 'Return',
       right: ''
    },
    EXCHANGE_CREATE_SLIDING: {
       id: 'exchangeCreateSliding',
-      left: 'historial',
+      left: 'History',
       right: ''
    },
    EXCHANGE_HISTORY_SLIDING: {
       id: 'exchangeHistorySliding',
       left: '',
-      right: 'intercambiar'
+      right: 'Exchange'
    }
 }
 
