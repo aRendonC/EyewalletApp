@@ -11,6 +11,9 @@
 }
 
 .SendCryptoCurrencies {
+  --keyboard-offset: 300px;
+  --offset-bottom: 300px !important;
+
   .content-code-qr {
     background: white;
     padding: 20px 20px;
@@ -139,9 +142,11 @@ ion-content {
   --background: linear-gradient(rgba(20, 169, 255, 1) 0%, rgba(43, 132, 255, 1) 21.26%, rgba(128, 0, 255, 1) 180%);
 }
 .positionForm{
-  position: static;
-  bottom: 0;
-  margin-top: 7px;
+  // position: static;
+  // bottom: 0;
+  // margin-top: 7px;
+
+  // margin-top: -200px;
 }
 .bacground-header{
   --background: linear-gradient(rgba(20, 169, 255, 1) 0%, rgba(43, 132, 255, 1) 21.26%, rgba(128, 0, 255, 1) 180%);

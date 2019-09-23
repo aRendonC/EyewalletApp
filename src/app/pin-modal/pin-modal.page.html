@@ -45,8 +45,8 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col text-center>
-        <ion-button (click)="savePinData(1)" class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
+      <ion-col (click)="savePinData(1)" text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">1</span>
@@ -54,8 +54,8 @@
         </ion-button>
       </ion-col>
 
-      <ion-col text-center>
-        <ion-button (click)="savePinData(2)" class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
+      <ion-col (click)="savePinData(2)" text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">2</span>
@@ -64,8 +64,8 @@
         </ion-button>
       </ion-col>
 
-      <ion-col text-center>
-        <ion-button (click)="savePinData(3)" class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"   expand="full">
+      <ion-col (click)="savePinData(3)" text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"   expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">3</span>
@@ -76,8 +76,8 @@
     </ion-row>
 
     <ion-row>
-      <ion-col text-center>
-        <ion-button (click)="savePinData(4)" class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
+      <ion-col (click)="savePinData(4)" text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">4</span>
@@ -86,8 +86,8 @@
         </ion-button>
       </ion-col>
 
-      <ion-col text-center>
-        <ion-button (click)="savePinData(5)" class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
+      <ion-col (click)="savePinData(5)" text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">5</span>
@@ -96,8 +96,8 @@
         </ion-button>
       </ion-col>
 
-      <ion-col text-center>
-        <ion-button (click)="savePinData(6)" class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
+      <ion-col (click)="savePinData(6)" text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">6</span>
@@ -108,8 +108,8 @@
     </ion-row>
 
     <ion-row>
-      <ion-col class="ion-nowrap" text-center>
-        <ion-button (click)="savePinData(7)" class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
+      <ion-col (click)="savePinData(7)" class="ion-nowrap" text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">7</span>
@@ -118,8 +118,8 @@
         </ion-button>
       </ion-col>
 
-      <ion-col class="ion-nowrap" text-center>
-        <ion-button (click)="savePinData(8)" class="btnNoShadow round ion-no-margin ion-no-padding"  color="transparent"  expand="full">
+      <ion-col (click)="savePinData(8)" class="ion-nowrap" text-center>
+        <ion-button class="btnNoShadow round ion-no-margin ion-no-padding"  color="transparent"  expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">8</span>
@@ -128,8 +128,8 @@
         </ion-button>
       </ion-col>
 
-      <ion-col class="ion-nowrap" no-margin nowrap text-center>
-        <ion-button (click)="savePinData(9)" class="btnNoShadow round ion-no-margin ion-no-padding" color="transparent"   expand="full">
+      <ion-col (click)="savePinData(9)" class="ion-nowrap" no-margin nowrap text-center>
+        <ion-button class="btnNoShadow round ion-no-margin ion-no-padding" color="transparent"   expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">9</span>
@@ -140,14 +140,14 @@
     </ion-row>
 
     <ion-row>
-      <ion-col text-center>
-        <ion-button (click)="showFingerPrint()" class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent" expand="full">
+      <ion-col (click)="showFingerPrint()" text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent" expand="full">
           <img width="50%" src="./assets/img/touchId/touch.svg" />
         </ion-button>
       </ion-col>
 
-      <ion-col text-center class="ion-nowrap">
-        <ion-button  class="round ion-no-margin ion-no-padding btnNoShadow" (click)="savePinData(0)" color="transparent"  expand="full">
+      <ion-col (click)="savePinData(0)" text-center class="ion-nowrap">
+        <ion-button  class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent"  expand="full">
           <ion-ripple-effect class="touch-effect"></ion-ripple-effect>
           <div class="pin-number-text">
             <span class="pin-number">0</span>
@@ -156,8 +156,8 @@
         </ion-button>
       </ion-col>
 
-      <ion-col text-center>
-        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" (click)="deletePinData()" color="transparent" expand="full">
+      <ion-col (click)="deletePinData()" text-center>
+        <ion-button class="round ion-no-margin ion-no-padding btnNoShadow" color="transparent" expand="full">
           <img width="50%" src="./assets/img/touchId/deletePin.svg" />
         </ion-button>
       </ion-col>
