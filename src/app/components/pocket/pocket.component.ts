@@ -176,44 +176,46 @@ export class PocketComponent implements OnInit {
 
     public async openPocketsModal(): Promise<any> {
         if (!this.pocket) this.pocket = await this.getPocketStore();
-        await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
-        this.pockets = await this.http.post('user-wallet/index', {currencyId: this.pocket.currencyId}, this.auth);
-        const modalPocket: HTMLIonModalElement = await this.modalCtrl.create({
-            component: ListPocketsPage,
-            animated: true,
-            componentProps: {
-                pockets: this.pockets
-            }
-        });
-
-        modalPocket.onDidDismiss().then(async (pocket: OverlayEventDetail) => {
-            if (pocket.role == 'new-pocket') {
-                this.store.setDataLocal('selected-pocket', this.pocket);
-            }
-
-            if (pocket.data) {
-                this.pocket = pocket.data;
-                let body = {
-                    userId: this.pocket.userId,
-                    type: 0,
-                    address: this.pocket.address,
-                    currencyShortName: this.pocket.currency.shortName
-                };
-                this.store.setDataLocal('selected-pocket', this.pocket);
-                await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
-                let dataResponse = await this.http.post('transaction/index', body, this.auth);
-                if (dataResponse.status === 200) {
-                    await this.loadingCtrl.dismiss();
-                    dataResponse.pocket = this.pocket;
-                    this.dataBalance.emit(dataResponse);
-                } else {
-                    await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+        if (this.typeSliding.id === CONSTANTS.NAMES_SLIDING.DASHBOARD_SLIDING.id) {
+            await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
+            this.pockets = await this.http.post('user-wallet/index', {currencyId: this.pocket.currencyId}, this.auth);
+            const modalPocket: HTMLIonModalElement = await this.modalCtrl.create({
+                component: ListPocketsPage,
+                animated: true,
+                componentProps: {
+                    pockets: this.pockets
                 }
-            }
+            });
 
-        });
-        await this.loadingCtrl.dismiss();
-        return await modalPocket.present();
+            modalPocket.onDidDismiss().then(async (pocket: OverlayEventDetail) => {
+                if (pocket.role == 'new-pocket') {
+                    this.store.setDataLocal('selected-pocket', this.pocket);
+                }
+    
+                if (pocket.data) {
+                    this.pocket = pocket.data;
+                    let body = {
+                        userId: this.pocket.userId,
+                        type: 0,
+                        address: this.pocket.address,
+                        currencyShortName: this.pocket.currency.shortName
+                    };
+                    this.store.setDataLocal('selected-pocket', this.pocket);
+                    await this.loadingCtrl.present({cssClass: 'textLoadingBlack'});
+                    let dataResponse = await this.http.post('transaction/index', body, this.auth);
+                    if (dataResponse.status === 200) {
+                        await this.loadingCtrl.dismiss();
+                        dataResponse.pocket = this.pocket;
+                        this.dataBalance.emit(dataResponse);
+                    } else {
+                        await this.toastCtrl.presentToast({text: dataResponse.error.msg})
+                    }
+                }
+    
+            });
+            await this.loadingCtrl.dismiss();
+            return await modalPocket.present();
+        }
     }
 
     private async getPocketStore(): Promise<any> {
