@@ -308,7 +308,18 @@
     "MessageCloseSession": "Do you want to log out?",
     "ButtonCancelCloseSession": "Cancel",
     "ButtonConfirmCloseSession": "Accept",
-    "MessageClosingSession": "Closing session"
+    "MessageClosingSession": "Closing session",
+    "": "",
+    "Receive": "receive",
+    "Send": "send",
+    "News": "news",
+    "Vaults": "vaults",
+    "CreateVault": "create vault",
+    "Return": "return",
+    "History": "history",
+    "Exchange": "exchange",
+    "Qualify": "qualifh",
+    "SignOff": "sign off"
   },
   "PUSH_NOTIFICATION": {
     "sesion": "Session",

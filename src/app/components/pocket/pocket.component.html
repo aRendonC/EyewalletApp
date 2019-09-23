@@ -4,7 +4,7 @@
       <ion-item-sliding *ngIf="buttonLeft" (ionDrag)="slidingLeft($event)" class="button-sliding">
         <ion-item class="item-sliding item-sliding-left content-text-image-left-{{ typeSliding.id }}">
           <div class="content-text-image content-text-image-left">
-            <span class="text text-left text-left-{{ typeSliding.id }}">{{ typeSliding.left }}</span>
+            <span class="text text-left text-left-{{ typeSliding.id }}">{{ labelTextLeft }}</span>
             <img src="../../assets/img/pocketsComponent/{{ typeSliding.id }}-icon-left.svg" alt="receive-icon" class="image image-left">
           </div>
         </ion-item>
@@ -23,7 +23,7 @@
         <ion-item class="item-sliding item-sliding-right content-text-image-right-{{ typeSliding.id }}">
           <div class="content-text-image content-text-image-right">
             <img src="../../assets/img/pocketsComponent/{{ typeSliding.id }}-icon-right.svg" alt="receive-icon" class="image image-right">
-            <span class="text text-right text-right-{{ typeSliding.id }}">{{ typeSliding.right }}</span>
+            <span class="text text-right text-right-{{ typeSliding.id }}">{{ labelTextRight }}</span>
           </div>
         </ion-item>
         <ion-item-options class="sliding-options" side="end">

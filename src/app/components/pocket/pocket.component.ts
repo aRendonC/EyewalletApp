@@ -25,6 +25,8 @@ export class PocketComponent implements OnInit {
     @Input() titleTypeSliding: string;
     @Input() buttonLeft: boolean;
     @Input() buttonRight: boolean;
+    public labelTextLeft: string;
+    public labelTextRight: string;
     public countLogOut: number;
     @Output() dataBalance = new EventEmitter<[]>();
     @Input() pocket: any = '';
@@ -44,11 +46,17 @@ export class PocketComponent implements OnInit {
         private translateService: TranslateService,
         private socket: SocketIoService
     ) {
+        this.labelTextLeft = '';
+        this.labelTextRight = '';
         this.countLogOut = 0;
         this.pockets = null;
     }
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        this.labelTextLeft = this.translateService.instant(`POCKETS_COMPONENT.${this.typeSliding.left}`);
+        this.labelTextRight = this.translateService.instant(`POCKETS_COMPONENT.${this.typeSliding.right}`);
+    }
+
     public slidingLeft(event: any): void {
         if (event.detail.amount < -70) {
             this.validationFunctionExecute(CONSTANTS.NAMES_SLIDING.LEFT_LOCATION);

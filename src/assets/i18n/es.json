@@ -308,7 +308,18 @@
     "MessageCloseSession": "¿Desea cerrar su sesión?",
     "ButtonCancelCloseSession": "Cancelar",
     "ButtonConfirmCloseSession": "Aceptar",
-    "MessageClosingSession": "Cerrando sesión"
+    "MessageClosingSession": "Cerrando sesión",
+    "": "",
+    "Receive": "recibir",
+    "Send": "enviar",
+    "News": "noticias",
+    "Vaults": "bóvedas",
+    "CreateVault": "crear bóveda",
+    "Return": "volver",
+    "History": "historial",
+    "Exchange": "intercambiar",
+    "Qualify": "calificar",
+    "SignOff": "cerar sesión"
   },
   "PUSH_NOTIFICATION":{
     "sesion": "Sesión",
