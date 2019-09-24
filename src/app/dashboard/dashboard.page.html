@@ -1,4 +1,4 @@
-<app-pocket [typeSliding]="nameTypeSliding" [titleTypeSliding]="pocket?.label" [buttonLeft]="true" [buttonRight]="true"></app-pocket>
+<app-pocket [typeSliding]="nameTypeSliding" labelTextLeft="{{ 'POCKETS_COMPONENT.History' | translate }}" labelTextRight="{{ 'POCKETS_COMPONENT.Send' | translate }}" [titleTypeSliding]="pocket?.label" [buttonLeft]="true" [buttonRight]="true"></app-pocket>
 <ion-content [class.blur]="ctrlCssBlur" class="dashboard">
   <app-sliders *ngIf="crypto.length > 0" (emitterTransactionRefresh)="refreshTransactions($event)"  (changeCryptoPocket)="changeDataPocketSlider($event)" [transactions]="transactionComponent"  [name]="crypto"></app-sliders>
 </ion-content>
