@@ -1,9 +1,7 @@
-<app-pocket [typeSliding]="nameTypeSliding" titleTypeSliding="{{'GENERAL.VaultCreate'| translate}}" [buttonLeft]="true" [buttonRight]="false" class="content-tabs-sliding"></app-pocket>
+<app-pocket [typeSliding]="nameTypeSliding" labelTextLeft="{{ 'POCKETS_COMPONENT.Return' | translate }}" titleTypeSliding="{{'GENERAL.VaultCreate'| translate}}" [buttonLeft]="true" [buttonRight]="false" class="content-tabs-sliding"></app-pocket>
 
 <ion-content class="vault-created">
   <div class="header">
-    <!-- <app-pocket [ctrlNavigation]="ctrlNavigation"></app-pocket> -->
-
     <div class="content-text-icon-coin">
       <span class="text-coin">{{ nameCurrency }} ({{ shortNameCurrency }})</span>
       <ion-img src="../../assets/icon/icon-coin-{{ shortNameCurrency === 'BTC' ? 'BCH' : shortNameCurrency }}.svg" class="icon-coin"></ion-img>

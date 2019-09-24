@@ -9,7 +9,6 @@ import {Router} from '@angular/router';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
 import { LanguageService } from '../services/language/language.service';
 
-
 const MEDIA_FILES_KEY = 'mediaFiles';
 declare var google;
 
