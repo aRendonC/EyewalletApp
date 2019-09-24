@@ -75,7 +75,8 @@
     "ConnectionError": "Error de conexión."
   },
   "PIN_MODAL": {
-    "Pin": "Introduce tu pin de seguridad"
+    "Pin": "ingrese el pin de seguridad",
+    "PinError": "pin de seguridad incorrecto"
   },
   "REGISTRY_PAGE": {
     "NewWallet": "Crear una nueva Billetera",
