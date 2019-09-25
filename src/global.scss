@@ -42,7 +42,7 @@ $padding-tabs-sliding: 80px;
 }
 
 .bghome{
-   --background:  url('/assets/img/bg-home.png') no-repeat center center / cover;
+   --background: linear-gradient(45deg, #b87dff -10%, #86a6f7 70%, #6fbafc 120%) !important;
 }
 
 .move-logo{
