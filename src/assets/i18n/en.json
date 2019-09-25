@@ -75,7 +75,9 @@
     "ConnectionError": "Connection error."
   },
   "PIN_MODAL": {
-    "Pin": "Introduce your security Pin"
+    "Pin": "enter the security pin",
+    "PinError": "wrong security pin",
+    "PinRegister": "Register a security pin"
   },
   "REGISTRY_PAGE": {
     "NewWallet": "Create a new Wallet",

@@ -12,30 +12,29 @@ import { DataLocalService } from "../services/data-local/data-local.service";
   templateUrl: './pin-modal.page.html',
   styleUrls: ['./pin-modal.page.scss'],
 })
+
 export class PinModalPage implements OnInit {
   @Input() modalTitle: string;
   @Input() modelID: number;
   @Input() sendCrypto;
-
   public pin: any = [];
   public ctrlPin: boolean = true;
   private currentRoute: string = null;
 
-  constructor(
-      private modalCtrl: ModalController,
-      public navParams: NavParams,
-      private faio: FingerprintAIO,
-      private store: Storage,
-      private router: Router,
-      private platform: Platform,
-      private aesjs: AesJsService,
-      private api: AxiosService,
-      private store2: DataLocalService,
-  ) { }
+  public constructor(
+    private modalCtrl: ModalController,
+    public navParams: NavParams,
+    private faio: FingerprintAIO,
+    private store: Storage,
+    private router: Router,
+    private platform: Platform,
+    private aesjs: AesJsService,
+    private api: AxiosService,
+    private store2: DataLocalService,
+  ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     console.log("enviado desde send: ", this.sendCrypto);
-    // console.table(this.modalTitle);
     this.currentRoute = this.router.url;
     this.modelID = this.navParams.data.paramID;
     this.modalTitle = this.navParams.data.paramTitle;
@@ -48,7 +47,7 @@ export class PinModalPage implements OnInit {
     })
   }
 
-  async closeModal() {
+  public async closeModal() {
     const onCloseData = 'Wrapped Up!';
     await this.modalCtrl.dismiss(onCloseData);
   }
@@ -69,18 +68,13 @@ export class PinModalPage implements OnInit {
         pinData += data.toString()
       });
       let user = await this.store.get('user');
-      if(user) {
+      if (user) {
         user.pin = this.aesjs.decrypt(user.pin);
-        if(pinData === user.pin.toString()) {
-          if(this.sendCrypto === true){     
+        if (pinData === user.pin.toString()) {
+          if (this.sendCrypto === true) {     
             await this.closeModal1(user.pin);
-          }else{
+          } else {
             console.log("DATOS_PIN: ", user.profile.userId);
-            
-            //this.endpoint(valorChannel,1,useruuiid);            
-
-            //let dataTransaction = response.data;
-            //console.log("response", dataTransaction);
             user.pin = this.aesjs.encrypt(user.pin);
             this.store.set('user', user);
             await this.router.navigate(['/app/tabs/dashboard']);
@@ -90,7 +84,6 @@ export class PinModalPage implements OnInit {
           let valorChannel = await this.store2.getDataLocal('chanelSocket');
           console.log("CHANNEL: ", valorChannel);
           const result = await this.api.post('auth/logoutRemote', { channel: valorChannel, plattform: 1, userId: useruuiid, });
-          // console.log("tales",result);
         } else {
           this.ctrlPin = false;
           setTimeout(() => {
@@ -116,23 +109,19 @@ export class PinModalPage implements OnInit {
             localizedReason: 'Please authenticate', //Only for iOS
 
           })
-              .then((result: any) => {
-                this.router.navigate(['/app/tabs/dashboard']);
-                this.closeModal()
-                // this.login();
-                // this.isLocked = false;
+          .then((result: any) => {
+            this.router.navigate(['/app/tabs/dashboard']);
+            this.closeModal();
 
-              }).catch((error: any) => {
-            // this.openModal()
-            // this.exitApp();
-          });
-        }).catch((error: any) => console.log('entro al carch sin cancelar', error));
+          })
+          .catch((error: any) => console.error('ERROR: ', error));
+        })
+        .catch((error: any) => console.log('entro al carch sin cancelar', error));
   }
 
-  async endpoint(channell,valor1, useruuiid){
+  async endpoint(channell, valor1, useruuiid){
     const response = await this.api.post('auth/logoutRemote', { channel: channell, plattform: valor1, userId: useruuiid, });
     let dataTransaction = response.data;
     console.log("response", dataTransaction);
   }
-
 }
