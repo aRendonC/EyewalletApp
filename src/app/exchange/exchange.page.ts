@@ -78,11 +78,10 @@ export class ExchangePage implements OnInit {
 		this.buttonSendExchange = true;
 	}
 
-	public async ngOnInit(): Promise<any> {
-		this.validateButtonActivateDataExchange();
-	}
+	public async ngOnInit(): Promise<any> {}
 
 	public async ionViewDidEnter(): Promise<any> {
+		await this.validateButtonActivateDataExchange();
 		await this.loadingCtrl.present({ text: this.translateService.instant('EXCHANGE.LoadingData'), cssClass: 'textLoadingBlack' });
 		this.navigationHistory = await this.validateTransactionsExchage();
 		this.pockets = await this.store.getDataLocal(CONSTANTS.KEYS_DATA_LOCAL.POCKETS);

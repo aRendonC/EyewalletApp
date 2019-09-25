@@ -7,13 +7,20 @@ import { IonicModule } from '@ionic/angular';
 
 import { PinModalRegistryPage } from './pin-modal-registry.page';
 
+const routes: Routes = [
+  {
+    path: '',
+    component: PinModalRegistryPage
+  }
+];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule.forChild(routes),
     IonicModule,
   ],
-  declarations: [PinModalRegistryPage]
 })
+
 export class PinModalRegistryPageModule {}

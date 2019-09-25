@@ -21,9 +21,10 @@ $font-roboto-bold: Roboto-Bold;
 $font-openSans-regular: OpenSans-Regular;
 $font-openSans-SemiBold: OpenSans-SemiBold;
 $font-openSans-bold: OpenSans-Bold;
+$paddin-tabs-sliding: 90px;
 
 .padding-top-sliding {
-   --padding-top: 60px;
+   --padding-top: 90px;
 }
 
 .button-enable {
@@ -41,7 +42,7 @@ $font-openSans-bold: OpenSans-Bold;
 }
 
 .bghome{
-   --background:  url('/assets/img/bg-home.png') no-repeat center center / cover;
+   --background: linear-gradient(45deg, #b87dff -10%, #86a6f7 70%, #6fbafc 120%) !important;
 }
 
 .move-logo{
