@@ -1,6 +1,6 @@
 @import '../../global.scss';
 
-.background-image{
+.background-image {
   --background: linear-gradient(45deg, #b87dff -10%, #86a6f7 70%, #6fbafc 120%) !important;
 
   .content-logo-icon {
@@ -23,27 +23,35 @@
       font-family: $font-semibold;
       font-size: 15px;
       color: white;
-      text-transform: capitalize;
+      text-transform: uppercase;
       text-align: center;
     }
   }
 
   .space {
-    padding: 20px 30px;
+    padding: 20px 40px;
     @extend .center-space-around;
 
-    .pin-none{
+    .pin-none {
       border: 2px solid white;
       height: 5vw;
       width: 5vw;
       border-radius: 50px;
     }
     
-    .pin-ok{
+    .pin-ok {
       background:white;
       height: 5vw;
       width: 5vw;
       border-radius: 50px;
+    }
+  }
+
+  .content-buttons-grid {
+    padding: 0;
+
+    .content-buttons-row {
+      padding: 0 30px;
     }
   }
 }

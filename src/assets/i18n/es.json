@@ -76,7 +76,8 @@
   },
   "PIN_MODAL": {
     "Pin": "ingrese el pin de seguridad",
-    "PinError": "pin de seguridad incorrecto"
+    "PinError": "pin de seguridad incorrecto",
+    "PinRegister": "Registre un pin de seguridad"
   },
   "REGISTRY_PAGE": {
     "NewWallet": "Crear una nueva Billetera",
