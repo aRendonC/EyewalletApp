@@ -1,39 +1,3 @@
-<!-- <ion-content class="sliders">
-    <ion-slides
-        #sliderHeader
-        [options]="slideOptsName"
-        (ionSlideDidChange)="changeSliderContent(sliderHeader)"
-        class="names-sliders"
-    >
-        <ion-slide  *ngFor="let names of name; index as index" class="name-slider">
-            <ion-label class="cryptos-names">{{names.name}}</ion-label>
-        </ion-slide>
-    </ion-slides>
-
-    <ion-slides
-        #sliderContent
-        [options]="slideOpts"
-        pager="true"
-        mode="ios"
-        (ionSlideDidChange)="changeSliderHeader(sliderContent)"
-        class="sliders-balances-refresh-graphics"
-    >
-        <ion-slide *ngFor="let names of name; index as index" class="slider-balance-refresh-graphic">
-            <div class="content-balance-refresh">
-                <div class="balances">
-                    <span class="text-balance-crypto">{{ names.value }} {{ names.shortName }}</span>
-                    <span class="text-balance-usd">$ {{ (names.value * names.valueUsd).toFixed(4) }} USD</span>
-                </div>
-                <div class="refresh">
-                    <img src="../../../assets/img/tabs/refresh-icon.svg" alt="icon-refresh" class="icon-refresh">
-                </div>
-            </div>
-            <canvas #lineCanvas class="graphic-transactions"></canvas>
-        </ion-slide>
-    </ion-slides>  
-</ion-content> -->
-<!-- ============================================================================================== -->
-
 <ion-slides
     #sliderHeader
     [options]="slideOptsName"
@@ -83,7 +47,8 @@
     <canvas #lineCanvas class="graphic"></canvas>
 </div>
 
-<ion-card class="cardwith" style="height: auto" *ngIf="profile?.level === 0">
+<!-- Card de verificación de teléfono -->
+<ion-card *ngIf="dataVerificationA.phone === 0" class="cardwith" style="height: auto">
     <ion-card-header class="header">
         <ion-card-title class="card-title" *ngIf="!profile.user.firstName">
             {{'SLIDER_COMPONENT.CompleteProfile'| translate}}
@@ -122,7 +87,7 @@
 </ion-card>
 
 <!-- Card de verificación de documentos -->
-<ion-card class="card-ver-width" *ngIf="profile?.level === 1 && profile?.completed === 0">
+<ion-card *ngIf="dataVerificationA.completed === 0" class="card-ver-width">
     <ion-card-header>
         <ion-card-title class="card-ver-title">
             {{'SLIDER_COMPONENT.DocumentsNecessaries'| translate}}
@@ -147,8 +112,8 @@
         <img class="img-verify" src="../../../assets/img/bg-verify.svg"/>
     </ion-card-content>
 </ion-card>
-
 <!-- Fin card de verificación de documentos -->
+
 <ion-col size="12">
     <ion-label style="font-weight: 800; float: right; margin-right: 5%;">{{name.amountPending}} {{name.shortName}}</ion-label>
     <ion-infinite-scroll (ionInfinite)="loadData($event)">
@@ -185,9 +150,10 @@
                                         </p>
                                     </ion-col>
                                     <ion-col size="12">
-                                        <p class="crypto"><span
-                                                class="crypto-value">{{transaction.amount_finally}}</span><span
-                                                class="coin">&nbsp;{{name.shortName}}</span></p>
+                                        <p class="crypto">
+                                            <span class="crypto-value">{{transaction.amount_finally}}</span>
+                                            <span class="coin">&nbsp;{{name.shortName}}</span>
+                                        </p>
                                     </ion-col>
                                 </ion-row>
                             </ion-col>

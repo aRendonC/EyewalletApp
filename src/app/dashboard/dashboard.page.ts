@@ -16,6 +16,7 @@ import * as CONSTANTS from '../constanst';
 })
 
 export class DashboardPage implements OnInit {
+    public dataVerification: any;
     public nameTypeSliding: string;
     @ViewChild(SlidersComponent) sliderComponent: SlidersComponent;
     @ViewChild(ChartComponent) chartComponent: ChartComponent;
@@ -47,6 +48,7 @@ export class DashboardPage implements OnInit {
         private toastService: ToastService,
         private translateService: TranslateService
     ) {
+        this.dataVerification = {};
         this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.DASHBOARD_SLIDING;
         this.ctrlNavigation = 0;
         this.ctrlCssBlur = false;
@@ -56,6 +58,7 @@ export class DashboardPage implements OnInit {
     public async ngOnInit(): Promise<any> {}
 
     public async ionViewDidEnter(): Promise<any> {
+        this.dataVerification = await this.getDataVerification();
         this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
         await this.getDataStorage();
         await this.getListTransactions();
@@ -319,5 +322,10 @@ export class DashboardPage implements OnInit {
 
     public async getPocketsList() {
         return await this.axiosService.post('user-wallet/index', {currencyId: ''}, this.authService);
+    }
+
+    public async getDataVerification(): Promise<any> {
+        const dataVerification: any = await this.axiosService.get('user-verification/status', this.authService, null);
+        return dataVerification.data;
     }
 }

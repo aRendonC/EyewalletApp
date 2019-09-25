@@ -19,6 +19,7 @@ import { ModalDetailsPage } from 'src/app/modal-details/modal-details.page';
 })
 
 export class SlidersComponent implements OnInit {
+    @Input() dataVerificationA: any;
     @Input() name: any;
     public lineChart: any;
     public dataGraphic: any;
@@ -64,13 +65,11 @@ export class SlidersComponent implements OnInit {
         });
     }
 
-    async ngOnInit() {
+    public async ngOnInit(): Promise<any> {
         let userVerifications: any = await this.http.get('user-verification/status', this.auth, null);
         userVerifications = userVerifications.data;
-        console.log("Verfificacion",userVerifications);
         await this.store.setDataLocal('userVerification', userVerifications);
         this.profile = await this.store.getDataLocal('profile');
-        
         this.profile.completed = userVerifications.completed;
         await this.setProfileStore();
         this.nameSlider = this.name;
