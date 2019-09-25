@@ -11,12 +11,12 @@
     background-image: url('../../assets/images/bg-profile.svg');
     background-repeat: no-repeat;
     background-size: cover;
+    padding-top: $padding-tabs-sliding;
 
     .content-text {
         display: flex;
         align-items: baseline;
         justify-content: center;
-        padding: 60px 0 0 0;
 
         .data-price-text-header {
             display: block;
@@ -65,8 +65,7 @@
         }
     }
 }
-// --------------------------------
-// --------------------------------
+
 .no-padding{
     padding: 0;
 }
