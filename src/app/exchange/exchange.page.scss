@@ -5,7 +5,7 @@
 }
 
 .exchange-header {
-  padding: 60px 0 0 0;
+  padding-top: $padding-tabs-sliding;
   width: 100%;
   background-image: url('../../assets/images/vault-header-background.svg');
   background-size: cover;
@@ -21,7 +21,6 @@
     font-family: $font-openSans-SemiBold;
     font-size: 16px;
     color: white;
-    margin: 20px 0 0 0;
   }
 
   .exchange-content-inputs {

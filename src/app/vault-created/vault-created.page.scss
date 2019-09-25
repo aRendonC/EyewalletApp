@@ -6,7 +6,7 @@
    --padding-bottom: 130px;
 
    .header {
-      padding: 60px 0 0 0;
+      padding: $padding-tabs-sliding 0 0 0;
       height: 247px;
       background-image: url('../../assets/images/vault-header-background.svg');
       background-size: cover;

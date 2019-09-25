@@ -1,6 +1,6 @@
 <app-pocket [typeSliding]="nameTypeSliding" labelTextRight="{{ 'POCKETS_COMPONENT.Exchange' | translate }}" titleTypeSliding="{{'GENERAL.ExchangeHistory'| translate}}" [buttonLeft]="false" [buttonRight]="true" class="content-tabs-sliding"></app-pocket>
 
-<div class="grid" mode="md">
+<div class="content-header">
     <ion-searchbar
         [disabled]="ctrlTagsHtml"
         type="number"
@@ -37,7 +37,6 @@
             </ion-select-option>
         </ion-select>
     </div>
-    <img class="bg-profile" src="../../assets/images/bg-profile.png"/>
 </div>
 
 <ion-content *ngIf="!ctrlTagsHtml" [fullscreen]="true" class="move-cryptoInfo">
