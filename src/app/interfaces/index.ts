@@ -44,3 +44,19 @@ export interface TypeSliding {
   left?: string,
   right?: string
 }
+
+export interface DataVerification {
+  address?: number,
+  addressFile?: number,
+  completed?: number,
+  email?: number,
+  identification?: number,
+  identification2?: number,
+  identification2File?: number,
+  identificationFile?: number,
+  level?: number,
+  phone?: number,
+  photo?: number,
+  photoFile?: number,
+  profile?: any
+}

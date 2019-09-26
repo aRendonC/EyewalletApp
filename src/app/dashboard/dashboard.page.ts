@@ -326,6 +326,8 @@ export class DashboardPage implements OnInit {
 
     public async getDataVerification(): Promise<any> {
         const dataVerification: any = await this.axiosService.get('user-verification/status', this.authService, null);
+        const dataProfile: any = await this.dataLocalService.getDataLocal('profile');
+        dataVerification.data.profile = dataProfile.user.firstName;
         return dataVerification.data;
     }
 }

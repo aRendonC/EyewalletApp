@@ -11,6 +11,7 @@ import {DataLocalService} from "../../services/data-local/data-local.service";
 import {LoadingService} from "../../services/loading/loading.service";
 import {TranslateService} from "@ngx-translate/core";
 import { ModalDetailsPage } from 'src/app/modal-details/modal-details.page';
+import { DataVerification } from '../../interfaces/index';
 
 @Component({
     selector: 'app-sliders',
@@ -19,7 +20,7 @@ import { ModalDetailsPage } from 'src/app/modal-details/modal-details.page';
 })
 
 export class SlidersComponent implements OnInit {
-    @Input() dataVerificationA: any;
+    @Input() dataVerificationA: DataVerification;
     @Input() name: any;
     public lineChart: any;
     public dataGraphic: any;
@@ -165,7 +166,8 @@ export class SlidersComponent implements OnInit {
         const modalVerification = await this.modalCtrl.create({
             component: VerificationModalPage,
         });
-        modalVerification.onDidDismiss().then(async (profile: any) => {
+        modalVerification.onDidDismiss()
+        .then(async (profile: any) => {
             if (profile.data != undefined) {
                 this.profile.level = profile.level;
                 this.profile.completed = profile.completed

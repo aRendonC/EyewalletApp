@@ -70,8 +70,9 @@ export class VerificationModalPage implements OnInit {
             if (response.status === 200) {
                 let profile = await this.store.getDataLocal('profile');
                 profile.level = response.level;
-                await this.closeModal(profile);
+                this.router.navigate(['app/tabs/profile']);
                 await this.store.setDataLocal('profile', profile);
+                await this.closeModal(profile);
                 await this.toastCtrl.presentToast({text: this.translateService.instant('VERIFICATION_MODAL_PAGE.PhoneVerified')})
             } else {
                 await this.toastCtrl.presentToast({text: this.translateService.instant('VERIFICATION_MODAL_PAGE.CodeError')})

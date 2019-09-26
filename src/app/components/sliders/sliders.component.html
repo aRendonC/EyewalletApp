@@ -48,12 +48,12 @@
 </div>
 
 <!-- Card de verificación de teléfono -->
-<ion-card *ngIf="dataVerificationA.phone === 0" class="cardwith" style="height: auto">
+<ion-card *ngIf="!dataVerificationA.profile || dataVerificationA.phone === 0" class="cardwith" style="height: auto">
     <ion-card-header class="header">
-        <ion-card-title class="card-title" *ngIf="!profile.user.firstName">
+        <ion-card-title *ngIf="!dataVerificationA.profile" class="card-title">
             {{'SLIDER_COMPONENT.CompleteProfile'| translate}}
         </ion-card-title>
-        <ion-card-title class="card-title" *ngIf="profile.user.firstName">
+        <ion-card-title *ngIf="dataVerificationA.phone === 0 && dataVerificationA.profile" class="card-title">
             {{'SLIDER_COMPONENT.VerifyPhone'| translate}}
         </ion-card-title>
     </ion-card-header>
@@ -64,10 +64,11 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col size="12">
-                                <p class="card-titlesub" *ngIf="!profile.user.firstName">
+                                <p *ngIf="!dataVerificationA.profile" class="card-titlesub">
                                     {{'SLIDER_COMPONENT.CompleteProfileToDay'| translate}}
-                                </p><p class="card-titlesub" *ngIf="profile.user.firstName">
-                                {{'SLIDER_COMPONENT.VerifyPhone'| translate}}
+                                </p>
+                                <p *ngIf="dataVerificationA.phone === 0 && dataVerificationA.profile" class="card-titlesub">
+                                    {{'SLIDER_COMPONENT.VerifyPhone'| translate}}
                                 </p>
                             </ion-col>
                             <ion-col size="12">
@@ -87,7 +88,7 @@
 </ion-card>
 
 <!-- Card de verificación de documentos -->
-<ion-card *ngIf="dataVerificationA.completed === 0" class="card-ver-width">
+<ion-card *ngIf="dataVerificationA.completed === 0 && dataVerificationA.profile && dataVerificationA.phone !== 0" class="card-ver-width">
     <ion-card-header>
         <ion-card-title class="card-ver-title">
             {{'SLIDER_COMPONENT.DocumentsNecessaries'| translate}}

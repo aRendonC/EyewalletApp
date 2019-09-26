@@ -156,7 +156,7 @@ export class AddressPage implements OnInit {
       await this.store.set('profile', profile);
       this.touchCtrl.isTouch = true;
       await this.toastCtrl.presentToast({text: this.translateService.instant('ADDRESS_PAGE.DateUpdateOk')});
-      await this.router.navigate(['app/tabs']);
+      await this.router.navigate(['app/tabs/profile']);
     } else {
       await this.toastCtrl.presentToast({text: response.error.msg});
       await this.loadingCtrl.dismiss();
