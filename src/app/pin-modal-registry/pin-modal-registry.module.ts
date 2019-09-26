@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   declarations: [
-    PinModalRegistryPage
   ]
 })
 
