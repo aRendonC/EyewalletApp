@@ -59,6 +59,7 @@ export class SlidersComponent implements OnInit {
         private translateService: TranslateService,
         public alertController: AlertController,
     ) {
+        console.log('DATA =============> ', this.name);
         this.router.events.pipe(
             filter(event => event instanceof NavigationStart)
         ).subscribe((route: NavigationStart) => {

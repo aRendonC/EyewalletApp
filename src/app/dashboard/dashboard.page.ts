@@ -16,12 +16,11 @@ import * as CONSTANTS from '../constanst';
 })
 
 export class DashboardPage implements OnInit {
-    public dataVerification: any;
     public nameTypeSliding: string;
+    public dataVerification: any;
     @ViewChild(SlidersComponent) sliderComponent: SlidersComponent;
     @ViewChild(ChartComponent) chartComponent: ChartComponent;
     @Input() gra: SlidersComponent;
-    public ctrlNavigation: number;
     public ctrlCssBlur: boolean;
     public pockets: any;
     public pocket: any;
@@ -37,7 +36,15 @@ export class DashboardPage implements OnInit {
     };
     public crypto: any = [{
         graphic: '',
-        pocket: ''
+        pocket: '',
+        value: 0,
+        id: '',
+        valueUsd: 0,
+        background: '',
+        name:'',
+        pocketName: '',
+        currencyId: '',
+        shortName: ''
     }];
 
     constructor(
@@ -48,23 +55,22 @@ export class DashboardPage implements OnInit {
         private toastService: ToastService,
         private translateService: TranslateService
     ) {
-        this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
-        this.dataVerification = {};
+        this.ctrlCssBlur = true;
         this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.DASHBOARD_SLIDING;
-        this.ctrlNavigation = 0;
-        this.ctrlCssBlur = false;
+        this.dataVerification = {};
         this.pockets = null;
     }
 
     public async ngOnInit(): Promise<any> {}
 
     public async ionViewDidEnter(): Promise<any> {
+        this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
         this.dataVerification = await this.getDataVerification();
         await this.getDataStorage();
         await this.getListTransactions();
         await this.getTransactionsSend();
         let elementDashboard: any = document.getElementsByTagName('app-dashboard');
-        elementDashboard[0].classList.add("margins-dashboard")
+        elementDashboard[0].classList.add("margins-dashboard");
     }
 
     public async getDataStorage(): Promise<any> {
@@ -192,7 +198,6 @@ export class DashboardPage implements OnInit {
 
     async getListTransactions() {
         this.crypto = [];
-        this.ctrlCssBlur = true;
         let params = {
             userId: this.profile.userId,
             type: 0,
@@ -316,8 +321,9 @@ export class DashboardPage implements OnInit {
     }
 
     async refreshTransactions(dataTransaction): Promise<any> {
+        await this.getDataPocket(dataTransaction);
         await this.loadingController.dismiss();
-        await this.getDataPocket(dataTransaction)
+        this.ctrlCssBlur = false;
     }
 
     public async getPocketsList() {

@@ -54,9 +54,9 @@ export class LoginPage implements OnInit {
         if (this.password && this.username) {
             let channel = await this.createChannel();
             let platform = 1;
-            console.log("Funcionepues:",channel);
-            console.log("Funcione pues desencypte:", this.aesJ.decryptNoJson(channel));
-            console.log("initSocket",this.socket1.connect());
+            console.log("CHANNEL: ", channel);
+            console.log("DECRYPT CHANNEL: ", this.aesJ.decryptNoJson(channel));
+            console.log("INIT SOCKET: ", this.socket1.connect());
             await this.store.clearStore();
             await this.socket.initSocket(channel);
             this.store.setDataLocal('chanelSocket', channel);
@@ -74,8 +74,7 @@ export class LoginPage implements OnInit {
                             await this.loadingCtrl.dismiss();
                             let pocket = this.pockets[0];
                             this.store.setDataLocal('selected-pocket', pocket);
-                            await this.router.navigate([
-                                '/app/tabs/dashboard']);
+                            await this.router.navigate(['/app/tabs/dashboard']);
                             await this.store.setDataLocal('pockets', this.pockets);
                         } else await this.clearData(data);
                     } else await this.clearData(data)
