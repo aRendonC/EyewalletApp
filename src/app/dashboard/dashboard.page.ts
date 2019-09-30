@@ -48,6 +48,7 @@ export class DashboardPage implements OnInit {
         private toastService: ToastService,
         private translateService: TranslateService
     ) {
+        this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
         this.dataVerification = {};
         this.nameTypeSliding = CONSTANTS.NAMES_SLIDING.DASHBOARD_SLIDING;
         this.ctrlNavigation = 0;
@@ -59,7 +60,6 @@ export class DashboardPage implements OnInit {
 
     public async ionViewDidEnter(): Promise<any> {
         this.dataVerification = await this.getDataVerification();
-        this.loadingController.present({text: this.translateService.instant('DASHBOARD_PAGE.LoadingInformation'), cssClass: 'textLoadingBlack'});
         await this.getDataStorage();
         await this.getListTransactions();
         await this.getTransactionsSend();
