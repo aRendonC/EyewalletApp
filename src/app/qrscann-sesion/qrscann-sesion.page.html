@@ -21,7 +21,7 @@
         <ion-label class="machine-client">
           <span class="machine">{{ session.agent.os.family || '' }}</span> <span class="separator">  |  </span> <span class="client">{{ session.agent.family || '' }}</span>
         </ion-label>
-        <ion-icon slot="end" name="log-out" (click)="closeSession(session.channel, session.plattform)" class="icon-button-log-out"></ion-icon>
+        <ion-icon slot="end" name="log-out" (click)="closeSession(session)" class="icon-button-log-out"></ion-icon>
       </ion-item>
     </ion-card-content>
   </ion-card>

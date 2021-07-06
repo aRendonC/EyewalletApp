@@ -80,7 +80,7 @@
     "NewWallet": "Create a new Wallet",
     "PhoneExample": "E.g.: +5712345678",
     "Password": "Password",
-    "MessagePassword": "Minimum one letter, number and special character, 6 length",
+    "MessagePassword": "Minimum length of 6. At least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character.",
     "ConfirmPassword": "Confirm Password",
     "ButtonCreate": "Create Wallet"
   },
@@ -193,12 +193,14 @@
     "messageCreatinVault": "Create Vault"
   },
   "TOAST_MSG": {
-    "DocumentsNoVerified": "We are sorry, your documents are not verified"
+    "DocumentsNoVerified": "We are sorry, your profile is not verified"
   },
   "LOGIN_PAGE": {
     "AllFieldsIsRequired": "All the fields are required",
     "FieldEmail": "The field email is required",
-    "FiledPassword": "The field password is required"
+    "FiledPassword": "The field password is required",
+    "Email": "Email",
+    "Password": "Password"
   },
   "GENERAL": {
     "Continue": "Continue",
@@ -289,6 +291,10 @@
   },
   "QRSCANN_SESION": {
     "VerifyingMessage": "Verifying",
-    "QrError": "Scanner not available." 
+    "QrError": "Scanner not available.",
+    "SessionWebClose": "The web session ended successfully.",
+    "SessionWebStart": "Login successful.",
+    "ClosingSessionMessage": "Verifying the closing session.",
+    "StartingSessionMessage": "Verifying the login on the web."
   }
 }

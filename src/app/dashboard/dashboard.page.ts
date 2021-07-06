@@ -8,6 +8,8 @@ import { ToastService } from "../services/toast/toast.service";
 import { ChartComponent } from "../components/chart/chart.component";
 import { TranslateService } from "@ngx-translate/core";
 
+
+
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.page.html',
@@ -317,6 +319,4 @@ export class DashboardPage implements OnInit {
     public async getPocketsList() {
         return await this.axiosService.post('user-wallet/index', {currencyId: ''}, this.authService);
     }
-
 }
-

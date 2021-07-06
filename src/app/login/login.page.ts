@@ -10,7 +10,7 @@ import {DataLocalService} from "../services/data-local/data-local.service";
 import {TranslateService} from "@ngx-translate/core";
 import { AesJsService } from '../services/aesjs/aes-js.service';
 import { SocketIoService } from '../services/socketIo/socket-io.service';
-import { Socket } from 'ngx-socket-io';
+import { Socket } from 'ng-socket-io';
 
 @Component({
     selector: 'app-login',
@@ -38,8 +38,9 @@ export class LoginPage implements OnInit {
         private translateService: TranslateService,
         private aesJ: AesJsService,
         private socket: SocketIoService,
-        //private socket: Socket,
+        private socket1: Socket,
     ) {
+        
     }
 
     ngOnInit() {
@@ -53,7 +54,12 @@ export class LoginPage implements OnInit {
         if (this.password && this.username) {
             let channel = await this.createChannel();
             let platform = 1;
+            console.log("Funcionepues:",channel);
+            console.log("Funcione pues desencypte:", this.aesJ.decryptNoJson(channel));
+            console.log("initSocket",this.socket1.connect());
             await this.store.clearStore();
+            await this.socket.initSocket(channel);
+            this.store.setDataLocal('chanelSocket', channel);
             await this.loadingCtrl.present({text: this.translateService.instant('VAULT.loading')});
             this.ctrlCssBlur = true;
             const resultado = this.socket.initSocket(channel);
@@ -116,8 +122,12 @@ export class LoginPage implements OnInit {
     async createChannel(){
         const dates = new Date().getTime();
         const rando = Math.random().toString(36).substring(7);
-        const valor = this.aesJ.encrypt(rando+dates);
+        const valor = this.aesJ.encryptNoJson(rando+dates);
         return valor;
+    }
+
+    saveChanel(){
+
     }
     
 }

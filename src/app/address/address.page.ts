@@ -146,7 +146,7 @@ export class AddressPage implements OnInit {
     this.ctrlCssBlur = true;
     this.user = await this.store.get('profile');
     this.user = this.aes.decrypt(this.user);
-    this.bodyForm.userId = this.user.id;
+    this.bodyForm.userId = this.user.userId;
     const response = await this.axios.put(`profile/${this.user.id}/update`, this.bodyForm, this.aut);
     if (response.status === 200) {
       let profile: any = await this.axios.get(`profile/${this.user.id}/view`, this.aut, null);

@@ -7,10 +7,17 @@
         <ion-label class="text-crypto">CRYPTO BANK</ion-label>
     </div>
 </div>
+
 <div class="move-btn">
     <ion-button (click)="login()" class="btn-start" mode="ios">{{'HOMEPAGE.LogIn'| translate}}</ion-button>
     <br>
     <ion-button (click)="registry()" class="btn-create" mode="ios">{{'HOMEPAGE.CreateWallet'| translate}}</ion-button>
+
+    <ion-select (ionChange)="selectLanguage()" [value]="selectedLanguage" [(ngModel)]="selectedLanguage" class="selectLanguage">
+        <ion-select-option hidden disabled value="">Lenguage</ion-select-option>
+        <ion-select-option [value]="language.value" *ngFor="let language of languages" mode="md">
+            {{language.text}}</ion-select-option>
+    </ion-select>
     <!-- <br><br><br>
     <p class="recover-wallet" (click)="recover()">Recuperar Billetera</p> -->
 </div>

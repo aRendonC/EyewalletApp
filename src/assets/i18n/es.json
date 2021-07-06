@@ -80,7 +80,7 @@
     "NewWallet": "Crear una nueva Billetera",
     "PhoneExample": "Ejm.: +5712345678",
     "Password": "Contraseña",
-    "MessagePassword": "Longitud de 6. Mínimo una letra, número y carácter especial",
+    "MessagePassword": "Longitud minimo de 6. Al menos 1 letra mayúscula, 1 letra minúscula, 1 número y 1 carácter especial.",
     "ConfirmPassword": "Confirmar contraseña",
     "ButtonCreate": "Crear billetera"
   },
@@ -193,12 +193,14 @@
 	"messageCreatinVault": "Creando bóveda"
   },
   "TOAST_MSG": {
-    "DocumentsNoVerified": "Lo sentimos, sus documentos no han sido verificados"
+    "DocumentsNoVerified": "Lo sentimos, su perfil no ha sido verificado."
   },
   "LOGIN_PAGE": {
     "AllFieldsIsRequired": "Todos los campos son obligatorios",
     "FieldEmail": "El campo correo electrónico es obligatorio",
-    "FiledPassword": "El campo correo contraseña es obligatorio"
+    "FiledPassword": "El campo correo contraseña es obligatorio",
+    "Email": "Correo Electrónico",
+    "Password": "Contraseña"
   },
   "GENERAL": {
     "Continue": "Continuar",
@@ -291,6 +293,10 @@
   },
   "QRSCANN_SESION": {
     "VerifyingMessage": "Verificando",
-    "QrError": "Scanner no disponible." 
+    "QrError": "Scanner no disponible.",
+    "SessionWebClose": "La sesión en la web se finalizo correctamente.",
+    "SessionWebStart": "Inicio de sesión exitoso.",
+    "ClosingSessionMessage": "Verificando el cierre de sesión.",
+    "StartingSessionMessage": "Verificando el inicio de sesión en la web."
   }
 }

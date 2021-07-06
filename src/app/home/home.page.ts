@@ -7,6 +7,7 @@ import {AlertController} from '@ionic/angular';
 import {DeviceService} from '../services/device/device.service';
 import {Router} from '@angular/router';
 import {TouchLoginService} from '../services/fingerprint/touch-login.service';
+import { LanguageService } from '../services/language/language.service';
 
 
 const MEDIA_FILES_KEY = 'mediaFiles';
@@ -22,6 +23,8 @@ export class HomePage implements OnInit {
   private dataDevice = null;
   private usuario: any = null;
   temporizador: any;
+  selectedLanguage = '';
+  languages = [];
 
   constructor(private timer: TimerService,
               private axios: AxiosService,
@@ -31,6 +34,7 @@ export class HomePage implements OnInit {
               private alertCtrl: AlertController,
               private touchCtrl: TouchLoginService,
               private device: DeviceService,
+              private languageService: LanguageService,
               ) {
     this.temporizador = timer.temporizador;
     this.dataDevice = this.deviceData();
@@ -38,6 +42,12 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.touchCtrl.isTouch = false;
+    this.languages = LanguageService.getLanguages();
+    this.selectedLanguage = this.languageService.selected;
+  }
+
+  ionViewDidEnter() {
+    
   }
 
   async login() {
@@ -50,6 +60,10 @@ export class HomePage implements OnInit {
 
   async deviceData() {
     this.dataDevice = await this.device.getDataDevice();
+  }
+
+  async selectLanguage() {
+    await this.languageService.setLanguage(this.selectedLanguage);
   }
 
 }

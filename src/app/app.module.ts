@@ -27,7 +27,7 @@ import {IonicStorageModule} from '@ionic/storage';
 import {ComponentsModule} from './components/components.module';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {VerificationModalPage} from './verification-modal/verification-modal.page';
-import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+import {SocketIoConfig, SocketIoModule} from 'ng-socket-io';
 import {HammerService} from "./services/hammer/hammer.service";
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -38,8 +38,9 @@ import { PinModalRegistryPage } from './pin-modal-registry/pin-modal-registry.pa
 import { SesionModalPage } from './sesion-modal/sesion-modal.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: 'https://83a4f4e9.ngrok.io', options: {}};
+const config: SocketIoConfig = { url: environment.urlSocket, options: {reconnection: true}};
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -48,7 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
 
     declarations: [AppComponent, PinModalPage, VerificationModalPage, PinModalRegistryPage, SesionModalPage],
-    entryComponents: [PinModalPage, VerificationModalPage, ModalDetailsPage, SesionModalPage],
+    entryComponents: [PinModalPage, VerificationModalPage, ModalDetailsPage, SesionModalPage, PinModalRegistryPage],
     imports: [
         ComponentsModule,
         ReactiveFormsModule,

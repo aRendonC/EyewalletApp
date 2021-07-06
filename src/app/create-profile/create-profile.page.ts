@@ -67,6 +67,6 @@ export class CreateProfilePage implements OnInit {
 
   calculateDate(){
     const dates = new Date();
-    this.datemax = (dates.getFullYear() - 18), '-', (dates.getMonth()), '-', (dates.getDay());
+    this.datemax = (dates.getFullYear() - 14), '-', (dates.getMonth()), '-', (dates.getDay());
   }
 }

@@ -10,6 +10,7 @@ import {DataLocalService} from "../../services/data-local/data-local.service";
 import {OverlayEventDetail} from '@ionic/core';
 import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {TranslateService} from "@ngx-translate/core";
+import { SocketIoService } from 'src/app/services/socketIo/socket-io.service';
 
 @Component({
     selector: 'app-pocket',
@@ -25,10 +26,10 @@ export class PocketComponent implements OnInit {
         logOut: 0
     };
     public margins = {
-        sendCash: -65,
-        receiveCash: -65,
-        qualify: -65,
-        logOut: -65
+        sendCash: -68,
+        receiveCash: -68,
+        qualify: -68,
+        logOut: -68
     };
     pockets: any = null;
     @Input() urlPresent: any = '';
@@ -55,6 +56,7 @@ export class PocketComponent implements OnInit {
         private platform: Platform,
         private iab: InAppBrowser,
         private translateService: TranslateService,
+        private socket: SocketIoService,
     ) {
         this.classLeft = "resize-logo-left1";
         this.imgLeft = "../../assets/img/btn-left-s.svg";
@@ -148,7 +150,7 @@ export class PocketComponent implements OnInit {
                 setTimeout(() => {
                     let intervalClose = setInterval(() => {
                         this.margins[idTab] = this.margins[idTab] - 1;
-                        if (this.margins[idTab] == -65) {
+                        if (this.margins[idTab] == -68) {
                             this.counters[idTab] = 0;
                             clearInterval(intervalClose)
                         }
@@ -194,7 +196,8 @@ export class PocketComponent implements OnInit {
 
     async logOut() {
         await this.loadingCtrl.present({});
-        await this.auth.logout()
+        this.socket.disconnectSocket();
+        await this.auth.logout();
     }
 
     openUrl(data?: string) {
